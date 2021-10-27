@@ -53,3 +53,6 @@ Note: Each layer naming convention is singular and their sub-folders are plural
 #### lib/core
 The core folder houses the main classes and services that are universally used within the app.
 Such as the network, storage, analytics, etc.
+
+# Building the feature folder
+``` mkdir data data/models data/repositories data/services domain domain/abstract_repo presentation presentation/ui presentation/viewmodel presentation/ui/screens presentation/ui/widgets ``` builds the default folder structure for each feature
