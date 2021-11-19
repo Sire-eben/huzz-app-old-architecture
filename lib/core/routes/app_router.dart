@@ -17,11 +17,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   }
 }
 
-Route<dynamic> _buildPageRoute({@required Widget page}) {
+Route<dynamic> _buildPageRoute({@required Widget? page}) {
   if (Platform.isIOS) {
-    return CupertinoPageRoute(builder: (builder) => page);
+    return CupertinoPageRoute(builder: (builder) => page!);
   } else {
-    return MaterialPageRoute(builder: (builder) => page);
+    return MaterialPageRoute(builder: (builder) => page!);
   }
 }
 

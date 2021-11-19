@@ -37,27 +37,27 @@ class UtilityService {
     );
   }
 
-  double deviceSizer(BuildContext context, bool isWidth, {double value}) {
+  double deviceSizer(BuildContext context, bool isWidth, {double? value}) {
     if (isWidth) {
-      return MediaQuery.of(context).size.width * (value / 411);
+      return MediaQuery.of(context).size.width * (value! / 411);
     } else {
-      return MediaQuery.of(context).size.height * (value / 823);
+      return MediaQuery.of(context).size.height * (value! / 823);
     }
   }
 
   String buildPhoneNumber(
-      {@required String phoneCode, @required String phoneNumber}) {
-    if (phoneNumber.split('')[0] == '0') {
+      {@required String? phoneCode, @required String? phoneNumber}) {
+    if (phoneNumber!.split('')[0] == '0') {
       var formattedPhoneNumber = phoneNumber.split('')[0] == '0'
           ? phoneNumber.substring(1)
           : phoneNumber;
       return '$phoneCode$formattedPhoneNumber';
     }
-    return phoneCode + phoneNumber;
+    return phoneCode! + phoneNumber;
   }
 
-  String phoneNumberStripZero({@required String phoneNumber}) {
-    if (phoneNumber.split('')[0] == '0') {
+  String phoneNumberStripZero({@required String? phoneNumber}) {
+    if (phoneNumber!.split('')[0] == '0') {
       var number = phoneNumber.split('')[0] == '0'
           ? phoneNumber.substring(1)
           : phoneNumber;
@@ -66,11 +66,11 @@ class UtilityService {
     return phoneNumber;
   }
 
-  String convertAmount({@required int amount, bool isInverse = false}) {
+  String convertAmount({@required int? amount, bool isInverse = false}) {
     if (isInverse) {
-      return (amount * 100).toStringAsFixed(2).toString();
+      return (amount! * 100).toStringAsFixed(2).toString();
     } else {
-      return (amount / 100).toStringAsFixed(2).toString();
+      return (amount! / 100).toStringAsFixed(2).toString();
     }
   }
 }

@@ -1,6 +1,6 @@
 class Result<T> {
   bool isSuccessful = false;
-  T data;
+  T? data;
   String message = '';
 
   Result({
