@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:huzz/app/screens/reg_home.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/onboarding_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -127,31 +129,37 @@ setState(() {
     ),
   ):
 
-  Container(
-    width: MediaQuery.of(context).size.width,
-    margin: EdgeInsets.only(left: 50,right: 50),
-    height: 50,
-    decoration: BoxDecoration(
-       color: AppColor().backgroundColor,
-       borderRadius: BorderRadius.all(Radius.circular(10))
+  GestureDetector(
+    onTap: (){
 
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-         Text('Start Using Huzz',style: TextStyle(color: Colors.white,fontSize: 18),),
-         SizedBox(width: 10,),
-         Container(padding: EdgeInsets.all(3),
-           decoration:BoxDecoration(
-             color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
-
-           ),
-           child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
-         )
-
-
-      ],
+      Get.to(RegHome());
+    },
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(left: 50,right: 50),
+      height: 50,
+      decoration: BoxDecoration(
+         color: AppColor().backgroundColor,
+         borderRadius: BorderRadius.all(Radius.circular(10))
+  
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+           Text('Start Using Huzz',style: TextStyle(color: Colors.white,fontSize: 18),),
+           SizedBox(width: 10,),
+           Container(padding: EdgeInsets.all(3),
+             decoration:BoxDecoration(
+               color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
+  
+             ),
+             child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
+           )
+  
+  
+        ],
+      ),
     ),
   )
 ],
