@@ -99,12 +99,12 @@ class _RegHome extends State<RegHome> {
                         height: 5,
                         width: MediaQuery.of(context).size.width * 0.2,
                         decoration: BoxDecoration(
-                            color: (index <=
-                                    _homeController.onboardingRegSelectedIndex)
-                                ? AppColor().backgroundColor
-                                : AppColor().backgroundColor.withOpacity(0.4),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                          color: (index <=
+                                  _homeController.onboardingRegSelectedIndex)
+                              ? AppColor().backgroundColor
+                              : AppColor().backgroundColor.withOpacity(0.4),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
                       );
                     }),
               ),

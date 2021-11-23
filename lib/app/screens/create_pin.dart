@@ -150,7 +150,7 @@ class _CreatePinState extends State<CreatePin> {
           ),
         ),
         Expanded(child: SizedBox()),
-        GestureDetector(
+        InkWell(
           onTap: () {
             Get.to(PinSuccesful());
           },

@@ -38,19 +38,19 @@ class _OnboardingMainState extends State<OnboardingMain> {
                       left: 0,
                       top: 20,
                       child: SvgPicture.asset('assets/images/Vector.svg')),
-                  Positioned(
-                    top: 40,
-                    left: 20,
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: AppColor().backgroundColor,
-                      ),
-                    ),
-                  ),
+                  // Positioned(
+                  //   top: 40,
+                  //   left: 20,
+                  //   child: GestureDetector(
+                  //     onTap: () {
+                  //       Get.back();
+                  //     },
+                  //     child: Icon(
+                  //       Icons.arrow_back,
+                  //       color: AppColor().backgroundColor,
+                  //     ),
+                  //   ),
+                  // ),
                   Positioned(
                       right: 20,
                       top: 40,
@@ -65,7 +65,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.07,
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.2,
@@ -75,10 +75,16 @@ class _OnboardingMainState extends State<OnboardingMain> {
               height: MediaQuery.of(context).size.height * 0.1,
             ),
             Container(
-                margin: EdgeInsets.only(left: 50, right: 50),
-                child: Text(boards[selectedIndex].title!,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, color: Colors.black))),
+              margin: EdgeInsets.only(left: 50, right: 50),
+              child: Text(
+                boards[selectedIndex].title!,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.black,
+                ),
+              ),
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.04,
             ),
@@ -88,10 +94,11 @@ class _OnboardingMainState extends State<OnboardingMain> {
                 boards[selectedIndex].body!,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    letterSpacing: 2,
-                    height: 1.5),
+                  color: Colors.black,
+                  fontSize: 16,
+                  letterSpacing: 2,
+                  height: 1.5,
+                ),
               ),
             ),
             SizedBox(
@@ -110,36 +117,41 @@ class _OnboardingMainState extends State<OnboardingMain> {
                     child: Stack(
                       children: [
                         Positioned(
-                            top: 10,
-                            left: 10,
-                            child: Container(
-                                height: 70,
-                                width: 70,
-                                // padding: EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    color: AppColor().backgroundColor),
-                                child: Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.white,
-                                  size: 30,
-                                ))),
+                          top: 10,
+                          left: 10,
+                          child: Container(
+                            height: 70,
+                            width: 70,
+                            // padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                                color: AppColor().backgroundColor),
+                            child: Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
+                        ),
                         SleekCircularSlider(
                           appearance: CircularSliderAppearance(
-                              size: 90,
-                              angleRange: 360.0,
-                              startAngle: -90,
-                              counterClockwise: false,
-                              infoProperties: InfoProperties(
-                                  topLabelText: "", bottomLabelText: ""),
-                              customColors: CustomSliderColors(
-                                  trackColor: Colors.white,
-                                  progressBarColor: AppColor().backgroundColor,
-                                  gradientEndAngle: 360.0,
-                                  trackGradientEndAngle: 360),
-                              customWidths:
-                                  CustomSliderWidths(progressBarWidth: 2)),
+                            size: 90,
+                            angleRange: 360.0,
+                            startAngle: -90,
+                            counterClockwise: false,
+                            infoProperties: InfoProperties(
+                              topLabelText: "",
+                              bottomLabelText: "",
+                            ),
+                            customColors: CustomSliderColors(
+                                trackColor: Colors.white,
+                                progressBarColor: AppColor().backgroundColor,
+                                gradientEndAngle: 360.0,
+                                trackGradientEndAngle: 360),
+                            customWidths:
+                                CustomSliderWidths(progressBarWidth: 2),
+                          ),
                           min: 10,
                           max: 28,
                           initialValue: progress,
@@ -150,7 +162,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                       ],
                     ),
                   )
-                : GestureDetector(
+                : InkWell(
                     onTap: () {
                       Get.to(RegHome());
                     },

@@ -10,6 +10,7 @@ class CreateBusiness extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -82,7 +83,7 @@ class CreateBusiness extends StatelessWidget {
               validatorText: "Business Category is required",
             ),
             Expanded(child: SizedBox()),
-            GestureDetector(
+            InkWell(
               onTap: () {
                 Get.to(Signin());
               },
