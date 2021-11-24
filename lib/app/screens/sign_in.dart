@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import 'user_screens/dashboard.dart';
+
 class Signin extends StatefulWidget {
   _SiginState createState() => _SiginState();
 }
@@ -265,8 +267,10 @@ class _SiginState extends State<Signin> {
               ),
             ),
             Expanded(child: SizedBox()),
-            GestureDetector(
-              onTap: () {},
+            InkWell(
+              onTap: () {
+                Get.to(Dashboard());
+              },
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.only(left: 50, right: 50),
@@ -280,7 +284,10 @@ class _SiginState extends State<Signin> {
                   children: [
                     Text(
                       'Login',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
                     ),
                     SizedBox(
                       width: 10,
