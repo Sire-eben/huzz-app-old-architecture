@@ -49,7 +49,7 @@ class CreateBusiness extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             CustomTextField(
               label: "Business Name",
@@ -121,7 +121,7 @@ class CreateBusiness extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
           ],
         ),

@@ -73,7 +73,7 @@ class _RegHome extends State<RegHome> {
                       fontSize: 28,
                       fontWeight: FontWeight.w500)),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 margin: EdgeInsets.only(left: 50, right: 50),
@@ -84,7 +84,7 @@ class _RegHome extends State<RegHome> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -109,7 +109,7 @@ class _RegHome extends State<RegHome> {
                     }),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Expanded(child: body[_homeController.onboardingRegSelectedIndex])
             ],

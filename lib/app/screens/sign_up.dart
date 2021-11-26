@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/colors.dart';
-
 import 'widget/custom_form_field.dart';
 
 class Signup extends StatefulWidget {
@@ -29,32 +28,32 @@ class _SignUpState extends State<Signup> {
               validatorText: "First name is needed",
             ),
             SizedBox(
-              height: 5,
+              height: 3,
             ),
             CustomTextField(
               label: "Last Name",
               validatorText: "Last name is needed",
             ),
             SizedBox(
-              height: 5,
+              height: 3,
             ),
             CustomTextField(
               label: "Email",
               validatorText: "Email is needed",
             ),
             SizedBox(
-              height: 5,
+              height: 3,
             ),
             CustomTextField(
               label: "Phone Number",
               validatorText: "Phone Number is needed",
             ),
             SizedBox(
-              height: 5,
+              height: 3,
             ),
             Expanded(child: SizedBox()),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             InkWell(
               onTap: () {
