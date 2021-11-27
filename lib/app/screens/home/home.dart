@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:huzz/app/screens/home/money_in.dart';
+import 'package:huzz/app/screens/home/money_out.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/transaction_model.dart';
 
@@ -16,7 +19,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.04),
+        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
@@ -298,7 +301,10 @@ class _HomeState extends State<Home> {
         label: Text(
           'Add transaction',
           style: TextStyle(
-              fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold),
+              fontFamily: 'DMSans',
+              fontSize: 10,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -323,71 +329,85 @@ class _HomeState extends State<Home> {
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    decoration: BoxDecoration(
-                      color: Color(0xffEF6500),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset('assets/images/moneyRound_out.png'),
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.02),
-                            Text(
-                              'Money OUT',
-                              style:
-                                  TextStyle(fontSize: 13, color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Text(
-                          'Click here to record an expense',
-                          style: TextStyle(fontSize: 7, color: Colors.white),
-                        ),
-                      ],
+                  child: InkWell(
+                    onTap: () {
+                      Get.back();
+                      Get.to(() => MoneyOut());
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      decoration: BoxDecoration(
+                        color: Color(0xffEF6500),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/images/moneyRound_out.png'),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              Text(
+                                'Money OUT',
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                          Text(
+                            'Click here to record an expense',
+                            style: TextStyle(fontSize: 7, color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.04),
                 Expanded(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    decoration: BoxDecoration(
-                      color: Color(0xff0065D3),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset('assets/images/moneyRound_in.png'),
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.02),
-                            Text(
-                              'Money IN',
-                              style:
-                                  TextStyle(fontSize: 13, color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Text(
-                          'Click here to record an income',
-                          style: TextStyle(fontSize: 7, color: Colors.white),
-                        ),
-                      ],
+                  child: InkWell(
+                    onTap: () {
+                      Get.back();
+                      Get.to(() => MoneyIn());
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      decoration: BoxDecoration(
+                        color: Color(0xff0065D3),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/images/moneyRound_in.png'),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              Text(
+                                'Money IN',
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                          Text(
+                            'Click here to record an income',
+                            style: TextStyle(fontSize: 7, color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )

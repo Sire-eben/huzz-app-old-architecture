@@ -5,7 +5,7 @@ import 'package:huzz/app/screens/invoice.dart';
 import 'package:huzz/app/screens/more.dart';
 import 'package:huzz/app/screens/team.dart';
 import 'package:huzz/colors.dart';
-import 'home.dart';
+import 'home/home.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
