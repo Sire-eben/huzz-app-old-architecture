@@ -1,5 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:huzz/app/screens/inventory.dart';
+import 'package:huzz/app/screens/invoice.dart';
+import 'package:huzz/app/screens/more.dart';
+import 'package:huzz/app/screens/team.dart';
 import 'package:huzz/colors.dart';
 import 'home.dart';
 
@@ -16,15 +20,14 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Home'),
-      ),
+      body: buildPages(),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: index,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
               icon: Icon(Icons.people),
               title: Text('Teams'),
+              textAlign: TextAlign.center,
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
@@ -56,8 +59,16 @@ class _DashboardState extends State<Dashboard> {
   Widget buildPages() {
     switch (index) {
       case 0:
-      default:
+        return Team();
+      case 1:
+        return Inventory();
+      case 2:
         return Home();
+      case 3:
+        return Invoice();
+      case 4:
+      default:
+        return More();
     }
   }
 }
