@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Teams extends StatefulWidget {
+  const Teams({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _TeamsState createState() => _TeamsState();
 }
 
-class _HomeState extends State<Home> {
+class _TeamsState extends State<Teams> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         child: Center(
-          child: Text('Home'),
+          child: Text('Teams'),
         ),
       ),
     );
