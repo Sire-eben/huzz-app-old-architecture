@@ -2,6 +2,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/colors.dart';
 class SendOtp extends StatefulWidget{
@@ -9,9 +10,16 @@ _SendOtpState createState()=>_SendOtpState();
 
 }
 class _SendOtpState extends State<SendOtp>{
-final _homeController=Get.find<HomeRespository>();
+
+final _authController=Get.find<AuthRepository>();
 String countryFlag="NG";
 String countryCode="234";
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _authController.countryText=countryCode;
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -81,6 +89,7 @@ GestureDetector(
 SizedBox(width: 10,),
 Expanded(
   child:   TextFormField(
+    controller: _authController.phoneNumberController,
 
   decoration: InputDecoration(
     border: InputBorder.none,
@@ -126,38 +135,46 @@ style: TextStyle(fontSize: 12,color: AppColor().backgroundColor,letterSpacing: 2
   ))
 ),
 SizedBox(height: 20,),
-GestureDetector(
-  onTap: (){
-
-    _homeController.selectOnboardSelectedNext();
-  },
-  child:   Container(
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(left: 50,right: 50),
-      height: 50,
-      decoration: BoxDecoration(
-         color: AppColor().backgroundColor,
-         borderRadius: BorderRadius.all(Radius.circular(10))
-  
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-           Text('Continue',style: TextStyle(color: Colors.white,fontSize: 18),),
-           SizedBox(width: 10,),
-           Container(padding: EdgeInsets.all(3),
-             decoration:BoxDecoration(
-               color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
-  
-             ),
-             child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
-           )
-  
-  
-        ],
-      ),
-    ),
+Obx(()
+ {
+    return     GestureDetector(
+      onTap: (){
+    
+    _authController.sendSmsOtp();
+      },
+      child:   Container(
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.only(left: 50,right: 50),
+          height: 50,
+          decoration: BoxDecoration(
+             color: AppColor().backgroundColor,
+             borderRadius: BorderRadius.all(Radius.circular(10))
+      
+          ),
+          child: (_authController.Otpauthstatus==OtpAuthStatus.Loading)?Container(
+            width: 30,
+            height: 30,
+            child:Center(child: CircularProgressIndicator(color: Colors.white)),
+          ):Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+               Text('Continue',style: TextStyle(color: Colors.white,fontSize: 18),),
+               SizedBox(width: 10,),
+               Container(padding: EdgeInsets.all(3),
+                 decoration:BoxDecoration(
+                   color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
+      
+                 ),
+                 child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
+               )
+      
+      
+            ],
+          ),
+        ),
+    );
+  }
 ),
   SizedBox(height: MediaQuery.of(context).size.height*0.1,)
 
@@ -174,6 +191,7 @@ GestureDetector(
   onSelect: (Country country) {
     countryCode=country.toJson()['e164_cc'];
     countryFlag=country.toJson()['iso2_cc'];
+  _authController.countryText=countryCode;
     country.toJson();
     setState(() {
       
