@@ -7,6 +7,9 @@ import 'package:get/get.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+
+import 'inventory/manage_inventory.dart';
+
 import 'user_screens/dashboard.dart';
 
 class Signin extends StatefulWidget {
@@ -41,7 +44,7 @@ class _SiginState extends State<Signin> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 100,
+              height: 40,
             ),
             Container(
               margin: EdgeInsets.only(left: 20),
@@ -267,9 +270,15 @@ class _SiginState extends State<Signin> {
               ),
             ),
             Expanded(child: SizedBox()),
+
+            GestureDetector(
+              onTap: () {
+                Get.to(() => ManageInventory());
+
             InkWell(
               onTap: () {
                 Get.to(Dashboard());
+
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,
