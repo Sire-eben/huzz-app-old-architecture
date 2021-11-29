@@ -55,7 +55,7 @@ final _formKey=GlobalKey<FormState>();
               label: "Phone Number",
               validatorText: "Phone Number is needed",
               enabled: false,
-              initialValue: "${_authController.countryText}${_authController.phoneNumberController}",
+              initialValue: "${_authController.countryText}${_authController.phoneNumberController.value}",
             ),
             SizedBox(
               height: 3,
