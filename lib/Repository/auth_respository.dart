@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/api_link.dart';
 import 'package:flutter/material.dart';
+import 'package:huzz/app/screens/dashboard.dart';
+import 'package:huzz/app/screens/inventory/manage_inventory.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
@@ -171,8 +173,8 @@ _homeController.selectOnboardSelectedNext();
 
 }
 Future signUp()async{
-emailController.text="pelumi40@gmail.com";
-phoneNumberController.text="8147179396";
+// emailController.text="pelumi40@gmail.com";
+// phoneNumberController.text="8147179396";
 try{
   _signupStatus(SignupStatus.Loading);
   final response= await http.post(Uri.parse(ApiLink.signup_user),body: jsonEncode({
@@ -204,7 +206,7 @@ if(json['success']){
    pref!.setDateTokenExpired(expireToken);
    _authStatus(AuthStatus.Authenticated);
    Get.off(PinSuccesful());
-
+}
 }else if(response.statusCode==406){
 var json=jsonDecode(response.body);
 Get.snackbar("SignUp Error", json['message']);
@@ -216,7 +218,7 @@ Get.snackbar("SignUp Error", "Something have occurred try again later");
   _signupStatus(SignupStatus.Error);
 }
   }
-}catch(ex){
+catch(ex){
 Get.snackbar("SignUp Error", "Something have occurred try again later");
 _signupStatus(SignupStatus.Error);
 }
@@ -252,7 +254,7 @@ var json=jsonDecode(response.body);
    DateTime expireToken=DateTime(date.year, date.month +30, date.day);
    pref!.setDateTokenExpired(expireToken);
    _authStatus(AuthStatus.Authenticated);
-   Get.off(PinSuccesful());
+   Get.off(() => Dashboard());
 
 } else if(response.statusCode==401){
 Get.snackbar("Login Error", "Invalid Crediential ");

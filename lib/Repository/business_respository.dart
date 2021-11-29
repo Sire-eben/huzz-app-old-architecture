@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/create_business.dart';
+import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 
 import 'auth_respository.dart';
@@ -55,7 +56,7 @@ if(json['success']){
 
 
 _createBusinessStatus(CreateBusinessStatus.Success);
-Get.off(Signin());
+ Get.off(() => Dashboard());
 
 }else{
 

@@ -8,15 +8,15 @@ import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class CreatePin extends StatefulWidget{
-
-_CreatePinState createState()=> _CreatePinState();
+class CreatePin extends StatefulWidget {
+  _CreatePinState createState() => _CreatePinState();
 }
-class _CreatePinState extends State<CreatePin>{
-  final _authController=Get.find<AuthRepository>();
 
+
+class _CreatePinState extends State<CreatePin> {
   StreamController<ErrorAnimationType>? errorController;
-   void initState() {
+  final _authController=Get.find<AuthRepository>();
+  void initState() {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
@@ -27,6 +27,7 @@ class _CreatePinState extends State<CreatePin>{
 
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -200,6 +201,7 @@ Obx(
 ]
 
 ),
+      
     );
   }
 }

@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/colors.dart';
-class SendOtp extends StatefulWidget{
-_SendOtpState createState()=>_SendOtpState();
 
+class SendOtp extends StatefulWidget {
+  _SendOtpState createState() => _SendOtpState();
 }
 class _SendOtpState extends State<SendOtp>{
 
@@ -201,5 +201,21 @@ Obx(()
   },
 );
 
+  Future showCountryCode(BuildContext context) async {
+    showCountryPicker(
+      context: context,
+      showPhoneCode:
+          true, // optional. Shows phone code before the country name.
+      onSelect: (Country country) {
+        countryCode = country.toJson()['e164_cc'];
+        countryFlag = country.toJson()['iso2_cc'];
+        country.toJson();
+        setState(() {});
+
+        print('Select country: ${country.toJson()}');
+      },
+    );
   }
-}
+  }
+  }
+

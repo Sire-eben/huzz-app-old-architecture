@@ -6,12 +6,13 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-class EnterOtp extends StatefulWidget{
 
-_EnterOtpState createState()=> _EnterOtpState();
+class EnterOtp extends StatefulWidget {
+  _EnterOtpState createState() => _EnterOtpState();
 }
-class _EnterOtpState extends State<EnterOtp>{
-  final _homeController=Get.find<HomeRespository>();
+
+class _EnterOtpState extends State<EnterOtp> {
+  final _homeController = Get.find<HomeRespository>();
   StreamController<ErrorAnimationType>? errorController;
   final _authController=Get.find<AuthRepository>();
    void initState() {
@@ -25,6 +26,7 @@ class _EnterOtpState extends State<EnterOtp>{
 
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
