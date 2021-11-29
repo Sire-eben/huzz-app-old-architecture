@@ -4,6 +4,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -18,16 +19,19 @@ class Signin extends StatefulWidget {
 
 class _SiginState extends State<Signin> {
   StreamController<ErrorAnimationType>? errorController;
-  String countryFlag = "NG";
-  String countryCode = "234";
-  void initState() {
+
+  String countryFlag="NG";
+  final _loginKey=GlobalKey<FormState>();
+String countryCode="234";
+final _authController=Get.find<AuthRepository>();
+   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
 
   @override
   void dispose() {
-    errorController!.close();
+    // errorController!.close();
 
     super.dispose();
   }
@@ -147,8 +151,10 @@ class _SiginState extends State<Signin> {
                   ),
                   Expanded(
                     child: TextFormField(
+                      controller: _authController.phoneNumberController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
+                          
                           hintText: "9034678966",
                           hintStyle: TextStyle(
                               color: Colors.black.withOpacity(0.5),
@@ -188,14 +194,16 @@ class _SiginState extends State<Signin> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.only(
-                  left: 40,
-                  right: 40,
+                  left: 20,
+                  right: 20,
                 ),
                 child: PinCodeTextField(
                   length: 4,
                   obscureText: true,
                   animationType: AnimationType.fade,
+                  controller: _authController.pinController,
                   pinTheme: PinTheme(
+                    
                     inactiveColor: AppColor().backgroundColor,
                     activeColor: AppColor().backgroundColor,
                     selectedColor: AppColor().backgroundColor,
@@ -203,12 +211,12 @@ class _SiginState extends State<Signin> {
                     inactiveFillColor: Colors.white,
                     shape: PinCodeFieldShape.box,
                     borderRadius: BorderRadius.circular(5),
-                    fieldHeight: 50,
-                    fieldWidth: 50,
+                    fieldHeight: 70,
+                    fieldWidth: 70,
                     activeFillColor: Colors.white,
                   ),
                   animationDuration: Duration(milliseconds: 300),
-                  backgroundColor: Colors.white,
+                  // backgroundColor: Colors.white,
                   enableActiveFill: true,
                   errorAnimationController: errorController,
                   // controller: textEditingController,
@@ -270,47 +278,50 @@ class _SiginState extends State<Signin> {
               ),
             ),
             Expanded(child: SizedBox()),
-
-            GestureDetector(
-              onTap: () {
-                Get.to(() => ManageInventory());
-
-            InkWell(
-              onTap: () {
-                Get.to(Dashboard());
-
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(left: 50, right: 50),
-                height: 50,
-                decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+           Obx(()
+            {
+                return GestureDetector(
+                  onTap: () {
+                   if (_authController.signinStatus!=SigninStatus.Loading)
+                    _authController.signIn();
+                    
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.only(left: 50, right: 50),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child:(_authController.signinStatus==SigninStatus.Loading)?
+                    Container(
+                    width: 30,
+                    height: 30,
+                    child:Center(child: CircularProgressIndicator(color: Colors.white)),
+                  )
+                    : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Login',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        //  Container(padding: EdgeInsets.all(3),
+                        //    decoration:BoxDecoration(
+                        //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
+            
+                        //    ),
+                        //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
+                        //  )
+                      ],
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    //  Container(padding: EdgeInsets.all(3),
-                    //    decoration:BoxDecoration(
-                    //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
-
-                    //    ),
-                    //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
-                    //  )
-                  ],
-                ),
-              ),
+                  ),
+                );
+              }
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,

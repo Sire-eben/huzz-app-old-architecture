@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/onboarding_main..dart';
+import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/colors.dart';
 
 class SplashScreen extends StatefulWidget{
@@ -11,7 +13,7 @@ class SplashScreen extends StatefulWidget{
  _SplashScreenState createState()=>_SplashScreenState();  
 }
 class _SplashScreenState extends State<SplashScreen>{
-
+final _controller=Get.find<AuthRepository>();
     @override
   void initState() {
     super.initState();
@@ -25,8 +27,19 @@ class _SplashScreenState extends State<SplashScreen>{
   }
 
   route() async {
-Get.off(OnboardingMain());
+// Get.off(OnboardingMain());
     // Get.off(AboutUs());
+  
+   if (_controller.authStatus == AuthStatus.IsFirstTime) {
+        Get.off(() => OnboardingMain());
+      } else if (_controller.authStatus == AuthStatus.Authenticated) {
+        // Get.off(() => UserNavScreen());
+         Get.off(() => Signin());
+      } else {
+   
+        Get.off(() => Signin());
+      }
+    
   }
   @override
   Widget build(BuildContext context) {

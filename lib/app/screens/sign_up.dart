@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/colors.dart';
 import 'widget/custom_form_field.dart';
@@ -7,11 +8,14 @@ import 'widget/custom_form_field.dart';
 class Signup extends StatefulWidget {
   _SignUpState createState() => _SignUpState();
 }
-
-class _SignUpState extends State<Signup> {
-  final _homeController = Get.find<HomeRespository>();
+class _SignUpState extends  State<Signup>{
+final _homeController=Get.find<HomeRespository>();
+// final controller=TextEditingController();
+final _authController=Get.find<AuthRepository>();
+final _formKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    
     // TODO: implement build
 
     return Scaffold(
@@ -26,6 +30,7 @@ class _SignUpState extends State<Signup> {
             CustomTextField(
               label: "First Name",
               validatorText: "First name is needed",
+              textEditingController: _authController.firstNameController,
             ),
             SizedBox(
               height: 3,
@@ -33,6 +38,7 @@ class _SignUpState extends State<Signup> {
             CustomTextField(
               label: "Last Name",
               validatorText: "Last name is needed",
+              textEditingController: _authController.lastNameController,
             ),
             SizedBox(
               height: 3,
@@ -40,6 +46,7 @@ class _SignUpState extends State<Signup> {
             CustomTextField(
               label: "Email",
               validatorText: "Email is needed",
+              textEditingController: _authController.emailController,
             ),
             SizedBox(
               height: 3,
@@ -47,6 +54,8 @@ class _SignUpState extends State<Signup> {
             CustomTextField(
               label: "Phone Number",
               validatorText: "Phone Number is needed",
+              enabled: false,
+              initialValue: "${_authController.countryText}${_authController.phoneNumberController.value}",
             ),
             SizedBox(
               height: 3,
