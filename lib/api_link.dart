@@ -7,7 +7,8 @@ static String verify_otp=baseurl+"otp/verify";
 static String signup_user=baseurl+"auth/signup";
 static String signin_user=baseurl+"auth/login";
 static String create_business=baseurl+"business";
-
-
+static String get_user_business=baseurl+"business";
+static String get_business_transaction=baseurl+"business/transactions";
+static String dashboard_overview=baseurl+"business/transactions/overview";
 
 }

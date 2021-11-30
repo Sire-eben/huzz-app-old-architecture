@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
+import 'package:huzz/Repository/transaction_respository.dart';
 
 class AppBinding extends Bindings{
 
@@ -11,6 +12,7 @@ class AppBinding extends Bindings{
      Get.put(HomeRespository(), permanent: true);
      Get.put(AuthRepository(),permanent: true);
      Get.put(BusinessRespository(),permanent: true);
+     Get.put(TransactionRespository(),permanent:true);
   }
 
 }

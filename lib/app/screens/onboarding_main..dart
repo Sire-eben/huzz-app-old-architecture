@@ -72,7 +72,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.2,
-                child: Image.asset(boards[selectedIndex].asset!),
+                child: SvgPicture.asset(boards[selectedIndex].asset!),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,

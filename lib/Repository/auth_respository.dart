@@ -48,11 +48,12 @@ AuthStatus get authStatus=>_authStatus.value;
 SignupStatus get signupStatus=>_signupStatus.value;
  OtpVerifyStatus get Otpverifystatus=>_Otpverifystatus.value;
 String countryText="234";
+String countryCodeFLag="NG";
 final _homeController=Get.find<HomeRespository>();
 
 SharePref? pref;
-final _token="".obs;
-String get  token=>_token.value;
+final Mtoken="".obs;
+String get  token=>Mtoken.value;
 
 User? user;
 @override
@@ -67,12 +68,12 @@ User? user;
       print("Not my First Time Using this app");
       if (pref!.getUser() != null) {
         user = pref!.getUser()!;
-         _token(pref!.read());
+         Mtoken(pref!.read());
         // print("token is ${token.value}");
      
 
         _authStatus(AuthStatus.Authenticated);
-        if (_token.value == "0") {
+        if (Mtoken.value == "0") {
           _authStatus(AuthStatus.UnAuthenticated);
         }
 
@@ -197,7 +198,7 @@ if(json['success']){
 
   var token=json['data']['accessToken'];
    var user=User.fromJson(json['data']['user']);
-   _token(token);
+   Mtoken(token);
    pref!.saveToken(token);
    this.user=user;
    pref!.setUser(user);
@@ -248,7 +249,7 @@ var json=jsonDecode(response.body);
    var user=User.fromJson(json['user']);
    pref!.saveToken(token);
    pref!.setUser(user);
-   _token(token);
+   Mtoken(token);
    this.user=user;
    DateTime date=DateTime.now();
    DateTime expireToken=DateTime(date.year, date.month +30, date.day);

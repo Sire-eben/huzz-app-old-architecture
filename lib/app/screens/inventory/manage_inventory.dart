@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huzz/app/screens/inventory/products.dart';
 import 'package:huzz/app/screens/inventory/services.dart';
-
 import '../../../colors.dart';
 
 class ManageInventory extends StatefulWidget {

@@ -54,7 +54,7 @@ businessCurrency: json['currency'],
 buisnessLogoFileStoreId: json['buisnessLogoFileStoreId'],
 deleted: json['deleted'],
 createdTime: DateTime.parse(json['timeCreated']),
-updatedTime: DateTime.tryParse(json['timeUpdated']),
+updatedTime:json['timeUpdated']!=null? DateTime.tryParse(json['timeUpdated']):DateTime.parse(json['timeCreated']),
 businessDescription: json['businessDescription'],
 businessRegistered: json['businessRegistered'],
 businessRegistrationType:json['businessRegistrationType'],
@@ -89,4 +89,6 @@ Map<String,dynamic> toJson()=>{
         "teamId":teamId,
         "team": teamId
 };
+
+  
 }

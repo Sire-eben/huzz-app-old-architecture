@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:country_currency_pickers/utils/utils.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
@@ -341,6 +342,8 @@ final _authController=Get.find<AuthRepository>();
         countryCode = country.toJson()['e164_cc'];
         countryFlag = country.toJson()['iso2_cc'];
         country.toJson();
+         final currency=CountryPickerUtils.getCountryByIsoCode(countryFlag).currencyCode.toString();
+         print("currency of country is $currency");
         setState(() {});
 
         print('Select country: ${country.toJson()}');
