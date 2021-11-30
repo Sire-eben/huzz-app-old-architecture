@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
@@ -12,7 +13,12 @@ class MoneyOut extends StatefulWidget {
 }
 
 class _MoneyOutState extends State<MoneyOut> {
+  final payments = ['Select payment mode', 'item1', 'item2'];
+  String? value;
   int selectedValue = 0;
+  String countryFlag = "NG";
+  String countryCode = "234";
+  bool sValue = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,6 +186,228 @@ class _MoneyOutState extends State<MoneyOut> {
                   ),
                 ],
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Expense Category',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'DMSans'),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "*",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                              fontFamily: 'DMSans'),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              width: 2, color: AppColor().backgroundColor)),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: value,
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColor().backgroundColor,
+                          ),
+                          iconSize: 30,
+                          items: payments.map(buildPaymentItem).toList(),
+                          onChanged: (value) =>
+                              setState(() => this.value = value),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Payment Mode',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'DMSans'),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "*",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                              fontFamily: 'DMSans'),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              width: 2, color: AppColor().backgroundColor)),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: value,
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColor().backgroundColor,
+                          ),
+                          iconSize: 30,
+                          items: payments.map(buildPaymentItem).toList(),
+                          onChanged: (value) =>
+                              setState(() => this.value = value),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Payment Source',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'DMSans'),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "*",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                              fontFamily: 'DMSans'),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              width: 2, color: AppColor().backgroundColor)),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: value,
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColor().backgroundColor,
+                          ),
+                          iconSize: 30,
+                          items: payments.map(buildPaymentItem).toList(),
+                          onChanged: (value) =>
+                              setState(() => this.value = value),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          width: 2, color: AppColor().backgroundColor)),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/image.png',
+                        height: 40,
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      Text(
+                        'Add any supporting image (Optional)',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'DMSans'),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Add Customer',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'DMSans'),
+                    ),
+                    Switch.adaptive(
+                        activeColor: AppColor().backgroundColor,
+                        value: sValue,
+                        onChanged: (newValue) =>
+                            setState(() => this.sValue = newValue))
+                  ],
+                ),
+              ),
               CustomTextField(
                 label: "Customer's Name",
                 validatorText: "Item name is needed",
@@ -217,6 +445,30 @@ class _MoneyOutState extends State<MoneyOut> {
           ),
         ),
       ),
+    );
+  }
+
+  DropdownMenuItem<String> buildPaymentItem(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: TextStyle(fontSize: 14, fontFamily: 'DMSans'),
+        ),
+      );
+
+  Future showCountryCode(BuildContext context) async {
+    showCountryPicker(
+      context: context,
+      showPhoneCode:
+          true, // optional. Shows phone code before the country name.
+      onSelect: (Country country) {
+        countryCode = country.toJson()['e164_cc'];
+        countryFlag = country.toJson()['iso2_cc'];
+        country.toJson();
+        setState(() {});
+
+        print('Select country: ${country.toJson()}');
+      },
     );
   }
 }
