@@ -62,7 +62,6 @@ class _HomeState extends State<Home> {
             Container(
               padding:
                   EdgeInsets.all(MediaQuery.of(context).size.height * 0.03),
-              height: MediaQuery.of(context).size.height * 0.2,
               decoration: BoxDecoration(
                   color: AppColor().backgroundColor,
                   borderRadius: BorderRadius.circular(10),
@@ -171,11 +170,10 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Container(
-              padding:
-                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-              height: MediaQuery.of(context).size.height * 0.08,
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.02),
               decoration: BoxDecoration(
                 color: AppColor().backgroundColor.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10),
@@ -223,7 +221,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Expanded(
                 child: Container(
               padding: EdgeInsets.only(

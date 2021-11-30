@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-
 import 'inventory/manage_inventory.dart';
 
 import 'user_screens/dashboard.dart';
@@ -270,51 +269,49 @@ class _SiginState extends State<Signin> {
               ),
             ),
             Expanded(child: SizedBox()),
+            GestureDetector(onTap: () {
+              Get.to(() => ManageInventory());
 
-            GestureDetector(
-              onTap: () {
-                Get.to(() => ManageInventory());
-
-            InkWell(
-              onTap: () {
-                Get.to(Dashboard());
-
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(left: 50, right: 50),
-                height: 50,
-                decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+              InkWell(
+                onTap: () {
+                  Get.to(Dashboard());
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(left: 50, right: 50),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    //  Container(padding: EdgeInsets.all(3),
-                    //    decoration:BoxDecoration(
-                    //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
+                      SizedBox(
+                        width: 10,
+                      ),
+                      //  Container(padding: EdgeInsets.all(3),
+                      //    decoration:BoxDecoration(
+                      //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
 
-                    //    ),
-                    //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
-                    //  )
-                  ],
+                      //    ),
+                      //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
+                      //  )
+                    ],
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-            )
+              );
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.1,
+              );
+            })
           ],
         ),
       ),
