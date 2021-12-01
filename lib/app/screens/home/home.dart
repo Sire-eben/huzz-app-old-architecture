@@ -37,15 +37,21 @@ class _HomeState extends State<Home> {
                           width: 3, color: AppColor().backgroundColor)),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
-                      value: value,
-                      icon: Icon(
-                        Icons.keyboard_arrow_down,
-                        color: AppColor().backgroundColor,
-                      ),
-                      iconSize: 30,
-                      items: items.map(buildMenuItem).toList(),
-                      onChanged: (value) => setState(() => this.value = value),
-                    ),
+                        onTap: () {
+                          buildSelectBusiness();
+                        },
+                        value: value,
+                        icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: AppColor().backgroundColor,
+                        ),
+                        iconSize: 30,
+                        items: items.map(buildMenuItem).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            this.value = value;
+                          });
+                        }),
                   ),
                 ),
                 Container(
@@ -309,6 +315,113 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildAddTransaction() => Container(
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+            bottom: MediaQuery.of(context).size.width * 0.04,
+            top: MediaQuery.of(context).size.width * 0.02),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 8,
+              width: 100,
+              decoration: BoxDecoration(
+                  color: Colors.black, borderRadius: BorderRadius.circular(4)),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.back();
+                      Get.to(() => MoneyOut());
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      decoration: BoxDecoration(
+                        color: Color(0xffEF6500),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/images/moneyRound_out.png'),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              Text(
+                                'Money OUT',
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                          Text(
+                            'Click here to record an expense',
+                            style: TextStyle(fontSize: 7, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.back();
+                      Get.to(() => MoneyIn());
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      decoration: BoxDecoration(
+                        color: Color(0xff0065D3),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset('assets/images/moneyRound_in.png'),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              Text(
+                                'Money IN',
+                                style: TextStyle(
+                                    fontSize: 13, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                          Text(
+                            'Click here to record an income',
+                            style: TextStyle(fontSize: 7, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      );
+
+  Widget buildSelectBusiness() => Container(
         padding: EdgeInsets.only(
             left: MediaQuery.of(context).size.width * 0.04,
             right: MediaQuery.of(context).size.width * 0.04,

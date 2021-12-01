@@ -97,13 +97,13 @@ class IncomeSuccess extends StatelessWidget {
 
                       final invoice = Invoice(
                         supplier: Supplier(
-                          name: 'Sarah Field',
+                          name: 'Business Name',
                           mail: 'tunmisehassan@gmail.com',
                           phone: '+234 8123 456 789',
                         ),
                         customer: Customer(
-                          name: 'Apple Inc.',
-                          address: 'Apple Street, Cupertino, CA 95014',
+                          name: 'Joshua Olatunde',
+                          phone: '+234 903 872 6495',
                         ),
                         info: InvoiceInfo(
                           date: date,
@@ -113,24 +113,24 @@ class IncomeSuccess extends StatelessWidget {
                         ),
                         items: [
                           InvoiceItem(
-                            item: 'Coffee',
+                            item: 'MacBook',
                             quantity: 3,
-                            amount: 5.99,
+                            amount: 500000,
                           ),
                           InvoiceItem(
-                            item: 'Water',
-                            quantity: 8,
-                            amount: 0.99,
-                          ),
-                          InvoiceItem(
-                            item: 'Orange',
+                            item: 'MacBook',
                             quantity: 3,
-                            amount: 2.99,
+                            amount: 500000,
                           ),
                           InvoiceItem(
-                            item: 'Apple',
-                            quantity: 8,
-                            amount: 3.99,
+                            item: 'MacBook',
+                            quantity: 3,
+                            amount: 500000,
+                          ),
+                          InvoiceItem(
+                            item: 'MacBook',
+                            quantity: 3,
+                            amount: 500000,
                           ),
                         ],
                       );
