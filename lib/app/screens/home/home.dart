@@ -15,6 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final items = ['Huzz Technologies', 'Huzz', 'Technologies'];
   String? value;
+  int selectedValue = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -444,9 +445,87 @@ class _HomeState extends State<Home> {
                   color: Colors.black, borderRadius: BorderRadius.circular(4)),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            ListTile(
-              leading: Container(),
-            )
+            Row(
+              children: [
+                Expanded(
+                    child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Color(0xff00E13F)),
+                      child: Center(
+                          child: Text(
+                        'H',
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold),
+                      ))),
+                )),
+                Expanded(
+                    flex: 2,
+                    child: Text(
+                      'Huzz Technologies',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.black,
+                          fontFamily: 'DMSans',
+                          fontWeight: FontWeight.bold),
+                    )),
+                Expanded(
+                    child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Radio<int>(
+                      value: 1,
+                      activeColor: AppColor().backgroundColor,
+                      groupValue: selectedValue,
+                      onChanged: (value) => setState(() => selectedValue = 1)),
+                )),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              children: [
+                Expanded(
+                    child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.brown),
+                      child: Center(
+                          child: Text(
+                        'T',
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold),
+                      ))),
+                )),
+                Expanded(
+                    flex: 2,
+                    child: Text(
+                      'Tade Technologies',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.black,
+                          fontFamily: 'DMSans',
+                          fontWeight: FontWeight.bold),
+                    )),
+                Expanded(
+                    child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Radio<int>(
+                      value: 1,
+                      activeColor: AppColor().backgroundColor,
+                      groupValue: selectedValue,
+                      onChanged: (value) => setState(() => selectedValue = 1)),
+                )),
+              ],
+            ),
           ],
         ),
       );

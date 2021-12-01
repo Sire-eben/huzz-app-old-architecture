@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:huzz/colors.dart';
 
 class Customers extends StatefulWidget {
   const Customers({Key? key}) : super(key: key);
@@ -15,6 +16,19 @@ class _CustomersState extends State<Customers> {
       body: Container(
         child: Center(
           child: Text('Customers'),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        icon: Icon(Icons.add),
+        backgroundColor: AppColor().backgroundColor,
+        label: Text(
+          'Add Customer',
+          style: TextStyle(
+              fontFamily: 'DMSans',
+              fontSize: 10,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
