@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:huzz/app/screens/customers/customers.dart';
-import 'package:huzz/app/screens/customers/merchants.dart';
+import 'package:huzz/app/screens/customers/merchants/merchants.dart';
 import '../../../colors.dart';
+import 'customer/customers.dart';
 
 class CustomerTabView extends StatefulWidget {
   const CustomerTabView({Key? key}) : super(key: key);

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/customers/customers/add_customer.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/customer_model.dart';
-
-import 'add_customer.dart';
 
 class Customers extends StatefulWidget {
   const Customers({Key? key}) : super(key: key);
@@ -96,10 +95,9 @@ class _CustomersState extends State<Customers> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SvgPicture.asset(
-                                'assets/images/empty_transaction.svg'),
+                            SvgPicture.asset('assets/images/customers.svg'),
                             Text(
-                              'Record a transaction',
+                              'Customers',
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black,
@@ -107,14 +105,14 @@ class _CustomersState extends State<Customers> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'Your recent transactions will show here. Click the',
+                              'Your customers will show here. Click the',
                               style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.black,
                                   fontFamily: 'DMSans'),
                             ),
                             Text(
-                              'Add transaction button to record your first transaction',
+                              'Add customer button to add your first customer',
                               style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.black,

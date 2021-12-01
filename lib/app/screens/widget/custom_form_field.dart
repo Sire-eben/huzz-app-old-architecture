@@ -214,7 +214,16 @@ class CustomTextFieldWithImage extends StatelessWidget {
                                 )),
                             SizedBox(width: 8),
                             SvgPicture.asset(
-                                'assets/images/select_from_contact.svg')
+                                'assets/images/select_from_contact.svg'),
+                            SizedBox(width: 8),
+                            Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Text(
+                                  "Select from Contact",
+                                  style: TextStyle(
+                                      color: AppColor().backgroundColor,
+                                      fontSize: 12),
+                                )),
                           ],
                         )
                       : Container()
