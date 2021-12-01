@@ -106,8 +106,10 @@ class _HomeState extends State<Home> {
                           children: [
                             Text(
                               'See all your Records',
-                              style:
-                                  TextStyle(fontSize: 9, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 9,
+                                  color: Colors.white,
+                                  fontFamily: 'DMSans'),
                             ),
                             Icon(
                               Icons.arrow_forward,
