@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/home/add_new_sale.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
@@ -576,7 +577,7 @@ class _HomeState extends State<Home> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             InkWell(
               onTap: () {
-                Get.to(() => AddNewSale());
+                Get.to(() => CreateBusiness());
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -586,14 +587,20 @@ class _HomeState extends State<Home> {
                 decoration: BoxDecoration(
                     color: AppColor().backgroundColor,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Center(
-                  child: Text(
-                    'Save',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'DMSans'),
-                  ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add, color: Colors.white),
+                    SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                    Text(
+                      'Add New',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'DMSans'),
+                    ),
+                  ],
                 ),
               ),
             ),

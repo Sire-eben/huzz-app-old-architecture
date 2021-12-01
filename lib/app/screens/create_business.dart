@@ -14,10 +14,10 @@ class CreateBusiness extends StatelessWidget {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Column(
+        child: ListView(
           children: [
             SizedBox(
-              height: 100,
+              height: MediaQuery.of(context).size.height * 0.04,
             ),
             Container(
               child: Row(
@@ -87,36 +87,40 @@ class CreateBusiness extends StatelessWidget {
               onTap: () {
                 Get.to(Signin());
               },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(left: 50, right: 50),
-                height: 50,
-                decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      child: Icon(
-                        Icons.add,
-                        color: AppColor().backgroundColor,
-                        size: 16,
+              child: Padding(
+                padding:
+                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.03),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        child: Icon(
+                          Icons.add,
+                          color: AppColor().backgroundColor,
+                          size: 16,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Continue',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ],
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Continue',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
