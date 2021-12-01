@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/home/add_new_sale.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
 import 'package:huzz/colors.dart';
@@ -20,7 +21,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TransactionNotAvailable(context),
+      body: TransactionAvailable(context),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showModalBottomSheet(
             shape: RoundedRectangleBorder(
@@ -734,7 +735,7 @@ class _HomeState extends State<Home> {
                 )),
               ],
             ),
-            SizedBox(height: 5),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Row(
               children: [
                 Expanded(
@@ -774,6 +775,30 @@ class _HomeState extends State<Home> {
                       onChanged: (value) => setState(() => selectedValue = 1)),
                 )),
               ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            InkWell(
+              onTap: () {
+                Get.to(() => AddNewSale());
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                height: 50,
+                decoration: BoxDecoration(
+                    color: AppColor().backgroundColor,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Center(
+                  child: Text(
+                    'Save',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'DMSans'),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
