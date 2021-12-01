@@ -21,44 +21,45 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-   final display=createDisplay(
-  length: 8,
-  decimal: 0,
-);
+  final display = createDisplay(
+    length: 8,
+    decimal: 0,
+  );
   // final items = ['Huzz Technologies', 'Huzz', 'Technologies'];
   String? value;
-  final _transactionController=Get.find<TransactionRespository>();
-  final _businessController=Get.find<BusinessRespository>();
+  final _transactionController = Get.find<TransactionRespository>();
+  final _businessController = Get.find<BusinessRespository>();
   int selectedValue = 0;
-  final transactionList=[];
-  List<String> items=[];
+  final transactionList = [];
+  List<String> items = [];
   RandomColor _randomColor = RandomColor();
   @override
   Widget build(BuildContext context) {
-    return Obx(()
-      {
-        return Scaffold(
-          body:(_transactionController.allPaymentItem.isNotEmpty)? TransactionAvailable(context):TransactionNotAvailable(context),
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => showModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-                context: context,
-                builder: (context) => buildAddTransaction()),
-            icon: Icon(Icons.add),
-            backgroundColor: AppColor().backgroundColor,
-            label: Text(
-              'Add transaction',
-              style: TextStyle(
-                  fontFamily: 'DMSans',
-                  fontSize: 10,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
+    return Obx(() {
+      return Scaffold(
+        body: (_transactionController.allPaymentItem.isNotEmpty)
+            ? TransactionAvailable(context)
+            : TransactionNotAvailable(context),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => showModalBottomSheet(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(20))),
+              context: context,
+              builder: (context) => buildAddTransaction()),
+          icon: Icon(Icons.add),
+          backgroundColor: AppColor().backgroundColor,
+          label: Text(
+            'Add transaction',
+            style: TextStyle(
+                fontFamily: 'DMSans',
+                fontSize: 10,
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 
   //Transaction is available
@@ -75,13 +76,13 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => buildSelectBusiness());
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20))),
+                      context: context,
+                      builder: (context) => buildSelectBusiness());
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.6,
@@ -92,15 +93,19 @@ class _HomeState extends State<Home> {
                           width: 3, color: AppColor().backgroundColor)),
                   child: Row(
                     children: [
-                      SizedBox(width: 10,),
-                        buildMenuItem("${_businessController.selectedBusiness.value!.businessName}"),
-                        Expanded(child: SizedBox()),
-                       Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
-                          ),
-                        SizedBox(width: 10,)
-                     
+                      SizedBox(
+                        width: 10,
+                      ),
+                      buildMenuItem(
+                          "${_businessController.selectedBusiness.value!.businessName}"),
+                      Expanded(child: SizedBox()),
+                      Icon(
+                        Icons.keyboard_arrow_down,
+                        color: AppColor().backgroundColor,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      )
                     ],
                   ),
                 ),
@@ -222,53 +227,54 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.height * 0.02),
-            decoration: BoxDecoration(
-              color: AppColor().backgroundColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      width: MediaQuery.of(context).size.width * 0.08,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/images/debtors.png'))),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                    Text(
-                      'Debtors',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'N${display(_transactionController.debtors.value)}',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Color(0xffF58D40),
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15,
-                      color: Color(0xffF58D40),
-                    ),
-                  ],
-                ),
-              ],
-            )),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.02),
+              decoration: BoxDecoration(
+                color: AppColor().backgroundColor.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/images/debtors.png'))),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      Text(
+                        'Debtors',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'N${display(_transactionController.debtors.value)}',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Color(0xffF58D40),
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 15,
+                        color: Color(0xffF58D40),
+                      ),
+                    ],
+                  ),
+                ],
+              )),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Expanded(
               child: Container(
@@ -283,15 +289,20 @@ class _HomeState extends State<Home> {
             child: ListView.separated(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-
                 itemBuilder: (context, index) {
-                  var item= _transactionController.allPaymentItem[index];
+                  var item = _transactionController.allPaymentItem[index];
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          Image.asset( (item.transactionType=="EXPENDITURE")?"assets/images/moneyRound_out.png":"assets/images/moneyRound_in.png",width: 20,height: 20,),
+                          Image.asset(
+                            (item.transactionType == "EXPENDITURE")
+                                ? "assets/images/moneyRound_out.png"
+                                : "assets/images/moneyRound_in.png",
+                            width: 20,
+                            height: 20,
+                          ),
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 0.02),
                           Column(
@@ -320,7 +331,9 @@ class _HomeState extends State<Home> {
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            item.totalAmount==item.amount?"Fully Paid":"Partially",
+                            item.totalAmount == item.amount
+                                ? "Fully Paid"
+                                : "Partially",
                             style: TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),
@@ -405,13 +418,13 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => buildSelectBusiness());
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20))),
+                      context: context,
+                      builder: (context) => buildSelectBusiness());
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.6,
@@ -422,15 +435,19 @@ class _HomeState extends State<Home> {
                           width: 3, color: AppColor().backgroundColor)),
                   child: Row(
                     children: [
-                      SizedBox(width: 10,),
-                        buildMenuItem("${_businessController.selectedBusiness.value!.businessName}"),
-                        Expanded(child: SizedBox()),
-                       Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
-                          ),
-                        SizedBox(width: 10,)
-                     
+                      SizedBox(
+                        width: 10,
+                      ),
+                      buildMenuItem(
+                          "${_businessController.selectedBusiness.value!.businessName}"),
+                      Expanded(child: SizedBox()),
+                      Icon(
+                        Icons.keyboard_arrow_down,
+                        color: AppColor().backgroundColor,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      )
                     ],
                   ),
                 ),
@@ -476,48 +493,45 @@ class _HomeState extends State<Home> {
                       style: TextStyle(fontSize: 24, color: Colors.white),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                          color: Color(0xff056B5C),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          Text(
-                            'See all your Records',
-                            style: TextStyle(
-                                fontSize: 9,
-                                color: Colors.white,
-                                fontFamily: 'DMSans'),
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 15,
-                            color: Colors.white,
-                          ),
-                        ],
-                      )),
-                      Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                            color: Color(0xffF58D40),
-                            borderRadius: BorderRadius.circular(4)),
+                            color: Color(0xff056B5C),
+                            borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           children: [
-                            Image.asset('assets/images/money_out.png'),
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.02),
                             Text(
-                              'Today’s Money OUT',
-                              style:
-                                  TextStyle(fontSize: 9, color: Colors.white),
+                              'See all your Records',
+                              style: TextStyle(
+                                  fontSize: 9,
+                                  color: Colors.white,
+                                  fontFamily: 'DMSans'),
+                            ),
+                            Icon(
+                              Icons.arrow_forward,
+                              size: 15,
+                              color: Colors.white,
                             ),
                           ],
-                        ),
+                        )),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                          color: Color(0xffF58D40),
+                          borderRadius: BorderRadius.circular(4)),
+                      child: Row(
+                        children: [
+                          Image.asset('assets/images/money_out.png'),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.02),
+                          Text(
+                            'Today’s Money OUT',
+                            style: TextStyle(fontSize: 9, color: Colors.white),
+                          ),
+                        ],
                       ),
-                    
-                   Text(
+                    ),
+                    Text(
                       'N${display(_transactionController.income.value)}',
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
@@ -547,6 +561,56 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.02),
+              decoration: BoxDecoration(
+                color: AppColor().backgroundColor.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/images/debtors.png'))),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      Text(
+                        'Debtors',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'N${display(_transactionController.debtors.value)}',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Color(0xffF58D40),
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 15,
+                        color: Color(0xffF58D40),
+                      ),
+                    ],
+                  ),
+                ],
+              )),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Container(
             padding: EdgeInsets.symmetric(
@@ -580,7 +644,7 @@ class _HomeState extends State<Home> {
                 Row(
                   children: [
                     Text(
-                      'N${display(_transactionController.debtors.value)}',
+                      'N10,000',
                       style: TextStyle(
                           fontSize: 15,
                           color: Color(0xffF58D40),
@@ -595,188 +659,135 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ],
-            )),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.height * 0.02),
-              decoration: BoxDecoration(
-                color: AppColor().backgroundColor.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.08,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/debtors.png'))),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text(
-                        'Debtors',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'N10,000',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Color(0xffF58D40),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 15,
-                        color: Color(0xffF58D40),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            Expanded(
-                child: Container(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.height * 0.02,
-                  right: MediaQuery.of(context).size.height * 0.02,
-                  bottom: MediaQuery.of(context).size.height * 0.02),
-              decoration: BoxDecoration(
-                color: Color(0xffF5F5F5),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListView.separated(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                separatorBuilder: (context, index) => Divider(),
-                itemCount: transactionList.length,
-                itemBuilder: (context, index) {
-                  if (transactionList.length == 0) {
-                    return Container(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.height * 0.02,
-                          right: MediaQuery.of(context).size.height * 0.02,
-                          bottom: MediaQuery.of(context).size.height * 0.02),
-                      decoration: BoxDecoration(
-                        color: Color(0xffF5F5F5),
-                        borderRadius: BorderRadius.circular(10),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          Expanded(
+              child: Container(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.height * 0.02,
+                right: MediaQuery.of(context).size.height * 0.02,
+                bottom: MediaQuery.of(context).size.height * 0.02),
+            decoration: BoxDecoration(
+              color: Color(0xffF5F5F5),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: ListView.separated(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              separatorBuilder: (context, index) => Divider(),
+              itemCount: transactionList.length,
+              itemBuilder: (context, index) {
+                if (transactionList.length == 0) {
+                  return Container(
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.height * 0.02,
+                        right: MediaQuery.of(context).size.height * 0.02,
+                        bottom: MediaQuery.of(context).size.height * 0.02),
+                    decoration: BoxDecoration(
+                      color: Color(0xffF5F5F5),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                              'assets/images/empty_transaction.svg'),
+                          Text(
+                            'Record a transaction',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Your recent transactions will show here. Click the',
+                            style: TextStyle(
+                                fontSize: 8,
+                                color: Colors.black,
+                                fontFamily: 'DMSans'),
+                          ),
+                          Text(
+                            'Add transaction button to record your first transaction',
+                            style: TextStyle(
+                                fontSize: 8,
+                                color: Colors.black,
+                                fontFamily: 'DMSans'),
+                          ),
+                        ],
                       ),
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                                'assets/images/empty_transaction.svg'),
-                            Text(
-                              'Record a transaction',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans',
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Your recent transactions will show here. Click the',
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans'),
-                            ),
-                            Text(
-                              'Add transaction button to record your first transaction',
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans'),
-                            ),
-                          ],
-                        ),
+                    ),
+                  );
+                } else {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Image.asset(transactionList[index].image!),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.02),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                transactionList[index].name!,
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                transactionList[index].date!,
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    );
-                  } else {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(transactionList[index].image!),
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.02),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  transactionList[index].name!,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  transactionList[index].date!,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              transactionList[index].amount!,
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              transactionList[index].details!,
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  }
-                },
-              ),
-            ))
-          ],
-        ),
-      
-    //   floatingActionButton: FloatingActionButton.extended(
-    //     onPressed: () => showModalBottomSheet(
-    //         shape: RoundedRectangleBorder(
-    //             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-    //         context: context,
-    //         builder: (context) => buildAddTransaction()),
-    //     icon: Icon(Icons.add),
-    //     backgroundColor: AppColor().backgroundColor,
-    //     label: Text(
-    //       'Add transaction',
-    //       style: TextStyle(
-    //           fontFamily: 'DMSans',
-    //           fontSize: 10,
-    //           color: Colors.white,
-    //           fontWeight: FontWeight.bold),
-    //     ),
-    //   ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            transactionList[index].amount!,
+                            style: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            transactionList[index].details!,
+                            style: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                }
+              },
+            ),
+          ))
+        ],
+      ),
+
+      //   floatingActionButton: FloatingActionButton.extended(
+      //     onPressed: () => showModalBottomSheet(
+      //         shape: RoundedRectangleBorder(
+      //             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      //         context: context,
+      //         builder: (context) => buildAddTransaction()),
+      //     icon: Icon(Icons.add),
+      //     backgroundColor: AppColor().backgroundColor,
+      //     label: Text(
+      //       'Add transaction',
+      //       style: TextStyle(
+      //           fontFamily: 'DMSans',
+      //           fontSize: 10,
+      //           color: Colors.white,
+      //           fontWeight: FontWeight.bold),
+      //     ),
+      //   ),
     );
   }
 
@@ -887,114 +898,112 @@ class _HomeState extends State<Home> {
         ),
       );
 
-  Widget buildSelectBusiness() => Obx(()
-   {
-      return Container(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.04,
-                right: MediaQuery.of(context).size.width * 0.04,
-                bottom: MediaQuery.of(context).size.width * 0.04,
-                top: MediaQuery.of(context).size.width * 0.02),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  height: 6,
-                  width: 100,
-                  decoration: BoxDecoration(
-                      color: Colors.black, borderRadius: BorderRadius.circular(4)),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Expanded(
-                  // height: 150,
-                  // width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                  itemBuilder: (context,index){
-                    var item=_businessController.offlineBusiness[index];
-                  return  Row(
-                    children: [
-                      Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(bottom: 10),
-                            child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle, color: _randomColor.randomColor()),
-                              child: Center(
-                                  child: Text(
-                                '${item.business!.businessName![0]}',
-                                style: TextStyle(
-                                    fontSize: 30,
-                                    color: Colors.white,
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.bold),
-                              ))),
-                      ),
-                          )),
-                      Expanded(
-                          flex: 2,
-                          child: Text(
-                            '${item.business!.businessName!}',
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.black,
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.bold),
-                          )),
-                      Expanded(
+  Widget buildSelectBusiness() => Obx(() {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 6,
+                width: 100,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(4)),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Expanded(
+                // height: 150,
+                // width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    var item = _businessController.offlineBusiness[index];
+                    return Row(
+                      children: [
+                        Expanded(
+                            child: Container(
+                          margin: EdgeInsets.only(bottom: 10),
                           child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Radio<Business>(
-                            value: item.business!,
-                            activeColor: AppColor().backgroundColor,
-                            groupValue: _businessController.selectedBusiness.value,
-                            onChanged: (value) {
-                
-                              _businessController.selectedBusiness(value);
-                              Navigator.pop(context);
-                            }),
-                      )),
-                    ],
-                  );
-                
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: _randomColor.randomColor()),
+                                child: Center(
+                                    child: Text(
+                                  '${item.business!.businessName![0]}',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      color: Colors.white,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold),
+                                ))),
+                          ),
+                        )),
+                        Expanded(
+                            flex: 2,
+                            child: Text(
+                              '${item.business!.businessName!}',
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.black,
+                                  fontFamily: 'DMSans',
+                                  fontWeight: FontWeight.bold),
+                            )),
+                        Expanded(
+                            child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Radio<Business>(
+                              value: item.business!,
+                              activeColor: AppColor().backgroundColor,
+                              groupValue:
+                                  _businessController.selectedBusiness.value,
+                              onChanged: (value) {
+                                _businessController.selectedBusiness(value);
+                                Navigator.pop(context);
+                              }),
+                        )),
+                      ],
+                    );
                   },
                   itemCount: _businessController.offlineBusiness.length,
-                  
-                  ),
-                ),           
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                
-                // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                InkWell(
-                  onTap: () {
-                    // Get.to(() => AddNewSale());
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.03),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                      child: Text(
-                        'Create New Business',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'DMSans'),
-                      ),
+                ),
+              ),
+              // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
+              // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              InkWell(
+                onTap: () {
+                  // Get.to(() => AddNewSale());
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.03),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Center(
+                    child: Text(
+                      'Create New Business',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'DMSans'),
                     ),
                   ),
                 ),
-              ],
-            ),
-          );
-    }
-  );
+              ),
+            ],
+          ),
+        );
+      });
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
