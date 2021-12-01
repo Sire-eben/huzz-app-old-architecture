@@ -61,7 +61,7 @@ factory TransactionModel.fromJson(Map<String,dynamic> json)=>TransactionModel(
   balance: json['balance'],
   businessTransactionPaymentHistoryList: json['businessTransactionPaymentHistoryList']==null?[]:List.from(json['businessTransactionPaymentHistoryList']),
   currentBusinessTransactionPaymentHistory: json['currentBusinessTransactionPaymentHistory'],
-  businessTransactionPaymentItemList: List.from(json['businessTransactionPaymentItemList']).map((e) => PaymentItem.fromJson(e)).toList()
+  businessTransactionPaymentItemList: List.from(json['businessTransactionPaymentItemList']).map((e) => PaymentItem.fromJson(e,json['transactionType'])).toList()
 
 
 );

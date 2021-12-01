@@ -199,9 +199,11 @@ Future getSpending(String id)async{
 
 
 final now=DateTime.now();
- final date=""+now.year.toString()+"-"+(now.month).toString()+"-"+now.day.toString();
+var day=now.day>=10?now.day.toString():"0"+now.day.toString();
+var month=now.month>=10?now.month.toString():"0"+now.month.toString();
+ final date=""+now.year.toString()+"-"+month+"-"+day;
  print("today date is $date");
-  final response= await http.get(Uri.parse(ApiLink.dashboard_overview+"?businessId="+id+"&from=$date 00:00&to=$date 11:59"),headers: {
+  final response= await http.get(Uri.parse(ApiLink.dashboard_overview+"?businessId="+id+"&from=$date 00:00&to=$date 23:59"),headers: {
 
 "Authorization":"Bearer ${_userController.token}"
  });

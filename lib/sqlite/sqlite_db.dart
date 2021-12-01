@@ -18,7 +18,7 @@ static String transactionTableName="Transactions";
 Future openDatabae()async{
  final databasePath = await getDatabasesPath();
   // print(databasePath);
-  final path = join(databasePath, "HuzzAppbbsw");
+  final path = join(databasePath, "HuzzAppbbshhw");
 
  db = await openDatabase( path,version: 1,
         onCreate: (Database db, int version) async {

@@ -13,7 +13,7 @@ int? totalAmount;
 DateTime? createdTime;
 DateTime? updatedTime;
 bool? deleted;
-
+String? transactionType;
 
 
 PaymentItem({
@@ -26,11 +26,12 @@ this.amount,
 this.totalAmount,
 this.createdTime,
 this.updatedTime,
-this.deleted
+this.deleted,
+this.transactionType,
 
 });
 
-factory PaymentItem.fromJson(Map<String,dynamic> json)=> PaymentItem(
+factory PaymentItem.fromJson(Map<String,dynamic> json,String type)=> PaymentItem(
   id: json['id'],
   businessTransactionId: json['businessTransactionId'],
   itemName: json['itemName'],
@@ -40,7 +41,8 @@ factory PaymentItem.fromJson(Map<String,dynamic> json)=> PaymentItem(
   totalAmount: json['totalAmount'],
   createdTime: DateTime.parse(json['createdDateTime']),
   updatedTime: json['updatedDateTime']==null?DateTime.parse(json['createdDateTime']): DateTime.parse(json['updatedDateTime']),
-  deleted: json['deleted']
+  deleted: json['deleted'],
+  transactionType: type
 
 );
 

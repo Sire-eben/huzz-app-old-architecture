@@ -6,7 +6,7 @@ class OnBoardingModel {
 
   static List<OnBoardingModel> values = [
     OnBoardingModel(
-      asset: 'assets/images/Group 3804.svg',
+      asset: 'assets/images/result (2).svg',
       title: 'Give your business a boost ',
       body:
           'Access free tools for bookkeeping, invoicing, customer management, inventory, debt recovery, analytics, and more.',
