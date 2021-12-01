@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final items = ['Huzz Technologies', 'Huzz', 'Technologies'];
+  final items = ['Huzz Technologies', 'Technologies'];
   String? value;
   int selectedValue = 0;
   @override
