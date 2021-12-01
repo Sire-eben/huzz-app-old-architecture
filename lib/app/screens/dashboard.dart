@@ -30,6 +30,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       body: buildPages(),
       bottomNavigationBar: BottomNavyBar(
+        showElevation: false,
         selectedIndex: index,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(

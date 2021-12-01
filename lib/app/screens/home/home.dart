@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
-import 'package:huzz/app/screens/home/add_new_sale.dart';
+// import 'package:huzz/app/screens/home/add_new_sale.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
 import 'package:huzz/colors.dart';
@@ -268,8 +268,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ],
-            ),
-          ),
+            )),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Expanded(
               child: Container(
@@ -496,31 +495,28 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                           ),
                         ],
+                      )),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                            color: Color(0xffF58D40),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: Row(
+                          children: [
+                            Image.asset('assets/images/money_out.png'),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.02),
+                            Text(
+                              'Today’s Money OUT',
+                              style:
+                                  TextStyle(fontSize: 9, color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                          color: Color(0xff0065D3),
-                          borderRadius: BorderRadius.circular(4)),
-                      child: Row(
-                        children: [
-                          Image.asset('assets/images/money_in.png'),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.02),
-                          Text(
-                            'Today’s Money IN',
-                            style: TextStyle(fontSize: 9, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
+                    
                    Text(
                       'N${display(_transactionController.income.value)}',
                       style: TextStyle(fontSize: 18, color: Colors.white),
@@ -599,51 +595,188 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ],
-            ),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          Expanded(
-              child: Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.02,
-                      right: MediaQuery.of(context).size.height * 0.02,
-                      bottom: MediaQuery.of(context).size.height * 0.02),
-                  decoration: BoxDecoration(
-                    color: Color(0xffF5F5F5),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+            )),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.02),
+              decoration: BoxDecoration(
+                color: AppColor().backgroundColor.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      SvgPicture.asset('assets/images/empty_transaction.svg'),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/images/debtors.png'))),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(
-                        'Record a transaction',
+                        'Debtors',
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 15,
                             color: Colors.black,
-                            fontFamily: 'DMSans',
                             fontWeight: FontWeight.bold),
                       ),
+                    ],
+                  ),
+                  Row(
+                    children: [
                       Text(
-                        'Your recent transactions will show here. Click the',
+                        'N10,000',
                         style: TextStyle(
-                            fontSize: 8,
-                            color: Colors.black,
-                            fontFamily: 'DMSans'),
+                            fontSize: 15,
+                            color: Color(0xffF58D40),
+                            fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        'Add transaction button to record your first transaction',
-                        style: TextStyle(
-                            fontSize: 8,
-                            color: Colors.black,
-                            fontFamily: 'DMSans'),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 15,
+                        color: Color(0xffF58D40),
                       ),
                     ],
-                  ))))
-        ],
-      ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Expanded(
+                child: Container(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.height * 0.02,
+                  right: MediaQuery.of(context).size.height * 0.02,
+                  bottom: MediaQuery.of(context).size.height * 0.02),
+              decoration: BoxDecoration(
+                color: Color(0xffF5F5F5),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListView.separated(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: transactionList.length,
+                itemBuilder: (context, index) {
+                  if (transactionList.length == 0) {
+                    return Container(
+                      padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.height * 0.02,
+                          right: MediaQuery.of(context).size.height * 0.02,
+                          bottom: MediaQuery.of(context).size.height * 0.02),
+                      decoration: BoxDecoration(
+                        color: Color(0xffF5F5F5),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                                'assets/images/empty_transaction.svg'),
+                            Text(
+                              'Record a transaction',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontFamily: 'DMSans',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'Your recent transactions will show here. Click the',
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.black,
+                                  fontFamily: 'DMSans'),
+                            ),
+                            Text(
+                              'Add transaction button to record your first transaction',
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.black,
+                                  fontFamily: 'DMSans'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(transactionList[index].image!),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.02),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  transactionList[index].name!,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  transactionList[index].date!,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              transactionList[index].amount!,
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              transactionList[index].details!,
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
+            ))
+          ],
+        ),
+      
+    //   floatingActionButton: FloatingActionButton.extended(
+    //     onPressed: () => showModalBottomSheet(
+    //         shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+    //         context: context,
+    //         builder: (context) => buildAddTransaction()),
+    //     icon: Icon(Icons.add),
+    //     backgroundColor: AppColor().backgroundColor,
+    //     label: Text(
+    //       'Add transaction',
+    //       style: TextStyle(
+    //           fontFamily: 'DMSans',
+    //           fontSize: 10,
+    //           color: Colors.white,
+    //           fontWeight: FontWeight.bold),
+    //     ),
+    //   ),
     );
   }
 
@@ -836,7 +969,7 @@ class _HomeState extends State<Home> {
                 // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 InkWell(
                   onTap: () {
-                    Get.to(() => AddNewSale());
+                    // Get.to(() => AddNewSale());
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
