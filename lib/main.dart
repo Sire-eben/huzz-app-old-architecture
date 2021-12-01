@@ -31,10 +31,11 @@ class _HuzzAppState extends State<HuzzApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: AppBinding(),
-      theme: ThemeData(fontFamily: 'DMSans',primaryColor: AppColor().backgroundColor),
+      theme: ThemeData(
+          fontFamily: 'DMSans', primaryColor: AppColor().backgroundColor),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
-      home:SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }
