@@ -9,7 +9,6 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-
 import 'inventory/manage_inventory.dart';
 
 import 'user_screens/dashboard.dart';
