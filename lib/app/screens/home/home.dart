@@ -26,12 +26,13 @@ class _HomeState extends State<Home> {
   decimal: 0,
 );
   // final items = ['Huzz Technologies', 'Huzz', 'Technologies'];
+  final items = ['Huzz Technologies', 'Technologies'];
   String? value;
   final _transactionController=Get.find<TransactionRespository>();
   final _businessController=Get.find<BusinessRespository>();
   int selectedValue = 0;
   final transactionList=[];
-  List<String> items=[];
+  // List<String> items=[];
   RandomColor _randomColor = RandomColor();
   @override
   Widget build(BuildContext context) {
