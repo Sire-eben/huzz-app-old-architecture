@@ -249,102 +249,103 @@ class _HomeState extends State<Home> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: ListView.separated(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    if (transactionList.length == 0) {
-                      return Container(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.02,
-                            right: MediaQuery.of(context).size.height * 0.02,
-                            bottom: MediaQuery.of(context).size.height * 0.02),
-                        decoration: BoxDecoration(
-                          color: Color(0xffF5F5F5),
-                          borderRadius: BorderRadius.circular(10),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: transactionList.length,
+                itemBuilder: (context, index) {
+                  if (transactionList.length == 0) {
+                    return Container(
+                      padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.height * 0.02,
+                          right: MediaQuery.of(context).size.height * 0.02,
+                          bottom: MediaQuery.of(context).size.height * 0.02),
+                      decoration: BoxDecoration(
+                        color: Color(0xffF5F5F5),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                                'assets/images/empty_transaction.svg'),
+                            Text(
+                              'Record a transaction',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontFamily: 'DMSans',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'Your recent transactions will show here. Click the',
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.black,
+                                  fontFamily: 'DMSans'),
+                            ),
+                            Text(
+                              'Add transaction button to record your first transaction',
+                              style: TextStyle(
+                                  fontSize: 8,
+                                  color: Colors.black,
+                                  fontFamily: 'DMSans'),
+                            ),
+                          ],
                         ),
-                        child: Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                  'assets/images/empty_transaction.svg'),
-                              Text(
-                                'Record a transaction',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                'Your recent transactions will show here. Click the',
-                                style: TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans'),
-                              ),
-                              Text(
-                                'Add transaction button to record your first transaction',
-                                style: TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans'),
-                              ),
-                            ],
-                          ),
+                      ),
+                    );
+                  } else {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(transactionList[index].image!),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.02),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  transactionList[index].name!,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  transactionList[index].date!,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      );
-                    } else {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(transactionList[index].image!),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.02),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    transactionList[index].name!,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    transactionList[index].date!,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                transactionList[index].amount!,
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                transactionList[index].details!,
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-                    }
-                  },
-                  separatorBuilder: (context, index) => Divider(),
-                  itemCount: transactionList.length),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              transactionList[index].amount!,
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              transactionList[index].details!,
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
             ))
           ],
         ),
