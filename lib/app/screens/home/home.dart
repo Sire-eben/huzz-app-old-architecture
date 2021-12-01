@@ -38,7 +38,12 @@ class _HomeState extends State<Home> {
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
                         onTap: () {
-                          buildSelectBusiness();
+                          showModalBottomSheet(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))),
+                              context: context,
+                              builder: (context) => buildSelectBusiness());
                         },
                         value: value,
                         icon: Icon(
@@ -433,98 +438,14 @@ class _HomeState extends State<Home> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 8,
+              height: 6,
               width: 100,
               decoration: BoxDecoration(
                   color: Colors.black, borderRadius: BorderRadius.circular(4)),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            Row(
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      Get.back();
-                      Get.to(() => MoneyOut());
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      decoration: BoxDecoration(
-                        color: Color(0xffEF6500),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset('assets/images/moneyRound_out.png'),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.02),
-                              Text(
-                                'Money OUT',
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.white),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                          Text(
-                            'Click here to record an expense',
-                            style: TextStyle(fontSize: 7, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.04),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      Get.back();
-                      Get.to(() => MoneyIn());
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      decoration: BoxDecoration(
-                        color: Color(0xff0065D3),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset('assets/images/moneyRound_in.png'),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.02),
-                              Text(
-                                'Money IN',
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.white),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                          Text(
-                            'Click here to record an income',
-                            style: TextStyle(fontSize: 7, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
+            ListTile(
+              leading: Container(),
             )
           ],
         ),
