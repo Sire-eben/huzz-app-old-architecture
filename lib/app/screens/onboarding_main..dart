@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/reg_home.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/onboarding_model.dart';
@@ -13,6 +14,7 @@ class OnboardingMain extends StatefulWidget {
 class _OnboardingMainState extends State<OnboardingMain> {
   int selectedIndex = 0;
   List<OnBoardingModel> boards = OnBoardingModel.values;
+  final _authController=Get.find<AuthRepository>();
   double progress = 14;
 
   @override
@@ -165,6 +167,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                     )
                   : InkWell(
                       onTap: () {
+                        _authController.pref!.setFirstTimeOpen(false);
                         Get.to(RegHome());
                       },
                       child: Container(

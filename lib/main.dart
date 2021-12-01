@@ -6,6 +6,7 @@ import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/inventory/manage_inventory.dart';
 import 'package:huzz/app/screens/onboarding_main..dart';
+import 'package:huzz/colors.dart';
 import 'package:huzz/core/routes/app_router.dart';
 import 'package:huzz/core/routes/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -30,10 +31,10 @@ class _HuzzAppState extends State<HuzzApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: AppBinding(),
-      theme: ThemeData(fontFamily: 'DMSans'),
+      theme: ThemeData(fontFamily: 'DMSans',primaryColor: AppColor().backgroundColor),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
-      home: Dashboard(),
+      home:SplashScreen(),
     );
   }
 }
