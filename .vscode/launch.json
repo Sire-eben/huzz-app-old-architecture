@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "huzz-app (release mode)",
+            "type": "dart",
+            "request": "launch",
+            "flutterMode": "release"
+        },
+
+        {
             "name": "huzz-app",
             "request": "launch",
             "type": "dart"

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/api_link.dart';
@@ -29,6 +30,17 @@ final totalbalance=0.obs;
 final debtors=0.obs;
 List<TransactionModel> todayTransaction=[];
 SqliteDb sqliteDb=SqliteDb();
+final itemNameController=TextEditingController();
+final amountController=TextEditingController();
+final quantityController=TextEditingController();
+final dateController=TextEditingController();
+  final timeController=TextEditingController();
+final  paymentController=TextEditingController();
+final paymentSourceController=TextEditingController();
+final receiptFileController=TextEditingController();
+
+
+
 @override
   void onInit() async{
     // TODO: implement onInit
@@ -168,9 +180,9 @@ Future PendingTransaction()async{
 bool checkifTransactionAvailable(String id){
  bool result=false;
 offlineTransactions.forEach((element) {
-   
+   print("checking transaction whether exist");
 if(element.id==id){
-print("business  found");
+print("transaction   found");
 result=true;
 }
  });

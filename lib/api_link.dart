@@ -10,5 +10,7 @@ static String create_business=baseurl+"business";
 static String get_user_business=baseurl+"business";
 static String get_business_transaction=baseurl+"business/transactions";
 static String dashboard_overview=baseurl+"business/transactions/overview";
+static String addCustomer=baseurl+"business/customer";
+static String upload_file=baseurl+"file-store/upload";
 
 }
