@@ -114,9 +114,9 @@ class _HomeState extends State<Home> {
               Container(
                   child: Row(
                 children: [
-                  Image.asset('assets/images/bell.png'),
+                  SvgPicture.asset('assets/images/bell.svg'),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                  Image.asset('assets/images/settings.png')
+                  SvgPicture.asset('assets/images/settings.svg')
                 ],
               )),
             ],
@@ -254,10 +254,11 @@ class _HomeState extends State<Home> {
                       Container(
                         height: MediaQuery.of(context).size.height * 0.08,
                         width: MediaQuery.of(context).size.width * 0.08,
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * 0.015),
                         decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/debtors.png'))),
+                            color: Color(0xffEF6500), shape: BoxShape.circle),
+                        child: SvgPicture.asset('assets/images/debtors.svg'),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(
@@ -414,9 +415,9 @@ class _HomeState extends State<Home> {
               Container(
                   child: Row(
                 children: [
-                  Image.asset('assets/images/bell.png'),
+                  SvgPicture.asset('assets/images/bell.svg'),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                  Image.asset('assets/images/settings.png')
+                  SvgPicture.asset('assets/images/settings.svg')
                 ],
               )),
             ],
@@ -555,9 +556,8 @@ class _HomeState extends State<Home> {
                         height: MediaQuery.of(context).size.height * 0.08,
                         width: MediaQuery.of(context).size.width * 0.08,
                         decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/debtors.png'))),
+                            color: Color(0xffEF6500), shape: BoxShape.circle),
+                        child: SvgPicture.asset('assets/images/debtors.svg'),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(

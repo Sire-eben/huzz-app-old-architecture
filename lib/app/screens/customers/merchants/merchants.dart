@@ -6,7 +6,8 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/merchant_model.dart';
 
 class Merchants extends StatefulWidget {
-  const Merchants({Key? key}) : super(key: key);
+  final String? pageName;
+  const Merchants({Key? key, this.pageName}) : super(key: key);
 
   @override
   _MerchantsState createState() => _MerchantsState();

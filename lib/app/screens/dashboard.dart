@@ -2,17 +2,11 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:huzz/app/screens/inventory.dart';
 import 'package:huzz/app/screens/invoice.dart';
-import 'package:huzz/app/screens/more.dart';
 import 'package:huzz/app/screens/customers/customer_tabView.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'home/home.dart';
-import 'package:huzz/app/screens/users%20screen/home.dart';
-import 'package:huzz/colors.dart';
-import 'home/home.dart';
 import 'invoice.dart';
-import 'users screen/team.dart';
-import 'users screen/inventry.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
