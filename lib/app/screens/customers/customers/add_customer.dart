@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:contact_picker/contact_picker.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +18,10 @@ class AddCustomer extends StatefulWidget {
 }
 
 class _AddCustomerState extends State<AddCustomer> {
-  String countryFlag = "NG";
-  String countryCode = "234";
+  final TextEditingController contactName = TextEditingController();
+  final TextEditingController contactPhone = TextEditingController();
+  final TextEditingController contactMail = TextEditingController();
+
   File? image;
   Future pickImageFromGallery() async {
     try {
@@ -189,86 +191,12 @@ class _AddCustomerState extends State<AddCustomer> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               CustomTextFieldWithImage(
+                contactName: contactName,
+                contactPhone: contactPhone,
+                contactMail: contactMail,
                 label: "Customer name",
                 validatorText: "Customer name is needed",
                 hint: 'customer name',
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Container(
-                margin: EdgeInsets.only(left: 20, right: 20),
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border:
-                      Border.all(color: AppColor().backgroundColor, width: 2.0),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        showCountryCode(context);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                              right: BorderSide(
-                                  color: AppColor().backgroundColor, width: 2)),
-                        ),
-                        height: 50,
-                        width: 80,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(width: 10),
-                            Flag.fromString(countryFlag, height: 30, width: 30),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down,
-                              size: 24,
-                              color:
-                                  AppColor().backgroundColor.withOpacity(0.5),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "9034678966",
-                            hintStyle: TextStyle(
-                                color: Colors.black.withOpacity(0.5),
-                                fontSize: 14,
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.w500),
-                            prefixText: "+$countryCode ",
-                            prefixStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'DMSans',
-                                color: Colors.black)),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                  ],
-                ),
-              ),
-              CustomTextField(
-                label: "Email",
-                validatorText: "Email is needed",
-                hint: 'yourmail@mail.com',
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
@@ -299,22 +227,6 @@ class _AddCustomerState extends State<AddCustomer> {
           ),
         ),
       ),
-    );
-  }
-
-  Future showCountryCode(BuildContext context) async {
-    showCountryPicker(
-      context: context,
-      showPhoneCode:
-          true, // optional. Shows phone code before the country name.
-      onSelect: (Country country) {
-        countryCode = country.toJson()['e164_cc'];
-        countryFlag = country.toJson()['iso2_cc'];
-        country.toJson();
-        setState(() {});
-
-        print('Select country: ${country.toJson()}');
-      },
     );
   }
 }
