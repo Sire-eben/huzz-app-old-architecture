@@ -22,7 +22,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int index = 0;
+  int index = 2;
 
   final inactiveColor = Colors.grey;
   @override
