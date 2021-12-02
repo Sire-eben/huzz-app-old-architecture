@@ -7,7 +7,6 @@ import 'package:huzz/app/screens/team.dart';
 import 'package:huzz/colors.dart';
 import 'home/home.dart';
 import 'package:huzz/app/screens/users%20screen/home.dart';
-import 'package:huzz/colors.dart';
 import 'users screen/team.dart';
 import 'users screen/inventry.dart';
 
@@ -21,28 +20,28 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   late List<Widget> _screens;
 
-  @override
-  void initState() {
-    _screens = [
-      //teams
-      Teams(),
+  // @override
+  // void initState() {
+  //   _screens = [
+  //     //teams
+  //     Teams(),
 
-      //inventry
-      InventaryTabView(),
+  //     //inventry
+  //     InventaryTabView(),
 
-      //home
-      HomePage(),
+  //     //home
+  //     HomePage(),
 
-      //invoice
-      //Invoice(),
-      InventaryTabView(),
+  //     //invoice
+  //     //Invoice(),
+  //     InventaryTabView(),
 
-      //more
-      //More(),
-      InventaryTabView(),
-    ];
-    super.initState();
-  }
+  //     //more
+  //     //More(),
+  //     InventaryTabView(),
+  //   ];
+  //   super.initState();
+  // }
 
   int _selectedIndex = 2;
   // ignore: unused_element
@@ -97,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
       case 0:
         return Team();
       case 1:
-        return Inventory();
+        return InventaryTabView();
       case 2:
         return Home();
       case 3:

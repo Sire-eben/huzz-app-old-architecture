@@ -121,7 +121,7 @@ class _InventaryTabViewState extends State<InventaryTabView> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 60),
                 child: Text(
-                  "Delivery",
+                  "Product",
                   style: TextStyle(
                     fontFamily: 'DMSans',
                     fontSize: 14,
@@ -131,9 +131,9 @@ class _InventaryTabViewState extends State<InventaryTabView> {
             ),
             Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60),
+                padding: const EdgeInsets.symmetric(horizontal: 58),
                 child: Text(
-                  "Pick-up",
+                  "Services",
                   style: TextStyle(
                     fontFamily: 'DMSans',
                     fontSize: 14,
@@ -271,3 +271,68 @@ class _InventaryTabViewState extends State<InventaryTabView> {
         ),
       );
 }
+
+// DraggableScrollableSheet(
+//               maxChildSize: 0.3,
+//               initialChildSize: 0.18,
+//               minChildSize: 0.1,
+//               builder: (BuildContext context, ScrollController controller) {
+//                 return Container(
+//                   height: double.infinity,
+//                   decoration: BoxDecoration(
+//                       color: UIData.kblack,
+//                       borderRadius: BorderRadius.only(
+//                           topLeft: Radius.circular(20),
+//                           topRight: Radius.circular(20))),
+//                   child: Padding(
+//                     padding:
+//                         const EdgeInsets.only(top: 18.0, left: 24, right: 24),
+//                     child: ListView(
+//                         controller: controller,
+//                         scrollDirection: Axis.vertical,
+//                         children: [
+//                           Column(
+//                             crossAxisAlignment: CrossAxisAlignment.center,
+//                             children: [
+//                               customDescriptionText("drag up",
+//                                   colors: Colors.white,
+//                                   fontSize: 10,
+//                                   fontWeight: FontWeight.normal),
+//                               SizedBox(
+//                                 height: getProportionateScreenHeight(5),
+//                               ),
+//                               Container(
+//                                 height: 5,
+//                                 width: getProportionateScreenWidth(35),
+//                                 decoration: BoxDecoration(
+//                                   color: Color(0XFFFFFFFF).withOpacity(0.1),
+//                                   borderRadius: BorderRadius.circular(10),
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                           SizedBox(
+//                             height: getProportionateScreenHeight(10),
+//                           ),
+//                           customTitleText("Rate your Order",
+//                               colors: Colors.white),
+//                           SizedBox(
+//                             height: getProportionateScreenHeight(10),
+//                           ),
+//                           Column(
+//                             children: [
+//                               Rating(
+//                                 widget.order,
+//                                 (rating) {
+//                                   setState(() {
+//                                     rating = rating;
+//                                   });
+//                                 },
+//                                 5,
+//                               ),
+//                             ],
+//                           )
+//                         ]),
+//                   ),
+//                 );
+//               })
