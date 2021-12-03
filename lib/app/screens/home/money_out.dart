@@ -2,6 +2,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
+import 'package:intl/intl.dart';
 
 import '../../../colors.dart';
 
@@ -13,12 +14,62 @@ class MoneyOut extends StatefulWidget {
 }
 
 class _MoneyOutState extends State<MoneyOut> {
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController timeController = TextEditingController();
+  final TextEditingController contactMail = TextEditingController();
+
+  @override
+  void initState() {
+    dateController.text =
+        DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
+    super.initState();
+  }
+
   final payments = ['Select payment mode', 'item1', 'item2'];
   String? value;
   int selectedValue = 0;
   String countryFlag = "NG";
   String countryCode = "234";
+  String am = 'AM';
+  String pm = "PM";
   bool sValue = true;
+  DateTime? date;
+  TimeOfDay? time;
+
+  Future pickDate(BuildContext context) async {
+    final initialDate = DateTime.now();
+    final newDate = await showDatePicker(
+      context: context,
+      initialDate: date ?? initialDate,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime(DateTime.now().year + 5),
+    );
+
+    if (newDate == null) return;
+
+    setState(() {
+      dateController.text = DateFormat("yyyy-MM-dd").format(newDate).toString();
+      print(dateController.text);
+    });
+  }
+
+  Future pickTime(BuildContext context) async {
+    final initialTime = TimeOfDay.now();
+    final newTime = await showTimePicker(
+      context: context,
+      initialTime: time ?? initialTime,
+    );
+
+    if (newTime == null) return;
+
+    setState(() {
+      time = newTime;
+      timeController.text =
+          '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
+      print(timeController.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,8 +216,12 @@ class _MoneyOutState extends State<MoneyOut> {
                   Expanded(
                     child: CustomTextField(
                       label: "Select Date",
-                      prefixIcon: Icon(
-                        Icons.calendar_today,
+                      hint: 'Select Date',
+                      prefixIcon: IconButton(
+                        onPressed: () {
+                          pickDate(context);
+                        },
+                        icon: Icon(Icons.calendar_today),
                         color: Colors.orange,
                       ),
                       validatorText: "Select date is needed",
@@ -176,8 +231,12 @@ class _MoneyOutState extends State<MoneyOut> {
                   Expanded(
                     child: CustomTextField(
                       label: "Select Time",
-                      prefixIcon: Icon(
-                        Icons.lock_clock,
+                      hint: 'Select Time',
+                      prefixIcon: IconButton(
+                        onPressed: () {
+                          pickTime(context);
+                        },
+                        icon: Icon(Icons.lock_clock),
                         color: Colors.orange,
                       ),
                       keyType: TextInputType.phone,
