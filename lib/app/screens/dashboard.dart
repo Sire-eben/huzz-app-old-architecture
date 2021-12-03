@@ -7,6 +7,7 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'home/home.dart';
 import 'invoice.dart';
+import 'more.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -85,7 +86,7 @@ class _DashboardState extends State<Dashboard> {
         return Invoice();
       case 4:
       default:
-        return Container();
+        return More();
     }
   }
 }
