@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/appbinding.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/core/routes/app_router.dart';
 import 'app/screens/splashscreen.dart';
 
@@ -23,7 +24,9 @@ class _HuzzAppState extends State<HuzzApp> {
     return GetMaterialApp(
       initialBinding: AppBinding(),
       theme: ThemeData(
-          fontFamily: 'DMSans', primaryColor: AppColor().backgroundColor),
+          fontFamily: 'DMSans',
+          primaryColor: AppColor().backgroundColor,
+          primarySwatch: Palette.primaryColor),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
       home: SplashScreen(),

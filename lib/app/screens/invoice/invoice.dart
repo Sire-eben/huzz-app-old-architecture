@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/colors.dart';
 
 class Invoice extends StatefulWidget {
@@ -77,6 +79,35 @@ class _InvoiceState extends State<Invoice> {
                                   fontSize: 8,
                                   color: Colors.black,
                                   fontFamily: 'DMSans'),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.02),
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => CreateInvoice());
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal:
+                                        MediaQuery.of(context).size.height *
+                                            0.06),
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: AppColor().backgroundColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Center(
+                                  child: Text(
+                                    'Create Invoice',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontFamily: 'DMSans'),
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),

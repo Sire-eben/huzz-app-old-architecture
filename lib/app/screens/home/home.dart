@@ -677,10 +677,10 @@ class _HomeState extends State<Home> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 8,
+              height: 6,
               width: 100,
               decoration: BoxDecoration(
-                  color: Colors.black, borderRadius: BorderRadius.circular(4)),
+                  color: Colors.black, borderRadius: BorderRadius.circular(10)),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Row(

@@ -8,7 +8,7 @@ class NetworkServiceImpl implements NetworkService {
   Map<String, String> getRequestHeaders({bool? isNotAuthenticated}) {
     Map<String, String> headers = <String, String>{};
     headers['Content-Type'] = 'application/json';
-    // TODO: Add other headers parameters here
+
     if (!isNotAuthenticated!) {
       String token = jsonDecode('token' ?? '');
       headers['Authorization'] = 'Bearer $token';

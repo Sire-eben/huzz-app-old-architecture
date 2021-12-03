@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -816,20 +814,4 @@ class _MoneyOutState extends State<MoneyOut> {
           style: TextStyle(fontSize: 14, fontFamily: 'DMSans'),
         ),
       );
-
-  Future showCountryCode(BuildContext context) async {
-    showCountryPicker(
-      context: context,
-      showPhoneCode:
-          true, // optional. Shows phone code before the country name.
-      onSelect: (Country country) {
-        countryCode = country.toJson()['e164_cc'];
-        countryFlag = country.toJson()['iso2_cc'];
-        country.toJson();
-        setState(() {});
-
-        print('Select country: ${country.toJson()}');
-      },
-    );
-  }
 }
