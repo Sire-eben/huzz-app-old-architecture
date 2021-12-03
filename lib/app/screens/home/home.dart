@@ -555,6 +555,8 @@ class _HomeState extends State<Home> {
                       Container(
                         height: MediaQuery.of(context).size.height * 0.08,
                         width: MediaQuery.of(context).size.width * 0.08,
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * 0.015),
                         decoration: BoxDecoration(
                             color: Color(0xffEF6500), shape: BoxShape.circle),
                         child: SvgPicture.asset('assets/images/debtors.svg'),
