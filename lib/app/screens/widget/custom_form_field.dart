@@ -1,8 +1,9 @@
-import 'package:contact_picker/contact_picker.dart';
+// import 'package:contact_picker/contact_picker.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+// import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:huzz/colors.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -603,8 +604,8 @@ class CustomTextFieldWithImage extends StatefulWidget {
 class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
   String countryFlag = "NG";
   String countryCode = "234";
-  final ContactPicker _contactPicker = new ContactPicker();
-  Contact? _contact;
+  // final ContactPicker _contactPicker = new ContactPicker();
+  // Contact? _contact;
 
   @override
   Widget build(BuildContext context) {
@@ -650,15 +651,15 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                             SizedBox(width: 8),
                             InkWell(
                               onTap: () async {
-                                Contact contact =
-                                    await _contactPicker.selectContact();
-                                setState(() {
-                                  _contact = contact;
-                                  widget.contactPhone!.text =
-                                      _contact!.phoneNumber.number;
-                                  widget.contactName!.text = _contact!.fullName;
-                                  print(contact);
-                                });
+                                // // Contact contact =
+                                // //     await _contactPicker.selectContact();
+                                // // setState(() {
+                                // //   _contact = contact;
+                                // //   widget.contactPhone!.text =
+                                // //       _contact!.phoneNumber.number;
+                                // //   widget.contactName!.text = _contact!.fullName;
+                                // //   print(contact);
+                                // });
                               },
                               child: Container(
                                   margin: EdgeInsets.only(top: 5),
@@ -962,8 +963,8 @@ class _CustomTextFieldWithImageTransactionState
     extends State<CustomTextFieldWithImageTransaction> {
   String countryFlag = "NG";
   String countryCode = "234";
-  final ContactPicker _contactPicker = new ContactPicker();
-  Contact? _contact;
+  // final ContactPicker _contactPicker = new ContactPicker();
+  // Contact? _contact;
 
   @override
   Widget build(BuildContext context) {
@@ -1006,15 +1007,15 @@ class _CustomTextFieldWithImageTransactionState
                         SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
-                            Contact contact =
-                                await _contactPicker.selectContact();
-                            setState(() {
-                              _contact = contact;
-                              widget.contactPhone!.text =
-                                  _contact!.phoneNumber.number;
-                              widget.contactName!.text = _contact!.fullName;
-                              print(contact);
-                            });
+                            // Contact contact =
+                            //     await _contactPicker.selectContact();
+                            // setState(() {
+                            //   _contact = contact;
+                            //   widget.contactPhone!.text =
+                            //       _contact!.phoneNumber.number;
+                            //   widget.contactName!.text = _contact!.fullName;
+                            //   print(contact);
+                            // });
                           },
                           child: Container(
                               margin: EdgeInsets.only(top: 5),
@@ -1308,8 +1309,8 @@ class CustomTextFieldInvoice extends StatefulWidget {
 class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
   String countryFlag = "NG";
   String countryCode = "234";
-  final ContactPicker _contactPicker = new ContactPicker();
-  Contact? _contact;
+  // final ContactPicker _contactPicker = new ContactPicker();
+  // Contact? _contact;
 
   @override
   Widget build(BuildContext context) {
@@ -1345,15 +1346,15 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
-                            Contact contact =
-                                await _contactPicker.selectContact();
-                            setState(() {
-                              _contact = contact;
-                              widget.contactPhone!.text =
-                                  _contact!.phoneNumber.number;
-                              widget.contactName!.text = _contact!.fullName;
-                              print(contact);
-                            });
+                            // Contact contact =
+                            //     await _contactPicker.selectContact();
+                            // setState(() {
+                            //   _contact = contact;
+                            //   widget.contactPhone!.text =
+                            //       _contact!.phoneNumber.number;
+                            //   widget.contactName!.text = _contact!.fullName;
+                            //   print(contact);
+                            // });
                           },
                           child: Container(
                               margin: EdgeInsets.only(top: 5),
