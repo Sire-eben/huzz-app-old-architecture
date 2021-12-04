@@ -64,7 +64,6 @@ class _SendOtpState extends State<SendOtp> {
                           border: Border(
                               right: BorderSide(
                                   color: AppColor().backgroundColor, width: 2)),
-                          // borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20))
                         ),
                         height: 50,
                         width: 80,

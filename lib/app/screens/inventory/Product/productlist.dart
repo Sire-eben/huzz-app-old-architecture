@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
 import 'package:huzz/model/product_model.dart';
 
 import '../../../../colors.dart';
+import 'productdelete.dart';
 
 class ProductListing extends StatefulWidget {
   const ProductListing({Key? key}) : super(key: key);
@@ -19,12 +22,15 @@ class _ProductListingState extends State<ProductListing> {
       backgroundColor: AppColor().whiteColor,
       body: Stack(
         children: [
+          // Product Count
           Positioned(
             top: 30,
             left: 20,
             right: 20,
             child: productCount(context),
           ),
+
+          // Add &  Delete Button
           Positioned(
             top: 210,
             left: 20,
@@ -41,33 +47,49 @@ class _ProductListingState extends State<ProductListing> {
                   ),
                 ),
                 Spacer(),
-                Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    color: AppColor().lightbackgroundColor,
-                    shape: BoxShape.circle,
+                InkWell(
+                  onTap: () => showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) => buildAddProduct(),
                   ),
-                  child: Icon(
-                    Icons.add,
-                    size: 20,
-                    color: AppColor().backgroundColor,
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColor().lightbackgroundColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.add,
+                      size: 20,
+                      color: AppColor().backgroundColor,
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: 5,
                 ),
-                Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    color: AppColor().lightbackgroundColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.delete_outline_outlined,
-                    size: 20,
-                    color: AppColor().backgroundColor,
+                InkWell(
+                  onTap: () {
+                    Get.to(BuildDeleteProduct());
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColor().lightbackgroundColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.delete_outline_outlined,
+                      size: 20,
+                      color: AppColor().backgroundColor,
+                    ),
                   ),
                 ),
               ],
@@ -282,6 +304,273 @@ class _ProductListingState extends State<ProductListing> {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ],
+        ),
+      );
+  Widget buildAddProduct() => Container(
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.07,
+            right: MediaQuery.of(context).size.width * 0.07,
+            bottom: MediaQuery.of(context).size.width * 0.05,
+            top: MediaQuery.of(context).size.width * 0.02),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                height: 3,
+                width: 70,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Add stock',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: 'DMSans',
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Color(0xffE6F4F2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.close,
+                    color: AppColor().backgroundColor,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height: 20),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Color(0xffF5F5F5),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Color(0xffC3C3C3),
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/productImage.png',
+                        height: 50,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        height: 80,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Television',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'left: ',
+                                      style: TextStyle(
+                                        color: AppColor().blackColor,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                    Text(
+                                      '7',
+                                      style: TextStyle(
+                                        color: AppColor().orangeBorderColor,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 150,
+                                ),
+                                Text(
+                                  'N20,000',
+                                  style: TextStyle(
+                                    color: AppColor().blackColor,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                )
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 50,
+                  margin: EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Quantity',
+                        style: TextStyle(color: Colors.black, fontSize: 12),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 5),
+                        child: Text(
+                          "*",
+                          style: TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: AppColor().backgroundColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    size: 18,
+                    color: AppColor().whiteColor,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  width: 120,
+                  child: TextFormField(
+                    controller: textEditingController,
+                    textInputAction: TextInputAction.none,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColor().backgroundColor, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColor().backgroundColor, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColor().backgroundColor, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      // labelText: label,
+                      hintText: 'N 0.00',
+                      hintStyle:
+                          Theme.of(context).textTheme.headline4!.copyWith(
+                                fontFamily: 'DMSans',
+                                color: Colors.black26,
+                                fontSize: 14,
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.normal,
+                              ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: AppColor().backgroundColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    size: 18,
+                    color: AppColor().whiteColor,
+                  ),
+                ),
+              ],
+            ),
+            Spacer(),
+            InkWell(
+              onTap: () {
+                Get.to(ServiceListing());
+              },
+              child: Container(
+                height: 55,
+                margin: EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                decoration: BoxDecoration(
+                    color: AppColor().backgroundColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Center(
+                  child: Text(
+                    'Save',
+                    style: TextStyle(
+                      color: AppColor().whiteColor,
+                      fontFamily: 'DMSans',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

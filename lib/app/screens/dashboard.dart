@@ -41,7 +41,7 @@ class _DashboardState extends State<Dashboard> {
           BottomNavyBarItem(
               icon: Icon(Icons.inventory),
               title: Text('Inventory'),
-              activeColor: AppColor().blueColor,
+              activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.home),

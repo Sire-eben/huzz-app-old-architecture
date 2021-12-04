@@ -133,8 +133,6 @@ class _AddProductState extends State<AddProduct> {
                       Container(
                         margin: EdgeInsets.only(left: 20, right: 20, top: 10),
                         child: TextFormField(
-                          // onChanged: this.onChanged,
-                          // maxLength: 6,
                           controller: textEditingController,
                           textInputAction: TextInputAction.none,
                           decoration: InputDecoration(

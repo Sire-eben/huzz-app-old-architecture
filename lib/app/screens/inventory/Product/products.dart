@@ -42,7 +42,7 @@ class _ProductsState extends State<Products> {
                 Image.asset(
                   'assets/images/Group 3625.png',
                   height: 50,
-                  color: Color(0xff0065D3),
+                  color: AppColor().backgroundColor,
                 ),
                 SizedBox(
                   height: 10,
@@ -97,7 +97,7 @@ class _ProductsState extends State<Products> {
                 vertical: 15,
               ),
               decoration: BoxDecoration(
-                color: Color(0xff0065D3),
+                color: AppColor().backgroundColor,
                 borderRadius: BorderRadius.circular(25),
               ),
               child: Row(

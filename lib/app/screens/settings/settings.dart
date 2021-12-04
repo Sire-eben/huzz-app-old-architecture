@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
 
+import 'notification.dart';
 import 'personalInfo.dart';
 
 class Settings extends StatelessWidget {
@@ -241,7 +243,7 @@ class Settings extends StatelessWidget {
                       Spacer(),
                       GestureDetector(
                         onTap: () {
-                          Get.to(PersonalInfo());
+                          Get.to(BusinessInfo());
                         },
                         child: Container(
                           height: 30,
@@ -331,20 +333,25 @@ class Settings extends StatelessWidget {
                         ),
                       ),
                       Spacer(),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: AppColor().whiteColor,
-                          border: Border.all(
-                            width: 2,
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(NotificationSettings());
+                        },
+                        child: Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
                             color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().whiteColor,
+                            ),
+                            shape: BoxShape.circle,
                           ),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Image.asset(
-                          "assets/images/settings.png",
-                          scale: 0.9,
+                          child: Image.asset(
+                            "assets/images/settings.png",
+                            scale: 0.9,
+                          ),
                         ),
                       ),
                     ],
@@ -402,7 +409,9 @@ class Settings extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.back();
+                      },
                       child: Container(
                         height: 45,
                         width: 100,

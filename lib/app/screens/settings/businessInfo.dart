@@ -9,18 +9,28 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../colors.dart';
 
-class PersonalInfo extends StatefulWidget {
-  PersonalInfo({Key? key});
+class BusinessInfo extends StatefulWidget {
+  BusinessInfo({Key? key});
 
   @override
-  _PersonalInfoState createState() => _PersonalInfoState();
+  _BusinessInfoState createState() => _BusinessInfoState();
 }
 
-class _PersonalInfoState extends State<PersonalInfo> {
+class _BusinessInfoState extends State<BusinessInfo> {
   final TextEditingController textEditingController = TextEditingController();
   String countryFlag = "NG";
   String countryCode = "234";
 
+  final items = [
+    'Box',
+    'feet',
+    'kilogram',
+    'meters',
+  ];
+
+  String? value;
+
+  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
@@ -50,7 +60,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           ),
         ),
         title: Text(
-          "Add Product",
+          "Business account settings",
           style: TextStyle(
             color: AppColor().backgroundColor,
             fontSize: 18,
@@ -63,13 +73,32 @@ class _PersonalInfoState extends State<PersonalInfo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomTextField(
-              label: "First Name",
-              validatorText: "First name is needed",
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/Group 3647.png',
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Center(
+              child: Text(
+                "Business Logo",
+                style: TextStyle(
+                  color: AppColor().blackColor,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             CustomTextField(
-              label: "Last Name",
-              validatorText: "Last name is needed",
+              label: "Business Name",
+              validatorText: "Business name is needed",
             ),
             Container(
               child: Column(
@@ -101,30 +130,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               ),
                             ),
                           ],
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _displayDialog(context);
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                child: Image.asset(
-                                  'assets/images/pen.png',
-                                  scale: 1.2,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Change',
-                                style: TextStyle(
-                                    color: AppColor().backgroundColor,
-                                    fontSize: 12),
-                              ),
-                            ],
-                          ),
                         ),
                       ],
                     ),
@@ -216,36 +221,107 @@ class _PersonalInfoState extends State<PersonalInfo> {
               label: "Email",
               validatorText: "Email required",
             ),
+            CustomTextField(
+              label: "Address",
+              validatorText: "Address is needed",
+            ),
             SizedBox(
-              height: 20,
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Currency',
+                style: TextStyle(color: Colors.black, fontSize: 12),
+              ),
+            ),
+            SizedBox(
+              height: 10,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Stack(
+              width: MediaQuery.of(context).size.width * 1,
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              margin: EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(width: 2, color: AppColor().backgroundColor),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: value,
+                  focusColor: AppColor().whiteColor,
+                  icon: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: AppColor().backgroundColor,
+                  ),
+                  iconSize: 30,
+                  items: items.map(buildMenuItem).toList(),
+                  onChanged: (value) => setState(() => this.value = value),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset('assets/images/dottedline.png'),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 15),
+                  Row(
+                    children: [
+                      Text(
+                        'Bank Accounts',
+                        style: TextStyle(color: Colors.black, fontSize: 12),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () => showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20))),
+                        context: context,
+                        builder: (context) => addBusiness()),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset('assets/images/imageicon.png'),
+                        Container(
+                          child: Image.asset(
+                            'assets/images/Group 3890.png',
+                            scale: 1.2,
+                          ),
+                        ),
                         SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Text(
-                          'Add signature image (Optional)',
+                          'Add Bank Account',
                           style: TextStyle(
-                            color: AppColor().hintColor.withOpacity(0.5),
-                            fontFamily: 'DMSans',
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
+                              color: AppColor().backgroundColor, fontSize: 12),
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Center(
+              child: Text(
+                'No bank account has been added yet',
+                style: TextStyle(
+                  color: AppColor().hintColor,
+                  fontSize: 10,
+                ),
               ),
             ),
             Spacer(),
@@ -282,6 +358,142 @@ class _PersonalInfoState extends State<PersonalInfo> {
     );
   }
 
+  Widget addBusiness() => Container(
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+            bottom: MediaQuery.of(context).size.width * 0.04,
+            top: MediaQuery.of(context).size.width * 0.02),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                height: 3,
+                width: 70,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Color(0xffE6F4F2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.close,
+                    color: AppColor().backgroundColor,
+                  ),
+                )
+              ],
+            ),
+            Text(
+              'Add Bank Account',
+              style: TextStyle(
+                color: AppColor().blackColor,
+                fontFamily: 'DMSans',
+                fontSize: 20,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            SizedBox(height: 10),
+            CustomTextField(
+              label: "Account Number ",
+              validatorText: "Account Number required",
+            ),
+            CustomTextField(
+              label: "Account holder Name",
+              validatorText: "Account holder Name required",
+            ),
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Bank Name',
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 5),
+                            child: Text(
+                              "*",
+                              style: TextStyle(color: Colors.red, fontSize: 12),
+                            ),
+                          ),
+                        ],
+                      )),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 1,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          width: 2, color: AppColor().backgroundColor),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: value,
+                        focusColor: AppColor().whiteColor,
+                        icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: AppColor().backgroundColor,
+                        ),
+                        iconSize: 30,
+                        items: items.map(buildMenuItem).toList(),
+                        onChanged: (value) =>
+                            setState(() => this.value = value),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            Container(
+              height: 55,
+              margin: EdgeInsets.symmetric(
+                horizontal: 15,
+              ),
+              decoration: BoxDecoration(
+                  color: AppColor().backgroundColor,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                child: Text(
+                  'Add Bank Account',
+                  style: TextStyle(
+                    color: AppColor().whiteColor,
+                    fontFamily: 'DMSans',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
   _displayDialog(BuildContext context) async {
     return showDialog(
         context: context,
@@ -716,4 +928,25 @@ class _PersonalInfoState extends State<PersonalInfo> {
           );
         });
   }
+
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+        value: item,
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: Color(0xffCFD1D2),
+            ),
+            borderRadius: BorderRadius.circular(10),
+            color: Color(0xffDCF2EF),
+          ),
+          child: Center(
+            child: Text(
+              item,
+              style: TextStyle(fontSize: 14),
+            ),
+          ),
+        ),
+      );
 }
