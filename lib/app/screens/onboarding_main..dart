@@ -14,7 +14,7 @@ class OnboardingMain extends StatefulWidget {
 class _OnboardingMainState extends State<OnboardingMain> {
   int selectedIndex = 0;
   List<OnBoardingModel> boards = OnBoardingModel.values;
-  final _authController=Get.find<AuthRepository>();
+  final _authController = Get.find<AuthRepository>();
   double progress = 14;
 
   @override

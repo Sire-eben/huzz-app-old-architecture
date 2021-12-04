@@ -6,7 +6,8 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/customer_model.dart';
 
 class Customers extends StatefulWidget {
-  const Customers({Key? key}) : super(key: key);
+  final String? pageName;
+  const Customers({Key? key, @required this.pageName}) : super(key: key);
 
   @override
   _CustomersState createState() => _CustomersState();

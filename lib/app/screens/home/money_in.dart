@@ -1,10 +1,15 @@
+import 'dart:io';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_picker/country_picker.dart';
-import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/home/income_success.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class MoneyIn extends StatefulWidget {
   const MoneyIn({Key? key}) : super(key: key);
@@ -14,12 +19,98 @@ class MoneyIn extends StatefulWidget {
 }
 
 class _MoneyInState extends State<MoneyIn> {
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController timeController = TextEditingController();
+  final TextEditingController contactName = TextEditingController();
+  final TextEditingController contactPhone = TextEditingController();
+  final TextEditingController contactMail = TextEditingController();
+
+  @override
+  void initState() {
+    dateController.text =
+        DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
+    super.initState();
+  }
+
   final payments = ['Select payment mode', 'item1', 'item2'];
   String? value;
   int selectedValue = 0;
+  int customerType = 0;
   String countryFlag = "NG";
   String countryCode = "234";
-  bool sValue = true;
+  String am = 'AM';
+  String pm = "PM";
+  bool addCustomer = false;
+  DateTime? date;
+  TimeOfDay? time;
+  File? image;
+
+  Future pickImageFromGallery() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      print(imageTemporary);
+      setState(
+        () {
+          this.image = imageTemporary;
+        },
+      );
+    } on PlatformException catch (e) {
+      print('$e');
+    }
+  }
+
+  Future pickImageFromCamera() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      print(imageTemporary);
+      setState(
+        () {
+          this.image = imageTemporary;
+        },
+      );
+    } on PlatformException catch (e) {
+      print('$e');
+    }
+  }
+
+  Future pickDate(BuildContext context) async {
+    final initialDate = DateTime.now();
+    final newDate = await showDatePicker(
+      context: context,
+      initialDate: date ?? initialDate,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime(DateTime.now().year + 5),
+    );
+
+    if (newDate == null) return;
+
+    setState(() {
+      dateController.text = DateFormat("yyyy-MM-dd").format(newDate).toString();
+      print(dateController.text);
+    });
+  }
+
+  Future pickTime(BuildContext context) async {
+    final initialTime = TimeOfDay.now();
+    final newTime = await showTimePicker(
+      context: context,
+      initialTime: time ?? initialTime,
+    );
+
+    if (newTime == null) return;
+
+    setState(() {
+      time = newTime;
+      timeController.text =
+          '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
+      print(timeController.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,31 +200,93 @@ class _MoneyInState extends State<MoneyIn> {
                   ],
                 ),
               ),
-              CustomTextField(
-                label: "Item Name",
-                validatorText: "Item name is needed",
-                hint: 'E.g. Television',
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      label: "Amount",
-                      hint: 'N 0.00',
-                      validatorText: "Amount name is needed",
-                      keyType: TextInputType.phone,
+              selectedValue == 1
+                  ? Column(
+                      children: [
+                        CustomTextField(
+                          label: "Item Name",
+                          validatorText: "Item name is needed",
+                          hint: 'E.g. Television',
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomTextField(
+                                label: "Amount",
+                                hint: 'N 0.00',
+                                validatorText: "Amount name is needed",
+                                keyType: TextInputType.phone,
+                              ),
+                            ),
+                            Expanded(
+                              child: CustomTextField(
+                                label: "Quantity",
+                                hint: '4',
+                                keyType: TextInputType.phone,
+                                validatorText: "Quantity name is needed",
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  : Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'Select Customer',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontFamily: 'DMSans'),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                "*",
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                    fontFamily: 'DMSans'),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    width: 2,
+                                    color: AppColor().backgroundColor)),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: value,
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: AppColor().backgroundColor,
+                                ),
+                                iconSize: 30,
+                                items: payments.map(buildPaymentItem).toList(),
+                                onChanged: (value) =>
+                                    setState(() => this.value = value),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: CustomTextField(
-                      label: "Quantity",
-                      hint: '4',
-                      keyType: TextInputType.phone,
-                      validatorText: "Quantity name is needed",
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -142,7 +295,9 @@ class _MoneyInState extends State<MoneyIn> {
                   height: MediaQuery.of(context).size.height * 0.055,
                   width: MediaQuery.of(context).size.width * 0.35,
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: selectedValue == 1
+                          ? AppColor().backgroundColor
+                          : AppColor().backgroundColor.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(45)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -165,9 +320,14 @@ class _MoneyInState extends State<MoneyIn> {
                 children: [
                   Expanded(
                     child: CustomTextField(
+                      textEditingController: dateController,
                       label: "Select Date",
-                      prefixIcon: Icon(
-                        Icons.calendar_today,
+                      hint: 'Select Date',
+                      prefixIcon: IconButton(
+                        onPressed: () {
+                          pickDate(context);
+                        },
+                        icon: Icon(Icons.calendar_today),
                         color: Colors.orange,
                       ),
                       validatorText: "Select date is needed",
@@ -176,9 +336,14 @@ class _MoneyInState extends State<MoneyIn> {
                   ),
                   Expanded(
                     child: CustomTextField(
+                      textEditingController: timeController,
                       label: "Select Time",
-                      prefixIcon: Icon(
-                        Icons.lock_clock,
+                      hint: 'Select Time',
+                      prefixIcon: IconButton(
+                        onPressed: () {
+                          pickTime(context);
+                        },
+                        icon: Icon(Icons.lock_clock),
                         color: Colors.orange,
                       ),
                       keyType: TextInputType.phone,
@@ -302,30 +467,110 @@ class _MoneyInState extends State<MoneyIn> {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.08,
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 2, color: AppColor().backgroundColor)),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/image.png',
-                        height: 40,
+                child: InkWell(
+                  onTap: () {
+                    Get.bottomSheet(Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(16.0),
+                            topRight: Radius.circular(16.0)),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text(
-                        'Add any supporting image (Optional)',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'DMSans'),
-                      )
-                    ],
+                      child: Wrap(
+                        alignment: WrapAlignment.end,
+                        crossAxisAlignment: WrapCrossAlignment.end,
+                        children: [
+                          ListTile(
+                            leading: Icon(
+                              Icons.camera,
+                              color: AppColor().backgroundColor,
+                            ),
+                            title: Text('Camera'),
+                            onTap: () {
+                              Get.back();
+                              pickImageFromCamera();
+                            },
+                          ),
+                          ListTile(
+                            leading: Icon(
+                              Icons.image,
+                              color: AppColor().backgroundColor,
+                            ),
+                            title: Text('Gallery'),
+                            onTap: () {
+                              Get.back();
+                              pickImageFromGallery();
+                            },
+                          ),
+                        ],
+                      ),
+                    ));
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    decoration: BoxDecoration(
+                        color: image != null
+                            ? AppColor().backgroundColor.withOpacity(0.2)
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: image != null
+                            ? null
+                            : Border.all(
+                                width: 2, color: AppColor().backgroundColor)),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              child: Image.asset(
+                                'assets/images/image.png',
+                                height: 40,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 6,
+                          child: AutoSizeText(
+                            image != null
+                                ? image!.path.toString()
+                                : 'Add any supporting image (Optional)',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color:
+                                    image != null ? Colors.black : Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'DMSans'),
+                          ),
+                        ),
+                        image != null
+                            ? Expanded(
+                                child: SvgPicture.asset(
+                                  'assets/images/edit.svg',
+                                ),
+                              )
+                            : Container(),
+                        image != null
+                            ? Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      image = null;
+                                    });
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/images/delete.svg',
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -339,118 +584,149 @@ class _MoneyInState extends State<MoneyIn> {
                     Text(
                       'Add Customer',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: addCustomer == true
+                              ? AppColor().backgroundColor
+                              : Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'DMSans'),
                     ),
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
-                        value: sValue,
+                        value: addCustomer,
                         onChanged: (newValue) =>
-                            setState(() => this.sValue = newValue))
+                            setState(() => this.addCustomer = newValue))
                   ],
                 ),
               ),
-              CustomTextField(
-                label: "Customer's Name",
-                validatorText: "Item name is needed",
-                hint: 'Enter your customer`s name',
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Container(
-                margin: EdgeInsets.only(
-                  left: 20,
-                ),
-                child: Text(
-                  "Phone Number",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'DMSans'),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 20, right: 20),
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border:
-                      Border.all(color: AppColor().backgroundColor, width: 2.0),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        showCountryCode(context);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                              right: BorderSide(
-                                  color: AppColor().backgroundColor, width: 2)),
-                        ),
-                        height: 50,
-                        width: 80,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(width: 10),
-                            Flag.fromString(countryFlag, height: 30, width: 30),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down,
-                              size: 24,
-                              color:
-                                  AppColor().backgroundColor.withOpacity(0.5),
-                            )
-                          ],
-                        ),
+              addCustomer == true
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () => setState(() => customerType = 1),
+                                child: Row(
+                                  children: [
+                                    Radio<int>(
+                                        value: 1,
+                                        activeColor: AppColor().backgroundColor,
+                                        groupValue: customerType,
+                                        onChanged: (value) =>
+                                            setState(() => customerType = 1)),
+                                    Text(
+                                      'New Customer',
+                                      style: TextStyle(
+                                        color: AppColor().backgroundColor,
+                                        fontFamily: "DMSans",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () => setState(() => customerType = 0),
+                                child: Row(
+                                  children: [
+                                    Radio<int>(
+                                        value: 0,
+                                        activeColor: AppColor().backgroundColor,
+                                        groupValue: customerType,
+                                        onChanged: (value) =>
+                                            setState(() => customerType = 0)),
+                                    Text(
+                                      'Existing Customer',
+                                      style: TextStyle(
+                                        color: AppColor().backgroundColor,
+                                        fontFamily: "DMSans",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          customerType == 1
+                              ? CustomTextFieldWithImageTransaction(
+                                  contactName: contactName,
+                                  contactPhone: contactPhone,
+                                  contactMail: contactMail,
+                                  label: "Customer name",
+                                  validatorText: "Customer name is needed",
+                                  hint: 'customer name',
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Select Customer',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontFamily: 'DMSans'),
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          "*",
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 12,
+                                              fontFamily: 'DMSans'),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 4),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                              width: 2,
+                                              color:
+                                                  AppColor().backgroundColor)),
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton<String>(
+                                          value: value,
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down,
+                                            color: AppColor().backgroundColor,
+                                          ),
+                                          iconSize: 30,
+                                          items: payments
+                                              .map(buildPaymentItem)
+                                              .toList(),
+                                          onChanged: (value) => setState(
+                                              () => this.value = value),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "9034678966",
-                            hintStyle: TextStyle(
-                                color: Colors.black.withOpacity(0.5),
-                                fontSize: 14,
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.w500),
-                            prefixText: "+$countryCode ",
-                            prefixStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'DMSans',
-                                color: Colors.black)),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                  ],
-                ),
-              ),
-              CustomTextField(
-                label: "Email",
-                validatorText: "Item name is needed",
-                hint: 'yourmail@mail.com',
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    )
+                  : Container(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.04),
               InkWell(
                 onTap: () {
                   Get.to(() => IncomeSuccess());
