@@ -192,6 +192,7 @@ Obx(()
     countryCode=country.toJson()['e164_cc'];
     countryFlag=country.toJson()['iso2_cc'];
   _authController.countryText=countryCode;
+  _authController.countryCodeFLag=countryFlag;
     country.toJson();
     setState(() {
       
@@ -209,6 +210,7 @@ Obx(()
       onSelect: (Country country) {
         countryCode = country.toJson()['e164_cc'];
         countryFlag = country.toJson()['iso2_cc'];
+       
         country.toJson();
         setState(() {});
 

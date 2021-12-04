@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:country_currency_pickers/utils/utils.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 
 import 'inventory/manage_inventory.dart';
 
@@ -18,6 +18,7 @@ class Signin extends StatefulWidget {
 }
 
 class _SiginState extends State<Signin> {
+  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
   String countryFlag="NG";
@@ -323,9 +324,7 @@ final _authController=Get.find<AuthRepository>();
                 );
               }
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-            )
+            SizedBox(height: 100,)
           ],
         ),
       ),
@@ -341,6 +340,8 @@ final _authController=Get.find<AuthRepository>();
         countryCode = country.toJson()['e164_cc'];
         countryFlag = country.toJson()['iso2_cc'];
         country.toJson();
+         final currency=CountryPickerUtils.getCountryByIsoCode(countryFlag).currencyCode.toString();
+         print("currency of country is $currency");
         setState(() {});
 
         print('Select country: ${country.toJson()}');

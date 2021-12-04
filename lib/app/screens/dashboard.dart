@@ -1,9 +1,14 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:huzz/app/screens/users%20screen/home.dart';
+import 'package:huzz/app/screens/inventory.dart';
+import 'package:huzz/app/screens/invoice/invoice.dart';
+import 'package:huzz/app/screens/customers/customer_tabView.dart';
+import 'package:huzz/app/screens/users%20screen/inventry.dart';
 import 'package:huzz/colors.dart';
-import 'users screen/team.dart';
-import 'users screen/inventry.dart';
+import 'package:huzz/core/constants/app_themes.dart';
+import 'home/home.dart';
+import 'invoice/invoice.dart';
+import 'more.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -13,92 +18,76 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  late List<Widget> _screens;
-
-  @override
-  void initState() {
-    _screens = [
-      //teams
-      Teams(),
-
-      //inventry
-      InventaryTabView(),
-
-      //home
-      HomePage(),
-
-      //invoice
-      //Invoice(),
-      InventaryTabView(),
-
-      //more
-      //More(),
-      InventaryTabView(),
-    ];
-    super.initState();
-  }
-
-  int _selectedIndex = 2;
-  // ignore: unused_element
-  void _selectPage(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  int index = 2;
 
   final inactiveColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _selectedIndex, children: _screens),
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: Color(0xffC3C3C3).withOpacity(0.3),
-            width: 2,
-          ),
-        ),
-        child: BottomNavyBar(
-          backgroundColor: Color(0xffF5F5F5),
-          selectedIndex: _selectedIndex,
-          items: <BottomNavyBarItem>[
-            BottomNavyBarItem(
-                textAlign: TextAlign.center,
-                icon: Icon(Icons.people),
-                title: Text('Teams'),
-                activeColor: AppColor().backgroundColor,
-                inactiveColor: inactiveColor),
-            BottomNavyBarItem(
-                textAlign: TextAlign.center,
-                icon: Icon(Icons.inventory),
-                title: Text('Inventory'),
-                activeColor: AppColor().backgroundColor,
-                inactiveColor: inactiveColor),
-            BottomNavyBarItem(
-                textAlign: TextAlign.center,
-                icon: Icon(Icons.home),
-                title: Text('Home'),
-                activeColor: AppColor().backgroundColor,
-                inactiveColor: inactiveColor),
-            BottomNavyBarItem(
-                textAlign: TextAlign.center,
-                icon: Icon(Icons.receipt),
-                title: Text('Invoice'),
-                activeColor: AppColor().backgroundColor,
-                inactiveColor: inactiveColor),
-            BottomNavyBarItem(
-                textAlign: TextAlign.center,
-                icon: Icon(Icons.dashboard),
-                title: Text('More'),
-                activeColor: AppColor().backgroundColor,
-                inactiveColor: inactiveColor)
-          ],
-          onItemSelected: (index) =>
-              setState(() => this._selectedIndex = index),
-        ),
+      body: buildPages(),
+      bottomNavigationBar: BottomNavyBar(
+        showElevation: false,
+        selectedIndex: index,
+        items: <BottomNavyBarItem>[
+          BottomNavyBarItem(
+              icon: Icon(Icons.people),
+              title: Text(
+                'Customers',
+                style: AppThemes.style12PriBold,
+              ),
+              activeColor: AppColor().backgroundColor,
+              inactiveColor: inactiveColor),
+          BottomNavyBarItem(
+              icon: Icon(Icons.inventory),
+              title: Text(
+                'Inventory',
+                style: AppThemes.style12PriBold,
+              ),
+              activeColor: AppColor().backgroundColor,
+              inactiveColor: inactiveColor),
+          BottomNavyBarItem(
+              icon: Icon(Icons.home),
+              title: Text(
+                'Home',
+                style: AppThemes.style12PriBold,
+              ),
+              activeColor: AppColor().backgroundColor,
+              inactiveColor: inactiveColor),
+          BottomNavyBarItem(
+              icon: Icon(Icons.receipt),
+              title: Text(
+                'Invoice',
+                style: AppThemes.style12PriBold,
+              ),
+              activeColor: AppColor().backgroundColor,
+              inactiveColor: inactiveColor),
+          BottomNavyBarItem(
+              icon: Icon(Icons.dashboard),
+              title: Text(
+                'More',
+                style: AppThemes.style12PriBold,
+              ),
+              activeColor: AppColor().backgroundColor,
+              inactiveColor: inactiveColor)
+        ],
+        onItemSelected: (index) => setState(() => this.index = index),
       ),
     );
+  }
+
+  Widget buildPages() {
+    switch (index) {
+      case 0:
+        return CustomerTabView();
+      case 1:
+        return InventaryTabView();
+      case 2:
+        return Home();
+      case 3:
+        return Invoice();
+      case 4:
+      default:
+        return More();
+    }
   }
 }
