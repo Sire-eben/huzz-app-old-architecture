@@ -3,7 +3,6 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
-import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/colors.dart';
 
 class SendOtp extends StatefulWidget {
@@ -220,28 +219,12 @@ class _SendOtpState extends State<SendOtp> {
       onSelect: (Country country) {
         countryCode = country.toJson()['e164_cc'];
         countryFlag = country.toJson()['iso2_cc'];
-        _authController.countryText = countryCode;
+
         country.toJson();
         setState(() {});
 
         print('Select country: ${country.toJson()}');
       },
     );
-
-    Future showCountryCode(BuildContext context) async {
-      showCountryPicker(
-        context: context,
-        showPhoneCode:
-            true, // optional. Shows phone code before the country name.
-        onSelect: (Country country) {
-          countryCode = country.toJson()['e164_cc'];
-          countryFlag = country.toJson()['iso2_cc'];
-          country.toJson();
-          setState(() {});
-
-          print('Select country: ${country.toJson()}');
-        },
-      );
-    }
   }
 }

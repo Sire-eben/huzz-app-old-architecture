@@ -14,7 +14,7 @@ class OnboardingMain extends StatefulWidget {
 class _OnboardingMainState extends State<OnboardingMain> {
   int selectedIndex = 0;
   List<OnBoardingModel> boards = OnBoardingModel.values;
-  final _authController=Get.find<AuthRepository>();
+  final _authController = Get.find<AuthRepository>();
   double progress = 14;
 
   @override
@@ -72,7 +72,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.2,
-                child: Image.asset(boards[selectedIndex].asset!),
+                child: SvgPicture.asset(boards[selectedIndex].asset!),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
