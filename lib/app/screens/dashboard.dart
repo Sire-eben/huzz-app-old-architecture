@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:huzz/app/screens/inventory.dart';
 import 'package:huzz/app/screens/invoice/invoice.dart';
 import 'package:huzz/app/screens/customers/customer_tabView.dart';
+import 'package:huzz/app/screens/users%20screen/inventry.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'home/home.dart';
@@ -79,7 +80,7 @@ class _DashboardState extends State<Dashboard> {
       case 0:
         return CustomerTabView();
       case 1:
-        return Inventory();
+        return InventaryTabView();
       case 2:
         return Home();
       case 3:

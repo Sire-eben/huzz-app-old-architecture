@@ -18,6 +18,7 @@ class Signin extends StatefulWidget {
 }
 
 class _SiginState extends State<Signin> {
+  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
   String countryFlag="NG";
@@ -323,9 +324,7 @@ final _authController=Get.find<AuthRepository>();
                 );
               }
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-            )
+            SizedBox(height: 100,)
           ],
         ),
       ),
