@@ -138,7 +138,8 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
@@ -149,7 +150,7 @@ class _HomeState extends State<Home> {
                     ),
                     Text(
                       "N${display(_transactionController.totalbalance.value)}",
-                      style: TextStyle(fontSize: 24, color: Colors.white),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -579,6 +580,9 @@ class _HomeState extends State<Home> {
                         children: [
                           SvgPicture.asset(
                               'assets/images/empty_transaction.svg'),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Text(
                             'Record a transaction',
                             style: TextStyle(
@@ -587,17 +591,20 @@ class _HomeState extends State<Home> {
                                 fontFamily: 'DMSans',
                                 fontWeight: FontWeight.bold),
                           ),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Text(
                             'Your recent transactions will show here. Click the',
                             style: TextStyle(
-                                fontSize: 8,
+                                fontSize: 11,
                                 color: Colors.black,
                                 fontFamily: 'DMSans'),
                           ),
                           Text(
                             'Add transaction button to record your first transaction',
                             style: TextStyle(
-                                fontSize: 8,
+                                fontSize: 11,
                                 color: Colors.black,
                                 fontFamily: 'DMSans'),
                           ),
@@ -607,24 +614,6 @@ class _HomeState extends State<Home> {
                   )))
         ],
       ),
-
-      //   floatingActionButton: FloatingActionButton.extended(
-      //     onPressed: () => showModalBottomSheet(
-      //         shape: RoundedRectangleBorder(
-      //             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      //         context: context,
-      //         builder: (context) => buildAddTransaction()),
-      //     icon: Icon(Icons.add),
-      //     backgroundColor: AppColor().backgroundColor,
-      //     label: Text(
-      //       'Add transaction',
-      //       style: TextStyle(
-      //           fontFamily: 'DMSans',
-      //           fontSize: 10,
-      //           color: Colors.white,
-      //           fontWeight: FontWeight.bold),
-      //     ),
-      //   ),
     );
   }
 
@@ -638,8 +627,8 @@ class _HomeState extends State<Home> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 6,
-              width: 100,
+              height: 4,
+              width: 80,
               decoration: BoxDecoration(
                   color: Colors.black, borderRadius: BorderRadius.circular(10)),
             ),
@@ -671,7 +660,7 @@ class _HomeState extends State<Home> {
                               Text(
                                 'Money OUT',
                                 style: TextStyle(
-                                    fontSize: 13, color: Colors.white),
+                                    fontSize: 14, color: Colors.white),
                               ),
                             ],
                           ),
@@ -680,7 +669,7 @@ class _HomeState extends State<Home> {
                                   MediaQuery.of(context).size.height * 0.01),
                           Text(
                             'Click here to record an expense',
-                            style: TextStyle(fontSize: 7, color: Colors.white),
+                            style: TextStyle(fontSize: 10, color: Colors.white),
                           ),
                         ],
                       ),
@@ -713,7 +702,7 @@ class _HomeState extends State<Home> {
                               Text(
                                 'Money IN',
                                 style: TextStyle(
-                                    fontSize: 13, color: Colors.white),
+                                    fontSize: 14, color: Colors.white),
                               ),
                             ],
                           ),
@@ -722,7 +711,7 @@ class _HomeState extends State<Home> {
                                   MediaQuery.of(context).size.height * 0.01),
                           Text(
                             'Click here to record an income',
-                            style: TextStyle(fontSize: 7, color: Colors.white),
+                            style: TextStyle(fontSize: 10, color: Colors.white),
                           ),
                         ],
                       ),

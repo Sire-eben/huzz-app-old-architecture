@@ -37,6 +37,7 @@ class _SiginState extends State<Signin> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -82,7 +83,7 @@ class _SiginState extends State<Signin> {
                   fontWeight: FontWeight.w400),
             )),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.12,
+              height: MediaQuery.of(context).size.height * 0.1,
             ),
             Container(
                 margin: EdgeInsets.only(
@@ -303,9 +304,7 @@ class _SiginState extends State<Signin> {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
+
                             //  Container(padding: EdgeInsets.all(3),
                             //    decoration:BoxDecoration(
                             //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
@@ -318,6 +317,9 @@ class _SiginState extends State<Signin> {
                 ),
               );
             }),
+            SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

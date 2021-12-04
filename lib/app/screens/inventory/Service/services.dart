@@ -69,9 +69,6 @@ class _ServicesState extends State<Services> {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
                 Text(
                   "New Service button to add your first service",
                   style: TextStyle(

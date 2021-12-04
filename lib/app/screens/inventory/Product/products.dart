@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../../colors.dart';
 import 'add_product.dart';
 
@@ -67,9 +68,6 @@ class _ProductsState extends State<Products> {
                     fontSize: 11,
                     fontWeight: FontWeight.normal,
                   ),
-                ),
-                SizedBox(
-                  height: 5,
                 ),
                 Text(
                   "New Product button to add your first product",
