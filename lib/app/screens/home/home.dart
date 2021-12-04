@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
+import 'package:huzz/app/screens/settings/settings.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/transaction_model.dart';
 
@@ -51,9 +52,21 @@ class _HomeState extends State<Home> {
                 Container(
                     child: Row(
                   children: [
-                    Image.asset('assets/images/bell.png'),
+                    Image.asset(
+                      'assets/images/bell.png',
+                      scale: 0.8,
+                    ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                    Image.asset('assets/images/settings.png')
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(Settings());
+                      },
+                      child: Image.asset(
+                        'assets/images/settings.png',
+                        color: AppColor().backgroundColor,
+                        scale: 0.8,
+                      ),
+                    ),
                   ],
                 )),
               ],

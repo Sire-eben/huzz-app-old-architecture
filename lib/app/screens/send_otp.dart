@@ -15,7 +15,6 @@ class _SendOtpState extends State<SendOtp> {
   String countryCode = "234";
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(

@@ -1,22 +1,21 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:huzz/app/screens/home/home.dart';
+import 'package:huzz/app/screens/inventory/productserviceTab.dart';
 import 'package:huzz/app/screens/invoice.dart';
 import 'package:huzz/app/screens/more.dart';
 import 'package:huzz/app/screens/team.dart';
 import 'package:huzz/colors.dart';
 
-import 'home/home.dart';
-import 'inventory/manage_inventory.dart';
-
-class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+class ProServiceDashboard extends StatefulWidget {
+  const ProServiceDashboard({Key? key}) : super(key: key);
 
   @override
-  _DashboardState createState() => _DashboardState();
+  _ProServiceDashboardState createState() => _ProServiceDashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 2;
+class _ProServiceDashboardState extends State<ProServiceDashboard> {
+  int _selectedIndex = 1;
   // ignore: unused_element
   void _selectPage(int index) {
     setState(() {
@@ -41,7 +40,7 @@ class _DashboardState extends State<Dashboard> {
           BottomNavyBarItem(
               icon: Icon(Icons.inventory),
               title: Text('Inventory'),
-              activeColor: AppColor().blueColor,
+              activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.home),
@@ -69,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
       case 0:
         return Team();
       case 1:
-        return ManageInventory();
+        return ProductServiceListing();
       case 2:
         return Home();
       case 3:
