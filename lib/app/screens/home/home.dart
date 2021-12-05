@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
+import 'package:huzz/app/screens/create_business.dart';
 // import 'package:huzz/app/screens/home/add_new_sale.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
@@ -37,6 +38,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      if(_businessController.offlineBusiness.isEmpty){
+
+        Get.off(CreateBusiness());
+      }
       return Scaffold(
         body: (_transactionController.allPaymentItem.isNotEmpty)
             ? TransactionAvailable(context)
@@ -792,9 +797,9 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(4)),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Expanded(
-                // height: 150,
-                // width: MediaQuery.of(context).size.width,
+              Container(
+                height: (_businessController.offlineBusiness.length*50)+20,
+                width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     var item = _businessController.offlineBusiness[index];
@@ -856,6 +861,7 @@ class _HomeState extends State<Home> {
               InkWell(
                 onTap: () {
                   // Get.to(() => AddNewSale());
+                  Get.to(CreateBusiness());
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
