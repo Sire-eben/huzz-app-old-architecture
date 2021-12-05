@@ -87,7 +87,7 @@ class _DebtorsState extends State<Debtors> {
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 0.02),
                           Expanded(
-                            flex: 4,
+                            flex: 5,
                             child: Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,7 +120,7 @@ class _DebtorsState extends State<Debtors> {
                                   Text(
                                     "Bal: ${debtorsList[index].balance!}",
                                     style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: 13,
                                         fontFamily: 'DMSans',
                                         color: AppColor().backgroundColor,
                                         fontWeight: FontWeight.w400),
@@ -128,7 +128,7 @@ class _DebtorsState extends State<Debtors> {
                                   Text(
                                     "Paid: ${debtorsList[index].paid!}",
                                     style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: 11,
                                         fontFamily: 'DMSans',
                                         color: Colors.grey),
                                   ),

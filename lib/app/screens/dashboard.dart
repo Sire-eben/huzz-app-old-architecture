@@ -1,4 +1,5 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huzz/app/screens/more.dart';
 import 'package:huzz/colors.dart';
@@ -35,7 +36,10 @@ class _DashboardState extends State<Dashboard> {
         selectedIndex: _selectedIndex,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              icon: Icon(Icons.people),
+              icon: Icon(
+                CupertinoIcons.person_3_fill,
+                size: 32,
+              ),
               title: Text(
                 'Customers',
                 style: AppThemes.style12PriBold,
