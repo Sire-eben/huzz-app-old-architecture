@@ -1139,30 +1139,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 },
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            InkWell(
-              onTap: () {
-                // Get.to(() => AddNewSale());
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                height: 50,
-                decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Center(
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'DMSans'),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       );
