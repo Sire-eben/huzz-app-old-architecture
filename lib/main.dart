@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/appbinding.dart';
+import 'package:huzz/app/screens/invoice/invoice.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/core/routes/app_router.dart';
+// import 'package:huzz/model/reciept_model.dart';
 import 'app/screens/splashscreen.dart';
 
 void main() {
@@ -29,7 +31,7 @@ class _HuzzAppState extends State<HuzzApp> {
           primarySwatch: Palette.primaryColor),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
-      home: SplashScreen(),
+      home: Invoice(),
     );
   }
 }
