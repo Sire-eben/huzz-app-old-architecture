@@ -11,56 +11,56 @@ class ServiceModel {
 List<ServiceModel> serviceList = [
   ServiceModel(
     amount: 'N20,000',
-    name: 'Television',
+    name: 'Labour',
     image: 'assets/images/productImage.png',
     description:
         'Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to ',
   ),
   ServiceModel(
     amount: 'N4,456',
-    name: 'Washing Machine',
+    name: 'Labour',
     image: 'assets/images/productImage.png',
     description:
         'Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to ',
   ),
   ServiceModel(
     amount: 'N5980',
-    name: 'Kettle',
+    name: 'Labour',
     image: 'assets/images/productImage.png',
     description:
         'Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to ',
   ),
   ServiceModel(
     amount: 'N3,000',
-    name: 'Iron',
+    name: 'Labour',
     image: 'assets/images/productImage.png',
     description:
         'Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to ',
   ),
   ServiceModel(
     amount: 'N3,000',
-    name: 'Iron',
+    name: 'Labour',
     image: 'assets/images/productImage.png',
     description:
         'Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to ',
   ),
   ServiceModel(
     amount: 'N3,000',
-    name: 'Iron',
+    name: 'Labour',
     image: 'assets/images/productImage.png',
     description:
         'Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to ',
   ),
   ServiceModel(
     amount: 'N3,000',
-    name: 'Iron',
+    name: 'Labour',
     image: 'assets/images/productImage.png',
     description:
         'Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to ',
   ),
   ServiceModel(
     amount: 'N3,000',
-    name: 'Iron',
+    name: 'Labour',
     description:
         'Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to ',
   ),

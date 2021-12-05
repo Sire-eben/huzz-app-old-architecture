@@ -20,6 +20,29 @@ class _ServiceListingState extends State<ServiceListing> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor().whiteColor,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColor().backgroundColor,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: Text(
+          '',
+          style: TextStyle(
+            color: AppColor().backgroundColor,
+            fontFamily: 'DMSans',
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+      ),
       body: Stack(
         children: [
           //Service Count
@@ -154,7 +177,7 @@ class _ServiceListingState extends State<ServiceListing> {
               ),
             ),
           ),
-          //ProductList
+          //ServiceList
           Positioned(
             top: 230,
             bottom: 30,
@@ -629,7 +652,7 @@ class _ListingServicesState extends State<ListingServices> {
                         child: Text(
                           widget.item!.description!,
                           style: TextStyle(
-                            color: AppColor().orangeBorderColor,
+                            color: AppColor().blackColor,
                             fontFamily: 'DMSans',
                             fontSize: 9,
                             fontWeight: FontWeight.normal,

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:huzz/app/screens/inventory/Service/services.dart';
+import 'package:get/get.dart';
 
-import '../../../colors.dart';
-import 'Product/products.dart';
+import '../../../../colors.dart';
+import 'debtors.dart';
+import 'debtowned.dart';
 
-class ManageInventory extends StatefulWidget {
-  const ManageInventory({Key? key}) : super(key: key);
+class DebtorsTab extends StatefulWidget {
+  const DebtorsTab({Key? key}) : super(key: key);
 
   @override
-  _ManageInventoryState createState() => _ManageInventoryState();
+  _DebtorsTabState createState() => _DebtorsTabState();
 }
 
-class _ManageInventoryState extends State<ManageInventory> {
+class _DebtorsTabState extends State<DebtorsTab> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -22,8 +23,17 @@ class _ManageInventoryState extends State<ManageInventory> {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColor().backgroundColor,
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          ),
           title: Text(
-            'Manage Inventory',
+            'Debt Management',
             style: TextStyle(
               color: AppColor().backgroundColor,
               fontFamily: 'DMSans',
@@ -74,10 +84,10 @@ class _ManageInventoryState extends State<ManageInventory> {
                   ),
                   tabs: [
                     Tab(
-                      text: 'Products',
+                      text: 'Debtors',
                     ),
                     Tab(
-                      text: 'Services',
+                      text: 'Debts Owed',
                     ),
                   ],
                 ),
@@ -87,8 +97,8 @@ class _ManageInventoryState extends State<ManageInventory> {
         ),
         body: TabBarView(
           children: <Widget>[
-            Products(),
-            Services(),
+            Debtors(),
+            DebtOwned(),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:huzz/app/screens/customers/merchants/merchants.dart';
+
 import '../../../colors.dart';
 import 'customer/customers.dart';
 
@@ -56,23 +57,27 @@ class _CustomerTabViewState extends State<CustomerTabView> {
                         ),
                         SizedBox(width: 4),
                         Tooltip(
-                            padding: EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black38, blurRadius: 10)
-                                ]),
-                            textStyle: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'DMSans',
-                                fontSize: 10,
-                                color: Colors.black),
-                            preferBelow: false,
-                            message:
-                                'Your customers are the\npeople you sell products\nor services to',
-                            child: SvgPicture.asset("assets/images/info.svg"))
+                          padding: EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(color: Colors.black38, blurRadius: 10)
+                              ]),
+                          textStyle: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              color: Colors.black),
+                          preferBelow: false,
+                          message:
+                              'Your customers are the\npeople you sell products\nor services to',
+                          child: SvgPicture.asset(
+                            "assets/images/info.svg",
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 40),

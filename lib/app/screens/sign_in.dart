@@ -9,6 +9,8 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import 'reg_home.dart';
+
 class Signin extends StatefulWidget {
   _SiginState createState() => _SiginState();
 }
@@ -261,16 +263,43 @@ class _SiginState extends State<Signin> {
             SizedBox(
               height: 20,
             ),
-            Center(
-              child: Container(
-                child: Text(
-                  "Forget PIN?",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 120),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      // Get.to();
+                    },
+                    child: Container(
+                      child: Text(
+                        "Forgot PIN?",
+                        style: TextStyle(
+                          color: AppColor().orangeBorderColor,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(RegHome());
+                    },
+                    child: Container(
+                      child: Text(
+                        "Sign up",
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(child: SizedBox()),
