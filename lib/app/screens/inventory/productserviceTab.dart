@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:huzz/app/screens/inventory/Service/services.dart';
 
 import '../../../colors.dart';
-import 'Product/products.dart';
+import 'Product/productlist.dart';
+import 'Service/servicelist.dart';
 
-class ManageInventory extends StatefulWidget {
-  const ManageInventory({Key? key}) : super(key: key);
+class ProductServiceListing extends StatefulWidget {
+  const ProductServiceListing({Key? key}) : super(key: key);
 
   @override
-  _ManageInventoryState createState() => _ManageInventoryState();
+  _ProductServiceListingState createState() => _ProductServiceListingState();
 }
 
-class _ManageInventoryState extends State<ManageInventory> {
+class _ProductServiceListingState extends State<ProductServiceListing> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -19,16 +19,18 @@ class _ManageInventoryState extends State<ManageInventory> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Text(
-            'Manage Inventory',
-            style: TextStyle(
-              color: AppColor().backgroundColor,
-              fontFamily: 'DMSans',
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+          title: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Manage Inventory',
+              style: TextStyle(
+                color: AppColor().backgroundColor,
+                fontFamily: 'DMSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
             ),
           ),
           bottom: PreferredSize(
@@ -70,7 +72,7 @@ class _ManageInventoryState extends State<ManageInventory> {
                       width: 3,
                       color: AppColor().backgroundColor,
                     ),
-                    borderRadius: BorderRadius.circular(2.5),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   tabs: [
                     Tab(
@@ -87,8 +89,8 @@ class _ManageInventoryState extends State<ManageInventory> {
         ),
         body: TabBarView(
           children: <Widget>[
-            Products(),
-            Services(),
+            ProductListing(),
+            ServiceListing(),
           ],
         ),
       ),

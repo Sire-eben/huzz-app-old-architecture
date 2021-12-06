@@ -120,8 +120,8 @@ class CustomTextField extends StatelessWidget {
                     //     fontFamily: FontFamily.sofiaPro,
                     //     fontSize: 14),
                     hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                          // color: AppColors.accentcolor,
-                          // fontFamily: FontFamily.sofiaPro,
+                          color: Colors.black26,
+                          fontFamily: 'DMSans',
                           fontSize: 14,
                           fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.normal,

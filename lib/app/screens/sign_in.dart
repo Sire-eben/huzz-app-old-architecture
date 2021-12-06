@@ -9,9 +9,7 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import 'inventory/manage_inventory.dart';
-
-import 'user_screens/dashboard.dart';
+import 'reg_home.dart';
 
 class Signin extends StatefulWidget {
   _SiginState createState() => _SiginState();
@@ -21,11 +19,11 @@ class _SiginState extends State<Signin> {
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
-  String countryFlag="NG";
-  final _loginKey=GlobalKey<FormState>();
-String countryCode="234";
-final _authController=Get.find<AuthRepository>();
-   void initState() {
+  String countryFlag = "NG";
+  final _loginKey = GlobalKey<FormState>();
+  String countryCode = "234";
+  final _authController = Get.find<AuthRepository>();
+  void initState() {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
@@ -41,6 +39,7 @@ final _authController=Get.find<AuthRepository>();
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -86,7 +85,7 @@ final _authController=Get.find<AuthRepository>();
                   fontWeight: FontWeight.w400),
             )),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.12,
+              height: MediaQuery.of(context).size.height * 0.1,
             ),
             Container(
                 margin: EdgeInsets.only(
@@ -155,7 +154,6 @@ final _authController=Get.find<AuthRepository>();
                       controller: _authController.phoneNumberController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          
                           hintText: "9034678966",
                           hintStyle: TextStyle(
                               color: Colors.black.withOpacity(0.5),
@@ -204,7 +202,6 @@ final _authController=Get.find<AuthRepository>();
                   animationType: AnimationType.fade,
                   controller: _authController.pinController,
                   pinTheme: PinTheme(
-                    
                     inactiveColor: AppColor().backgroundColor,
                     activeColor: AppColor().backgroundColor,
                     selectedColor: AppColor().backgroundColor,
@@ -266,65 +263,92 @@ final _authController=Get.find<AuthRepository>();
             SizedBox(
               height: 20,
             ),
-            Center(
-              child: Container(
-                child: Text(
-                  "Forget PIN?",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 120),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      // Get.to();
+                    },
+                    child: Container(
+                      child: Text(
+                        "Forgot PIN?",
+                        style: TextStyle(
+                          color: AppColor().orangeBorderColor,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(RegHome());
+                    },
+                    child: Container(
+                      child: Text(
+                        "Sign up",
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(child: SizedBox()),
-           Obx(()
-            {
-                return GestureDetector(
-                  onTap: () {
-                   if (_authController.signinStatus!=SigninStatus.Loading)
+            Obx(() {
+              return GestureDetector(
+                onTap: () {
+                  if (_authController.signinStatus != SigninStatus.Loading)
                     _authController.signIn();
-                    
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(left: 50, right: 50),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child:(_authController.signinStatus==SigninStatus.Loading)?
-                    Container(
-                    width: 30,
-                    height: 30,
-                    child:Center(child: CircularProgressIndicator(color: Colors.white)),
-                  )
-                    : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Login',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(left: 50, right: 50),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: (_authController.signinStatus == SigninStatus.Loading)
+                      ? Container(
+                          width: 30,
+                          height: 30,
+                          child: Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white)),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Login',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+
+                            //  Container(padding: EdgeInsets.all(3),
+                            //    decoration:BoxDecoration(
+                            //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
+
+                            //    ),
+                            //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
+                            //  )
+                          ],
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        //  Container(padding: EdgeInsets.all(3),
-                        //    decoration:BoxDecoration(
-                        //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
-            
-                        //    ),
-                        //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
-                        //  )
-                      ],
-                    ),
-                  ),
-                );
-              }
+                ),
+              );
+            }),
+            SizedBox(
+              height: 30,
             ),
-            SizedBox(height: 100,)
           ],
         ),
       ),
@@ -340,8 +364,10 @@ final _authController=Get.find<AuthRepository>();
         countryCode = country.toJson()['e164_cc'];
         countryFlag = country.toJson()['iso2_cc'];
         country.toJson();
-         final currency=CountryPickerUtils.getCountryByIsoCode(countryFlag).currencyCode.toString();
-         print("currency of country is $currency");
+        final currency = CountryPickerUtils.getCountryByIsoCode(countryFlag)
+            .currencyCode
+            .toString();
+        print("currency of country is $currency");
         setState(() {});
 
         print('Select country: ${country.toJson()}');

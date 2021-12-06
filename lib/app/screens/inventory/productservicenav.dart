@@ -1,24 +1,21 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:huzz/app/screens/customers/customer_tabView.dart';
+import 'package:huzz/app/screens/home/home.dart';
+import 'package:huzz/app/screens/inventory/productserviceTab.dart';
+import 'package:huzz/app/screens/invoice/invoice.dart';
 import 'package:huzz/app/screens/more.dart';
 import 'package:huzz/colors.dart';
-import 'package:huzz/core/constants/app_themes.dart';
 
-import 'customers/customer_tabView.dart';
-import 'home/home.dart';
-import 'inventory/manage_inventory.dart';
-import 'invoice/invoice.dart';
-
-class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+class ProServiceDashboard extends StatefulWidget {
+  const ProServiceDashboard({Key? key}) : super(key: key);
 
   @override
-  _DashboardState createState() => _DashboardState();
+  _ProServiceDashboardState createState() => _ProServiceDashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 2;
+class _ProServiceDashboardState extends State<ProServiceDashboard> {
+  int _selectedIndex = 1;
   // ignore: unused_element
   void _selectPage(int index) {
     setState(() {
@@ -32,50 +29,32 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       body: buildPages(),
       bottomNavigationBar: BottomNavyBar(
-        showElevation: false,
         selectedIndex: _selectedIndex,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              icon: Icon(
-                CupertinoIcons.person_3_fill,
-                size: 32,
-              ),
-              title: Text(
-                'Customers',
-                style: AppThemes.style12PriBold,
-              ),
+              icon: Icon(Icons.people),
+              title: Text('Customers'),
+              textAlign: TextAlign.center,
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.inventory),
-              title: Text(
-                'Inventory',
-                style: AppThemes.style12PriBold,
-              ),
+              title: Text('Inventory'),
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.home),
-              title: Text(
-                'Home',
-                style: AppThemes.style12PriBold,
-              ),
+              title: Text('Home'),
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.receipt),
-              title: Text(
-                'Invoice',
-                style: AppThemes.style12PriBold,
-              ),
+              title: Text('Invoice'),
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.dashboard),
-              title: Text(
-                'More',
-                style: AppThemes.style12PriBold,
-              ),
+              title: Text('More'),
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor)
         ],
@@ -89,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
       case 0:
         return CustomerTabView();
       case 1:
-        return ManageInventory();
+        return ProductServiceListing();
       case 2:
         return Home();
       case 3:
