@@ -7,8 +7,8 @@ import 'package:huzz/colors.dart';
 
 import 'sign_in.dart';
 
-class CreateBusiness extends StatelessWidget{
-final _businessController=Get.find<BusinessRespository>();
+class CreateBusiness extends StatelessWidget {
+  final _businessController = Get.find<BusinessRespository>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
