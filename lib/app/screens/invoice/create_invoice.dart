@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
-import 'package:im_stepper/stepper.dart';
 
 class CreateInvoice extends StatefulWidget {
   const CreateInvoice({Key? key}) : super(key: key);
@@ -101,6 +100,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           },
           onStepCancel: () {
             currentStep == 0
+                // ignore: unnecessary_statements
                 ? null
                 : setState(() {
                     currentStep -= 1;
@@ -147,6 +147,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             content: PaymentInfo()),
       ];
 
+  // ignore: non_constant_identifier_names
   Container PaymentInfo() {
     return Container(
       child: Column(

@@ -155,7 +155,6 @@ class _AddProductState extends State<AddProduct> {
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            // labelText: label,
                             hintText: 'N 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
@@ -525,22 +524,27 @@ class _AddProductState extends State<AddProduct> {
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
-        child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Color(0xffCFD1D2),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                  color: Color(0xffCFD1D2),
+                ),
+                borderRadius: BorderRadius.circular(10),
+                color: Color(0xffDCF2EF),
+              ),
+              child: Center(
+                child: Text(
+                  item,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
             ),
-            borderRadius: BorderRadius.circular(10),
-            color: Color(0xffDCF2EF),
-          ),
-          child: Center(
-            child: Text(
-              item,
-              style: TextStyle(fontSize: 14),
-            ),
-          ),
+          ],
         ),
       );
 }
