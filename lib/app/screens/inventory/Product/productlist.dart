@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/product_repository.dart';
+import 'package:huzz/app/screens/inventory/Product/add_product.dart';
 import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
+import 'package:huzz/model/product.dart';
 import 'package:huzz/model/product_model.dart';
+import 'package:number_display/number_display.dart';
 
 import '../../../../colors.dart';
 import 'productdelete.dart';
@@ -14,8 +18,9 @@ class ProductListing extends StatefulWidget {
 }
 
 class _ProductListingState extends State<ProductListing> {
+  
   final TextEditingController textEditingController = TextEditingController();
-
+final _productController=Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +43,7 @@ class _ProductListingState extends State<ProductListing> {
             child: Row(
               children: [
                 Text(
-                  'Product (4)',
+                  'Product (${_productController.productGoods.length})',
                   style: TextStyle(
                     color: AppColor().blackColor,
                     fontFamily: 'DMSans',
@@ -162,46 +167,52 @@ class _ProductListingState extends State<ProductListing> {
             right: 20,
             child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: productList.length,
+                itemCount: _productController.productGoods.length,
                 itemBuilder: (BuildContext context, int index) {
-                  ProductModels items = productList[index];
+                  var item = _productController.productGoods[index];
                   return ListingProduct(
-                    item: items,
+                    item: item,
                   );
                 }),
           ),
           Positioned(
             bottom: 10,
             right: 30,
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 15,
-              ),
-              decoration: BoxDecoration(
-                color: AppColor().backgroundColor,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.add,
-                    size: 18,
-                    color: Colors.white,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'New Product',
-                    style: TextStyle(
-                      color: AppColor().whiteColor,
-                      fontFamily: 'DMSans',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+            child: GestureDetector(
+              onTap:(){
+
+Get.to(AddProduct());
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 15,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColor().backgroundColor,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.add,
+                      size: 18,
+                      color: Colors.white,
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'New Product',
+                      style: TextStyle(
+                        color: AppColor().whiteColor,
+                        fontFamily: 'DMSans',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -580,7 +591,7 @@ class _ProductListingState extends State<ProductListing> {
 
 // ignore: must_be_immutable
 class ListingProduct extends StatefulWidget {
-  ProductModels? item;
+  Product? item;
   ListingProduct({
     this.item,
   });
@@ -590,8 +601,14 @@ class ListingProduct extends StatefulWidget {
 }
 
 class _ListingProductState extends State<ListingProduct> {
+    final display = createDisplay(
+    length: 8,
+    decimal: 0,
+  );
+  final _productController=Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
+    // print("image ${widget.item!.productLogoFileStoreId}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -612,10 +629,10 @@ class _ListingProductState extends State<ListingProduct> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                widget.item!.image!,
+            widget.item!.productLogoFileStoreId==null|| widget.item!.productLogoFileStoreId!.isEmpty?  Image.asset(
+               "assets/images/productImage.png",
                 height: 50,
-              ),
+              ):Image.network(widget.item!.productLogoFileStoreId!,height: 50,),
               SizedBox(
                 width: 10,
               ),
@@ -624,7 +641,7 @@ class _ListingProductState extends State<ListingProduct> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    widget.item!.name!,
+                    widget.item!.productName!,
                     style: TextStyle(
                       color: AppColor().blackColor,
                       fontFamily: 'DMSans',
@@ -647,7 +664,7 @@ class _ListingProductState extends State<ListingProduct> {
                         ),
                       ),
                       Text(
-                        widget.item!.count!,
+                      "${widget.item!.quantityLeft}",
                         style: TextStyle(
                           color: AppColor().orangeBorderColor,
                           fontFamily: 'DMSans',
@@ -659,7 +676,7 @@ class _ListingProductState extends State<ListingProduct> {
                         width: 50,
                       ),
                       Text(
-                        widget.item!.amount!,
+                        'N${display(widget.item!.costPrice!)}',
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',
@@ -674,38 +691,45 @@ class _ListingProductState extends State<ListingProduct> {
               SizedBox(
                 width: 30,
               ),
-              Container(
-                height: 40,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: Color(0xffF4D8C4),
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(
-                    color: Color(0xffEF6500),
+              GestureDetector(
+                onTap: (){
+                  _productController.setItem(widget.item!);
+                  Get.to(AddProduct(item: widget.item!,));
+                    
+                },
+                child: Container(
+                  height: 40,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: Color(0xffF4D8C4),
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(
+                      color: Color(0xffEF6500),
+                    ),
                   ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.add,
-                      size: 20,
-                      color: AppColor().orangeBorderColor,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Add stock',
-                      style: TextStyle(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.add,
+                        size: 20,
                         color: AppColor().orangeBorderColor,
-                        fontFamily: 'DMSans',
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        'Add stock',
+                        style: TextStyle(
+                          color: AppColor().orangeBorderColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

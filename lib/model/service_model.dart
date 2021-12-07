@@ -65,3 +65,17 @@ List<ServiceModel> serviceList = [
         'Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to the other Helped moving some certain loads from one place to ',
   ),
 ];
+
+class Service {
+  String? name;
+  Service({this.name});
+}
+
+List<Service> serviceListz = [
+  Service(
+      name: 'Shoe'),
+  Service(
+      name: 'Bag'),
+  Service(
+      name: 'Television'),
+];

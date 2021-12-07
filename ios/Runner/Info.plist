@@ -26,7 +26,12 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string> Huzz need to access your photo library to pick product image</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Huzz need to access your camera to take picture of your product</string>
 	<key>UISupportedInterfaceOrientations</key>
+	
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>

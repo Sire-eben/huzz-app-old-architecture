@@ -3,6 +3,7 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/colors.dart';
 
 class SendOtp extends StatefulWidget {
@@ -117,7 +118,36 @@ class _SendOtpState extends State<SendOtp> {
                   ],
                 ),
               ),
+           
               Expanded(child: SizedBox()),
+                GestureDetector(
+                  onTap: (){
+
+                    Get.to(Signin());
+                  },
+                  child: Center(
+                    child: RichText(text: TextSpan(style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                
+                     text: "Already have an account? ",
+                    children: [
+                   
+                     TextSpan(
+                style:  TextStyle(
+                                        fontSize: 12,
+                                        color: AppColor().backgroundColor,
+                                       ),
+                       text:"Sign in",
+                
+                     )
+                    ]
+                
+                    )),
+                  ),
+                ),
+                Expanded(child: SizedBox()),
               Container(
                   margin: EdgeInsets.only(left: 50, right: 50),
                   child: RichText(

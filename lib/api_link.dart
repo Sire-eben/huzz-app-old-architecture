@@ -21,4 +21,6 @@ class ApiLink {
   static String dashboard_overview = baseurl + "business/transactions/overview";
   static String addCustomer=baseurl+"business/customer";
 static String upload_file=baseurl+"file-store/upload";
+static String get_business_product=baseurl+"business/product";
+static String add_product=baseurl+"business/product";
 }
