@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
-
 import '../../../colors.dart';
 
 class IncomeReceipt extends StatefulWidget {
@@ -25,6 +24,13 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Color(0xff0065D3))),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Row(
                 children: [
                   Container(
@@ -70,15 +76,15 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                       Container(
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.height * 0.015),
-                        width: MediaQuery.of(context).size.height * 0.08,
-                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.height * 0.06,
+                        height: MediaQuery.of(context).size.height * 0.06,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: AppColor().backgroundColor.withOpacity(0.2)),
                         child: SvgPicture.asset('assets/images/download.svg'),
                       ),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02),
+                          height: MediaQuery.of(context).size.height * 0.01),
                       Text(
                         'Download',
                         style: TextStyle(
@@ -89,21 +95,21 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                       ),
                     ],
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                  SizedBox(width: MediaQuery.of(context).size.height * 0.01),
                   Column(
                     children: [
                       Container(
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.height * 0.015),
-                        width: MediaQuery.of(context).size.height * 0.08,
-                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.height * 0.06,
+                        height: MediaQuery.of(context).size.height * 0.06,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: AppColor().backgroundColor.withOpacity(0.2)),
                         child: SvgPicture.asset('assets/images/share.svg'),
                       ),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02),
+                          height: MediaQuery.of(context).size.height * 0.01),
                       Text(
                         'Share',
                         style: TextStyle(
@@ -116,7 +122,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                   )
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               InkWell(
                 onTap: () {
                   Get.offAll(Dashboard());
@@ -131,7 +137,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(
-                      'Return Home',
+                      'Continue',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

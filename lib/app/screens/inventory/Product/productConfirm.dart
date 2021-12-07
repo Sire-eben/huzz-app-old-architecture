@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/dashboard.dart';
 
 import '../../../../colors.dart';
 import '../productservicenav.dart';
 
 class Confirmation extends StatelessWidget {
-  const Confirmation({Key? key}) : super(key: key);
+  String text;
+ Confirmation({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class Confirmation extends StatelessWidget {
           ),
           Center(
             child: Text(
-              'Added',
+              text,
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: 'DMSans',
@@ -63,7 +65,7 @@ class Confirmation extends StatelessWidget {
           Spacer(),
           InkWell(
             onTap: () {
-              Get.to(ProServiceDashboard());
+              Get.to(Dashboard());
             },
             child: Container(
               height: 55,

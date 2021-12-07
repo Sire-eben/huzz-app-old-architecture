@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/productdelete.dart';
+import 'package:huzz/model/product.dart';
 import 'package:huzz/model/product_model.dart';
 import 'package:huzz/model/service_model.dart';
 
@@ -15,7 +17,7 @@ class ServiceListing extends StatefulWidget {
 
 class _ServiceListingState extends State<ServiceListing> {
   final TextEditingController textEditingController = TextEditingController();
-
+final _productController=Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,157 +45,161 @@ class _ServiceListingState extends State<ServiceListing> {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          //Service Count
-          Positioned(
-            top: 30,
-            left: 20,
-            right: 20,
-            child: productCount(context),
-          ),
-          //Add & Delete Button
-          Positioned(
-            top: 210,
-            left: 20,
-            right: 20,
-            child: Row(
-              children: [
-                Text(
-                  'Services (4)',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                Spacer(),
-                InkWell(
-                  onTap: () => showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
+      body: Obx(
+        () {
+          return Stack(
+            children: [
+              //Service Count
+              Positioned(
+                top: 30,
+                left: 20,
+                right: 20,
+                child: productCount(context),
+              ),
+              //Add & Delete Button
+              Positioned(
+                top: 210,
+                left: 20,
+                right: 20,
+                child: Row(
+                  children: [
+                    Text(
+                      'Services (${_productController.productServices.length})',
+                      style: TextStyle(
+                        color: AppColor().blackColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
-                    context: context,
-                    builder: (context) => buildAddProduct(),
-                  ),
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: 20,
-                      color: AppColor().backgroundColor,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.to(BuildDeleteProduct());
-                  },
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.delete_outline_outlined,
-                      size: 20,
-                      color: AppColor().backgroundColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          //Search
-          Positioned(
-            top: 140,
-            left: 20,
-            right: 20,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              height: 55,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Color(0xffE6F4F2),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.search,
-                    color: AppColor().backgroundColor,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height: 55,
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    child: TextFormField(
-                      controller: textEditingController,
-                      textInputAction: TextInputAction.none,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        hintText: 'Search',
-                        hintStyle:
-                            Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontFamily: 'DMSans',
-                                  color: Colors.black26,
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.normal,
-                                ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () => showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
+                        context: context,
+                        builder: (context) => buildAddProduct(),
+                      ),
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: AppColor().lightbackgroundColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.add,
+                          size: 20,
+                          color: AppColor().backgroundColor,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: 5,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(BuildDeleteProduct());
+                      },
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: AppColor().lightbackgroundColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.delete_outline_outlined,
+                          size: 20,
+                          color: AppColor().backgroundColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-          //ServiceList
-          Positioned(
-            top: 230,
-            bottom: 30,
-            left: 20,
-            right: 20,
-            child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: serviceList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  ServiceModel items = serviceList[index];
-                  return ListingServices(
-                    item: items,
-                  );
-                }),
-          ),
-        ],
+              //Search
+              Positioned(
+                top: 140,
+                left: 20,
+                right: 20,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  height: 55,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Color(0xffE6F4F2),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.search,
+                        color: AppColor().backgroundColor,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        height: 55,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: TextFormField(
+                          controller: textEditingController,
+                          textInputAction: TextInputAction.none,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColor().backgroundColor, width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            hintText: 'Search',
+                            hintStyle:
+                                Theme.of(context).textTheme.headline4!.copyWith(
+                                      fontFamily: 'DMSans',
+                                      color: Colors.black26,
+                                      fontSize: 14,
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              //ServiceList
+              Positioned(
+                top: 230,
+                bottom: 30,
+                left: 20,
+                right: 20,
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: serviceList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var item=_productController.productServices[index];
+                      return ListingServices(
+                        item: item,
+                      );
+                    }),
+              ),
+            ],
+          );
+        }
       ),
     );
   }
@@ -568,7 +574,7 @@ class _ServiceListingState extends State<ServiceListing> {
 
 // ignore: must_be_immutable
 class ListingServices extends StatefulWidget {
-  ServiceModel? item;
+  Product? item;
   ListingServices({
     this.item,
   });
@@ -608,7 +614,7 @@ class _ListingServicesState extends State<ListingServices> {
                 Expanded(
                   flex: 1,
                   child: Image.asset(
-                    widget.item!.image!,
+                    "widget.item!.image!",
                     height: 70,
                     width: 70,
                   ),
@@ -626,7 +632,7 @@ class _ListingServicesState extends State<ListingServices> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.item!.name!,
+                            widget.item!.productName!,
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -635,7 +641,7 @@ class _ListingServicesState extends State<ListingServices> {
                             ),
                           ),
                           Text(
-                            widget.item!.amount!,
+                            "widget.item!.amount!",
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -650,7 +656,7 @@ class _ListingServicesState extends State<ListingServices> {
                       ),
                       Expanded(
                         child: Text(
-                          widget.item!.description!,
+                          "description",
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',

@@ -266,7 +266,7 @@ class _SiginState extends State<Signin> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 120),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   GestureDetector(
@@ -284,6 +284,7 @@ class _SiginState extends State<Signin> {
                       ),
                     ),
                   ),
+                  SizedBox(width: 20,),
                   GestureDetector(
                     onTap: () {
                       Get.to(RegHome());
