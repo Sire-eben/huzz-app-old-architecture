@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/product_repository.dart';
+import 'package:huzz/app/screens/inventory/Product/productlist.dart';
 
 import '../../../../colors.dart';
 import 'add_product.dart';
@@ -12,9 +14,10 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
+  final _productController=Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return  (_productController.productGoods.isEmpty)?Stack(
       children: [
         Positioned(
           top: 30,
@@ -27,7 +30,9 @@ class _ProductsState extends State<Products> {
           top: 150,
           left: 20,
           right: 20,
-          child: Container(
+          child: 
+         
+          Container(
             padding: EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: Color(0xffF5F5F5),
@@ -123,7 +128,7 @@ class _ProductsState extends State<Products> {
           ),
         ),
       ],
-    );
+    ):ProductListing();
   }
 
   Widget productCount(BuildContext context) => Container(

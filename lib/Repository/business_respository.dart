@@ -57,10 +57,10 @@ Future OnlineBusiness()async{
 
 "Authorization":"Bearer ${_userController.token}"
  });
-var json=jsonDecode(response.body);
-print("online busines result $json");
- if(response.statusCode==200){
 
+print("online busines result ${response.body}");
+ if(response.statusCode==200){
+var json=jsonDecode(response.body);
 if(json['success']){
 var result=List.from(json['data']).map((e) => Business.fromJson(e));
 businessListFromServer.addAll(result);

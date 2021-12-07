@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:huzz/model/offline_business.dart';
+import 'package:huzz/model/product.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -13,11 +14,14 @@ class SqliteDb {
   static String transactionId = "TransactionId";
   static String transactionJson = "TransactionJson";
   static String transactionTableName = "Transactions";
+  static String productbusinessTable="ProductBusinessTable";
+  static String productId="ProductId";
+  static String productJson="ProductJson";
 
   Future openDatabae() async {
     final databasePath = await getDatabasesPath();
     // print(databasePath);
-    final path = join(databasePath, "HuzzAppbbshhw");
+    final path = join(databasePath, "HuzzApipbbshhw");
 
     db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
@@ -33,6 +37,14 @@ create table $transactionTableName (
   $transactionJson text not null,
   $businessId text not null)
 ''');
+
+      await db.execute('''create table $productbusinessTable (
+$productId text primary key,
+$productJson text not null,
+$businessId text not null) 
+
+''');
+ 
 
 // await db.execute(''' create table $playtableName (
 // $courseId integer,
@@ -55,6 +67,8 @@ create table $transactionTableName (
 // $imagePath text not null)
 // ''');
     });
+
+ 
   }
 
   Future insertBusiness(OfflineBusiness offline) async {
@@ -125,4 +139,56 @@ create table $transactionTableName (
 
     print("updated $result");
   }
+
+Future insertProduct(Product product) async {
+    var value = jsonEncode(product.toJson());
+    var result = db.insert(productbusinessTable, {
+      productId: product.productId,
+      businessId: product.businessId,
+      productJson: value
+    });
+  }
+
+  Future<List<Product>> getOfflineProducts(String id) async {
+    var result = await db.query(productbusinessTable,
+        where: '"$businessId" = ?', whereArgs: [id]);
+    var offlineProducts = result
+        .map((e) => Product.fromJson(
+            jsonDecode(e[productJson].toString())))
+        .toList();
+    return offlineProducts;
+  }
+
+  Future<Product?> getOfflineProduct(String id) async {
+    var result = await db.query(productbusinessTable,
+        where: '"$productId" = ?', whereArgs: [id]);
+    if (result.length > 0) {
+      var json = result.first;
+      return Product.fromJson(
+          jsonDecode(result.first[productJson].toString()));
+    } else {
+      return null;
+    }
+  }
+
+  Future updateOfflineProdcut(Product product) async {
+    var value = jsonEncode(product.toJson());
+    var result = await db.update(
+        productbusinessTable, {
+           productId: product.productId,
+      businessId: product.businessId,
+      productJson: value
+        },
+        where: '"$productId" = ?', whereArgs: [product.productId]);
+
+    print("updated $result");
+  }
+
+
+Future deleteProduct(Product product)async{
+var result= await db.delete(  productbusinessTable, 
+        where: '"$productId" = ?', whereArgs: [product.productId]);
+
+print("result after delete ${result}");
+}
 }

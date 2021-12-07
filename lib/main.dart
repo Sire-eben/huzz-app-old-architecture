@@ -31,7 +31,7 @@ class _HuzzAppState extends State<HuzzApp> {
           primarySwatch: Palette.primaryColor),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
-      home: Invoice(),
+      home: SplashScreen(),
     );
   }
 }

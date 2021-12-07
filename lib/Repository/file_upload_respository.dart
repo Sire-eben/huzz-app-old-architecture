@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 
 import '../api_link.dart';
 import 'auth_respository.dart';
+ import 'package:http_parser/http_parser.dart';
+
 
 
 class FileUploadRespository extends GetxController{
@@ -17,7 +19,7 @@ request.headers.addAll({
   "Authorization":"Bearer ${_userController.token}"
 });
 
-request.files.add(await http.MultipartFile.fromPath("file", path));
+request.files.add(await http.MultipartFile.fromPath("file", path,contentType: new MediaType('image', 'jpeg')));
 var streamResponse=await request.send(); 
 String result = await streamResponse.stream.transform(Utf8Decoder()).single;
 print("uploaded file output $result");
