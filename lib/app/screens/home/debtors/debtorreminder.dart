@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/app/screens/dashboard.dart';
 
 import '../../../../colors.dart';
-import '../productservicenav.dart';
+import 'debtorstab.dart';
 
-class Confirmation extends StatelessWidget {
-  String text;
- Confirmation({Key? key, required this.text}) : super(key: key);
+class DebtorsConfirmation extends StatelessWidget {
+  const DebtorsConfirmation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +28,11 @@ class Confirmation extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(
-            height: 100,
+            height: 20,
           ),
           Center(
             child: Text(
-              'Product Successfully ',
+              'Your reminder has been',
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: 'DMSans',
@@ -45,7 +43,7 @@ class Confirmation extends StatelessWidget {
           ),
           Center(
             child: Text(
-              text,
+              'sent successfully',
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: 'DMSans',
@@ -55,7 +53,7 @@ class Confirmation extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 50,
+            height: 120,
           ),
           Center(
             child: Image.asset(
@@ -65,7 +63,7 @@ class Confirmation extends StatelessWidget {
           Spacer(),
           InkWell(
             onTap: () {
-              Get.to(Dashboard());
+              Get.to(DebtorsTab());
             },
             child: Container(
               height: 55,
@@ -81,6 +79,7 @@ class Confirmation extends StatelessWidget {
                   style: TextStyle(
                     color: AppColor().whiteColor,
                     fontFamily: 'DMSans',
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

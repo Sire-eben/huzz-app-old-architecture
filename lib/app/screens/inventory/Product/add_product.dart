@@ -178,6 +178,41 @@ class _AddProductState extends State<AddProduct> {
                                           fontWeight: FontWeight.normal,
                                         ),
                               ),
+                            ],
+                          )),
+                      Container(
+                        margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                        child: TextFormField(
+                          controller: textEditingController,
+                          textInputAction: TextInputAction.none,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColor().backgroundColor,
+                                    width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColor().backgroundColor,
+                                    width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColor().backgroundColor,
+                                    width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            hintText: 'N 0.00',
+                            hintStyle:
+                                Theme.of(context).textTheme.headline4!.copyWith(
+                                      fontFamily: 'DMSans',
+                                      color: Colors.black26,
+                                      fontSize: 14,
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.normal,
                             ),
                           )
                         ],
@@ -580,22 +615,27 @@ class _AddProductState extends State<AddProduct> {
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
-        child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Color(0xffCFD1D2),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                  color: Color(0xffCFD1D2),
+                ),
+                borderRadius: BorderRadius.circular(10),
+                color: Color(0xffDCF2EF),
+              ),
+              child: Center(
+                child: Text(
+                  item,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
             ),
-            borderRadius: BorderRadius.circular(10),
-            color: Color(0xffDCF2EF),
-          ),
-          child: Center(
-            child: Text(
-              item,
-              style: TextStyle(fontSize: 14),
-            ),
-          ),
+          ],
         ),
       );
 }

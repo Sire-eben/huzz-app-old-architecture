@@ -7,6 +7,7 @@ import 'package:huzz/app/screens/invoice/preview_invoice.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
+
 import 'package:huzz/model/bank_model.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:random_color/random_color.dart';
@@ -110,6 +111,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           },
           onStepCancel: () {
             currentStep == 0
+                // ignore: unnecessary_statements
                 ? null
                 : setState(() {
                     currentStep -= 1;
