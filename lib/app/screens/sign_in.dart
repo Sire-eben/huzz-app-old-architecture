@@ -9,6 +9,7 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import 'fingerprint.dart';
 import 'reg_home.dart';
 
 class Signin extends StatefulWidget {
@@ -191,7 +192,7 @@ class _SiginState extends State<Signin> {
             ),
             Center(
               child: Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width * 0.8,
                 margin: EdgeInsets.only(
                   left: 20,
                   right: 20,
@@ -238,26 +239,31 @@ class _SiginState extends State<Signin> {
               ),
             ),
             SizedBox(height: 40),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.fingerprint,
-                    color: AppColor().backgroundColor,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "SIGN IN WITH YOUR FINGERPRINT",
-                    style: TextStyle(
+            GestureDetector(
+              onTap: () {
+                Get.to(FingerPrint());
+              },
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.fingerprint,
                       color: AppColor().backgroundColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
                     ),
-                  )
-                ],
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "SIGN IN WITH YOUR FINGERPRINT",
+                      style: TextStyle(
+                        color: AppColor().backgroundColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -284,7 +290,9 @@ class _SiginState extends State<Signin> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 20,),
+                  SizedBox(
+                    width: 20,
+                  ),
                   GestureDetector(
                     onTap: () {
                       Get.to(RegHome());
