@@ -209,7 +209,7 @@ class _CreatePinState extends State<CreatePin> {
               );
             }),
             SizedBox(
-              height: 40,
+              height: 30,
             )
           ]),
     );
