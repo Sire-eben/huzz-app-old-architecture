@@ -3,11 +3,19 @@ import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 
 import '../../../../colors.dart';
-import '../productservicenav.dart';
 
-class Confirmation extends StatelessWidget {
-  String text;
- Confirmation({Key? key, required this.text}) : super(key: key);
+// ignore: must_be_immutable
+class Confirmation extends StatefulWidget {
+  Confirmation({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<Confirmation> createState() => _ConfirmationState();
+}
+
+class _ConfirmationState extends State<Confirmation> {
+  String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +53,7 @@ class Confirmation extends StatelessWidget {
           ),
           Center(
             child: Text(
-              text,
+              text!,
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: 'DMSans',
