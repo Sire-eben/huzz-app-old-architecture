@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 
 import '../../../../colors.dart';
-import '../productservicenav.dart';
 
+// ignore: must_be_immutable
 class Confirmation extends StatelessWidget {
   String text;
- Confirmation({Key? key, required this.text}) : super(key: key);
+  Confirmation({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
