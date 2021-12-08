@@ -77,7 +77,7 @@ class Confirmation extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               child: Center(
                 child: Text(
-                  'Proceed',
+                  'Save',
                   style: TextStyle(
                     color: AppColor().whiteColor,
                     fontFamily: 'DMSans',
