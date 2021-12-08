@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
@@ -9,7 +10,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../colors.dart';
 
-// ignore: must_be_immutable
 class AddProduct extends StatefulWidget {
   Product? item;
   AddProduct({Key? key, this.item}) : super(key: key);
@@ -92,7 +92,7 @@ class _AddProductState extends State<AddProduct> {
               ),
               Center(
                 child: Text(
-                  'Profile Image',
+                  'Product Image',
                   style: TextStyle(
                     color: Colors.black,
                     fontFamily: 'DMSans',
@@ -172,6 +172,7 @@ class _AddProductState extends State<AddProduct> {
                                       width: 2),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
+                              // labelText: label,
                               hintText: 'N 0.00',
                               hintStyle: Theme.of(context)
                                   .textTheme
@@ -188,39 +189,6 @@ class _AddProductState extends State<AddProduct> {
                         )
                       ],
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20, right: 20, top: 10),
-                    child: TextFormField(
-                        controller: textEditingController,
-                        textInputAction: TextInputAction.none,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColor().backgroundColor, width: 2),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColor().backgroundColor, width: 2),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColor().backgroundColor, width: 2),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          hintText: 'N 0.00',
-                          hintStyle:
-                              Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontFamily: 'DMSans',
-                                    color: Colors.black26,
-                                    fontSize: 14,
-                                    fontStyle: FontStyle.normal,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                        )),
                   ),
                   Container(
                     width: 175,
@@ -257,8 +225,10 @@ class _AddProductState extends State<AddProduct> {
                           child: TextFormField(
                             // onChanged: this.onChanged,
                             // maxLength: 6,
-                            controller: textEditingController,
-                            textInputAction: TextInputAction.none,
+                            controller: _productController
+                                .productSellingPriceController,
+
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               isDense: true,
                               focusedBorder: OutlineInputBorder(
@@ -279,6 +249,7 @@ class _AddProductState extends State<AddProduct> {
                                       width: 2),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
+                              // labelText: label,
                               hintText: 'N 0.00',
                               hintStyle: Theme.of(context)
                                   .textTheme
@@ -373,6 +344,7 @@ class _AddProductState extends State<AddProduct> {
                                   color: AppColor().backgroundColor, width: 2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
+                          // labelText: label,
                           hintText: 'N 0.00',
                           hintStyle:
                               Theme.of(context).textTheme.headline4!.copyWith(
@@ -526,17 +498,17 @@ class _AddProductState extends State<AddProduct> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
-                        shape: BoxShape.circle,
-                      ),
+                  Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE6F4F2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
                       child: Icon(
                         Icons.close,
                         color: AppColor().backgroundColor,
@@ -626,27 +598,22 @@ class _AddProductState extends State<AddProduct> {
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: Color(0xffCFD1D2),
-                ),
-                borderRadius: BorderRadius.circular(10),
-                color: Color(0xffDCF2EF),
-              ),
-              child: Center(
-                child: Text(
-                  item,
-                  style: TextStyle(fontSize: 14),
-                ),
-              ),
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: Color(0xffCFD1D2),
             ),
-          ],
+            borderRadius: BorderRadius.circular(10),
+            color: Color(0xffDCF2EF),
+          ),
+          child: Center(
+            child: Text(
+              item,
+              style: TextStyle(fontSize: 14),
+            ),
+          ),
         ),
       );
 }
