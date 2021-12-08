@@ -11,18 +11,21 @@ import 'inventory/manage_inventory.dart';
 import 'invoice/invoice.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  int? selectedIndex;
+   Dashboard({Key? key,this.selectedIndex=2}) : super(key: key);
 
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardState createState() => _DashboardState(selectedIndex: selectedIndex!);
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 2;
+
+  int selectedIndex =2;
+  _DashboardState({required this.selectedIndex});
   // ignore: unused_element
   void _selectPage(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
@@ -33,7 +36,7 @@ class _DashboardState extends State<Dashboard> {
       body: buildPages(),
       bottomNavigationBar: BottomNavyBar(
         showElevation: false,
-        selectedIndex: _selectedIndex,
+        selectedIndex: selectedIndex,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
               icon: Icon(
@@ -79,13 +82,13 @@ class _DashboardState extends State<Dashboard> {
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor)
         ],
-        onItemSelected: (index) => setState(() => this._selectedIndex = index),
+        onItemSelected: (index) => setState(() => this.selectedIndex = index),
       ),
     );
   }
 
   Widget buildPages() {
-    switch (_selectedIndex) {
+    switch (selectedIndex) {
       case 0:
         return CustomerTabView();
       case 1:

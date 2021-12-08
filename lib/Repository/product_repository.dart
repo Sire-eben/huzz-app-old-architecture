@@ -112,9 +112,9 @@ if(response.statusCode==200){
 
 _addingProductStatus(AddingProductStatus.Success);
 getOnlineProduct(_businessController.selectedBusiness.value!.businessId!);
-
-Get.to(Confirmation(text: "Added",));
 clearValue();
+Get.to(Confirmation(text: "Added",));
+
 }else{
 
 _addingProductStatus(AddingProductStatus.Error);
@@ -134,7 +134,7 @@ _addingProductStatus(AddingProductStatus.Error);
  productImage(null);
  productNameController.text="";
  productQuantityController.text="";
- productQuantityController.text="";
+ productCostPriceController.text="";
  productSellingPriceController.text="";
  productUnitController.text="";
  serviceDescription.text="";
