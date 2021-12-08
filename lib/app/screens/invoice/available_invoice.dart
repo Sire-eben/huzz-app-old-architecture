@@ -143,19 +143,6 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
             children: <Widget>[All(), Pending(), Paid(), Overdue()],
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
-          icon: Icon(Icons.add),
-          backgroundColor: AppColor().backgroundColor,
-          label: Text(
-            'New Invoice',
-            style: TextStyle(
-                fontFamily: 'DMSans',
-                fontSize: 10,
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
       ),
     );
   }
