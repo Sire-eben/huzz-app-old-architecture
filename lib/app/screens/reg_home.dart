@@ -33,7 +33,6 @@ class _RegHome extends State<RegHome> {
   final _homeController = Get.find<HomeRespository>();
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     selectedIndex = 0;
     return Obx(() {
       return Scaffold(
