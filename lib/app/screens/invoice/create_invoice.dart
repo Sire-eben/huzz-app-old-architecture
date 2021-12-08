@@ -489,7 +489,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           "*",
                           style: TextStyle(color: Colors.red, fontSize: 12),
                         ),
-                        SizedBox(width: 10),
+                        Expanded(child: Container()),
                         InkWell(
                           onTap: () {
                             if (quantityValue < 1) {
@@ -518,10 +518,12 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   color: AppColor().backgroundColor),
                               child: Icon(
                                 Icons.remove,
+                                size: 15,
                                 color: Colors.white,
                               )),
                         ),
                         Expanded(
+                          flex: 2,
                           child: CustomTextFieldOnly(
                             label: '0',
                             hint: '0',
@@ -547,6 +549,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   color: AppColor().backgroundColor),
                               child: Icon(
                                 Icons.add,
+                                size: 15,
                                 color: Colors.white,
                               )),
                         )
