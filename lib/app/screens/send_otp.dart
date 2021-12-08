@@ -1,10 +1,14 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/sign_in.dart';
+import 'package:huzz/app/screens/terms_of_condition.dart';
 import 'package:huzz/colors.dart';
+
+import 'privacy_policy.dart';
 
 class SendOtp extends StatefulWidget {
   _SendOtpState createState() => _SendOtpState();
@@ -14,9 +18,9 @@ class _SendOtpState extends State<SendOtp> {
   final _authController = Get.find<AuthRepository>();
   String countryFlag = "NG";
   String countryCode = "234";
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _authController.countryText = countryCode;
   }
@@ -118,36 +122,32 @@ class _SendOtpState extends State<SendOtp> {
                   ],
                 ),
               ),
-           
               Expanded(child: SizedBox()),
-                GestureDetector(
-                  onTap: (){
-
-                    Get.to(Signin());
-                  },
-                  child: Center(
-                    child: RichText(text: TextSpan(style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
-                
-                     text: "Already have an account? ",
-                    children: [
-                   
-                     TextSpan(
-                style:  TextStyle(
-                                        fontSize: 12,
-                                        color: AppColor().backgroundColor,
-                                       ),
-                       text:"Sign in",
-                
-                     )
-                    ]
-                
-                    )),
+              GestureDetector(
+                onTap: () {
+                  Get.to(Signin());
+                },
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                        ),
+                        text: "Already have an account? ",
+                        children: [
+                          TextSpan(
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppColor().backgroundColor,
+                            ),
+                            text: "Sign in",
+                          )
+                        ]),
                   ),
                 ),
-                Expanded(child: SizedBox()),
+              ),
+              Expanded(child: SizedBox()),
               Container(
                   margin: EdgeInsets.only(left: 50, right: 50),
                   child: RichText(
@@ -157,28 +157,34 @@ class _SendOtpState extends State<SendOtp> {
                           style: TextStyle(
                               fontSize: 12,
                               color: Colors.black,
-                              letterSpacing: 2),
+                              letterSpacing: 1),
                           children: [
                             TextSpan(
-                              text: "our Terms of use ",
+                              text: "Terms of use ",
                               style: TextStyle(
-                                  fontSize: 12,
-                                  color: AppColor().backgroundColor,
-                                  letterSpacing: 2),
+                                fontSize: 12,
+                                color: AppColor().backgroundColor,
+                                letterSpacing: 0.5,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = termOfUse,
                             ),
                             TextSpan(
                               text: "and ",
                               style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
-                                  letterSpacing: 2),
+                                  letterSpacing: 1),
                             ),
                             TextSpan(
-                                text: "and Privacy policy",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: AppColor().backgroundColor,
-                                    letterSpacing: 2))
+                              text: "and Privacy policy",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: AppColor().backgroundColor,
+                                  letterSpacing: 0.5),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = privacyPolicy,
+                            )
                           ]))),
               SizedBox(
                 height: 20,
@@ -234,11 +240,19 @@ class _SendOtpState extends State<SendOtp> {
                 );
               }),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: 40,
               )
             ]),
       ),
     );
+  }
+
+  Future termOfUse() async {
+    Get.to(TermsOfUse());
+  }
+
+  Future privacyPolicy() async {
+    Get.to(Privacy());
   }
 
   Future showCountryCode(BuildContext context) async {
