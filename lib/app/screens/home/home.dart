@@ -41,8 +41,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if(_businessController.offlineBusiness.isEmpty){
-
+      if (_businessController.offlineBusiness.isEmpty) {
         Get.off(CreateBusiness());
       }
       return Scaffold(
@@ -216,11 +215,7 @@ class _HomeState extends State<Home> {
                         ),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.exit_to_app,
-                              color: AppColor().whiteColor,
-                              size: 14,
-                            ),
+                            Image.asset("assets/images/money-in.png"),
                             SizedBox(
                               width: 5,
                             ),
@@ -255,11 +250,7 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.exit_to_app,
-                              color: AppColor().whiteColor,
-                              size: 14,
-                            ),
+                            Image.asset("assets/images/money-out.png"),
                             SizedBox(
                               width: 5,
                             ),
@@ -701,10 +692,20 @@ class _HomeState extends State<Home> {
                         ),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.exit_to_app,
-                              color: AppColor().whiteColor,
-                              size: 14,
+                            Container(
+                              height: 15,
+                              width: 15,
+                              decoration: BoxDecoration(
+                                color: AppColor().whiteColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  "assets/images/money_in.svg",
+                                  height: 10,
+                                  width: 10,
+                                ),
+                              ),
                             ),
                             SizedBox(
                               width: 5,
@@ -740,10 +741,20 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.exit_to_app,
-                              color: AppColor().whiteColor,
-                              size: 14,
+                            Container(
+                              height: 15,
+                              width: 15,
+                              decoration: BoxDecoration(
+                                color: AppColor().whiteColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  "assets/images/money_out.svg",
+                                  height: 10,
+                                  width: 10,
+                                ),
+                              ),
                             ),
                             SizedBox(
                               width: 5,
@@ -1033,7 +1044,7 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Container(
-                height: (_businessController.offlineBusiness.length*50)+20,
+                height: (_businessController.offlineBusiness.length * 50) + 20,
                 width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
                   itemBuilder: (context, index) {
@@ -1101,7 +1112,8 @@ class _HomeState extends State<Home> {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03,vertical: 20),
+                      horizontal: MediaQuery.of(context).size.height * 0.03,
+                      vertical: 20),
                   height: 50,
                   decoration: BoxDecoration(
                       color: AppColor().backgroundColor,
