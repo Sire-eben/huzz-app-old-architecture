@@ -1,12 +1,11 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:huzz/app/screens/inventory.dart';
-import 'package:huzz/app/screens/invoice/invoice.dart';
 import 'package:huzz/app/screens/customers/customer_tabView.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'home/home.dart';
-import 'invoice/invoice.dart';
+import 'invoice/available_invoice.dart';
 import 'more.dart';
 
 class Dashboard extends StatefulWidget {
@@ -83,7 +82,7 @@ class _DashboardState extends State<Dashboard> {
       case 2:
         return Home();
       case 3:
-        return Invoice();
+        return AvailableInvoice();
       case 4:
       default:
         return More();
