@@ -19,8 +19,10 @@ class PdfInvoiceApi {
         buildInvoice(invoice),
         Divider(),
         buildTotal(invoice),
+        SizedBox(height: 2 * PdfPageFormat.cm),
+        buildFooter(invoice)
       ],
-      footer: (context) => buildFooter(invoice),
+      // footer: (context) => buildFooter(invoice),
     ));
 
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
@@ -186,14 +188,7 @@ class PdfInvoiceApi {
             Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text('POWERED BY:'),
               Row(children: [
-                Text(
-                  'HUZZ',
-                  style: TextStyle(
-                    color: PdfColors.blue,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                PdfLogo(),
                 Text(
                   'HUZZ',
                   style: TextStyle(
