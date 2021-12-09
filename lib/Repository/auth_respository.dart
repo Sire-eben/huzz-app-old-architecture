@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
+import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 
@@ -261,5 +262,11 @@ class AuthRepository extends GetxController {
     } catch (ex) {
       _signinStatus(SigninStatus.Error);
     }
+  }
+
+  void logout() {
+    _authStatus(AuthStatus.UnAuthenticated);
+    pref!.logout();
+    Get.off(Signin());
   }
 }

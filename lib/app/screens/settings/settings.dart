@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
 
 import 'notification.dart';
 import 'personalInfo.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
-
+class Settings extends GetView<AuthRepository> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -409,7 +408,7 @@ class Settings extends StatelessWidget {
                       Spacer(),
                       GestureDetector(
                         onTap: () {
-                          Get.to(NotificationSettings());
+                          controller.logout();
                         },
                         child: Container(
                           height: 30,

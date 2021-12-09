@@ -14,121 +14,121 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
-  final _productController=Get.find<ProductRepository>();
+  final _productController = Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
-    return  (_productController.productGoods.isEmpty)?Stack(
-      children: [
-        Positioned(
-          top: 30,
-          left: 20,
-          right: 20,
-          child: productCount(context),
-        ),
-        Positioned(
-          bottom: 30,
-          top: 150,
-          left: 20,
-          right: 20,
-          child: 
-         
-          Container(
-            padding: EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Color(0xffF5F5F5),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: Color(0xffC3C3C3),
+    return (_productController.productGoods.isEmpty)
+        ? Stack(
+            children: [
+              Positioned(
+                top: 30,
+                left: 20,
+                right: 20,
+                child: productCount(context),
               ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/Group 3625.png',
-                  height: 50,
-                  color: AppColor().backgroundColor,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Add Product',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Your products will show here. Click the",
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 11,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                Text(
-                  "New Product button to add your first product",
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 11,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 10,
-          right: 30,
-          child: InkWell(
-            onTap: () {
-              Get.to(AddProduct());
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 15,
-              ),
-              decoration: BoxDecoration(
-                color: AppColor().backgroundColor,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.add,
-                    size: 18,
-                    color: Colors.white,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'New Product',
-                    style: TextStyle(
-                      color: AppColor().whiteColor,
-                      fontFamily: 'DMSans',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+              Positioned(
+                bottom: 30,
+                top: 150,
+                left: 20,
+                right: 20,
+                child: Container(
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Color(0xffF5F5F5),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Color(0xffC3C3C3),
                     ),
                   ),
-                ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/Group 3625.png',
+                        height: 50,
+                        color: AppColor().backgroundColor,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Add Product',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Your products will show here. Click the",
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 11,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      Text(
+                        "New Product button to add your first product",
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 11,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-      ],
-    ):ProductListing();
+              Positioned(
+                bottom: 10,
+                right: 30,
+                child: InkWell(
+                  onTap: () {
+                    Get.to(AddProduct());
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.add,
+                          size: 18,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'New Product',
+                          style: TextStyle(
+                            color: AppColor().whiteColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+        : ProductListing();
   }
 
   Widget productCount(BuildContext context) => Container(
