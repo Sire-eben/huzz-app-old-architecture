@@ -13,7 +13,8 @@ import 'package:huzz/sqlite/sqlite_db.dart';
 import 'auth_respository.dart';
 import 'file_upload_respository.dart';
 enum AddingProductStatus {Loading,Error,Success,Empty}
-class ProductRepository extends GetxController with GetSingleTickerProviderStateMixin{
+
+class ProductRepository extends GetxController with  SingleGetTickerProviderMixin {
 final _userController=Get.find<AuthRepository>();
 Rx<List<Product>> _onlineBusinessProduct=Rx([]);
 Rx<List<Product>> _offlineBusinessProduct=Rx([]);
