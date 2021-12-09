@@ -112,7 +112,7 @@ class CustomDropDownField extends StatelessWidget {
                   isEmpty: currentSelectedValue.value.isEmpty,
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      // borderRadius: BorderRadius.all(Radius.circular(10)),
                       value: currentSelectedValue.value.isEmpty
                           ? null
                           : currentSelectedValue.value,
