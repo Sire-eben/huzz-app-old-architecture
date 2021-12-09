@@ -52,33 +52,33 @@ final _productController=Get.find<ProductRepository>();
                   ),
                 ),
                 Spacer(),
-                InkWell(
-                  onTap: () => showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) => buildAddProduct(),
-                  ),
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: 20,
-                      color: AppColor().backgroundColor,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
+                // InkWell(
+                //   onTap: () => showModalBottomSheet(
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.vertical(
+                //         top: Radius.circular(20),
+                //       ),
+                //     ),
+                //     context: context,
+                //     builder: (context) => buildAddProduct(),
+                //   ),
+                //   child: Container(
+                //     height: 30,
+                //     width: 30,
+                //     decoration: BoxDecoration(
+                //       color: AppColor().lightbackgroundColor,
+                //       shape: BoxShape.circle,
+                //     ),
+                //     child: Icon(
+                //       Icons.add,
+                //       size: 20,
+                //       color: AppColor().backgroundColor,
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(
+                //   width: 5,
+                // ),
                 InkWell(
                   onTap: () {
                     Get.to(BuildDeleteProduct());
@@ -248,7 +248,7 @@ Get.to(AddProduct());
                 ),
                 Center(
                   child: Text(
-                    "0",
+                    "${_productController.productGoods.length}",
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'DMSans',
@@ -627,12 +627,12 @@ class _ListingProductState extends State<ListingProduct> {
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
             widget.item!.productLogoFileStoreId==null|| widget.item!.productLogoFileStoreId!.isEmpty?  Image.asset(
-               "assets/images/productImage.png",
+               "assets/images/Rectangle 1015.png",
                 height: 50,
-              ):Image.network(widget.item!.productLogoFileStoreId!,height: 50,),
+              ):Image.asset("assets/images/Rectangle 1015.png",height: 50,),
               SizedBox(
                 width: 10,
               ),
@@ -688,8 +688,10 @@ class _ListingProductState extends State<ListingProduct> {
                   ),
                 ],
               ),
-              SizedBox(
-                width: 30,
+              Expanded(
+                child: SizedBox(
+                  
+                ),
               ),
               GestureDetector(
                 onTap: (){
@@ -712,7 +714,7 @@ class _ListingProductState extends State<ListingProduct> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        Icons.add,
+                        Icons.edit,
                         size: 20,
                         color: AppColor().orangeBorderColor,
                       ),
@@ -720,7 +722,7 @@ class _ListingProductState extends State<ListingProduct> {
                         width: 5,
                       ),
                       Text(
-                        'Add stock',
+                        'Edit stock',
                         style: TextStyle(
                           color: AppColor().orangeBorderColor,
                           fontFamily: 'DMSans',

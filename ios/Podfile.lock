@@ -1,5 +1,7 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_contacts (0.0.1):
+    - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -17,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_contacts (from `.symlinks/plugins/flutter_contacts/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -30,6 +33,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_contacts:
+    :path: ".symlinks/plugins/flutter_contacts/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
   open_file:
@@ -43,6 +48,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  flutter_contacts: edb1c5ce76aa433e20e6cb14c615f4c0b66e0983
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   image_picker: 9aa50e1d8cdacdbed739e925b7eea16d014367e6
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d

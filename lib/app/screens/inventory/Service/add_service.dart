@@ -1,18 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/model/product.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'servicelist.dart';
 
 class AddService extends StatefulWidget {
-  const AddService({Key? key}) : super(key: key);
+  Product? item;
+  AddService({Key? key,this.item}) : super(key: key);
 
   @override
   _AddServiceState createState() => _AddServiceState();
 }
 
 class _AddServiceState extends State<AddService> {
+  final _productController=Get.find<ProductRepository>();
   final TextEditingController textEditingController = TextEditingController();
 
   String? value;
@@ -25,17 +32,17 @@ class _AddServiceState extends State<AddService> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColor().whiteColor,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: AppColor().backgroundColor,
-          ),
-        ),
+          // leading: GestureDetector(
+          //   onTap: () {
+          //     Get.back();
+          //   },
+          //   child: Icon(
+          //     Icons.arrow_back,
+          //     color: AppColor().backgroundColor,
+          //   ),
+          // ),
         title: Text(
-          "Add Services",
+         (widget.item==null)? "Add Service":"Update Service",
           style: TextStyle(
             color: AppColor().backgroundColor,
             fontSize: 18,
@@ -59,11 +66,17 @@ class _AddServiceState extends State<AddService> {
                   context: context,
                   builder: (context) => buildAddImage()),
               child: Center(
-                child: Image.asset(
-                  'assets/images/Group 3647.png',
-                  height: 50,
-                  color: AppColor().backgroundColor,
-                ),
+                child: (_productController.productImage.value != null)
+                      ? Image.file(
+                          _productController.productImage.value!,
+                          height: 150,
+                          width: 150,
+                        )
+                      : Image.asset(
+                          'assets/images/Group 3647.png',
+                          height: 50,
+                          color: AppColor().backgroundColor,
+                        ),
               ),
             ),
             SizedBox(
@@ -71,7 +84,7 @@ class _AddServiceState extends State<AddService> {
             ),
             Center(
               child: Text(
-                'Profile Picture',
+                'Service Image',
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: 'DMSans',
@@ -86,6 +99,7 @@ class _AddServiceState extends State<AddService> {
               label: "Service name",
               validatorText: "Service name is needed",
               hint: 'E.g Television',
+              textEditingController: _productController.productNameController,
             ),
             SizedBox(
               height: 10,
@@ -94,6 +108,7 @@ class _AddServiceState extends State<AddService> {
               label: "Service Amount",
               validatorText: "Service amount is needed",
               hint: 'N0.00',
+              textEditingController: _productController.productCostPriceController,
             ),
             SizedBox(
               height: 10,
@@ -141,7 +156,7 @@ class _AddServiceState extends State<AddService> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: TextFormField(
-                  controller: textEditingController,
+                  controller: _productController.serviceDescription,
                   textInputAction: TextInputAction.none,
                   decoration: InputDecoration(
                     isDense: true,
@@ -166,9 +181,18 @@ class _AddServiceState extends State<AddService> {
             Spacer(),
             InkWell(
               onTap: () {
-                Get.to(ServiceListing());
+                // Get.to(ServiceListing());
+              
+ if (_productController.addingProductStatus !=
+                      AddingProductStatus.Loading) {
+                    if (widget.item == null)
+                      _productController.addProduct("SERVICES");
+                    else
+                      _productController.updateProduct(widget.item!);
+                  }
               },
               child: Container(
+                width: MediaQuery.of(context).size.width,
                 height: 55,
                 margin: EdgeInsets.symmetric(
                   horizontal: 15,
@@ -176,9 +200,18 @@ class _AddServiceState extends State<AddService> {
                 decoration: BoxDecoration(
                     color: AppColor().backgroundColor,
                     borderRadius: BorderRadius.circular(10)),
-                child: Center(
+                child: (_productController.addingProductStatus ==
+                          AddingProductStatus.Loading)
+                      ? Container(
+                          width: 30,
+                          height: 30,
+                          child: Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white)),
+                        )
+                      :  Center(
                   child: Text(
-                    'Save',
+                  (widget.item==null)?  'Save':"Update",
                     style: TextStyle(
                       color: AppColor().whiteColor,
                       fontFamily: 'DMSans',
@@ -197,115 +230,126 @@ class _AddServiceState extends State<AddService> {
     );
   }
 
-  Widget buildAddImage() => Container(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.04,
-            right: MediaQuery.of(context).size.width * 0.04,
-            bottom: MediaQuery.of(context).size.width * 0.04,
-            top: MediaQuery.of(context).size.width * 0.02),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                height: 3,
-                width: 70,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  height: 30,
-                  width: 30,
+ Widget buildAddImage() => Obx(() {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  height: 3,
+                  width: 70,
                   decoration: BoxDecoration(
-                    color: Color(0xffE6F4F2),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.close,
-                    color: AppColor().backgroundColor,
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 5),
-            Text(
-              'Upload Image',
-              style: TextStyle(
-                color: AppColor().blackColor,
-                fontFamily: 'DMSans',
-                fontSize: 20,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            SizedBox(height: 100),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () => showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(20))),
-                      context: context,
-                      builder: (context) => buildAddImage()),
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/Group 3647.png',
-                      height: 50,
-                      color: AppColor().backgroundColor,
-                    ),
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(4),
                   ),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Center(
-              child: Text(
-                'Select from Device',
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE6F4F2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        Icons.close,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Upload Image',
                 style: TextStyle(
                   color: AppColor().blackColor,
                   fontFamily: 'DMSans',
-                  fontSize: 12,
+                  fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
               ),
-            ),
-            Spacer(),
-            InkWell(
-              onTap: () {
-                Get.to(ServiceListing());
-              },
-              child: Container(
-                height: 55,
-                margin: EdgeInsets.symmetric(
-                  horizontal: 15,
+              SizedBox(height: 100),
+              GestureDetector(
+                onTap: () async {
+                  final ImagePicker _picker = ImagePicker();
+                  // Pick an image
+                  final XFile? image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  _productController.productImage(File(image!.path));
+                  print("image path ${image.path}");
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    (_productController.productImage.value != null)
+                        ? Image.file(
+                            _productController.productImage.value!,
+                            height: 150,
+                            width: 150,
+                          )
+                        : Image.asset(
+                            'assets/images/camera.png',
+                          ),
+                  ],
                 ),
-                decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                  child: Text(
-                    'Save',
-                    style: TextStyle(
-                      color: AppColor().whiteColor,
-                      fontFamily: 'DMSans',
-                      fontWeight: FontWeight.bold,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Center(
+                child: Text(
+                  'Select from Device',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: 'DMSans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  height: 55,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 15,
+                  ),
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                        color: AppColor().whiteColor,
+                        fontFamily: 'DMSans',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      );
+            ],
+          ),
+        );
+      });
 }

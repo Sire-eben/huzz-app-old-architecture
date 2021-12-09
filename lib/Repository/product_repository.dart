@@ -13,7 +13,8 @@ import 'package:huzz/sqlite/sqlite_db.dart';
 import 'auth_respository.dart';
 import 'file_upload_respository.dart';
 enum AddingProductStatus {Loading,Error,Success,Empty}
-class ProductRepository extends GetxController with GetSingleTickerProviderStateMixin{
+
+class ProductRepository extends GetxController with  SingleGetTickerProviderMixin {
 final _userController=Get.find<AuthRepository>();
 Rx<List<Product>> _onlineBusinessProduct=Rx([]);
 Rx<List<Product>> _offlineBusinessProduct=Rx([]);
@@ -79,7 +80,7 @@ getOfflineProduct(p0.businessId!);
 
   }
 
-  Future addProduct()async{
+  Future addProduct(String type)async{
 
 
     try{
@@ -97,7 +98,7 @@ var response= await http.post(Uri.parse(ApiLink.add_product),body:jsonEncode(
 "sellingPrice":productSellingPriceController.text,
 "quantity":productQuantityController.text,
 "businessId":_businessController.selectedBusiness.value!.businessId!,
-"productType":tabController!.index==0?"GOODS":"SERVICES",
+"productType":type,
 "productLogoFileStoreId":fileId
 
   }
@@ -112,9 +113,9 @@ if(response.statusCode==200){
 
 _addingProductStatus(AddingProductStatus.Success);
 getOnlineProduct(_businessController.selectedBusiness.value!.businessId!);
-
-Get.to(Confirmation(text: "Added",));
 clearValue();
+Get.to(Confirmation(text: "Added",));
+
 }else{
 
 _addingProductStatus(AddingProductStatus.Error);
@@ -124,7 +125,7 @@ Get.snackbar("Error", "Unable to add product");
 
 
     }catch(ex){
-
+Get.snackbar("Error", "Unknown error occurred.. try again");
 _addingProductStatus(AddingProductStatus.Error);
     }
 
@@ -134,7 +135,7 @@ _addingProductStatus(AddingProductStatus.Error);
  productImage(null);
  productNameController.text="";
  productQuantityController.text="";
- productQuantityController.text="";
+ productCostPriceController.text="";
  productSellingPriceController.text="";
  productUnitController.text="";
  serviceDescription.text="";
@@ -426,4 +427,7 @@ void removeFromDeleteList(Product product){
  list.remove(product);
  _deleteProductList(list);
 }
+
+
+
 }
