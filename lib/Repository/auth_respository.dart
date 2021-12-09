@@ -239,8 +239,6 @@ class AuthRepository extends GetxController {
       final isAuthenticated = await LocalAuthApi.authenticate();
 
       if (isAuthenticated) {
-        var json = isAuthenticated;
-
         _signinStatus(SigninStatus.Success);
 
         pref!.saveToken(token);
