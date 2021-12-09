@@ -1,13 +1,11 @@
 import 'dart:io';
-import 'dart:async';
-import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import '../../../colors.dart';
-import 'receipt/pdf_receipt.dart';
+import 'receipt/money_in_out_pdf.dart';
 
 class IncomeReceipt extends StatefulWidget {
   final File? file;
@@ -36,9 +34,6 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                   fitPolicy: FitPolicy.WIDTH,
                   filePath: widget.file!.path,
                   autoSpacing: false,
-                  // swipeHorizontal: true,
-                  // pageSnap: false,
-                  // pageFling: false,
                   onViewCreated: (controller) =>
                       setState(() => this.controller = controller),
                 ),
@@ -47,7 +42,6 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                 padding:
                     EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       child: Checkbox(

@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:huzz/app/screens/widget/util.dart';
+import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:huzz/model/reciept_model.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -19,10 +19,11 @@ class PdfInvoiceApi {
         buildInvoice(invoice),
         Divider(),
         buildTotal(invoice),
-        SizedBox(height: 2 * PdfPageFormat.cm),
+        SizedBox(height: 1 * PdfPageFormat.cm),
+        buildSubTotal(invoice),
+        SizedBox(height: 1 * PdfPageFormat.cm),
         buildFooter(invoice)
       ],
-      // footer: (context) => buildFooter(invoice),
     ));
 
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
@@ -38,19 +39,13 @@ class PdfInvoiceApi {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               buildSupplierAddress(invoice.supplier),
-              Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                Text('RECEIPT',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: PdfColors.white)),
-                Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
-                    style: TextStyle(color: PdfColors.white)),
-              ]),
+              buildBankDetails(invoice.bankDetails),
             ],
           ),
         ],
       ));
 
-  static Widget buildCustomerAddress(Customer customer) => Column(
+  static Widget buildCustomerAddress(InvoiceCustomer customer) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(customer.name, style: TextStyle(fontWeight: FontWeight.bold)),
@@ -80,6 +75,37 @@ class PdfInvoiceApi {
           Text(supplier.mail, style: TextStyle(color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text(supplier.phone, style: TextStyle(color: PdfColors.white)),
+        ],
+      );
+
+  static Widget buildBankDetails(BankDetails bankDetails) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(children: [
+            Text('INVOICE',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: PdfColors.white,
+                    fontSize: 16)),
+            SizedBox(width: 1 * PdfPageFormat.mm),
+            Text('#61144',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: PdfColors.white,
+                    fontSize: 16)),
+          ]),
+          Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
+              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+          SizedBox(height: 1 * PdfPageFormat.mm),
+          Text('Mode of Payment',
+              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+          Text(bankDetails.mode,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: PdfColors.white)),
+          Text(bankDetails.name,
+              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+          Text(bankDetails.no,
+              style: TextStyle(color: PdfColors.white, fontSize: 10)),
         ],
       );
 
@@ -168,79 +194,90 @@ class PdfInvoiceApi {
     );
   }
 
-  static Widget buildFooter(Invoice invoice) => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 2 * PdfPageFormat.mm),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'ISSUED TO:',
-                style: TextStyle(
-                  color: PdfColors.blue,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(invoice.customer.name),
-              Text(invoice.customer.phone),
-            ]),
-            Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-              Text('POWERED BY:'),
-              Row(children: [
-                PdfLogo(),
-                Text(
-                  'HUZZ',
-                  style: TextStyle(
-                    color: PdfColors.blue,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ])
-            ])
-          ]),
-          SizedBox(height: 1 * PdfPageFormat.mm),
-          // buildSimpleText(title: 'Paypal', value: invoice.supplier.mail),
-        ],
-      );
+  static Widget buildSubTotal(Invoice invoice) =>
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            'Issue Date',
+            style: TextStyle(
+              fontSize: 8,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            DateFormat.yMMMd().format(DateTime.now()).toString(),
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ]),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            'Due Date',
+            style: TextStyle(
+              fontSize: 8,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            DateFormat.yMMMd().format(DateTime.now()).toString(),
+            style: TextStyle(
+              color: PdfColors.orange,
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ]),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text('Sub-total'),
+          Text('Tax (0%)'),
+          Text('DIscount'),
+        ]),
+        Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          Text('N 150,000'),
+          Text('N 2,000'),
+          Text('N 1,000'),
+        ])
+      ]);
 
-  static buildSimpleText({
-    required String title,
-    required String value,
-  }) {
-    final style = TextStyle(fontWeight: FontWeight.bold);
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: pw.CrossAxisAlignment.end,
-      children: [
-        Text(title, style: style),
-        SizedBox(width: 2 * PdfPageFormat.mm),
-        Text(value),
-      ],
-    );
-  }
-
-  static buildText({
-    required String title,
-    required String value,
-    double width = double.infinity,
-    TextStyle? titleStyle,
-    bool unite = false,
-  }) {
-    final style = titleStyle ?? TextStyle(fontWeight: FontWeight.bold);
-
-    return Container(
-      width: width,
-      child: Row(
-        children: [
-          Expanded(child: Text(title, style: style)),
-          Text(value, style: unite ? style : null),
-        ],
-      ),
-    );
-  }
+  static Widget buildFooter(Invoice invoice) =>
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            'ISSUED TO:',
+            style: TextStyle(
+              color: PdfColors.blue,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(invoice.customer.name),
+          Text(invoice.customer.phone),
+        ]),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(width: 1, color: PdfColors.orange),
+                color: PdfColors.orange50),
+            child: Text('Pending',
+                style: TextStyle(color: PdfColors.orange, fontSize: 12)),
+          )
+        ]),
+        Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          Text('POWERED BY:'),
+          Text(
+            'HUZZ',
+            style: TextStyle(
+              color: PdfColors.blue,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ])
+      ]);
 }
 
 class PdfApi {

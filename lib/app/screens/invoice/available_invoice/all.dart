@@ -243,23 +243,26 @@ class _AllState extends State<All> {
                                   //         'assets/images/circle.svg')
                                   //     : SvgPicture.asset(
                                   //         'assets/images/selectedItem.svg')
-                                  AnimatedContainer(
-                                    duration: Duration(milliseconds: 200),
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                      color: AppColor().orangeBorderColor,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Color(0xffEF6500),
-                                      ),
-                                    ),
-                                    child: Visibility(
-                                      visible: deleteItem,
-                                      child: Icon(
-                                        Icons.check,
-                                        size: 15,
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: AnimatedContainer(
+                                      duration: Duration(milliseconds: 200),
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
                                         color: AppColor().orangeBorderColor,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: Color(0xffEF6500),
+                                        ),
+                                      ),
+                                      child: Visibility(
+                                        visible: true,
+                                        child: Icon(
+                                          Icons.check,
+                                          size: 15,
+                                          color: AppColor().orangeBorderColor,
+                                        ),
                                       ),
                                     ),
                                   ),
