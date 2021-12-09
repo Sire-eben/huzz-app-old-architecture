@@ -1,3 +1,4 @@
+
 class ApiLink {
   static String baseurl = "https://staging-api.huzz.africa//api/v1/";
 // ignore: non_constant_identifier_names
@@ -18,4 +19,10 @@ class ApiLink {
   static String get_business_transaction = baseurl + "business/transactions";
 // ignore: non_constant_identifier_names
   static String dashboard_overview = baseurl + "business/transactions/overview";
+  static String addCustomer=baseurl+"business/customer";
+static String upload_file=baseurl+"file-store/upload";
+static String get_business_product=baseurl+"business/product";
+static String add_product=baseurl+"business/product";
+static String get_business_customer=baseurl+"business/customer";
+static String add_customer=baseurl+"business/customer";
 }

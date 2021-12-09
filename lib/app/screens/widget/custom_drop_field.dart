@@ -23,6 +23,7 @@ class CustomDropDownField extends StatelessWidget {
     // TODO: implement build
     var _currencies = [];
 
+
     print("value ${currentSelectedValue.value.isEmpty}");
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -93,6 +94,46 @@ class CustomDropDownField extends StatelessWidget {
             ),
           ),
         ],
+
+      Container(
+        margin: EdgeInsets.only(left: 20,right: 20,top: 10),
+        child: FormField<String>(
+                  builder: (FormFieldState<String> state) {
+                    return InputDecorator(
+                      decoration: InputDecoration(
+                          labelStyle:labelTextStyle,
+                          errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),
+                          hintText: hintText,
+                          enabledBorder:OutlineInputBorder(
+                            borderSide: BorderSide(color: AppColor().backgroundColor),
+                            borderRadius: BorderRadius.circular(10.0)) ,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: AppColor().backgroundColor),
+                            borderRadius: BorderRadius.circular(10.0))),
+                      isEmpty: currentSelectedValue.value.isEmpty,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          value: currentSelectedValue.value.isEmpty?null:currentSelectedValue.value,
+                          isDense: true,
+                          onChanged: (String? newValue) {
+                            
+                              currentSelectedValue(newValue!);
+                              state.didChange(newValue);
+                          
+                          },
+                          items: values.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+
       ),
     );
   }

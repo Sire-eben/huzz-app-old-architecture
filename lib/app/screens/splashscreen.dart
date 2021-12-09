@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/onboarding_main..dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/colors.dart';
@@ -34,7 +35,7 @@ final _controller=Get.find<AuthRepository>();
         Get.off(() => OnboardingMain());
       } else if (_controller.authStatus == AuthStatus.Authenticated) {
         // Get.off(() => UserNavScreen());
-         Get.off(() => Signin());
+         Get.off(() => Dashboard());
       } else {
    
         Get.off(() => Signin());

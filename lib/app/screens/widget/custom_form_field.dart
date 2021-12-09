@@ -1,7 +1,11 @@
+// import 'package:contact_picker/contact_picker.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:huzz/Repository/customer_repository.dart';
+// import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:huzz/colors.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -118,8 +122,8 @@ class CustomTextField extends StatelessWidget {
                     //     fontFamily: FontFamily.sofiaPro,
                     //     fontSize: 14),
                     hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                          // color: AppColors.accentcolor,
-                          // fontFamily: FontFamily.sofiaPro,
+                          color: Colors.black26,
+                          fontFamily: 'DMSans',
                           fontSize: 14,
                           fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.normal,
@@ -438,7 +442,8 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
 }
 
 class CustomTextFieldOption extends StatelessWidget {
-  const CustomTextFieldOption(
+  
+   CustomTextFieldOption(
       {this.hint,
       this.label,
       this.pretext,
@@ -602,6 +607,9 @@ class CustomTextFieldWithImage extends StatefulWidget {
 class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
   String countryFlag = "NG";
   String countryCode = "234";
+  // final ContactPicker _contactPicker = new ContactPicker();
+  // Contact? _contact;
+  final _customerController=Get.find<CustomerRepository>();
 
   @override
   Widget build(BuildContext context) {
@@ -647,15 +655,19 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                             SizedBox(width: 8),
                             InkWell(
                               onTap: () async {
-                                // Contact contact =
-                                //     await _contactPicker.selectContact();
-                                // setState(() {
-                                //   _contact = contact;
-                                //   widget.contactPhone!.text =
-                                //       _contact!.phoneNumber.number;
-                                //   widget.contactName!.text = _contact!.fullName;
-                                //   print(contact);
+                                _customerController.showContactPicker(context);
+                                
+                                // // Contact contact =
+                                // //     await _contactPicker.selectContact();
+                                // // setState(() {
+                                // //   _contact = contact;
+                                // //   widget.contactPhone!.text =
+                                // //       _contact!.phoneNumber.number;
+                                // //   widget.contactName!.text = _contact!.fullName;
+                                // //   print(contact);
                                 // });
+
+
                               },
                               child: Container(
                                   margin: EdgeInsets.only(top: 5),
@@ -959,6 +971,9 @@ class _CustomTextFieldWithImageTransactionState
     extends State<CustomTextFieldWithImageTransaction> {
   String countryFlag = "NG";
   String countryCode = "234";
+  final _customerController=Get.find<CustomerRepository>();
+  // final ContactPicker _contactPicker = new ContactPicker();
+  // Contact? _contact;
 
   @override
   Widget build(BuildContext context) {
@@ -1001,6 +1016,8 @@ class _CustomTextFieldWithImageTransactionState
                         SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
+                                print("contact should show");
+                           await _customerController.showContactPicker(context);
                             // Contact contact =
                             //     await _contactPicker.selectContact();
                             // setState(() {
@@ -1010,6 +1027,7 @@ class _CustomTextFieldWithImageTransactionState
                             //   widget.contactName!.text = _contact!.fullName;
                             //   print(contact);
                             // });
+
                           },
                           child: Container(
                               margin: EdgeInsets.only(top: 5),
@@ -1303,6 +1321,9 @@ class CustomTextFieldInvoice extends StatefulWidget {
 class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
   String countryFlag = "NG";
   String countryCode = "234";
+  final _customerController=Get.find<CustomerRepository>();
+  // final ContactPicker _contactPicker = new ContactPicker();
+  // Contact? _contact;
 
   @override
   Widget build(BuildContext context) {
@@ -1338,6 +1359,8 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
+                            print("contact should show");
+                           await _customerController.showContactPicker(context);
                             // Contact contact =
                             //     await _contactPicker.selectContact();
                             // setState(() {

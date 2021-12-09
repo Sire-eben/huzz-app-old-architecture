@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/customer_model.dart';
 
@@ -15,6 +16,7 @@ class Customers extends StatefulWidget {
 
 class _CustomersState extends State<Customers> {
   final _searchcontroller = TextEditingController();
+  final _customerController=Get.find<CustomerRepository>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,7 +173,7 @@ class _CustomersState extends State<Customers> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.to(() => AddCustomer());
+          // Get.to(() => AddCustomer());
         },
         icon: Icon(Icons.add),
         backgroundColor: AppColor().backgroundColor,

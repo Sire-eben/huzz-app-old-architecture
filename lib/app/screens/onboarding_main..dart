@@ -68,14 +68,14 @@ class _OnboardingMainState extends State<OnboardingMain> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.05,
+                height: MediaQuery.of(context).size.height * 0.1,
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.2,
-                child: SvgPicture.asset(boards[selectedIndex].asset!),
+                child: Image.asset(boards[selectedIndex].asset!),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: MediaQuery.of(context).size.height * 0.15,
               ),
               Container(
                 margin: EdgeInsets.only(left: 50, right: 50),
@@ -83,13 +83,15 @@ class _OnboardingMainState extends State<OnboardingMain> {
                   boards[selectedIndex].title!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                    fontWeight: FontWeight.w600,
                     fontSize: 24,
+                    fontFamily: 'DMSans',
                     color: Colors.black,
                   ),
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
+                height: MediaQuery.of(context).size.height * 0.02,
               ),
               Container(
                 margin: EdgeInsets.only(left: 30, right: 30),
@@ -97,15 +99,16 @@ class _OnboardingMainState extends State<OnboardingMain> {
                   boards[selectedIndex].body!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                    fontFamily: 'DMSans',
                     color: Colors.black,
-                    fontSize: 16,
-                    letterSpacing: 2,
+                    fontSize: 12,
+                    letterSpacing: 0.5,
                     height: 1.5,
                   ),
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.08,
+                height: MediaQuery.of(context).size.height * 0.06,
               ),
               (selectedIndex < boards.length - 1)
                   ? GestureDetector(
@@ -125,7 +128,6 @@ class _OnboardingMainState extends State<OnboardingMain> {
                             child: Container(
                               height: 70,
                               width: 70,
-                              // padding: EdgeInsets.all(20),
                               decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50)),

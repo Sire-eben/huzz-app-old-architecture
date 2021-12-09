@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/api_link.dart';
@@ -29,21 +30,43 @@ final totalbalance=0.obs;
 final debtors=0.obs;
 List<TransactionModel> todayTransaction=[];
 SqliteDb sqliteDb=SqliteDb();
+final itemNameController=TextEditingController();
+final amountController=TextEditingController();
+final quantityController=TextEditingController();
+final dateController=TextEditingController();
+  final timeController=TextEditingController();
+final  paymentController=TextEditingController();
+final paymentSourceController=TextEditingController();
+final receiptFileController=TextEditingController();
+
+
+
 @override
   void onInit() async{
     // TODO: implement onInit
-    super.onInit();
-    await sqliteDb.openDatabae();
+     print("getting transaction repo");
+ 
+   
+   
     
     _userController.Mtoken.listen((p0) {
+        print("token gotten $p0");
   if(p0.isNotEmpty||p0!="0"){
+  
    final value=_businessController.selectedBusiness.value;
     if(value!=null){
      
 getOnlineTransaction(value.businessId!);
-GetOfflineTransactions(value.businessId!);
+
 getSpending(value.businessId!);
 
+
+GetOfflineTransactions(value.businessId!);
+
+
+    }else{
+
+      print("current business is null");
     }
 _businessController.selectedBusiness.listen((p0) {
   if(p0!=null){
@@ -53,6 +76,7 @@ print("business id ${p0.businessId}");
       _allPaymentItem([]);
     OnlineTransaction=[];
 getOnlineTransaction(p0.businessId!);
+
 GetOfflineTransactions(p0.businessId!);
 getSpending(p0.businessId!);
   }
@@ -113,7 +137,7 @@ getTransactionYetToBeSavedLocally();
 
 Future GetOfflineTransactions(String id) async{
 
-var results= await sqliteDb.getOfflineTransactions(id);
+var results= await _businessController.sqliteDb.getOfflineTransactions(id);
 print("offline transaction ${results.length}");
 
 _offlineTransactions(results);
@@ -168,9 +192,9 @@ Future PendingTransaction()async{
 bool checkifTransactionAvailable(String id){
  bool result=false;
 offlineTransactions.forEach((element) {
-   
+   print("checking transaction whether exist");
 if(element.id==id){
-print("business  found");
+print("transaction   found");
 result=true;
 }
  });
@@ -184,7 +208,7 @@ if(pendingTransaction.isEmpty){
   return;
 }
 var savenext=pendingTransaction.first;
- await sqliteDb.insertTransaction(savenext);
+ await _businessController.sqliteDb.insertTransaction(savenext);
 pendingTransaction.remove(savenext);
 if(pendingTransaction.isNotEmpty){
 savePendingJob();
@@ -215,7 +239,7 @@ var month=now.month>=10?now.month.toString():"0"+now.month.toString();
    var balance=json['data']['differences'];
    var numberofIncome=json['data']['numberOfIncomeTransactions'];
    var numberofExpenses=json['data']['numberOfExpenditureTransactions'];
-   var Debtor=json['otalIncomeBalanceAmount']??0;
+   var Debtor=json['totalIncomeBalanceAmount']??0;
    income(totalIncome);
    expenses(totalExpenses);
    totalbalance(balance);
