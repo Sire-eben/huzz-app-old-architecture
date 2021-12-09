@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/home/receipt/pdf_receipt.dart';
 import 'package:huzz/app/screens/home/reciept.dart';
 import 'package:huzz/model/reciept_model.dart';
@@ -67,7 +68,7 @@ class IncomeSuccess extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () async {
-                      Get.to(() => IncomeReceipt());
+                      Get.offAll(() => Dashboard());
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -136,9 +137,8 @@ class IncomeSuccess extends StatelessWidget {
                       );
                       final invoiceReceipt =
                           await PdfInvoiceApi.generate(invoice);
-
-                      PdfApi.openFile(invoiceReceipt);
-                      // Get.to(() => IncomeSuccess());
+                      Get.to(() => IncomeReceipt(file: invoiceReceipt));
+                      // PdfApi.openFile(invoiceReceipt);
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,

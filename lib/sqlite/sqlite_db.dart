@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/transaction_model.dart';
@@ -17,6 +18,10 @@ class SqliteDb {
   static String productbusinessTable="ProductBusinessTable";
   static String productId="ProductId";
   static String productJson="ProductJson";
+
+   static String customerbusinessTable="CustomerBusinessTable";
+  static String customerId="CustomerId";
+  static String  customerJson="CustomerJson";
 
   Future openDatabae() async {
     final databasePath = await getDatabasesPath();
@@ -45,6 +50,13 @@ $businessId text not null)
 
 ''');
  
+
+      await db.execute('''create table $customerbusinessTable (
+$customerId text primary key,
+$customerJson text not null,
+$businessId text not null) 
+
+''');
 
 // await db.execute(''' create table $playtableName (
 // $courseId integer,
@@ -191,4 +203,61 @@ var result= await db.delete(  productbusinessTable,
 
 print("result after delete ${result}");
 }
+
+
+
+Future insertCustomer(Customer customer) async {
+    var value = jsonEncode(customer.toJson());
+    var result = db.insert(customerbusinessTable, {
+      customerId: customer.customerId,
+      businessId: customer.businessId,
+    customerJson: value
+    });
+  }
+
+  Future<List<Customer>> getOfflineCustomers(String id) async {
+    var result = await db.query(customerbusinessTable,
+        where: '"$businessId" = ?', whereArgs: [id]);
+    var offlineCustomers = result
+        .map((e) => Customer.fromJson(
+            jsonDecode(e[customerJson].toString())))
+        .toList();
+    return offlineCustomers;
+  }
+
+  Future<Customer?> getOfflineCustomer(String id) async {
+    var result = await db.query(customerbusinessTable,
+        where: '"$customerId" = ?', whereArgs: [id]);
+    if (result.length > 0) {
+      var json = result.first;
+      return Customer.fromJson(
+          jsonDecode(result.first[customerJson].toString()));
+    } else {
+      return null;
+    }
+  }
+
+  Future updateOfflineCustomer(Customer customer) async {
+    var value = jsonEncode(customer.toJson());
+    var result = await db.update(
+        customerbusinessTable, {
+           customerId: customer.customerId,
+      businessId: customer.businessId,
+      customerJson: value
+        },
+        where: '"$customerId" = ?', whereArgs: [customer.customerId]);
+
+    print("updated $result");
+  }
+
+
+Future deleteCustomer(Customer customer)async{
+var result= await db.delete(  customerbusinessTable, 
+        where: '"$customerId" = ?', whereArgs: [customer.customerId]);
+
+print("result after delete ${result}");
+}
+
+
+
 }

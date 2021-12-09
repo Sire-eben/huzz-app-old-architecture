@@ -23,4 +23,6 @@ class ApiLink {
 static String upload_file=baseurl+"file-store/upload";
 static String get_business_product=baseurl+"business/product";
 static String add_product=baseurl+"business/product";
+static String get_business_customer=baseurl+"business/customer";
+static String add_customer=baseurl+"business/customer";
 }

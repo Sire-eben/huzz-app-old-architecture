@@ -29,6 +29,9 @@ class _MoneyInState extends State<MoneyIn> {
   void initState() {
     dateController.text =
         DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
+
+    // timeController.text =
+    // '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
     super.initState();
   }
 
