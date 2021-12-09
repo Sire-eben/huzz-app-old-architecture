@@ -19,14 +19,19 @@ class PdfInvoiceApi {
         buildInvoice(invoice),
         Divider(),
         buildTotal(invoice),
+        SizedBox(height: 2 * PdfPageFormat.cm),
+        buildFooter(invoice)
       ],
-      footer: (context) => buildFooter(invoice),
+      // footer: (context) => buildFooter(invoice),
     ));
 
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(Invoice invoice) => Column(
+  static Widget buildHeader(Invoice invoice) => Container(
+      padding: EdgeInsets.all(20),
+      color: PdfColors.blue,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -34,13 +39,16 @@ class PdfInvoiceApi {
             children: [
               buildSupplierAddress(invoice.supplier),
               Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                Text('RECEIPT', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(DateFormat.yMMMd().format(DateTime.now()).toString()),
+                Text('RECEIPT',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: PdfColors.white)),
+                Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
+                    style: TextStyle(color: PdfColors.white)),
               ]),
             ],
           ),
         ],
-      );
+      ));
 
   static Widget buildCustomerAddress(Customer customer) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,11 +61,25 @@ class PdfInvoiceApi {
   static Widget buildSupplierAddress(Supplier supplier) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(supplier.name, style: TextStyle(fontWeight: FontWeight.bold)),
+          Container(
+              height: 40,
+              width: 40,
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
+              child: Center(
+                child: Text(supplier.name[0],
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.blue)),
+              )),
+          Text(supplier.name,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(supplier.mail),
+          Text(supplier.mail, style: TextStyle(color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(supplier.phone),
+          Text(supplier.phone, style: TextStyle(color: PdfColors.white)),
         ],
       );
 
@@ -86,7 +108,7 @@ class PdfInvoiceApi {
       return [
         item.item,
         '${item.quantity}',
-        '\N ${item.amount}',
+        '\NGN${item.amount}',
       ];
     }).toList();
 
@@ -94,7 +116,8 @@ class PdfInvoiceApi {
       headers: headers,
       data: data,
       border: null,
-      headerStyle: TextStyle(fontWeight: FontWeight.bold),
+      headerStyle:
+          TextStyle(fontWeight: FontWeight.bold, color: PdfColors.blue),
       headerDecoration: BoxDecoration(color: PdfColors.grey300),
       cellHeight: 30,
       cellAlignments: {
@@ -118,28 +141,28 @@ class PdfInvoiceApi {
     return Container(
       alignment: Alignment.centerRight,
       child: Row(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            flex: 4,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildText(
-                  title: 'Total amount due',
-                  titleStyle: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  value: Utils.formatPrice(total),
-                  unite: true,
-                ),
-                // SizedBox(height: 2 * PdfPageFormat.mm),
-                // Container(height: 1, color: PdfColors.grey400),
-                // SizedBox(height: 0.5 * PdfPageFormat.mm),
-                // Container(height: 1, color: PdfColors.grey400),
-              ],
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            color: PdfColors.orange,
+            child: Text(
+              'Total',
+              style: TextStyle(
+                color: PdfColors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
+          Text(
+            Utils.formatPrice(total),
+            style: TextStyle(
+              color: PdfColors.blue,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          )
         ],
       ),
     );
@@ -151,13 +174,30 @@ class PdfInvoiceApi {
           SizedBox(height: 2 * PdfPageFormat.mm),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('ISSUED TO:'),
+              Text(
+                'ISSUED TO:',
+                style: TextStyle(
+                  color: PdfColors.blue,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Text(invoice.customer.name),
               Text(invoice.customer.phone),
             ]),
             Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text('POWERED BY:'),
-              buildSimpleText(title: 'HUZZ', value: ''),
+              Row(children: [
+                PdfLogo(),
+                Text(
+                  'HUZZ',
+                  style: TextStyle(
+                    color: PdfColors.blue,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ])
             ])
           ]),
           SizedBox(height: 1 * PdfPageFormat.mm),

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/appbinding.dart';
-import 'package:huzz/app/screens/invoice/invoice.dart';
+import 'package:huzz/app/screens/invoice/empty_invoice.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/core/routes/app_router.dart';

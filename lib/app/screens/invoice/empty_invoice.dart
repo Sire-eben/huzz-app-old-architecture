@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/colors.dart';
 
-class Invoice extends StatefulWidget {
-  const Invoice({Key? key}) : super(key: key);
+class EmptyInvoice extends StatefulWidget {
+  const EmptyInvoice({Key? key}) : super(key: key);
 
   @override
   _InvoiceState createState() => _InvoiceState();
 }
 
-class _InvoiceState extends State<Invoice> {
+class _InvoiceState extends State<EmptyInvoice> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +59,7 @@ class _InvoiceState extends State<Invoice> {
                           children: [
                             SvgPicture.asset('assets/images/invoice.svg'),
                             Text(
-                              'Create an Invoice here',
+                              'Create an EmptyInvoice here',
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black,
@@ -100,7 +100,7 @@ class _InvoiceState extends State<Invoice> {
                                         BorderRadius.all(Radius.circular(10))),
                                 child: Center(
                                   child: Text(
-                                    'Create Invoice',
+                                    'Create EmptyInvoice',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,

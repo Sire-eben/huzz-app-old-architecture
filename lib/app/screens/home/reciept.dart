@@ -1,17 +1,25 @@
+import 'dart:io';
+import 'dart:async';
+import 'package:path/path.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import '../../../colors.dart';
+import 'receipt/pdf_receipt.dart';
 
 class IncomeReceipt extends StatefulWidget {
-  const IncomeReceipt({Key? key}) : super(key: key);
+  final File? file;
+
+  const IncomeReceipt({Key? key, @required this.file}) : super(key: key);
 
   @override
   _IncomeReceiptState createState() => _IncomeReceiptState();
 }
 
 class _IncomeReceiptState extends State<IncomeReceipt> {
+  PDFViewController? controller;
   bool receiptTheme = true;
   @override
   Widget build(BuildContext context) {
@@ -19,110 +27,131 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Color(0xff0065D3))),
+                child: PDFView(
+                  fitPolicy: FitPolicy.WIDTH,
+                  filePath: widget.file!.path,
+                  autoSpacing: false,
+                  // swipeHorizontal: true,
+                  // pageSnap: false,
+                  // pageFling: false,
+                  onViewCreated: (controller) =>
+                      setState(() => this.controller = controller),
+                ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Checkbox(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        activeColor: AppColor().backgroundColor,
+                        value: receiptTheme,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            receiptTheme = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Container(
+                      child: Checkbox(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        activeColor: Color(0xff0065D3),
+                        value: !receiptTheme,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            receiptTheme = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Text(
+                      'Change receipt theme',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'DMSans'),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            PdfApi.openFile(widget.file!);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.height * 0.015),
+                            width: MediaQuery.of(context).size.height * 0.06,
+                            height: MediaQuery.of(context).size.height * 0.06,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: AppColor()
+                                    .backgroundColor
+                                    .withOpacity(0.2)),
+                            child:
+                                SvgPicture.asset('assets/images/download.svg'),
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                        Text(
+                          'Download',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'DMSans'),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.height * 0.01),
+                    Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.height * 0.015),
+                          width: MediaQuery.of(context).size.height * 0.06,
+                          height: MediaQuery.of(context).size.height * 0.06,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color:
+                                  AppColor().backgroundColor.withOpacity(0.2)),
+                          child: SvgPicture.asset('assets/images/share.svg'),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                        Text(
+                          'Share',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'DMSans'),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Row(
-                children: [
-                  Container(
-                    child: Checkbox(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      activeColor: AppColor().backgroundColor,
-                      value: receiptTheme,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          receiptTheme = value!;
-                        });
-                      },
-                    ),
-                  ),
-                  Container(
-                    child: Checkbox(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      activeColor: Color(0xff0065D3),
-                      value: !receiptTheme,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          receiptTheme = value!;
-                        });
-                      },
-                    ),
-                  ),
-                  Text(
-                    'Change receipt theme',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'DMSans'),
-                  ),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.height * 0.015),
-                        width: MediaQuery.of(context).size.height * 0.06,
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColor().backgroundColor.withOpacity(0.2)),
-                        child: SvgPicture.asset('assets/images/download.svg'),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
-                      Text(
-                        'Download',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'DMSans'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                  Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.height * 0.015),
-                        width: MediaQuery.of(context).size.height * 0.06,
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColor().backgroundColor.withOpacity(0.2)),
-                        child: SvgPicture.asset('assets/images/share.svg'),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
-                      Text(
-                        'Share',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'DMSans'),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               InkWell(
                 onTap: () {
                   Get.offAll(Dashboard());
@@ -146,6 +175,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                   ),
                 ),
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             ],
           ),
         ),

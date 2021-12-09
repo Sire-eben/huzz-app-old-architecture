@@ -8,6 +8,7 @@ import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../../colors.dart';
+import 'income_success.dart';
 
 class MoneyOut extends StatefulWidget {
   const MoneyOut({Key? key}) : super(key: key);
@@ -319,6 +320,7 @@ class _MoneyOutState extends State<MoneyOut> {
                 children: [
                   Expanded(
                     child: CustomTextField(
+                      textEditingController: dateController,
                       label: "Select Date",
                       hint: 'Select Date',
                       prefixIcon: IconButton(
@@ -334,6 +336,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   ),
                   Expanded(
                     child: CustomTextField(
+                      textEditingController: timeController,
                       label: "Select Time",
                       hint: 'Select Time',
                       prefixIcon: IconButton(
@@ -780,7 +783,9 @@ class _MoneyOutState extends State<MoneyOut> {
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => IncomeSuccess());
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.symmetric(
