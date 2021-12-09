@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
@@ -12,6 +13,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -351,6 +353,82 @@ class Settings extends StatelessWidget {
                           child: Image.asset(
                             "assets/images/settings.png",
                             scale: 0.9,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                // LogOut
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  height: 55,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Color(0xffE6F4F2),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: AppColor().whiteColor,
+                          border: Border.all(
+                            width: 2,
+                            color: AppColor().whiteColor,
+                          ),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            "assets/images/money_in.svg",
+                            color: AppColor().backgroundColor,
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Logout',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(NotificationSettings());
+                        },
+                        child: Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().whiteColor,
+                            ),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/money_out.svg",
+                              color: AppColor().orangeBorderColor,
+                              height: 20,
+                              width: 20,
+                            ),
                           ),
                         ),
                       ),

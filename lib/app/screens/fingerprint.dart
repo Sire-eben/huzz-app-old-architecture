@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/app/screens/reg_home.dart';
+import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/Repository/fingerprint_repository.dart';
 
 import '../../colors.dart';
+import 'sign_in.dart';
 
 class FingerPrint extends StatelessWidget {
-  const FingerPrint({Key? key}) : super(key: key);
+  final _authController = Get.find<AuthRepository>();
+  FingerPrint({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +58,27 @@ class FingerPrint extends StatelessWidget {
           SizedBox(
             height: 50,
           ),
-          Center(
-            child: Image.asset(
-              'assets/images/finger.png',
+          InkWell(
+            onTap: () async {
+              final isAuthenticated = await LocalAuthApi.authenticate();
+              if (isAuthenticated) {
+                // Get.off(() => Dashboard());
+                if (_authController.signinStatus != SigninStatus.Loading)
+                  _authController.fingerPrintSignIn();
+              }
+            },
+            child: Center(
+              child: (_authController.signinStatus == SigninStatus.Loading)
+                  ? Container(
+                      width: 30,
+                      height: 30,
+                      child: Center(
+                          child:
+                              CircularProgressIndicator(color: Colors.white)),
+                    )
+                  : Image.asset(
+                      'assets/images/finger.png',
+                    ),
             ),
           ),
           SizedBox(
@@ -79,7 +100,7 @@ class FingerPrint extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Get.to(RegHome());
+              Get.to(Signin());
             },
             child: Center(
               child: Text(
