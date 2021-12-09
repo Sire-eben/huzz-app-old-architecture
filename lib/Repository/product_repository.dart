@@ -79,7 +79,7 @@ getOfflineProduct(p0.businessId!);
 
   }
 
-  Future addProduct()async{
+  Future addProduct(String type)async{
 
 
     try{
@@ -97,7 +97,7 @@ var response= await http.post(Uri.parse(ApiLink.add_product),body:jsonEncode(
 "sellingPrice":productSellingPriceController.text,
 "quantity":productQuantityController.text,
 "businessId":_businessController.selectedBusiness.value!.businessId!,
-"productType":tabController!.index==0?"GOODS":"SERVICES",
+"productType":type,
 "productLogoFileStoreId":fileId
 
   }
@@ -124,7 +124,7 @@ Get.snackbar("Error", "Unable to add product");
 
 
     }catch(ex){
-
+Get.snackbar("Error", "Unknown error occurred.. try again");
 _addingProductStatus(AddingProductStatus.Error);
     }
 
@@ -426,4 +426,7 @@ void removeFromDeleteList(Product product){
  list.remove(product);
  _deleteProductList(list);
 }
+
+
+
 }

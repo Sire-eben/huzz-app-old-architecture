@@ -342,10 +342,10 @@ final _productController=Get.find<ProductRepository>();
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   true?  Image.asset(
-                   "assets/images/productImage.png",
+                   "assets/images/Rectangle 1015.png",
                     height: 50,
                   ):Image.network(widget.item!.productLogoFileStoreId!,height: 50,),
                   SizedBox(
@@ -403,8 +403,10 @@ final _productController=Get.find<ProductRepository>();
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 100,
+                  Expanded(
+                    child: SizedBox(
+                     
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -447,7 +449,7 @@ final _productController=Get.find<ProductRepository>();
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 40,
             )
           ],
         );
