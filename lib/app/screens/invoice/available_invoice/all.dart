@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/invoice_model.dart';
 
@@ -236,11 +238,31 @@ class _AllState extends State<All> {
                                       width:
                                           MediaQuery.of(context).size.height *
                                               0.1),
-                                  _isSelected
-                                      ? SvgPicture.asset(
-                                          'assets/images/circle.svg')
-                                      : SvgPicture.asset(
-                                          'assets/images/selectedItem.svg')
+                                  // _isSelected
+                                  //     ? SvgPicture.asset(
+                                  //         'assets/images/circle.svg')
+                                  //     : SvgPicture.asset(
+                                  //         'assets/images/selectedItem.svg')
+                                  AnimatedContainer(
+                                    duration: Duration(milliseconds: 200),
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                      color: AppColor().orangeBorderColor,
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Color(0xffEF6500),
+                                      ),
+                                    ),
+                                    child: Visibility(
+                                      visible: deleteItem,
+                                      child: Icon(
+                                        Icons.check,
+                                        size: 15,
+                                        color: AppColor().orangeBorderColor,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -252,7 +274,9 @@ class _AllState extends State<All> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(() => CreateInvoice());
+        },
         icon: Icon(Icons.add),
         backgroundColor: AppColor().backgroundColor,
         label: Text(

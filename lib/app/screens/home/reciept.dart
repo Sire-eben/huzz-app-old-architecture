@@ -1,17 +1,25 @@
+import 'dart:io';
+import 'dart:async';
+import 'package:path/path.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import '../../../colors.dart';
 
 class IncomeReceipt extends StatefulWidget {
-  const IncomeReceipt({Key? key}) : super(key: key);
+  final File? file;
+
+  const IncomeReceipt({Key? key, @required this.file}) : super(key: key);
 
   @override
   _IncomeReceiptState createState() => _IncomeReceiptState();
 }
 
 class _IncomeReceiptState extends State<IncomeReceipt> {
+  PDFViewController? controller;
+  // final name = basename(widget.file!.path);
   bool receiptTheme = true;
   @override
   Widget build(BuildContext context) {
@@ -27,7 +35,17 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Color(0xff0065D3))),
+                    border: Border.all(width: 2, color: Color(0xff0065D3)),
+                  ),
+                  child: PDFView(
+                    filePath: widget.file!.path,
+                    // autoSpacing: false,
+                    // swipeHorizontal: true,
+                    // pageSnap: false,
+                    // pageFling: false,
+                    onViewCreated: (controller) =>
+                        setState(() => this.controller = controller),
+                  ),
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),

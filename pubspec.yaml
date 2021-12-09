@@ -32,6 +32,7 @@ dependencies:
   number_display:
 
   pdf: ^3.1.0
+  flutter_pdfview: ^1.2.1
   path_provider: ^2.0.1
   open_file: ^3.1.0
   random_color: ^1.0.6-nullsafety
