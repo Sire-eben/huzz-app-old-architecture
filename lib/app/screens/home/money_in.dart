@@ -24,9 +24,9 @@ class MoneyIn extends StatefulWidget {
 }
 
 class _MoneyInState extends State<MoneyIn> {
-  final _transactionController = Get.find<TransactionRespository>();
-  final _customerController = Get.find<CustomerRepository>();
-  final _productController = Get.find<ProductRepository>();
+  final _transactionController=Get.find<TransactionRespository>();
+  final _customerController=Get.find<CustomerRepository>();
+  final _productController=Get.find<ProductRepository>();
   @override
   void initState() {
     _transactionController.dateController.text =
@@ -41,11 +41,13 @@ class _MoneyInState extends State<MoneyIn> {
   final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
   String? value;
-
+  
   String countryFlag = "NG";
   String countryCode = "234";
   String am = 'AM';
   String pm = "PM";
+ 
+
 
   Future pickImageFromGallery() async {
     try {
@@ -55,7 +57,7 @@ class _MoneyInState extends State<MoneyIn> {
       print(imageTemporary);
       setState(
         () {
-          _transactionController.image = imageTemporary;
+         _transactionController.image = imageTemporary;
         },
       );
     } on PlatformException catch (e) {
@@ -91,9 +93,8 @@ class _MoneyInState extends State<MoneyIn> {
     if (newDate == null) return;
 
     setState(() {
-      _transactionController.dateController.text =
-          DateFormat("yyyy-MM-dd").format(newDate).toString();
-      _transactionController.date = newDate;
+      _transactionController.dateController.text = DateFormat("yyyy-MM-dd").format(newDate).toString();
+      _transactionController.date=newDate;
       // print(dateController.text);
     });
   }
@@ -156,16 +157,15 @@ class _MoneyInState extends State<MoneyIn> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () => setState(
-                          () => _transactionController.selectedValue = 1),
+                      onTap: () => setState(() => _transactionController.selectedValue = 1),
                       child: Row(
                         children: [
                           Radio<int>(
                               value: 1,
                               activeColor: AppColor().backgroundColor,
                               groupValue: _transactionController.selectedValue,
-                              onChanged: (value) => setState(() =>
-                                  _transactionController.selectedValue = 1)),
+                              onChanged: (value) =>
+                                  setState(() => _transactionController.selectedValue = 1)),
                           Text(
                             'Enter Item',
                             style: TextStyle(
@@ -180,16 +180,15 @@ class _MoneyInState extends State<MoneyIn> {
                       ),
                     ),
                     InkWell(
-                      onTap: () => setState(
-                          () => _transactionController.selectedValue = 0),
+                      onTap: () => setState(() => _transactionController.selectedValue = 0),
                       child: Row(
                         children: [
                           Radio<int>(
                               value: 0,
                               activeColor: AppColor().backgroundColor,
                               groupValue: _transactionController.selectedValue,
-                              onChanged: (value) => setState(() =>
-                                  _transactionController.selectedValue = 0)),
+                              onChanged: (value) =>
+                                  setState(() => _transactionController.selectedValue = 0)),
                           Text(
                             'Select Product',
                             style: TextStyle(
@@ -284,16 +283,14 @@ class _MoneyInState extends State<MoneyIn> {
                                   color: AppColor().backgroundColor,
                                 ),
                                 iconSize: 30,
-                                items: _productController.productGoods
-                                    .map((value) {
-                                  return DropdownMenuItem<Product>(
-                                    value: value,
-                                    child: Text(value.productName!),
-                                  );
-                                }).toList(),
-                                onChanged: (value) => setState(() =>
-                                    _transactionController.selectedProduct =
-                                        value),
+                                items:_productController.productGoods.map(( value) {
+                        return DropdownMenuItem<Product>(
+                          value: value,
+                          child: Text(value.productName!),
+                        );
+                      }).toList(),
+                                onChanged: (value) =>
+                                    setState(() => _transactionController.selectedProduct = value),
                               ),
                             ),
                           ),
@@ -335,15 +332,16 @@ class _MoneyInState extends State<MoneyIn> {
                     child: CustomTextField(
                       enabled: false,
                       AllowClickable: true,
-                      textEditingController:
-                          _transactionController.dateController,
+                      textEditingController: _transactionController.dateController,
                       label: "Select Date",
                       hint: 'Select Date',
-                      onClick: () {
-                        pickDate(context);
+                      onClick: (){
+                           pickDate(context);
                       },
                       prefixIcon: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                       
+                        },
                         icon: Icon(Icons.calendar_today),
                         color: Colors.orange,
                       ),
@@ -355,16 +353,17 @@ class _MoneyInState extends State<MoneyIn> {
                     child: CustomTextField(
                       enabled: false,
                       AllowClickable: true,
-                      textEditingController:
-                          _transactionController.timeController,
+                      textEditingController: _transactionController.timeController,
                       label: "Select Time",
                       hint: 'Select Time',
-                      onClick: () {
-                        print("trying to pick time");
-                        pickTime(context);
+                      onClick: (){
+    print("trying to pick time");
+                          pickTime(context);
                       },
                       prefixIcon: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                      
+                        },
                         icon: Icon(Icons.lock_clock),
                         color: Colors.orange,
                       ),
@@ -421,29 +420,22 @@ class _MoneyInState extends State<MoneyIn> {
                             color: AppColor().backgroundColor,
                           ),
                           iconSize: 30,
-                          items: _transactionController.paymentMode
-                              .map(buildPaymentItem)
-                              .toList(),
-                          onChanged: (value) => setState(() =>
-                              _transactionController.selectedPaymentMode =
-                                  value),
+                          items:_transactionController.paymentMode.map(buildPaymentItem).toList(),
+                          onChanged: (value) =>
+                              setState(() =>_transactionController.selectedPaymentMode = value),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              (_transactionController.selectedPaymentMode != null &&
-                      _transactionController.selectedPaymentMode == "DEPOSIT")
-                  ? CustomTextField(
-                      label: "Amount Paid",
-                      hint: 'N 0.00',
-                      validatorText: "Amount Paid is needed",
-                      keyType: TextInputType.number,
-                      textEditingController:
-                          _transactionController.amountPaidController,
-                    )
-                  : Container(),
+             (_transactionController.selectedPaymentMode!=null && _transactionController.selectedPaymentMode=="DEPOSIT")? CustomTextField(
+                label: "Amount Paid",
+                hint: 'N 0.00',
+                validatorText: "Amount Paid is needed",
+                keyType: TextInputType.number,
+                textEditingController:_transactionController.amountPaidController,
+              ):Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -491,18 +483,17 @@ class _MoneyInState extends State<MoneyIn> {
                             color: AppColor().backgroundColor,
                           ),
                           iconSize: 30,
-                          items: _transactionController.paymentSource
-                              .map(buildPaymentItem)
-                              .toList(),
-                          onChanged: (value) => setState(() =>
-                              _transactionController.selectedPaymentSource =
-                                  value),
+                          items: _transactionController.paymentSource.map(buildPaymentItem).toList(),
+                          onChanged: (value) =>
+                              setState(() => _transactionController.selectedPaymentSource = value),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
+
+              
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -581,9 +572,8 @@ class _MoneyInState extends State<MoneyIn> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                color: _transactionController.image != null
-                                    ? Colors.black
-                                    : Colors.grey,
+                                color:
+                                    _transactionController.image != null ? Colors.black : Colors.grey,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 fontFamily: 'DMSans'),
@@ -635,8 +625,8 @@ class _MoneyInState extends State<MoneyIn> {
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
                         value: _transactionController.addCustomer,
-                        onChanged: (newValue) => setState(() =>
-                            _transactionController.addCustomer = newValue))
+                        onChanged: (newValue) =>
+                            setState(() => _transactionController.addCustomer = newValue))
                   ],
                 ),
               ),
@@ -651,18 +641,15 @@ class _MoneyInState extends State<MoneyIn> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
-                                onTap: () => setState(() =>
-                                    _transactionController.customerType = 1),
+                                onTap: () => setState(() => _transactionController.customerType = 1),
                                 child: Row(
                                   children: [
                                     Radio<int>(
                                         value: 1,
                                         activeColor: AppColor().backgroundColor,
-                                        groupValue:
-                                            _transactionController.customerType,
-                                        onChanged: (value) => setState(() =>
-                                            _transactionController
-                                                .customerType = 1)),
+                                        groupValue: _transactionController.customerType,
+                                        onChanged: (value) =>
+                                            setState(() => _transactionController.customerType = 1)),
                                     Text(
                                       'New Customer',
                                       style: TextStyle(
@@ -677,18 +664,15 @@ class _MoneyInState extends State<MoneyIn> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () => setState(() =>
-                                    _transactionController.customerType = 0),
+                                onTap: () => setState(() => _transactionController.customerType = 0),
                                 child: Row(
                                   children: [
                                     Radio<int>(
                                         value: 0,
                                         activeColor: AppColor().backgroundColor,
-                                        groupValue:
-                                            _transactionController.customerType,
-                                        onChanged: (value) => setState(() =>
-                                            _transactionController
-                                                .customerType = 0)),
+                                        groupValue: _transactionController.customerType,
+                                        onChanged: (value) =>
+                                            setState(() => _transactionController.customerType = 0)),
                                     Text(
                                       'Existing Customer',
                                       style: TextStyle(
@@ -706,12 +690,9 @@ class _MoneyInState extends State<MoneyIn> {
                           ),
                           _transactionController.customerType == 1
                               ? CustomTextFieldWithImageTransaction(
-                                  contactName:
-                                      _customerController.nameController,
-                                  contactPhone:
-                                      _customerController.phoneNumberController,
-                                  contactMail:
-                                      _customerController.emailController,
+                                  contactName: _customerController.nameController,
+                                  contactPhone: _customerController.phoneNumberController,
+                                  contactMail: _customerController.emailController,
                                   label: "Customer name",
                                   validatorText: "Customer name is needed",
                                   hint: 'customer name',
@@ -744,40 +725,37 @@ class _MoneyInState extends State<MoneyIn> {
                                       height: 8,
                                     ),
                                     Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 16, vertical: 4),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                width: 2,
-                                                color: AppColor()
-                                                    .backgroundColor)),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton<Customer>(
-                                            value: _transactionController
-                                                .selectedCustomer.value,
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down,
-                                              color: AppColor().backgroundColor,
-                                            ),
-                                            iconSize: 30,
-                                            items: _customerController
-                                                .customerCustomer
-                                                .map((value) {
-                                              return DropdownMenuItem<Customer>(
-                                                value: value,
-                                                child: Text(value.name!),
-                                              );
-                                            }).toList(),
-                                            onChanged: (value) => setState(
-                                              () => _transactionController
-                                                  .selectedCustomer(value),
-                                            ),
+                                      width: MediaQuery.of(context).size.width,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 4),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                              width: 2,
+                                              color:
+                                                  AppColor().backgroundColor)),
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton<Customer>(
+                                          value: _transactionController.selectedCustomer.value,
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down,
+                                            color: AppColor().backgroundColor,
                                           ),
-                                        ))
+                                          iconSize: 30,
+                                          items:_customerController.customerCustomer.map(( value) {
+                        return DropdownMenuItem<Customer>(
+                          value: value,
+                          child: Text(value.name!),
+                        );
+                      }).toList(),
+                                          onChanged: (value) => setState(
+                                              () => _transactionController.selectedCustomer(value),
+                                        ),
+                                      ),
+                                      )
+                                    )
+                                    
                                   ],
                                 ),
                         ],
@@ -785,42 +763,44 @@ class _MoneyInState extends State<MoneyIn> {
                     )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-              Obx(() {
-                return InkWell(
-                  onTap: () {
-                    if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading)
-                      _transactionController.createTransaction("INCOME");
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.03),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_transactionController.addingTransactionStatus ==
-                            AddingTransactionStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          )
-                        : Center(
-                            child: Text(
-                              'Save',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontFamily: 'DMSans'),
-                            ),
-                          ),
-                  ),
-                );
-              }),
+              Obx(()
+  {
+                  return InkWell(
+                    onTap: () {
+                          if (_transactionController.addingTransactionStatus!=
+                             AddingTransactionStatus.Loading)
+                             _transactionController.createTransaction("INCOME");
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.height * 0.03),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child:(_transactionController.addingTransactionStatus==
+                             AddingTransactionStatus.Loading)
+                          ? Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                            )
+                          :  Center(
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'DMSans'),
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             ],
           ),
