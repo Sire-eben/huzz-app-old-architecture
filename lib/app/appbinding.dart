@@ -17,10 +17,11 @@ class AppBinding extends Bindings{
        Get.put(BusinessRespository(),permanent: true);
      Get.put(FileUploadRespository(),permanent: true);
    
-     Get.put(TransactionRespository(),permanent:true);
+
 
      Get.put(ProductRepository(),permanent: true);
      Get.put(CustomerRepository(),permanent: true);
+          Get.put(TransactionRespository(),permanent:true);
   }
 
 }

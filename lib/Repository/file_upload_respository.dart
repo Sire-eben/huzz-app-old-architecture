@@ -25,9 +25,9 @@ String result = await streamResponse.stream.transform(Utf8Decoder()).single;
 print("uploaded file output $result");
 
 if(streamResponse.statusCode==200){
-
+var json=jsonDecode(result);
   // Get.snackbar("Success", "Profile Image Updated Successfully");
-return result;
+return json['data']['id'];
 }else{
 // Get.snackbar("Error", "Unable to Update Profile Image");
 return "";

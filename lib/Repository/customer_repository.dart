@@ -124,6 +124,43 @@ class CustomerRepository extends GetxController {
     }
   }
 
+Future<String?> addBusinessCustomerWithString(String transactionType) async {
+    try {
+    
+      var response = await http.post(Uri.parse(ApiLink.addCustomer),
+          body: jsonEncode({
+            "email": emailController.text,
+            "phone": phoneNumberController.text,
+            "name": nameController.text,
+            "businessId":
+                _businessController.selectedBusiness.value!.businessId,
+            "businessTransactionType": transactionType,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+         
+          getOnlineCustomer(
+              _businessController.selectedBusiness.value!.businessId!);
+          clearValue();
+     
+          return json['data']['id'];
+        } else {
+         return null;
+        }
+      } else {
+        return null;
+      }
+    } catch (ex) {
+       return null;
+    }
+  }
+
   Future updateCustomer(Customer customer) async {
     try {
       _addingCustomerStatus(AddingCustomerStatus.Loading);

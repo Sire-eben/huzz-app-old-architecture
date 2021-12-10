@@ -1,21 +1,30 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/api_link.dart';
+import 'package:huzz/app/screens/home/income_success.dart';
+import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/model/payment_item.dart';
+import 'package:huzz/model/product.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/sqlite/sqlite_db.dart';
 
 import 'auth_respository.dart';
+import 'customer_repository.dart';
+enum AddingTransactionStatus {Loading,Error,Success,Empty}
 class TransactionRespository extends GetxController{
 
 
 Rx<List<TransactionModel>> _offlineTransactions=Rx([]);
 List<TransactionModel> get offlineTransactions=> _offlineTransactions.value;
+final _uploadImageController=Get.find<FileUploadRespository>();
+final _customerController=Get.find<CustomerRepository>();
 List<TransactionModel> OnlineTransaction=[];
 List<TransactionModel> pendingTransaction=[];
 Rx<List<PaymentItem>> _allPaymentItem=Rx([]);
@@ -38,8 +47,30 @@ final dateController=TextEditingController();
 final  paymentController=TextEditingController();
 final paymentSourceController=TextEditingController();
 final receiptFileController=TextEditingController();
-
-
+  // final TextEditingController dateController = TextEditingController();
+  // final TextEditingController timeController = TextEditingController();
+  final TextEditingController contactName = TextEditingController();
+  final TextEditingController contactPhone = TextEditingController();
+  final TextEditingController contactMail = TextEditingController();
+  final _addingTransactionStatus=AddingTransactionStatus.Empty.obs;
+// final _uploadFileController=Get.find<FileUploadRespository>();
+AddingTransactionStatus get addingTransactionStatus=>_addingTransactionStatus.value;
+  Product? selectedProduct;
+ Rx<Customer?> selectedCustomer=Rx(null);
+   DateTime? date;
+  TimeOfDay? time;
+  File? image;
+int selectedValue = 0;
+  int customerType = 0;
+   bool addCustomer = false;
+List<String> paymentSource=[  "POS",
+            "CASH",
+            "TRANSFER",
+            "OTHERS"];
+  String? selectedPaymentSource; 
+  List<String> paymentMode=[  "FULLY_PAID",
+            "DEPOSIT"];
+  String? selectedPaymentMode;                    
 
 @override
   void onInit() async{
@@ -250,5 +281,99 @@ var month=now.month>=10?now.month.toString():"0"+now.month.toString();
 
 
   }
+}
+
+Future createTransaction(String type)async{
+  try{
+  _addingTransactionStatus(AddingTransactionStatus.Loading);
+  String? fileid;
+  String? customerId;
+  var productList=[];
+if(image!=null){
+
+fileid=await _uploadImageController.uploadFile(image!.path);
+
+}
+
+if(addCustomer){
+if(customerType==1){
+customerId=await _customerController.addBusinessCustomerWithString(type);
+}else{
+  if(selectedCustomer.value!=null)
+  customerId=selectedCustomer.value!.customerId;
+}
+}
+
+if(selectedValue==0){
+ productList.add(
+
+  {
+"productId":selectedProduct!.productId!,
+ "itemName": null,
+            "quantity":null,
+            "amount": null
+  }
+ );
+
+}else{
+ productList.add(
+
+  {
+"productId":null,
+ "itemName": itemNameController.text,
+            "quantity": null,
+            "amount": amountController.text
+  }
+ );
+
+
+}
+
+if(time!=null&&date!=null){
+// date!.hour=time!.hour;
+date!.add(Duration(hours: time!.hour,minutes: time!.minute));
+}
+// String? timeday=date!.toIso8601String();
+String body=jsonEncode({
+
+"paymentItemRequestList":productList,
+    "transactionType":type,
+    "paymentSource": selectedPaymentSource,
+    "businessId":_businessController.selectedBusiness.value!.businessId,
+
+    "paymentMode":selectedPaymentMode,
+    "customerId":customerId,
+    "businessTransactionFileStoreId":fileid,
+    // "entyDateTime":date!.toIso8601String()
+
+
+});
+print("transaction body $body");
+final response=await http.post(Uri.parse(ApiLink.get_business_transaction),headers: {
+"Authorization":"Bearer ${_userController.token}",
+"Content-Type":"application/json"
+
+},body:body );
+
+print({"creatng transaction response ${response.body}"});
+if(response.statusCode==200){
+ _addingTransactionStatus(AddingTransactionStatus.Success);
+           Get.to(() => IncomeSuccess());
+         getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
+
+GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
+getSpending(_businessController.selectedBusiness.value!.businessId!);
+
+}else{
+ _addingTransactionStatus(AddingTransactionStatus.Error);
+
+}
+}
+catch(ex){
+  print("error occurred ${ex.toString()}");
+_addingTransactionStatus(AddingTransactionStatus.Error);
+
+}
+
 }
 }
