@@ -7,9 +7,8 @@ import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 
-class AppBinding extends Bindings{
-
-@override
+class AppBinding extends Bindings {
+  @override
   void dependencies() {
     // TODO: implement dependencies
      Get.put(HomeRespository(), permanent: true);
@@ -23,5 +22,4 @@ class AppBinding extends Bindings{
      Get.put(CustomerRepository(),permanent: true);
           Get.put(TransactionRespository(),permanent:true);
   }
-
 }
