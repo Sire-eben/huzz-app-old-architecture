@@ -35,7 +35,9 @@ class _MoneyInState extends State<MoneyIn> {
     super.initState();
   }
 
-  final payments = ['Select payment mode', 'item1', 'item2'];
+  final paymentMode = ['FULLY_PAID', 'DEPOSIT'];
+  final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
+  final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
   String? value;
   int selectedValue = 0;
   int customerType = 0;
@@ -44,6 +46,7 @@ class _MoneyInState extends State<MoneyIn> {
   String am = 'AM';
   String pm = "PM";
   bool addCustomer = false;
+  bool deposit = false;
   DateTime? date;
   TimeOfDay? time;
   File? image;
@@ -281,7 +284,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   color: AppColor().backgroundColor,
                                 ),
                                 iconSize: 30,
-                                items: payments.map(buildPaymentItem).toList(),
+                                items: customers.map(buildPaymentItem).toList(),
                                 onChanged: (value) =>
                                     setState(() => this.value = value),
                               ),
@@ -355,6 +358,7 @@ class _MoneyInState extends State<MoneyIn> {
                   ),
                 ],
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
@@ -401,14 +405,20 @@ class _MoneyInState extends State<MoneyIn> {
                             color: AppColor().backgroundColor,
                           ),
                           iconSize: 30,
-                          items: payments.map(buildPaymentItem).toList(),
-                          onChanged: (value) =>
-                              setState(() => this.value = value),
+                          items: paymentMode.map(buildPaymentItem).toList(),
+                          // onChanged: (value) =>
+                          //     setState(() => this.value = value),
                         ),
                       ),
                     ),
                   ],
                 ),
+              ),
+              CustomTextField(
+                label: "Amount",
+                hint: 'N 0.00',
+                validatorText: "Amount name is needed",
+                keyType: TextInputType.phone,
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
@@ -457,7 +467,7 @@ class _MoneyInState extends State<MoneyIn> {
                             color: AppColor().backgroundColor,
                           ),
                           iconSize: 30,
-                          items: payments.map(buildPaymentItem).toList(),
+                          items: paymentSource.map(buildPaymentItem).toList(),
                           onChanged: (value) =>
                               setState(() => this.value = value),
                         ),
@@ -715,7 +725,7 @@ class _MoneyInState extends State<MoneyIn> {
                                             color: AppColor().backgroundColor,
                                           ),
                                           iconSize: 30,
-                                          items: payments
+                                          items: paymentMode
                                               .map(buildPaymentItem)
                                               .toList(),
                                           onChanged: (value) => setState(
