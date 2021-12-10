@@ -47,6 +47,7 @@ final dateController=TextEditingController();
 final  paymentController=TextEditingController();
 final paymentSourceController=TextEditingController();
 final receiptFileController=TextEditingController();
+final amountPaidController=TextEditingController();
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController timeController = TextEditingController();
   final TextEditingController contactName = TextEditingController();

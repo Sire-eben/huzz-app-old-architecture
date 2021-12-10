@@ -37,7 +37,9 @@ class _MoneyInState extends State<MoneyIn> {
     super.initState();
   }
 
-  final payments = ['Select payment mode', 'item1', 'item2'];
+  final paymentMode = ['FULLY_PAID', 'DEPOSIT'];
+  final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
+  final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
   String? value;
   
   String countryFlag = "NG";
@@ -371,6 +373,7 @@ class _MoneyInState extends State<MoneyIn> {
                   ),
                 ],
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
@@ -426,6 +429,13 @@ class _MoneyInState extends State<MoneyIn> {
                   ],
                 ),
               ),
+             (_transactionController.selectedPaymentMode!=null && _transactionController.selectedPaymentMode=="DEPOSIT")? CustomTextField(
+                label: "Amount Paid",
+                hint: 'N 0.00',
+                validatorText: "Amount Paid is needed",
+                keyType: TextInputType.number,
+                textEditingController:_transactionController.amountPaidController,
+              ):Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -482,6 +492,8 @@ class _MoneyInState extends State<MoneyIn> {
                   ],
                 ),
               ),
+
+              
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               Padding(
                 padding: EdgeInsets.symmetric(
