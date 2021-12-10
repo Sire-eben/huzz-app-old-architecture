@@ -323,7 +323,7 @@ if(selectedValue==0){
   {
 "productId":null,
  "itemName": itemNameController.text,
-            "quantity": null,
+            "quantity": quantityController.text,
             "amount": amountController.text
   }
  );
@@ -347,7 +347,8 @@ String body=jsonEncode({
     "paymentMode":selectedPaymentMode,
     "customerId":customerId,
     "businessTransactionFileStoreId":fileid,
-    "entyDateTime":date!.toIso8601String()
+    "entyDateTime":date!.toIso8601String(),
+    "amountPaid":amountPaidController.text
 
 
 });
