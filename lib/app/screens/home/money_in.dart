@@ -92,6 +92,7 @@ class _MoneyInState extends State<MoneyIn> {
 
     setState(() {
       _transactionController.dateController.text = DateFormat("yyyy-MM-dd").format(newDate).toString();
+      _transactionController.date=newDate;
       // print(dateController.text);
     });
   }

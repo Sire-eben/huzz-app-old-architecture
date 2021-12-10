@@ -332,6 +332,7 @@ if(selectedValue==0){
 if(time!=null&&date!=null){
 // date!.hour=time!.hour;
 date!.add(Duration(hours: time!.hour,minutes: time!.minute));
+print("date Time to string ${date!.toIso8601String()}");
 }
 // String? timeday=date!.toIso8601String();
 String body=jsonEncode({
@@ -344,7 +345,7 @@ String body=jsonEncode({
     "paymentMode":selectedPaymentMode,
     "customerId":customerId,
     "businessTransactionFileStoreId":fileid,
-    // "entyDateTime":date!.toIso8601String()
+    "entyDateTime":date!.toIso8601String()
 
 
 });
