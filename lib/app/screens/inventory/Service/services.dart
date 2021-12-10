@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Service/add_service.dart';
+import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
 
 import '../../../../colors.dart';
 
@@ -12,9 +14,10 @@ class Services extends StatefulWidget {
 }
 
 class _ServicesState extends State<Services> {
+  final _productController=Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return (_productController.productServices.isNotEmpty)?ServiceListing(): Stack(
       children: [
         Positioned(
           top: 30,

@@ -5,6 +5,7 @@ import 'package:huzz/app/screens/inventory/Product/productdelete.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/product_model.dart';
 import 'package:huzz/model/service_model.dart';
+import 'package:number_display/number_display.dart';
 
 import '../../../../colors.dart';
 
@@ -26,15 +27,15 @@ final _productController=Get.find<ProductRepository>();
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: AppColor().backgroundColor,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(
+        //     Icons.arrow_back,
+        //     color: AppColor().backgroundColor,
+        //   ),
+        //   onPressed: () {
+        //     Get.back();
+        //   },
+        // ),
         title: Text(
           '',
           style: TextStyle(
@@ -73,32 +74,32 @@ final _productController=Get.find<ProductRepository>();
                       ),
                     ),
                     Spacer(),
-                    InkWell(
-                      onTap: () => showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                        ),
-                        context: context,
-                        builder: (context) => buildAddProduct(),
-                      ),
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: AppColor().lightbackgroundColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.add,
-                          size: 20,
-                          color: AppColor().backgroundColor,
-                        ),
-                      ),
-                    ),
+                    // InkWell(
+                    //   onTap: () => showModalBottomSheet(
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.vertical(
+                    //         top: Radius.circular(20),
+                    //       ),
+                    //     ),
+                    //     context: context,
+                    //     builder: (context) => buildAddProduct(),
+                    //   ),
+                    //   child: Container(
+                    //     height: 30,
+                    //     width: 30,
+                    //     decoration: BoxDecoration(
+                    //       color: AppColor().lightbackgroundColor,
+                    //       shape: BoxShape.circle,
+                    //     ),
+                    //     child: Icon(
+                    //       Icons.add,
+                    //       size: 20,
+                    //       color: AppColor().backgroundColor,
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
-                      width: 5,
+                      width: 5,height: 10,
                     ),
                     InkWell(
                       onTap: () {
@@ -107,6 +108,7 @@ final _productController=Get.find<ProductRepository>();
                       child: Container(
                         height: 30,
                         width: 30,
+
                         decoration: BoxDecoration(
                           color: AppColor().lightbackgroundColor,
                           shape: BoxShape.circle,
@@ -123,7 +125,7 @@ final _productController=Get.find<ProductRepository>();
               ),
               //Search
               Positioned(
-                top: 140,
+                top: 150,
                 left: 20,
                 right: 20,
                 child: Container(
@@ -183,13 +185,13 @@ final _productController=Get.find<ProductRepository>();
               ),
               //ServiceList
               Positioned(
-                top: 230,
+                top: 250,
                 bottom: 30,
                 left: 20,
                 right: 20,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: serviceList.length,
+                    itemCount:_productController.productServices.length,
                     itemBuilder: (BuildContext context, int index) {
                       var item=_productController.productServices[index];
                       return ListingServices(
@@ -231,7 +233,7 @@ final _productController=Get.find<ProductRepository>();
                 ),
                 Center(
                   child: Text(
-                    "0",
+                    "${_productController.productServices.length}",
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'DMSans',
@@ -585,6 +587,11 @@ class ListingServices extends StatefulWidget {
 
 class _ListingServicesState extends State<ListingServices> {
   ProductModels? products;
+      final display = createDisplay(
+    length: 8,
+    decimal: 0,
+  );
+  final _productController=Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -614,7 +621,7 @@ class _ListingServicesState extends State<ListingServices> {
                 Expanded(
                   flex: 1,
                   child: Image.asset(
-                    "widget.item!.image!",
+                    "assets/images/Rectangle 1015.png",
                     height: 70,
                     width: 70,
                   ),
@@ -641,7 +648,7 @@ class _ListingServicesState extends State<ListingServices> {
                             ),
                           ),
                           Text(
-                            "widget.item!.amount!",
+                            'N${display(widget.item!.costPrice!)}',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',

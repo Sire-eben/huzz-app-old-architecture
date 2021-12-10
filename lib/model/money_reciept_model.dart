@@ -20,13 +20,13 @@ class Supplier {
   });
 }
 
-class Invoice {
+class MoneyInOutInvoice {
   final InvoiceInfo info;
   final Supplier supplier;
   final Customer customer;
   final List<InvoiceItem> items;
 
-  const Invoice({
+  const MoneyInOutInvoice({
     required this.info,
     required this.supplier,
     required this.customer,

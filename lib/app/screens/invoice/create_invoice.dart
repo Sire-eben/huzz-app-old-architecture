@@ -10,8 +10,11 @@ import 'package:huzz/core/constants/app_pallete.dart';
 
 import 'package:huzz/model/bank_model.dart';
 import 'package:huzz/model/customer_model.dart';
+import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:random_color/random_color.dart';
 import 'package:huzz/model/service_model.dart';
+
+import 'invoice_pdf.dart';
 
 class CreateInvoice extends StatefulWidget {
   const CreateInvoice({Key? key}) : super(key: key);
@@ -99,10 +102,57 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           type: StepperType.horizontal,
           steps: getSteps(),
           currentStep: currentStep,
-          onStepContinue: () {
+          onStepContinue: () async {
             final isLastStep = currentStep == getSteps().length - 1;
             if (isLastStep) {
-              Get.to(() => PreviewInvoice());
+              final date = DateTime.now();
+              final dueDate = date.add(Duration(days: 7));
+
+              final invoice = Invoice(
+                supplier: Supplier(
+                  name: 'Business Name',
+                  mail: 'tunmisehassan@gmail.com',
+                  phone: '+234 8123 456 789',
+                ),
+                bankDetails: BankDetails(
+                    name: 'First Bank of Nigeria',
+                    no: '0123456789',
+                    mode: 'BANK TRANSFER'),
+                customer: InvoiceCustomer(
+                  name: 'Joshua Olatunde',
+                  phone: '+234 903 872 6495',
+                ),
+                info: InvoiceInfo(
+                  date: date,
+                  dueDate: dueDate,
+                  description: 'My description...',
+                  number: '${DateTime.now().year}-9999',
+                ),
+                items: [
+                  InvoiceItem(
+                    item: 'MacBook',
+                    quantity: 3,
+                    amount: 500000,
+                  ),
+                  InvoiceItem(
+                    item: 'MacBook',
+                    quantity: 3,
+                    amount: 500000,
+                  ),
+                  InvoiceItem(
+                    item: 'MacBook',
+                    quantity: 3,
+                    amount: 500000,
+                  ),
+                  InvoiceItem(
+                    item: 'MacBook',
+                    quantity: 3,
+                    amount: 500000,
+                  ),
+                ],
+              );
+              final invoiceReceipt = await PdfInvoiceApi.generate(invoice);
+              Get.to(() => PreviewInvoice(file: invoiceReceipt));
             } else {
               setState(() {
                 currentStep += 1;
@@ -219,7 +269,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     Row(
                       children: [
                         Text(
-                          'Select Customer',
+                          'Select Details',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
@@ -491,7 +541,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           "*",
                           style: TextStyle(color: Colors.red, fontSize: 12),
                         ),
-                        SizedBox(width: 10),
+                        Expanded(child: Container()),
                         InkWell(
                           onTap: () {
                             if (quantityValue < 1) {
@@ -520,10 +570,12 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   color: AppColor().backgroundColor),
                               child: Icon(
                                 Icons.remove,
+                                size: 15,
                                 color: Colors.white,
                               )),
                         ),
                         Expanded(
+                          flex: 2,
                           child: CustomTextFieldOnly(
                             label: '0',
                             hint: '0',
@@ -549,6 +601,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   color: AppColor().backgroundColor),
                               child: Icon(
                                 Icons.add,
+                                size: 15,
                                 color: Colors.white,
                               )),
                         )

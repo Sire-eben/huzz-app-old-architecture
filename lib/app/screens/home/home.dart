@@ -29,15 +29,15 @@ class _HomeState extends State<Home> {
     length: 8,
     decimal: 0,
   );
-  // final items = ['Huzz Technologies', 'Huzz', 'Technologies'];
+
   final items = ['Huzz Technologies', 'Technologies'];
   String? value;
   final _transactionController = Get.find<TransactionRespository>();
   final _businessController = Get.find<BusinessRespository>();
   int selectedValue = 0;
   final transactionList = [];
-  // List<String> items = [];
   RandomColor _randomColor = RandomColor();
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -692,9 +692,20 @@ class _HomeState extends State<Home> {
                         ),
                         child: Row(
                           children: [
-                            Image.asset(
-                              "assets/images/money-in.png",
-                              scale: 0.7,
+                            Container(
+                              height: 15,
+                              width: 15,
+                              decoration: BoxDecoration(
+                                color: AppColor().whiteColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  "assets/images/money_in.svg",
+                                  height: 10,
+                                  width: 10,
+                                ),
+                              ),
                             ),
                             SizedBox(
                               width: 5,
@@ -730,9 +741,20 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset(
-                              "assets/images/money-out.png",
-                              scale: 0.7,
+                            Container(
+                              height: 15,
+                              width: 15,
+                              decoration: BoxDecoration(
+                                color: AppColor().whiteColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  "assets/images/money_out.svg",
+                                  height: 10,
+                                  width: 10,
+                                ),
+                              ),
                             ),
                             SizedBox(
                               width: 5,

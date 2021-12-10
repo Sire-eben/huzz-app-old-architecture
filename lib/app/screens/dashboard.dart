@@ -1,6 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:huzz/app/screens/customers/customer_tabView.dart';
 import 'package:huzz/app/screens/more.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -8,21 +9,26 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'customers/customer_tabView.dart';
 import 'home/home.dart';
 import 'inventory/manage_inventory.dart';
-import 'invoice/invoice.dart';
+import 'invoice/available_invoice.dart';
+import 'more.dart';
 
+// ignore: must_be_immutable
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  int? selectedIndex;
+  Dashboard({Key? key, this.selectedIndex = 2}) : super(key: key);
 
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardState createState() =>
+      _DashboardState(selectedIndex: selectedIndex!);
 }
 
 class _DashboardState extends State<Dashboard> {
-  int _selectedIndex = 2;
+  int selectedIndex = 2;
+  _DashboardState({required this.selectedIndex});
   // ignore: unused_element
   void _selectPage(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
@@ -33,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
       body: buildPages(),
       bottomNavigationBar: BottomNavyBar(
         showElevation: false,
-        selectedIndex: _selectedIndex,
+        selectedIndex: selectedIndex,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
               icon: Icon(
@@ -79,13 +85,13 @@ class _DashboardState extends State<Dashboard> {
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor)
         ],
-        onItemSelected: (index) => setState(() => this._selectedIndex = index),
+        onItemSelected: (index) => setState(() => this.selectedIndex = index),
       ),
     );
   }
 
   Widget buildPages() {
-    switch (_selectedIndex) {
+    switch (selectedIndex) {
       case 0:
         return CustomerTabView();
       case 1:
@@ -93,7 +99,7 @@ class _DashboardState extends State<Dashboard> {
       case 2:
         return Home();
       case 3:
-        return Invoice();
+        return AvailableInvoice();
       case 4:
       default:
         return More();

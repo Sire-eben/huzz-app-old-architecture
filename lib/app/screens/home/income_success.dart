@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/app/screens/home/receipt/pdf_receipt.dart';
+import 'package:huzz/app/screens/dashboard.dart';
+import 'package:huzz/app/screens/home/receipt/money_in_out_pdf.dart';
 import 'package:huzz/app/screens/home/reciept.dart';
-import 'package:huzz/model/reciept_model.dart';
+import 'package:huzz/model/money_reciept_model.dart';
 import '../../../colors.dart';
 
 class IncomeSuccess extends StatelessWidget {
@@ -67,7 +68,7 @@ class IncomeSuccess extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () async {
-                      Get.to(() => IncomeReceipt());
+                      Get.offAll(() => Dashboard());
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -95,7 +96,7 @@ class IncomeSuccess extends StatelessWidget {
                       final date = DateTime.now();
                       final dueDate = date.add(Duration(days: 7));
 
-                      final invoice = Invoice(
+                      final moneyInvoice = MoneyInOutInvoice(
                         supplier: Supplier(
                           name: 'Business Name',
                           mail: 'tunmisehassan@gmail.com',
@@ -134,11 +135,10 @@ class IncomeSuccess extends StatelessWidget {
                           ),
                         ],
                       );
-                      final invoiceReceipt =
-                          await PdfInvoiceApi.generate(invoice);
-
-                      PdfApi.openFile(invoiceReceipt);
-                      // Get.to(() => IncomeSuccess());
+                      final moneyInOutReceipt =
+                          await PdfMoneyInOutApi.generate(moneyInvoice);
+                      Get.to(() => IncomeReceipt(file: moneyInOutReceipt));
+                      // PdfApi.openFile(invoiceReceipt);
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
