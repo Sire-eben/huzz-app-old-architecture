@@ -649,8 +649,23 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                                   TextStyle(color: Colors.black, fontSize: 12),
                             )),
                             SizedBox(width: 8),
-                            SvgPicture.asset(
-                                'assets/images/select_from_contact.svg'),
+                            InkWell(
+                              onTap: () async {
+                                _customerController.showContactPicker(context);
+
+                                // // Contact contact =
+                                // //     await _contactPicker.selectContact();
+                                // // setState(() {
+                                // //   _contact = contact;
+                                // //   widget.contactPhone!.text =
+                                // //       _contact!.phoneNumber.number;
+                                // //   widget.contactName!.text = _contact!.fullName;
+                                // //   print(contact);
+                                // });
+                              },
+                              child: SvgPicture.asset(
+                                  'assets/images/select_from_contact.svg'),
+                            ),
                             SizedBox(width: 8),
                             InkWell(
                               onTap: () async {

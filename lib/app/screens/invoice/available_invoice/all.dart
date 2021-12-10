@@ -318,19 +318,11 @@ class _AllState extends State<All> {
                 ),
               ],
             ),
-            content: Column(
-              children: [
-                Stack(
-                  children: [
-                    Image.asset(
-                      'assets/images/Polygon 3.png',
-                    ),
-                    Image.asset(
-                      'assets/images/Polygon 3.png',
-                    ),
-                  ],
-                ),
-              ],
+            content: Center(
+              child: SvgPicture.asset(
+                'assets/images/delete_alert.svg',
+                fit: BoxFit.fitHeight,
+              ),
             ),
             actions: <Widget>[
               Padding(
@@ -341,55 +333,58 @@ class _AllState extends State<All> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColor().backgroundColor,
-                            ),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text(
-                            'Cancel',
-                            style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().whiteColor,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColor().backgroundColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text(
-                            'Continue',
-                            style: TextStyle(
-                              color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Continue',
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ),
