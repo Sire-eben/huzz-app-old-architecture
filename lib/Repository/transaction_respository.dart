@@ -57,6 +57,7 @@ final amountPaidController=TextEditingController();
 // final _uploadFileController=Get.find<FileUploadRespository>();
 AddingTransactionStatus get addingTransactionStatus=>_addingTransactionStatus.value;
   Product? selectedProduct;
+  int? remain;
  Rx<Customer?> selectedCustomer=Rx(null);
    DateTime? date;
   TimeOfDay? time;
