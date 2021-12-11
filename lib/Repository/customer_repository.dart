@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
@@ -124,9 +123,8 @@ class CustomerRepository extends GetxController {
     }
   }
 
-Future<String?> addBusinessCustomerWithString(String transactionType) async {
+  Future<String?> addBusinessCustomerWithString(String transactionType) async {
     try {
-    
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
           body: jsonEncode({
             "email": emailController.text,
@@ -144,20 +142,19 @@ Future<String?> addBusinessCustomerWithString(String transactionType) async {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
-         
           getOnlineCustomer(
               _businessController.selectedBusiness.value!.businessId!);
           clearValue();
-     
+
           return json['data']['id'];
         } else {
-         return null;
+          return null;
         }
       } else {
         return null;
       }
     } catch (ex) {
-       return null;
+      return null;
     }
   }
 
