@@ -13,6 +13,7 @@ class CreateBusiness extends StatelessWidget {
     return Obx(() {
       return Scaffold(
         resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,

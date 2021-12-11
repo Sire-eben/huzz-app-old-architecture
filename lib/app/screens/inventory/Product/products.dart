@@ -133,6 +133,7 @@ class _ProductsState extends State<Products> {
 
   Widget productCount(BuildContext context) => Container(
         height: 95,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: AppColor().backgroundColor,
           borderRadius: BorderRadius.all(
