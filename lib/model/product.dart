@@ -13,6 +13,8 @@ String? productType;
 DateTime? dateExpiration;
 String? productLogoFileStoreId;
 bool? deleted;
+bool? isAddingPending;
+bool? isUpdatingPending;
 
 
 Product({
@@ -29,7 +31,9 @@ this.updatedTime,
 this.productType,
 this.dateExpiration,
 this.productLogoFileStoreId,
-this.deleted
+this.deleted,
+this.isAddingPending,
+this.isUpdatingPending
 
 });
 factory Product.fromJson(Map<String,dynamic> json)=>Product(
@@ -46,7 +50,10 @@ updatedTime: json['updatedDateTime']==null?DateTime.parse(json['createdDateTime'
 productType:json['productType'],
 dateExpiration: json['productExpiration']==null?null:DateTime.parse(json['productExpiration']),
 productLogoFileStoreId: json['productLogoFileStoreId'],
-deleted: json['delete']
+deleted: json['delete'],
+isAddingPending: json['isAddingPending']?? false,
+isUpdatingPending: json['isUpdatingPending']?? false
+
 
 
 
@@ -65,7 +72,9 @@ Map<String,dynamic> toJson()=>{
 "productType":productType,
 "productExpiration":dateExpiration==null?null:dateExpiration!.toIso8601String(),
 "productLogoFileStoreId":productLogoFileStoreId,
-"deleted":deleted
+"deleted":deleted,
+"isAddingPending":isAddingPending,
+"isUpdatePendig":isUpdatingPending
 
 
 };

@@ -211,6 +211,7 @@ class _MoneyInState extends State<MoneyIn> {
                         CustomTextField(
                           label: "Item Name",
                           validatorText: "Item name is needed",
+                          textEditingController:_transactionController.itemNameController,
                           hint: 'E.g. Television',
                         ),
                         Row(
@@ -220,6 +221,7 @@ class _MoneyInState extends State<MoneyIn> {
                                 label: "Amount",
                                 hint: 'N 0.00',
                                 validatorText: "Amount name is needed",
+                                textEditingController: _transactionController.amountController,
                                 keyType: TextInputType.phone,
                               ),
                             ),
@@ -229,6 +231,7 @@ class _MoneyInState extends State<MoneyIn> {
                                 hint: '4',
                                 keyType: TextInputType.phone,
                                 validatorText: "Quantity name is needed",
+                                textEditingController:_transactionController.quantityController
                               ),
                             ),
                           ],
@@ -769,7 +772,8 @@ class _MoneyInState extends State<MoneyIn> {
                     onTap: () {
                           if (_transactionController.addingTransactionStatus!=
                              AddingTransactionStatus.Loading)
-                             _transactionController.createTransaction("INCOME");
+                            //  _transactionController.createTransaction("INCOME");
+                            _transactionController.createBusinessTransaction("INCOME");
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,

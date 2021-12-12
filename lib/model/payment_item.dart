@@ -50,13 +50,13 @@ Map<String,dynamic> toJson()=>{
 "id": id,
                     "businessTransactionId": businessTransactionId,
                     "itemName": itemName,
-                    "productId": productId??"",
+                    "productId": productId,
                     "quantity": quality,
                     "amount":amount,
                     "totalAmount":totalAmount,
-                    "createdDateTime": createdTime!.toIso8601String(),
-                    "updatedDateTime": updatedTime!.toIso8601String(),
-                    "deleted":deleted
+                    "createdDateTime":(createdTime==null)?DateTime.now().toIso8601String(): createdTime!.toIso8601String(),
+                    "updatedDateTime": (updatedTime==null)?null:  updatedTime!.toIso8601String(),
+                    "deleted":deleted?? false
 
 
 };

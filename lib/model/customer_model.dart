@@ -2,10 +2,12 @@ class Customer {
   String? name, phone, image;
   String? customerId, businessId,businessTransactionType,email;
   DateTime? createdTime, updatedTime;
-  
+  bool? isAddingPending;
+  bool? isUpdatingPending;
+  bool? isCreatedFromTransaction;
   bool? deleted;
   Customer({this.image, this.name, this.phone,this.customerId,this.businessId,this.businessTransactionType,this.createdTime,
-  this.updatedTime,this.deleted,this.email
+  this.updatedTime,this.deleted,this.email,this.isAddingPending,this.isUpdatingPending,this.isCreatedFromTransaction
   });
 
   factory Customer.fromJson(Map<String,dynamic> json)=>Customer(
@@ -17,7 +19,11 @@ businessId: json['businessId'],
 businessTransactionType: json['businessTransactionType'],
 createdTime: DateTime.parse(json['createdDateTime']),
 updatedTime: json['updatedDateTime']==null?DateTime.parse(json['createdDateTime']):DateTime.parse(json['updatedDateTime']),
-deleted: json['deleted']??false
+deleted: json['deleted']??false,
+isAddingPending: json['isAddingPending']??false,
+isUpdatingPending: json['isAddingPending']?? false,
+isCreatedFromTransaction: json['isCreatedFromTransaction']??false
+
   );
 
 Map<String,dynamic> toJson()=>{
@@ -28,9 +34,12 @@ Map<String,dynamic> toJson()=>{
 "id":this.customerId,
 "businessId":this.businessId,
 "businessTransactionType":this.businessTransactionType,
-"createdDateTime":this.createdTime!.toIso8601String(),
-"updatedDateTime":this.updatedTime!.toIso8601String(),
-"deleted":deleted
+"createdDateTime":createdTime==null? DateTime.now().toIso8601String():  this.createdTime!.toIso8601String(),
+"updatedDateTime":updatedTime==null?DateTime.now().toIso8601String(): this.updatedTime!.toIso8601String(),
+"deleted":deleted,
+"isAddingPending":isAddingPending,
+"isUpdatingPending":isUpdatingPending,
+"isCreatedFromTransaction":isCreatedFromTransaction
 
 };
 

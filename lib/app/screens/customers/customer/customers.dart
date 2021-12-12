@@ -150,7 +150,7 @@ class _CustomersState extends State<Customers> {
                             GestureDetector(
                               onTap:(){
 
-                                 _customerController.deleteCustomer(item);
+                                 _customerController.deleteBusinessCustomer(item);
                               },
                               child: SvgPicture.asset('assets/images/delete.svg')),
                           ],
