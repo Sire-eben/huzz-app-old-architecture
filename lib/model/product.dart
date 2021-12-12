@@ -65,16 +65,16 @@ Map<String,dynamic> toJson()=>{
 "name":productName,
 "sellingPrice":sellingPrice,
 "quantity":quantity,
-'quantitySold':quantitySold,
-'quantityLeft':quantityLeft,
-"createdDateTime":createdTime!.toIso8601String(),
-"updatedDateTime":updatedTime!.toIso8601String(),
+'quantitySold':quantitySold??0,
+'quantityLeft':quantityLeft??0,
+"createdDateTime":createdTime==null?DateTime.now().toIso8601String():   createdTime!.toIso8601String(),
+"updatedDateTime": updatedTime==null?DateTime.now().toIso8601String(): updatedTime!.toIso8601String(),
 "productType":productType,
 "productExpiration":dateExpiration==null?null:dateExpiration!.toIso8601String(),
 "productLogoFileStoreId":productLogoFileStoreId,
 "deleted":deleted,
-"isAddingPending":isAddingPending,
-"isUpdatePendig":isUpdatingPending
+"isAddingPending":isAddingPending??false,
+"isUpdatePendig":isUpdatingPending??false
 
 
 };

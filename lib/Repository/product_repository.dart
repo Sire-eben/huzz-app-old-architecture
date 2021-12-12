@@ -174,14 +174,14 @@ updateBusinessProductOffline(product);
 
   Future addBusinessProductOffline(String type)async{
      File? outFile;
-if(productImage!=null){
+if(productImage.value!=null){
 
 var list=await getApplicationDocumentsDirectory();
 
     Directory appDocDir =list;
 String appDocPath = appDocDir.path;
 
-  String basename = path.basename(productImage.value!.path!);
+  String basename = path.basename(productImage.value!.path);
   var newPath=appDocPath+basename;
   print("new file path is ${newPath}");
    outFile=File(newPath);
@@ -208,6 +208,7 @@ productLogoFileStoreId: outFile==null?null:outFile.path
 print("product offline saving ${product.toJson()}");
 _businessController.sqliteDb.insertProduct(product);
 clearValue();
+getOfflineProduct(_businessController.selectedBusiness.value!.businessId!);
 Get.to(Confirmation(text: "Added",));
   }
 
