@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +31,7 @@ enum AuthStatus {
   EMAIL_EXISTED,
   USERNAME_EXISTED
 }
-
+enum OnlineStatus {Onilne,Offline,Empty}
 class AuthRepository extends GetxController {
   final _Otpauthstatus = OtpAuthStatus.Empty.obs;
   OtpAuthStatus get Otpauthstatus => _Otpauthstatus.value;
@@ -52,7 +54,11 @@ class AuthRepository extends GetxController {
   String countryText = "234";
   String countryCodeFLag = "NG";
   final _homeController = Get.find<HomeRespository>();
-
+   final _connectionStatus = ConnectivityResult.none.obs;
+        ConnectivityResult  get connectionStatus=> _connectionStatus.value;
+  final MonlineStatus=OnlineStatus.Empty.obs;
+  OnlineStatus get onlineStatus=> MonlineStatus.value;
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   SharePref? pref;
   final Mtoken = "".obs;
   String get token => Mtoken.value;
@@ -62,6 +68,7 @@ class AuthRepository extends GetxController {
   void onInit() async {
     pref = SharePref();
     await pref!.init();
+  
     if (pref!.getFirstTimeOpen()) {
       print("My First Time Using this app");
       _authStatus(AuthStatus.IsFirstTime);
@@ -80,7 +87,28 @@ class AuthRepository extends GetxController {
         _authStatus(AuthStatus.UnAuthenticated);
       }
     }
+       _connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    // Got a new connectivity status!
+  _updateConnectionStatus(result);
+  print("result is $result");
+
+  
+  });
   }
+   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    _connectionStatus(result);
+   if(result==ConnectivityResult.mobile || result==ConnectivityResult.wifi){
+    
+//checking pending job for insertion,deletion and updating
+Get.snackbar("Internet Status", "Device is online now");
+MonlineStatus(OnlineStatus.Onilne);
+
+           }else{
+
+             Get.snackbar("Internet Status", "Device is offline now");
+             MonlineStatus(OnlineStatus.Offline);
+           }
+         }
 
   Future sendSmsOtp() async {
     print("phone number ${countryText}${phoneNumberController.text}");

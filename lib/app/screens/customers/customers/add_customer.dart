@@ -208,9 +208,9 @@ class _AddCustomerState extends State<AddCustomer> {
         if (_customerController.addingCustomerStatus !=
                           AddingCustomerStatus.Loading) {
                         if (widget.item == null)
-                          _customerController.addBusinessCustomer("INCOME");
+                          _customerController.addBusinnessCustomer("INCOME");
                         else
-                          _customerController.updateCustomer(widget.item!);
+                          _customerController.updateBusinesscustomer(widget.item!);
                       }
                     },
                     child: Container(

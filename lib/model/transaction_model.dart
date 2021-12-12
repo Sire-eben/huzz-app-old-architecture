@@ -22,7 +22,7 @@ int? balance;
 List? businessTransactionPaymentHistoryList;
 String? currentBusinessTransactionPaymentHistory;
 List<PaymentItem>? businessTransactionPaymentItemList;
-
+bool? isPending;
 TransactionModel({
 this.id,
 this.totalAmount,
@@ -40,16 +40,17 @@ this.paymentMethod,
 this.balance,
 this.businessTransactionPaymentHistoryList,
 this.currentBusinessTransactionPaymentHistory,
-this.businessTransactionPaymentItemList
+this.businessTransactionPaymentItemList,
+this.isPending,
 });
 
 
 factory TransactionModel.fromJson(Map<String,dynamic> json)=>TransactionModel(
   id: json['id'],
   totalAmount:json['totalAmount'],
-  createdTime: DateTime.parse(json['createdDateTime']),
+  createdTime:  DateTime.parse(json['createdDateTime']),
   updatedTime: json['updatedDateTime']==null? DateTime.parse(json['createdDateTime']): DateTime.parse(json['updatedDateTime']),
-  entryDateTime: DateTime.parse(json['entryDateTime']),
+  entryDateTime: json['entryDateTime']==null? DateTime.parse(json['createdDateTime']):DateTime.parse(json['entryDateTime']),
   transactionType: json['transactionType'],
   paymentSource: json['paymentSource'],
   businessTransactionFileStoreId:json['businessTransactionFileStoreId'],
@@ -59,6 +60,7 @@ factory TransactionModel.fromJson(Map<String,dynamic> json)=>TransactionModel(
   expenseCategory: json['expenseCategory'],
   paymentMethod: json['paymentMethod'],
   balance: json['balance'],
+  isPending: json['isPending']?? false,
   businessTransactionPaymentHistoryList: json['businessTransactionPaymentHistoryList']==null?[]:List.from(json['businessTransactionPaymentHistoryList']),
   currentBusinessTransactionPaymentHistory: json['currentBusinessTransactionPaymentHistory'],
   businessTransactionPaymentItemList: List.from(json['businessTransactionPaymentItemList']).map((e) => PaymentItem.fromJson(e,json['transactionType'])).toList()
@@ -69,9 +71,9 @@ factory TransactionModel.fromJson(Map<String,dynamic> json)=>TransactionModel(
 Map<String,dynamic> toJson()=>{
 "id":id,
 "totalAmount":totalAmount,
-"createdDateTime":createdTime!.toIso8601String(),
-"updatedDateTime":updatedTime!.toIso8601String(),
-"entryDateTime":entryDateTime!.toIso8601String(),
+"createdDateTime":createdTime==null?DateTime.now().toIso8601String():createdTime!.toIso8601String(),
+"updatedDateTime":updatedTime==null?null: updatedTime!.toIso8601String(),
+"entryDateTime":entryDateTime==null?null: entryDateTime!.toIso8601String(),
 "transactionType":transactionType,
 "paymentSource":paymentSource,
 "businessTransactionFileStoreId":businessTransactionFileStoreId??"",
@@ -80,7 +82,8 @@ Map<String,dynamic> toJson()=>{
 "deleted":deleted,
 "expenseCategory":expenseCategory,
 "balance":balance,
-"businessTransactionPaymentHistoryList":businessTransactionPaymentHistoryList!.isEmpty?[]:businessTransactionPaymentHistoryList,
+"isPending":isPending,
+"businessTransactionPaymentHistoryList":businessTransactionPaymentHistoryList==null||  businessTransactionPaymentHistoryList!.isEmpty?[]:businessTransactionPaymentHistoryList,
 "currentBusinessTransactionPaymentHistory":currentBusinessTransactionPaymentHistory==null?currentBusinessTransactionPaymentHistory:"",
 "businessTransactionPaymentItemList":businessTransactionPaymentItemList!.map((e) => e.toJson()).toList(),
 

@@ -147,9 +147,15 @@ $businessId text not null)
   Future updateOfflineTransaction(TransactionModel transactionModel) async {
     var result = await db.update(
         transactionTableName, transactionModel.toJson(),
-        where: transactionId, whereArgs: [transactionModel.id]);
+        where: '"$transactionId" = ?', whereArgs: [transactionModel.id]);
 
     print("updated $result");
+  }
+
+  Future deleteOfflineTransaction(TransactionModel transactionModel)async{
+var result=await db.delete(transactionTableName,where:'"$transactionId" = ?',whereArgs: [transactionModel.id] );
+
+
   }
 
 Future insertProduct(Product product) async {

@@ -14,6 +14,9 @@ import 'package:huzz/model/product.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/sqlite/sqlite_db.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
+import 'package:path/path.dart' as path;
 
 import 'auth_respository.dart';
 import 'customer_repository.dart';
@@ -54,6 +57,7 @@ class TransactionRespository extends GetxController {
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
   final _addingTransactionStatus = AddingTransactionStatus.Empty.obs;
+  var uuid = Uuid();
 // final _uploadFileController=Get.find<FileUploadRespository>();
   AddingTransactionStatus get addingTransactionStatus =>
       _addingTransactionStatus.value;
@@ -70,6 +74,7 @@ class TransactionRespository extends GetxController {
   String? selectedPaymentSource;
   List<String> paymentMode = ["FULLY_PAID", "DEPOSIT"];
   String? selectedPaymentMode;
+  List<TransactionModel> pendingTransactionToBeAdded=[];
 
   @override
   void onInit() async {
@@ -99,10 +104,20 @@ class TransactionRespository extends GetxController {
 
             GetOfflineTransactions(p0.businessId!);
             getSpending(p0.businessId!);
+
+             _userController.MonlineStatus.listen((po){
+       if(po==OnlineStatus.Onilne){
+
+checkIfTransactionThatIsYetToBeAdded();
+         //update server with pending job
+       }
+
+    });
           }
         });
       }
     });
+     
   }
 
   Future getAllPaymentItem() async {
@@ -307,9 +322,18 @@ class TransactionRespository extends GetxController {
 //       _addingTransactionStatus(AddingTransactionStatus.Error);
 //     }
 //   }
+Future createBusinessTransaction(String type)async{
+if(_userController.onlineStatus==OnlineStatus.Onilne){
+createTransactionOnline(type);
 
+}else{
 
-Future createTransaction(String type)async{
+createTransactionOffline(type);
+}
+
+}
+
+Future createTransactionOnline(String type)async{
   try{
   _addingTransactionStatus(AddingTransactionStatus.Loading);
   String? fileid;
@@ -328,6 +352,8 @@ customerId=await _customerController.addBusinessCustomerWithString(type);
   if(selectedCustomer.value!=null)
   customerId=selectedCustomer.value!.customerId;
 }
+}else{
+  customerId=null;
 }
 
 if(selectedValue==0){
@@ -404,4 +430,180 @@ _addingTransactionStatus(AddingTransactionStatus.Error);
 }
 
 }
+
+Future createTransactionOffline(String type)async{
+String? fileid;
+  String? customerId=null;
+  File? outFile;
+if(image!=null){
+
+var list=await getApplicationDocumentsDirectory();
+
+    Directory appDocDir =list;
+String appDocPath = appDocDir.path;
+
+  String basename = path.basename(image!.path);
+  var newPath=appDocPath+basename;
+  print("new file path is ${newPath}");
+   outFile=File(newPath);
+ image!.copySync(outFile.path);
+
+
+}
+
+if(addCustomer){
+if(customerType==1){
+customerId=await _customerController.addBusinessCustomerOfflineWithString(type);
+}else{
+  if(selectedCustomer.value!=null)
+  customerId=selectedCustomer.value!.customerId;
+}
+}else{
+  customerId=null;
+}
+  
+print("trying to save offline");
+  List<PaymentItem> productItem=[];
+  TransactionModel? value;
+ if(selectedValue==0){
+   
+  productItem.add(PaymentItem(
+productId: selectedProduct!.productId!,
+itemName:selectedProduct!.productName, 
+amount: selectedProduct!.sellingPrice,
+totalAmount: (selectedProduct!.sellingPrice!*selectedProduct!.quantity!),
+quality: selectedProduct!.quantity!
+
+  )); 
+
+   value=TransactionModel(
+     paymentMethod: selectedPaymentMode,
+     paymentSource: selectedPaymentSource,
+id:  uuid.v1(),
+totalAmount: 0,
+createdTime: date,
+transactionType: type,
+businessTransactionFileStoreId: outFile==null?null:outFile.path,
+customerId: customerId,
+businessId: _businessController.selectedBusiness.value!.businessId,
+businessTransactionPaymentItemList: productItem,
+isPending: true,
+
+
+
+);
+ }else{
+productItem.add(PaymentItem(
+itemName: itemNameController.text,
+quality: int.parse(quantityController.text),
+amount: int.parse(amountController.text),
+totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
+
+));
+
+
+ value=TransactionModel(
+        paymentMethod: selectedPaymentMode,
+     paymentSource: selectedPaymentSource,
+id:  uuid.v1(),
+totalAmount: 0,
+createdTime: DateTime.now(),
+entryDateTime: date,
+transactionType: type,
+businessTransactionFileStoreId: image!.path,
+customerId: customerId,
+businessId: _businessController.selectedBusiness.value!.businessId,
+businessTransactionPaymentItemList: productItem,
+isPending: true,
+
+
+);
+
+ }
+
+
+print("offline saving to database ${value!.toJson()}}");
+   await _businessController.sqliteDb.insertTransaction(value!);
+  Get.to(() => IncomeSuccess());
+
+}
+Future checkIfTransactionThatIsYetToBeAdded()async{
+offlineTransactions.forEach((element) {
+  
+if(element.isPending!){
+
+  pendingTransaction.add(element);
+}
+
+
+});
+saveTransactionOnline();
+}
+
+Future saveTransactionOnline()async{
+
+if(pendingTransaction.isEmpty){
+
+  return;
+
+}
+
+var savenext=pendingTransaction.first;
+
+
+var customervalue=await _businessController.sqliteDb.getOfflineCustomer(savenext.customerId!);
+if(customervalue!.isAddingPending!){
+  String? customerId= await _customerController.addBusinessCustomerWithString(savenext.transactionType!);
+  savenext.customerId=customerId;
+  _businessController.sqliteDb.deleteCustomer(customervalue);
+}
+if(savenext.businessTransactionFileStoreId!=null){
+
+  String businessId=await _uploadImageController.uploadFile(savenext.businessTransactionFileStoreId!);
+  savenext.businessId=businessId;
+  File _file=File(savenext.businessTransactionFileStoreId!);
+  _file.deleteSync();
+
+}
+
+String body=jsonEncode({
+
+"paymentItemRequestList":savenext.businessTransactionPaymentItemList!.map((e) => e.toJson()),
+    "transactionType":savenext.transactionType,
+    "paymentSource": savenext.paymentSource,
+    "businessId":savenext.businessId,
+
+    "paymentMode":savenext.paymentMethod,
+    "customerId":savenext.customerId,
+    "businessTransactionFileStoreId":savenext.businessId,
+    "entyDateTime":savenext.entryDateTime!.toIso8601String(),
+    "amountPaid":savenext.totalAmount,
+
+
+});
+print("transaction body $body");
+final response=await http.post(Uri.parse(ApiLink.get_business_transaction),headers: {
+"Authorization":"Bearer ${_userController.token}",
+"Content-Type":"application/json"
+
+},body:body );
+
+print({"creatng transaction response ${response.body}"});
+if(response.statusCode==200){
+
+         getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
+
+GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
+getSpending(_businessController.selectedBusiness.value!.businessId!);
+
+}
+
+pendingTransaction.remove(savenext);
+_businessController.sqliteDb.deleteOfflineTransaction(savenext);
+if(pendingTransaction.isNotEmpty){
+
+  saveTransactionOnline();
+}
+}
+
 }

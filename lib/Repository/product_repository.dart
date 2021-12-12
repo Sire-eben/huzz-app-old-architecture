@@ -9,9 +9,12 @@ import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/inventory/Product/productConfirm.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 import 'auth_respository.dart';
 import 'file_upload_respository.dart';
+import 'package:path/path.dart' as path;
 enum AddingProductStatus {Loading,Error,Success,Empty}
 
 class ProductRepository extends GetxController with  SingleGetTickerProviderMixin {
@@ -42,6 +45,10 @@ TabController? tabController;
 Rx<List<Product>> _deleteProductList =Rx([]);
 List<Product> get deleteProductList=>_deleteProductList.value;
 List<Product> pendingUpdatedProductList=[];
+List<Product> pendingToUpdatedProductToServer=[];
+List<Product> pendingToBeAddedProductToServer=[];
+List<Product> pendingDeletedProductToServer=[];
+var uuid = Uuid();
   @override
   void onInit() async{
     // TODO: implement onInit
@@ -73,14 +80,25 @@ getOfflineProduct(p0.businessId!);
 
   }
 
+   _userController.MonlineStatus.listen((po){
+       if(po==OnlineStatus.Onilne){
+
+checkPendingCustomerTobeUpdatedToServer();
+checkPendingProductToBeAddedToSever();
+checkPendingCustomerToBeDeletedOnServer();
+         //update server with pending job
+       }
+
+    });
+
 });
   }
 
 });
-
+ 
   }
 
-  Future addProduct(String type)async{
+  Future addProductOnline(String type)async{
 
 
     try{
@@ -131,6 +149,105 @@ _addingProductStatus(AddingProductStatus.Error);
 
 
   }
+
+Future addBudinessProduct(String type)async{
+if(_userController.onlineStatus==OnlineStatus.Onilne){
+
+  addProductOnline(type);
+}else{
+
+  addBusinessProductOffline(type);
+}
+
+
+}
+Future UpdateBusinessProduct(Product product)async{
+if(_userController.onlineStatus==OnlineStatus.Onilne){
+
+updateBusinessProductOnline(product);
+}else{
+updateBusinessProductOffline(product);
+
+}
+
+}
+
+  Future addBusinessProductOffline(String type)async{
+     File? outFile;
+if(productImage!=null){
+
+var list=await getApplicationDocumentsDirectory();
+
+    Directory appDocDir =list;
+String appDocPath = appDocDir.path;
+
+  String basename = path.basename(productImage.value!.path!);
+  var newPath=appDocPath+basename;
+  print("new file path is ${newPath}");
+   outFile=File(newPath);
+ productImage.value!.copySync(outFile.path);
+
+
+}
+
+
+
+    Product product=Product(
+      isAddingPending: true,
+productId: uuid.v1(),
+businessId: _businessController.selectedBusiness.value!.businessId!,
+productName: productNameController.text,
+sellingPrice: int.parse(productSellingPriceController.text),
+costPrice: int.parse(productCostPriceController.text),
+quantity: int.parse(productQuantityController.text),
+productType: type,
+productLogoFileStoreId: outFile==null?null:outFile.path
+
+    );
+
+print("product offline saving ${product.toJson()}");
+_businessController.sqliteDb.insertProduct(product);
+clearValue();
+Get.to(Confirmation(text: "Added",));
+  }
+
+ Future updateBusinessProductOffline(Product newproduct)async{
+     File? outFile;
+if(productImage!=null){
+
+var list=await getApplicationDocumentsDirectory();
+
+    Directory appDocDir =list;
+String appDocPath = appDocDir.path;
+
+  String basename = path.basename(productImage.value!.path!);
+  var newPath=appDocPath+basename;
+  print("new file path is ${newPath}");
+   outFile=File(newPath);
+ productImage.value!.copySync(outFile.path);
+
+
+}
+    Product product=Product(
+     isUpdatingPending: true,
+
+
+productName: productNameController.text,
+sellingPrice: int.parse(productSellingPriceController.text),
+costPrice: int.parse(productCostPriceController.text),
+quantity: int.parse(productQuantityController.text),
+
+productLogoFileStoreId: outFile==null?newproduct.productLogoFileStoreId:outFile.path
+
+    );
+
+print("product offline saving ${product.toJson()}");
+_businessController.sqliteDb.updateOfflineProdcut(product);
+clearValue();
+Get.to(Confirmation(text: "Updated",));
+  }
+
+
   void clearValue(){
  productImage(null);
  productNameController.text="";
@@ -143,7 +260,7 @@ _addingProductStatus(AddingProductStatus.Error);
 
   }
 
-Future updateProduct(Product product)async{
+Future updateBusinessProductOnline(Product product)async{
 
   try{
       _addingProductStatus(AddingProductStatus.Loading);
@@ -363,7 +480,7 @@ return item;
 }
 
 
-Future deleteProduct(Product product)async{
+Future deleteProductOnline(Product product)async{
 
 
 var response=await http.delete(Uri.parse(ApiLink.add_product+"/${product.productId}?businessId=${product.businessId}"),headers: {
@@ -385,6 +502,32 @@ if(response.statusCode==200){
 _businessController.sqliteDb.deleteProduct(product);
 
 }
+
+Future deleteBusinessProduct(Product product)async{
+if(_userController.onlineStatus==OnlineStatus.Onilne){
+
+deleteProductOnline(product);
+
+}else{
+
+
+deleteBusinessProductOffline(product);
+}
+
+}
+Future deleteBusinessProductOffline(Product product)async{
+product.deleted=true;
+
+if(!product.isAddingPending!){
+_businessController.sqliteDb.updateOfflineProdcut(product);
+   
+}else{
+
+  _businessController.sqliteDb.deleteProduct(product);
+}
+ getOfflineProduct(
+          _businessController.selectedBusiness.value!.businessId!);
+  }
  bool checkifSelectedForDelted(String id){
  bool result=false;
 deleteProductList.forEach((element) {
@@ -402,7 +545,7 @@ if(deleteProductList.isEmpty){
   return;
 }
 var deletenext=deleteProductList.first;
- await deleteProduct(deletenext);
+ await deleteBusinessProduct(deletenext);
  var list=deleteProductList;
  list.remove(deletenext);
  _deleteProductList(list);
@@ -427,6 +570,144 @@ void removeFromDeleteList(Product product){
  list.remove(product);
  _deleteProductList(list);
 }
+
+
+Future checkPendingProductToBeAddedToSever()async{
+offlineBusinessProduct.forEach((element) {
+  
+ if(element.isAddingPending!){
+
+pendingToBeAddedProductToServer.add(element);
+ }
+
+});
+addPendingJobToBeUpdateToServer();
+
+
+ }
+
+ Future checkPendingCustomerTobeUpdatedToServer()async{
+offlineBusinessProduct.forEach((element) {
+  
+if(element.isUpdatingPending! && !element.isAddingPending!){
+
+  pendingToUpdatedProductToServer.add(element);
+}
+
+});
+
+updatePendingJob();
+
+ }
+Future checkPendingCustomerToBeDeletedOnServer()async
+{
+
+var list= await _businessController.sqliteDb.getOfflineProducts(_businessController.selectedBusiness.value!.businessId!);
+
+list.forEach((element) {
+  
+  if(element.deleted!){
+
+    pendingDeletedProductToServer.add(element);
+  }
+
+});
+deletePendingJobToServer();
+
+
+}
+
+
+ Future addPendingJobCustomerToServer()async{
+if(pendingToBeAddedProductToServer.isEmpty){
+
+  return;
+}
+var savenext=pendingToBeAddedProductToServer.first;
+
+ var response = await http.post(Uri.parse(ApiLink.add_product),
+          body: jsonEncode(savenext.toJson()),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+         
+          getOnlineProduct(
+              _businessController.selectedBusiness.value!.businessId!);
+         
+     _businessController.sqliteDb.deleteProduct(savenext);
+          return json['data']['id'];
+        }
+
+      }
+      pendingToBeAddedProductToServer.remove(savenext);
+      if(pendingToBeAddedProductToServer.isNotEmpty){
+
+        addPendingJobCustomerToServer();
+      }
+ }
+
+ Future addPendingJobToBeUpdateToServer()async{
+  if(pendingToUpdatedProductToServer.isEmpty){
+
+    return;
+  }
+var updatenext=pendingToUpdatedProductToServer.first;
+
+ var response = await http
+          .put(Uri.parse(ApiLink.add_product + "/" + updatenext.productId!),
+              body: jsonEncode(updatenext.toJson()),
+              headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+
+      print("update Customer response ${response.body}");
+      if (response.statusCode == 200) {
+       
+        getOnlineProduct(
+            _businessController.selectedBusiness.value!.businessId!);
+
+  
+      }
+     
+
+
+
+
+ }
+ Future deletePendingJobToServer()async{
+
+if(pendingDeletedProductToServer.isEmpty){
+
+  return;
+}
+var deletenext=pendingDeletedProductToServer.first;
+ var response = await http.delete(
+        Uri.parse(ApiLink.add_product+
+            "/${deletenext.productId}?businessId=${deletenext.businessId}"),
+        headers: {"Authorization": "Bearer ${_userController.token}"});
+    print("delete response ${response.body}");
+    if (response.statusCode == 200) {
+      _businessController.sqliteDb.deleteProduct(deletenext);
+      getOfflineProduct(
+          _businessController.selectedBusiness.value!.businessId!);
+    } else {
+
+
+    }
+
+pendingDeletedProductToServer.remove(deletenext);
+if(pendingDeletedProductToServer.isNotEmpty){
+  deletePendingJobToServer();
+}
+
+
+ }
 
 
 
