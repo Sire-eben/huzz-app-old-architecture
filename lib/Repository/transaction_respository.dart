@@ -524,6 +524,7 @@ isPending: true,
 
 print("offline saving to database ${value!.toJson()}}");
    await _businessController.sqliteDb.insertTransaction(value!);
+   GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
   Get.to(() => IncomeSuccess());
 
 }
