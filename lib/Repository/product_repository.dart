@@ -24,6 +24,7 @@ Rx<List<Product>> _offlineBusinessProduct=Rx([]);
 List<Product> get offlineBusinessProduct=>_offlineBusinessProduct.value;
 List<Product> get onlineBusinessProduct=>_onlineBusinessProduct.value;
 List<Product> pendingBusinessProduct=[];
+ final _uploadImageController = Get.find<FileUploadRespository>();
 Rx<List<Product>> _productService=Rx([]);
 Rx<List<Product>> _productGoods=Rx([]);
 final isProductService=false.obs;
@@ -80,22 +81,24 @@ getOfflineProduct(p0.businessId!);
 
   }
 
-   _userController.MonlineStatus.listen((po){
-       if(po==OnlineStatus.Onilne){
 
-checkPendingCustomerTobeUpdatedToServer();
-checkPendingProductToBeAddedToSever();
-checkPendingCustomerToBeDeletedOnServer();
-         //update server with pending job
-       }
-
-    });
 
 });
   }
 
 });
- 
+    _userController.MonlineStatus.listen((po){
+       if(po==OnlineStatus.Onilne){
+ _businessController.selectedBusiness.listen((p0) {
+checkPendingCustomerTobeUpdatedToServer();
+checkPendingProductToBeAddedToSever();
+checkPendingCustomerToBeDeletedOnServer();
+         //update server with pending job
+       
+
+    });
+       }
+   });
   }
 
   Future addProductOnline(String type)async{
@@ -430,6 +433,7 @@ Future updatePendingJob()async{
 if(pendingUpdatedProductList.isEmpty){
   return;
 }
+
 var updatednext=pendingUpdatedProductList.first;
  await _businessController.sqliteDb.updateOfflineProdcut(updatednext);
 pendingUpdatedProductList.remove(updatednext);
@@ -574,6 +578,7 @@ void removeFromDeleteList(Product product){
 
 
 Future checkPendingProductToBeAddedToSever()async{
+    var list= await _businessController.sqliteDb.getOfflineProducts(_businessController.selectedBusiness.value!.businessId!);
 offlineBusinessProduct.forEach((element) {
   
  if(element.isAddingPending!){
@@ -581,9 +586,9 @@ offlineBusinessProduct.forEach((element) {
 pendingToBeAddedProductToServer.add(element);
  }
 
+print("product available for uploading to server ${pendingToBeAddedProductToServer.length}");
 });
-addPendingJobToBeUpdateToServer();
-
+addPendingJobProductToServer();
 
  }
 
@@ -619,12 +624,24 @@ deletePendingJobToServer();
 }
 
 
- Future addPendingJobCustomerToServer()async{
+ Future addPendingJobProductToServer()async{
 if(pendingToBeAddedProductToServer.isEmpty){
 
   return;
 }
-var savenext=pendingToBeAddedProductToServer.first;
+
+pendingToBeAddedProductToServer.forEach((element) async{ 
+var savenext=element;
+
+if(savenext.productLogoFileStoreId!=null&& savenext.productLogoFileStoreId!=''){
+
+  String image=await _uploadImageController.uploadFile(savenext.productLogoFileStoreId!);
+  
+  File _file=File(savenext.productLogoFileStoreId!);
+  savenext.productLogoFileStoreId=image;
+  _file.deleteSync();
+
+}
 
  var response = await http.post(Uri.parse(ApiLink.add_product),
           body: jsonEncode(savenext.toJson()),
@@ -632,7 +649,7 @@ var savenext=pendingToBeAddedProductToServer.first;
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-
+      print("pendong uploading response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -641,15 +658,17 @@ var savenext=pendingToBeAddedProductToServer.first;
               _businessController.selectedBusiness.value!.businessId!);
          
      _businessController.sqliteDb.deleteProduct(savenext);
-          return json['data']['id'];
+        
+           pendingToBeAddedProductToServer.remove(savenext);
         }
 
       }
-      pendingToBeAddedProductToServer.remove(savenext);
+   
       if(pendingToBeAddedProductToServer.isNotEmpty){
-
-        addPendingJobCustomerToServer();
+      print("pendon product remained ${pendingToBeAddedProductToServer.length}");
+        addPendingJobProductToServer();
       }
+});
  }
 
  Future addPendingJobToBeUpdateToServer()async{
@@ -657,7 +676,8 @@ var savenext=pendingToBeAddedProductToServer.first;
 
     return;
   }
-var updatenext=pendingToUpdatedProductToServer.first;
+  pendingToUpdatedProductToServer.forEach((element)async { 
+var updatenext=element;
 
  var response = await http
           .put(Uri.parse(ApiLink.add_product + "/" + updatenext.productId!),
@@ -672,13 +692,13 @@ var updatenext=pendingToUpdatedProductToServer.first;
        
         getOnlineProduct(
             _businessController.selectedBusiness.value!.businessId!);
+            pendingToUpdatedProductToServer.remove(updatenext);
 
   
       }
-     
-
-
-
+      if(pendingToUpdatedProductToServer.isNotEmpty)
+      addPendingJobToBeUpdateToServer();
+  });
 
  }
  Future deletePendingJobToServer()async{
@@ -687,7 +707,8 @@ if(pendingDeletedProductToServer.isEmpty){
 
   return;
 }
-var deletenext=pendingDeletedProductToServer.first;
+pendingDeletedProductToServer.forEach((element) async{ 
+var deletenext=element;
  var response = await http.delete(
         Uri.parse(ApiLink.add_product+
             "/${deletenext.productId}?businessId=${deletenext.businessId}"),
@@ -706,7 +727,7 @@ pendingDeletedProductToServer.remove(deletenext);
 if(pendingDeletedProductToServer.isNotEmpty){
   deletePendingJobToServer();
 }
-
+});
 
  }
 

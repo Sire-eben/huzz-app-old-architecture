@@ -1,3 +1,5 @@
+import 'package:huzz/model/business.dart';
+
 class User{
 
   String? firstName;
@@ -6,26 +8,30 @@ class User{
   String? email;
   String? signatureImageFileStoreId;
   String? profileImageFileStoreId;
+  List<Business>? businessList;
 
-  User({this.firstName,this.lastName,this.phoneNumber,this.email,this.signatureImageFileStoreId,this.profileImageFileStoreId});
+  User({this.firstName,this.lastName,this.phoneNumber,this.email,this.signatureImageFileStoreId,this.profileImageFileStoreId, this.businessList});
 
 
  factory  User.fromJson(Map<String,dynamic> json)=> User(
-firstName: json['firstName'],
-lastName: json['lastName'],
-phoneNumber: json['phoneNumber'],
-email: json['email'],
-signatureImageFileStoreId: json['signatureImageFileStoreId']==null?"":json['signatureImageFileStoreId'],
-profileImageFileStoreId: json['profileImageFileStoreId']==null?"":json['profileImageFileStoreId']
+firstName: json['user']['firstName'],
+lastName: json['user']['lastName'],
+phoneNumber: json['user']['phoneNumber'],
+email: json['user']['email'],
+signatureImageFileStoreId: json['user']['signatureImageFileStoreId']==null?"":json['user']['signatureImageFileStoreId'],
+profileImageFileStoreId: json['user']['profileImageFileStoreId']==null?"":json['user']['profileImageFileStoreId'],
+businessList: List.from(json['businessList']).map((e) => Business.fromJson(e)).toList()
 
  );  
 
 Map<String,dynamic> toJson()=>{
-  "firstName":firstName,
+ 'user':{ "firstName":firstName,
   "lastName":lastName,
   "phoneNumber":phoneNumber,
   "email":email,
   "profileImageFileStoreId":profileImageFileStoreId,
-  "signatureImageFileStoreId":signatureImageFileStoreId
+  "signatureImageFileStoreId":signatureImageFileStoreId,
+ },
+  "businessList":businessList!.map((e) => e.toJson()).toList()
 };
 }

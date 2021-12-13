@@ -496,21 +496,28 @@ _businessController.sqliteDb.updateOfflineCustomer(customer);
   }
 
  Future checkPendingCustomerToBeAddedToSever()async{
-offlineBusinessCustomer.forEach((element) {
+   print("checking customer that is pending to be added");
+  
+   var list= await _businessController.sqliteDb.getOfflineCustomers(_businessController.selectedBusiness.value!.businessId!);
+ print("offline customer lenght ${list.length}");
+list.forEach((element) {
   
  if(element.isAddingPending!){
 
 pendingJobToBeAdded.add(element);
+print("item is found to be added");
  }
 
 });
-addPendingJobToBeUpdateToServer();
+print("number of customer to be added to server ${pendingJobToBeAdded.length}");
+addPendingJobCustomerToServer();
 
 
  }
 
  Future checkPendingCustomerTobeUpdatedToServer()async{
-offlineBusinessCustomer.forEach((element) {
+    var list= await _businessController.sqliteDb.getOfflineCustomers(_businessController.selectedBusiness.value!.businessId!);
+list.forEach((element) {
   
 if(element.isUpdatingPending! && !element.isAddingPending!){
 
@@ -572,6 +579,7 @@ var savenext=pendingJobToBeAdded.first;
               _businessController.selectedBusiness.value!.businessId!);
          
      _businessController.sqliteDb.deleteCustomer(savenext);
+     print("pending to be added is delete");
           return json['data']['id'];
         }
 
@@ -588,7 +596,9 @@ var savenext=pendingJobToBeAdded.first;
 
     return;
   }
-var updatenext=pendingJobToBeUpdated.first;
+
+  pendingJobToBeUpdated.forEach((element) async{ 
+var updatenext=element;
 
  var response = await http
           .put(Uri.parse(ApiLink.add_customer + "/" + updatenext.customerId!),
@@ -610,10 +620,13 @@ var updatenext=pendingJobToBeUpdated.first;
         _addingCustomerStatus(AddingCustomerStatus.Success);
         getOnlineCustomer(
             _businessController.selectedBusiness.value!.businessId!);
-
+      
   
       }
-     
+      
+      if(pendingJobToBeUpdated.isNotEmpty)
+      addPendingJobToBeUpdateToServer();
+  });
 
 
 
@@ -625,6 +638,8 @@ if(pendingJobToBeDelete.isEmpty){
 
   return;
 }
+
+pendingJobToBeDelete.forEach((element)async { 
 var deletenext=pendingJobToBeDelete.first;
  var response = await http.delete(
         Uri.parse(ApiLink.add_customer +
@@ -644,7 +659,7 @@ pendingJobToBeDelete.remove(deletenext);
 if(pendingJobToBeDelete.isNotEmpty){
   deletePendingJobToServer();
 }
-
+});
 
  }
 

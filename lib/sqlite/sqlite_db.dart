@@ -154,7 +154,7 @@ $businessId text not null)
 
   Future deleteOfflineTransaction(TransactionModel transactionModel)async{
 var result=await db.delete(transactionTableName,where:'"$transactionId" = ?',whereArgs: [transactionModel.id] );
-
+print("transaction is deleted $result");
 
   }
 

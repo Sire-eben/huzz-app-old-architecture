@@ -90,6 +90,12 @@ result=true;
  });
 return result;
 }
+Future setBusinessList(List<Business> list)async{
+businessListFromServer.addAll(list);
+print("online data business lenght ${list.length}");
+getBusinessYetToBeSavedLocally();
+
+}
 Future getBusinessYetToBeSavedLocally()async{
 
 // if(offlineBusiness.length==businessListFromServer.length)

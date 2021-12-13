@@ -5,7 +5,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/api_link.dart';
+import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/app/screens/sign_in.dart';
@@ -239,7 +241,7 @@ MonlineStatus(OnlineStatus.Onilne);
         _signinStatus(SigninStatus.Success);
 
         var token = json['accessToken'];
-        var user = User.fromJson(json['user']);
+        var user = User.fromJson(json);
         pref!.saveToken(token);
         pref!.setUser(user);
         Mtoken(token);
@@ -248,7 +250,14 @@ MonlineStatus(OnlineStatus.Onilne);
         DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
         pref!.setDateTokenExpired(expireToken);
         _authStatus(AuthStatus.Authenticated);
+        final _businessController=Get.find<BusinessRespository>();
+      _businessController.setBusinessList(user.businessList!);
+        print("user business lenght ${user.businessList!.length}");
+        if(user.businessList!.isEmpty){
+           Get.off(()=>CreateBusiness());
+        }else{
         Get.off(() => Dashboard());
+        }
       } else if (response.statusCode == 401) {
         Get.snackbar("Login Error", "Invalid Crediential ");
         _signinStatus(SigninStatus.Error);
@@ -259,6 +268,7 @@ MonlineStatus(OnlineStatus.Onilne);
       }
     } catch (ex) {
       _signinStatus(SigninStatus.Error);
+      print("Sign in Error ${ex.toString()}");
     }
   }
 
