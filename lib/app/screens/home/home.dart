@@ -41,9 +41,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (_businessController.offlineBusiness.isEmpty) {
-        Get.off(CreateBusiness());
-      }
+     
       return Scaffold(
         body: (_transactionController.allPaymentItem.isNotEmpty)
             ? TransactionAvailable(context)
