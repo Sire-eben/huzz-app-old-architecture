@@ -12,14 +12,14 @@ import 'servicelist.dart';
 
 class AddService extends StatefulWidget {
   Product? item;
-  AddService({Key? key, this.item}) : super(key: key);
+  AddService({Key? key,this.item}) : super(key: key);
 
   @override
   _AddServiceState createState() => _AddServiceState();
 }
 
 class _AddServiceState extends State<AddService> {
-  final _productController = Get.find<ProductRepository>();
+  final _productController=Get.find<ProductRepository>();
   final TextEditingController textEditingController = TextEditingController();
 
   String? value;
@@ -32,17 +32,17 @@ class _AddServiceState extends State<AddService> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColor().whiteColor,
-        // leading: GestureDetector(
-        //   onTap: () {
-        //     Get.back();
-        //   },
-        //   child: Icon(
-        //     Icons.arrow_back,
-        //     color: AppColor().backgroundColor,
-        //   ),
-        // ),
+          // leading: GestureDetector(
+          //   onTap: () {
+          //     Get.back();
+          //   },
+          //   child: Icon(
+          //     Icons.arrow_back,
+          //     color: AppColor().backgroundColor,
+          //   ),
+          // ),
         title: Text(
-          (widget.item == null) ? "Add Service" : "Update Service",
+         (widget.item==null)? "Add Service":"Update Service",
           style: TextStyle(
             color: AppColor().backgroundColor,
             fontSize: 18,
@@ -67,16 +67,16 @@ class _AddServiceState extends State<AddService> {
                   builder: (context) => buildAddImage()),
               child: Center(
                 child: (_productController.productImage.value != null)
-                    ? Image.file(
-                        _productController.productImage.value!,
-                        height: 150,
-                        width: 150,
-                      )
-                    : Image.asset(
-                        'assets/images/Group 3647.png',
-                        height: 50,
-                        color: AppColor().backgroundColor,
-                      ),
+                      ? Image.file(
+                          _productController.productImage.value!,
+                          height: 150,
+                          width: 150,
+                        )
+                      : Image.asset(
+                          'assets/images/Group 3647.png',
+                          height: 50,
+                          color: AppColor().backgroundColor,
+                        ),
               ),
             ),
             SizedBox(
@@ -108,8 +108,7 @@ class _AddServiceState extends State<AddService> {
               label: "Service Amount",
               validatorText: "Service amount is needed",
               hint: 'N0.00',
-              textEditingController:
-                  _productController.productCostPriceController,
+              textEditingController: _productController.productCostPriceController,
             ),
             SizedBox(
               height: 10,
@@ -183,14 +182,14 @@ class _AddServiceState extends State<AddService> {
             InkWell(
               onTap: () {
                 // Get.to(ServiceListing());
-
-                if (_productController.addingProductStatus !=
-                    AddingProductStatus.Loading) {
-                  if (widget.item == null)
-                    _productController.addBudinessProduct("SERVICES");
-                  else
-                    _productController.UpdateBusinessProduct(widget.item!);
-                }
+              
+ if (_productController.addingProductStatus !=
+                      AddingProductStatus.Loading) {
+                    if (widget.item == null)
+                      _productController.addBudinessProduct("SERVICES");
+                    else
+                      _productController.UpdateBusinessProduct(widget.item!);
+                  }
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -202,24 +201,24 @@ class _AddServiceState extends State<AddService> {
                     color: AppColor().backgroundColor,
                     borderRadius: BorderRadius.circular(10)),
                 child: (_productController.addingProductStatus ==
-                        AddingProductStatus.Loading)
-                    ? Container(
-                        width: 30,
-                        height: 30,
-                        child: Center(
-                            child:
-                                CircularProgressIndicator(color: Colors.white)),
-                      )
-                    : Center(
-                        child: Text(
-                          (widget.item == null) ? 'Save' : "Update",
-                          style: TextStyle(
-                            color: AppColor().whiteColor,
-                            fontFamily: 'DMSans',
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                          AddingProductStatus.Loading)
+                      ? Container(
+                          width: 30,
+                          height: 30,
+                          child: Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white)),
+                        )
+                      :  Center(
+                  child: Text(
+                  (widget.item==null)?  'Save':"Update",
+                    style: TextStyle(
+                      color: AppColor().whiteColor,
+                      fontFamily: 'DMSans',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
             ),
             SizedBox(
@@ -231,7 +230,7 @@ class _AddServiceState extends State<AddService> {
     );
   }
 
-  Widget buildAddImage() => Obx(() {
+ Widget buildAddImage() => Obx(() {
         return Container(
           padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.04,

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,8 @@ import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
+import 'package:huzz/model/customer_model.dart';
+import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../../colors.dart';
@@ -21,31 +24,30 @@ class MoneyOut extends StatefulWidget {
 }
 
 class _MoneyOutState extends State<MoneyOut> {
-  final _transactionController = Get.find<TransactionRespository>();
-  final _customerController = Get.find<CustomerRepository>();
-  final _productController = Get.find<ProductRepository>();
+    final _transactionController=Get.find<TransactionRespository>();
+  final _customerController=Get.find<CustomerRepository>();
+  final _productController=Get.find<ProductRepository>();
+  @override
+  void initState() {
+    _transactionController.dateController.text =
+        DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
 
-  final TextEditingController dateController = TextEditingController();
-  final TextEditingController timeController = TextEditingController();
-  final TextEditingController contactName = TextEditingController();
-  final TextEditingController contactPhone = TextEditingController();
-  final TextEditingController contactMail = TextEditingController();
-  final payments = ['Select payment mode', 'item1', 'item2'];
-  final selectProduct = ['Shoe', 'Bag'];
+    // timeController.text =
+    // '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
+    super.initState();
+  }
 
+  final paymentMode = ['FULLY_PAID', 'DEPOSIT'];
+  final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
+  final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
   String? value;
-  int selectedValue = 0;
-  int customerType = 0;
+  
   String countryFlag = "NG";
   String countryCode = "234";
   String am = 'AM';
   String pm = "PM";
-  bool addCustomer = true;
-  DateTime? date;
-  TimeOfDay? time;
-  File? image;
+ 
 
-  int paymentType = 0;
 
   Future pickImageFromGallery() async {
     try {
@@ -55,7 +57,7 @@ class _MoneyOutState extends State<MoneyOut> {
       print(imageTemporary);
       setState(
         () {
-          this.image = imageTemporary;
+         _transactionController.image = imageTemporary;
         },
       );
     } on PlatformException catch (e) {
@@ -71,7 +73,7 @@ class _MoneyOutState extends State<MoneyOut> {
       print(imageTemporary);
       setState(
         () {
-          this.image = imageTemporary;
+          _transactionController.image = imageTemporary;
         },
       );
     } on PlatformException catch (e) {
@@ -79,18 +81,11 @@ class _MoneyOutState extends State<MoneyOut> {
     }
   }
 
-  @override
-  void initState() {
-    dateController.text =
-        DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
-    super.initState();
-  }
-
   Future pickDate(BuildContext context) async {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
       context: context,
-      initialDate: date ?? initialDate,
+      initialDate: _transactionController.date ?? initialDate,
       firstDate: DateTime(DateTime.now().year - 5),
       lastDate: DateTime(DateTime.now().year + 5),
     );
@@ -98,8 +93,9 @@ class _MoneyOutState extends State<MoneyOut> {
     if (newDate == null) return;
 
     setState(() {
-      dateController.text = DateFormat("yyyy-MM-dd").format(newDate).toString();
-      print(dateController.text);
+      _transactionController.dateController.text = DateFormat("yyyy-MM-dd").format(newDate).toString();
+      _transactionController.date=newDate;
+      // print(dateController.text);
     });
   }
 
@@ -107,16 +103,16 @@ class _MoneyOutState extends State<MoneyOut> {
     final initialTime = TimeOfDay.now();
     final newTime = await showTimePicker(
       context: context,
-      initialTime: time ?? initialTime,
+      initialTime: _transactionController.time ?? initialTime,
     );
 
     if (newTime == null) return;
 
     setState(() {
-      time = newTime;
-      timeController.text =
-          '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
-      print(timeController.text);
+      _transactionController.time = newTime;
+      _transactionController.timeController.text =
+          '${_transactionController.time!.hour.toString().padLeft(2, '0')}:${_transactionController.time!.minute.toString().padLeft(2, '0')} ${_transactionController.time!.period.index == 0 ? am : pm}';
+      print(_transactionController.timeController.text);
     });
   }
 
@@ -124,7 +120,6 @@ class _MoneyOutState extends State<MoneyOut> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -137,7 +132,7 @@ class _MoneyOutState extends State<MoneyOut> {
           },
         ),
         title: Text(
-          'Money Out',
+          'Money In',
           style: TextStyle(
             color: AppColor().backgroundColor,
             fontFamily: "DMSans",
@@ -162,15 +157,15 @@ class _MoneyOutState extends State<MoneyOut> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () => setState(() => selectedValue = 1),
+                      onTap: () => setState(() => _transactionController.selectedValue = 1),
                       child: Row(
                         children: [
                           Radio<int>(
                               value: 1,
                               activeColor: AppColor().backgroundColor,
-                              groupValue: selectedValue,
+                              groupValue: _transactionController.selectedValue,
                               onChanged: (value) =>
-                                  setState(() => selectedValue = 1)),
+                                  setState(() => _transactionController.selectedValue = 1)),
                           Text(
                             'Enter Item',
                             style: TextStyle(
@@ -185,15 +180,15 @@ class _MoneyOutState extends State<MoneyOut> {
                       ),
                     ),
                     InkWell(
-                      onTap: () => setState(() => selectedValue = 0),
+                      onTap: () => setState(() => _transactionController.selectedValue = 0),
                       child: Row(
                         children: [
                           Radio<int>(
                               value: 0,
                               activeColor: AppColor().backgroundColor,
-                              groupValue: selectedValue,
+                              groupValue: _transactionController.selectedValue,
                               onChanged: (value) =>
-                                  setState(() => selectedValue = 0)),
+                                  setState(() => _transactionController.selectedValue = 0)),
                           Text(
                             'Select Product',
                             style: TextStyle(
@@ -210,12 +205,13 @@ class _MoneyOutState extends State<MoneyOut> {
                   ],
                 ),
               ),
-              selectedValue == 1
+              _transactionController.selectedValue == 1
                   ? Column(
                       children: [
                         CustomTextField(
                           label: "Item Name",
                           validatorText: "Item name is needed",
+                          textEditingController:_transactionController.itemNameController,
                           hint: 'E.g. Television',
                         ),
                         Row(
@@ -225,6 +221,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                 label: "Amount",
                                 hint: 'N 0.00',
                                 validatorText: "Amount name is needed",
+                                textEditingController: _transactionController.amountController,
                                 keyType: TextInputType.phone,
                               ),
                             ),
@@ -234,6 +231,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                 hint: '4',
                                 keyType: TextInputType.phone,
                                 validatorText: "Quantity name is needed",
+                                textEditingController:_transactionController.quantityController
                               ),
                             ),
                           ],
@@ -250,7 +248,7 @@ class _MoneyOutState extends State<MoneyOut> {
                           Row(
                             children: [
                               Text(
-                                'Select Customer',
+                                'Select Product',
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
@@ -281,16 +279,21 @@ class _MoneyOutState extends State<MoneyOut> {
                                     width: 2,
                                     color: AppColor().backgroundColor)),
                             child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: value,
+                              child: DropdownButton<Product>(
+                                value: _transactionController.selectedProduct,
                                 icon: Icon(
                                   Icons.keyboard_arrow_down,
                                   color: AppColor().backgroundColor,
                                 ),
                                 iconSize: 30,
-                                items: payments.map(buildPaymentItem).toList(),
+                                items:_productController.productGoods.map(( value) {
+                        return DropdownMenuItem<Product>(
+                          value: value,
+                          child: Text(value.productName!),
+                        );
+                      }).toList(),
                                 onChanged: (value) =>
-                                    setState(() => this.value = value),
+                                    setState(() => _transactionController.selectedProduct = value),
                               ),
                             ),
                           ),
@@ -298,44 +301,31 @@ class _MoneyOutState extends State<MoneyOut> {
                       ),
                     ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  _transactionController.selectedValue == 1
-                      ? showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20))),
-                          context: context,
-                          builder: (context) => buildAddNewItem())
-                      : Container();
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.055,
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    decoration: BoxDecoration(
-                        color: selectedValue == 1
-                            ? AppColor().backgroundColor
-                            : AppColor().backgroundColor.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(45)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.add, color: Colors.white),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        Text(
-                          'Add another item',
-                          style: TextStyle(
-                              fontFamily: 'DMSans',
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.055,
+                  width: MediaQuery.of(context).size.width * 0.35,
+                  decoration: BoxDecoration(
+                      color: _transactionController.selectedValue == 1
+                          ? AppColor().backgroundColor
+                          : AppColor().backgroundColor.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(45)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.add, color: Colors.white),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                      Text(
+                        'Add another item',
+                        style: TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -343,12 +333,17 @@ class _MoneyOutState extends State<MoneyOut> {
                 children: [
                   Expanded(
                     child: CustomTextField(
-                      textEditingController: dateController,
+                      enabled: false,
+                      AllowClickable: true,
+                      textEditingController: _transactionController.dateController,
                       label: "Select Date",
                       hint: 'Select Date',
+                      onClick: (){
+                           pickDate(context);
+                      },
                       prefixIcon: IconButton(
                         onPressed: () {
-                          pickDate(context);
+                       
                         },
                         icon: Icon(Icons.calendar_today),
                         color: Colors.orange,
@@ -359,12 +354,18 @@ class _MoneyOutState extends State<MoneyOut> {
                   ),
                   Expanded(
                     child: CustomTextField(
-                      textEditingController: timeController,
+                      enabled: false,
+                      AllowClickable: true,
+                      textEditingController: _transactionController.timeController,
                       label: "Select Time",
                       hint: 'Select Time',
+                      onClick: (){
+    print("trying to pick time");
+                          pickTime(context);
+                      },
                       prefixIcon: IconButton(
                         onPressed: () {
-                          pickTime(context);
+                      
                         },
                         icon: Icon(Icons.lock_clock),
                         color: Colors.orange,
@@ -374,62 +375,6 @@ class _MoneyOutState extends State<MoneyOut> {
                     ),
                   ),
                 ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Expense Category',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                              fontFamily: 'DMSans'),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "*",
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                              fontFamily: 'DMSans'),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              width: 2, color: AppColor().backgroundColor)),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: value,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
-                          ),
-                          iconSize: 30,
-                          items: payments.map(buildPaymentItem).toList(),
-                          onChanged: (value) =>
-                              setState(() => this.value = value),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
@@ -472,21 +417,28 @@ class _MoneyOutState extends State<MoneyOut> {
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: value,
+                          value: _transactionController.selectedPaymentMode,
                           icon: Icon(
                             Icons.keyboard_arrow_down,
                             color: AppColor().backgroundColor,
                           ),
                           iconSize: 30,
-                          items: payments.map(buildPaymentItem).toList(),
+                          items:_transactionController.paymentMode.map(buildPaymentItem).toList(),
                           onChanged: (value) =>
-                              setState(() => this.value = value),
+                              setState(() =>_transactionController.selectedPaymentMode = value),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
+             (_transactionController.selectedPaymentMode!=null && _transactionController.selectedPaymentMode=="DEPOSIT")? CustomTextField(
+                label: "Amount Paid",
+                hint: 'N 0.00',
+                validatorText: "Amount Paid is needed",
+                keyType: TextInputType.number,
+                textEditingController:_transactionController.amountPaidController,
+              ):Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -528,21 +480,23 @@ class _MoneyOutState extends State<MoneyOut> {
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: value,
+                          value: _transactionController.selectedPaymentSource,
                           icon: Icon(
                             Icons.keyboard_arrow_down,
                             color: AppColor().backgroundColor,
                           ),
                           iconSize: 30,
-                          items: payments.map(buildPaymentItem).toList(),
+                          items: _transactionController.paymentSource.map(buildPaymentItem).toList(),
                           onChanged: (value) =>
-                              setState(() => this.value = value),
+                              setState(() => _transactionController.selectedPaymentSource = value),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
+
+              
               SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -591,11 +545,11 @@ class _MoneyOutState extends State<MoneyOut> {
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(
-                        color: image != null
+                        color: _transactionController.image != null
                             ? AppColor().backgroundColor.withOpacity(0.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: image != null
+                        border: _transactionController.image != null
                             ? null
                             : Border.all(
                                 width: 2, color: AppColor().backgroundColor)),
@@ -615,32 +569,32 @@ class _MoneyOutState extends State<MoneyOut> {
                         Expanded(
                           flex: 6,
                           child: AutoSizeText(
-                            image != null
-                                ? image!.path.toString()
+                            _transactionController.image != null
+                                ? _transactionController.image!.path.toString()
                                 : 'Add any supporting image (Optional)',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color:
-                                    image != null ? Colors.black : Colors.grey,
+                                    _transactionController.image != null ? Colors.black : Colors.grey,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 fontFamily: 'DMSans'),
                           ),
                         ),
-                        image != null
+                        _transactionController.image != null
                             ? Expanded(
                                 child: SvgPicture.asset(
                                   'assets/images/edit.svg',
                                 ),
                               )
                             : Container(),
-                        image != null
+                        _transactionController.image != null
                             ? Expanded(
                                 child: InkWell(
                                   onTap: () {
                                     setState(() {
-                                      image = null;
+                                      _transactionController.image = null;
                                     });
                                   },
                                   child: SvgPicture.asset(
@@ -654,7 +608,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.04),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
@@ -664,20 +618,22 @@ class _MoneyOutState extends State<MoneyOut> {
                     Text(
                       'Add Customer',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: _transactionController.addCustomer == true
+                              ? AppColor().backgroundColor
+                              : Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'DMSans'),
                     ),
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
-                        value: addCustomer,
+                        value: _transactionController.addCustomer,
                         onChanged: (newValue) =>
-                            setState(() => this.addCustomer = newValue))
+                            setState(() => _transactionController.addCustomer = newValue))
                   ],
                 ),
               ),
-              addCustomer == true
+              _transactionController.addCustomer == true
                   ? Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal:
@@ -688,15 +644,15 @@ class _MoneyOutState extends State<MoneyOut> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
-                                onTap: () => setState(() => customerType = 1),
+                                onTap: () => setState(() => _transactionController.customerType = 1),
                                 child: Row(
                                   children: [
                                     Radio<int>(
                                         value: 1,
                                         activeColor: AppColor().backgroundColor,
-                                        groupValue: customerType,
+                                        groupValue: _transactionController.customerType,
                                         onChanged: (value) =>
-                                            setState(() => customerType = 1)),
+                                            setState(() => _transactionController.customerType = 1)),
                                     Text(
                                       'New Customer',
                                       style: TextStyle(
@@ -711,15 +667,15 @@ class _MoneyOutState extends State<MoneyOut> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () => setState(() => customerType = 0),
+                                onTap: () => setState(() => _transactionController.customerType = 0),
                                 child: Row(
                                   children: [
                                     Radio<int>(
                                         value: 0,
                                         activeColor: AppColor().backgroundColor,
-                                        groupValue: customerType,
+                                        groupValue: _transactionController.customerType,
                                         onChanged: (value) =>
-                                            setState(() => customerType = 0)),
+                                            setState(() => _transactionController.customerType = 0)),
                                     Text(
                                       'Existing Customer',
                                       style: TextStyle(
@@ -735,11 +691,11 @@ class _MoneyOutState extends State<MoneyOut> {
                               )
                             ],
                           ),
-                          customerType == 1
+                          _transactionController.customerType == 1
                               ? CustomTextFieldWithImageTransaction(
-                                  contactName: contactName,
-                                  contactPhone: contactPhone,
-                                  contactMail: contactMail,
+                                  contactName: _customerController.nameController,
+                                  contactPhone: _customerController.phoneNumberController,
+                                  contactMail: _customerController.emailController,
                                   label: "Customer name",
                                   validatorText: "Customer name is needed",
                                   hint: 'customer name',
@@ -783,50 +739,71 @@ class _MoneyOutState extends State<MoneyOut> {
                                               color:
                                                   AppColor().backgroundColor)),
                                       child: DropdownButtonHideUnderline(
-                                        child: DropdownButton<String>(
-                                          value: value,
+                                        child: DropdownButton<Customer>(
+                                          value: _transactionController.selectedCustomer.value,
                                           icon: Icon(
                                             Icons.keyboard_arrow_down,
                                             color: AppColor().backgroundColor,
                                           ),
                                           iconSize: 30,
-                                          items: payments
-                                              .map(buildPaymentItem)
-                                              .toList(),
+                                          items:_customerController.customerCustomer.map(( value) {
+                        return DropdownMenuItem<Customer>(
+                          value: value,
+                          child: Text(value.name!),
+                        );
+                      }).toList(),
                                           onChanged: (value) => setState(
-                                              () => this.value = value),
+                                              () => _transactionController.selectedCustomer(value),
                                         ),
                                       ),
-                                    ),
+                                      )
+                                    )
+                                    
                                   ],
                                 ),
                         ],
                       ),
                     )
                   : Container(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  Get.to(() => IncomeSuccess());
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      'Save',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'DMSans'),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+              Obx(()
+  {
+                  return InkWell(
+                    onTap: () {
+                          if (_transactionController.addingTransactionStatus!=
+                             AddingTransactionStatus.Loading)
+                            //  _transactionController.createTransaction("INCOME");
+                            _transactionController.createBusinessTransaction("EXPENDITURE");
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.height * 0.03),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child:(_transactionController.addingTransactionStatus==
+                             AddingTransactionStatus.Loading)
+                          ? Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                            )
+                          :  Center(
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'DMSans'),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                }
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             ],
@@ -836,195 +813,6 @@ class _MoneyOutState extends State<MoneyOut> {
     );
   }
 
-  Widget buildAddNewItem() =>
-      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
-        return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                height: 6,
-                width: 80,
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(10)),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      myState(() {
-                        paymentType = 1;
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        Radio<int>(
-                          value: 1,
-                          activeColor: AppColor().backgroundColor,
-                          groupValue: paymentType,
-                          onChanged: (value) {
-                            myState(() {
-                              paymentType = 1;
-                            });
-                          },
-                        ),
-                        Text(
-                          'Enter Item',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      myState(() {
-                        paymentType = 0;
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        Radio<int>(
-                            value: 0,
-                            activeColor: AppColor().backgroundColor,
-                            groupValue: paymentType,
-                            onChanged: (value) {
-                              myState(() {
-                                value = 0;
-                                paymentType = 0;
-                              });
-                            }),
-                        Text(
-                          'Select Product',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              paymentType == 0
-                  ? CustomTextField(
-                      label: 'Item Name',
-                      hint: 'Television',
-                      validatorText: "Item name is needed",
-                      keyType: TextInputType.name,
-                    )
-                  : Container(),
-              paymentType == 0
-                  ? Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField(
-                            label: "Amount",
-                            hint: 'N 0.00',
-                            validatorText: "Amount is needed",
-                            keyType: TextInputType.phone,
-                          ),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.height * 0.02),
-                        Expanded(
-                          child: CustomTextField(
-                            label: "Quantity",
-                            hint: '4',
-                            keyType: TextInputType.phone,
-                            validatorText: "Quantity is needed",
-                          ),
-                        ),
-                      ],
-                    )
-                  : Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Select Product',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontFamily: 'DMSans'),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 4),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    width: 2,
-                                    color: AppColor().backgroundColor)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: 'Shoe',
-                                icon: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: AppColor().backgroundColor,
-                                ),
-                                iconSize: 30,
-                                items: selectProduct
-                                    .map(buildPaymentItem)
-                                    .toList(),
-                                onChanged: (value) => myState(() =>
-                                    _transactionController
-                                        .selectedPaymentSource = value),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      'Add Item',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'DMSans'),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      });
-
   DropdownMenuItem<String> buildPaymentItem(String item) => DropdownMenuItem(
         value: item,
         child: Text(
@@ -1032,4 +820,20 @@ class _MoneyOutState extends State<MoneyOut> {
           style: TextStyle(fontSize: 14, fontFamily: 'DMSans'),
         ),
       );
+
+  Future showCountryCode(BuildContext context) async {
+    showCountryPicker(
+      context: context,
+      showPhoneCode:
+          true, // optional. Shows phone code before the country name.
+      onSelect: (Country country) {
+        countryCode = country.toJson()['e164_cc'];
+        countryFlag = country.toJson()['iso2_cc'];
+        country.toJson();
+        setState(() {});
+
+        print('Select country: ${country.toJson()}');
+      },
+    );
+  }
 }

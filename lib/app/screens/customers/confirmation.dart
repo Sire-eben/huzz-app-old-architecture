@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 
-import '../../../colors.dart';
+import '../../../../colors.dart';
 
 // ignore: must_be_immutable
 class ConfirmationCustomer extends StatelessWidget {
@@ -65,9 +65,7 @@ class ConfirmationCustomer extends StatelessWidget {
           Spacer(),
           InkWell(
             onTap: () {
-              Get.to(Dashboard(
-                selectedIndex: 0,
-              ));
+              Get.to(Dashboard(selectedIndex: 0,));
             },
             child: Container(
               height: 55,

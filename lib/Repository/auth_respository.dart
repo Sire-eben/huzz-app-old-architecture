@@ -71,7 +71,6 @@ class AuthRepository extends GetxController {
   void onInit() async {
     pref = SharePref();
     await pref!.init();
-
     if (pref!.getFirstTimeOpen()) {
       print("My First Time Using this app");
       _authStatus(AuthStatus.IsFirstTime);
@@ -257,6 +256,7 @@ class AuthRepository extends GetxController {
           Get.off(() => CreateBusiness());
         } else {
           Get.off(() => Dashboard());
+
         }
       } else if (response.statusCode == 401) {
         Get.snackbar("Login Error", "Invalid Crediential ");

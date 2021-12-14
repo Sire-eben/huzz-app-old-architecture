@@ -79,7 +79,7 @@ class BusinessRespository extends GetxController {
     businessListFromServer.addAll(list);
     print("online data business lenght ${list.length}");
     getBusinessYetToBeSavedLocally();
-  }
+}
 
   Future getBusinessYetToBeSavedLocally() async {
 // if(offlineBusiness.length==businessListFromServer.length)
