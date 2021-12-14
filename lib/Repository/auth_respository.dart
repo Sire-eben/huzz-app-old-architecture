@@ -33,7 +33,8 @@ enum AuthStatus {
   EMAIL_EXISTED,
   USERNAME_EXISTED
 }
-enum OnlineStatus {Onilne,Offline,Empty}
+enum OnlineStatus { Onilne, Offline, Empty }
+
 class AuthRepository extends GetxController {
   final _Otpauthstatus = OtpAuthStatus.Empty.obs;
   OtpAuthStatus get Otpauthstatus => _Otpauthstatus.value;
@@ -56,10 +57,10 @@ class AuthRepository extends GetxController {
   String countryText = "234";
   String countryCodeFLag = "NG";
   final _homeController = Get.find<HomeRespository>();
-   final _connectionStatus = ConnectivityResult.none.obs;
-        ConnectivityResult  get connectionStatus=> _connectionStatus.value;
-  final MonlineStatus=OnlineStatus.Empty.obs;
-  OnlineStatus get onlineStatus=> MonlineStatus.value;
+  final _connectionStatus = ConnectivityResult.none.obs;
+  ConnectivityResult get connectionStatus => _connectionStatus.value;
+  final MonlineStatus = OnlineStatus.Empty.obs;
+  OnlineStatus get onlineStatus => MonlineStatus.value;
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   SharePref? pref;
   final Mtoken = "".obs;
@@ -70,7 +71,6 @@ class AuthRepository extends GetxController {
   void onInit() async {
     pref = SharePref();
     await pref!.init();
-  
     if (pref!.getFirstTimeOpen()) {
       print("My First Time Using this app");
       _authStatus(AuthStatus.IsFirstTime);
@@ -89,28 +89,27 @@ class AuthRepository extends GetxController {
         _authStatus(AuthStatus.UnAuthenticated);
       }
     }
-       _connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-    // Got a new connectivity status!
-  _updateConnectionStatus(result);
-  print("result is $result");
-
-  
-  });
+    _connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      // Got a new connectivity status!
+      _updateConnectionStatus(result);
+      print("result is $result");
+    });
   }
-   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     _connectionStatus(result);
-   if(result==ConnectivityResult.mobile || result==ConnectivityResult.wifi){
-    
+    if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
 //checking pending job for insertion,deletion and updating
-Get.snackbar("Internet Status", "Device is online now");
-MonlineStatus(OnlineStatus.Onilne);
-
-           }else{
-
-             Get.snackbar("Internet Status", "Device is offline now");
-             MonlineStatus(OnlineStatus.Offline);
-           }
-         }
+      Get.snackbar("Internet Status", "Device is online now");
+      MonlineStatus(OnlineStatus.Onilne);
+    } else {
+      Get.snackbar("Internet Status", "Device is offline now");
+      MonlineStatus(OnlineStatus.Offline);
+    }
+  }
 
   Future sendSmsOtp() async {
     print("phone number ${countryText}${phoneNumberController.text}");
@@ -250,13 +249,14 @@ MonlineStatus(OnlineStatus.Onilne);
         DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
         pref!.setDateTokenExpired(expireToken);
         _authStatus(AuthStatus.Authenticated);
-        final _businessController=Get.find<BusinessRespository>();
-      _businessController.setBusinessList(user.businessList!);
+        final _businessController = Get.find<BusinessRespository>();
+        _businessController.setBusinessList(user.businessList!);
         print("user business lenght ${user.businessList!.length}");
-        if(user.businessList!.isEmpty){
-           Get.off(()=>CreateBusiness());
-        }else{
-        Get.off(() => Dashboard());
+        if (user.businessList!.isEmpty) {
+          Get.off(() => CreateBusiness());
+        } else {
+          Get.off(() => Dashboard());
+
         }
       } else if (response.statusCode == 401) {
         Get.snackbar("Login Error", "Invalid Crediential ");

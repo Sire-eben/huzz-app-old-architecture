@@ -18,9 +18,8 @@ class ProductListing extends StatefulWidget {
 }
 
 class _ProductListingState extends State<ProductListing> {
-  
   final TextEditingController textEditingController = TextEditingController();
-final _productController=Get.find<ProductRepository>();
+  final _productController = Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,9 +178,8 @@ final _productController=Get.find<ProductRepository>();
             bottom: 10,
             right: 30,
             child: GestureDetector(
-              onTap:(){
-
-Get.to(AddProduct());
+              onTap: () {
+                Get.to(AddProduct());
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -601,11 +599,11 @@ class ListingProduct extends StatefulWidget {
 }
 
 class _ListingProductState extends State<ListingProduct> {
-    final display = createDisplay(
+  final display = createDisplay(
     length: 8,
     decimal: 0,
   );
-  final _productController=Get.find<ProductRepository>();
+  final _productController = Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
     // print("image ${widget.item!.productLogoFileStoreId}");
@@ -629,10 +627,16 @@ class _ListingProductState extends State<ListingProduct> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-            widget.item!.productLogoFileStoreId==null|| widget.item!.productLogoFileStoreId!.isEmpty?  Image.asset(
-               "assets/images/Rectangle 1015.png",
-                height: 50,
-              ):Image.asset("assets/images/Rectangle 1015.png",height: 50,),
+              widget.item!.productLogoFileStoreId == null ||
+                      widget.item!.productLogoFileStoreId!.isEmpty
+                  ? Image.asset(
+                      "assets/images/Rectangle 1015.png",
+                      height: 50,
+                    )
+                  : Image.asset(
+                      "assets/images/Rectangle 1015.png",
+                      height: 50,
+                    ),
               SizedBox(
                 width: 10,
               ),
@@ -664,7 +668,7 @@ class _ListingProductState extends State<ListingProduct> {
                         ),
                       ),
                       Text(
-                      "${widget.item!.quantityLeft}",
+                        "${widget.item!.quantityLeft}",
                         style: TextStyle(
                           color: AppColor().orangeBorderColor,
                           fontFamily: 'DMSans',
@@ -689,15 +693,14 @@ class _ListingProductState extends State<ListingProduct> {
                 ],
               ),
               Expanded(
-                child: SizedBox(
-                  
-                ),
+                child: SizedBox(),
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   _productController.setItem(widget.item!);
-                  Get.to(AddProduct(item: widget.item!,));
-                    
+                  Get.to(AddProduct(
+                    item: widget.item!,
+                  ));
                 },
                 child: Container(
                   height: 40,

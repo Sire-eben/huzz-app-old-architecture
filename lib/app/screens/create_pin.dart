@@ -28,7 +28,6 @@ class _CreatePinState extends State<CreatePin> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,

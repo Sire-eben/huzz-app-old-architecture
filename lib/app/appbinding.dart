@@ -10,16 +10,13 @@ import 'package:huzz/Repository/transaction_respository.dart';
 class AppBinding extends Bindings {
   @override
   void dependencies() {
-    // TODO: implement dependencies
-     Get.put(HomeRespository(), permanent: true);
-     Get.put(AuthRepository(),permanent: true);
-       Get.put(BusinessRespository(),permanent: true);
-     Get.put(FileUploadRespository(),permanent: true);
-   
+    Get.put(HomeRespository(), permanent: true);
+    Get.put(AuthRepository(), permanent: true);
+    Get.put(BusinessRespository(), permanent: true);
+    Get.put(FileUploadRespository(), permanent: true);
 
-
-     Get.put(ProductRepository(),permanent: true);
-     Get.put(CustomerRepository(),permanent: true);
-          Get.put(TransactionRespository(),permanent:true);
+    Get.put(ProductRepository(), permanent: true);
+    Get.put(CustomerRepository(), permanent: true);
+    Get.put(TransactionRespository(), permanent: true);
   }
 }

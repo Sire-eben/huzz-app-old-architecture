@@ -18,9 +18,9 @@ class PdfInvoiceApi {
         SizedBox(height: 2 * PdfPageFormat.cm),
         buildInvoice(invoice),
         Divider(),
-        buildTotal(invoice),
-        SizedBox(height: 1 * PdfPageFormat.cm),
         buildSubTotal(invoice),
+        SizedBox(height: 1 * PdfPageFormat.cm),
+        buildTotal(invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
         buildFooter(invoice)
       ],
@@ -142,8 +142,9 @@ class PdfInvoiceApi {
       headers: headers,
       data: data,
       border: null,
-      headerStyle:
-          TextStyle(fontWeight: FontWeight.bold, color: PdfColors.blue),
+      cellStyle: TextStyle(fontSize: 15),
+      headerStyle: TextStyle(
+          fontWeight: FontWeight.bold, color: PdfColors.blue, fontSize: 20),
       headerDecoration: BoxDecoration(color: PdfColors.grey300),
       cellHeight: 30,
       cellAlignments: {
@@ -176,7 +177,7 @@ class PdfInvoiceApi {
               'Total',
               style: TextStyle(
                 color: PdfColors.white,
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -185,7 +186,7 @@ class PdfInvoiceApi {
             Utils.formatPrice(total),
             style: TextStyle(
               color: PdfColors.blue,
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           )
@@ -200,14 +201,14 @@ class PdfInvoiceApi {
           Text(
             'Issue Date',
             style: TextStyle(
-              fontSize: 8,
+              fontSize: 10,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             DateFormat.yMMMd().format(DateTime.now()).toString(),
             style: TextStyle(
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -216,7 +217,7 @@ class PdfInvoiceApi {
           Text(
             'Due Date',
             style: TextStyle(
-              fontSize: 8,
+              fontSize: 10,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -224,20 +225,56 @@ class PdfInvoiceApi {
             DateFormat.yMMMd().format(DateTime.now()).toString(),
             style: TextStyle(
               color: PdfColors.orange,
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('Sub-total'),
-          Text('Tax (0%)'),
-          Text('DIscount'),
+          Text(
+            'Sub-total',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'Tax (0%)',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'DIscount',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Text('N 150,000'),
-          Text('N 2,000'),
-          Text('N 1,000'),
+          Text(
+            'N 150,000',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'N 2,000',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'N 1,000',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ])
       ]);
 
@@ -248,7 +285,7 @@ class PdfInvoiceApi {
             'ISSUED TO:',
             style: TextStyle(
               color: PdfColors.blue,
-              fontSize: 14,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -267,7 +304,13 @@ class PdfInvoiceApi {
           )
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Text('POWERED BY:'),
+          Text(
+            'POWERED BY:',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           Text(
             'HUZZ',
             style: TextStyle(

@@ -663,6 +663,3 @@ selectedProduct=null;
 
 
 }
-
-
-

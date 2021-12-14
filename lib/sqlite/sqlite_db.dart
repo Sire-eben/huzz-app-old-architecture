@@ -47,7 +47,6 @@ create table $transactionTableName (
 $productId text primary key,
 $productJson text not null,
 $businessId text not null) 
-
 ''');
  
 
@@ -55,7 +54,6 @@ $businessId text not null)
 $customerId text primary key,
 $customerJson text not null,
 $businessId text not null) 
-
 ''');
 
 // await db.execute(''' create table $playtableName (
