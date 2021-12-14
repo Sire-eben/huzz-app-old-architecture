@@ -305,15 +305,23 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
-                  onTap: () => setState(() => paymentType = 1),
+                  onTap: () {
+                    setState(() {
+                      paymentType = 1;
+                    });
+                  },
                   child: Row(
                     children: [
                       Radio<int>(
-                          value: 1,
-                          activeColor: AppColor().backgroundColor,
-                          groupValue: paymentType,
-                          onChanged: (value) =>
-                              setState(() => paymentType = 1)),
+                        value: 1,
+                        activeColor: AppColor().backgroundColor,
+                        groupValue: paymentType,
+                        onChanged: (value) {
+                          setState(() {
+                            paymentType = 1;
+                          });
+                        },
+                      ),
                       Text(
                         'Paying Fully',
                         style: TextStyle(
@@ -328,15 +336,23 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                   ),
                 ),
                 InkWell(
-                  onTap: () => setState(() => paymentType = 0),
+                  onTap: () {
+                    setState(() {
+                      paymentType = 0;
+                    });
+                  },
                   child: Row(
                     children: [
                       Radio<int>(
                           value: 0,
                           activeColor: AppColor().backgroundColor,
                           groupValue: paymentType,
-                          onChanged: (value) =>
-                              setState(() => paymentType = 0)),
+                          onChanged: (value) {
+                            setState(() {
+                              value = 0;
+                              paymentType = 0;
+                            });
+                          }),
                       Text(
                         'Paying Partly',
                         style: TextStyle(
