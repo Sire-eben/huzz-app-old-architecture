@@ -807,7 +807,8 @@ class _MoneyInState extends State<MoneyIn> {
                   onTap: () {
                     if (_transactionController.addingTransactionStatus !=
                         AddingTransactionStatus.Loading)
-                      _transactionController.createTransaction("INCOME");
+                      _transactionController
+                          .createBusinessTransaction("INCOME");
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

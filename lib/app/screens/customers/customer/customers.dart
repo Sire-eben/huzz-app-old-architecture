@@ -103,7 +103,9 @@ class _CustomersState extends State<Customers> {
                                           color: _randomColor.randomColor()),
                                       child: Center(
                                           child: Text(
-                                        '${item.name![0]}',
+                                        item.name == null || item.name!.isEmpty
+                                            ? ""
+                                            : '${item.name![0]}',
                                         style: TextStyle(
                                             fontSize: 30,
                                             color: Colors.white,
@@ -155,7 +157,8 @@ class _CustomersState extends State<Customers> {
                               ),
                               GestureDetector(
                                   onTap: () {
-                                    _customerController.deleteCustomer(item);
+                                    _customerController
+                                        .deleteBusinessCustomer(item);
                                   },
                                   child: SvgPicture.asset(
                                       'assets/images/delete.svg')),

@@ -428,9 +428,9 @@ class _AddProductState extends State<AddProduct> {
                   if (_productController.addingProductStatus !=
                       AddingProductStatus.Loading) {
                     if (widget.item == null)
-                      _productController.addProduct("GOODS");
+                      _productController.addBudinessProduct("GOODS");
                     else
-                      _productController.updateProduct(widget.item!);
+                      _productController.UpdateBusinessProduct(widget.item!);
                   }
                 },
                 child: Container(

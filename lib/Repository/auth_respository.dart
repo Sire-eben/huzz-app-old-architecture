@@ -1,9 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/api_link.dart';
+import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/app/screens/sign_in.dart';
@@ -29,6 +33,7 @@ enum AuthStatus {
   EMAIL_EXISTED,
   USERNAME_EXISTED
 }
+enum OnlineStatus { Onilne, Offline, Empty }
 
 class AuthRepository extends GetxController {
   final _Otpauthstatus = OtpAuthStatus.Empty.obs;
@@ -52,7 +57,11 @@ class AuthRepository extends GetxController {
   String countryText = "234";
   String countryCodeFLag = "NG";
   final _homeController = Get.find<HomeRespository>();
-
+  final _connectionStatus = ConnectivityResult.none.obs;
+  ConnectivityResult get connectionStatus => _connectionStatus.value;
+  final MonlineStatus = OnlineStatus.Empty.obs;
+  OnlineStatus get onlineStatus => MonlineStatus.value;
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   SharePref? pref;
   final Mtoken = "".obs;
   String get token => Mtoken.value;
@@ -62,6 +71,7 @@ class AuthRepository extends GetxController {
   void onInit() async {
     pref = SharePref();
     await pref!.init();
+
     if (pref!.getFirstTimeOpen()) {
       print("My First Time Using this app");
       _authStatus(AuthStatus.IsFirstTime);
@@ -79,6 +89,26 @@ class AuthRepository extends GetxController {
       } else {
         _authStatus(AuthStatus.UnAuthenticated);
       }
+    }
+    _connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      // Got a new connectivity status!
+      _updateConnectionStatus(result);
+      print("result is $result");
+    });
+  }
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    _connectionStatus(result);
+    if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+//checking pending job for insertion,deletion and updating
+      Get.snackbar("Internet Status", "Device is online now");
+      MonlineStatus(OnlineStatus.Onilne);
+    } else {
+      Get.snackbar("Internet Status", "Device is offline now");
+      MonlineStatus(OnlineStatus.Offline);
     }
   }
 
@@ -211,7 +241,7 @@ class AuthRepository extends GetxController {
         _signinStatus(SigninStatus.Success);
 
         var token = json['accessToken'];
-        var user = User.fromJson(json['user']);
+        var user = User.fromJson(json);
         pref!.saveToken(token);
         pref!.setUser(user);
         Mtoken(token);
@@ -220,7 +250,14 @@ class AuthRepository extends GetxController {
         DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
         pref!.setDateTokenExpired(expireToken);
         _authStatus(AuthStatus.Authenticated);
-        Get.off(() => Dashboard());
+        final _businessController = Get.find<BusinessRespository>();
+        _businessController.setBusinessList(user.businessList!);
+        print("user business lenght ${user.businessList!.length}");
+        if (user.businessList!.isEmpty) {
+          Get.off(() => CreateBusiness());
+        } else {
+          Get.off(() => Dashboard());
+        }
       } else if (response.statusCode == 401) {
         Get.snackbar("Login Error", "Invalid Crediential ");
         _signinStatus(SigninStatus.Error);
@@ -231,6 +268,7 @@ class AuthRepository extends GetxController {
       }
     } catch (ex) {
       _signinStatus(SigninStatus.Error);
+      print("Sign in Error ${ex.toString()}");
     }
   }
 
