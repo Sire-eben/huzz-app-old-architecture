@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/customer_repository.dart';
+import 'package:huzz/Repository/product_repository.dart';
+import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -18,12 +21,17 @@ class MoneyOut extends StatefulWidget {
 }
 
 class _MoneyOutState extends State<MoneyOut> {
+  final _transactionController = Get.find<TransactionRespository>();
+  final _customerController = Get.find<CustomerRepository>();
+  final _productController = Get.find<ProductRepository>();
+
   final TextEditingController dateController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
   final TextEditingController contactName = TextEditingController();
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
   final payments = ['Select payment mode', 'item1', 'item2'];
+  final selectProduct = ['Shoe', 'Bag'];
 
   String? value;
   int selectedValue = 0;
@@ -36,6 +44,8 @@ class _MoneyOutState extends State<MoneyOut> {
   DateTime? date;
   TimeOfDay? time;
   File? image;
+
+  int paymentType = 0;
 
   Future pickImageFromGallery() async {
     try {
@@ -288,31 +298,44 @@ class _MoneyOutState extends State<MoneyOut> {
                       ),
                     ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.055,
-                  width: MediaQuery.of(context).size.width * 0.35,
-                  decoration: BoxDecoration(
-                      color: selectedValue == 1
-                          ? AppColor().backgroundColor
-                          : AppColor().backgroundColor.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(45)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add, color: Colors.white),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text(
-                        'Add another item',
-                        style: TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 10,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
+              InkWell(
+                onTap: () {
+                  _transactionController.selectedValue == 1
+                      ? showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          context: context,
+                          builder: (context) => buildAddNewItem())
+                      : Container();
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.03),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.055,
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    decoration: BoxDecoration(
+                        color: selectedValue == 1
+                            ? AppColor().backgroundColor
+                            : AppColor().backgroundColor.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(45)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.add, color: Colors.white),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.02),
+                        Text(
+                          'Add another item',
+                          style: TextStyle(
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -812,6 +835,195 @@ class _MoneyOutState extends State<MoneyOut> {
       ),
     );
   }
+
+  Widget buildAddNewItem() =>
+      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 6,
+                width: 80,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 1;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                          value: 1,
+                          activeColor: AppColor().backgroundColor,
+                          groupValue: paymentType,
+                          onChanged: (value) {
+                            myState(() {
+                              paymentType = 1;
+                            });
+                          },
+                        ),
+                        Text(
+                          'Enter Item',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 0;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                            value: 0,
+                            activeColor: AppColor().backgroundColor,
+                            groupValue: paymentType,
+                            onChanged: (value) {
+                              myState(() {
+                                value = 0;
+                                paymentType = 0;
+                              });
+                            }),
+                        Text(
+                          'Select Product',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              paymentType == 0
+                  ? CustomTextField(
+                      label: 'Item Name',
+                      hint: 'Television',
+                      validatorText: "Item name is needed",
+                      keyType: TextInputType.name,
+                    )
+                  : Container(),
+              paymentType == 0
+                  ? Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            label: "Amount",
+                            hint: 'N 0.00',
+                            validatorText: "Amount is needed",
+                            keyType: TextInputType.phone,
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.02),
+                        Expanded(
+                          child: CustomTextField(
+                            label: "Quantity",
+                            hint: '4',
+                            keyType: TextInputType.phone,
+                            validatorText: "Quantity is needed",
+                          ),
+                        ),
+                      ],
+                    )
+                  : Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Select Product',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                                fontFamily: 'DMSans'),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    width: 2,
+                                    color: AppColor().backgroundColor)),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: 'Shoe',
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: AppColor().backgroundColor,
+                                ),
+                                iconSize: 30,
+                                items: selectProduct
+                                    .map(buildPaymentItem)
+                                    .toList(),
+                                onChanged: (value) => myState(() =>
+                                    _transactionController
+                                        .selectedPaymentSource = value),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.03),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Center(
+                    child: Text(
+                      'Add Item',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'DMSans'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      });
 
   DropdownMenuItem<String> buildPaymentItem(String item) => DropdownMenuItem(
         value: item,
