@@ -259,24 +259,68 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
     );
   }
 
-  Widget buildSaveInvoice() => StatefulBuilder(
-      builder: (BuildContext context, setState) => Container(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.04,
-                right: MediaQuery.of(context).size.width * 0.04,
-                bottom: MediaQuery.of(context).size.width * 0.04,
-                top: MediaQuery.of(context).size.width * 0.02),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
+  Widget buildSaveInvoice() =>
+      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
+        Future pickImgFromGallery() async {
+          try {
+            final image =
+                await ImagePicker().pickImage(source: ImageSource.gallery);
+            if (image == null) return;
+            final imageTemporary = File(image.path);
+            print(imageTemporary);
+            myState(
+              () {
+                this.image = imageTemporary;
+              },
+            );
+          } on PlatformException catch (e) {
+            print('$e');
+          }
+        }
+
+        Future pickImgFromCamera() async {
+          try {
+            final image =
+                await ImagePicker().pickImage(source: ImageSource.camera);
+            if (image == null) return;
+            final imageTemporary = File(image.path);
+            print(imageTemporary);
+            myState(
+              () {
+                this.image = imageTemporary;
+              },
+            );
+          } on PlatformException catch (e) {
+            print('$e');
+          }
+        }
+
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
                   height: 6,
                   width: 80,
                   decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(10)),
                 ),
-                Align(
+              ),
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Align(
                   alignment: Alignment.centerRight,
                   child: Container(
                       padding: EdgeInsets.all(
@@ -290,294 +334,297 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                         size: 18,
                       )),
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Update Payment',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "DMSans",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Update Payment',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: "DMSans",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          paymentType = 1;
-                        });
-                      },
-                      child: Row(
-                        children: [
-                          Radio<int>(
-                            value: 1,
-                            activeColor: AppColor().backgroundColor,
-                            groupValue: paymentType,
-                            onChanged: (value) {
-                              setState(() {
-                                paymentType = 1;
-                              });
-                            },
-                          ),
-                          Text(
-                            'Paying Fully',
-                            style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          paymentType = 0;
-                        });
-                      },
-                      child: Row(
-                        children: [
-                          Radio<int>(
-                              value: 0,
-                              activeColor: AppColor().backgroundColor,
-                              groupValue: paymentType,
-                              onChanged: (value) {
-                                setState(() {
-                                  value = 0;
-                                  paymentType = 0;
-                                });
-                              }),
-                          Text(
-                            'Paying Partly',
-                            style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                CustomTextFieldInvoiceOptional(
-                  label: 'Amount',
-                  hint: 'N',
-                  keyType: TextInputType.phone,
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                InkWell(
-                  onTap: () {
-                    Get.bottomSheet(Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(16.0),
-                            topRight: Radius.circular(16.0)),
-                      ),
-                      child: Wrap(
-                        alignment: WrapAlignment.end,
-                        crossAxisAlignment: WrapCrossAlignment.end,
-                        children: [
-                          ListTile(
-                            leading: Icon(
-                              Icons.camera,
-                              color: AppColor().backgroundColor,
-                            ),
-                            title: Text('Camera'),
-                            onTap: () {
-                              Get.back();
-                              pickImageFromCamera();
-                            },
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              Icons.image,
-                              color: AppColor().backgroundColor,
-                            ),
-                            title: Text('Gallery'),
-                            onTap: () {
-                              Get.back();
-                              pickImageFromGallery();
-                            },
-                          ),
-                        ],
-                      ),
-                    ));
-                  },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
-                        color: image != null
-                            ? AppColor().backgroundColor.withOpacity(0.2)
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        border: image != null
-                            ? null
-                            : Border.all(
-                                width: 2, color: AppColor().backgroundColor)),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 1;
+                      });
+                    },
                     child: Row(
                       children: [
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              child: Image.asset(
-                                'assets/images/image.png',
-                                height: 40,
-                              ),
-                            ),
+                        Radio<int>(
+                          value: 1,
+                          activeColor: AppColor().backgroundColor,
+                          groupValue: paymentType,
+                          onChanged: (value) {
+                            myState(() {
+                              paymentType = 1;
+                            });
+                          },
+                        ),
+                        Text(
+                          'Paying Fully',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                        Expanded(
-                          flex: 6,
-                          child: AutoSizeText(
-                            image != null
-                                ? image!.path.toString()
-                                : 'Add any supporting image (Optional)',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color:
-                                    image != null ? Colors.black : Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'DMSans'),
-                          ),
-                        ),
-                        image != null
-                            ? Expanded(
-                                child: SvgPicture.asset(
-                                  'assets/images/edit.svg',
-                                ),
-                              )
-                            : Container(),
-                        image != null
-                            ? Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      image = null;
-                                    });
-                                  },
-                                  child: SvgPicture.asset(
-                                    'assets/images/delete.svg',
-                                  ),
-                                ),
-                              )
-                            : Container(),
                       ],
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => setState(() => paymentMode = 0),
-                      child: Row(
-                        children: [
-                          Radio<int>(
-                              value: 0,
-                              activeColor: AppColor().backgroundColor,
-                              groupValue: paymentMode,
-                              onChanged: (value) =>
-                                  setState(() => paymentMode = 0)),
-                          Text(
-                            'Cash',
-                            style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 0;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                            value: 0,
+                            activeColor: AppColor().backgroundColor,
+                            groupValue: paymentType,
+                            onChanged: (value) {
+                              myState(() {
+                                value = 0;
+                                paymentType = 0;
+                              });
+                            }),
+                        Text(
+                          'Paying Partly',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    InkWell(
-                      onTap: () => setState(() => paymentMode = 1),
-                      child: Row(
-                        children: [
-                          Radio<int>(
-                              value: 1,
-                              activeColor: AppColor().backgroundColor,
-                              groupValue: paymentMode,
-                              onChanged: (value) =>
-                                  setState(() => paymentMode = 1)),
-                          Text(
-                            'POS',
-                            style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => setState(() => paymentMode = 2),
-                      child: Row(
-                        children: [
-                          Radio<int>(
-                              value: 2,
-                              activeColor: AppColor().backgroundColor,
-                              groupValue: paymentMode,
-                              onChanged: (value) =>
-                                  setState(() => paymentMode = 2)),
-                          Text(
-                            'Transfer',
-                            style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
+                  )
+                ],
+              ),
+              paymentType == 1
+                  ? CustomTextFieldInvoiceOptional(
+                      label: 'Amount',
+                      hint: 'N',
+                      keyType: TextInputType.phone,
                     )
-                  ],
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.01),
-                    height: 50,
+                  : Container(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              InkWell(
+                onTap: () {
+                  Get.bottomSheet(Container(
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                      child: Text(
-                        'Save',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'DMSans'),
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(16.0),
+                          topRight: Radius.circular(16.0)),
+                    ),
+                    child: Wrap(
+                      alignment: WrapAlignment.end,
+                      crossAxisAlignment: WrapCrossAlignment.end,
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.camera,
+                            color: AppColor().backgroundColor,
+                          ),
+                          title: Text('Camera'),
+                          onTap: () {
+                            Get.back();
+                            pickImgFromCamera();
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(
+                            Icons.image,
+                            color: AppColor().backgroundColor,
+                          ),
+                          title: Text('Gallery'),
+                          onTap: () {
+                            Get.back();
+                            pickImgFromGallery();
+                          },
+                        ),
+                      ],
+                    ),
+                  ));
+                },
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                      color: image != null
+                          ? AppColor().backgroundColor.withOpacity(0.2)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: image != null
+                          ? null
+                          : Border.all(
+                              width: 2, color: AppColor().backgroundColor)),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            child: Image.asset(
+                              'assets/images/image.png',
+                              height: 40,
+                            ),
+                          ),
+                        ),
                       ),
+                      Expanded(
+                        flex: 6,
+                        child: AutoSizeText(
+                          image != null
+                              ? image!.path.toString()
+                              : 'Add any supporting image (Optional)',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: image != null ? Colors.black : Colors.grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'DMSans'),
+                        ),
+                      ),
+                      image != null
+                          ? Expanded(
+                              child: SvgPicture.asset(
+                                'assets/images/edit.svg',
+                              ),
+                            )
+                          : Container(),
+                      image != null
+                          ? Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  myState(() {
+                                    image = null;
+                                  });
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/images/delete.svg',
+                                ),
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () => myState(() => paymentMode = 0),
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                            value: 0,
+                            activeColor: AppColor().backgroundColor,
+                            groupValue: paymentMode,
+                            onChanged: (value) =>
+                                myState(() => paymentMode = 0)),
+                        Text(
+                          'Cash',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () => myState(() => paymentMode = 1),
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                            value: 1,
+                            activeColor: AppColor().backgroundColor,
+                            groupValue: paymentMode,
+                            onChanged: (value) =>
+                                myState(() => paymentMode = 1)),
+                        Text(
+                          'POS',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () => myState(() => paymentMode = 2),
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                            value: 2,
+                            activeColor: AppColor().backgroundColor,
+                            groupValue: paymentMode,
+                            onChanged: (value) =>
+                                myState(() => paymentMode = 2)),
+                        Text(
+                          'Transfer',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.01),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Center(
+                    child: Text(
+                      'Save',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'DMSans'),
                     ),
                   ),
                 ),
-              ],
-            ),
-          ));
+              ),
+            ],
+          ),
+        );
+      });
 }
