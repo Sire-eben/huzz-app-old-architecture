@@ -15,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../../colors.dart';
 import 'income_success.dart';
+import 'itemCard.dart';
 
 class MoneyOut extends StatefulWidget {
   const MoneyOut({Key? key}) : super(key: key);
@@ -324,6 +325,14 @@ class _MoneyOutState extends State<MoneyOut> {
                         ],
                       ),
                     ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Column(
+                children: [
+                  ItemCard(),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  ItemCard(),
+                ],
+              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
                 onTap: () {
