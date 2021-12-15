@@ -10,6 +10,7 @@ import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'fingerprint.dart';
+import 'forget_pass/forgot_pin.dart';
 import 'reg_home.dart';
 
 class Signin extends StatefulWidget {
@@ -277,7 +278,7 @@ class _SiginState extends State<Signin> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Get.to();
+                      Get.to(ForgotPIN());
                     },
                     child: Container(
                       child: Text(
