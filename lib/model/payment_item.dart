@@ -7,7 +7,7 @@ String? itemName;
 String? productId;
 int? quality;
 int? amount;
-
+bool? isFullyPaid;
 int? totalAmount;
 
 DateTime? createdTime;
@@ -28,10 +28,11 @@ this.createdTime,
 this.updatedTime,
 this.deleted,
 this.transactionType,
+this.isFullyPaid,
 
 });
 
-factory PaymentItem.fromJson(Map<String,dynamic> json,String type)=> PaymentItem(
+factory PaymentItem.fromJson(Map<String,dynamic> json,String type,bool isFullyPaid)=> PaymentItem(
   id: json['id'],
   businessTransactionId: json['businessTransactionId'],
   itemName: json['itemName'],
@@ -42,7 +43,8 @@ factory PaymentItem.fromJson(Map<String,dynamic> json,String type)=> PaymentItem
   createdTime: DateTime.parse(json['createdDateTime']),
   updatedTime: json['updatedDateTime']==null?DateTime.parse(json['createdDateTime']): DateTime.parse(json['updatedDateTime']),
   deleted: json['deleted'],
-  transactionType: type
+  transactionType: type,
+  isFullyPaid: isFullyPaid
 
 );
 
@@ -56,7 +58,8 @@ Map<String,dynamic> toJson()=>{
                     "totalAmount":totalAmount,
                     "createdDateTime":(createdTime==null)?DateTime.now().toIso8601String(): createdTime!.toIso8601String(),
                     "updatedDateTime": (updatedTime==null)?null:  updatedTime!.toIso8601String(),
-                    "deleted":deleted?? false
+                    "deleted":deleted?? false,
+                    "isFully":isFullyPaid
 
 
 };

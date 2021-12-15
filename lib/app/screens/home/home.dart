@@ -213,7 +213,7 @@ class _HomeState extends State<Home> {
                         ),
                         child: Row(
                           children: [
-                            Image.asset("assets/images/money-in.png"),
+                            SvgPicture.asset("assets/images/money_in.png"),
                             SizedBox(
                               width: 5,
                             ),
@@ -248,7 +248,7 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset("assets/images/money-out.png"),
+                          SvgPicture.asset("assets/images/money_out.png"),
                             SizedBox(
                               width: 5,
                             ),
@@ -390,12 +390,12 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'N ${display(item.amount)}',
+                            'N ${display(item.totalAmount)}',
                             style: TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            item.totalAmount == item.amount
+                            item.isFullyPaid!
                                 ? "Fully Paid"
                                 : "Partially",
                             style: TextStyle(

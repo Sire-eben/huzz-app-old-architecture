@@ -90,7 +90,7 @@ class TransactionRespository extends GetxController {
         if (value != null) {
           getOnlineTransaction(value.businessId!);
 
-          getSpending(value.businessId!);
+          // getSpending(value.businessId!);
 
           GetOfflineTransactions(value.businessId!);
         } else {
@@ -105,7 +105,7 @@ class TransactionRespository extends GetxController {
             getOnlineTransaction(p0.businessId!);
 
             GetOfflineTransactions(p0.businessId!);
-            getSpending(p0.businessId!);
+            // getSpending(p0.businessId!);
 
      
           }
@@ -175,6 +175,7 @@ checkIfTransactionThatIsYetToBeAdded();
     });
     todayTransaction = _todayTransaction;
     getAllPaymentItem();
+    calculateOverView();
   }
 
   Future getTransactionYetToBeSavedLocally() async {
@@ -216,7 +217,7 @@ checkIfTransactionThatIsYetToBeAdded();
     GetOfflineTransactions(savenext.businessId!);
   }
 
-  Future getSpending(String id) async {
+  Future getSpendings(String id) async {
     final now = DateTime.now();
     var day = now.day >= 10 ? now.day.toString() : "0" + now.day.toString();
     var month =
@@ -343,6 +344,10 @@ Future createTransactionOnline(String type)async{
   String? fileid;
   String? customerId=null;
   var productList=[];
+  if(quantityController.text.isEmpty){
+
+    quantityController.text="1";
+  }
 if(image!=null){
 
 fileid=await _uploadImageController.uploadFile(image!.path);
@@ -420,7 +425,7 @@ if(response.statusCode==200){
          getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
 
 GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
-getSpending(_businessController.selectedBusiness.value!.businessId!);
+// getSpending(_businessController.selectedBusiness.value!.businessId!);
 clearValue();
 }else{
  _addingTransactionStatus(AddingTransactionStatus.Error);
@@ -455,6 +460,10 @@ String appDocPath = appDocDir.path;
 
 }
 
+if(quantityController.text.isEmpty){
+
+  quantityController.text="1";
+}
 if(addCustomer){
 if(customerType==1){
 customerId=await _customerController.addBusinessCustomerOfflineWithString(type);
@@ -469,6 +478,7 @@ customerId=await _customerController.addBusinessCustomerOfflineWithString(type);
 print("trying to save offline");
   List<PaymentItem> productItem=[];
   TransactionModel? value;
+
  if(selectedValue==0){
    
   productItem.add(PaymentItem(
@@ -480,22 +490,22 @@ quality: selectedProduct!.quantity!
 
   )); 
 
-   value=TransactionModel(
-     paymentMethod: selectedPaymentMode,
-     paymentSource: selectedPaymentSource,
-id:  uuid.v1(),
-totalAmount: 0,
-createdTime: date,
-transactionType: type,
-businessTransactionFileStoreId: outFile==null?null:outFile.path,
-customerId: customerId,
-businessId: _businessController.selectedBusiness.value!.businessId,
-businessTransactionPaymentItemList: productItem,
-isPending: true,
+//    value=TransactionModel(
+//      paymentMethod: selectedPaymentMode,
+//      paymentSource: selectedPaymentSource,
+// id:  uuid.v1(),
+// totalAmount: 0,
+// createdTime: date,
+// transactionType: type,
+// businessTransactionFileStoreId: outFile==null?null:outFile.path,
+// customerId: customerId,
+// businessId: _businessController.selectedBusiness.value!.businessId,
+// businessTransactionPaymentItemList: productItem,
+// isPending: true,
 
 
 
-);
+// );
  }else{
 productItem.add(PaymentItem(
 itemName: itemNameController.text,
@@ -506,11 +516,22 @@ totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
 ));
 
 
+
+
+ }
+ var totalamount=0;
+productItem.forEach((element) { 
+ 
+ totalamount=totalamount+(element.totalAmount!);
+
+});
+
+
  value=TransactionModel(
         paymentMethod: selectedPaymentMode,
      paymentSource: selectedPaymentSource,
 id:  uuid.v1(),
-totalAmount: 0,
+totalAmount: totalamount,
 createdTime: DateTime.now(),
 entryDateTime: date,
 transactionType: type,
@@ -522,9 +543,6 @@ isPending: true,
 
 
 );
-
- }
-
 
 print("offline saving to database ${value!.toJson()}}");
    await _businessController.sqliteDb.insertTransaction(value!);
@@ -622,7 +640,7 @@ print("saved size  left is ${pendingTransaction.length}");
    getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
 
 
-getSpending(_businessController.selectedBusiness.value!.businessId!);
+// getSpending(_businessController.selectedBusiness.value!.businessId!);
 
 }
 
@@ -660,6 +678,30 @@ selectedProduct=null;
 
  
 }
+Future calculateOverView()async{
 
+var todayBalance=0;
+var todayMoneyIn=0;
+var todayMoneyout=0;
+
+todayTransaction.forEach((element) {
+  if(element.transactionType=="INCOME"){
+
+todayMoneyIn=todayMoneyIn+ element.totalAmount!;
+
+  }else{
+todayMoneyout=todayMoneyout+element.totalAmount!;
+
+
+  }
+
+
+
+});
+todayBalance=todayMoneyIn-todayMoneyout;
+income(todayMoneyIn);
+expenses(todayMoneyout);
+totalbalance(todayBalance);
+}
 
 }
