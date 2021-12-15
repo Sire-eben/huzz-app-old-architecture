@@ -346,30 +346,55 @@ class _MoneyOutState extends State<MoneyOut> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.055,
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    decoration: BoxDecoration(
-                        color: _transactionController.selectedValue == 1
-                            ? AppColor().backgroundColor
-                            : AppColor().backgroundColor.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(45)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.add, color: Colors.white),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        Text(
-                          'Add another item',
-                          style: TextStyle(
-                              fontFamily: 'DMSans',
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.055,
+                        width: MediaQuery.of(context).size.width * 0.35,
+                        decoration: BoxDecoration(
+                            color: _transactionController.selectedValue == 1
+                                ? AppColor().backgroundColor
+                                : AppColor().backgroundColor.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(45)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add, color: Colors.white),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.02),
+                            Text(
+                              'Add another item',
+                              style: TextStyle(
+                                  fontFamily: 'DMSans',
+                                  fontSize: 10,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Expanded(
+                        child: CustomTextFieldOnly(
+                          label: "Amount",
+                          hint: 'N 0.00',
+                          validatorText: "Amount is needed",
+                          textEditingController:
+                              _transactionController.amountController,
+                          keyType: TextInputType.phone,
+                        ),
+                      ),
+                      Expanded(
+                        child: CustomTextFieldOnly(
+                          label: "Quantity",
+                          hint: '4',
+                          validatorText: "Quantity is needed",
+                          textEditingController:
+                              _transactionController.amountController,
+                          keyType: TextInputType.phone,
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
