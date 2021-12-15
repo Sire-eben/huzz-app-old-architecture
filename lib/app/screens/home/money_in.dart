@@ -235,7 +235,7 @@ class _MoneyInState extends State<MoneyIn> {
                                 child: CustomTextField(
                                   label: "Amount",
                                   hint: 'N 0.00',
-                                  validatorText: "Amount name is needed",
+                                  validatorText: "Amount is needed",
                                   textEditingController:
                                       _transactionController.amountController,
                                   keyType: TextInputType.phone,
@@ -249,13 +249,24 @@ class _MoneyInState extends State<MoneyIn> {
                                     label: "Quantity",
                                     hint: '4',
                                     keyType: TextInputType.phone,
-                                    validatorText: "Quantity name is needed",
+                                    validatorText: "Quantity is needed",
                                     textEditingController:
                                         _transactionController
                                             .quantityController),
                               ),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03),
+                        Column(
+                          children: [
+                            ItemCard(),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            ItemCard(),
+                          ],
                         ),
                       ],
                     )
@@ -327,29 +338,54 @@ class _MoneyInState extends State<MoneyIn> {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.055,
-                  width: MediaQuery.of(context).size.width * 0.35,
-                  decoration: BoxDecoration(
-                      color: _transactionController.selectedValue == 1
-                          ? AppColor().backgroundColor
-                          : AppColor().backgroundColor.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(45)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add, color: Colors.white),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text(
-                        'Add another item',
-                        style: TextStyle(
-                            fontFamily: 'DMSans',
-                            fontSize: 10,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                child: Row(
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.055,
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      decoration: BoxDecoration(
+                          color: _transactionController.selectedValue == 1
+                              ? AppColor().backgroundColor
+                              : AppColor().backgroundColor.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(45)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add, color: Colors.white),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.02),
+                          Text(
+                            'Add another item',
+                            style: TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 10,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Expanded(
+                      child: CustomTextFieldOnly(
+                        label: "Amount",
+                        hint: 'N 0.00',
+                        validatorText: "Amount is needed",
+                        textEditingController:
+                            _transactionController.amountController,
+                        keyType: TextInputType.phone,
+                      ),
+                    ),
+                    Expanded(
+                      child: CustomTextFieldOnly(
+                        label: "Quantity",
+                        hint: '4',
+                        validatorText: "Quantity is needed",
+                        textEditingController:
+                            _transactionController.amountController,
+                        keyType: TextInputType.phone,
+                      ),
+                    )
+                  ],
                 ),
               ),
               Padding(
@@ -1075,6 +1111,79 @@ class _MoneyInState extends State<MoneyIn> {
 
         print('Select country: ${country.toJson()}');
       },
+    );
+  }
+}
+
+class ItemCard extends StatelessWidget {
+  const ItemCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.height * 0.03),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.08,
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: BoxDecoration(
+            color: AppColor().backgroundColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 6,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Television',
+                      style: TextStyle(
+                        fontFamily: "DMSans",
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'N 20,000 (N1000 per One)',
+                      style: TextStyle(
+                        fontFamily: "DMSans",
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'Qty: 10',
+                style: TextStyle(
+                  fontFamily: "DMSans",
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Expanded(
+              child: SvgPicture.asset(
+                'assets/images/edit.svg',
+              ),
+            ),
+            Expanded(
+              child: SvgPicture.asset(
+                'assets/images/delete.svg',
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
