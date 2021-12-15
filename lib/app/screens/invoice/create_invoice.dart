@@ -3,6 +3,7 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/invoice/preview_invoice.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
@@ -11,6 +12,7 @@ import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/model/bank_model.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
+import 'package:intl/intl.dart';
 import 'package:random_color/random_color.dart';
 import 'package:huzz/model/service_model.dart';
 
@@ -24,6 +26,8 @@ class CreateInvoice extends StatefulWidget {
 }
 
 class _CreateInvoiceState extends State<CreateInvoice> {
+  final _transactionController = Get.find<TransactionRespository>();
+
   RandomColor _randomColor = RandomColor();
 
   final TextEditingController contactName = TextEditingController();
@@ -47,7 +51,28 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   @override
   void initState() {
     quantityController.text = quantityValue.toString();
+    _transactionController.dateController.text =
+        DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
     super.initState();
+  }
+
+  Future pickDate(BuildContext context) async {
+    final initialDate = DateTime.now();
+    final newDate = await showDatePicker(
+      context: context,
+      initialDate: _transactionController.date ?? initialDate,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime(DateTime.now().year + 5),
+    );
+
+    if (newDate == null) return;
+
+    setState(() {
+      _transactionController.dateController.text =
+          DateFormat("yyyy-MM-dd").format(newDate).toString();
+      _transactionController.date = newDate;
+      // print(dateController.text);
+    });
   }
 
   @override
@@ -385,10 +410,23 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       hint: 'account number',
                       keyType: TextInputType.phone,
                     ),
-                    CustomTextFieldInvoiceOptional(
-                      label: 'Payment Due Date',
-                      hint: 'payment due date',
-                      keyType: TextInputType.name,
+                    CustomTextField(
+                      enabled: false,
+                      AllowClickable: true,
+                      textEditingController:
+                          _transactionController.dateController,
+                      label: "Select Date",
+                      hint: 'Select Date',
+                      onClick: () {
+                        pickDate(context);
+                      },
+                      prefixIcon: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.calendar_today),
+                        color: Colors.orange,
+                      ),
+                      validatorText: "Select date is needed",
+                      keyType: TextInputType.phone,
                     ),
                   ],
                 ),

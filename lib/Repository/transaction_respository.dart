@@ -42,6 +42,7 @@ class TransactionRespository extends GetxController {
   final numberofexpenses = 0.obs;
   final totalbalance = 0.obs;
   final debtors = 0.obs;
+   List<PaymentItem> productList=[];
   List<TransactionModel> todayTransaction = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
@@ -343,7 +344,7 @@ Future createTransactionOnline(String type)async{
   _addingTransactionStatus(AddingTransactionStatus.Loading);
   String? fileid;
   String? customerId=null;
-  var productList=[];
+ 
   if(quantityController.text.isEmpty){
 
     quantityController.text="1";
@@ -365,30 +366,7 @@ customerId=await _customerController.addBusinessCustomerWithString(type);
   customerId=null;
 }
 
-if(selectedValue==0){
- productList.add(
 
-  {
-"productId":selectedProduct!.productId!,
- "itemName": null,
-            "quantity":null,
-            "amount": null
-  }
- );
-
-}else{
- productList.add(
-
-  {
-"productId":null,
- "itemName": itemNameController.text,
-            "quantity": quantityController.text,
-            "amount": amountController.text
-  }
- );
-
-
-}
 
 if(time!=null&&date!=null){
 // date!.hour=time!.hour;
@@ -398,7 +376,7 @@ print("date Time to string ${date!.toIso8601String()}");
 // String? timeday=date!.toIso8601String();
 String body=jsonEncode({
 
-"paymentItemRequestList":productList,
+"paymentItemRequestList":productList.map((e) => e.toJson()).toList(),
     "transactionType":type,
     "paymentSource": selectedPaymentSource,
     "businessId":_businessController.selectedBusiness.value!.businessId,
@@ -476,51 +454,11 @@ customerId=await _customerController.addBusinessCustomerOfflineWithString(type);
 }
   
 print("trying to save offline");
-  List<PaymentItem> productItem=[];
+ 
   TransactionModel? value;
 
- if(selectedValue==0){
-   
-  productItem.add(PaymentItem(
-productId: selectedProduct!.productId!,
-itemName:selectedProduct!.productName, 
-amount: selectedProduct!.sellingPrice,
-totalAmount: (selectedProduct!.sellingPrice!*selectedProduct!.quantity!),
-quality: selectedProduct!.quantity!
-
-  )); 
-
-//    value=TransactionModel(
-//      paymentMethod: selectedPaymentMode,
-//      paymentSource: selectedPaymentSource,
-// id:  uuid.v1(),
-// totalAmount: 0,
-// createdTime: date,
-// transactionType: type,
-// businessTransactionFileStoreId: outFile==null?null:outFile.path,
-// customerId: customerId,
-// businessId: _businessController.selectedBusiness.value!.businessId,
-// businessTransactionPaymentItemList: productItem,
-// isPending: true,
-
-
-
-// );
- }else{
-productItem.add(PaymentItem(
-itemName: itemNameController.text,
-quality: int.parse(quantityController.text),
-amount: int.parse(amountController.text),
-totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
-
-));
-
-
-
-
- }
  var totalamount=0;
-productItem.forEach((element) { 
+productList.forEach((element) { 
  
  totalamount=totalamount+(element.totalAmount!);
 
@@ -538,7 +476,7 @@ transactionType: type,
 businessTransactionFileStoreId:(image==null)?null :image!.path,
 customerId: customerId,
 businessId: _businessController.selectedBusiness.value!.businessId,
-businessTransactionPaymentItemList: productItem,
+businessTransactionPaymentItemList: productList,
 isPending: true,
 
 
@@ -703,5 +641,41 @@ income(todayMoneyIn);
 expenses(todayMoneyout);
 totalbalance(todayBalance);
 }
+void addMoreProduct(){
 
+ 
+ if(selectedValue==0){
+   
+  productList.add(PaymentItem(
+productId: selectedProduct!.productId!,
+itemName:selectedProduct!.productName, 
+amount: selectedProduct!.sellingPrice,
+totalAmount: (selectedProduct!.sellingPrice!*selectedProduct!.quantity!),
+quality: selectedProduct!.quantity!
+
+  )); 
+
+
+
+
+
+ }else{
+productList.add(PaymentItem(
+itemName: itemNameController.text,
+quality: int.parse(quantityController.text),
+amount: int.parse(amountController.text),
+totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
+
+));
+
+
+
+
+ }
+
+ selectedProduct=null;
+ quantityController.text="1";
+ amountController.text="";
+ itemNameController.text="";
+}
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/invoice_model.dart';
@@ -13,7 +14,9 @@ class All extends StatefulWidget {
 }
 
 class _AllState extends State<All> {
+  final _productController = Get.find<ProductRepository>();
   bool deleteItem = true;
+  bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
   @override
@@ -237,31 +240,39 @@ class _AllState extends State<All> {
                                   SizedBox(
                                       width:
                                           MediaQuery.of(context).size.height *
-                                              0.1),
+                                              0.05),
                                   // _isSelected
                                   //     ? SvgPicture.asset(
                                   //         'assets/images/circle.svg')
                                   //     : SvgPicture.asset(
                                   //         'assets/images/selectedItem.svg')
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      if (visible) {
+                                      } else {}
+                                      setState(() {});
+                                    },
                                     child: AnimatedContainer(
                                       duration: Duration(milliseconds: 200),
                                       height: 30,
                                       width: 30,
                                       decoration: BoxDecoration(
-                                        color: AppColor().orangeBorderColor,
+                                        color: visible
+                                            ? AppColor().orangeBorderColor
+                                            : AppColor().whiteColor,
                                         shape: BoxShape.circle,
                                         border: Border.all(
                                           color: Color(0xffEF6500),
                                         ),
                                       ),
                                       child: Visibility(
-                                        visible: true,
+                                        visible: visible,
                                         child: Icon(
                                           Icons.check,
                                           size: 15,
-                                          color: AppColor().orangeBorderColor,
+                                          color: visible
+                                              ? AppColor().whiteColor
+                                              : AppColor().orangeBorderColor,
                                         ),
                                       ),
                                     ),
