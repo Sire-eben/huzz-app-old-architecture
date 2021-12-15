@@ -38,6 +38,7 @@ class _MoneyInState extends State<MoneyIn> {
   }
 
   final paymentMode = ['FULLY_PAID', 'DEPOSIT'];
+  final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
   String? value;
@@ -46,6 +47,9 @@ class _MoneyInState extends State<MoneyIn> {
   String countryCode = "234";
   String am = 'AM';
   String pm = "PM";
+
+  int paymentType = 0;
+  int paymentModes = 0;
 
   Future pickImageFromGallery() async {
     try {
@@ -854,6 +858,201 @@ class _MoneyInState extends State<MoneyIn> {
       ),
     );
   }
+
+  Widget buildAddNewItem() =>
+      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  height: 6,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 1;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                          value: 1,
+                          activeColor: AppColor().backgroundColor,
+                          groupValue: paymentType,
+                          onChanged: (value) {
+                            myState(() {
+                              paymentType = 1;
+                            });
+                          },
+                        ),
+                        Text(
+                          'Enter Item',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 0;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                            value: 0,
+                            activeColor: AppColor().backgroundColor,
+                            groupValue: paymentType,
+                            onChanged: (value) {
+                              myState(() {
+                                value = 0;
+                                paymentType = 0;
+                              });
+                            }),
+                        Text(
+                          'Select Product',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              paymentType == 1
+                  ? CustomTextField(
+                      label: 'Item Name',
+                      hint: 'Television',
+                      keyType: TextInputType.name,
+                      validatorText: 'Item name is needed',
+                    )
+                  : Container(),
+              paymentType == 1
+                  ? Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            label: "Amount",
+                            hint: 'N 0.00',
+                            validatorText: "Amount name is needed",
+                            textEditingController:
+                                _transactionController.amountController,
+                            keyType: TextInputType.phone,
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.03),
+                        Expanded(
+                          child: CustomTextField(
+                              label: "Quantity",
+                              hint: '4',
+                              keyType: TextInputType.phone,
+                              validatorText: "Quantity name is needed",
+                              textEditingController:
+                                  _transactionController.quantityController),
+                        ),
+                      ],
+                    )
+                  : Container(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              paymentType == 1
+                  ? Container()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Select Product',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'DMSans'),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  width: 2, color: AppColor().backgroundColor)),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: 'Shoe',
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: AppColor().backgroundColor,
+                              ),
+                              iconSize: 30,
+                              items: products.map(buildPaymentItem).toList(),
+                              onChanged: (value) => setState(() =>
+                                  _transactionController.selectedPaymentSource =
+                                      value),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+              paymentType == 1
+                  ? Container()
+                  : SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Center(
+                    child: Text(
+                      'Save',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'DMSans'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      });
 
   DropdownMenuItem<String> buildPaymentItem(String item) => DropdownMenuItem(
         value: item,
