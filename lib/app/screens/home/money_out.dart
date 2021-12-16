@@ -10,11 +10,13 @@ import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
+import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../../colors.dart';
 import 'income_success.dart';
+import 'itemCard.dart';
 
 class MoneyOut extends StatefulWidget {
   const MoneyOut({Key? key}) : super(key: key);
@@ -29,6 +31,7 @@ class _MoneyOutState extends State<MoneyOut> {
   final _productController = Get.find<ProductRepository>();
   @override
   void initState() {
+    _transactionController.clearValue();
     _transactionController.dateController.text =
         DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
 
@@ -122,7 +125,7 @@ class _MoneyOutState extends State<MoneyOut> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -154,7 +157,7 @@ class _MoneyOutState extends State<MoneyOut> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
+                (_transactionController.productList.length<2)?  Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.02),
                 child: Row(
@@ -162,13 +165,11 @@ class _MoneyOutState extends State<MoneyOut> {
                   children: [
                     InkWell(
                       onTap: (){ 
-
-                           _transactionController.amountController.text="";
+                         _transactionController.amountController.text="";
                         _transactionController.itemNameController.text="";
                         _transactionController.selectedProduct=null;
                         setState(
-                          () => _transactionController.selectedValue = 1);
-                          },
+                          () => _transactionController.selectedValue = 1);},
                       child: Row(
                         children: [
                           Radio<int>(
@@ -179,7 +180,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                    _transactionController.amountController.text="";
                         _transactionController.itemNameController.text="";
                         _transactionController.selectedProduct=null;
-                                setState(() =>
+                                 setState(() =>
                                   _transactionController.selectedValue = 1);
                                   
                                   }),
@@ -197,20 +198,31 @@ class _MoneyOutState extends State<MoneyOut> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                           _transactionController.amountController.text="";
+                      onTap: (){
+                      
+                     
+   _transactionController.amountController.text="";
                         _transactionController.itemNameController.text="";
                         _transactionController.selectedProduct=null;
                         setState(
-                          () => _transactionController.selectedValue = 0);},
+                          () => _transactionController.selectedValue = 0);
+                      },
                       child: Row(
                         children: [
                           Radio<int>(
                               value: 0,
                               activeColor: AppColor().backgroundColor,
                               groupValue: _transactionController.selectedValue,
-                              onChanged: (value) => setState(() =>
-                                  _transactionController.selectedValue = 0)),
+                              onChanged: (value){
+                                              _transactionController.amountController.text="";
+                        _transactionController.itemNameController.text="";
+                        _transactionController.selectedProduct=null;
+                                setState(() =>
+                                  _transactionController.selectedValue = 0);
+                                   print("item is select");
+                       
+                                  
+                                  }),
                           Text(
                             'Select Product',
                             style: TextStyle(
@@ -226,8 +238,8 @@ class _MoneyOutState extends State<MoneyOut> {
                     )
                   ],
                 ),
-              ),
-              _transactionController.selectedValue == 1
+              ):Container(),
+          (_transactionController.productList.length<2)?     _transactionController.selectedValue == 1
                   ? Column(
                       children: [
                         Padding(
@@ -252,7 +264,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                 child: CustomTextField(
                                   label: "Amount",
                                   hint: 'N 0.00',
-                                  validatorText: "Amount name is needed",
+                                  validatorText: "Amount is needed",
                                   textEditingController:
                                       _transactionController.amountController,
                                   keyType: TextInputType.phone,
@@ -266,7 +278,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                     label: "Quantity",
                                     hint: '4',
                                     keyType: TextInputType.phone,
-                                    validatorText: "Quantity name is needed",
+                                    validatorText: "Quantity is needed",
                                     textEditingController:
                                         _transactionController
                                             .quantityController),
@@ -274,6 +286,10 @@ class _MoneyOutState extends State<MoneyOut> {
                             ],
                           ),
                         ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03),
+                     
+                    
                       ],
                     )
                   : Padding(
@@ -331,22 +347,29 @@ class _MoneyOutState extends State<MoneyOut> {
                                     child: Text(value.productName!),
                                   );
                                 }).toList(),
-                                onChanged: (value) => setState(() =>
+                                onChanged: (value) => setState((){
                                     _transactionController.selectedProduct =
-                                        value),
+                                        value;
+                                      _transactionController.selectedProduct!.quantity=1;    
+                                        }),
                               ),
                             ),
                           ),
                         ],
                       ),
-                    ),
+                    ):Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  if(_transactionController.selectedProduct!=null || _transactionController.itemNameController.text.isNotEmpty
-                 
+              
+               (_transactionController.productList.length>=2)?showAllItems():Container(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              GestureDetector(
+                onTap: (){
+                 print("New Item is selected");
+             
+                 if( _transactionController.productList.length>=2||_transactionController.selectedProduct!=null || _transactionController.itemNameController.text.isNotEmpty
                  && _transactionController.amountController.text.isNotEmpty){
-                     if(_transactionController.productList.isEmpty){
+                         
+                             if(_transactionController.productList.isEmpty){
                    _transactionController.addMoreProduct();
                  }
                              showModalBottomSheet(
@@ -364,8 +387,8 @@ class _MoneyOutState extends State<MoneyOut> {
                     height: MediaQuery.of(context).size.height * 0.055,
                     width: MediaQuery.of(context).size.width * 0.35,
                     decoration: BoxDecoration(
-                        color:_transactionController.selectedProduct!=null || _transactionController.itemNameController.text.isNotEmpty
-                 && _transactionController.amountController.text.isNotEmpty
+                        color: ( _transactionController.productList.length>=2||_transactionController.selectedProduct!=null || _transactionController.itemNameController.text.isNotEmpty
+                 &&  _transactionController.quantityController.text.isNotEmpty && _transactionController.amountController.text.isNotEmpty)
                             ? AppColor().backgroundColor
                             : AppColor().backgroundColor.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(45)),
@@ -373,8 +396,7 @@ class _MoneyOutState extends State<MoneyOut> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.add, color: Colors.white),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                         Text(
                           'Add another item',
                           style: TextStyle(
@@ -822,7 +844,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                         child: DropdownButtonHideUnderline(
                                           child: DropdownButton<Customer>(
                                             value: _transactionController
-                                                .selectedCustomer.value,
+                                                .selectedCustomer,
                                             icon: Icon(
                                               Icons.keyboard_arrow_down,
                                               color: AppColor().backgroundColor,
@@ -838,7 +860,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                             }).toList(),
                                             onChanged: (value) => setState(
                                               () => _transactionController
-                                                  .selectedCustomer(value),
+                                                  .selectedCustomer=value,
                                             ),
                                           ),
                                         ))
@@ -924,7 +946,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   InkWell(
                     onTap: () {
                       myState(() {
-                        paymentType = 1;
+                      _transactionController.selectedValue =1;
                       });
                     },
                     child: Row(
@@ -932,10 +954,10 @@ class _MoneyOutState extends State<MoneyOut> {
                         Radio<int>(
                           value: 1,
                           activeColor: AppColor().backgroundColor,
-                          groupValue: paymentType,
+                          groupValue:_transactionController.selectedValue,
                           onChanged: (value) {
                             myState(() {
-                              paymentType = 1;
+                                 _transactionController.selectedValue =1;
                             });
                           },
                         ),
@@ -955,7 +977,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   InkWell(
                     onTap: () {
                       myState(() {
-                        paymentType = 0;
+                          _transactionController.selectedValue =0;
                       });
                     },
                     child: Row(
@@ -963,11 +985,11 @@ class _MoneyOutState extends State<MoneyOut> {
                         Radio<int>(
                             value: 0,
                             activeColor: AppColor().backgroundColor,
-                            groupValue: paymentType,
+                            groupValue: _transactionController.selectedValue,
                             onChanged: (value) {
                               myState(() {
                                 value = 0;
-                                paymentType = 0;
+                                  _transactionController.selectedValue =0;
                               });
                             }),
                         Text(
@@ -1061,9 +1083,11 @@ class _MoneyOutState extends State<MoneyOut> {
                                     child: Text(value.productName!),
                                   );
                                 }).toList(),
-                                onChanged: (value) => setState(() =>
+                                onChanged: (value) => myState(() {
                                     _transactionController.selectedProduct =
-                                        value),
+                                        value;
+                                        _transactionController.selectedProduct!.quantity=1;
+                                        }),
                               ),
                             ),
                           ),
@@ -1075,7 +1099,11 @@ class _MoneyOutState extends State<MoneyOut> {
               InkWell(
                 onTap: () {
                   _transactionController.addMoreProduct();
+                     setState(() {
+                    
+                  });
                   Get.back();
+               
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
@@ -1122,4 +1150,137 @@ class _MoneyOutState extends State<MoneyOut> {
       },
     );
   }
+    Widget showAllItems(){
+   return Container(
+     margin: EdgeInsets.only(top: 20),
+ width:MediaQuery.of(context).size.width,
+ height:_transactionController.productList.length*100,
+ child:ListView.builder(
+   itemCount: _transactionController.productList.length,
+   itemBuilder:(context,index)=>ItemCard(item: _transactionController.productList[index],onDelete: (){
+     var item=_transactionController.productList[index];
+_transactionController.productList.remove( item);
+if(_transactionController.productList.length==1){
+
+_transactionController.setValue( _transactionController.productList.first);
+
+
+}
+setState(() {
+  
+});
+   },onEdit: (){
+     _transactionController.selectEditValue(_transactionController.productList[index]);
+
+ showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20))),
+                      context: context,
+                      builder: (context) =>buildEditItem(_transactionController.productList[index], index) );
+
+   },))
+
+ 
+
+
+  );
+
+
+  }
+
+  Widget buildEditItem(PaymentItem item,int index) =>
+      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  height: 6,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
+              
+            CustomTextField(
+                      label: 'Item Name',
+                      hint: 'Television',
+                      keyType: TextInputType.name,
+                      validatorText: 'Item name is needed',
+                      enabled: item.productId==null||item.productId!.isEmpty,
+                      textEditingController: _transactionController.itemNameController,
+                    ),
+                  
+            
+                 Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            label: "Amount",
+                            hint: 'N 0.00',
+                            validatorText: "Amount name is needed",
+                              enabled: item.productId==null||item.productId!.isEmpty,
+                            textEditingController:
+                                _transactionController.amountController,
+                            keyType: TextInputType.phone,
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.03),
+                        Expanded(
+                          child: CustomTextField(
+                              label: "Quantity",
+                              hint: '4',
+                              keyType: TextInputType.phone,
+                              validatorText: "Quantity name is needed",
+                              textEditingController:
+                                  _transactionController.quantityController),
+                        ),
+                      ],
+                    ),
+                 
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+         
+              InkWell(
+                onTap: () {
+                  _transactionController.updatePaymetItem(item,index);
+                     setState(() {
+                    
+                  });
+                  Get.back();
+               
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Center(
+                    child: Text(
+                      'Update',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'DMSans'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      });
+
 }

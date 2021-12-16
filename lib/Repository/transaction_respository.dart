@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/home/income_success.dart';
 import 'package:huzz/main.dart';
@@ -30,6 +31,7 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> get offlineTransactions => _offlineTransactions.value;
   final _uploadImageController = Get.find<FileUploadRespository>();
   final _customerController = Get.find<CustomerRepository>();
+  final _productController=Get.find<ProductRepository>();
   List<TransactionModel> OnlineTransaction = [];
   List<TransactionModel> pendingTransaction = [];
   Rx<List<PaymentItem>> _allPaymentItem = Rx([]);
@@ -66,7 +68,7 @@ class TransactionRespository extends GetxController {
       _addingTransactionStatus.value;
   Product? selectedProduct;
   int? remain;
-  Rx<Customer?> selectedCustomer = Rx(null);
+  Customer? selectedCustomer = null;
   DateTime? date;
   TimeOfDay? time;
   File? image;
@@ -359,8 +361,8 @@ if(addCustomer){
 if(customerType==1){
 customerId=await _customerController.addBusinessCustomerWithString(type);
 }else{
-  if(selectedCustomer.value!=null)
-  customerId=selectedCustomer.value!.customerId;
+  if(selectedCustomer!=null)
+  customerId=selectedCustomer!.customerId;
 }
 }else{
   customerId=null;
@@ -399,7 +401,9 @@ final response=await http.post(Uri.parse(ApiLink.get_business_transaction),heade
 print({"creatng transaction response ${response.body}"});
 if(response.statusCode==200){
  _addingTransactionStatus(AddingTransactionStatus.Success);
-           Get.to(() => IncomeSuccess());
+ var json=jsonDecode(response.body);
+ var result=TransactionModel.fromJson(json['data']);
+           Get.to(() => IncomeSuccess(transactionModel: result,));
          getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
 
 GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
@@ -446,8 +450,8 @@ if(addCustomer){
 if(customerType==1){
 customerId=await _customerController.addBusinessCustomerOfflineWithString(type);
 }else{
-  if(selectedCustomer.value!=null)
-  customerId=selectedCustomer.value!.customerId;
+  if(selectedCustomer!=null)
+  customerId=selectedCustomer!.customerId;
 }
 }else{
   customerId=null;
@@ -485,7 +489,7 @@ isPending: true,
 print("offline saving to database ${value!.toJson()}}");
    await _businessController.sqliteDb.insertTransaction(value!);
    GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
-  Get.to(() => IncomeSuccess());
+  Get.to(() => IncomeSuccess(transactionModel: value!,));
 clearValue();
 }
 Future checkIfTransactionThatIsYetToBeAdded()async{
@@ -592,7 +596,7 @@ saveTransactionOnline();
 
 
 clearValue(){
-
+print("clearing value");
   itemNameController.text="";
    amountController.text="";
    quantityController.text="";
@@ -605,9 +609,10 @@ amountPaidController.text="";
 date=null;
 image=null;
 selectedPaymentMode=null;
-selectedCustomer(null);
+selectedCustomer=null;
 selectedPaymentSource=null;
 selectedProduct=null;
+productList=[];
   
 
 
@@ -677,5 +682,42 @@ totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
  quantityController.text="1";
  amountController.text="";
  itemNameController.text="";
+}
+
+Future selectEditValue(PaymentItem item)async{
+ quantityController.text=item.quality.toString();
+ amountController.text=item.amount.toString();
+ itemNameController.text=item.itemName!;
+
+}
+
+Future updatePaymetItem(PaymentItem item,int index)async{
+item.itemName=itemNameController.text;
+item.quality=int.parse(quantityController.text);
+item.amount=int.parse(amountController.text);
+productList[index]=item;
+ quantityController.text="1";
+ amountController.text="";
+ itemNameController.text="";
+
+}
+
+Future setValue(PaymentItem item)async{
+  if(item.productId==null || item.productId!.isEmpty){
+ quantityController.text=item.quality.toString();
+ amountController.text=item.amount.toString();
+ itemNameController.text=item.itemName!;
+selectedValue=1;
+  }else{
+    selectedValue=0;
+  selectedProduct=  _productController.productGoods.where((element) => element.productId==item.productId).toList().first;
+
+
+
+
+
+  }
+
+
 }
 }
