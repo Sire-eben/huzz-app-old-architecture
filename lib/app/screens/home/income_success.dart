@@ -5,10 +5,12 @@ import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/home/receipt/money_in_out_pdf.dart';
 import 'package:huzz/app/screens/home/reciept.dart';
 import 'package:huzz/model/money_reciept_model.dart';
+import 'package:huzz/model/transaction_model.dart';
 import '../../../colors.dart';
 
 class IncomeSuccess extends StatelessWidget {
-  const IncomeSuccess({Key? key}) : super(key: key);
+  TransactionModel transactionModel;
+   IncomeSuccess({Key? key,required this.transactionModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +138,7 @@ class IncomeSuccess extends StatelessWidget {
                         ],
                       );
                       final moneyInOutReceipt =
-                          await PdfMoneyInOutApi.generate(moneyInvoice);
+                          await PdfMoneyInOutApi.generate(transactionModel);
                       Get.to(() => IncomeReceipt(file: moneyInOutReceipt));
                       // PdfApi.openFile(invoiceReceipt);
                     },

@@ -82,7 +82,7 @@ class CustomTextField extends StatelessWidget {
               if (AllowClickable!) onClick!();
             },
             child: Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+              margin: EdgeInsets.only(top: 10),
               child: TextFormField(
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,

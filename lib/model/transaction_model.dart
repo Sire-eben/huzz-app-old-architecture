@@ -59,11 +59,11 @@ factory TransactionModel.fromJson(Map<String,dynamic> json)=>TransactionModel(
   deleted: json['deleted'],
   expenseCategory: json['expenseCategory'],
   paymentMethod: json['paymentMethod'],
-  balance: json['balance'],
+  balance: json['balance']??0,
   isPending: json['isPending']?? false,
   businessTransactionPaymentHistoryList: json['businessTransactionPaymentHistoryList']==null?[]:List.from(json['businessTransactionPaymentHistoryList']),
   currentBusinessTransactionPaymentHistory: json['currentBusinessTransactionPaymentHistory'],
-  businessTransactionPaymentItemList: List.from(json['businessTransactionPaymentItemList']).map((e) => PaymentItem.fromJson(e,json['transactionType'])).toList()
+  businessTransactionPaymentItemList: List.from(json['businessTransactionPaymentItemList']).map((e) => PaymentItem.fromJson(e,json['transactionType'],json['balance']==null|| json['balance']==0 ?true:false)).toList()
 
 
 );

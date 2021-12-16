@@ -17,8 +17,6 @@ void main() {
   runApp(HuzzApp());
 }
 
- 
-
 class HuzzApp extends StatefulWidget {
   const HuzzApp({Key? key}) : super(key: key);
 
