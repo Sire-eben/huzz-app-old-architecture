@@ -341,6 +341,7 @@ class _MoneyOutState extends State<MoneyOut> {
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20))),
                       context: context,
+                      isScrollControlled: true,
                       builder: (context) => buildAddNewItem());
                 },
                 child: Padding(

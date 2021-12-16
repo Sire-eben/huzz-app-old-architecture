@@ -337,57 +337,69 @@ class _MoneyInState extends State<MoneyIn> {
                       ),
                     ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Row(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.055,
-                      width: MediaQuery.of(context).size.width * 0.35,
-                      decoration: BoxDecoration(
-                          color: _transactionController.selectedValue == 1
-                              ? AppColor().backgroundColor
-                              : AppColor().backgroundColor.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(45)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.add, color: Colors.white),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.02),
-                          Text(
-                            'Add another item',
-                            style: TextStyle(
-                                fontFamily: 'DMSans',
-                                fontSize: 10,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20))),
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => buildAddNewItem());
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.03),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.055,
+                        width: MediaQuery.of(context).size.width * 0.35,
+                        decoration: BoxDecoration(
+                            color: _transactionController.selectedValue == 1
+                                ? AppColor().backgroundColor
+                                : AppColor().backgroundColor.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(45)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add, color: Colors.white),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.02),
+                            Text(
+                              'Add another item',
+                              style: TextStyle(
+                                  fontFamily: 'DMSans',
+                                  fontSize: 10,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: CustomTextFieldOnly(
-                        label: "Amount",
-                        hint: 'N 0.00',
-                        validatorText: "Amount is needed",
-                        textEditingController:
-                            _transactionController.amountController,
-                        keyType: TextInputType.phone,
+                      Expanded(
+                        child: CustomTextFieldOnly(
+                          label: "Amount",
+                          hint: 'N 0.00',
+                          validatorText: "Amount is needed",
+                          textEditingController:
+                              _transactionController.amountController,
+                          keyType: TextInputType.phone,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: CustomTextFieldOnly(
-                        label: "Quantity",
-                        hint: '4',
-                        validatorText: "Quantity is needed",
-                        textEditingController:
-                            _transactionController.amountController,
-                        keyType: TextInputType.phone,
-                      ),
-                    )
-                  ],
+                      Expanded(
+                        child: CustomTextFieldOnly(
+                          label: "Quantity",
+                          hint: '4',
+                          validatorText: "Quantity is needed",
+                          textEditingController:
+                              _transactionController.amountController,
+                          keyType: TextInputType.phone,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Padding(
@@ -899,195 +911,205 @@ class _MoneyInState extends State<MoneyIn> {
 
   Widget buildAddNewItem() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
+        ScrollController? controller;
         return Container(
           padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.04,
               right: MediaQuery.of(context).size.width * 0.04,
               bottom: MediaQuery.of(context).size.width * 0.04,
               top: MediaQuery.of(context).size.width * 0.02),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: Container(
-                  height: 6,
-                  width: 80,
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      myState(() {
-                        paymentType = 1;
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        Radio<int>(
-                          value: 1,
-                          activeColor: AppColor().backgroundColor,
-                          groupValue: paymentType,
-                          onChanged: (value) {
-                            myState(() {
-                              paymentType = 1;
-                            });
-                          },
-                        ),
-                        Text(
-                          'Enter Item',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
+          child: SingleChildScrollView(
+            physics: ScrollPhysics(),
+            controller: controller,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    height: 6,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(10)),
                   ),
-                  InkWell(
-                    onTap: () {
-                      myState(() {
-                        paymentType = 0;
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        Radio<int>(
-                            value: 0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        myState(() {
+                          paymentType = 1;
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Radio<int>(
+                            value: 1,
                             activeColor: AppColor().backgroundColor,
                             groupValue: paymentType,
                             onChanged: (value) {
                               myState(() {
-                                value = 0;
-                                paymentType = 0;
+                                paymentType = 1;
                               });
-                            }),
-                        Text(
-                          'Select Product',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
+                            },
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              paymentType == 1
-                  ? CustomTextField(
-                      label: 'Item Name',
-                      hint: 'Television',
-                      keyType: TextInputType.name,
-                      validatorText: 'Item name is needed',
-                    )
-                  : Container(),
-              paymentType == 1
-                  ? Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField(
-                            label: "Amount",
-                            hint: 'N 0.00',
-                            validatorText: "Amount name is needed",
-                            textEditingController:
-                                _transactionController.amountController,
-                            keyType: TextInputType.phone,
-                          ),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.height * 0.03),
-                        Expanded(
-                          child: CustomTextField(
-                              label: "Quantity",
-                              hint: '4',
-                              keyType: TextInputType.phone,
-                              validatorText: "Quantity name is needed",
-                              textEditingController:
-                                  _transactionController.quantityController),
-                        ),
-                      ],
-                    )
-                  : Container(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              paymentType == 1
-                  ? Container()
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Select Product',
-                          style: TextStyle(
-                              color: Colors.black,
+                          Text(
+                            'Enter Item',
+                            style: TextStyle(
+                              color: AppColor().backgroundColor,
+                              fontFamily: "DMSans",
+                              fontStyle: FontStyle.normal,
                               fontSize: 12,
-                              fontFamily: 'DMSans'),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  width: 2, color: AppColor().backgroundColor)),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              value: 'Shoe',
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: AppColor().backgroundColor,
-                              ),
-                              iconSize: 30,
-                              items: products.map(buildPaymentItem).toList(),
-                              onChanged: (value) => setState(() =>
-                                  _transactionController.selectedPaymentSource =
-                                      value),
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-              paymentType == 1
-                  ? Container()
-                  : SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      'Save',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'DMSans'),
+                    InkWell(
+                      onTap: () {
+                        myState(() {
+                          paymentType = 0;
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Radio<int>(
+                              value: 0,
+                              activeColor: AppColor().backgroundColor,
+                              groupValue: paymentType,
+                              onChanged: (value) {
+                                myState(() {
+                                  value = 0;
+                                  paymentType = 0;
+                                });
+                              }),
+                          Text(
+                            'Select Product',
+                            style: TextStyle(
+                              color: AppColor().backgroundColor,
+                              fontFamily: "DMSans",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                paymentType == 1
+                    ? CustomTextField(
+                        enabled: true,
+                        label: 'Item Name',
+                        hint: 'Television',
+                        keyType: TextInputType.name,
+                        validatorText: 'Item name is needed',
+                      )
+                    : Container(),
+                paymentType == 1
+                    ? Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              enabled: true,
+                              label: "Amount",
+                              hint: 'N 0.00',
+                              validatorText: "Amount name is needed",
+                              textEditingController:
+                                  _transactionController.amountController,
+                              keyType: TextInputType.phone,
+                            ),
+                          ),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.height * 0.03),
+                          Expanded(
+                            child: CustomTextField(
+                                enabled: true,
+                                label: "Quantity",
+                                hint: '4',
+                                keyType: TextInputType.phone,
+                                validatorText: "Quantity name is needed",
+                                textEditingController:
+                                    _transactionController.quantityController),
+                          ),
+                        ],
+                      )
+                    : Container(),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                paymentType == 1
+                    ? Container()
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Select Product',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                                fontFamily: 'DMSans'),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    width: 2,
+                                    color: AppColor().backgroundColor)),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: 'Shoe',
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: AppColor().backgroundColor,
+                                ),
+                                iconSize: 30,
+                                items: products.map(buildPaymentItem).toList(),
+                                onChanged: (value) => setState(() =>
+                                    _transactionController
+                                        .selectedPaymentSource = value),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                paymentType == 1
+                    ? Container()
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02),
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Center(
+                      child: Text(
+                        'Save',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'DMSans'),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       });
