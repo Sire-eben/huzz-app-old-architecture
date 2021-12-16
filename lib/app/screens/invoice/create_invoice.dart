@@ -8,14 +8,12 @@ import 'package:huzz/app/screens/invoice/preview_invoice.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
-
 import 'package:huzz/model/bank_model.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:intl/intl.dart';
 import 'package:random_color/random_color.dart';
 import 'package:huzz/model/service_model.dart';
-
 import 'invoice_pdf.dart';
 
 class CreateInvoice extends StatefulWidget {
@@ -35,7 +33,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   final TextEditingController customerMail = TextEditingController();
   final TextEditingController customerAddress = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
-  final _searchcontroller = TextEditingController();
+  final TextEditingController itemName = TextEditingController();
+  final TextEditingController unitPrice = TextEditingController();
+  final TextEditingController taxController = TextEditingController();
+  final TextEditingController discountController = TextEditingController();
+  final TextEditingController accountName = TextEditingController();
+  final TextEditingController accountNo = TextEditingController();
+  final TextEditingController _searchcontroller = TextEditingController();
 
   final payments = ['Select payment mode', 'item1', 'item2'];
   String? value;
@@ -143,8 +147,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   phone: '+234 8123 456 789',
                 ),
                 bankDetails: BankDetails(
-                    name: 'First Bank of Nigeria',
-                    no: '0123456789',
+                    name: accountName.text,
+                    no: accountNo.text,
                     mode: 'BANK TRANSFER'),
                 customer: InvoiceCustomer(
                   name: 'Joshua Olatunde',
