@@ -18,10 +18,14 @@ class SetForgotPIN extends StatefulWidget {
 
 class _SetForgotPINState extends State<SetForgotPIN> {
   final _homeController = Get.find<HomeRespository>();
+
   StreamController<ErrorAnimationType>? errorController;
+  StreamController<ErrorAnimationType>? verifyErrorController;
+
   final _authController = Get.find<AuthRepository>();
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    verifyErrorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
 
@@ -90,7 +94,7 @@ class _SetForgotPINState extends State<SetForgotPIN> {
                 SizedBox(
                   height: 10,
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Container(
                     margin: EdgeInsets.only(
                       left: 20,
@@ -110,7 +114,7 @@ class _SetForgotPINState extends State<SetForgotPIN> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: PinCodeTextField(
-                      controller: _authController.otpController,
+                      controller: _authController.forgetpinController,
                       length: 4,
                       obscureText: true,
                       animationType: AnimationType.fade,
@@ -172,7 +176,7 @@ class _SetForgotPINState extends State<SetForgotPIN> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: PinCodeTextField(
-                      controller: _authController.otpController,
+                      controller: _authController.verifypinController,
                       length: 4,
                       obscureText: true,
                       animationType: AnimationType.fade,
@@ -191,7 +195,7 @@ class _SetForgotPINState extends State<SetForgotPIN> {
                       animationDuration: Duration(milliseconds: 300),
                       backgroundColor: Colors.white,
                       enableActiveFill: true,
-                      errorAnimationController: errorController,
+                      errorAnimationController: verifyErrorController,
                       // controller: textEditingController,
                       onCompleted: (v) {
                         print("Completed");
@@ -215,7 +219,14 @@ class _SetForgotPINState extends State<SetForgotPIN> {
                 Expanded(child: SizedBox()),
                 GestureDetector(
                   onTap: () {
-                    _authController.verifyOpt();
+                    // _authController.verifyOpt();
+                    if (_authController.confirmPinController.text ==
+                        _authController.pinController.text) {
+                      //  if(_authController.signupStatus!=SignupStatus.Loading)
+                      _authController.signUp();
+                    } else {
+                      errorController!.add(ErrorAnimationType.shake);
+                    }
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

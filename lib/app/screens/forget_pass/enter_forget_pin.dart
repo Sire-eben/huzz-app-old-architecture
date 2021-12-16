@@ -176,7 +176,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                 Expanded(child: SizedBox()),
                 GestureDetector(
                   onTap: () {
-                    _authController.verifyOpt();
+                    _authController.verifyForgotOpt();
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
