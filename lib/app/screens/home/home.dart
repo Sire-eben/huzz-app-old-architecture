@@ -303,56 +303,63 @@ class _HomeState extends State<Home> {
             );
           }),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.height * 0.02),
-              decoration: BoxDecoration(
-                color: AppColor().backgroundColor.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.08,
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.015),
-                        decoration: BoxDecoration(
-                            color: Color(0xffEF6500), shape: BoxShape.circle),
-                        child: SvgPicture.asset('assets/images/debtors.svg'),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Text(
-                        'Debtors',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'N${display(_transactionController.debtors.value)}',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Color(0xffF58D40),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        size: 15,
-                        color: Color(0xffF58D40),
-                      ),
-                    ],
-                  ),
-                ],
-              )),
+          InkWell(
+            onTap: () {
+              Get.to(DebtorsTab());
+            },
+            child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.02),
+                decoration: BoxDecoration(
+                  color: AppColor().backgroundColor.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.08,
+                          width: MediaQuery.of(context).size.width * 0.08,
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.width * 0.015),
+                          decoration: BoxDecoration(
+                              color: Color(0xffEF6500), shape: BoxShape.circle),
+                          child: SvgPicture.asset('assets/images/debtors.svg'),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.02),
+                        Text(
+                          'Debtors',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'N${display(_transactionController.debtors.value)}',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xffF58D40),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.02),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 15,
+                          color: Color(0xffF58D40),
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
+          ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Expanded(
               child: Container(
@@ -376,8 +383,8 @@ class _HomeState extends State<Home> {
                         children: [
                           Image.asset(
                             (item.transactionType == "EXPENDITURE")
-                                ? "assets/images/moneyRound_out.png"
-                                : "assets/images/moneyRound_in.png",
+                                ? "assets/images/arrow_up.png"
+                                : "assets/images/arrow_down.png",
                             width: 20,
                             height: 20,
                           ),
