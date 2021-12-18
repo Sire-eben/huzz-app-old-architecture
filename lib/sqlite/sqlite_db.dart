@@ -150,10 +150,10 @@ $businessId text not null)
     print("updated $result");
   }
 
-  Future deleteOfflineTransaction(TransactionModel transactionModel)async{
+  Future<int> deleteOfflineTransaction(TransactionModel transactionModel)async{
 var result=await db.delete(transactionTableName,where:'"$transactionId" = ?',whereArgs: [transactionModel.id] );
-print("transaction is deleted $result");
-
+print("transaction  with ${transactionModel.id} is deleted $result ");
+return result;
   }
 
 Future insertProduct(Product product) async {

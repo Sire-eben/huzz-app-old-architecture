@@ -17,12 +17,14 @@ import 'package:pdf/widgets.dart';
 
 class PdfMoneyInOutApi {
  
-  
+ static Customer? customer=null;
   static final _businessController=Get.find<BusinessRespository>();
   static final _customerController=Get.find<CustomerRepository>();
   static Future<File> generate(TransactionModel transactionModel) async {
     final pdf = Document();
-Customer? customer=_customerController.checkifCustomerAvailableWithValue(transactionModel.customerId!);
+    if(transactionModel.customerId!=null)
+customer=_customerController.checkifCustomerAvailableWithValue(transactionModel.customerId!);
+
     pdf.addPage(MultiPage(
       build: (context) => [
         buildHeader(_businessController.selectedBusiness.value!),
@@ -31,7 +33,7 @@ Customer? customer=_customerController.checkifCustomerAvailableWithValue(transac
         Divider(),
         buildTotal(transactionModel.businessTransactionPaymentItemList!),
         SizedBox(height: 2 * PdfPageFormat.cm),
-        buildFooter(customer!)
+        buildFooter(customer)
       ],
       // footer: (context) => buildFooter(moneyInvoice),
     ));

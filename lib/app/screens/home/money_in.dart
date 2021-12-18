@@ -157,9 +157,7 @@ class _MoneyInState extends State<MoneyIn> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            
-            
-            (_transactionController.productList.length<2)?  Padding(
+                (_transactionController.productList.length<2)?  Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.02),
                 child: Row(
@@ -250,6 +248,12 @@ class _MoneyInState extends State<MoneyIn> {
                                   MediaQuery.of(context).size.height * 0.03),
                           child: CustomTextField(
                             label: "Item Name",
+                                onChanged: (value){
+                                      print("value is $value");
+setState(() {
+  
+});
+                                },
                             validatorText: "Item name is needed",
                             textEditingController:
                                 _transactionController.itemNameController,
@@ -267,6 +271,12 @@ class _MoneyInState extends State<MoneyIn> {
                                   label: "Amount",
                                   hint: 'N 0.00',
                                   validatorText: "Amount is needed",
+                                      onChanged: (value){
+                                      print("value is $value");
+setState(() {
+  
+});
+                                      },
                                   textEditingController:
                                       _transactionController.amountController,
                                   keyType: TextInputType.phone,
@@ -281,6 +291,18 @@ class _MoneyInState extends State<MoneyIn> {
                                     hint: '4',
                                     keyType: TextInputType.phone,
                                     validatorText: "Quantity is needed",
+                                    onChanged: (value){
+                                      print("value is $value");
+setState(() {
+  
+});
+                                    },
+                                    onSubmited:(value){
+setState(() {
+  
+});
+
+                                    },
                                     textEditingController:
                                         _transactionController
                                             .quantityController),
@@ -363,8 +385,8 @@ class _MoneyInState extends State<MoneyIn> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               
                (_transactionController.productList.length>=2)?showAllItems():Container(),
-              
-               GestureDetector(
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              GestureDetector(
                 onTap: (){
                  print("New Item is selected");
              
@@ -877,15 +899,10 @@ class _MoneyInState extends State<MoneyIn> {
                 return InkWell(
                   onTap: () {
                     if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading){
-                          if(_transactionController.productList.isEmpty){
-
-                            _transactionController.addMoreProduct();
-                          }
+                        AddingTransactionStatus.Loading)
                       //  _transactionController.createTransaction("INCOME");
                       _transactionController
                           .createBusinessTransaction("INCOME");
-                        }
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -1134,7 +1151,6 @@ class _MoneyInState extends State<MoneyIn> {
         );
       });
 
-
   DropdownMenuItem<String> buildPaymentItem(String item) => DropdownMenuItem(
         value: item,
         child: Text(
@@ -1158,8 +1174,7 @@ class _MoneyInState extends State<MoneyIn> {
       },
     );
   }
-
-   Widget showAllItems(){
+    Widget showAllItems(){
    return Container(
      margin: EdgeInsets.only(top: 20),
  width:MediaQuery.of(context).size.width,
@@ -1167,8 +1182,8 @@ class _MoneyInState extends State<MoneyIn> {
  child:ListView.builder(
    itemCount: _transactionController.productList.length,
    itemBuilder:(context,index)=>ItemCard(item: _transactionController.productList[index],onDelete: (){
-     print("delete pressed");
-_transactionController.productList.remove( _transactionController.productList[index]);
+     var item=_transactionController.productList[index];
+_transactionController.productList.remove( item);
 if(_transactionController.productList.length==1){
 
 _transactionController.setValue( _transactionController.productList.first);
@@ -1180,7 +1195,7 @@ setState(() {
 });
    },onEdit: (){
      _transactionController.selectEditValue(_transactionController.productList[index]);
-     
+
  showModalBottomSheet(
                       shape: RoundedRectangleBorder(
                           borderRadius:

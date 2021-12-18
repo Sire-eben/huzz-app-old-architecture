@@ -41,7 +41,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-     
       return Scaffold(
         body: (_transactionController.allPaymentItem.isNotEmpty)
             ? TransactionAvailable(context)
@@ -129,8 +128,7 @@ class _HomeState extends State<Home> {
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           Obx(() {
             return Container(
-              padding:
-                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+              padding: EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -206,7 +204,7 @@ class _HomeState extends State<Home> {
                     children: [
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                         decoration: BoxDecoration(
                           color: Color(0xff016BCC),
                           borderRadius: BorderRadius.circular(8),
@@ -240,7 +238,7 @@ class _HomeState extends State<Home> {
                       ),
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                         decoration: BoxDecoration(
                           color: Color(0xffDD8F48),
                           borderRadius: BorderRadius.circular(8),
@@ -277,7 +275,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              height: MediaQuery.of(context).size.height / 5.5,
+              height: 140,
               decoration: BoxDecoration(
                 color: AppColor().backgroundColor,
                 borderRadius: BorderRadius.circular(12),
@@ -1066,7 +1064,7 @@ class _HomeState extends State<Home> {
                                       color: _randomColor.randomColor()),
                                   child: Center(
                                       child: Text(
-                                    '${item.business!.businessName![0]}',
+                                    '',
                                     style: TextStyle(
                                         fontSize: 30,
                                         color: Colors.white,

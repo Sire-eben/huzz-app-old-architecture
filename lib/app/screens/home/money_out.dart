@@ -249,6 +249,12 @@ class _MoneyOutState extends State<MoneyOut> {
                           child: CustomTextField(
                             label: "Item Name",
                             validatorText: "Item name is needed",
+                                onChanged: (value){
+                                   
+setState(() {
+  
+});
+                                },
                             textEditingController:
                                 _transactionController.itemNameController,
                             hint: 'E.g. Television',
@@ -264,6 +270,12 @@ class _MoneyOutState extends State<MoneyOut> {
                                 child: CustomTextField(
                                   label: "Amount",
                                   hint: 'N 0.00',
+                                  onChanged: (value){
+                                      print("value is $value");
+setState(() {
+  
+});
+                                },
                                   validatorText: "Amount is needed",
                                   textEditingController:
                                       _transactionController.amountController,
@@ -277,6 +289,12 @@ class _MoneyOutState extends State<MoneyOut> {
                                 child: CustomTextField(
                                     label: "Quantity",
                                     hint: '4',
+                                    onChanged: (value){
+                                      print("value is $value");
+setState(() {
+  
+});
+                                },
                                     keyType: TextInputType.phone,
                                     validatorText: "Quantity is needed",
                                     textEditingController:

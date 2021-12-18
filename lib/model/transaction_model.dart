@@ -22,7 +22,7 @@ int? balance;
 List? businessTransactionPaymentHistoryList;
 String? currentBusinessTransactionPaymentHistory;
 List<PaymentItem>? businessTransactionPaymentItemList;
-bool? isPending;
+bool isPending;
 TransactionModel({
 this.id,
 this.totalAmount,
@@ -41,7 +41,7 @@ this.balance,
 this.businessTransactionPaymentHistoryList,
 this.currentBusinessTransactionPaymentHistory,
 this.businessTransactionPaymentItemList,
-this.isPending,
+required this.isPending,
 });
 
 
