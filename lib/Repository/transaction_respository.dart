@@ -43,6 +43,9 @@ class TransactionRespository extends GetxController {
   final numberofincome = 0.obs;
   final numberofexpenses = 0.obs;
   final totalbalance = 0.obs;
+   bool isBusyAdding=false;
+ bool isBusyUpdating=false;
+  bool isbusyDeleting=false;
   final debtors = 0.obs;
    List<PaymentItem> productList=[];
   List<TransactionModel> todayTransaction = [];
@@ -61,6 +64,7 @@ class TransactionRespository extends GetxController {
   final TextEditingController contactName = TextEditingController();
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
+  List<TransactionModel> deletedItem=[];
   final _addingTransactionStatus = AddingTransactionStatus.Empty.obs;
   var uuid = Uuid();
 // final _uploadFileController=Get.find<FileUploadRespository>();
@@ -149,7 +153,8 @@ checkIfTransactionThatIsYetToBeAdded();
           List.from(json['data']).map((e) => TransactionModel.fromJson(e));
 
       OnlineTransaction.addAll(result);
-
+print("online transaction ${result.length}");
+    // getTodayTransaction();
       getTransactionYetToBeSavedLocally();
     } else {}
   }
@@ -184,12 +189,13 @@ checkIfTransactionThatIsYetToBeAdded();
   Future getTransactionYetToBeSavedLocally() async {
     OnlineTransaction.forEach((element) {
       if (!checkifTransactionAvailable(element.id!)) {
-        print("doesnt contain value");
-
+      
+        if(!element.isPending!)
         pendingTransaction.add(element);
       }
     });
-
+      // print("does contain value ${pendingTransaction.first.isPending}");
+print("item yet to be save yet ${pendingTransaction.length}");
     savePendingJob();
   }
 
@@ -198,9 +204,9 @@ checkIfTransactionThatIsYetToBeAdded();
   bool checkifTransactionAvailable(String id) {
     bool result = false;
     offlineTransactions.forEach((element) {
-      print("checking transaction whether exist");
-      if (element.id == id) {
-        print("transaction   found");
+      // print("checking transaction whether exist");
+      if (element.id == id ) {
+        // print("transaction   found");
         result = true;
       }
     });
@@ -342,6 +348,7 @@ createTransactionOffline(type);
 }
 
 Future createTransactionOnline(String type)async{
+  
   try{
   _addingTransactionStatus(AddingTransactionStatus.Loading);
   String? fileid;
@@ -500,29 +507,34 @@ Future checkIfTransactionThatIsYetToBeAdded()async{
 print("number of transaction is ${list.length}");
 list.forEach((element) {
   
-if(element.isPending!){
+if(element.isPending){
 
-  pendingTransaction.add(element);
+  pendingTransactionToBeAdded.add(element);
+  print("is pending to be added");
 }
 
 
 });
-print("number of transaction that is yet to saved on server is ${pendingTransaction.length}");
+print("number of transaction that is yet to saved on server is ${pendingTransactionToBeAdded.length}");
 saveTransactionOnline();
 }
 
 Future saveTransactionOnline()async{
 
-if(pendingTransaction.isEmpty){
+  
+  if(pendingTransactionToBeAdded.isEmpty){
 
   return;
 
 }
 
 
-pendingTransaction.forEach((e)async{
+// pendingTransaction.forEach((e)async{
 print("loading transaction to server ");
-var savenext=e;
+try{
+// if(!isBusyAdding){
+var savenext=pendingTransactionToBeAdded.first;
+isBusyAdding=true;
 print("saved next is ${savenext.toJson()}");
 if(savenext.customerId!=null&& savenext.customerId!=" "){
   print("saved yet customer is not null");
@@ -570,31 +582,65 @@ final response=await http.post(Uri.parse(ApiLink.get_business_transaction),heade
 },body:body );
 
 print({"sending to server transaction response ${response.body}"});
+await deleteItem(savenext);
+pendingTransactionToBeAdded.remove(savenext);
 if(response.statusCode==200){
 
-      
-pendingTransaction.remove(savenext);
-_businessController.sqliteDb.deleteOfflineTransaction(savenext);
-if(pendingTransaction.isNotEmpty){
-print("saved size  left is ${pendingTransaction.length}");
-  
-  await GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
-   getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
+      print("transaction response ${response.body}");
+// pendingTransaction.remove(savenext);
+
+ 
+
+// deletedItem.add(savenext);
+  // saveTransactionOnline();
+
+if(pendingTransactionToBeAdded.isNotEmpty){
+print("saved size  left is ${pendingTransactionToBeAdded.length}");
+saveTransactionOnline();
+  // await GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
+  //  getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
 
 
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
-
-}
-
+}else{
 print("done uploading  transaction to server ");
-
+await GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
+   getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
 }
+isBusyAdding=false;
+}else{
+
+  isBusyAdding=false;
+
+
+//   print("pending transaction is uploaded finished");
+//   deleteItems();
+
 Future.delayed(Duration(seconds: 5));
-saveTransactionOnline();
-});
+
+}
+}catch(ex){
+
+
+
 }
 
 
+
+}
+
+Future deleteItem(TransactionModel model)async{
+
+ await  _businessController.sqliteDb.deleteOfflineTransaction(model);
+}
+void deleteItems(){
+
+deletedItem.forEach((element) {
+  
+_businessController.sqliteDb.deleteOfflineTransaction(element);
+});
+
+}
 clearValue(){
 print("clearing value");
   itemNameController.text="";

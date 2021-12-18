@@ -64,7 +64,9 @@ class _AllState extends State<All> {
                       padding: EdgeInsets.all(
                           MediaQuery.of(context).size.width * 0.02),
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor.withOpacity(0.2),
+                          color: deleteItem
+                              ? Colors.transparent
+                              : AppColor().backgroundColor.withOpacity(0.2),
                           shape: BoxShape.circle),
                       child: SvgPicture.asset('assets/images/trash.svg')),
                 )

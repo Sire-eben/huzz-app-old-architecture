@@ -84,6 +84,7 @@ class CustomTextField extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
+                  autofocus: true,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
                   controller: textEditingController,
