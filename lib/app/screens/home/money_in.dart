@@ -513,13 +513,18 @@ class _MoneyInState extends State<MoneyIn> {
               ),
               (_transactionController.selectedPaymentMode != null &&
                       _transactionController.selectedPaymentMode == "DEPOSIT")
-                  ? CustomTextField(
-                      label: "Amount Paid",
-                      hint: 'N 0.00',
-                      validatorText: "Amount Paid is needed",
-                      keyType: TextInputType.number,
-                      textEditingController:
-                          _transactionController.amountPaidController,
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      child: CustomTextField(
+                        label: "Amount Paid",
+                        hint: 'N 0.00',
+                        validatorText: "Amount Paid is needed",
+                        keyType: TextInputType.number,
+                        textEditingController:
+                            _transactionController.amountPaidController,
+                      ),
                     )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
