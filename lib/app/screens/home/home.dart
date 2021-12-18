@@ -116,13 +116,28 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Container(
-                  child: Row(
-                children: [
-                  SvgPicture.asset('assets/images/bell.svg'),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                  SvgPicture.asset('assets/images/settings.svg')
-                ],
-              )),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(NotificationSettings());
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/bell.svg',
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(Settings());
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/settings.svg',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -509,126 +524,9 @@ class _HomeState extends State<Home> {
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-          // Container(
-          //   padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.03),
-          //   decoration: BoxDecoration(
-          //       color: AppColor().backgroundColor,
-          //       borderRadius: BorderRadius.circular(10),
-          //       image: DecorationImage(
-          //           image: AssetImage('assets/images/home_rectangle.png'),
-          //           fit: BoxFit.fill)),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       Column(
-          //         crossAxisAlignment: CrossAxisAlignment.start,
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: [
-          //           Container(
-          //             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          //             decoration: BoxDecoration(
-          //                 color: Colors.white,
-          //                 borderRadius: BorderRadius.circular(10)),
-          //             child: Text(
-          //               'Today’s BALANCE',
-          //               style: TextStyle(fontSize: 10),
-          //             ),
-          //           ),
-          //           Text(
-          //             "N${display(_transactionController.totalbalance.value)}",
-          //             style: TextStyle(fontSize: 24, color: Colors.white),
-          //           ),
-          //           Container(
-          //             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          //             decoration: BoxDecoration(
-          //                 color: Color(0xff056B5C),
-          //                 borderRadius: BorderRadius.circular(10)),
-          //             child: Row(
-          //               children: [
-          //                 Text(
-          //                   'See all your Records',
-          //                   style: TextStyle(
-          //                       fontSize: 9,
-          //                       color: Colors.white,
-          //                       fontFamily: 'DMSans'),
-          //                 ),
-          //                 Icon(
-          //                   Icons.arrow_forward,
-          //                   size: 15,
-          //                   color: Colors.white,
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //       Column(
-          //         crossAxisAlignment: CrossAxisAlignment.start,
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: [
-          //           Container(
-          //             padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-          //             decoration: BoxDecoration(
-          //                 color: Color(0xff0065D3),
-          //                 borderRadius: BorderRadius.circular(4)),
-          //             child: Row(
-          //               children: [
-          //                 Container(
-          //                     padding: EdgeInsets.all(
-          //                         MediaQuery.of(context).size.width * 0.01),
-          //                     decoration: BoxDecoration(
-          //                         shape: BoxShape.circle, color: Colors.white),
-          //                     child: SvgPicture.asset(
-          //                         'assets/images/money_in.svg')),
-          //                 SizedBox(
-          //                     width: MediaQuery.of(context).size.width * 0.02),
-          //                 Text(
-          //                   'Today’s Money IN',
-          //                   style: TextStyle(fontSize: 9, color: Colors.white),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //           Text(
-          //             'N${display(_transactionController.income.value)}',
-          //             style: TextStyle(fontSize: 18, color: Colors.white),
-          //           ),
-          //           Container(
-          //             padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-          //             decoration: BoxDecoration(
-          //                 color: Color(0xffF58D40),
-          //                 borderRadius: BorderRadius.circular(4)),
-          //             child: Row(
-          //               children: [
-          //                 Container(
-          //                     padding: EdgeInsets.all(
-          //                         MediaQuery.of(context).size.width * 0.01),
-          //                     decoration: BoxDecoration(
-          //                         shape: BoxShape.circle, color: Colors.white),
-          //                     child: SvgPicture.asset(
-          //                         'assets/images/money_out.svg')),
-          //                 SizedBox(
-          //                     width: MediaQuery.of(context).size.width * 0.02),
-          //                 Text(
-          //                   'Today’s Money OUT',
-          //                   style: TextStyle(fontSize: 9, color: Colors.white),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //           Text(
-          //             'N${display(_transactionController.expenses.value)}',
-          //             style: TextStyle(fontSize: 18, color: Colors.white),
-          //           ),
-          //         ],
-          //       )
-          //     ],
-          //   ),
-          // ),
           Obx(() {
             return Container(
-              padding:
-                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+              padding: EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -704,7 +602,7 @@ class _HomeState extends State<Home> {
                     children: [
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                         decoration: BoxDecoration(
                           color: Color(0xff016BCC),
                           borderRadius: BorderRadius.circular(8),
@@ -712,20 +610,14 @@ class _HomeState extends State<Home> {
                         child: Row(
                           children: [
                             Container(
-                              height: 15,
-                              width: 15,
-                              decoration: BoxDecoration(
-                                color: AppColor().whiteColor,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white),
                                 child: SvgPicture.asset(
                                   "assets/images/money_in.svg",
-                                  height: 10,
-                                  width: 10,
-                                ),
-                              ),
-                            ),
+                                  height: 12,
+                                )),
                             SizedBox(
                               width: 5,
                             ),
@@ -752,7 +644,7 @@ class _HomeState extends State<Home> {
                       ),
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                         decoration: BoxDecoration(
                           color: Color(0xffDD8F48),
                           borderRadius: BorderRadius.circular(8),
@@ -761,20 +653,14 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              height: 15,
-                              width: 15,
-                              decoration: BoxDecoration(
-                                color: AppColor().whiteColor,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white),
                                 child: SvgPicture.asset(
                                   "assets/images/money_out.svg",
-                                  height: 10,
-                                  width: 10,
-                                ),
-                              ),
-                            ),
+                                  height: 12,
+                                )),
                             SizedBox(
                               width: 5,
                             ),
@@ -803,7 +689,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              height: MediaQuery.of(context).size.height / 5.5,
+              height: 140,
               decoration: BoxDecoration(
                 color: AppColor().backgroundColor,
                 borderRadius: BorderRadius.circular(12),
