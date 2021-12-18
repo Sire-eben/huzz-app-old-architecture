@@ -385,11 +385,40 @@ class _MoneyInState extends State<MoneyIn> {
                                   ),
                                 ),
                               ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomTextField(
+                                      label: "Amount",
+                                      hint: 'N 0.00',
+                                      validatorText: "Amount is needed",
+                                      textEditingController:
+                                          _transactionController
+                                              .amountController,
+                                      keyType: TextInputType.phone,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.03),
+                                  Expanded(
+                                    child: CustomTextField(
+                                      label: "Quantity",
+                                      hint: '4',
+                                      validatorText: "Quantity is needed",
+                                      textEditingController:
+                                          _transactionController
+                                              .amountController,
+                                      keyType: TextInputType.phone,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ],
                           ),
                         )
                   : Container(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               (_transactionController.productList.length >= 2)
                   ? showAllItems()
                   : Container(),
