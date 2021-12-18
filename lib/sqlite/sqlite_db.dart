@@ -15,13 +15,13 @@ class SqliteDb {
   static String transactionId = "TransactionId";
   static String transactionJson = "TransactionJson";
   static String transactionTableName = "Transactions";
-  static String productbusinessTable="ProductBusinessTable";
-  static String productId="ProductId";
-  static String productJson="ProductJson";
+  static String productbusinessTable = "ProductBusinessTable";
+  static String productId = "ProductId";
+  static String productJson = "ProductJson";
 
-   static String customerbusinessTable="CustomerBusinessTable";
-  static String customerId="CustomerId";
-  static String  customerJson="CustomerJson";
+  static String customerbusinessTable = "CustomerBusinessTable";
+  static String customerId = "CustomerId";
+  static String customerJson = "CustomerJson";
 
   Future openDatabae() async {
     final databasePath = await getDatabasesPath();
@@ -48,7 +48,6 @@ $productId text primary key,
 $productJson text not null,
 $businessId text not null) 
 ''');
- 
 
       await db.execute('''create table $customerbusinessTable (
 $customerId text primary key,
@@ -77,8 +76,6 @@ $businessId text not null)
 // $imagePath text not null)
 // ''');
     });
-
- 
   }
 
   Future insertBusiness(OfflineBusiness offline) async {
@@ -150,13 +147,15 @@ $businessId text not null)
     print("updated $result");
   }
 
-  Future deleteOfflineTransaction(TransactionModel transactionModel)async{
-var result=await db.delete(transactionTableName,where:'"$transactionId" = ?',whereArgs: [transactionModel.id] );
-print("transaction is deleted $result");
-
+  Future<int> deleteOfflineTransaction(
+      TransactionModel transactionModel) async {
+    var result = await db.delete(transactionTableName,
+        where: '"$transactionId" = ?', whereArgs: [transactionModel.id]);
+    print("transaction  with ${transactionModel.id} is deleted $result ");
+    return result;
   }
 
-Future insertProduct(Product product) async {
+  Future insertProduct(Product product) async {
     var value = jsonEncode(product.toJson());
     var result = db.insert(productbusinessTable, {
       productId: product.productId,
@@ -169,8 +168,7 @@ Future insertProduct(Product product) async {
     var result = await db.query(productbusinessTable,
         where: '"$businessId" = ?', whereArgs: [id]);
     var offlineProducts = result
-        .map((e) => Product.fromJson(
-            jsonDecode(e[productJson].toString())))
+        .map((e) => Product.fromJson(jsonDecode(e[productJson].toString())))
         .toList();
     return offlineProducts;
   }
@@ -180,8 +178,7 @@ Future insertProduct(Product product) async {
         where: '"$productId" = ?', whereArgs: [id]);
     if (result.length > 0) {
       var json = result.first;
-      return Product.fromJson(
-          jsonDecode(result.first[productJson].toString()));
+      return Product.fromJson(jsonDecode(result.first[productJson].toString()));
     } else {
       return null;
     }
@@ -190,32 +187,31 @@ Future insertProduct(Product product) async {
   Future updateOfflineProdcut(Product product) async {
     var value = jsonEncode(product.toJson());
     var result = await db.update(
-        productbusinessTable, {
-           productId: product.productId,
-      businessId: product.businessId,
-      productJson: value
+        productbusinessTable,
+        {
+          productId: product.productId,
+          businessId: product.businessId,
+          productJson: value
         },
-        where: '"$productId" = ?', whereArgs: [product.productId]);
+        where: '"$productId" = ?',
+        whereArgs: [product.productId]);
 
     print("updated $result");
   }
 
-
-Future deleteProduct(Product product)async{
-var result= await db.delete(  productbusinessTable, 
+  Future deleteProduct(Product product) async {
+    var result = await db.delete(productbusinessTable,
         where: '"$productId" = ?', whereArgs: [product.productId]);
 
-print("result after delete ${result}");
-}
+    print("result after delete ${result}");
+  }
 
-
-
-Future insertCustomer(Customer customer) async {
+  Future insertCustomer(Customer customer) async {
     var value = jsonEncode(customer.toJson());
     var result = db.insert(customerbusinessTable, {
       customerId: customer.customerId,
       businessId: customer.businessId,
-    customerJson: value
+      customerJson: value
     });
   }
 
@@ -223,8 +219,7 @@ Future insertCustomer(Customer customer) async {
     var result = await db.query(customerbusinessTable,
         where: '"$businessId" = ?', whereArgs: [id]);
     var offlineCustomers = result
-        .map((e) => Customer.fromJson(
-            jsonDecode(e[customerJson].toString())))
+        .map((e) => Customer.fromJson(jsonDecode(e[customerJson].toString())))
         .toList();
     return offlineCustomers;
   }
@@ -244,24 +239,22 @@ Future insertCustomer(Customer customer) async {
   Future updateOfflineCustomer(Customer customer) async {
     var value = jsonEncode(customer.toJson());
     var result = await db.update(
-        customerbusinessTable, {
-           customerId: customer.customerId,
-      businessId: customer.businessId,
-      customerJson: value
+        customerbusinessTable,
+        {
+          customerId: customer.customerId,
+          businessId: customer.businessId,
+          customerJson: value
         },
-        where: '"$customerId" = ?', whereArgs: [customer.customerId]);
+        where: '"$customerId" = ?',
+        whereArgs: [customer.customerId]);
 
     print("updated $result");
   }
 
-
-Future deleteCustomer(Customer customer)async{
-var result= await db.delete(  customerbusinessTable, 
+  Future deleteCustomer(Customer customer) async {
+    var result = await db.delete(customerbusinessTable,
         where: '"$customerId" = ?', whereArgs: [customer.customerId]);
 
-print("result after delete ${result}");
-}
-
-
-
+    print("result after delete ${result}");
+  }
 }
