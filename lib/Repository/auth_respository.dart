@@ -10,7 +10,6 @@ import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/forget_pass/enter_forget_pin.dart';
-import 'package:huzz/app/screens/forget_pass/set_forgot_pin.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/user.dart';
@@ -209,23 +208,24 @@ class AuthRepository extends GetxController {
     try {
       _Otpverifystatus(OtpVerifyStatus.Loading);
       print("otp value ${otpController.text}");
-      final resposne = await http.post(Uri.parse(ApiLink.verify_otp),
+      final response = await http.put(Uri.parse(ApiLink.forgot_pin),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text,
-            "otp": otpController.text
+            "otp": otpController.text,
+            "pin": pinController.text,
           }),
           headers: {"Content-Type": "application/json"});
 
-      print("response of verify otp ${resposne.body}");
-      if (resposne.statusCode == 200) {
-        var json = jsonDecode(resposne.body);
+      print("response of verify otp ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
         if (json['success']) {
           _homeController.selectOnboardSelectedNext();
 
           _Otpverifystatus(OtpVerifyStatus.Success);
           Get.snackbar("Success", "OTP verified successfully");
           Timer(Duration(milliseconds: 2000), () {
-            Get.to(SetForgotPIN());
+            Get.offAll(Signin());
           });
         } else {
           _Otpverifystatus(OtpVerifyStatus.Error);
