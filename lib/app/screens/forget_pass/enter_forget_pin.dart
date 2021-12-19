@@ -18,6 +18,8 @@ class EnterForgotPIN extends StatefulWidget {
 
 class _EnterForgotPINState extends State<EnterForgotPIN> {
   final _homeController = Get.find<HomeRespository>();
+
+  StreamController<ErrorAnimationType>? pinErrorController;
   StreamController<ErrorAnimationType>? errorController;
   final _authController = Get.find<AuthRepository>();
   void initState() {
@@ -40,6 +42,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
       }
 
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -71,7 +74,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                     ],
                   ),
                 ),
-                Text('Enter Password',
+                Text('Enter OTP & Password',
                     style: TextStyle(
                         color: AppColor().orangeBorderColor,
                         fontSize: 28,
@@ -100,7 +103,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w600,
                       ),
                     )),
                 SizedBox(
@@ -163,7 +166,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                           color: AppColor().backgroundColor, fontSize: 12),
                     )),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 GestureDetector(
                     onTap: () {
@@ -173,10 +176,72 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                       "Resend via sms",
                       style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
                     )),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                    margin: EdgeInsets.only(
+                      left: 20,
+                    ),
+                    child: Text(
+                      "Create a 4-digit PIN",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: PinCodeTextField(
+                      controller: _authController.pinController,
+                      length: 4,
+                      obscureText: true,
+                      animationType: AnimationType.fade,
+                      pinTheme: PinTheme(
+                        inactiveColor: AppColor().backgroundColor,
+                        activeColor: AppColor().backgroundColor,
+                        selectedColor: AppColor().backgroundColor,
+                        selectedFillColor: Colors.white,
+                        inactiveFillColor: Colors.white,
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(5),
+                        fieldHeight: 50,
+                        fieldWidth: 50,
+                        activeFillColor: Colors.white,
+                      ),
+                      animationDuration: Duration(milliseconds: 300),
+                      backgroundColor: Colors.white,
+                      enableActiveFill: true,
+                      errorAnimationController: pinErrorController,
+                      // controller: textEditingController,
+                      onCompleted: (v) {
+                        print("Completed");
+                      },
+                      onChanged: (value) {
+                        print(value);
+                        // setState(() {
+                        //   currentText = value;
+                        // });
+                      },
+                      beforeTextPaste: (text) {
+                        print("Allowing to paste $text");
+                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                        return true;
+                      },
+                      appContext: context,
+                    ),
+                  ),
+                ),
                 Expanded(child: SizedBox()),
                 GestureDetector(
                   onTap: () {
-                    _authController.verifyOpt();
+                    _authController.verifyForgotOpt();
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
