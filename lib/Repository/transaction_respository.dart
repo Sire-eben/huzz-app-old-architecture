@@ -674,11 +674,16 @@ var todayMoneyIn=0;
 var todayMoneyout=0;
 
 todayTransaction.forEach((element) {
+     if(element.totalAmount==null){
+      return;
+    }
   if(element.transactionType=="INCOME"){
 
 todayMoneyIn=todayMoneyIn+ element.totalAmount!;
 
   }else{
+ 
+    print("total amount is ${element.totalAmount} ${element.toJson()}");
 todayMoneyout=todayMoneyout+element.totalAmount!;
 
 
