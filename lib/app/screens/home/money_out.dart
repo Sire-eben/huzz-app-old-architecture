@@ -893,10 +893,14 @@ setState(() {
                 return InkWell(
                   onTap: () {
                     if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading)
+                        AddingTransactionStatus.Loading){
                       //  _transactionController.createTransaction("INCOME");
+                    if(  _transactionController.productList.isEmpty){
+                      _transactionController.addMoreProduct();
+                    }
                       _transactionController
                           .createBusinessTransaction("EXPENDITURE");
+                  }
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
