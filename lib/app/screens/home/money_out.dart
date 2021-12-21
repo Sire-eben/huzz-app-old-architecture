@@ -950,8 +950,8 @@ class _MoneyOutState extends State<MoneyOut> {
                     if (_transactionController.addingTransactionStatus !=
                         AddingTransactionStatus.Loading)
                       //  _transactionController.createTransaction("INCOME");
-                      _transactionController
-                          .createBusinessTransaction("EXPENDITURE");
+                      _transactionController.createBusinessTransaction(
+                          "EXPENDITURE", 'money out');
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

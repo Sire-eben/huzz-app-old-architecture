@@ -10,7 +10,9 @@ import '../../../colors.dart';
 
 class IncomeSuccess extends StatelessWidget {
   TransactionModel transactionModel;
-  IncomeSuccess({Key? key, required this.transactionModel}) : super(key: key);
+  String title;
+  IncomeSuccess({Key? key, required this.transactionModel, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class IncomeSuccess extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Your income has been',
+                      'Your $title transaction has',
                       style: TextStyle(
                         color: AppColor().backgroundColor,
                         fontFamily: "DMSans",
@@ -52,7 +54,7 @@ class IncomeSuccess extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'added successfully',
+                      'been added successfully',
                       style: TextStyle(
                         color: AppColor().backgroundColor,
                         fontFamily: "DMSans",

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
@@ -330,15 +331,15 @@ class TransactionRespository extends GetxController {
 //       _addingTransactionStatus(AddingTransactionStatus.Error);
 //     }
 //   }
-  Future createBusinessTransaction(String type) async {
+  Future createBusinessTransaction(String type, String title) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      createTransactionOnline(type);
+      createTransactionOnline(type, title);
     } else {
-      createTransactionOffline(type);
+      createTransactionOffline(type, title);
     }
   }
 
-  Future createTransactionOnline(String type) async {
+  Future createTransactionOnline(String type, String title) async {
     try {
       _addingTransactionStatus(AddingTransactionStatus.Loading);
       String? fileid;
@@ -395,6 +396,7 @@ class TransactionRespository extends GetxController {
         var json = jsonDecode(response.body);
         var result = TransactionModel.fromJson(json['data']);
         Get.to(() => IncomeSuccess(
+              title: title,
               transactionModel: result,
             ));
         getOnlineTransaction(
@@ -413,7 +415,7 @@ class TransactionRespository extends GetxController {
     }
   }
 
-  Future createTransactionOffline(String type) async {
+  Future createTransactionOffline(String type, String title) async {
     String? fileid;
     String? customerId = null;
     File? outFile;
@@ -473,6 +475,7 @@ class TransactionRespository extends GetxController {
     GetOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
     Get.to(() => IncomeSuccess(
+          title: title,
           transactionModel: value!,
         ));
     clearValue();

@@ -75,6 +75,7 @@ class _HomeState extends State<Home> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
           Row(
@@ -90,7 +91,7 @@ class _HomeState extends State<Home> {
                       builder: (context) => buildSelectBusiness());
                 },
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
+                  width: MediaQuery.of(context).size.width * 0.7,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -375,7 +376,13 @@ class _HomeState extends State<Home> {
                   ],
                 )),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          Text(
+            'Today`s transaction',
+            style: TextStyle(
+                fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Expanded(
               child: Container(
             padding: EdgeInsets.only(
@@ -458,6 +465,7 @@ class _HomeState extends State<Home> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
           Row(
@@ -473,7 +481,7 @@ class _HomeState extends State<Home> {
                       builder: (context) => buildSelectBusiness());
                 },
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
+                  width: MediaQuery.of(context).size.width * 0.7,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -758,7 +766,13 @@ class _HomeState extends State<Home> {
                   ],
                 )),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          Text(
+            'Today`s transaction',
+            style: TextStyle(
+                fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Expanded(
               child: Container(
                   padding: EdgeInsets.only(
