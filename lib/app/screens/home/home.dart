@@ -118,9 +118,17 @@ class _HomeState extends State<Home> {
               Container(
                   child: Row(
                 children: [
-                  SvgPicture.asset('assets/images/bell.svg'),
+                  GestureDetector(
+                    onTap: (){
+                            Get.to(NotificationSettings());
+                    },
+                    child: SvgPicture.asset('assets/images/bell.svg')),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                  SvgPicture.asset('assets/images/settings.svg')
+                  GestureDetector(
+                    onTap: (){
+                         Get.to(Settings());
+                    },
+                    child: SvgPicture.asset('assets/images/settings.svg'))
                 ],
               )),
             ],
@@ -1064,7 +1072,7 @@ class _HomeState extends State<Home> {
                                       color: _randomColor.randomColor()),
                                   child: Center(
                                       child: Text(
-                                    '',
+                                   (item.business==null || item.business!.businessName!.isEmpty )? '':item.business!.businessName![0],
                                     style: TextStyle(
                                         fontSize: 30,
                                         color: Colors.white,

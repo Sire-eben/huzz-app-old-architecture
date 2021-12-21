@@ -702,6 +702,7 @@ void addMoreProduct(){
  
  if(selectedValue==0){
    
+   if(selectedProduct!=null)
   productList.add(PaymentItem(
 productId: selectedProduct!.productId!,
 itemName:selectedProduct!.productName, 
@@ -716,6 +717,7 @@ quality: selectedProduct!.quantity!
 
 
  }else{
+   if(itemNameController.text.isNotEmpty && amountController.text.isNotEmpty)
 productList.add(PaymentItem(
 itemName: itemNameController.text,
 quality: int.parse(quantityController.text),

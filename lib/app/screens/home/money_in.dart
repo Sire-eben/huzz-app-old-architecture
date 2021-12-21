@@ -455,7 +455,7 @@ setState(() {
                           icon: Icon(Icons.calendar_today),
                           color: Colors.orange,
                         ),
-                        validatorText: "Select date is needed",
+                        // validatorText: "Select date is needed",
                         keyType: TextInputType.phone,
                       ),
                     ),
@@ -478,7 +478,7 @@ setState(() {
                           color: Colors.orange,
                         ),
                         keyType: TextInputType.phone,
-                        validatorText: "Select time is needed",
+                        // validatorText: "Select time is needed",
                       ),
                     ),
                   ],
@@ -900,12 +900,40 @@ setState(() {
                   onTap: () {
                     if (_transactionController.addingTransactionStatus !=
                         AddingTransactionStatus.Loading){
-                              if(  _transactionController.productList.isEmpty){
+                               if(  _transactionController.productList.isEmpty){
                       _transactionController.addMoreProduct();
                     }
+                    if(_transactionController.productList.isNotEmpty){
+                          if(_transactionController.selectedPaymentMode!=null && _transactionController.selectedPaymentSource!=null
+                          
+                          ){
+                        
+                        if(_transactionController.addCustomer){
+                        if( _transactionController.selectedCustomer!=null ||
+                        
+                        _customerController.nameController.text.isNotEmpty && _customerController.phoneNumberController.text.isNotEmpty){
+                       
+                        
+                        }else{
+                         Get.snackbar("Error", "Fill up your contact details");
+                         return;
+                        }
+                        }
+
+                       
                       //  _transactionController.createTransaction("INCOME");
                       _transactionController
                           .createBusinessTransaction("INCOME");
+                        }else
+                        {
+                          Get.snackbar("Error", "Fill up important information");
+                        }
+                        }else{
+                       
+
+                          Get.snackbar("Error", "You need to have at least one product to proceed");
+                      
+                        }
                         }
                   },
                   child: Container(

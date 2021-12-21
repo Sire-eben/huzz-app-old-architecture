@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/model/product.dart';
@@ -18,6 +19,9 @@ class SqliteDb {
   static String productbusinessTable="ProductBusinessTable";
   static String productId="ProductId";
   static String productJson="ProductJson";
+  static String bankAccountTable="BankAccount";
+  static String bankAccountId="BankAccountId";
+  static String bankAccountJson="BankAccountJson";
 
    static String customerbusinessTable="CustomerBusinessTable";
   static String customerId="CustomerId";
@@ -78,7 +82,12 @@ $businessId text not null)
 // ''');
     });
 
- 
+       await db.execute('''create table $bankAccountTable (
+$bankAccountId text primary key,
+$bankAccountJson text not null,
+$businessId text not null) 
+''');
+
   }
 
   Future insertBusiness(OfflineBusiness offline) async {
@@ -111,6 +120,11 @@ $businessId text not null)
     print("updated $result");
   }
 
+Future deleteAllOfflineBusiness()async{
+db.delete(businessTableName);
+
+
+}
   Future insertTransaction(TransactionModel transaction) async {
     var value = jsonEncode(transaction.toJson());
     var result = db.insert(transactionTableName, {
@@ -155,6 +169,12 @@ var result=await db.delete(transactionTableName,where:'"$transactionId" = ?',whe
 print("transaction  with ${transactionModel.id} is deleted $result ");
 return result;
   }
+
+Future deleteAllOfflineTransaction()async{
+ await db.delete(transactionTableName);
+
+  
+}
 
 Future insertProduct(Product product) async {
     var value = jsonEncode(product.toJson());
@@ -207,7 +227,10 @@ var result= await db.delete(  productbusinessTable,
 
 print("result after delete ${result}");
 }
+Future deleteAllProducts()async{
+db.delete(productbusinessTable);
 
+}
 
 
 Future insertCustomer(Customer customer) async {
@@ -262,6 +285,65 @@ var result= await db.delete(  customerbusinessTable,
 print("result after delete ${result}");
 }
 
+Future deleteAllCustomers()async{
+db.delete(customerbusinessTable);
+}
+
+Future insertBankAccount(Bank bank) async {
+    var value = jsonEncode(bank.toJson());
+    var result = db.insert(bankAccountTable, {
+      bankAccountId: bank.id,
+      businessId: bank.businessId,
+    bankAccountJson: value
+    });
+  }
+
+  Future<List<Bank>> getOfflineBankInfos(String id) async {
+    var result = await db.query(bankAccountTable,
+        where: '"$businessId" = ?', whereArgs: [id]);
+    var offlineBankInfos = result
+        .map((e) => Bank.fromJson(
+            jsonDecode(e[bankAccountJson].toString())))
+        .toList();
+    return offlineBankInfos;
+  }
+
+  Future<Bank?> getOfflineBankInfo(String id) async {
+    var result = await db.query(bankAccountTable,
+        where: '"$bankAccountId" = ?', whereArgs: [id]);
+    if (result.length > 0) {
+      var json = result.first;
+      return Bank.fromJson(
+          jsonDecode(result.first[bankAccountJson].toString()));
+    } else {
+      return null;
+    }
+  }
+
+  Future updateOfflineBank(Bank bank) async {
+    var value = jsonEncode(bank.toJson());
+    var result = await db.update(
+        bankAccountTable, {
+           bankAccountId: bank.id,
+      businessId: bank.businessId,
+      bankAccountJson: value
+        },
+        where: '"$bankAccountId" = ?', whereArgs: [bank.id]);
+
+    print("updated $result");
+  }
+
+
+Future deleteBank(Bank bank)async{
+var result= await db.delete(  customerbusinessTable, 
+        where: '"$bankAccountId" = ?', whereArgs: [bank.id]);
+
+print("result after delete ${result}");
+}
+
+Future deleteAllBanks()async{
+db.delete(bankAccountTable);
+}
 
 
 }

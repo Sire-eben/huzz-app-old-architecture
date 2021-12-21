@@ -13,6 +13,7 @@ import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
+import 'package:huzz/sqlite/sqlite_db.dart';
 
 import 'fingerprint_repository.dart';
 import 'home_respository.dart';
@@ -65,6 +66,7 @@ class AuthRepository extends GetxController {
   SharePref? pref;
   final Mtoken = "".obs;
   String get token => Mtoken.value;
+   SqliteDb sqliteDb = SqliteDb();
 
   User? user;
   @override
@@ -304,7 +306,18 @@ class AuthRepository extends GetxController {
 
   void logout() {
     _authStatus(AuthStatus.UnAuthenticated);
+    pref!.saveToken("0");
+    clearDatabase();
     pref!.logout();
     Get.off(Signin());
+  }
+  void clearDatabase()async{
+
+await sqliteDb.openDatabae();
+sqliteDb.deleteAllOfflineBusiness();
+sqliteDb.deleteAllOfflineTransaction();
+sqliteDb.deleteAllProducts();
+sqliteDb.deleteAllCustomers();
+
   }
 }

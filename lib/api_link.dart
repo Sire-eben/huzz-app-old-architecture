@@ -29,4 +29,5 @@ class ApiLink {
   static String get_business_customer = baseurl + "business/customer";
 // ignore: non_constant_identifier_names
   static String add_customer = baseurl + "business/customer";
+  static String add_bank_info=baseurl+"bank-info";
 }

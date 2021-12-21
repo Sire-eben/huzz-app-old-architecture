@@ -176,7 +176,10 @@ class Settings extends GetView<AuthRepository> {
                       ),
                       InkWell(
                         onTap: () {
-                          _displayDialog(context);
+                          _displayDialog(context,"are you want to delete your account",(){
+
+
+                          });
                         },
                         child: Container(
                           height: 30,
@@ -268,7 +271,7 @@ class Settings extends GetView<AuthRepository> {
                       ),
                       InkWell(
                         onTap: () {
-                          _displayDialog(context);
+                          // _displayDialog(context);
                         },
                         child: Container(
                           height: 30,
@@ -408,7 +411,11 @@ class Settings extends GetView<AuthRepository> {
                       Spacer(),
                       GestureDetector(
                         onTap: () {
-                          controller.logout();
+                          _displayDialog(context, "Are you sure you want to log out", () {
+
+                            controller.logout();
+                           });
+                        
                         },
                         child: Container(
                           height: 30,
@@ -442,20 +449,20 @@ class Settings extends GetView<AuthRepository> {
     );
   }
 
-  _displayDialog(BuildContext context) async {
+  _displayDialog(BuildContext context,String title,VoidCallback onContinue) async {
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 200,
+              vertical: 250,
             ),
             title: Row(
               children: [
                 Expanded(
                   child: Text(
-                    'You are about to delete your Huzz account and all associated data. This is an irreversible action. Are you sure you want to continue?',
+                    '$title',
                     style: TextStyle(
                       color: AppColor().blackColor,
                       fontFamily: 'DMSans',
@@ -516,7 +523,9 @@ class Settings extends GetView<AuthRepository> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        onContinue();
+                      },
                       child: Container(
                         height: 45,
                         width: 100,
