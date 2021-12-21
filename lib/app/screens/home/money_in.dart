@@ -317,7 +317,7 @@ class _MoneyInState extends State<MoneyIn> {
                             ),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.03),
+                                    MediaQuery.of(context).size.height * 0.01),
                           ],
                         )
                       : Padding(
