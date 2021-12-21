@@ -873,7 +873,8 @@ class _HomeState extends State<Home> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset('assets/images/moneyRound_out.png'),
+                              SvgPicture.asset(
+                                  'assets/images/moneyRound_out.svg'),
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
@@ -915,7 +916,8 @@ class _HomeState extends State<Home> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset('assets/images/moneyRound_in.png'),
+                              SvgPicture.asset(
+                                  'assets/images/moneyRound_in.svg'),
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),

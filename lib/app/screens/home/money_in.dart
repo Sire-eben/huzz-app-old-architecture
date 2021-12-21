@@ -45,7 +45,7 @@ class _MoneyInState extends State<MoneyIn> {
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
-  String title = 'money out';
+
   String? value;
 
   String countryFlag = "NG";
