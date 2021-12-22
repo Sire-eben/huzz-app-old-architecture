@@ -16,20 +16,21 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
 class PdfMoneyInOutApi {
- 
- static Customer? customer=null;
-  static final _businessController=Get.find<BusinessRespository>();
-  static final _customerController=Get.find<CustomerRepository>();
+  static Customer? customer = null;
+  static final _businessController = Get.find<BusinessRespository>();
+  static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(TransactionModel transactionModel) async {
     final pdf = Document();
-    if(transactionModel.customerId!=null)
-customer=_customerController.checkifCustomerAvailableWithValue(transactionModel.customerId!);
+    if (transactionModel.customerId != null)
+      customer = _customerController
+          .checkifCustomerAvailableWithValue(transactionModel.customerId!);
 
     pdf.addPage(MultiPage(
       build: (context) => [
         buildHeader(_businessController.selectedBusiness.value!),
         SizedBox(height: 2 * PdfPageFormat.cm),
-        buildMoneyInOutInvoice(transactionModel.businessTransactionPaymentItemList!),
+        buildMoneyInOutInvoice(
+            transactionModel.businessTransactionPaymentItemList!),
         Divider(),
         buildTotal(transactionModel.businessTransactionPaymentItemList!),
         SizedBox(height: 2 * PdfPageFormat.cm),
@@ -90,9 +91,11 @@ customer=_customerController.checkifCustomerAvailableWithValue(transactionModel.
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(item.businessEmail??"", style: TextStyle(color: PdfColors.white)),
+          Text(item.businessEmail ?? "",
+              style: TextStyle(color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(item.businessPhoneNumber!, style: TextStyle(color: PdfColors.white)),
+          Text(item.businessPhoneNumber!,
+              style: TextStyle(color: PdfColors.white)),
         ],
       );
 
@@ -145,17 +148,13 @@ customer=_customerController.checkifCustomerAvailableWithValue(transactionModel.
   }
 
   static Widget buildTotal(List<PaymentItem> items) {
-
-   var netTotal =0;
+    var netTotal = 0;
     // items
     //     .map((item) => item.amount! * item.quality!)
     //     .reduce((item1, item2) => item1 + item2);
-items.forEach((element) {
-  netTotal=netTotal+(element.amount!*element.quality!);
-
-});
-
-
+    items.forEach((element) {
+      netTotal = netTotal + (element.amount! * element.quality!);
+    });
 
     final total = netTotal;
 
@@ -177,7 +176,7 @@ items.forEach((element) {
             ),
           ),
           Text(
-            Utils.formatPrice(total*1.0),
+            Utils.formatPrice(total * 1.0),
             style: TextStyle(
               color: PdfColors.blue,
               fontSize: 14,
@@ -194,18 +193,22 @@ items.forEach((element) {
         children: [
           SizedBox(height: 2 * PdfPageFormat.mm),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-           (customer!=null)? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'ISSUED TO:',
-                style: TextStyle(
-                  color: PdfColors.blue,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(customer!.name!),
-              Text(customer.phone!),
-            ]):Container(),
+            (customer != null)
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        Text(
+                          'ISSUED TO:',
+                          style: TextStyle(
+                            color: PdfColors.blue,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(customer!.name!),
+                        Text(customer.phone!),
+                      ])
+                : Container(),
             Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text('POWERED BY:'),
               Row(children: [

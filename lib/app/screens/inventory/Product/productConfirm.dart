@@ -6,8 +6,9 @@ import '../../../../colors.dart';
 
 // ignore: must_be_immutable
 class Confirmation extends StatelessWidget {
-  String text;
-  Confirmation({Key? key, required this.text}) : super(key: key);
+  String text, title;
+  Confirmation({Key? key, required this.text, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class Confirmation extends StatelessWidget {
           ),
           Center(
             child: Text(
-              'Product Successfully ',
+              '$title Successfully ',
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: 'DMSans',
@@ -65,7 +66,9 @@ class Confirmation extends StatelessWidget {
           Spacer(),
           InkWell(
             onTap: () {
-              Get.to(Dashboard(selectedIndex: 1,));
+              Get.to(Dashboard(
+                selectedIndex: 1,
+              ));
             },
             child: Container(
               height: 55,

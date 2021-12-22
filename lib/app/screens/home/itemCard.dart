@@ -5,15 +5,15 @@ import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 
 class ItemCard extends StatelessWidget {
-PaymentItem item;
- final VoidCallback? onDelete;
-final VoidCallback? onEdit;
- ItemCard({required this.item,  this.onDelete,  this.onEdit});
+  PaymentItem item;
+  final VoidCallback? onDelete;
+  final VoidCallback? onEdit;
+  ItemCard({required this.item, this.onDelete, this.onEdit});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.height * 0.03,vertical: 10),
+          horizontal: MediaQuery.of(context).size.height * 0.03, vertical: 10),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.08,
         width: MediaQuery.of(context).size.width,
@@ -62,7 +62,7 @@ final VoidCallback? onEdit;
             ),
             Expanded(
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   onEdit!();
                 },
                 child: SvgPicture.asset(

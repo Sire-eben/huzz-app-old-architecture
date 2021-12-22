@@ -92,7 +92,7 @@ class ProductRepository extends GetxController
     });
   }
 
-  Future addProductOnline(String type) async {
+  Future addProductOnline(String type, String title) async {
     try {
       _addingProductStatus(AddingProductStatus.Loading);
       String? fileId = null;
@@ -124,6 +124,7 @@ class ProductRepository extends GetxController
         clearValue();
         Get.to(Confirmation(
           text: "Added",
+          title: title,
         ));
       } else {
         _addingProductStatus(AddingProductStatus.Error);
@@ -135,23 +136,23 @@ class ProductRepository extends GetxController
     }
   }
 
-  Future addBudinessProduct(String type) async {
+  Future addBudinessProduct(String type, String title) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      addProductOnline(type);
+      addProductOnline(type, title);
     } else {
-      addBusinessProductOffline(type);
+      addBusinessProductOffline(type, title);
     }
   }
 
-  Future UpdateBusinessProduct(Product product) async {
+  Future UpdateBusinessProduct(Product product, String title) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      updateBusinessProductOnline(product);
+      updateBusinessProductOnline(product, title);
     } else {
-      updateBusinessProductOffline(product);
+      updateBusinessProductOffline(product, title);
     }
   }
 
-  Future addBusinessProductOffline(String type) async {
+  Future addBusinessProductOffline(String type, String title) async {
     File? outFile;
     if (productImage.value != null) {
       var list = await getApplicationDocumentsDirectory();
@@ -183,10 +184,11 @@ class ProductRepository extends GetxController
     getOfflineProduct(_businessController.selectedBusiness.value!.businessId!);
     Get.to(Confirmation(
       text: "Added",
+      title: title,
     ));
   }
 
-  Future updateBusinessProductOffline(Product newproduct) async {
+  Future updateBusinessProductOffline(Product newproduct, String title) async {
     File? outFile;
     if (productImage != null) {
       var list = await getApplicationDocumentsDirectory();
@@ -214,6 +216,7 @@ class ProductRepository extends GetxController
     clearValue();
     Get.to(Confirmation(
       text: "Updated",
+      title: title,
     ));
   }
 
@@ -227,7 +230,7 @@ class ProductRepository extends GetxController
     serviceDescription.text = "";
   }
 
-  Future updateBusinessProductOnline(Product product) async {
+  Future updateBusinessProductOnline(Product product, String title) async {
     try {
       _addingProductStatus(AddingProductStatus.Loading);
       String? fileId = null;
@@ -260,6 +263,7 @@ class ProductRepository extends GetxController
 
         Get.to(Confirmation(
           text: "Updated",
+          title: title,
         ));
         clearValue();
       } else {

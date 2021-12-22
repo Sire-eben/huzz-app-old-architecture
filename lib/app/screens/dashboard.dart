@@ -76,14 +76,6 @@ class _DashboardState extends State<Dashboard> {
               ),
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor),
-          BottomNavyBarItem(
-              icon: Icon(Icons.dashboard),
-              title: Text(
-                'More',
-                style: AppThemes.style12PriBold,
-              ),
-              activeColor: AppColor().backgroundColor,
-              inactiveColor: inactiveColor)
         ],
         onItemSelected: (index) => setState(() => this.selectedIndex = index),
       ),
@@ -98,11 +90,10 @@ class _DashboardState extends State<Dashboard> {
         return ManageInventory();
       case 2:
         return Home();
+
       case 3:
-        return AvailableInvoice();
-      case 4:
       default:
-        return More();
+        return AvailableInvoice();
     }
   }
 }
