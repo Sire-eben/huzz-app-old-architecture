@@ -8,6 +8,7 @@ import 'package:huzz/app/screens/create_business.dart';
 // import 'package:huzz/app/screens/home/add_new_sale.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
+import 'package:huzz/app/screens/home/records.dart';
 import 'package:huzz/app/screens/settings/notification.dart';
 import 'package:huzz/app/screens/settings/settings.dart';
 import 'package:huzz/colors.dart';
@@ -182,34 +183,39 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Spacer(),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff056B5C),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "See all your Records",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => Records());
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Color(0xff056B5C),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "See all your Records",
+                                style: TextStyle(
+                                  color: AppColor().whiteColor,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.arrow_forward_outlined,
-                              color: AppColor().whiteColor,
-                              size: 18,
-                            ),
-                          ],
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.arrow_forward_outlined,
+                                color: AppColor().whiteColor,
+                                size: 18,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -554,34 +560,39 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Spacer(),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff056B5C),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "See all your Records",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => Records());
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Color(0xff056B5C),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "See all your Records",
+                                style: TextStyle(
+                                  color: AppColor().whiteColor,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.arrow_forward_outlined,
-                              color: AppColor().whiteColor,
-                              size: 18,
-                            ),
-                          ],
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.arrow_forward_outlined,
+                                color: AppColor().whiteColor,
+                                size: 18,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
