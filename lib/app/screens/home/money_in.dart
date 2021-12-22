@@ -958,10 +958,14 @@ class _MoneyInState extends State<MoneyIn> {
                 return InkWell(
                   onTap: () {
                     if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading)
+                        AddingTransactionStatus.Loading){
+                              if(  _transactionController.productList.isEmpty){
+                      _transactionController.addMoreProduct();
+                    }
                       //  _transactionController.createTransaction("INCOME");
                       _transactionController.createBusinessTransaction(
                           "INCOME", 'money in');
+
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

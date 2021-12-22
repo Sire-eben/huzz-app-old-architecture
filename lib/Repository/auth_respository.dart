@@ -9,6 +9,7 @@ import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
+import 'package:huzz/app/screens/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/user.dart';
@@ -45,6 +46,8 @@ class AuthRepository extends GetxController {
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final pinController = TextEditingController();
+  final forgetpinController = TextEditingController();
+  final verifypinController = TextEditingController();
   final confirmPinController = TextEditingController();
   final _Otpverifystatus = OtpVerifyStatus.Empty.obs;
   final _signupStatus = SignupStatus.Empty.obs;
@@ -134,6 +137,31 @@ class AuthRepository extends GetxController {
     }
   }
 
+  Future sendForgetOtp() async {
+    print("phone number ${countryText}${phoneNumberController.text}");
+    try {
+      _Otpauthstatus(OtpAuthStatus.Loading);
+      final response = await http.post(Uri.parse(ApiLink.send_smsOtp),
+          body: jsonEncode(
+              {"phoneNumber": countryText + phoneNumberController.text}),
+          headers: {"Content-Type": "application/json"});
+      print("response is ${response.body}");
+      if (response.statusCode == 200) {
+        _Otpauthstatus(OtpAuthStatus.Success);
+
+        Timer(Duration(milliseconds: 2000), () {
+          Get.to(EnterForgotPIN());
+        });
+        // _homeController.selectOnboardSelectedNext();
+      } else {
+        _Otpauthstatus(OtpAuthStatus.Error);
+      }
+    } catch (ex) {
+      print("errror otp send ${ex.toString()}");
+      _Otpauthstatus(OtpAuthStatus.Error);
+    }
+  }
+
   Future sendVoiceOtp() async {
     // _Otpauthstatus(OtpAuthStatus.Loading);
     final response = await http.post(Uri.parse(ApiLink.send_voiceOtp),
@@ -166,6 +194,41 @@ class AuthRepository extends GetxController {
 
           _Otpverifystatus(OtpVerifyStatus.Success);
           Get.snackbar("Success", "Otp is sent successfully");
+        } else {
+          _Otpverifystatus(OtpVerifyStatus.Error);
+          Get.snackbar("Error", "Unable to send Otp");
+        }
+      }
+    } catch (ex) {
+      print("error from verify otp ${ex.toString()}");
+      Get.snackbar("Error", "Error sending Otp");
+      _Otpverifystatus(OtpVerifyStatus.Error);
+    }
+  }
+
+  Future verifyForgotOpt() async {
+    try {
+      _Otpverifystatus(OtpVerifyStatus.Loading);
+      print("otp value ${otpController.text}");
+      final response = await http.put(Uri.parse(ApiLink.forgot_pin),
+          body: jsonEncode({
+            "phoneNumber": countryText + phoneNumberController.text,
+            "otp": otpController.text,
+            "pin": pinController.text,
+          }),
+          headers: {"Content-Type": "application/json"});
+
+      print("response of verify otp ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+          _homeController.selectOnboardSelectedNext();
+
+          _Otpverifystatus(OtpVerifyStatus.Success);
+          Get.snackbar("Success", "OTP verified successfully");
+          Timer(Duration(milliseconds: 2000), () {
+            Get.offAll(Signin());
+          });
         } else {
           _Otpverifystatus(OtpVerifyStatus.Error);
           Get.snackbar("Error", "Unable to send Otp");

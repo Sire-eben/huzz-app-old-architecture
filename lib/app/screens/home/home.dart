@@ -26,7 +26,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final display = createDisplay(
-    length: 8,
+    length: 10,
     decimal: 0,
   );
 

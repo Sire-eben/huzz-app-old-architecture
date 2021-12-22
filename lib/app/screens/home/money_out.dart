@@ -943,11 +943,15 @@ class _MoneyOutState extends State<MoneyOut> {
               Obx(() {
                 return InkWell(
                   onTap: () {
-                    if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading)
-                      //  _transactionController.createTransaction("INCOME");
-                      _transactionController.createBusinessTransaction(
-                          "EXPENDITURE", 'money out');
+                
+
+                    if(  _transactionController.productList.isEmpty){
+                      _transactionController.addMoreProduct();
+                    }
+                      _transactionController
+                          .createBusinessTransaction("EXPENDITURE",'money out');
+                  
+
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
