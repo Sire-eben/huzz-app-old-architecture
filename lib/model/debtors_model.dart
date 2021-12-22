@@ -1,64 +1,64 @@
-class DebtorsModel {
+class DebtorsModels {
   String? name, phone, image, balance, paid;
-  DebtorsModel({this.image, this.name, this.phone, this.balance, this.paid});
+  DebtorsModels({this.image, this.name, this.phone, this.balance, this.paid});
 }
 
-List<DebtorsModel> debtorsList = [
-  DebtorsModel(
+List<DebtorsModels> debtorsList = [
+  DebtorsModels(
       name: 'Olatunde Joshua',
       phone: '09038726495',
       balance: 'N10,000',
       paid: 'N7,000',
       image: 'assets/images/cus1.png'),
-  DebtorsModel(
+  DebtorsModels(
       name: 'Akinlose Damilare',
       phone: '09038726495',
       balance: 'N10,000',
       paid: 'N7,000',
       image: 'assets/images/cus2.png'),
-  DebtorsModel(
+  DebtorsModels(
       name: 'Olaitan Adetayo',
       phone: '09038726495',
       balance: 'N10,000',
       paid: 'N7,000',
       image: 'assets/images/cus3.png'),
-  DebtorsModel(
+  DebtorsModels(
       name: 'Akinlose Joshua',
       phone: '09038726495',
       balance: 'N10,000',
       paid: 'N7,000',
       image: 'assets/images/cus4.png'),
-  DebtorsModel(
+  DebtorsModels(
       name: 'Olatunde Joshua',
       phone: '09038726495',
       balance: 'N10,000',
       paid: 'N7,000',
       image: 'assets/images/cus1.png'),
-  DebtorsModel(
+  DebtorsModels(
       name: 'Olatunde Joshua',
       phone: '09038726495',
       balance: 'N10,000',
       paid: 'N7,000',
       image: 'assets/images/cus1.png'),
-  DebtorsModel(
+  DebtorsModels(
       name: 'Akinlose Damilare',
       phone: '09038726495',
       balance: 'N10,000',
       paid: 'N7,000',
       image: 'assets/images/cus2.png'),
-  DebtorsModel(
+  DebtorsModels(
       name: 'Olaitan Adetayo',
       phone: '09038726495',
       balance: 'N10,000',
       paid: 'N7,000',
       image: 'assets/images/cus3.png'),
-  DebtorsModel(
+  DebtorsModels(
       name: 'Akinlose Joshua',
       phone: '09038726495',
       balance: 'N10,000',
       paid: 'N7,000',
       image: 'assets/images/cus4.png'),
-  DebtorsModel(
+  DebtorsModels(
       name: 'Olatunde Joshua',
       phone: '09038726495',
       balance: 'N10,000',

@@ -60,7 +60,6 @@ AddingBankInfoStatus get addingBankStatus => _addingBankStatus.value;
   void onInit() {
     // TODO: implement onInit
 
-
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
@@ -336,7 +335,6 @@ await _businessController.sqliteDb.updateOfflineBank(bank);
     print("offline Bank found ${result.length}");
     // setBankDifferent();
   }
-
 
   Future getOnlineBank(String businessId) async {
     print("trying to get Bank online");

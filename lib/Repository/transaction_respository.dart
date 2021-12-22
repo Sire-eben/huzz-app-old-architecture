@@ -410,7 +410,7 @@ if(response.statusCode==200){
  _addingTransactionStatus(AddingTransactionStatus.Success);
  var json=jsonDecode(response.body);
  var result=TransactionModel.fromJson(json['data']);
-           Get.to(() => IncomeSuccess(transactionModel: result,));
+           Get.to(() => IncomeSuccess(transactionModel: result,title: "Transaction",));
          getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
 
 GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
@@ -496,7 +496,7 @@ isPending: true,
 print("offline saving to database ${value!.toJson()}}");
    await _businessController.sqliteDb.insertTransaction(value!);
    GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
-  Get.to(() => IncomeSuccess(transactionModel: value!,));
+  Get.to(() => IncomeSuccess(transactionModel: value!,title: "Transaction",));
 clearValue();
 }
 Future checkIfTransactionThatIsYetToBeAdded()async{

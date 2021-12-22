@@ -210,7 +210,7 @@ class AuthRepository extends GetxController {
     try {
       _Otpverifystatus(OtpVerifyStatus.Loading);
       print("otp value ${otpController.text}");
-      final response = await http.put(Uri.parse(ApiLink.forgot_pin),
+      final response = await http.put(Uri.parse(ApiLink.forget_pin),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text,
             "otp": otpController.text,
@@ -222,7 +222,7 @@ class AuthRepository extends GetxController {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
-          _homeController.selectOnboardSelectedNext();
+          // _homeController.selectOnboardSelectedNext();
 
           _Otpverifystatus(OtpVerifyStatus.Success);
           Get.snackbar("Success", "OTP verified successfully");

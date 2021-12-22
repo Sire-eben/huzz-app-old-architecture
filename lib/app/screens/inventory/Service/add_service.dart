@@ -185,9 +185,11 @@ class _AddServiceState extends State<AddService> {
                 if (_productController.addingProductStatus !=
                     AddingProductStatus.Loading) {
                   if (widget.item == null)
-                    _productController.addBudinessProduct("SERVICES");
+                    _productController.addBudinessProduct(
+                        "SERVICES", 'Service');
                   else
-                    _productController.UpdateBusinessProduct(widget.item!);
+                    _productController.UpdateBusinessProduct(
+                        widget.item!, 'Service');
                 }
               },
               child: Container(
