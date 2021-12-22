@@ -162,7 +162,7 @@ class _RecordsState extends State<Records> {
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
                 child: Container(
-                  padding: EdgeInsets.all(12),
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 30),
                   height: 100,
                   decoration: BoxDecoration(
                     color: AppColor().backgroundColor,
@@ -176,32 +176,34 @@ class _RecordsState extends State<Records> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Money Out",
-                            style: TextStyle(
-                              color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.025),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Money Out",
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "N55,000",
-                            style: TextStyle(
-                              color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              "N55,000",
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -216,46 +218,45 @@ class _RecordsState extends State<Records> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
                           Text(
-                            "N55,000",
+                            "N3,570",
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'DMSans',
-                              fontSize: 14,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Money Out",
-                            style: TextStyle(
-                              color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.025),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Money Out",
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "N55,000",
-                            style: TextStyle(
-                              color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              "N55,000",
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
