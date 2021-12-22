@@ -99,8 +99,6 @@ $businessId text not null)
 $invoiceId text primary key,
 $invoiceJson text not null,
 $businessId text not null)
-
-
 ''');
 
   }
