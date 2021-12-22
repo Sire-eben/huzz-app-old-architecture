@@ -175,6 +175,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                   _transactionController.selectedValue = 1);
                             },
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Radio<int>(
                                     value: 1,
@@ -240,7 +241,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           )
@@ -273,7 +274,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                   horizontal:
                                       MediaQuery.of(context).size.height *
                                           0.03),
-                              child: Row(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
                                     child: CustomTextField(
@@ -332,16 +334,41 @@ class _MoneyOutState extends State<MoneyOut> {
                                         fontSize: 12,
                                         fontFamily: 'DMSans'),
                                   ),
-                                  SizedBox(
-                                    width: 5,
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: CustomTextField(
+                                          label: "Amount",
+                                          hint: 'N 0.00',
+                                          validatorText: "Amount is needed",
+                                          textEditingController:
+                                              _transactionController
+                                                  .amountController,
+                                          keyType: TextInputType.phone,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.03),
+                                      Expanded(
+                                        child: CustomTextField(
+                                          label: "Quantity",
+                                          hint: '4',
+                                          validatorText: "Quantity is needed",
+                                          textEditingController:
+                                              _transactionController
+                                                  .amountController,
+                                          keyType: TextInputType.phone,
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  Text(
-                                    "*",
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans'),
-                                  )
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.02),
                                 ],
                               ),
                               SizedBox(
@@ -381,46 +408,15 @@ class _MoneyOutState extends State<MoneyOut> {
                                   ),
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Amount",
-                                      hint: 'N 0.00',
-                                      validatorText: "Amount is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .amountController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.03),
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Quantity",
-                                      hint: '4',
-                                      validatorText: "Quantity is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .amountController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02),
                             ],
                           ),
                         )
                   : Container(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               (_transactionController.productList.length >= 2)
                   ? showAllItems()
                   : Container(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               GestureDetector(
                 onTap: () {
                   print("New Item is selected");

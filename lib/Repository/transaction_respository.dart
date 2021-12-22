@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
@@ -396,8 +395,8 @@ class TransactionRespository extends GetxController {
         var json = jsonDecode(response.body);
         var result = TransactionModel.fromJson(json['data']);
         Get.to(() => IncomeSuccess(
-              title: title,
               transactionModel: result,
+              title: title,
             ));
         getOnlineTransaction(
             _businessController.selectedBusiness.value!.businessId!);
@@ -475,8 +474,8 @@ class TransactionRespository extends GetxController {
     GetOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
     Get.to(() => IncomeSuccess(
-          title: title,
           transactionModel: value!,
+          title: title,
         ));
     clearValue();
   }
@@ -628,9 +627,13 @@ class TransactionRespository extends GetxController {
     var todayMoneyout = 0;
 
     todayTransaction.forEach((element) {
+      if (element.totalAmount == null) {
+        return;
+      }
       if (element.transactionType == "INCOME") {
         todayMoneyIn = todayMoneyIn + element.totalAmount!;
       } else {
+        print("total amount is ${element.totalAmount} ${element.toJson()}");
         todayMoneyout = todayMoneyout + element.totalAmount!;
       }
     });
@@ -642,20 +645,23 @@ class TransactionRespository extends GetxController {
 
   void addMoreProduct() {
     if (selectedValue == 0) {
-      productList.add(PaymentItem(
-          productId: selectedProduct!.productId!,
-          itemName: selectedProduct!.productName,
-          amount: selectedProduct!.sellingPrice,
-          totalAmount:
-              (selectedProduct!.sellingPrice! * selectedProduct!.quantity!),
-          quality: selectedProduct!.quantity!));
+      if (selectedProduct != null)
+        productList.add(PaymentItem(
+            productId: selectedProduct!.productId!,
+            itemName: selectedProduct!.productName,
+            amount: selectedProduct!.sellingPrice,
+            totalAmount:
+                (selectedProduct!.sellingPrice! * selectedProduct!.quantity!),
+            quality: selectedProduct!.quantity!));
     } else {
-      productList.add(PaymentItem(
-          itemName: itemNameController.text,
-          quality: int.parse(quantityController.text),
-          amount: int.parse(amountController.text),
-          totalAmount: int.parse(amountController.text) *
-              int.parse(quantityController.text)));
+      if (itemNameController.text.isNotEmpty &&
+          amountController.text.isNotEmpty)
+        productList.add(PaymentItem(
+            itemName: itemNameController.text,
+            quality: int.parse(quantityController.text),
+            amount: int.parse(amountController.text),
+            totalAmount: int.parse(amountController.text) *
+                int.parse(quantityController.text)));
     }
 
     selectedProduct = null;

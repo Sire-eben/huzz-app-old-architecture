@@ -9,7 +9,6 @@ class PaymentItem {
   int? amount;
   bool? isFullyPaid;
   int? totalAmount;
-
   DateTime? createdTime;
   DateTime? updatedTime;
   bool? deleted;

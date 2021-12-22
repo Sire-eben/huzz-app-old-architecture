@@ -176,6 +176,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   _transactionController.selectedValue = 1);
                             },
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Radio<int>(
                                     value: 1,
@@ -241,7 +242,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           )
@@ -318,7 +319,7 @@ class _MoneyInState extends State<MoneyIn> {
                             ),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01),
+                                    MediaQuery.of(context).size.height * 0.03),
                           ],
                         )
                       : Padding(
@@ -330,96 +331,102 @@ class _MoneyInState extends State<MoneyIn> {
                             children: [
                               Row(
                                 children: [
-                                  Text(
-                                    'Select Product',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans'),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Select Product',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                            fontFamily: 'DMSans'),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        "*",
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 12,
+                                            fontFamily: 'DMSans'),
+                                      )
+                                    ],
                                   ),
                                   SizedBox(
-                                    width: 5,
+                                    height: 8,
                                   ),
-                                  Text(
-                                    "*",
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans'),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                        width: 2,
-                                        color: AppColor().backgroundColor)),
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton<Product>(
-                                    value:
-                                        _transactionController.selectedProduct,
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down,
-                                      color: AppColor().backgroundColor,
-                                    ),
-                                    iconSize: 30,
-                                    items: _productController.productGoods
-                                        .map((value) {
-                                      return DropdownMenuItem<Product>(
-                                        value: value,
-                                        child: Text(value.productName!),
-                                      );
-                                    }).toList(),
-                                    onChanged: (value) => setState(() {
-                                      _transactionController.selectedProduct =
-                                          value;
-                                      _transactionController
-                                          .selectedProduct!.quantity = 1;
-                                    }),
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Amount",
-                                      hint: 'N 0.00',
-                                      validatorText: "Amount is needed",
-                                      textEditingController:
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 4),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            width: 2,
+                                            color: AppColor().backgroundColor)),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton<Product>(
+                                        value: _transactionController
+                                            .selectedProduct,
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: AppColor().backgroundColor,
+                                        ),
+                                        iconSize: 30,
+                                        items: _productController.productGoods
+                                            .map((value) {
+                                          return DropdownMenuItem<Product>(
+                                            value: value,
+                                            child: Text(value.productName!),
+                                          );
+                                        }).toList(),
+                                        onChanged: (value) => setState(() {
                                           _transactionController
-                                              .amountController,
-                                      keyType: TextInputType.phone,
+                                              .selectedProduct = value;
+                                          _transactionController
+                                              .selectedProduct!.quantity = 1;
+                                        }),
+                                      ),
                                     ),
                                   ),
-                                  SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.height *
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: CustomTextField(
+                                          label: "Amount",
+                                          hint: 'N 0.00',
+                                          validatorText: "Amount is needed",
+                                          textEditingController:
+                                              _transactionController
+                                                  .amountController,
+                                          keyType: TextInputType.phone,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
                                               0.03),
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Quantity",
-                                      hint: '4',
-                                      validatorText: "Quantity is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .amountController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  )
+                                      Expanded(
+                                        child: CustomTextField(
+                                          label: "Quantity",
+                                          hint: '4',
+                                          validatorText: "Quantity is needed",
+                                          textEditingController:
+                                              _transactionController
+                                                  .amountController,
+                                          keyType: TextInputType.phone,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ],
                               ),
                             ],
                           ),
                         )
                   : Container(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               (_transactionController.productList.length >= 2)
                   ? showAllItems()
                   : Container(),

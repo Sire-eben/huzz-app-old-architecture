@@ -227,15 +227,7 @@ class _HomeState extends State<Home> {
                         ),
                         child: Row(
                           children: [
-                            Container(
-                                padding: EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white),
-                                child: SvgPicture.asset(
-                                  "assets/images/money_in.svg",
-                                  height: 12,
-                                )),
+                            SvgPicture.asset("assets/images/money_in.png"),
                             SizedBox(
                               width: 5,
                             ),
@@ -270,15 +262,7 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                                padding: EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white),
-                                child: SvgPicture.asset(
-                                  "assets/images/money_out.svg",
-                                  height: 12,
-                                )),
+                            SvgPicture.asset("assets/images/money_out.png"),
                             SizedBox(
                               width: 5,
                             ),
@@ -433,14 +417,12 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'N ${display(item.amount)}',
+                            'N ${display(item.totalAmount)}',
                             style: TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            item.totalAmount == item.amount
-                                ? "Fully Paid"
-                                : "Partially",
+                            item.isFullyPaid! ? "Fully Paid" : "Partially",
                             style: TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),
@@ -970,53 +952,59 @@ class _HomeState extends State<Home> {
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     var item = _businessController.offlineBusiness[index];
-                    return Row(
-                      children: [
-                        Expanded(
-                            child: Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: _randomColor.randomColor()),
-                                child: Center(
-                                    child: Text(
-                                  '${item.business!.businessName![0]}',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                      fontFamily: 'DMSans',
-                                      fontWeight: FontWeight.bold),
-                                ))),
-                          ),
-                        )),
-                        Expanded(
-                            flex: 2,
-                            child: Text(
-                              '${item.business!.businessName!}',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans',
-                                  fontWeight: FontWeight.bold),
-                            )),
-                        Expanded(
+                    return GestureDetector(
+                      onTap: () {
+                        _businessController.selectedBusiness(item.business);
+                        Navigator.pop(context);
+                      },
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Container(
+                            margin: EdgeInsets.only(bottom: 10),
                             child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Radio<Business>(
-                              value: item.business!,
-                              activeColor: AppColor().backgroundColor,
-                              groupValue:
-                                  _businessController.selectedBusiness.value,
-                              onChanged: (value) {
-                                _businessController.selectedBusiness(value);
-                                Navigator.pop(context);
-                              }),
-                        )),
-                      ],
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: _randomColor.randomColor()),
+                                  child: Center(
+                                      child: Text(
+                                    '',
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Colors.white,
+                                        fontFamily: 'DMSans',
+                                        fontWeight: FontWeight.bold),
+                                  ))),
+                            ),
+                          )),
+                          Expanded(
+                              flex: 2,
+                              child: Text(
+                                '${item.business!.businessName!}',
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.black,
+                                    fontFamily: 'DMSans',
+                                    fontWeight: FontWeight.bold),
+                              )),
+                          Expanded(
+                              child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Radio<Business>(
+                                value: item.business!,
+                                activeColor: AppColor().backgroundColor,
+                                groupValue:
+                                    _businessController.selectedBusiness.value,
+                                onChanged: (value) {
+                                  _businessController.selectedBusiness(value);
+                                  Navigator.pop(context);
+                                }),
+                          )),
+                        ],
+                      ),
                     );
                   },
                   itemCount: _businessController.offlineBusiness.length,

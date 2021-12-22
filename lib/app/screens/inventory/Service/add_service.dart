@@ -8,8 +8,6 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'servicelist.dart';
-
 class AddService extends StatefulWidget {
   Product? item;
   AddService({Key? key, this.item}) : super(key: key);
@@ -32,15 +30,15 @@ class _AddServiceState extends State<AddService> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColor().whiteColor,
-        // leading: GestureDetector(
-        //   onTap: () {
-        //     Get.back();
-        //   },
-        //   child: Icon(
-        //     Icons.arrow_back,
-        //     color: AppColor().backgroundColor,
-        //   ),
-        // ),
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: AppColor().backgroundColor,
+          ),
+        ),
         title: Text(
           (widget.item == null) ? "Add Service" : "Update Service",
           style: TextStyle(
@@ -50,187 +48,185 @@ class _AddServiceState extends State<AddService> {
         ),
         elevation: 0,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          GestureDetector(
-            onTap: () => showModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(20))),
-                context: context,
-                builder: (context) => buildAddImage()),
-            child: Center(
-              child: (_productController.productImage.value != null)
-                  ? Image.file(
-                      _productController.productImage.value!,
-                      height: 150,
-                      width: 150,
-                    )
-                  : Image.asset(
-                      'assets/images/Group 3647.png',
-                      height: 50,
-                      color: AppColor().backgroundColor,
-                    ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 80,
             ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Center(
-            child: Text(
-              'Service Image',
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: 'DMSans',
-                fontSize: 12,
+            GestureDetector(
+              onTap: () => showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20))),
+                  context: context,
+                  builder: (context) => buildAddImage()),
+              child: Center(
+                child: (_productController.productImage.value != null)
+                    ? Image.file(
+                        _productController.productImage.value!,
+                        height: 150,
+                        width: 150,
+                      )
+                    : Image.asset(
+                        'assets/images/Group 3647.png',
+                        height: 50,
+                        color: AppColor().backgroundColor,
+                      ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
+            SizedBox(
+              height: 5,
+            ),
+            Center(
+              child: Text(
+                'Service Image',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'DMSans',
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            CustomTextField(
               label: "Service name",
               validatorText: "Service name is needed",
               hint: 'E.g Television',
               textEditingController: _productController.productNameController,
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
+            SizedBox(
+              height: 10,
+            ),
+            CustomTextField(
               label: "Service Amount",
               validatorText: "Service amount is needed",
               hint: 'N0.00',
               textEditingController:
                   _productController.productCostPriceController,
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 50,
-            margin: EdgeInsets.only(
-              left: 20,
-              right: 20,
+            SizedBox(
+              height: 10,
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Service Description',
-                  style: TextStyle(color: Colors.black, fontSize: 12),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 5),
-                  child: Text(
-                    "*",
-                    style: TextStyle(color: Colors.red, fontSize: 12),
+            Container(
+              height: 50,
+              margin: EdgeInsets.only(
+                left: 20,
+                right: 20,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Service Description',
+                    style: TextStyle(color: Colors.black, fontSize: 12),
                   ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: AppColor().whiteColor,
-                border: Border.all(
-                  width: 2,
-                  color: AppColor().backgroundColor,
-                ),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: TextFormField(
-                controller: _productController.serviceDescription,
-                textInputAction: TextInputAction.none,
-                decoration: InputDecoration(
-                  isDense: true,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
+                  SizedBox(
+                    width: 5,
                   ),
-                  hintText: 'Add a brief service description',
-                  hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontFamily: 'DMSans',
-                        color: Colors.black26,
-                        fontSize: 14,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.normal,
-                      ),
-                ),
+                  Container(
+                    margin: EdgeInsets.only(top: 5),
+                    child: Text(
+                      "*",
+                      style: TextStyle(color: Colors.red, fontSize: 12),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Spacer(),
-          InkWell(
-            onTap: () {
-              // Get.to(ServiceListing());
-
-              if (_productController.addingProductStatus !=
-                  AddingProductStatus.Loading) {
-                if (widget.item == null)
-                  _productController.addBudinessProduct("SERVICES", 'Service');
-                else
-                  _productController.UpdateBusinessProduct(
-                      widget.item!, 'Service');
-              }
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 55,
-              margin: EdgeInsets.symmetric(
-                horizontal: 15,
-              ),
-              decoration: BoxDecoration(
-                  color: AppColor().backgroundColor,
-                  borderRadius: BorderRadius.circular(10)),
-              child: (_productController.addingProductStatus ==
-                      AddingProductStatus.Loading)
-                  ? Container(
-                      width: 30,
-                      height: 30,
-                      child: Center(
-                          child:
-                              CircularProgressIndicator(color: Colors.white)),
-                    )
-                  : Center(
-                      child: Text(
-                        (widget.item == null) ? 'Save' : "Update",
-                        style: TextStyle(
-                          color: AppColor().whiteColor,
+            SizedBox(
+              height: 3,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: AppColor().whiteColor,
+                  border: Border.all(
+                    width: 2,
+                    color: AppColor().backgroundColor,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextFormField(
+                  controller: _productController.serviceDescription,
+                  textInputAction: TextInputAction.none,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: 'Add a brief service description',
+                    hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
                           fontFamily: 'DMSans',
-                          fontWeight: FontWeight.bold,
+                          color: Colors.black26,
+                          fontSize: 14,
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.normal,
+                        ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Spacer(),
+            InkWell(
+              onTap: () {
+                // Get.to(ServiceListing());
+
+                if (_productController.addingProductStatus !=
+                    AddingProductStatus.Loading) {
+                  if (widget.item == null)
+                    _productController.addBudinessProduct(
+                        "SERVICES", 'Service');
+                  else
+                    _productController.UpdateBusinessProduct(
+                        widget.item!, 'Service');
+                }
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 55,
+                margin: EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                decoration: BoxDecoration(
+                    color: AppColor().backgroundColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: (_productController.addingProductStatus ==
+                        AddingProductStatus.Loading)
+                    ? Container(
+                        width: 30,
+                        height: 30,
+                        child: Center(
+                            child:
+                                CircularProgressIndicator(color: Colors.white)),
+                      )
+                    : Center(
+                        child: Text(
+                          (widget.item == null) ? 'Save' : "Update",
+                          style: TextStyle(
+                            color: AppColor().whiteColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 40,
-          ),
-        ],
+            SizedBox(
+              height: 40,
+            ),
+          ],
+        ),
       ),
     );
   }
