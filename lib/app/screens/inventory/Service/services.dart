@@ -14,119 +14,121 @@ class Services extends StatefulWidget {
 }
 
 class _ServicesState extends State<Services> {
-  final _productController=Get.find<ProductRepository>();
+  final _productController = Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
-    return (_productController.productServices.isNotEmpty)?ServiceListing(): Stack(
-      children: [
-        Positioned(
-          top: 30,
-          left: 20,
-          right: 20,
-          child: serviceCount(context),
-        ),
-        Positioned(
-          bottom: 30,
-          top: 150,
-          left: 20,
-          right: 20,
-          child: Container(
-            padding: EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Color(0xffF5F5F5),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: Color(0xffC3C3C3),
+    return (_productController.productServices.isNotEmpty)
+        ? ServiceListing()
+        : Stack(
+            children: [
+              Positioned(
+                top: 30,
+                left: 20,
+                right: 20,
+                child: serviceCount(context),
               ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/Group 3625.png',
-                  height: 50,
-                  color: AppColor().backgroundColor,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Add service',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Your services will show here. Click the",
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 11,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                Text(
-                  "New Service button to add your first service",
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 11,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 10,
-          right: 30,
-          child: InkWell(
-            onTap: () {
-              Get.to(AddService());
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 15,
-              ),
-              decoration: BoxDecoration(
-                color: AppColor().backgroundColor,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.add,
-                    size: 18,
-                    color: Colors.white,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'New Service',
-                    style: TextStyle(
-                      color: AppColor().whiteColor,
-                      fontFamily: 'DMSans',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+              Positioned(
+                bottom: 30,
+                top: 150,
+                left: 20,
+                right: 20,
+                child: Container(
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: Color(0xffF5F5F5),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Color(0xffC3C3C3),
                     ),
                   ),
-                ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/Group 3625.png',
+                        height: 50,
+                        color: AppColor().backgroundColor,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Add service',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Your services will show here. Click the",
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 11,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      Text(
+                        "New Service button to add your first service",
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 11,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-      ],
-    );
+              Positioned(
+                bottom: 10,
+                right: 30,
+                child: InkWell(
+                  onTap: () {
+                    Get.to(AddService());
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.add,
+                          size: 18,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'New Service',
+                          style: TextStyle(
+                            color: AppColor().whiteColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
   }
 
   Widget serviceCount(BuildContext context) => Container(
