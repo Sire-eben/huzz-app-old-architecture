@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/customer_model.dart';
+import 'package:huzz/model/invoice.dart';
 import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/transaction_model.dart';
@@ -26,6 +27,9 @@ class SqliteDb {
   static String customerbusinessTable = "CustomerBusinessTable";
   static String customerId = "CustomerId";
   static String customerJson = "CustomerJson";
+  static String invoiceTableName = "Invoice";
+  static String invoiceJson = "InvoiceJson";
+  static String invoiceId = "InvoiceId";
 
   Future openDatabae() async {
     final databasePath = await getDatabasesPath();
@@ -58,6 +62,11 @@ $customerId text primary key,
 $customerJson text not null,
 $businessId text not null) 
 ''');
+      await db.execute('''create table $bankAccountTable (
+$bankAccountId text primary key,
+$bankAccountJson text not null,
+$businessId text not null) 
+''');
 
 // await db.execute(''' create table $playtableName (
 // $courseId integer,
@@ -81,10 +90,10 @@ $businessId text not null)
 // ''');
     });
 
-    await db.execute('''create table $bankAccountTable (
-$bankAccountId text primary key,
-$bankAccountJson text not null,
-$businessId text not null) 
+    await db.execute('''create table $invoiceTableName (
+$invoiceId text primary key,
+$invoiceJson text not null,
+$businessId text not null)
 ''');
   }
 

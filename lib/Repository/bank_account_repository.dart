@@ -41,11 +41,11 @@ class BankAccountRepository extends GetxController {
   Rx<List<Bank>> _deleteBankList = Rx([]);
   List<Bank> get deleteBankList => _deleteBankList.value;
   List<Bank> pendingUpdatedBankList = [];
-  Rx<List<Bank>> _BankBank = Rx([]);
-  Rx<List<Bank>> _BankMerchant = Rx([]);
+  Rx<List<Bank>> _offlineBank = Rx([]);
+  // Rx<List<Bank>> _BankMerchant = Rx([]);
   final isBankService = false.obs;
-  List<Bank> get BankBank => _BankBank.value;
-  List<Bank> get BankMerchant => _BankMerchant.value;
+  List<Bank> get offlineBank => _offlineBank.value;
+  // List<Bank> get BankMerchant => _BankMerchant.value;
   List<Contact> contactList = [];
 
   Rx<File?> BankImage = Rx(null);
@@ -73,8 +73,7 @@ class BankAccountRepository extends GetxController {
             _offlineBusinessBank([]);
 
             _onlineBusinessBank([]);
-            _BankBank([]);
-            _BankMerchant([]);
+
             getOnlineBank(p0.businessId!);
             getOfflineBank(p0.businessId!);
           }
@@ -105,11 +104,11 @@ class BankAccountRepository extends GetxController {
     }
   }
 
-  Future addBusinnessBank(String type) async {
+  Future addBusinnessBank() async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      addBusinessBankOnline(type);
+      addBusinessBankOnline();
     } else {
-      addBusinessBankOffline(type);
+      addBusinessBankOffline();
     }
   }
 
@@ -129,7 +128,7 @@ class BankAccountRepository extends GetxController {
     }
   }
 
-  Future addBusinessBankOnline(String transactionType) async {
+  Future addBusinessBankOnline() async {
     try {
       _addingBankStatus(AddingBankInfoStatus.Loading);
       var response = await http.post(Uri.parse(ApiLink.add_bank_info),
@@ -152,6 +151,7 @@ class BankAccountRepository extends GetxController {
           getOnlineBank(
               _businessController.selectedBusiness.value!.businessId!);
           clearValue();
+          Get.back();
           // Get.to(ConfirmationBank(
           //   text: "Added",
           // ));
@@ -220,7 +220,7 @@ class BankAccountRepository extends GetxController {
     return bank.id!;
   }
 
-  Future addBusinessBankOffline(String transactionType) async {
+  Future addBusinessBankOffline() async {
     var bank = Bank(
         bankName: bankNameController.text,
         bankAccountName: bankAccountNameController.text,
@@ -232,6 +232,7 @@ class BankAccountRepository extends GetxController {
     await _businessController.sqliteDb.insertBankAccount(bank);
     getOfflineBank(bank.businessId!);
     clearValue();
+    Get.back();
     //  Get.to(ConfirmationBank(
     //           text: "Added",
     //         ));
@@ -307,9 +308,8 @@ class BankAccountRepository extends GetxController {
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       if (json['success']) {
-        var result = List.from(json['data']['content'])
-            .map((e) => Bank.fromJson(e))
-            .toList();
+        var result =
+            List.from(json['data']).map((e) => Bank.fromJson(e)).toList();
         _onlineBusinessBank(result);
         print("Bank business lenght ${result.length}");
         await getBusinessBankYetToBeSavedLocally();
