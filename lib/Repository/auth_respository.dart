@@ -220,7 +220,7 @@ class AuthRepository extends GetxController {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
-          _homeController.selectOnboardSelectedNext();
+          // _homeController.selectOnboardSelectedNext();
 
           _Otpverifystatus(OtpVerifyStatus.Success);
           Get.snackbar("Success", "OTP verified successfully");
