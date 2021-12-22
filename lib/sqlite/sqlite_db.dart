@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/customer_model.dart';
+import 'package:huzz/model/invoice.dart';
 import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/transaction_model.dart';
@@ -26,6 +27,9 @@ class SqliteDb {
    static String customerbusinessTable="CustomerBusinessTable";
   static String customerId="CustomerId";
   static String  customerJson="CustomerJson";
+  static String invoiceTableName="Invoice";
+  static String invoiceJson="InvoiceJson";
+  static String invoiceId="InvoiceId";
 
   Future openDatabae() async {
     final databasePath = await getDatabasesPath();
@@ -59,6 +63,12 @@ $customerId text primary key,
 $customerJson text not null,
 $businessId text not null) 
 ''');
+     await db.execute('''create table $bankAccountTable (
+$bankAccountId text primary key,
+$bankAccountJson text not null,
+$businessId text not null) 
+''');
+
 
 // await db.execute(''' create table $playtableName (
 // $courseId integer,
@@ -82,10 +92,12 @@ $businessId text not null)
 // ''');
     });
 
-       await db.execute('''create table $bankAccountTable (
-$bankAccountId text primary key,
-$bankAccountJson text not null,
-$businessId text not null) 
+  await db.execute('''create table $invoiceTableName (
+$invoiceId text primary key,
+$invoiceJson text not null,
+$businessId text not null)
+
+
 ''');
 
   }
@@ -345,5 +357,62 @@ Future deleteAllBanks()async{
 db.delete(bankAccountTable);
 }
 
+
+
+Future insertInvoce(Invoice invoice) async {
+    var value = jsonEncode(invoice.toJson());
+    var result = db.insert(bankAccountTable, {
+      bankAccountId: bank.id,
+      businessId: bank.businessId,
+    bankAccountJson: value
+    });
+  }
+
+  Future<List<Bank>> getOfflineBankInfos(String id) async {
+    var result = await db.query(bankAccountTable,
+        where: '"$businessId" = ?', whereArgs: [id]);
+    var offlineBankInfos = result
+        .map((e) => Bank.fromJson(
+            jsonDecode(e[bankAccountJson].toString())))
+        .toList();
+    return offlineBankInfos;
+  }
+
+  Future<Bank?> getOfflineBankInfo(String id) async {
+    var result = await db.query(bankAccountTable,
+        where: '"$bankAccountId" = ?', whereArgs: [id]);
+    if (result.length > 0) {
+      var json = result.first;
+      return Bank.fromJson(
+          jsonDecode(result.first[bankAccountJson].toString()));
+    } else {
+      return null;
+    }
+  }
+
+  Future updateOfflineBank(Bank bank) async {
+    var value = jsonEncode(bank.toJson());
+    var result = await db.update(
+        bankAccountTable, {
+           bankAccountId: bank.id,
+      businessId: bank.businessId,
+      bankAccountJson: value
+        },
+        where: '"$bankAccountId" = ?', whereArgs: [bank.id]);
+
+    print("updated $result");
+  }
+
+
+Future deleteBank(Bank bank)async{
+var result= await db.delete(  customerbusinessTable, 
+        where: '"$bankAccountId" = ?', whereArgs: [bank.id]);
+
+print("result after delete ${result}");
+}
+
+Future deleteAllBanks()async{
+db.delete(bankAccountTable);
+}
 
 }

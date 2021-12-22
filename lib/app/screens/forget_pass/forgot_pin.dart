@@ -190,7 +190,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                 Expanded(child: SizedBox()),
                 GestureDetector(
                   onTap: () {
-                    _authController.verifyOpt();
+                    _authController.sendForgetOtp();
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -205,8 +205,9 @@ class _ForgotPINState extends State<ForgotPIN> {
                             width: 30,
                             height: 30,
                             child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
+                              child: CircularProgressIndicator(
+                                  color: Colors.white),
+                            ),
                           )
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.center,

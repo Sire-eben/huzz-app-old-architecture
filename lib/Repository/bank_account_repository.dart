@@ -41,11 +41,11 @@ AddingBankInfoStatus get addingBankStatus => _addingBankStatus.value;
   Rx<List<Bank>> _deleteBankList = Rx([]);
   List<Bank> get deleteBankList => _deleteBankList.value;
   List<Bank> pendingUpdatedBankList = [];
-  Rx<List<Bank>> _BankBank = Rx([]);
-  Rx<List<Bank>> _BankMerchant = Rx([]);
+  Rx<List<Bank>> _offlineBank = Rx([]);
+  // Rx<List<Bank>> _BankMerchant = Rx([]);
   final isBankService = false.obs;
-  List<Bank> get BankBank => _BankBank.value;
-  List<Bank> get BankMerchant => _BankMerchant.value;
+  List<Bank> get offlineBank => _offlineBank.value;
+  // List<Bank> get BankMerchant => _BankMerchant.value;
   List<Contact> contactList = [];
 
   Rx<File?> BankImage = Rx(null);
@@ -74,8 +74,7 @@ AddingBankInfoStatus get addingBankStatus => _addingBankStatus.value;
             _offlineBusinessBank([]);
 
             _onlineBusinessBank([]);
-            _BankBank([]);
-            _BankMerchant([]);
+            
             getOnlineBank(p0.businessId!);
             getOfflineBank(p0.businessId!);
           }
@@ -112,14 +111,14 @@ checkPendingBankTobeUpdatedToServer();
       print("phone contact ${contactList.length}");
     }
   }
-Future addBusinnessBank(String type)async{
+Future addBusinnessBank()async{
 
   if( _userController.onlineStatus==OnlineStatus.Onilne){
-addBusinessBankOnline(type);
+addBusinessBankOnline();
 
   }else{
 
-    addBusinessBankOffline(type);
+    addBusinessBankOffline();
   }
 }
 
@@ -150,7 +149,7 @@ deleteBankOffline(item);
 
 }
 
-  Future addBusinessBankOnline(String transactionType) async {
+  Future addBusinessBankOnline() async {
 
 
     try {
@@ -175,6 +174,7 @@ deleteBankOffline(item);
           getOnlineBank(
               _businessController.selectedBusiness.value!.businessId!);
           clearValue();
+          Get.back();
           // Get.to(ConfirmationBank(
           //   text: "Added",
           // ));
@@ -251,7 +251,7 @@ isCreatedFromInvoice: true,
 
 
 
-  Future addBusinessBankOffline(String transactionType)async
+  Future addBusinessBankOffline()async
   {
 var bank= Bank(
    bankName: bankNameController.text,
@@ -268,6 +268,7 @@ var bank= Bank(
    await _businessController.sqliteDb.insertBankAccount(bank);
    getOfflineBank(bank.businessId!);
       clearValue();
+      Get.back();
   //  Get.to(ConfirmationBank(
   //           text: "Added",
   //         ));
@@ -347,7 +348,7 @@ await _businessController.sqliteDb.updateOfflineBank(bank);
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       if (json['success']) {
-        var result = List.from(json['data']['content'])
+        var result = List.from(json['data'])
             .map((e) => Bank.fromJson(e))
             .toList();
         _onlineBusinessBank(result);
