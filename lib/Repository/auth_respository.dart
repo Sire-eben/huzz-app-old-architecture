@@ -69,7 +69,7 @@ class AuthRepository extends GetxController {
   SharePref? pref;
   final Mtoken = "".obs;
   String get token => Mtoken.value;
-  SqliteDb sqliteDb = SqliteDb();
+   SqliteDb sqliteDb = SqliteDb();
 
   User? user;
   @override
@@ -210,7 +210,7 @@ class AuthRepository extends GetxController {
     try {
       _Otpverifystatus(OtpVerifyStatus.Loading);
       print("otp value ${otpController.text}");
-      final response = await http.put(Uri.parse(ApiLink.forgot_pin),
+      final response = await http.put(Uri.parse(ApiLink.forget_pin),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text,
             "otp": otpController.text,
@@ -373,12 +373,13 @@ class AuthRepository extends GetxController {
     pref!.logout();
     Get.off(Signin());
   }
+  void clearDatabase()async{
 
-  void clearDatabase() async {
-    await sqliteDb.openDatabae();
-    sqliteDb.deleteAllOfflineBusiness();
-    sqliteDb.deleteAllOfflineTransaction();
-    sqliteDb.deleteAllProducts();
-    sqliteDb.deleteAllCustomers();
+await sqliteDb.openDatabae();
+sqliteDb.deleteAllOfflineBusiness();
+sqliteDb.deleteAllOfflineTransaction();
+sqliteDb.deleteAllProducts();
+sqliteDb.deleteAllCustomers();
+
   }
 }

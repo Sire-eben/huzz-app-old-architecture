@@ -982,7 +982,7 @@ class _HomeState extends State<Home> {
                                       color: _randomColor.randomColor()),
                                   child: Center(
                                       child: Text(
-                                    '',
+                                   (item.business==null || item.business!.businessName!.isEmpty )? '':item.business!.businessName![0],
                                     style: TextStyle(
                                         fontSize: 30,
                                         color: Colors.white,

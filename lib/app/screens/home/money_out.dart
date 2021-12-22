@@ -916,42 +916,43 @@ class _MoneyOutState extends State<MoneyOut> {
               Obx(() {
                 return InkWell(
                   onTap: () {
-                    if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading) {
-                      if (_transactionController.productList.isEmpty) {
-                        _transactionController.addMoreProduct();
-                      }
-                      if (_transactionController.productList.isNotEmpty) {
-                        if (_transactionController.selectedPaymentMode !=
-                                null &&
-                            _transactionController.selectedPaymentSource !=
-                                null) {
-                          if (_transactionController.addCustomer) {
-                            if (_transactionController.selectedCustomer !=
-                                    null ||
-                                _customerController
-                                        .nameController.text.isNotEmpty &&
-                                    _customerController.phoneNumberController
-                                        .text.isNotEmpty) {
-                            } else {
-                              Get.snackbar(
-                                  "Error", "Fill up your contact details");
-                              return;
-                            }
-                          }
-
-                          //  _transactionController.createTransaction("INCOME");
-                          _transactionController.createBusinessTransaction(
-                              "EXPENDITURE", 'money out');
-                        } else {
-                          Get.snackbar(
-                              "Error", "Fill up important information");
-                        }
-                      } else {
-                        Get.snackbar("Error",
-                            "You need to have at least one product to proceed");
-                      }
+                   if (_transactionController.addingTransactionStatus !=
+                        AddingTransactionStatus.Loading){
+                               if(  _transactionController.productList.isEmpty){
+                      _transactionController.addMoreProduct();
                     }
+                    if(_transactionController.productList.isNotEmpty){
+                          if(_transactionController.selectedPaymentMode!=null && _transactionController.selectedPaymentSource!=null
+                          
+                          ){
+                        
+                        if(_transactionController.addCustomer){
+                        if( _transactionController.selectedCustomer!=null ||
+                        
+                        _customerController.nameController.text.isNotEmpty && _customerController.phoneNumberController.text.isNotEmpty){
+                       
+                        
+                        }else{
+                         Get.snackbar("Error", "Fill up your contact details");
+                         return;
+                        }
+                        }
+
+                       
+                      //  _transactionController.createTransaction("INCOME");
+                      _transactionController
+                          .createBusinessTransaction("EXPENDITURE");
+                        }else
+                        {
+                          Get.snackbar("Error", "Fill up important information");
+                        }
+                        }else{
+                       
+
+                          Get.snackbar("Error", "You need to have at least one product to proceed");
+                      
+                        }
+                        }
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
