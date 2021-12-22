@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
+import 'package:huzz/Repository/debtors_repository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
@@ -16,6 +17,7 @@ class AppBinding extends Bindings {
     Get.put(FileUploadRespository(), permanent: true);
 
     Get.put(ProductRepository(), permanent: true);
+    Get.put(DebtorsRepository(), permanent: true);
     Get.put(CustomerRepository(), permanent: true);
     Get.put(TransactionRespository(), permanent: true);
   }

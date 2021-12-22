@@ -1,4 +1,4 @@
-class Debtor {
+class DebtorsModel {
   String? debtorId;
   String? customerId;
   String? businessId;
@@ -11,7 +11,7 @@ class Debtor {
   bool? deleted;
   String? businessTransactionType;
 
-  Debtor({
+  DebtorsModel({
     this.debtorId,
     this.customerId,
     this.businessId,
@@ -25,7 +25,7 @@ class Debtor {
     this.deleted,
   });
 
-  factory Debtor.fromJson(Map<String, dynamic> json) => Debtor(
+  factory DebtorsModel.fromJson(Map<String, dynamic> json) => DebtorsModel(
         debtorId: json["id"],
         customerId: json["customerId"],
         businessId: json["businessId"],
