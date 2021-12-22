@@ -941,8 +941,8 @@ class _MoneyOutState extends State<MoneyOut> {
                           }
 
                           //  _transactionController.createTransaction("INCOME");
-                          _transactionController
-                              .createBusinessTransaction("EXPENDITURE");
+                          _transactionController.createBusinessTransaction(
+                              "EXPENDITURE", 'money out');
                         } else {
                           Get.snackbar(
                               "Error", "Fill up important information");

@@ -945,8 +945,8 @@ class _MoneyInState extends State<MoneyIn> {
                           }
 
                           //  _transactionController.createTransaction("INCOME");
-                          _transactionController
-                              .createBusinessTransaction("INCOME");
+                          _transactionController.createBusinessTransaction(
+                              "INCOME", 'money in');
                         } else {
                           Get.snackbar(
                               "Error", "Fill up important information");
