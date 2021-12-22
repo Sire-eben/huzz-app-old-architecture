@@ -3,20 +3,19 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
-import 'package:huzz/app/screens/home/income_success.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
-import 'package:huzz/colors.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
+import '../../../colors.dart';
+import 'income_success.dart';
 import 'itemCard.dart';
 
 class MoneyOut extends StatefulWidget {
@@ -45,13 +44,13 @@ class _MoneyOutState extends State<MoneyOut> {
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
-
   String? value;
 
   String countryFlag = "NG";
   String countryCode = "234";
   String am = 'AM';
   String pm = "PM";
+  File? image;
 
   int paymentType = 0;
   int paymentModes = 0;
@@ -176,7 +175,6 @@ class _MoneyOutState extends State<MoneyOut> {
                                   _transactionController.selectedValue = 1);
                             },
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Radio<int>(
                                     value: 1,
@@ -242,7 +240,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           )
@@ -261,11 +259,10 @@ class _MoneyOutState extends State<MoneyOut> {
                                           0.03),
                               child: CustomTextField(
                                 label: "Item Name",
+                                validatorText: "Item name is needed",
                                 onChanged: (value) {
-                                  print("value is $value");
                                   setState(() {});
                                 },
-                                validatorText: "Item name is needed",
                                 textEditingController:
                                     _transactionController.itemNameController,
                                 hint: 'E.g. Television',
@@ -282,11 +279,11 @@ class _MoneyOutState extends State<MoneyOut> {
                                     child: CustomTextField(
                                       label: "Amount",
                                       hint: 'N 0.00',
-                                      validatorText: "Amount is needed",
                                       onChanged: (value) {
                                         print("value is $value");
                                         setState(() {});
                                       },
+                                      validatorText: "Amount is needed",
                                       textEditingController:
                                           _transactionController
                                               .amountController,
@@ -301,15 +298,12 @@ class _MoneyOutState extends State<MoneyOut> {
                                     child: CustomTextField(
                                         label: "Quantity",
                                         hint: '4',
-                                        keyType: TextInputType.phone,
-                                        validatorText: "Quantity is needed",
                                         onChanged: (value) {
                                           print("value is $value");
                                           setState(() {});
                                         },
-                                        onSubmited: (value) {
-                                          setState(() {});
-                                        },
+                                        keyType: TextInputType.phone,
+                                        validatorText: "Quantity is needed",
                                         textEditingController:
                                             _transactionController
                                                 .quantityController),
@@ -317,6 +311,9 @@ class _MoneyOutState extends State<MoneyOut> {
                                 ],
                               ),
                             ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.03),
                           ],
                         )
                       : Padding(
@@ -383,36 +380,6 @@ class _MoneyOutState extends State<MoneyOut> {
                                     }),
                                   ),
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Amount",
-                                      hint: 'N 0.00',
-                                      validatorText: "Amount is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .amountController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.03),
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Quantity",
-                                      hint: '4',
-                                      validatorText: "Quantity is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .amountController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  )
-                                ],
                               ),
                             ],
                           ),
@@ -596,18 +563,13 @@ class _MoneyOutState extends State<MoneyOut> {
               ),
               (_transactionController.selectedPaymentMode != null &&
                       _transactionController.selectedPaymentMode == "DEPOSIT")
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
-                      child: CustomTextField(
-                        label: "Amount Paid",
-                        hint: 'N 0.00',
-                        validatorText: "Amount Paid is needed",
-                        keyType: TextInputType.number,
-                        textEditingController:
-                            _transactionController.amountPaidController,
-                      ),
+                  ? CustomTextField(
+                      label: "Amount Paid",
+                      hint: 'N 0.00',
+                      validatorText: "Amount Paid is needed",
+                      keyType: TextInputType.number,
+                      textEditingController:
+                          _transactionController.amountPaidController,
                     )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -954,15 +916,42 @@ class _MoneyOutState extends State<MoneyOut> {
               Obx(() {
                 return InkWell(
                   onTap: () {
+                    if (_transactionController.addingTransactionStatus !=
+                        AddingTransactionStatus.Loading) {
+                      if (_transactionController.productList.isEmpty) {
+                        _transactionController.addMoreProduct();
+                      }
+                      if (_transactionController.productList.isNotEmpty) {
+                        if (_transactionController.selectedPaymentMode !=
+                                null &&
+                            _transactionController.selectedPaymentSource !=
+                                null) {
+                          if (_transactionController.addCustomer) {
+                            if (_transactionController.selectedCustomer !=
+                                    null ||
+                                _customerController
+                                        .nameController.text.isNotEmpty &&
+                                    _customerController.phoneNumberController
+                                        .text.isNotEmpty) {
+                            } else {
+                              Get.snackbar(
+                                  "Error", "Fill up your contact details");
+                              return;
+                            }
+                          }
 
-                
-
-                    if(  _transactionController.productList.isEmpty){
-                      _transactionController.addMoreProduct();
+                          //  _transactionController.createTransaction("INCOME");
+                          _transactionController.createBusinessTransaction(
+                              "EXPENDITURE", 'money out');
+                        } else {
+                          Get.snackbar(
+                              "Error", "Fill up important information");
+                        }
+                      } else {
+                        Get.snackbar("Error",
+                            "You need to have at least one product to proceed");
+                      }
                     }
-                      _transactionController
-                          .createBusinessTransaction("EXPENDITURE",'money out');
-                  
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

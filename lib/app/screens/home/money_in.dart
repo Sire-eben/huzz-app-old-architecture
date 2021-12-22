@@ -45,7 +45,6 @@ class _MoneyInState extends State<MoneyIn> {
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
-
   String? value;
 
   String countryFlag = "NG";
@@ -176,7 +175,6 @@ class _MoneyInState extends State<MoneyIn> {
                                   _transactionController.selectedValue = 1);
                             },
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Radio<int>(
                                     value: 1,
@@ -242,7 +240,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           )
@@ -317,6 +315,9 @@ class _MoneyInState extends State<MoneyIn> {
                                 ],
                               ),
                             ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.03),
                           ],
                         )
                       : Padding(
@@ -383,36 +384,6 @@ class _MoneyInState extends State<MoneyIn> {
                                     }),
                                   ),
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Amount",
-                                      hint: 'N 0.00',
-                                      validatorText: "Amount is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .amountController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.03),
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Quantity",
-                                      hint: '4',
-                                      validatorText: "Quantity is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .amountController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  )
-                                ],
                               ),
                             ],
                           ),
@@ -506,7 +477,7 @@ class _MoneyInState extends State<MoneyIn> {
                           icon: Icon(Icons.calendar_today),
                           color: Colors.orange,
                         ),
-                        validatorText: "Select date is needed",
+                        // validatorText: "Select date is needed",
                         keyType: TextInputType.phone,
                       ),
                     ),
@@ -529,7 +500,7 @@ class _MoneyInState extends State<MoneyIn> {
                           color: Colors.orange,
                         ),
                         keyType: TextInputType.phone,
-                        validatorText: "Select time is needed",
+                        // validatorText: "Select time is needed",
                       ),
                     ),
                   ],
@@ -596,18 +567,13 @@ class _MoneyInState extends State<MoneyIn> {
               ),
               (_transactionController.selectedPaymentMode != null &&
                       _transactionController.selectedPaymentMode == "DEPOSIT")
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
-                      child: CustomTextField(
-                        label: "Amount Paid",
-                        hint: 'N 0.00',
-                        validatorText: "Amount Paid is needed",
-                        keyType: TextInputType.number,
-                        textEditingController:
-                            _transactionController.amountPaidController,
-                      ),
+                  ? CustomTextField(
+                      label: "Amount Paid",
+                      hint: 'N 0.00',
+                      validatorText: "Amount Paid is needed",
+                      keyType: TextInputType.number,
+                      textEditingController:
+                          _transactionController.amountPaidController,
                     )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -955,14 +921,41 @@ class _MoneyInState extends State<MoneyIn> {
                 return InkWell(
                   onTap: () {
                     if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading){
-                              if(  _transactionController.productList.isEmpty){
-                      _transactionController.addMoreProduct();
-                    }
-                      //  _transactionController.createTransaction("INCOME");
-                      _transactionController.createBusinessTransaction(
-                          "INCOME", 'money in');
+                        AddingTransactionStatus.Loading) {
+                      if (_transactionController.productList.isEmpty) {
+                        _transactionController.addMoreProduct();
+                      }
+                      if (_transactionController.productList.isNotEmpty) {
+                        if (_transactionController.selectedPaymentMode !=
+                                null &&
+                            _transactionController.selectedPaymentSource !=
+                                null) {
+                          if (_transactionController.addCustomer) {
+                            if (_transactionController.selectedCustomer !=
+                                    null ||
+                                _customerController
+                                        .nameController.text.isNotEmpty &&
+                                    _customerController.phoneNumberController
+                                        .text.isNotEmpty) {
+                            } else {
+                              Get.snackbar(
+                                  "Error", "Fill up your contact details");
+                              return;
+                            }
+                          }
 
+                          //  _transactionController.createTransaction("INCOME");
+                          _transactionController.createBusinessTransaction(
+                              "INCOME", 'money in');
+                        } else {
+                          Get.snackbar(
+                              "Error", "Fill up important information");
+                        }
+                      } else {
+                        Get.snackbar("Error",
+                            "You need to have at least one product to proceed");
+                      }
+                    }
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
