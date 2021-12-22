@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/home/income_success.dart';
 import 'package:huzz/main.dart';
@@ -30,6 +31,7 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> get offlineTransactions => _offlineTransactions.value;
   final _uploadImageController = Get.find<FileUploadRespository>();
   final _customerController = Get.find<CustomerRepository>();
+  final _productController=Get.find<ProductRepository>();
   List<TransactionModel> OnlineTransaction = [];
   List<TransactionModel> pendingTransaction = [];
   Rx<List<PaymentItem>> _allPaymentItem = Rx([]);
@@ -41,7 +43,11 @@ class TransactionRespository extends GetxController {
   final numberofincome = 0.obs;
   final numberofexpenses = 0.obs;
   final totalbalance = 0.obs;
+   bool isBusyAdding=false;
+ bool isBusyUpdating=false;
+  bool isbusyDeleting=false;
   final debtors = 0.obs;
+   List<PaymentItem> productList=[];
   List<TransactionModel> todayTransaction = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
@@ -58,6 +64,7 @@ class TransactionRespository extends GetxController {
   final TextEditingController contactName = TextEditingController();
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
+  List<TransactionModel> deletedItem=[];
   final _addingTransactionStatus = AddingTransactionStatus.Empty.obs;
   var uuid = Uuid();
 // final _uploadFileController=Get.find<FileUploadRespository>();
@@ -65,7 +72,7 @@ class TransactionRespository extends GetxController {
       _addingTransactionStatus.value;
   Product? selectedProduct;
   int? remain;
-  Rx<Customer?> selectedCustomer = Rx(null);
+  Customer? selectedCustomer = null;
   DateTime? date;
   TimeOfDay? time;
   File? image;
@@ -90,7 +97,7 @@ class TransactionRespository extends GetxController {
         if (value != null) {
           getOnlineTransaction(value.businessId!);
 
-          getSpending(value.businessId!);
+          // getSpending(value.businessId!);
 
           GetOfflineTransactions(value.businessId!);
         } else {
@@ -105,7 +112,7 @@ class TransactionRespository extends GetxController {
             getOnlineTransaction(p0.businessId!);
 
             GetOfflineTransactions(p0.businessId!);
-            getSpending(p0.businessId!);
+            // getSpending(p0.businessId!);
 
      
           }
@@ -146,7 +153,8 @@ checkIfTransactionThatIsYetToBeAdded();
           List.from(json['data']).map((e) => TransactionModel.fromJson(e));
 
       OnlineTransaction.addAll(result);
-
+print("online transaction ${result.length}");
+    // getTodayTransaction();
       getTransactionYetToBeSavedLocally();
     } else {}
   }
@@ -175,17 +183,19 @@ checkIfTransactionThatIsYetToBeAdded();
     });
     todayTransaction = _todayTransaction;
     getAllPaymentItem();
+    calculateOverView();
   }
 
   Future getTransactionYetToBeSavedLocally() async {
     OnlineTransaction.forEach((element) {
       if (!checkifTransactionAvailable(element.id!)) {
-        print("doesnt contain value");
-
+      
+        if(!element.isPending!)
         pendingTransaction.add(element);
       }
     });
-
+      // print("does contain value ${pendingTransaction.first.isPending}");
+print("item yet to be save yet ${pendingTransaction.length}");
     savePendingJob();
   }
 
@@ -194,9 +204,9 @@ checkIfTransactionThatIsYetToBeAdded();
   bool checkifTransactionAvailable(String id) {
     bool result = false;
     offlineTransactions.forEach((element) {
-      print("checking transaction whether exist");
-      if (element.id == id) {
-        print("transaction   found");
+      // print("checking transaction whether exist");
+      if (element.id == id ) {
+        // print("transaction   found");
         result = true;
       }
     });
@@ -216,7 +226,7 @@ checkIfTransactionThatIsYetToBeAdded();
     GetOfflineTransactions(savenext.businessId!);
   }
 
-  Future getSpending(String id) async {
+  Future getSpendings(String id) async {
     final now = DateTime.now();
     var day = now.day >= 10 ? now.day.toString() : "0" + now.day.toString();
     var month =
@@ -338,11 +348,16 @@ createTransactionOffline(type);
 }
 
 Future createTransactionOnline(String type)async{
+  
   try{
   _addingTransactionStatus(AddingTransactionStatus.Loading);
   String? fileid;
   String? customerId=null;
-  var productList=[];
+ 
+  if(quantityController.text.isEmpty){
+
+    quantityController.text="1";
+  }
 if(image!=null){
 
 fileid=await _uploadImageController.uploadFile(image!.path);
@@ -353,37 +368,14 @@ if(addCustomer){
 if(customerType==1){
 customerId=await _customerController.addBusinessCustomerWithString(type);
 }else{
-  if(selectedCustomer.value!=null)
-  customerId=selectedCustomer.value!.customerId;
+  if(selectedCustomer!=null)
+  customerId=selectedCustomer!.customerId;
 }
 }else{
   customerId=null;
 }
 
-if(selectedValue==0){
- productList.add(
 
-  {
-"productId":selectedProduct!.productId!,
- "itemName": null,
-            "quantity":null,
-            "amount": null
-  }
- );
-
-}else{
- productList.add(
-
-  {
-"productId":null,
- "itemName": itemNameController.text,
-            "quantity": quantityController.text,
-            "amount": amountController.text
-  }
- );
-
-
-}
 
 if(time!=null&&date!=null){
 // date!.hour=time!.hour;
@@ -393,7 +385,7 @@ print("date Time to string ${date!.toIso8601String()}");
 // String? timeday=date!.toIso8601String();
 String body=jsonEncode({
 
-"paymentItemRequestList":productList,
+"paymentItemRequestList":productList.map((e) => e.toJson()).toList(),
     "transactionType":type,
     "paymentSource": selectedPaymentSource,
     "businessId":_businessController.selectedBusiness.value!.businessId,
@@ -416,11 +408,13 @@ final response=await http.post(Uri.parse(ApiLink.get_business_transaction),heade
 print({"creatng transaction response ${response.body}"});
 if(response.statusCode==200){
  _addingTransactionStatus(AddingTransactionStatus.Success);
-           Get.to(() => IncomeSuccess());
+ var json=jsonDecode(response.body);
+ var result=TransactionModel.fromJson(json['data']);
+           Get.to(() => IncomeSuccess(transactionModel: result,));
          getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
 
 GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
-getSpending(_businessController.selectedBusiness.value!.businessId!);
+// getSpending(_businessController.selectedBusiness.value!.businessId!);
 clearValue();
 }else{
  _addingTransactionStatus(AddingTransactionStatus.Error);
@@ -455,81 +449,54 @@ String appDocPath = appDocDir.path;
 
 }
 
+if(quantityController.text.isEmpty){
+
+  quantityController.text="1";
+}
 if(addCustomer){
 if(customerType==1){
 customerId=await _customerController.addBusinessCustomerOfflineWithString(type);
 }else{
-  if(selectedCustomer.value!=null)
-  customerId=selectedCustomer.value!.customerId;
+  if(selectedCustomer!=null)
+  customerId=selectedCustomer!.customerId;
 }
 }else{
   customerId=null;
 }
   
 print("trying to save offline");
-  List<PaymentItem> productItem=[];
+ 
   TransactionModel? value;
- if(selectedValue==0){
-   
-  productItem.add(PaymentItem(
-productId: selectedProduct!.productId!,
-itemName:selectedProduct!.productName, 
-amount: selectedProduct!.sellingPrice,
-totalAmount: (selectedProduct!.sellingPrice!*selectedProduct!.quantity!),
-quality: selectedProduct!.quantity!
 
-  )); 
+ var totalamount=0;
+productList.forEach((element) { 
+ 
+ totalamount=totalamount+(element.totalAmount!);
 
-   value=TransactionModel(
-     paymentMethod: selectedPaymentMode,
-     paymentSource: selectedPaymentSource,
-id:  uuid.v1(),
-totalAmount: 0,
-createdTime: date,
-transactionType: type,
-businessTransactionFileStoreId: outFile==null?null:outFile.path,
-customerId: customerId,
-businessId: _businessController.selectedBusiness.value!.businessId,
-businessTransactionPaymentItemList: productItem,
-isPending: true,
-
-
-
-);
- }else{
-productItem.add(PaymentItem(
-itemName: itemNameController.text,
-quality: int.parse(quantityController.text),
-amount: int.parse(amountController.text),
-totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
-
-));
+});
 
 
  value=TransactionModel(
         paymentMethod: selectedPaymentMode,
      paymentSource: selectedPaymentSource,
 id:  uuid.v1(),
-totalAmount: 0,
+totalAmount: totalamount,
 createdTime: DateTime.now(),
 entryDateTime: date,
 transactionType: type,
 businessTransactionFileStoreId:(image==null)?null :image!.path,
 customerId: customerId,
 businessId: _businessController.selectedBusiness.value!.businessId,
-businessTransactionPaymentItemList: productItem,
+businessTransactionPaymentItemList: productList,
 isPending: true,
 
 
 );
 
- }
-
-
 print("offline saving to database ${value!.toJson()}}");
    await _businessController.sqliteDb.insertTransaction(value!);
    GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
-  Get.to(() => IncomeSuccess());
+  Get.to(() => IncomeSuccess(transactionModel: value!,));
 clearValue();
 }
 Future checkIfTransactionThatIsYetToBeAdded()async{
@@ -540,29 +507,34 @@ Future checkIfTransactionThatIsYetToBeAdded()async{
 print("number of transaction is ${list.length}");
 list.forEach((element) {
   
-if(element.isPending!){
+if(element.isPending){
 
-  pendingTransaction.add(element);
+  pendingTransactionToBeAdded.add(element);
+  print("is pending to be added");
 }
 
 
 });
-print("number of transaction that is yet to saved on server is ${pendingTransaction.length}");
+print("number of transaction that is yet to saved on server is ${pendingTransactionToBeAdded.length}");
 saveTransactionOnline();
 }
 
 Future saveTransactionOnline()async{
 
-if(pendingTransaction.isEmpty){
+  
+  if(pendingTransactionToBeAdded.isEmpty){
 
   return;
 
 }
 
 
-pendingTransaction.forEach((e)async{
+// pendingTransaction.forEach((e)async{
 print("loading transaction to server ");
-var savenext=e;
+try{
+// if(!isBusyAdding){
+var savenext=pendingTransactionToBeAdded.first;
+isBusyAdding=true;
 print("saved next is ${savenext.toJson()}");
 if(savenext.customerId!=null&& savenext.customerId!=" "){
   print("saved yet customer is not null");
@@ -610,33 +582,67 @@ final response=await http.post(Uri.parse(ApiLink.get_business_transaction),heade
 },body:body );
 
 print({"sending to server transaction response ${response.body}"});
+await deleteItem(savenext);
+pendingTransactionToBeAdded.remove(savenext);
 if(response.statusCode==200){
 
-      
-pendingTransaction.remove(savenext);
-_businessController.sqliteDb.deleteOfflineTransaction(savenext);
-if(pendingTransaction.isNotEmpty){
-print("saved size  left is ${pendingTransaction.length}");
-  
-  await GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
-   getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
+      print("transaction response ${response.body}");
+// pendingTransaction.remove(savenext);
 
+ 
 
-getSpending(_businessController.selectedBusiness.value!.businessId!);
+// deletedItem.add(savenext);
+  // saveTransactionOnline();
 
-}
-
-print("done uploading  transaction to server ");
-
-}
-Future.delayed(Duration(seconds: 5));
+if(pendingTransactionToBeAdded.isNotEmpty){
+print("saved size  left is ${pendingTransactionToBeAdded.length}");
 saveTransactionOnline();
-});
+  // await GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
+  //  getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
+
+
+// getSpending(_businessController.selectedBusiness.value!.businessId!);
+}else{
+print("done uploading  transaction to server ");
+await GetOfflineTransactions(_businessController.selectedBusiness.value!.businessId!);
+   getOnlineTransaction(_businessController.selectedBusiness.value!.businessId!);
+}
+isBusyAdding=false;
+}else{
+
+  isBusyAdding=false;
+
+
+//   print("pending transaction is uploaded finished");
+//   deleteItems();
+
+Future.delayed(Duration(seconds: 5));
+
+}
+}catch(ex){
+
+
+
 }
 
 
-clearValue(){
 
+}
+
+Future deleteItem(TransactionModel model)async{
+
+ await  _businessController.sqliteDb.deleteOfflineTransaction(model);
+}
+void deleteItems(){
+
+deletedItem.forEach((element) {
+  
+_businessController.sqliteDb.deleteOfflineTransaction(element);
+});
+
+}
+clearValue(){
+print("clearing value");
   itemNameController.text="";
    amountController.text="";
    quantityController.text="";
@@ -649,9 +655,10 @@ amountPaidController.text="";
 date=null;
 image=null;
 selectedPaymentMode=null;
-selectedCustomer(null);
+selectedCustomer=null;
 selectedPaymentSource=null;
 selectedProduct=null;
+productList=[];
   
 
 
@@ -660,6 +667,110 @@ selectedProduct=null;
 
  
 }
+Future calculateOverView()async{
+
+var todayBalance=0;
+var todayMoneyIn=0;
+var todayMoneyout=0;
+
+todayTransaction.forEach((element) {
+     if(element.totalAmount==null){
+      return;
+    }
+  if(element.transactionType=="INCOME"){
+
+todayMoneyIn=todayMoneyIn+ element.totalAmount!;
+
+  }else{
+ 
+    print("total amount is ${element.totalAmount} ${element.toJson()}");
+todayMoneyout=todayMoneyout+element.totalAmount!;
 
 
+  }
+
+
+
+});
+todayBalance=todayMoneyIn-todayMoneyout;
+income(todayMoneyIn);
+expenses(todayMoneyout);
+totalbalance(todayBalance);
+}
+void addMoreProduct(){
+
+ 
+ if(selectedValue==0){
+   
+   if(selectedProduct!=null)
+  productList.add(PaymentItem(
+productId: selectedProduct!.productId!,
+itemName:selectedProduct!.productName, 
+amount: selectedProduct!.sellingPrice,
+totalAmount: (selectedProduct!.sellingPrice!*selectedProduct!.quantity!),
+quality: selectedProduct!.quantity!
+
+  )); 
+
+
+
+
+
+ }else{
+   if(itemNameController.text.isNotEmpty && amountController.text.isNotEmpty)
+productList.add(PaymentItem(
+itemName: itemNameController.text,
+quality: int.parse(quantityController.text),
+amount: int.parse(amountController.text),
+totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
+
+));
+
+
+
+
+ }
+
+ selectedProduct=null;
+ quantityController.text="1";
+ amountController.text="";
+ itemNameController.text="";
+}
+
+Future selectEditValue(PaymentItem item)async{
+ quantityController.text=item.quality.toString();
+ amountController.text=item.amount.toString();
+ itemNameController.text=item.itemName!;
+
+}
+
+Future updatePaymetItem(PaymentItem item,int index)async{
+item.itemName=itemNameController.text;
+item.quality=int.parse(quantityController.text);
+item.amount=int.parse(amountController.text);
+productList[index]=item;
+ quantityController.text="1";
+ amountController.text="";
+ itemNameController.text="";
+
+}
+
+Future setValue(PaymentItem item)async{
+  if(item.productId==null || item.productId!.isEmpty){
+ quantityController.text=item.quality.toString();
+ amountController.text=item.amount.toString();
+ itemNameController.text=item.itemName!;
+selectedValue=1;
+  }else{
+    selectedValue=0;
+  selectedProduct=  _productController.productGoods.where((element) => element.productId==item.productId).toList().first;
+
+
+
+
+
+  }
+
+
+}
 }

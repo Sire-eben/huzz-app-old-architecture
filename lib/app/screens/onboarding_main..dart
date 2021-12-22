@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -21,17 +22,14 @@ class _OnboardingMainState extends State<OnboardingMain> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
+      body: SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 20,
-              ),
               Container(
                 height: 100,
                 width: MediaQuery.of(context).size.width,
@@ -68,7 +66,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: MediaQuery.of(context).size.height * 0.05,
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.2,
@@ -79,7 +77,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
               ),
               Container(
                 margin: EdgeInsets.only(left: 50, right: 50),
-                child: Text(
+                child: AutoSizeText(
                   boards[selectedIndex].title!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -88,6 +86,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                     fontFamily: 'DMSans',
                     color: Colors.black,
                   ),
+                  maxLines: 1,
                 ),
               ),
               SizedBox(
@@ -95,7 +94,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
               ),
               Container(
                 margin: EdgeInsets.only(left: 30, right: 30),
-                child: Text(
+                child: AutoSizeText(
                   boards[selectedIndex].body!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -105,10 +104,11 @@ class _OnboardingMainState extends State<OnboardingMain> {
                     letterSpacing: 0.5,
                     height: 1.5,
                   ),
+                  maxLines: 3,
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.06,
+                height: MediaQuery.of(context).size.height * 0.1,
               ),
               (selectedIndex < boards.length - 1)
                   ? GestureDetector(

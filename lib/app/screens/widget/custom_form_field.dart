@@ -82,8 +82,9 @@ class CustomTextField extends StatelessWidget {
               if (AllowClickable!) onClick!();
             },
             child: Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+              margin: EdgeInsets.only(top: 10),
               child: TextFormField(
+                  autofocus: true,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
                   controller: textEditingController,
@@ -1189,24 +1190,6 @@ class _CustomTextFieldWithImageTransactionState
                       'Email',
                       style: TextStyle(color: Colors.black, fontSize: 12),
                     ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    (widget.validatorText != null &&
-                            widget.validatorText!.isNotEmpty)
-                        ? Row(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text(
-                                    "*",
-                                    style: TextStyle(
-                                        color: Colors.red, fontSize: 12),
-                                  )),
-                              SizedBox(width: 8),
-                            ],
-                          )
-                        : Container()
                   ],
                 ),
                 Container(

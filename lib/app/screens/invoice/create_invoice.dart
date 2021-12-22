@@ -3,17 +3,17 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/invoice/preview_invoice.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
-
 import 'package:huzz/model/bank_model.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
+import 'package:intl/intl.dart';
 import 'package:random_color/random_color.dart';
 import 'package:huzz/model/service_model.dart';
-
 import 'invoice_pdf.dart';
 
 class CreateInvoice extends StatefulWidget {
@@ -24,14 +24,22 @@ class CreateInvoice extends StatefulWidget {
 }
 
 class _CreateInvoiceState extends State<CreateInvoice> {
+  final _transactionController = Get.find<TransactionRespository>();
+
   RandomColor _randomColor = RandomColor();
 
-  final TextEditingController contactName = TextEditingController();
-  final TextEditingController contactPhone = TextEditingController();
-  final TextEditingController contactMail = TextEditingController();
-  final TextEditingController contactAddress = TextEditingController();
+  final TextEditingController customerName = TextEditingController();
+  final TextEditingController customerPhone = TextEditingController();
+  final TextEditingController customerMail = TextEditingController();
+  final TextEditingController customerAddress = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
-  final _searchcontroller = TextEditingController();
+  final TextEditingController itemName = TextEditingController();
+  final TextEditingController unitPrice = TextEditingController();
+  final TextEditingController taxController = TextEditingController();
+  final TextEditingController discountController = TextEditingController();
+  final TextEditingController accountName = TextEditingController();
+  final TextEditingController accountNo = TextEditingController();
+  final TextEditingController _searchcontroller = TextEditingController();
 
   final payments = ['Select payment mode', 'item1', 'item2'];
   String? value;
@@ -47,7 +55,28 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   @override
   void initState() {
     quantityController.text = quantityValue.toString();
+    _transactionController.dateController.text =
+        DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
     super.initState();
+  }
+
+  Future pickDate(BuildContext context) async {
+    final initialDate = DateTime.now();
+    final newDate = await showDatePicker(
+      context: context,
+      initialDate: _transactionController.date ?? initialDate,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime(DateTime.now().year + 5),
+    );
+
+    if (newDate == null) return;
+
+    setState(() {
+      _transactionController.dateController.text =
+          DateFormat("yyyy-MM-dd").format(newDate).toString();
+      _transactionController.date = newDate;
+      // print(dateController.text);
+    });
   }
 
   @override
@@ -94,10 +123,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
       backgroundColor: Colors.white,
       body: Theme(
         data: ThemeData(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+                onSurface: Colors.transparent, primary: Palette.primaryColor),
             primarySwatch: Palette.primaryColor,
-            canvasColor: Colors.transparent,
-            shadowColor: Colors.transparent),
+            canvasColor: Colors.white,
+            shadowColor: Colors.white),
         child: Stepper(
+          elevation: 0,
           physics: NeverScrollableScrollPhysics(),
           type: StepperType.horizontal,
           steps: getSteps(),
@@ -115,8 +147,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   phone: '+234 8123 456 789',
                 ),
                 bankDetails: BankDetails(
-                    name: 'First Bank of Nigeria',
-                    no: '0123456789',
+                    name: accountName.text,
+                    no: accountNo.text,
                     mode: 'BANK TRANSFER'),
                 customer: InvoiceCustomer(
                   name: 'Joshua Olatunde',
@@ -385,10 +417,23 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       hint: 'account number',
                       keyType: TextInputType.phone,
                     ),
-                    CustomTextFieldInvoiceOptional(
-                      label: 'Payment Due Date',
-                      hint: 'payment due date',
-                      keyType: TextInputType.name,
+                    CustomTextField(
+                      enabled: false,
+                      AllowClickable: true,
+                      textEditingController:
+                          _transactionController.dateController,
+                      label: "Select Date",
+                      hint: 'Select Date',
+                      onClick: () {
+                        pickDate(context);
+                      },
+                      prefixIcon: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.calendar_today),
+                        color: Colors.orange,
+                      ),
+                      validatorText: "Select date is needed",
+                      keyType: TextInputType.phone,
                     ),
                   ],
                 ),
@@ -671,127 +716,130 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   // ignore: non_constant_identifier_names
   Container CustomerInfo() {
     return Container(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () => setState(() => customerValue = 1),
-                child: Row(
-                  children: [
-                    Radio<int>(
-                        value: 1,
-                        activeColor: AppColor().backgroundColor,
-                        groupValue: customerValue,
-                        onChanged: (value) =>
-                            setState(() => customerValue = 1)),
-                    Text(
-                      'New Customer',
-                      style: TextStyle(
-                        color: AppColor().backgroundColor,
-                        fontFamily: "DMSans",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () => setState(() => customerValue = 1),
+                  child: Row(
+                    children: [
+                      Radio<int>(
+                          value: 1,
+                          activeColor: AppColor().backgroundColor,
+                          groupValue: customerValue,
+                          onChanged: (value) =>
+                              setState(() => customerValue = 1)),
+                      Text(
+                        'New Customer',
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: "DMSans",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              InkWell(
-                onTap: () => setState(() => customerValue = 0),
-                child: Row(
-                  children: [
-                    Radio<int>(
-                        value: 0,
-                        activeColor: AppColor().backgroundColor,
-                        groupValue: customerValue,
-                        onChanged: (value) =>
-                            setState(() => customerValue = 0)),
-                    Text(
-                      'Existing Customer',
-                      style: TextStyle(
-                        color: AppColor().backgroundColor,
-                        fontFamily: "DMSans",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
+                InkWell(
+                  onTap: () => setState(() => customerValue = 0),
+                  child: Row(
+                    children: [
+                      Radio<int>(
+                          value: 0,
+                          activeColor: AppColor().backgroundColor,
+                          groupValue: customerValue,
+                          onChanged: (value) =>
+                              setState(() => customerValue = 0)),
+                      Text(
+                        'Existing Customer',
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: "DMSans",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          customerValue == 1
-              ? CustomTextFieldInvoice(
-                  contactName: contactName,
-                  contactPhone: contactPhone,
-                  contactMail: contactMail,
-                  contactAddress: contactAddress,
-                  label: "Customer name",
-                  validatorText: "Customer name is needed",
-                  hint: 'customer name',
+                    ],
+                  ),
                 )
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Select Customer',
-                          style: TextStyle(color: Colors.black, fontSize: 12),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "*",
-                          style: TextStyle(color: Colors.red, fontSize: 12),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20))),
-                            context: context,
-                            builder: (context) => buildSelectCustomer());
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                width: 3, color: AppColor().backgroundColor)),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            buildMenuItem("Select existing customer"),
-                            Expanded(child: SizedBox()),
-                            Icon(
-                              Icons.keyboard_arrow_down,
-                              color: AppColor().backgroundColor,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            )
-                          ],
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            customerValue == 1
+                ? CustomTextFieldInvoice(
+                    contactName: customerName,
+                    contactPhone: customerPhone,
+                    contactMail: customerMail,
+                    contactAddress: customerAddress,
+                    label: "Customer name",
+                    validatorText: "Customer name is needed",
+                    hint: 'customer name',
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Select Customer',
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "*",
+                            style: TextStyle(color: Colors.red, fontSize: 12),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))),
+                              context: context,
+                              builder: (context) => buildSelectCustomer());
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  width: 3, color: AppColor().backgroundColor)),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 10,
+                              ),
+                              buildMenuItem("Select existing customer"),
+                              Expanded(child: SizedBox()),
+                              Icon(
+                                Icons.keyboard_arrow_down,
+                                color: AppColor().backgroundColor,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-        ],
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }
@@ -871,7 +919,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 ),
                 Expanded(
                   child: TextFormField(
-                    // controller: widget.contactPhone,
+                    // controller: widget.customerPhone,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "9034678966",

@@ -153,6 +153,8 @@ class BusinessRespository extends GetxController {
         var json = jsonDecode(response.body);
         if (json['success']) {
           OnlineBusiness();
+          var business=Business.fromJson(json['data']);
+          selectedBusiness(business);
           _createBusinessStatus(CreateBusinessStatus.Success);
 
           Get.off(() => Dashboard());
