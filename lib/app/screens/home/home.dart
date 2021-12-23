@@ -368,7 +368,7 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Text(
-            'Today`s transaction',
+            'Today`s transactions',
             style: TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
@@ -761,7 +761,7 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Text(
-            'Today`s transaction',
+            'Today`s transactions',
             style: TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
@@ -799,7 +799,7 @@ class _HomeState extends State<Home> {
                           Text(
                             'Record a transaction',
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 13,
                                 color: Colors.black,
                                 fontFamily: 'DMSans',
                                 fontWeight: FontWeight.bold),
@@ -810,14 +810,14 @@ class _HomeState extends State<Home> {
                           Text(
                             'Your recent transactions will show here. Click the',
                             style: TextStyle(
-                                fontSize: 11,
+                                fontSize: 10,
                                 color: Colors.black,
                                 fontFamily: 'DMSans'),
                           ),
                           Text(
                             'Add transaction button to record your first transaction',
                             style: TextStyle(
-                                fontSize: 11,
+                                fontSize: 10,
                                 color: Colors.black,
                                 fontFamily: 'DMSans'),
                           ),

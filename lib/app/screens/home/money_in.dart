@@ -385,15 +385,65 @@ class _MoneyInState extends State<MoneyIn> {
                                   ),
                                 ),
                               ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomTextField(
+                                      label: "Amount",
+                                      hint: 'N 0.00',
+                                      validatorText: "Amount is needed",
+                                      onChanged: (value) {
+                                        print("value is $value");
+                                        setState(() {});
+                                      },
+                                      textEditingController:
+                                          _transactionController
+                                              .amountController,
+                                      keyType: TextInputType.phone,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.03),
+                                  Expanded(
+                                    child: CustomTextField(
+                                        label: "Quantity",
+                                        hint: '4',
+                                        keyType: TextInputType.phone,
+                                        validatorText: "Quantity is needed",
+                                        onChanged: (value) {
+                                          print("value is $value");
+                                          setState(() {});
+                                        },
+                                        onSubmited: (value) {
+                                          setState(() {});
+                                        },
+                                        textEditingController:
+                                            _transactionController
+                                                .quantityController),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         )
                   : Container(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              SizedBox(
+                  height: _transactionController.selectedValue == 1
+                      ? 0
+                      : MediaQuery.of(context).size.height * 0.02),
+              SizedBox(
+                  height: _transactionController.productList.length >= 2
+                      ? MediaQuery.of(context).size.height * 0.02
+                      : 0),
               (_transactionController.productList.length >= 2)
                   ? showAllItems()
                   : Container(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              SizedBox(
+                  height: _transactionController.productList.length >= 2
+                      ? MediaQuery.of(context).size.height * 0.02
+                      : 0),
               GestureDetector(
                 onTap: () {
                   print("New Item is selected");
@@ -567,13 +617,18 @@ class _MoneyInState extends State<MoneyIn> {
               ),
               (_transactionController.selectedPaymentMode != null &&
                       _transactionController.selectedPaymentMode == "DEPOSIT")
-                  ? CustomTextField(
-                      label: "Amount Paid",
-                      hint: 'N 0.00',
-                      validatorText: "Amount Paid is needed",
-                      keyType: TextInputType.number,
-                      textEditingController:
-                          _transactionController.amountPaidController,
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      child: CustomTextField(
+                        label: "Amount Paid",
+                        hint: 'N 0.00',
+                        validatorText: "Amount Paid is needed",
+                        keyType: TextInputType.number,
+                        textEditingController:
+                            _transactionController.amountPaidController,
+                      ),
                     )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -635,7 +690,7 @@ class _MoneyInState extends State<MoneyIn> {
                   ],
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
