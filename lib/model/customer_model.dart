@@ -5,9 +5,10 @@ class Customer {
   bool? isAddingPending;
   bool? isUpdatingPending;
   bool? isCreatedFromTransaction;
+  bool? isCreatedFromInvoice;
   bool? deleted;
   Customer({this.image, this.name, this.phone,this.customerId,this.businessId,this.businessTransactionType,this.createdTime,
-  this.updatedTime,this.deleted,this.email,this.isAddingPending,this.isUpdatingPending,this.isCreatedFromTransaction
+  this.updatedTime,this.deleted,this.email,this.isAddingPending,this.isUpdatingPending,this.isCreatedFromTransaction,this.isCreatedFromInvoice
   });
 
   factory Customer.fromJson(Map<String,dynamic> json)=>Customer(
@@ -22,7 +23,8 @@ updatedTime: json['updatedDateTime']==null?DateTime.parse(json['createdDateTime'
 deleted: json['deleted']??false,
 isAddingPending: json['isAddingPending']??false,
 isUpdatingPending: json['isAddingPending']?? false,
-isCreatedFromTransaction: json['isCreatedFromTransaction']??false
+isCreatedFromTransaction: json['isCreatedFromTransaction']??false,
+isCreatedFromInvoice: json['isCreatedFromInvoice']??false
 
   );
 
@@ -39,7 +41,8 @@ Map<String,dynamic> toJson()=>{
 "deleted":deleted,
 "isAddingPending":isAddingPending,
 "isUpdatingPending":isUpdatingPending,
-"isCreatedFromTransaction":isCreatedFromTransaction
+"isCreatedFromTransaction":isCreatedFromTransaction,
+"sCreatedFromInvoice":isCreatedFromInvoice
 
 };
 

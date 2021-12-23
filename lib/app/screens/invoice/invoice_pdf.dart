@@ -1,6 +1,14 @@
 import 'dart:io';
+import 'package:get/get.dart';
+import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/customer_repository.dart';
+import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/app/screens/widget/util.dart';
-import 'package:huzz/model/invoice_receipt_model.dart';
+import 'package:huzz/model/bank.dart';
+import 'package:huzz/model/business.dart';
+import 'package:huzz/model/customer_model.dart';
+import 'package:huzz/model/invoice.dart';
+
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
@@ -9,12 +17,17 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
 class PdfInvoiceApi {
+ static final _invoiceController=Get.find<InvoiceRespository>();
+ static final _businessController=Get.find<BusinessRespository>();
+ static final _customerController=Get.find<CustomerRepository>();
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
+var  customer = _customerController
+          .checkifCustomerAvailableWithValue(invoice.customerId!);
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(invoice),
+        buildHeader(),
         SizedBox(height: 2 * PdfPageFormat.cm),
         buildInvoice(invoice),
         Divider(),
@@ -22,14 +35,14 @@ class PdfInvoiceApi {
         SizedBox(height: 1 * PdfPageFormat.cm),
         buildTotal(invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
-        buildFooter(invoice)
+        buildFooter(customer)
       ],
     ));
 
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(Invoice invoice) => Container(
+  static Widget buildHeader() => Container(
       padding: EdgeInsets.all(20),
       color: PdfColors.blue,
       child: Column(
@@ -38,22 +51,27 @@ class PdfInvoiceApi {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              buildSupplierAddress(invoice.supplier),
-              buildBankDetails(invoice.bankDetails),
+              buildSupplierAddress(_businessController.selectedBusiness.value!),
+              buildBankDetails(_invoiceController.invoiceBank!),
             ],
           ),
         ],
       ));
 
-  static Widget buildCustomerAddress(InvoiceCustomer customer) => Column(
+  static Widget buildCustomerAddress(Customer? customer) {
+    print("consumer ${customer!.name}");
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(customer.name, style: TextStyle(fontWeight: FontWeight.bold)),
-          Text(customer.phone),
+          Text("Ade", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text("086"),
         ],
       );
 
-  static Widget buildSupplierAddress(Supplier supplier) => Column(
+  }
+  static Widget buildSupplierAddress(Business business) { 
+    print("business is ${business.businessName}");
+    return  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -62,23 +80,23 @@ class PdfInvoiceApi {
               decoration:
                   BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
               child: Center(
-                child: Text(supplier.name[0],
+                child: Text(business.businessName![0],
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: PdfColors.blue)),
               )),
-          Text(supplier.name,
+          Text(business.businessName??"",
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(supplier.mail, style: TextStyle(color: PdfColors.white)),
+          Text(business.businessEmail??"", style: TextStyle(color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(supplier.phone, style: TextStyle(color: PdfColors.white)),
+          Text(business.businessPhoneNumber??"", style: TextStyle(color: PdfColors.white)),
         ],
       );
-
-  static Widget buildBankDetails(BankDetails bankDetails) => Column(
+  }
+  static Widget buildBankDetails(Bank bankDetails) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
@@ -99,12 +117,14 @@ class PdfInvoiceApi {
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text('Mode of Payment',
               style: TextStyle(color: PdfColors.white, fontSize: 10)),
-          Text(bankDetails.mode,
+          Text("Trnasfer",
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
-          Text(bankDetails.name,
+          Text(bankDetails!.bankAccountName!,
               style: TextStyle(color: PdfColors.white, fontSize: 10)),
-          Text(bankDetails.no,
+          Text(bankDetails.bankAccountNumber!,
+              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+              Text(bankDetails.bankName!,
               style: TextStyle(color: PdfColors.white, fontSize: 10)),
         ],
       );
@@ -117,8 +137,8 @@ class PdfInvoiceApi {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 0.8 * PdfPageFormat.cm),
-          Text(invoice.info.description),
-          SizedBox(height: 0.8 * PdfPageFormat.cm),
+          // Text(invoice.info.description),
+          // SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
 
@@ -128,13 +148,13 @@ class PdfInvoiceApi {
       'Qty',
       'Amount',
     ];
-    final data = invoice.items.map((item) {
-      final total = item.amount * item.quantity;
-
+    final data = invoice.paymentItemRequestList!.map((item) {
+      // final total = item.amount! * item.quality!;
+print("item name ${item.itemName}");
       return [
-        item.item,
-        '${item.quantity}',
-        '\NGN${item.amount}',
+        '${item.itemName}',
+        '${item.quality}',
+        '\NGN${item.totalAmount}',
       ];
     }).toList();
 
@@ -159,11 +179,11 @@ class PdfInvoiceApi {
   }
 
   static Widget buildTotal(Invoice invoice) {
-    final netTotal = invoice.items
-        .map((item) => item.amount * item.quantity)
-        .reduce((item1, item2) => item1 + item2);
+    // final netTotal = invoice.paymentItemRequestList!
+    //     .map((item) => item.amount! * item.quality!)
+    //     .reduce((item1, item2) => item1 + item2);
 
-    final total = netTotal;
+    final total = 0;
 
     return Container(
       alignment: Alignment.centerRight,
@@ -183,7 +203,7 @@ class PdfInvoiceApi {
             ),
           ),
           Text(
-            Utils.formatPrice(total),
+            Utils.formatPrice(total*1.0),
             style: TextStyle(
               color: PdfColors.blue,
               fontSize: 16,
@@ -278,7 +298,7 @@ class PdfInvoiceApi {
         ])
       ]);
 
-  static Widget buildFooter(Invoice invoice) =>
+  static Widget buildFooter(Customer? customer) =>
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
@@ -289,8 +309,8 @@ class PdfInvoiceApi {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(invoice.customer.name),
-          Text(invoice.customer.phone),
+          Text("${customer!.name}"),
+          Text("${customer!.phone}"),
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
