@@ -138,9 +138,6 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
                     width: MediaQuery.of(context).size.width,
                     height: 50,
                     decoration: BoxDecoration(
@@ -214,9 +211,6 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
             CustomTextField(
               label: "Email",
               validatorText: "Email required",
@@ -242,9 +236,6 @@ class _BusinessInfoState extends State<BusinessInfo> {
               width: MediaQuery.of(context).size.width * 1,
               padding: EdgeInsets.symmetric(
                 horizontal: 10,
-              ),
-              margin: EdgeInsets.symmetric(
-                horizontal: 20,
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
