@@ -21,6 +21,7 @@ class DebtorsRepository extends GetxController
   final _uploadFileController = Get.find<FileUploadRespository>();
 
   final _addingDebtorsStatus = AddingDebtorsStatus.Empty.obs;
+  AddingDebtorsStatus get addingDebtorsStatus => _addingDebtorsStatus.value;
 
   Rx<List<DebtorsModel>> _onlineBusinessDebtor = Rx([]);
   Rx<List<DebtorsModel>> _offlineBusinessDebtor = Rx([]);
@@ -45,6 +46,13 @@ class DebtorsRepository extends GetxController
   List<DebtorsModel> pendingDeletedDebtorToServer = [];
   var uuid = Uuid();
 
+  final debtorNameController = TextEditingController();
+  final productCostPriceController = TextEditingController();
+  final productSellingPriceController = TextEditingController();
+  final debtorQuantityController = TextEditingController();
+  final productUnitController = TextEditingController();
+  final serviceDescription = TextEditingController();
+
   @override
   void onInit() async {
     // TODO: implement onInit
@@ -65,10 +73,10 @@ class DebtorsRepository extends GetxController
             _offlineBusinessDebtor([]);
 
             _onlineBusinessDebtor([]);
-            // _debtorService([]);
-            // _debtorGoods([]);
-            // getOnlineDebtors(p0.businessId!);
-            // getOfflineDebtors(p0.businessId!);
+            _debtorService([]);
+            _debtorGoods([]);
+            getOnlineDebtors(p0.businessId!);
+            getOfflineDebtors(p0.businessId!);
           }
         });
       }
@@ -130,7 +138,7 @@ class DebtorsRepository extends GetxController
     List<DebtorsModel> goods = [];
     List<DebtorsModel> services = [];
     offlineBusinessDebtor.forEach((element) {
-      if (element.businessTransactionType == "DEBTORS") {
+      if (element.businessTransactionType == "EXPENDITURE") {
         services.add(element);
       } else {
         goods.add(element);
