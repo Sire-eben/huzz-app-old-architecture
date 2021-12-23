@@ -9,6 +9,7 @@ import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/model/bank_model.dart';
+import 'package:huzz/model/customer.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:intl/intl.dart';
@@ -403,12 +404,12 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // showModalBottomSheet(
-                        //     shape: RoundedRectangleBorder(
-                        //         borderRadius: BorderRadius.vertical(
-                        //             top: Radius.circular(20))),
-                        //     context: context,
-                        //     builder: (context) => buildSelectService());
+                        showModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20))),
+                            context: context,
+                            builder: (context) => buildSelectService());
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -1106,6 +1107,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     hint: '0',
                   ),
                 ),
+                SizedBox(width: 20),
                 Expanded(
                   child: CustomTextField(
                     label: "Quantity",
@@ -1120,8 +1122,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               onTap: () {},
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
                 height: 50,
                 decoration: BoxDecoration(
                     color: AppColor().backgroundColor,
@@ -1206,18 +1206,58 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => Divider(),
-                itemCount: serviceList.length,
+                itemCount: customerMList.length,
                 itemBuilder: (context, index) {
-                  var item = serviceList[index];
-                  return Center(
-                      child: Text(
-                    '${item.name}',
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.black,
-                        fontFamily: 'DMSans',
-                        fontWeight: FontWeight.bold),
-                  ));
+                  var item = customerMList[index];
+                  return Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColor().backgroundColor),
+                        child: Text(
+                          '${item.name![0]}',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(width: 4),
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          '${item.name}',
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.black,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          '${item.acctNo}',
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.black,
+                              fontFamily: 'DMSans'),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          '${item.bankName}',
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.black,
+                              fontFamily: 'DMSans'),
+                        ),
+                      ),
+                    ],
+                  );
                 },
               ),
             ),
