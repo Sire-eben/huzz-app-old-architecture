@@ -45,6 +45,7 @@ class _MoneyInState extends State<MoneyIn> {
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
+
   String? value;
 
   String countryFlag = "NG";
@@ -175,6 +176,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   _transactionController.selectedValue = 1);
                             },
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Radio<int>(
                                     value: 1,
@@ -240,7 +242,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           )
@@ -315,9 +317,6 @@ class _MoneyInState extends State<MoneyIn> {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.03),
                           ],
                         )
                       : Padding(
@@ -381,6 +380,8 @@ class _MoneyInState extends State<MoneyIn> {
                                           value;
                                       _transactionController
                                           .selectedProduct!.quantity = 1;
+                                              _transactionController.amountController.text=value!.sellingPrice!.toString();
+                                            _transactionController.quantityController.text=1.toString();
                                     }),
                                   ),
                                 ),
@@ -392,10 +393,6 @@ class _MoneyInState extends State<MoneyIn> {
                                       label: "Amount",
                                       hint: 'N 0.00',
                                       validatorText: "Amount is needed",
-                                      onChanged: (value) {
-                                        print("value is $value");
-                                        setState(() {});
-                                      },
                                       textEditingController:
                                           _transactionController
                                               .amountController,
@@ -976,41 +973,42 @@ class _MoneyInState extends State<MoneyIn> {
                 return InkWell(
                   onTap: () {
                     if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading) {
-                      if (_transactionController.productList.isEmpty) {
-                        _transactionController.addMoreProduct();
-                      }
-                      if (_transactionController.productList.isNotEmpty) {
-                        if (_transactionController.selectedPaymentMode !=
-                                null &&
-                            _transactionController.selectedPaymentSource !=
-                                null) {
-                          if (_transactionController.addCustomer) {
-                            if (_transactionController.selectedCustomer !=
-                                    null ||
-                                _customerController
-                                        .nameController.text.isNotEmpty &&
-                                    _customerController.phoneNumberController
-                                        .text.isNotEmpty) {
-                            } else {
-                              Get.snackbar(
-                                  "Error", "Fill up your contact details");
-                              return;
-                            }
-                          }
-
-                          //  _transactionController.createTransaction("INCOME");
-                          _transactionController.createBusinessTransaction(
-                              "INCOME", 'money in');
-                        } else {
-                          Get.snackbar(
-                              "Error", "Fill up important information");
-                        }
-                      } else {
-                        Get.snackbar("Error",
-                            "You need to have at least one product to proceed");
-                      }
+                        AddingTransactionStatus.Loading){
+                               if(  _transactionController.productList.isEmpty){
+                      _transactionController.addMoreProduct();
                     }
+                    if(_transactionController.productList.isNotEmpty){
+                          if(_transactionController.selectedPaymentMode!=null && _transactionController.selectedPaymentSource!=null
+                          
+                          ){
+                        
+                        if(_transactionController.addCustomer){
+                        if( _transactionController.selectedCustomer!=null ||
+                        
+                        _customerController.nameController.text.isNotEmpty && _customerController.phoneNumberController.text.isNotEmpty){
+                       
+                        
+                        }else{
+                         Get.snackbar("Error", "Fill up your contact details");
+                         return;
+                        }
+                        }
+
+                       
+                      //  _transactionController.createTransaction("INCOME");
+                      _transactionController
+                          .createBusinessTransaction("INCOME");
+                        }else
+                        {
+                          Get.snackbar("Error", "Fill up important information");
+                        }
+                        }else{
+                       
+
+                          Get.snackbar("Error", "You need to have at least one product to proceed");
+                      
+                        }
+                        }
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -1219,6 +1217,8 @@ class _MoneyInState extends State<MoneyIn> {
                                 _transactionController.selectedProduct = value;
                                 _transactionController
                                     .selectedProduct!.quantity = 1;
+                                        _transactionController.amountController.text=value!.sellingPrice!.toString();
+                                            _transactionController.quantityController.text=1.toString();
                               }),
                             ),
                           ),

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
+import 'package:huzz/app/screens/sign_up.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:timer_button/timer_button.dart';
 
 class EnterOtp extends StatefulWidget {
   _EnterOtpState createState() => _EnterOtpState();
@@ -105,30 +107,56 @@ class _EnterOtpState extends State<EnterOtp> {
               SizedBox(
                 height: 20,
               ),
-              GestureDetector(
-                  onTap: () {
-                    _authController.sendVoiceOtp();
+              // GestureDetector(
+              //     onTap: () {
+              //       _authController.sendVoiceOtp();
+              //     },
+              //     child: Text(
+              //       "Send as Voice Call",
+              //       style: TextStyle(
+              //           color: AppColor().backgroundColor, fontSize: 12),
+              //     )),
+                 TimerButton(
+                  label: "Send as Voice Call",
+                  timeOutInSeconds: 20,
+                  activeTextStyle: TextStyle(
+                       color: AppColor().backgroundColor, fontSize: 12),
+                  onPressed: () {
+                   _authController. sendVoiceOtp();
                   },
-                  child: Text(
-                    "Send as Voice Call",
-                    style: TextStyle(
-                        color: AppColor().backgroundColor, fontSize: 12),
-                  )),
+                  buttonType: ButtonType.TextButton,
+                  disabledColor: Colors.white,
+                  color: Colors.transparent,
+                ),
               SizedBox(
                 height: 20,
               ),
-              GestureDetector(
-                  onTap: () {
-                    _authController.sendSmsOtp();
+
+               TimerButton(
+                  label: "Resend via sms",
+                  timeOutInSeconds: 20,
+                  activeTextStyle: TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                  onPressed: () {
+                   _authController.sendSmsOtp(isresend: true);
                   },
-                  child: Text(
-                    "Resend via sms",
-                    style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
-                  )),
+                  buttonType: ButtonType.TextButton,
+                  disabledColor: Colors.white,
+                  color: Colors.transparent,
+                ),
+              // GestureDetector(
+              //     onTap: () {
+              //       _authController.sendSmsOtp();
+              //     },
+              //     child: Text(
+              //       "Resend via sms",
+              //       style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
+              //     )),
               Expanded(child: SizedBox()),
               GestureDetector(
                 onTap: () {
                   _authController.verifyOpt();
+                  // Get.off(Signup());
+                  //  _homeController.selectOnboardSelectedNext();
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,

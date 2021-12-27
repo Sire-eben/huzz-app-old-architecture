@@ -377,6 +377,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                           value;
                                       _transactionController
                                           .selectedProduct!.quantity = 1;
+                                           _transactionController.amountController.text=value!.sellingPrice!.toString();
+                                            _transactionController.quantityController.text=1.toString();
                                     }),
                                   ),
                                 ),
@@ -996,8 +998,8 @@ class _MoneyOutState extends State<MoneyOut> {
                           }
 
                           //  _transactionController.createTransaction("INCOME");
-                          _transactionController.createBusinessTransaction(
-                              "EXPENDITURE", 'money out');
+                          _transactionController
+                              .createBusinessTransaction("EXPENDITURE");
                         } else {
                           Get.snackbar(
                               "Error", "Fill up important information");
@@ -1215,6 +1217,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                 _transactionController.selectedProduct = value;
                                 _transactionController
                                     .selectedProduct!.quantity = 1;
+                                     _transactionController.amountController.text=value!.sellingPrice!.toString();
+                                            _transactionController.quantityController.text=1.toString();
                               }),
                             ),
                           ),

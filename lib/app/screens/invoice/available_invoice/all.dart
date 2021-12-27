@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
+import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/invoice_model.dart';
@@ -15,6 +17,7 @@ class All extends StatefulWidget {
 
 class _AllState extends State<All> {
   final _productController = Get.find<ProductRepository>();
+  final _invoiceController=Get.find<InvoiceRespository>();
   bool deleteItem = true;
   bool visible = true;
   List<Invoice> _items = [];
@@ -44,7 +47,7 @@ class _AllState extends State<All> {
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                     Text(
-                      '(3)',
+                      '(${_invoiceController.offlineInvoices.length})',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: 'DMSans',
@@ -76,9 +79,9 @@ class _AllState extends State<All> {
             Expanded(
               child: deleteItem
                   ? ListView.builder(
-                      itemCount: invoiceList.length,
+                      itemCount: _invoiceController.offlineInvoices.length,
                       itemBuilder: (BuildContext context, int index) {
-                        var item = invoiceList[index];
+                        var item = _invoiceController.offlineInvoices[index];
                         return Padding(
                           padding: EdgeInsets.only(
                               bottom: MediaQuery.of(context).size.width * 0.02),
@@ -99,7 +102,7 @@ class _AllState extends State<All> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        item.name!,
+                                     item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'DMSans',
@@ -116,7 +119,7 @@ class _AllState extends State<All> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            item.price!,
+                                            "${item.totalAmount}",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontFamily: 'DMSans',
@@ -124,7 +127,7 @@ class _AllState extends State<All> {
                                                 color: Color(0xffEF6500)),
                                           ),
                                           Text(
-                                            item.details!,
+                                            "",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontFamily: 'DMSans',
@@ -132,7 +135,7 @@ class _AllState extends State<All> {
                                                 color: Colors.black),
                                           ),
                                           Text(
-                                            item.date!,
+                                            item.createdDateTime!.formatDate()!,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontFamily: 'DMSans',
@@ -157,9 +160,9 @@ class _AllState extends State<All> {
                         );
                       })
                   : ListView.builder(
-                      itemCount: invoiceList.length,
+                      itemCount: _invoiceController.offlineInvoices.length,
                       itemBuilder: (BuildContext context, int index) {
-                        var item = invoiceList[index];
+                        var item = _invoiceController.offlineInvoices[index];
                         final _isSelected = _selectedIndex.contains(index);
                         return InkWell(
                           onTap: () {
@@ -194,7 +197,7 @@ class _AllState extends State<All> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          item.name.toString(),
+                                        item.paymentItemRequestList!.first.itemName!,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'DMSans',
@@ -211,7 +214,7 @@ class _AllState extends State<All> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              item.price!,
+                                                "${item.totalAmount}",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontFamily: 'DMSans',
@@ -219,7 +222,7 @@ class _AllState extends State<All> {
                                                   color: Color(0xffEF6500)),
                                             ),
                                             Text(
-                                              item.details!,
+                                             "",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontFamily: 'DMSans',
@@ -227,7 +230,7 @@ class _AllState extends State<All> {
                                                   color: Colors.black),
                                             ),
                                             Text(
-                                              item.date!,
+                                               item.createdDateTime!.formatDate()!,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontFamily: 'DMSans',

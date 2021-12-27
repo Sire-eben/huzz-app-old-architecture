@@ -56,7 +56,7 @@ class CustomTextField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+              margin: EdgeInsets.only(left: 0, right: 0, top: 9),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -836,21 +836,21 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                       SizedBox(
                         width: 5,
                       ),
-                      (widget.validatorText != null &&
-                              widget.validatorText!.isNotEmpty)
-                          ? Row(
-                              children: [
-                                Container(
-                                    margin: EdgeInsets.only(top: 5),
-                                    child: Text(
-                                      "*",
-                                      style: TextStyle(
-                                          color: Colors.red, fontSize: 12),
-                                    )),
-                                SizedBox(width: 8),
-                              ],
-                            )
-                          : Container()
+                      // (widget.validatorText != null &&
+                      //         widget.validatorText!.isNotEmpty)
+                      //     ? Row(
+                      //         children: [
+                      //           Container(
+                      //               margin: EdgeInsets.only(top: 5),
+                      //               child: Text(
+                      //                 "*",
+                      //                 style: TextStyle(
+                      //                     color: Colors.red, fontSize: 12),
+                      //               )),
+                      //           SizedBox(width: 8),
+                      //         ],
+                      //       )
+                      //     : Container()
                     ],
                   ),
                 ),
@@ -1190,6 +1190,24 @@ class _CustomTextFieldWithImageTransactionState
                       'Email',
                       style: TextStyle(color: Colors.black, fontSize: 12),
                     ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    // (widget.validatorText != null &&
+                    //         widget.validatorText!.isNotEmpty)
+                    //     ? Row(
+                    //         children: [
+                    //           Container(
+                    //               margin: EdgeInsets.only(top: 5),
+                    //               child: Text(
+                    //                 "*",
+                    //                 style: TextStyle(
+                    //                     color: Colors.red, fontSize: 12),
+                    //               )),
+                    //           SizedBox(width: 8),
+                    //         ],
+                    //       )
+                    //     : Container()
                   ],
                 ),
                 Container(
