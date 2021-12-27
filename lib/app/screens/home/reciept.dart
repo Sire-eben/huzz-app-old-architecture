@@ -119,16 +119,20 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                     SizedBox(width: MediaQuery.of(context).size.height * 0.01),
                     Column(
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(
-                              MediaQuery.of(context).size.height * 0.015),
-                          width: MediaQuery.of(context).size.height * 0.06,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color:
-                                  AppColor().backgroundColor.withOpacity(0.2)),
-                          child: SvgPicture.asset('assets/images/share.svg'),
+                        InkWell(
+                          onTap: () {},
+                          child: Container(
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.height * 0.015),
+                            width: MediaQuery.of(context).size.height * 0.06,
+                            height: MediaQuery.of(context).size.height * 0.06,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: AppColor()
+                                    .backgroundColor
+                                    .withOpacity(0.2)),
+                            child: SvgPicture.asset('assets/images/share.svg'),
+                          ),
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.01),

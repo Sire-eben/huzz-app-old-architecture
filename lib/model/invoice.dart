@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:huzz/model/payment_item.dart';
+
 class Invoice {
 
 String? id;
@@ -5,9 +8,9 @@ String? customerId;
 String? businessId;
 String? businessTransactionId;
 String? businessInvoiceStatus;
-int? totalAmount;
-int? discountAmount;
-int? tax;
+double? totalAmount;
+double? discountAmount;
+double? tax;
 DateTime? dueDateTime;
 String? note;
 DateTime? issuranceDateTime;
@@ -17,6 +20,7 @@ DateTime? updatedDateTime;
 bool? deleted;
 bool? isPending;
 bool? isUpdatePending;
+List<PaymentItem>? paymentItemRequestList;
 
 
 Invoice({
@@ -36,7 +40,8 @@ this.updatedDateTime,
 this.createdDateTime,
 this.deleted,
 this.isPending,
-this.isUpdatePending
+this.isUpdatePending,
+this.paymentItemRequestList
 
 
 });
@@ -47,18 +52,27 @@ customerId: json['customerId'],
 businessId: json['businessId'],
 businessTransactionId: json['businessTransactionId'],
 businessInvoiceStatus: json['businessInvoiceStatus'],
-totalAmount: json['totalAmount'],
+totalAmount:json['totalAmount']==null?0.0: json['totalAmount']*1.0,
 discountAmount: json['discountAmount'],
 tax: json['tax'],
 dueDateTime: json['dueDateTime']==null?null: DateTime.parse(json['dueDateTime']),
-note: json['note'],
+note: json['note']??"",
 issuranceDateTime: json['issuranceDateTime']==null?null:DateTime.parse(json['issuranceDateTime']),
 reminderDateTime: json['reminderDateTime']==null?null:DateTime.parse(json['reminderDateTime']),
-updatedDateTime: json['updateDateTime']==DateTime.parse(json['createdDateTime'])?null:DateTime.parse(json['updatedDateTime']),
+updatedDateTime: json['updateDateTime']==null? DateTime.parse(json['createdDateTime']):DateTime.parse(json['updatedDateTime']),
 createdDateTime: DateTime.parse(json['createdDateTime']),
 deleted: json['deleted']??false,
 isPending: json['isPending']??false,
-isUpdatePending: json['isUpdatingPending']??false
+isUpdatePending: json['isUpdatingPending']??false,
+ paymentItemRequestList:
+          json['paymentItemRequestList']==null?[]:    List.from(json['paymentItemRequestList'])
+                  .map((e) => PaymentItem.fromJson(
+                      e,
+                      "INCOME",
+                      json['balance'] == null || json['balance'] == 0
+                          ? true
+                          : false))
+                  .toList()
 );
 
 Map<String,dynamic> toJson()=>{
@@ -76,7 +90,13 @@ Map<String,dynamic> toJson()=>{
 "reminderDateTime":reminderDateTime==null?null:reminderDateTime!.toIso8601String(),
 "updateDatetime":updatedDateTime==null?null:updatedDateTime!.toIso8601String(),
 "createdDateTime":createdDateTime!.toIso8601String(),
-"deleted":deleted
+"deleted":deleted,
+  "businessTransactionPaymentItemList":
+            paymentItemRequestList!.map((e) => e.toJson()).toList(),
+"isPending":isPending,
+"isUpdatingPending":isUpdatePending,
+            
+
 
 };
 }

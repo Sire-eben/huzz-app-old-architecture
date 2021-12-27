@@ -20,7 +20,7 @@ phoneNumber: json['user']['phoneNumber'],
 email: json['user']['email'],
 signatureImageFileStoreId: json['user']['signatureImageFileStoreId']==null?"":json['user']['signatureImageFileStoreId'],
 profileImageFileStoreId: json['user']['profileImageFileStoreId']==null?"":json['user']['profileImageFileStoreId'],
-businessList: List.from(json['businessList']).map((e) => Business.fromJson(e)).toList()
+businessList: json['businessList']!=null? List.from(json['businessList']).map((e) => Business.fromJson(e)).toList():[]
 
  );  
 

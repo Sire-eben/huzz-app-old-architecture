@@ -72,6 +72,11 @@ $bankAccountJson text not null,
 $businessId text not null) 
 ''');
 
+  await db.execute('''create table $invoiceTableName (
+$invoiceId text primary key,
+$invoiceJson text not null,
+$businessId text not null)
+''');
         
 // await db.execute(''' create table $playtableName (
 // $courseId integer,
@@ -95,11 +100,7 @@ $businessId text not null)
 // ''');
     });
 
-  await db.execute('''create table $invoiceTableName (
-$invoiceId text primary key,
-$invoiceJson text not null,
-$businessId text not null)
-''');
+
 
   }
 

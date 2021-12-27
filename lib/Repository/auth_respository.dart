@@ -116,7 +116,7 @@ class AuthRepository extends GetxController {
     }
   }
 
-  Future sendSmsOtp() async {
+  Future sendSmsOtp({bool isresend=false}) async {
     print("phone number ${countryText}${phoneNumberController.text}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
@@ -127,6 +127,7 @@ class AuthRepository extends GetxController {
       print("response is ${response.body}");
       if (response.statusCode == 200) {
         _Otpauthstatus(OtpAuthStatus.Success);
+        if(!isresend)
         _homeController.selectOnboardSelectedNext();
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
@@ -242,8 +243,8 @@ class AuthRepository extends GetxController {
   }
 
   Future signUp() async {
-// emailController.text="pelumi40@gmail.com";
-// phoneNumberController.text="8147179396";
+// emailController.text="olu5000@gmail.com";
+// phoneNumberController.text="814217939618";
     try {
       _signupStatus(SignupStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.signup_user),
@@ -262,7 +263,7 @@ class AuthRepository extends GetxController {
           _signupStatus(SignupStatus.Success);
 
           var token = json['data']['accessToken'];
-          var user = User.fromJson(json['data']['user']);
+          var user = User.fromJson(json['data']);
           Mtoken(token);
           pref!.saveToken(token);
           this.user = user;
@@ -282,6 +283,7 @@ class AuthRepository extends GetxController {
         _signupStatus(SignupStatus.Error);
       }
     } catch (ex) {
+      print("error occurred ${ex.toString()}");
       Get.snackbar("SignUp Error", "Something have occurred try again later");
       _signupStatus(SignupStatus.Error);
     }

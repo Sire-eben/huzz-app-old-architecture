@@ -380,6 +380,8 @@ class _MoneyInState extends State<MoneyIn> {
                                           value;
                                       _transactionController
                                           .selectedProduct!.quantity = 1;
+                                              _transactionController.amountController.text=value!.sellingPrice!.toString();
+                                            _transactionController.quantityController.text=1.toString();
                                     }),
                                   ),
                                 ),
@@ -403,26 +405,42 @@ class _MoneyInState extends State<MoneyIn> {
                                               0.03),
                                   Expanded(
                                     child: CustomTextField(
-                                      label: "Quantity",
-                                      hint: '4',
-                                      validatorText: "Quantity is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .amountController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  )
+                                        label: "Quantity",
+                                        hint: '4',
+                                        keyType: TextInputType.phone,
+                                        validatorText: "Quantity is needed",
+                                        onChanged: (value) {
+                                          print("value is $value");
+                                          setState(() {});
+                                        },
+                                        onSubmited: (value) {
+                                          setState(() {});
+                                        },
+                                        textEditingController:
+                                            _transactionController
+                                                .quantityController),
+                                  ),
                                 ],
                               ),
                             ],
                           ),
                         )
                   : Container(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              SizedBox(
+                  height: _transactionController.selectedValue == 1
+                      ? 0
+                      : MediaQuery.of(context).size.height * 0.02),
+              SizedBox(
+                  height: _transactionController.productList.length >= 2
+                      ? MediaQuery.of(context).size.height * 0.02
+                      : 0),
               (_transactionController.productList.length >= 2)
                   ? showAllItems()
                   : Container(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              SizedBox(
+                  height: _transactionController.productList.length >= 2
+                      ? MediaQuery.of(context).size.height * 0.02
+                      : 0),
               GestureDetector(
                 onTap: () {
                   print("New Item is selected");
@@ -669,7 +687,7 @@ class _MoneyInState extends State<MoneyIn> {
                   ],
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
@@ -1199,6 +1217,8 @@ class _MoneyInState extends State<MoneyIn> {
                                 _transactionController.selectedProduct = value;
                                 _transactionController
                                     .selectedProduct!.quantity = 1;
+                                        _transactionController.amountController.text=value!.sellingPrice!.toString();
+                                            _transactionController.quantityController.text=1.toString();
                               }),
                             ),
                           ),
