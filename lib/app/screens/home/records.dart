@@ -30,99 +30,10 @@ class _RecordsState extends State<Records> {
   final _transactionController = Get.find<TransactionRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
-  @override
-  void initState() {
-    _transactionController.clearValue();
-    _transactionController.dateController.text =
-        DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
 
-    // timeController.text =
-    // '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
-    super.initState();
-  }
-
-  final paymentMode = ['FULLY_PAID', 'DEPOSIT'];
-  final products = ['Shoe', 'Bag', 'Clothes'];
-  final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
-  final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
+  final debtStatus = ['Pending', 'Fully Paid'];
 
   String? value;
-
-  String countryFlag = "NG";
-  String countryCode = "234";
-  String am = 'AM';
-  String pm = "PM";
-
-  int paymentType = 0;
-  int paymentModes = 0;
-
-  Future pickImageFromGallery() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemporary = File(image.path);
-      print(imageTemporary);
-      setState(
-        () {
-          _transactionController.image = imageTemporary;
-        },
-      );
-    } on PlatformException catch (e) {
-      print('$e');
-    }
-  }
-
-  Future pickImageFromCamera() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      if (image == null) return;
-      final imageTemporary = File(image.path);
-      print(imageTemporary);
-      setState(
-        () {
-          _transactionController.image = imageTemporary;
-        },
-      );
-    } on PlatformException catch (e) {
-      print('$e');
-    }
-  }
-
-  Future pickDate(BuildContext context) async {
-    final initialDate = DateTime.now();
-    final newDate = await showDatePicker(
-      context: context,
-      initialDate: _transactionController.date ?? initialDate,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
-    );
-
-    if (newDate == null) return;
-
-    setState(() {
-      _transactionController.dateController.text =
-          DateFormat("yyyy-MM-dd").format(newDate).toString();
-      _transactionController.date = newDate;
-      // print(dateController.text);
-    });
-  }
-
-  Future pickTime(BuildContext context) async {
-    final initialTime = TimeOfDay.now();
-    final newTime = await showTimePicker(
-      context: context,
-      initialTime: _transactionController.time ?? initialTime,
-    );
-
-    if (newTime == null) return;
-
-    setState(() {
-      _transactionController.time = newTime;
-      _transactionController.timeController.text =
-          '${_transactionController.time!.hour.toString().padLeft(2, '0')}:${_transactionController.time!.minute.toString().padLeft(2, '0')} ${_transactionController.time!.period.index == 0 ? am : pm}';
-      print(_transactionController.timeController.text);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -261,7 +172,167 @@ class _RecordsState extends State<Records> {
                     ],
                   ),
                 ),
-              )
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Row(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 10,
+                          width: 10,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColor().orangeBorderColor),
+                        ),
+                        SizedBox(width: 2),
+                        Text(
+                          'Money Out (₦)',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 9,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Row(
+                      children: [
+                        Container(
+                          height: 10,
+                          width: 10,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColor().blueColor),
+                        ),
+                        SizedBox(width: 2),
+                        Text(
+                          'Money in (₦)',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 9,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                              width: 2, color: AppColor().backgroundColor)),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: value,
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            size: 14,
+                            color: AppColor().backgroundColor,
+                          ),
+                          hint: Text(
+                            'Pending',
+                            style: TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          isDense: true,
+                          items: debtStatus.map(buildDropDown).toList(),
+                          onChanged: (value) =>
+                              setState(() => this.value = value),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Row(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Transactions',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          '(This Month)',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 9,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    SvgPicture.asset('assets/images/graph.svg'),
+                    SizedBox(width: 5),
+                    SvgPicture.asset('assets/images/download.svg')
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColor().backgroundColor.withOpacity(0.2)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'DATE',
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 9,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'MONEY OUT (N)',
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 9,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Text(
+                        'MONEY IN (N)',
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 9,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -476,29 +547,14 @@ class _RecordsState extends State<Records> {
         );
       });
 
-  DropdownMenuItem<String> buildPaymentItem(String item) => DropdownMenuItem(
+  DropdownMenuItem<String> buildDropDown(String item) => DropdownMenuItem(
         value: item,
         child: Text(
           item,
-          style: TextStyle(fontSize: 14, fontFamily: 'DMSans'),
+          style: TextStyle(
+              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
         ),
       );
-
-  Future showCountryCode(BuildContext context) async {
-    showCountryPicker(
-      context: context,
-      showPhoneCode:
-          true, // optional. Shows phone code before the country name.
-      onSelect: (Country country) {
-        countryCode = country.toJson()['e164_cc'];
-        countryFlag = country.toJson()['iso2_cc'];
-        country.toJson();
-        setState(() {});
-
-        print('Select country: ${country.toJson()}');
-      },
-    );
-  }
 
   Widget showAllItems() {
     return Container(
