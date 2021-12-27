@@ -63,6 +63,8 @@ class InvoiceRespository extends GetxController {
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
   final amountPaidController = TextEditingController();
+  final taxController=TextEditingController();
+  final discountController=TextEditingController();
   Bank? invoiceBank;
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController timeController = TextEditingController();
@@ -386,6 +388,27 @@ if(time!=null&&date!=null){
 date!.add(Duration(hours: time!.hour,minutes: time!.minute));
 print("date Time to string ${date!.toIso8601String()}");
 }
+double tax=0;
+int totalAmount=0;
+productList.forEach((element) {
+  
+
+totalAmount=totalAmount+element.totalAmount!;
+});
+if(taxController.text.isNotEmpty){
+
+tax=(double.parse(taxController.text)*totalAmount)/100;
+
+}
+
+double discount=0;
+
+if(discountController.text.isNotEmpty){
+discount=(double.parse(discountController.text)*totalAmount)/100;
+
+
+}
+double newTotalAmount=totalAmount+tax-discount;
 // String? timeday=date!.toIso8601String();
 String body=jsonEncode({
 
@@ -393,9 +416,11 @@ String body=jsonEncode({
    
     "paymentSource": selectedPaymentSource,
     "businessId":_businessController.selectedBusiness.value!.businessId,
-
     "paymentMode":selectedPaymentMode,
     "customerId":customerId,
+    "tax":tax,
+    "discountAmount":discount,
+    "totalAmount":newTotalAmount
     
     
 
@@ -440,54 +465,54 @@ _addingInvoiceStatus(AddingInvoiceStatus.Error);
 Future createInvoiceOffline()async{
 String? fileid;
   String? customerId=null;
-  File? outFile;
-if(image!=null){
 
-var list=await getApplicationDocumentsDirectory();
-
-    Directory appDocDir =list;
-String appDocPath = appDocDir.path;
-
-  String basename = path.basename(image!.path);
-  var newPath=appDocPath+basename;
-  print("new file path is ${newPath}");
-   outFile=File(newPath);
- image!.copySync(outFile.path);
-
-
-}
 
 if(quantityController.text.isEmpty){
 
   quantityController.text="1";
 }
-if(addCustomer){
+
 if(customerType==1){
 customerId=await _customerController.addBusinessCustomerOfflineWithString("INCOME");
 }else{
   if(selectedCustomer!=null)
   customerId=selectedCustomer!.customerId;
 }
-}else{
-  customerId=null;
+double tax=0;
+int totalAmount=0;
+productList.forEach((element) {
+  
+
+totalAmount=totalAmount+element.totalAmount!;
+});
+if(taxController.text.isNotEmpty){
+
+tax=(double.parse(taxController.text)*totalAmount)/100;
+
 }
+
+double discount=0;
+
+if(discountController.text.isNotEmpty){
+discount=(double.parse(discountController.text)*totalAmount)/100;
+
+
+}
+double newTotalAmount=totalAmount+tax-discount;
+
   
 print("trying to save offline");
  
   Invoice? value;
 
- var totalamount=0;
-productList.forEach((element) { 
  
- totalamount=totalamount+(element.totalAmount!);
 
-});
 
 
  value=Invoice(
 
 id:  uuid.v1(),
-totalAmount: totalamount,
+totalAmount: newTotalAmount,
 createdDateTime: DateTime.now(),
 issuranceDateTime: DateTime.now(),
 
@@ -496,7 +521,8 @@ customerId: customerId,
 businessId: _businessController.selectedBusiness.value!.businessId,
 paymentItemRequestList: productList,
 isPending: true,
-
+tax:tax,
+discountAmount: discount
 
 );
 
@@ -536,7 +562,17 @@ Future saveInvoiceOnline()async{
   return;
 
 }
-
+  bool checkifSelectedForDelted(String id) {
+    bool result = false;
+    deletedItem.forEach((element) {
+      print("checking transaction whether exist");
+      if (element.id == id) {
+        print("Customer   found");
+        result = true;
+      }
+    });
+    return result;
+  }
 
 // pendingInvoice.forEach((e)async{
 print("loading Invoice to server ");
@@ -667,6 +703,7 @@ selectedCustomer=null;
 selectedPaymentSource=null;
 selectedProduct=null;
 productList=[];
+
   
 
 
@@ -714,9 +751,11 @@ void addMoreProduct(){
   productList.add(PaymentItem(
 productId: selectedProduct!.productId!,
 itemName:selectedProduct!.productName, 
-amount: selectedProduct!.sellingPrice,
-totalAmount: (selectedProduct!.sellingPrice!*selectedProduct!.quantity!),
-quality: selectedProduct!.quantity!
+amount:(amountController.text.isEmpty)? selectedProduct!.sellingPrice:int.parse(amountController.text),
+totalAmount: (amountController.text.isEmpty)? (selectedProduct!.sellingPrice!*
+(quantityController.text.isEmpty?1:int.parse(quantityController.text))):int.parse(amountController.text)*
+(quantityController.text.isEmpty?1:int.parse(quantityController.text)),
+quality:(quantityController.text.isEmpty)? 1:int.parse(quantityController.text)
 
   )); 
 

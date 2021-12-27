@@ -56,7 +56,7 @@ class CustomTextField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+              margin: EdgeInsets.only(left: 0, right: 0, top: 9),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

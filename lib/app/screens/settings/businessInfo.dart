@@ -98,27 +98,38 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       color: AppColor().blackColor,
                       fontSize: 12,
                     ),
+                  )),
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                CustomTextField(
-                  label: "Business Name",
-                  validatorText: "Business name is needed",
-                ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 20, right: 20, top: 9),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                          color: AppColor().backgroundColor, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            showCountryCode(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  right: BorderSide(
+                                      color: AppColor().backgroundColor,
+                                      width: 2)),
+                            ),
+                            height: 50,
+                            width: 80,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   'Phone Number',
@@ -138,9 +149,11 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
+                          )
+                        )
+                      ])),
+                        
+                      
                       SizedBox(
                         height: 10,
                       ),
@@ -218,33 +231,51 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                CustomTextField(
-                  label: "Email",
-                  validatorText: "Email required",
-                ),
-                CustomTextField(
-                  label: "Address",
-                  validatorText: "Address is needed",
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'Currency',
-                    style: TextStyle(color: Colors.black, fontSize: 12),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
+                    
+                  
+             
+            CustomTextField(
+              label: "Email",
+              validatorText: "Email required",
+            ),
+            CustomTextField(
+              label: "Address",
+              validatorText: "Address is needed",
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Currency',
+                style: TextStyle(color: Colors.black, fontSize: 12),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            // Container(
+            //   width: MediaQuery.of(context).size.width * 1,
+            //   padding: EdgeInsets.symmetric(
+            //     horizontal: 10,
+            //   ),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(10),
+            //     border: Border.all(width: 2, color: AppColor().backgroundColor),
+            //   ),
+            //   child: DropdownButtonHideUnderline(
+            //     child: DropdownButton<String>(
+            //       value: value,
+            //       focusColor: AppColor().whiteColor,
+            //       icon: Icon(
+            //         Icons.keyboard_arrow_down,
+            //         color: AppColor().backgroundColor,
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       height: 10,
+            //     ),
                 Container(
                   width: MediaQuery.of(context).size.width * 1,
                   padding: EdgeInsets.symmetric(

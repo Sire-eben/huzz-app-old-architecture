@@ -706,10 +706,11 @@ void addMoreProduct(){
   productList.add(PaymentItem(
 productId: selectedProduct!.productId!,
 itemName:selectedProduct!.productName, 
-amount: selectedProduct!.sellingPrice,
-totalAmount: (selectedProduct!.sellingPrice!*selectedProduct!.quantity!),
-quality: selectedProduct!.quantity!
-
+amount:(amountController.text.isEmpty)? selectedProduct!.sellingPrice:int.parse(amountController.text),
+totalAmount: (amountController.text.isEmpty)? (selectedProduct!.sellingPrice!*
+(quantityController.text.isEmpty?1:int.parse(quantityController.text))):int.parse(amountController.text)*
+(quantityController.text.isEmpty?1:int.parse(quantityController.text)),
+quality:(quantityController.text.isEmpty)? 1:int.parse(quantityController.text)
   )); 
 
 

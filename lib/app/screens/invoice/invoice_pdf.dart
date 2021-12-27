@@ -203,7 +203,7 @@ print("item name ${item.itemName}");
             ),
           ),
           Text(
-            Utils.formatPrice(total*1.0),
+            Utils.formatPrice(invoice.totalAmount!),
             style: TextStyle(
               color: PdfColors.blue,
               fontSize: 16,
@@ -215,8 +215,13 @@ print("item name ${item.itemName}");
     );
   }
 
-  static Widget buildSubTotal(Invoice invoice) =>
-      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+  static Widget buildSubTotal(Invoice invoice){
+    int totalAmount=0;
+    invoice.paymentItemRequestList!.forEach((element){
+totalAmount=totalAmount+element.totalAmount!;
+
+    });
+     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
             'Issue Date',
@@ -259,7 +264,7 @@ print("item name ${item.itemName}");
             ),
           ),
           Text(
-            'Tax (0%)',
+            'Tax',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
@@ -275,21 +280,21 @@ print("item name ${item.itemName}");
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           Text(
-            'N 150,000',
+            'N $totalAmount',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            'N 2,000',
+            'N ${invoice.tax}',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            'N 1,000',
+            'N ${invoice.discountAmount}',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
@@ -297,7 +302,7 @@ print("item name ${item.itemName}");
           ),
         ])
       ]);
-
+  }
   static Widget buildFooter(Customer? customer) =>
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

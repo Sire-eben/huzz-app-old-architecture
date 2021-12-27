@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:huzz/model/payment_item.dart';
 
 class Invoice {
@@ -7,8 +8,8 @@ String? customerId;
 String? businessId;
 String? businessTransactionId;
 String? businessInvoiceStatus;
-int? totalAmount;
-int? discountAmount;
+double? totalAmount;
+double? discountAmount;
 double? tax;
 DateTime? dueDateTime;
 String? note;
@@ -51,7 +52,7 @@ customerId: json['customerId'],
 businessId: json['businessId'],
 businessTransactionId: json['businessTransactionId'],
 businessInvoiceStatus: json['businessInvoiceStatus'],
-totalAmount: json['totalAmount'],
+totalAmount:json['totalAmount']==null?0.0: json['totalAmount']*1.0,
 discountAmount: json['discountAmount'],
 tax: json['tax'],
 dueDateTime: json['dueDateTime']==null?null: DateTime.parse(json['dueDateTime']),
@@ -92,6 +93,9 @@ Map<String,dynamic> toJson()=>{
 "deleted":deleted,
   "businessTransactionPaymentItemList":
             paymentItemRequestList!.map((e) => e.toJson()).toList(),
+"isPending":isPending,
+"isUpdatingPending":isUpdatePending,
+            
 
 
 };

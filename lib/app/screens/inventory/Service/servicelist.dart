@@ -23,29 +23,6 @@ class _ServiceListingState extends State<ServiceListing> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor().whiteColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        // leading: IconButton(
-        //   icon: Icon(
-        //     Icons.arrow_back,
-        //     color: AppColor().backgroundColor,
-        //   ),
-        //   onPressed: () {
-        //     Get.back();
-        //   },
-        // ),
-        title: Text(
-          '',
-          style: TextStyle(
-            color: AppColor().backgroundColor,
-            fontFamily: 'DMSans',
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-      ),
       body: Obx(() {
         return Stack(
           children: [
@@ -58,7 +35,7 @@ class _ServiceListingState extends State<ServiceListing> {
             ),
             //Add & Delete Button
             Positioned(
-              top: 150,
+              top: 210,
               left: 20,
               right: 20,
               child: Row(
@@ -124,7 +101,7 @@ class _ServiceListingState extends State<ServiceListing> {
             ),
             //Search
             Positioned(
-              top: 150,
+              top: 140,
               left: 20,
               right: 20,
               child: Container(
@@ -184,7 +161,7 @@ class _ServiceListingState extends State<ServiceListing> {
             ),
             //ServiceList
             Positioned(
-              top: 250,
+              top: 270,
               bottom: 30,
               left: 20,
               right: 20,
@@ -206,6 +183,7 @@ class _ServiceListingState extends State<ServiceListing> {
 
   Widget productCount(BuildContext context) => Container(
         height: 95,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: AppColor().backgroundColor,
           borderRadius: BorderRadius.all(
@@ -213,6 +191,7 @@ class _ServiceListingState extends State<ServiceListing> {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
