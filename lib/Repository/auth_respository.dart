@@ -144,7 +144,7 @@ class AuthRepository extends GetxController {
       _Otpauthstatus(OtpAuthStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.send_smsOtp),
           body: jsonEncode(
-              {"phoneNumber": countryText + phoneNumberController.text}),
+              {"phoneNumber": countryText + phoneNumberController.text.trim()}),
           headers: {"Content-Type": "application/json"});
       print("response is ${response.body}");
       if (response.statusCode == 200) {
@@ -167,7 +167,7 @@ class AuthRepository extends GetxController {
     // _Otpauthstatus(OtpAuthStatus.Loading);
     final response = await http.post(Uri.parse(ApiLink.send_voiceOtp),
         body: jsonEncode(
-            {"phoneNumber": countryText + phoneNumberController.text}),
+            {"phoneNumber": countryText + phoneNumberController.text.trim()}),
         headers: {"Content-Type": "application/json"});
     print("otp sent voice ${response.body}");
     if (response.statusCode == 200) {
@@ -182,7 +182,7 @@ class AuthRepository extends GetxController {
       print("otp value ${otpController.text}");
       final resposne = await http.post(Uri.parse(ApiLink.verify_otp),
           body: jsonEncode({
-            "phoneNumber": countryText + phoneNumberController.text,
+            "phoneNumber": countryText + phoneNumberController.text.trim(),
             "otp": otpController.text
           }),
           headers: {"Content-Type": "application/json"});
@@ -249,11 +249,11 @@ class AuthRepository extends GetxController {
       _signupStatus(SignupStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.signup_user),
           body: jsonEncode({
-            "firstName": firstNameController.text,
-            "lastName": lastNameController.text,
-            "email": emailController.text,
+            "firstName": firstNameController.text.trim(),
+            "lastName": lastNameController.text.trim(),
+            "email": emailController.text.trim(),
             "pin": pinController.text,
-            "phoneNumber": countryText + phoneNumberController.text
+            "phoneNumber": countryText + phoneNumberController.text.trim()
           }),
           headers: {"Content-Type": "application/json"});
       print("sign up response ${response.body} ${response.statusCode}");
