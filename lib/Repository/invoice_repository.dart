@@ -554,15 +554,7 @@ print("number of Invoice that is yet to saved on server is ${pendingInvoiceToBeA
 saveInvoiceOnline();
 }
 
-Future saveInvoiceOnline()async{
-
-  
-  if(pendingInvoiceToBeAdded.isEmpty){
-
-  return;
-
-}
-  bool checkifSelectedForDelted(String id) {
+ bool checkifSelectedForDeleted(String id) {
     bool result = false;
     deletedItem.forEach((element) {
       print("checking transaction whether exist");
@@ -573,6 +565,16 @@ Future saveInvoiceOnline()async{
     });
     return result;
   }
+Future saveInvoiceOnline()async{
+
+  
+  if(pendingInvoiceToBeAdded.isEmpty){
+
+  return;
+
+}
+
+ 
 
 // pendingInvoice.forEach((e)async{
 print("loading Invoice to server ");
@@ -680,11 +682,43 @@ Future deleteItem(Invoice model)async{
 void deleteItems(){
 
 deletedItem.forEach((element) {
-  
-_businessController.sqliteDb.deleteInvoice(element);
+  deleteBusinessInvoice(element);
+
 });
 
 }
+
+ Future deleteInvoiceOnline(Invoice invoice) async {
+    var response = await http.delete(
+        Uri.parse(ApiLink.invoice_link+
+            "/${invoice.id}?businessId=${invoice.businessId}"),
+        headers: {"Authorization": "Bearer ${_userController.token}"});
+    print("delete response ${response.body}");
+    if (response.statusCode == 200) {
+    } else {}
+  await  _businessController.sqliteDb.deleteInvoice(invoice);
+   GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
+  }
+
+  Future deleteBusinessInvoice(Invoice invoice) async {
+    if (_userController.onlineStatus == OnlineStatus.Onilne) {
+      deleteInvoiceOnline(invoice);
+    } else {
+      deleteBusinessInvoiceOffline(invoice);
+    }
+  }
+
+  Future deleteBusinessInvoiceOffline(Invoice invoice) async {
+    invoice.deleted = true;
+
+    if (!invoice.isPending!) {
+     await _businessController.sqliteDb.updateOfflineInvoice(invoice);
+    } else {
+    await  _businessController.sqliteDb.deleteInvoice(invoice);
+    }
+    GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
+    // getOfflineInvoice(_businessController.selectedBusiness.value!.businessId!);
+  }
 clearValue(){
 print("clearing value");
   itemNameController.text="";
