@@ -212,7 +212,7 @@ Future insertProduct(Product product) async {
     });
   }
 
-  Future insertDebtor(DebtorsModel debtor) async {
+  Future insertDebtor(Debtor debtor) async {
     var value = jsonEncode(debtor.toJson());
     var result = db.insert(debtorbusinessTable, {
       debtorId: debtor.debtorId,
@@ -230,15 +230,15 @@ Future insertProduct(Product product) async {
     return offlineProducts;
   }
 
-  Future<List<DebtorsModel>> getOfflineDebtors(String id) async {
+  Future<List<Debtor>> getOfflineDebtors(String id) async {
     var result = await db.query(debtorbusinessTable,
         where: '"$businessId" = ?', whereArgs: [id]);
     var offlineDebtors = result
-        .map((e) => DebtorsModel.fromJson(jsonDecode(e[debtorJson].toString())))
+        .map((e) => Debtor.fromJson(jsonDecode(e[debtorJson].toString())))
         .toList();
     return offlineDebtors;
   }
-  Future updateOfflineDebtor(DebtorsModel debtor) async {
+  Future updateOfflineDebtor(Debtor debtor) async {
     var value = jsonEncode(debtor.toJson());
     var result = await db.update(
         debtorbusinessTable,
