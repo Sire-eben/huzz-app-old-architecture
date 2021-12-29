@@ -199,8 +199,10 @@ class _SettingsState extends State<Settings> {
                       ),
                       InkWell(
                         onTap: () {
-                          _displayDialog(context,
-                              "are you want to delete your account", () {});
+                          _displayDialog(
+                              context,
+                              "are you sure want to delete your account",
+                              () {});
                         },
                         child: Container(
                           height: 30,
@@ -301,7 +303,11 @@ class _SettingsState extends State<Settings> {
                       ),
                       InkWell(
                         onTap: () {
-                          // _displayDialog(context);
+                          _displayBusinessDialog(
+                            context,
+                            'You are about to delete your Huzz account and all associated data. This is an irreversible action. Are you sure you want to continue?',
+                            () {},
+                          );
                         },
                         child: Container(
                           height: 30,
@@ -494,7 +500,7 @@ class _SettingsState extends State<Settings> {
         builder: (context) {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
-              horizontal: 50,
+              horizontal: 55,
               vertical: 250,
             ),
             title: Row(
@@ -515,10 +521,115 @@ class _SettingsState extends State<Settings> {
             content: Column(
               children: [
                 SizedBox(
-                  height: 30,
+                  height: 8,
                 ),
-                Image.asset(
-                  'assets/images/Polygon 3.png',
+                SvgPicture.asset(
+                  'assets/images/polygon.svg',
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().backgroundColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: AppColor().backgroundColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        onContinue();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().backgroundColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Continue',
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  _displayBusinessDialog(
+      BuildContext context, String title, VoidCallback onContinue) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 55,
+              vertical: 225,
+            ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '$title',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Column(
+              children: [
+                SvgPicture.asset(
+                  'assets/images/polygon.svg',
                 ),
               ],
             ),
