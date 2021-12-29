@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -21,6 +22,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   String countryFlag = "NG";
   String countryCode = "234";
 
+  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
@@ -59,7 +61,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -71,71 +73,69 @@ class _PersonalInfoState extends State<PersonalInfo> {
               label: "Last Name",
               validatorText: "Last name is needed",
             ),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20, right: 20, top: 9),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Phone Number',
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 5),
+                            child: Text(
+                              "*",
+                              style: TextStyle(color: Colors.red, fontSize: 12),
+                            ),
+                          ),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _displayDialog(context);
+                        },
+                        child: Row(
                           children: [
-                            Text(
-                              'Phone Number',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                            Container(
+                              child: Image.asset(
+                                'assets/images/pen.png',
+                                scale: 1.2,
+                              ),
                             ),
                             SizedBox(
                               width: 5,
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 5),
-                              child: Text(
-                                "*",
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 12),
-                              ),
+                            Text(
+                              'Change',
+                              style: TextStyle(
+                                  color: AppColor().backgroundColor,
+                                  fontSize: 12),
                             ),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            _displayDialog(context);
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                child: Image.asset(
-                                  'assets/images/pen.png',
-                                  scale: 1.2,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Change',
-                                style: TextStyle(
-                                    color: AppColor().backgroundColor,
-                                    fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
+                    // margin: EdgeInsets.symmetric(
+                    //   horizontal: 20,
+                    // ),
                     width: MediaQuery.of(context).size.width,
                     height: 50,
                     decoration: BoxDecoration(
@@ -217,35 +217,12 @@ class _PersonalInfoState extends State<PersonalInfo> {
               validatorText: "Email required",
             ),
             SizedBox(
-              height: 20,
+              height: 25,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Stack(
-                children: [
-                  Image.asset('assets/images/dottedline.png'),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset('assets/images/imageicon.png'),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'Add signature image (Optional)',
-                          style: TextStyle(
-                            color: AppColor().hintColor.withOpacity(0.5),
-                            fontFamily: 'DMSans',
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+            Center(
+              child: SvgPicture.asset(
+                'assets/images/image-signature.svg',
+                // height: 50,
               ),
             ),
             Spacer(),
@@ -255,9 +232,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
               },
               child: Container(
                 height: 55,
-                margin: EdgeInsets.symmetric(
-                  horizontal: 15,
-                ),
                 decoration: BoxDecoration(
                     color: AppColor().backgroundColor,
                     borderRadius: BorderRadius.circular(10)),
