@@ -211,17 +211,14 @@ class PdfMoneyInOutApi {
                 : Container(),
             Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text('POWERED BY:'),
-              Row(children: [
-                PdfLogo(),
-                Text(
-                  'HUZZ',
-                  style: TextStyle(
-                    color: PdfColors.blue,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Text(
+                'HUZZ',
+                style: TextStyle(
+                  color: PdfColors.blue,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
                 ),
-              ])
+              ),
             ])
           ]),
           SizedBox(height: 1 * PdfPageFormat.mm),

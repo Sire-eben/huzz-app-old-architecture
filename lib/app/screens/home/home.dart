@@ -8,6 +8,7 @@ import 'package:huzz/app/screens/create_business.dart';
 // import 'package:huzz/app/screens/home/add_new_sale.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
+import 'package:huzz/app/screens/home/records.dart';
 import 'package:huzz/app/screens/settings/notification.dart';
 import 'package:huzz/app/screens/settings/settings.dart';
 import 'package:huzz/colors.dart';
@@ -125,6 +126,8 @@ class _HomeState extends State<Home> {
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',
+                        height: 20,
+                        width: 20,
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
@@ -134,6 +137,9 @@ class _HomeState extends State<Home> {
                       },
                       child: SvgPicture.asset(
                         'assets/images/settings.svg',
+                        color: AppColor().backgroundColor,
+                        height: 20,
+                        width: 20,
                       ),
                     ),
                   ],
@@ -182,34 +188,39 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Spacer(),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff056B5C),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "See all your Records",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => Records());
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Color(0xff056B5C),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "See all your Records",
+                                style: TextStyle(
+                                  color: AppColor().whiteColor,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.arrow_forward_outlined,
-                              color: AppColor().whiteColor,
-                              size: 18,
-                            ),
-                          ],
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.arrow_forward_outlined,
+                                color: AppColor().whiteColor,
+                                size: 18,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -342,7 +353,10 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          'N${display(_transactionController.debtors.value)}',
+                          // ignore: unnecessary_null_comparison
+                          display(_transactionController.debtors.value) == null
+                              ? 'No debtors yet'
+                              : 'N${display(_transactionController.debtors.value)}',
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),
@@ -362,7 +376,7 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Text(
-            'Today`s transaction',
+            'Today`s transactions',
             style: TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
@@ -554,34 +568,39 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Spacer(),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff056B5C),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "See all your Records",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => Records());
+                        },
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Color(0xff056B5C),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "See all your Records",
+                                style: TextStyle(
+                                  color: AppColor().whiteColor,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.arrow_forward_outlined,
-                              color: AppColor().whiteColor,
-                              size: 18,
-                            ),
-                          ],
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.arrow_forward_outlined,
+                                color: AppColor().whiteColor,
+                                size: 18,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -750,7 +769,7 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Text(
-            'Today`s transaction',
+            'Today`s transactions',
             style: TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
@@ -788,7 +807,7 @@ class _HomeState extends State<Home> {
                           Text(
                             'Record a transaction',
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 13,
                                 color: Colors.black,
                                 fontFamily: 'DMSans',
                                 fontWeight: FontWeight.bold),
@@ -799,14 +818,14 @@ class _HomeState extends State<Home> {
                           Text(
                             'Your recent transactions will show here. Click the',
                             style: TextStyle(
-                                fontSize: 11,
+                                fontSize: 10,
                                 color: Colors.black,
                                 fontFamily: 'DMSans'),
                           ),
                           Text(
                             'Add transaction button to record your first transaction',
                             style: TextStyle(
-                                fontSize: 11,
+                                fontSize: 10,
                                 color: Colors.black,
                                 fontFamily: 'DMSans'),
                           ),
@@ -971,7 +990,11 @@ class _HomeState extends State<Home> {
                                       color: _randomColor.randomColor()),
                                   child: Center(
                                       child: Text(
-                                    '',
+                                    (item.business == null ||
+                                            item.business!.businessName!
+                                                .isEmpty)
+                                        ? ''
+                                        : item.business!.businessName![0],
                                     style: TextStyle(
                                         fontSize: 30,
                                         color: Colors.white,
