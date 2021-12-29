@@ -8,7 +8,16 @@ import 'package:huzz/colors.dart';
 import 'notification.dart';
 import 'personalInfo.dart';
 
-class Settings extends GetView<AuthRepository> {
+class Settings extends StatefulWidget {
+  const Settings({Key? key}) : super(key: key);
+
+  @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  final controller = Get.find<AuthRepository>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,17 +48,19 @@ class Settings extends GetView<AuthRepository> {
       body: Stack(
         children: [
           Positioned(
-            top: 100,
+            top: 80,
             left: 100,
             right: 100,
             child: Center(
               child: Image.asset(
                 "assets/images/profileImg.png",
+                // height: 100,
+                // width: 100,
               ),
             ),
           ),
           Positioned(
-            top: 150,
+            top: 130,
             left: 200,
             right: 150,
             child: Container(
@@ -63,9 +74,12 @@ class Settings extends GetView<AuthRepository> {
                 ),
                 shape: BoxShape.circle,
               ),
-              child: Image.asset(
-                "assets/images/addcamera.png",
-                scale: 0.9,
+              child: Center(
+                child: SvgPicture.asset(
+                  "assets/images/addcamera.svg",
+                  height: 15,
+                  width: 15,
+                ),
               ),
             ),
           ),
@@ -75,36 +89,39 @@ class Settings extends GetView<AuthRepository> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 50,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'First Name',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        controller.user!.firstName == null
+                            ? 'First Name'
+                            : controller.user!.firstName!,
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        'Last Name',
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      child: Text(
+                        controller.user!.lastName == null
+                            ? 'Last Name'
+                            : controller.user!.lastName!,
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 60,
@@ -132,9 +149,12 @@ class Settings extends GetView<AuthRepository> {
                           ),
                           shape: BoxShape.circle,
                         ),
-                        child: Image.asset(
-                          "assets/images/user.png",
-                          scale: 0.9,
+                        child: Center(
+                          child: SvgPicture.asset(
+                            "assets/images/user.svg",
+                            height: 20,
+                            width: 20,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -165,9 +185,12 @@ class Settings extends GetView<AuthRepository> {
                             ),
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset(
-                            "assets/images/settings.png",
-                            scale: 0.9,
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/setting.svg",
+                              height: 20,
+                              width: 20,
+                            ),
                           ),
                         ),
                       ),
@@ -176,10 +199,8 @@ class Settings extends GetView<AuthRepository> {
                       ),
                       InkWell(
                         onTap: () {
-                          _displayDialog(context,"are you want to delete your account",(){
-
-
-                          });
+                          _displayDialog(context,
+                              "are you want to delete your account", () {});
                         },
                         child: Container(
                           height: 30,
@@ -192,9 +213,12 @@ class Settings extends GetView<AuthRepository> {
                             ),
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset(
-                            "assets/images/delete.png",
-                            scale: 0.9,
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/delete.svg",
+                              height: 20,
+                              width: 20,
+                            ),
                           ),
                         ),
                       ),
@@ -227,9 +251,12 @@ class Settings extends GetView<AuthRepository> {
                           ),
                           shape: BoxShape.circle,
                         ),
-                        child: Image.asset(
-                          "assets/images/user.png",
-                          scale: 0.9,
+                        child: Center(
+                          child: SvgPicture.asset(
+                            "assets/images/business.svg",
+                            height: 15,
+                            width: 15,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -260,9 +287,12 @@ class Settings extends GetView<AuthRepository> {
                             ),
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset(
-                            "assets/images/settings.png",
-                            scale: 0.9,
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/setting.svg",
+                              height: 20,
+                              width: 20,
+                            ),
                           ),
                         ),
                       ),
@@ -284,9 +314,12 @@ class Settings extends GetView<AuthRepository> {
                             ),
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset(
-                            "assets/images/delete.png",
-                            scale: 0.9,
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/delete.svg",
+                              height: 20,
+                              width: 20,
+                            ),
                           ),
                         ),
                       ),
@@ -319,9 +352,12 @@ class Settings extends GetView<AuthRepository> {
                           ),
                           shape: BoxShape.circle,
                         ),
-                        child: Image.asset(
-                          "assets/images/bell.png",
-                          scale: 0.9,
+                        child: Center(
+                          child: SvgPicture.asset(
+                            "assets/images/bell.svg",
+                            height: 20,
+                            width: 20,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -352,9 +388,12 @@ class Settings extends GetView<AuthRepository> {
                             ),
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset(
-                            "assets/images/settings.png",
-                            scale: 0.9,
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/setting.svg",
+                              height: 20,
+                              width: 20,
+                            ),
                           ),
                         ),
                       ),
@@ -411,11 +450,10 @@ class Settings extends GetView<AuthRepository> {
                       Spacer(),
                       GestureDetector(
                         onTap: () {
-                          _displayDialog(context, "Are you sure you want to log out", () {
-
+                          _displayDialog(
+                              context, "Are you sure you want to log out", () {
                             controller.logout();
-                           });
-                        
+                          });
                         },
                         child: Container(
                           height: 30,
@@ -449,7 +487,8 @@ class Settings extends GetView<AuthRepository> {
     );
   }
 
-  _displayDialog(BuildContext context,String title,VoidCallback onContinue) async {
+  _displayDialog(
+      BuildContext context, String title, VoidCallback onContinue) async {
     return showDialog(
         context: context,
         builder: (context) {

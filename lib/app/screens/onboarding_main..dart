@@ -53,12 +53,22 @@ class _OnboardingMainState extends State<OnboardingMain> {
                     //   ),
                     // ),
                     Positioned(
-                        right: 20,
-                        top: 40,
+                      right: 20,
+                      top: 40,
+                      child: GestureDetector(
+                        onTap: () {
+                          if (selectedIndex < boards.length - 1) {
+                            ++selectedIndex;
+                            progress = 22;
+                          }
+                          setState(() {});
+                        },
                         child: Text(
                           "Skip",
                           style: TextStyle(color: Colors.black, fontSize: 16),
-                        )),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       width: 20,
                     )
