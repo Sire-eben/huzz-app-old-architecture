@@ -117,49 +117,48 @@ class _DebtorsState extends State<Debtors> {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.6,
-                      decoration: BoxDecoration(
-                        color: Color(0xffF5F5F5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset('assets/images/debtors.svg'),
-                            Text(
-                              'Add Debtors',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans',
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Your debtors will show here. Click the ',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans'),
-                            ),
-                            Text(
-                              'New Debtors button to add your first debtor',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans'),
-                            ),
-                          ],
+                    Expanded(
+                      child: Container(
+                        // height: MediaQuery.of(context).size.height * 0.5,
+                        decoration: BoxDecoration(
+                          color: Color(0xffF5F5F5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset('assets/images/debtors.svg'),
+                              Text(
+                                'Add Debtors',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontFamily: 'DMSans',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Your debtors will show here. Click the ',
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.black,
+                                    fontFamily: 'DMSans'),
+                              ),
+                              Text(
+                                'New Debtors button to add your first debtor',
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.black,
+                                    fontFamily: 'DMSans'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -224,135 +223,143 @@ class _DebtorsState extends State<Debtors> {
         ),
       );
 
-  Widget buildAddDebtor() => Container(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.04,
-            right: MediaQuery.of(context).size.width * 0.04,
-            bottom: MediaQuery.of(context).size.width * 0.04,
-            top: MediaQuery.of(context).size.width * 0.02),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  height: 3,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(4),
+  StatefulBuilder buildAddDebtor() =>
+      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    height: 3,
+                    width: 70,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Add Debtor',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Add Debtor',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: newCustomersInfo(),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Obx(() {
-                return InkWell(
-                  onTap: () {
-                    if (1<0) {
-                      if (1!=0) {
-                        _transactionController.addMoreProduct();
-                      }
-                      if (_transactionController.productList.isNotEmpty) {
-                        if (_transactionController.selectedPaymentMode !=
-                                null &&
-                            _transactionController.selectedPaymentSource !=
-                                null) {
-                          if (_transactionController.addCustomer) {
-                            if (_transactionController.selectedCustomer !=
-                                    null ||
-                                _customerController
-                                        .nameController.text.isNotEmpty &&
-                                    _customerController.phoneNumberController
-                                        .text.isNotEmpty) {
+                SizedBox(height: 10),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: newCustomersInfo(),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Obx(() {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        if (1 < 0) {
+                          if (1 != 0) {
+                            _transactionController.addMoreProduct();
+                          }
+                          if (_transactionController.productList.isNotEmpty) {
+                            if (_transactionController.selectedPaymentMode !=
+                                    null &&
+                                _transactionController.selectedPaymentSource !=
+                                    null) {
+                              if (_transactionController.addCustomer) {
+                                if (_transactionController.selectedCustomer !=
+                                        null ||
+                                    _customerController
+                                            .nameController.text.isNotEmpty &&
+                                        _customerController
+                                            .phoneNumberController
+                                            .text
+                                            .isNotEmpty) {
+                                } else {
+                                  Get.snackbar(
+                                      "Error", "Fill up your contact details");
+                                  return;
+                                }
+                              }
+
+                              //  _transactionController.createTransaction("INCOME");
+                              _transactionController
+                                  .createBusinessTransaction("EXPENDITURE");
                             } else {
                               Get.snackbar(
-                                  "Error", "Fill up your contact details");
-                              return;
+                                  "Error", "Fill up important information");
                             }
+                          } else {
+                            Get.snackbar("Error",
+                                "You need to have at least one product to proceed");
                           }
-
-                          //  _transactionController.createTransaction("INCOME");
-                          _transactionController
-                              .createBusinessTransaction("EXPENDITURE");
-                        } else {
-                          Get.snackbar(
-                              "Error", "Fill up important information");
                         }
-                      } else {
-                        Get.snackbar("Error",
-                            "You need to have at least one product to proceed");
-                      }
-                    }
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.03),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_transactionController.addingTransactionStatus ==
-                            AddingTransactionStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                size: 22,
-                                color: AppColor().whiteColor,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Center(
-                                child: Text(
-                                  'Add Debtor',
-                                  style: TextStyle(
-                                    color: AppColor().whiteColor,
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.bold,
+                      });
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: (_transactionController.addingTransactionStatus ==
+                              AddingTransactionStatus.Loading)
+                          ? Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  size: 22,
+                                  color: AppColor().whiteColor,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Center(
+                                  child: Text(
+                                    'Add Debtor',
+                                    style: TextStyle(
+                                      color: AppColor().whiteColor,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                  ),
-                );
-              }),
-            ],
+                              ],
+                            ),
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
-        ),
-      );
+        );
+      });
 
   StatefulBuilder newCustomersInfo() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
@@ -365,7 +372,7 @@ class _DebtorsState extends State<Debtors> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: () => setState(
+                          onTap: () => myState(
                               () => _transactionController.customerType = 1),
                           child: Row(
                             children: [
@@ -374,7 +381,7 @@ class _DebtorsState extends State<Debtors> {
                                   activeColor: AppColor().backgroundColor,
                                   groupValue:
                                       _transactionController.customerType,
-                                  onChanged: (value) => setState(() =>
+                                  onChanged: (value) => myState(() =>
                                       _transactionController.customerType = 1)),
                               Text(
                                 'New Merchant',
@@ -390,7 +397,7 @@ class _DebtorsState extends State<Debtors> {
                           ),
                         ),
                         InkWell(
-                          onTap: () => setState(
+                          onTap: () => myState(
                               () => _transactionController.customerType = 0),
                           child: Row(
                             children: [
@@ -399,7 +406,7 @@ class _DebtorsState extends State<Debtors> {
                                   activeColor: AppColor().backgroundColor,
                                   groupValue:
                                       _transactionController.customerType,
-                                  onChanged: (value) => setState(() =>
+                                  onChanged: (value) => myState(() =>
                                       _transactionController.customerType = 0)),
                               Text(
                                 'Existing Merchants',
@@ -538,7 +545,7 @@ class _DebtorsState extends State<Debtors> {
                                         child: Text(value.name!),
                                       );
                                     }).toList(),
-                                    onChanged: (value) => setState(
+                                    onChanged: (value) => myState(
                                       () => _transactionController
                                           .selectedCustomer = value,
                                     ),
