@@ -5,7 +5,9 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/records_model.dart';
 
 class TransactionHistory extends StatefulWidget {
-  const TransactionHistory({Key? key}) : super(key: key);
+  final RecordSummary? recordSummary;
+
+  const TransactionHistory({Key? key, this.recordSummary}) : super(key: key);
 
   @override
   _TransactionHistoryState createState() => _TransactionHistoryState();
@@ -91,7 +93,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   borderRadius: BorderRadius.circular(16),
                   color: AppColor().backgroundColor.withOpacity(0.2)),
               child: Text(
-                'Fully Paid',
+                widget.recordSummary!.detail!,
                 style: TextStyle(
                   color: AppColor().blackColor,
                   fontFamily: "DMSans",
@@ -114,7 +116,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             Text(
-              'N5,000',
+              widget.recordSummary!.price!,
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: "DMSans",

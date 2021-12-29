@@ -684,7 +684,8 @@ class _RecordsState extends State<Records> {
                               InkWell(
                                 onTap: () {
                                   Get.back();
-                                  Get.to(() => TransactionHistory());
+                                  Get.to(() =>
+                                      TransactionHistory(recordSummary: item));
                                 },
                                 child: Icon(
                                   Icons.visibility,
