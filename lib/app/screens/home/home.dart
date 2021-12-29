@@ -126,6 +126,8 @@ class _HomeState extends State<Home> {
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',
+                        height: 20,
+                        width: 20,
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
@@ -135,6 +137,9 @@ class _HomeState extends State<Home> {
                       },
                       child: SvgPicture.asset(
                         'assets/images/settings.svg',
+                        color: AppColor().backgroundColor,
+                        height: 20,
+                        width: 20,
                       ),
                     ),
                   ],
@@ -348,7 +353,10 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          'N${display(_transactionController.debtors.value)}',
+                          // ignore: unnecessary_null_comparison
+                          display(_transactionController.debtors.value) == null
+                              ? 'No debtors yet'
+                              : 'N${display(_transactionController.debtors.value)}',
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),
@@ -982,7 +990,11 @@ class _HomeState extends State<Home> {
                                       color: _randomColor.randomColor()),
                                   child: Center(
                                       child: Text(
-                                   (item.business==null || item.business!.businessName!.isEmpty )? '':item.business!.businessName![0],
+                                    (item.business == null ||
+                                            item.business!.businessName!
+                                                .isEmpty)
+                                        ? ''
+                                        : item.business!.businessName![0],
                                     style: TextStyle(
                                         fontSize: 30,
                                         color: Colors.white,
