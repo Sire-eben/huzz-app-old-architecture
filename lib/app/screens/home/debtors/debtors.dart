@@ -15,7 +15,7 @@ import 'debtorreminder.dart';
 
 // ignore: must_be_immutable
 class Debtors extends StatefulWidget {
-  DebtorsModel? item;
+  Debtor? item;
   Debtors({
     Key? key,
     this.item,
@@ -26,7 +26,7 @@ class Debtors extends StatefulWidget {
 }
 
 class _DebtorsState extends State<Debtors> {
-  final _debtorController = Get.find<DebtorsRepository>();
+  final _debtorController = Get.find<DebtorRepository>();
   final _productController = Get.find<ProductRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _transactionController = Get.find<TransactionRespository>();
@@ -76,7 +76,7 @@ class _DebtorsState extends State<Debtors> {
 
   @override
   Widget build(BuildContext context) {
-    return (_debtorController.debtorGoods.isEmpty)
+    return (true)
         ? Stack(
             children: [
               Padding(
@@ -228,9 +228,8 @@ class _DebtorsState extends State<Debtors> {
               Obx(() {
                 return InkWell(
                   onTap: () {
-                    if (_debtorController.addingDebtorsStatus !=
-                        AddingDebtorsStatus.Loading) {
-                      if (_debtorController.debtorGoods.isEmpty) {
+                    if (1<0) {
+                      if (1!=0) {
                         _transactionController.addMoreProduct();
                       }
                       if (_transactionController.productList.isNotEmpty) {
@@ -710,7 +709,7 @@ class _DebtorsState extends State<Debtors> {
 
 // ignore: must_be_immutable
 class DebtorListing extends StatefulWidget {
-  DebtorsModel? item;
+  Debtor? item;
   DebtorListing({Key? key}) : super(key: key);
 
   @override
@@ -718,7 +717,7 @@ class DebtorListing extends StatefulWidget {
 }
 
 class _DebtorListingState extends State<DebtorListing> {
-  final _debtorController = Get.find<DebtorsRepository>();
+  final _debtorController = Get.find<DebtorRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _transactionController = Get.find<TransactionRespository>();
   final TextEditingController textEditingController = TextEditingController();
