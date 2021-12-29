@@ -7,22 +7,16 @@ import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/home/itemCard.dart';
-import 'package:huzz/app/screens/invoice/preview_invoice.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/model/bank.dart';
-
 import 'package:huzz/model/customer_model.dart';
-import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 import 'package:intl/intl.dart';
 import 'package:random_color/random_color.dart';
-import 'package:huzz/model/service_model.dart';
-import 'invoice_pdf.dart';
 
 class CreateInvoice extends StatefulWidget {
   const CreateInvoice({Key? key}) : super(key: key);
@@ -133,165 +127,170 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         ),
       ),
       backgroundColor: Colors.white,
-      // body: Theme(
-      //   data: ThemeData(
-      //       colorScheme: Theme.of(context).colorScheme.copyWith(
-      //           onSurface: Colors.transparent, primary: Palette.primaryColor),
-      //       primarySwatch: Palette.primaryColor,
-      //       canvasColor: Colors.white,
-      //       shadowColor: Colors.white),
-      //   child: Stepper(
-      //     controlsBuilder:
-      //         (BuildContext context, {VoidCallback? onStepContinue, VoidCallback? onStepCancel}) {
-      //       return Padding(
-      //         padding: EdgeInsets.only(top: 20),
-      //         child: Row(
-      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           children: <Widget>[
-      //             InkWell(
-      //               onTap:onStepCancel,
-      //               child: Container(
-      //                 height: 40,
-      //                 width: 110,
-      //                 decoration: BoxDecoration(
-      //                     color: AppColor().whiteColor,
-      //                     border: Border.all(
-      //                         width: 2, color: AppColor().backgroundColor),
-      //                     borderRadius: BorderRadius.circular(10)),
-      //                 child: Row(
-      //                   mainAxisAlignment: MainAxisAlignment.center,
-      //                   crossAxisAlignment: CrossAxisAlignment.center,
-      //                   children: [
-      //                     Container(
-      //                       padding: EdgeInsets.all(2),
-      //                       decoration: BoxDecoration(
-      //                           color: AppColor().backgroundColor,
-      //                           shape: BoxShape.circle),
-      //                       child: Icon(
-      //                         Icons.arrow_back,
-      //                         color: AppColor().whiteColor,
-      //                         size: 15,
-      //                       ),
-      //                     ),
-      //                     SizedBox(width: 8),
-      //                     Text(
-      //                       'Back',
-      //                       style: TextStyle(
-      //                           color: AppColor().backgroundColor,
-      //                           fontFamily: 'DMSans'),
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ),
-      //             ),
-      //             InkWell(
-      //               onTap:onStepContinue,
-      //               child: Container(
-      //                 height: 40,
-      //                 width: 110,
-      //                 decoration: BoxDecoration(
-      //                     color: AppColor().backgroundColor,
-      //                     borderRadius: BorderRadius.circular(10)),
-      //                 child: Row(
-      //                   mainAxisAlignment: MainAxisAlignment.center,
-      //                   crossAxisAlignment: CrossAxisAlignment.center,
-      //                   children: [
-      //                     Text(
-      //                       'Continue',
-      //                       style: TextStyle(
-      //                           color: Colors.white, fontFamily: 'DMSans'),
-      //                     ),
-      //                     SizedBox(width: 4),
-      //                     Container(
-      //                       padding: EdgeInsets.all(2),
-      //                       decoration: BoxDecoration(
-      //                           color: Colors.white, shape: BoxShape.circle),
-      //                       child: Icon(
-      //                         Icons.arrow_forward,
-      //                         color: AppColor().backgroundColor,
-      //                         size: 15,
-      //                       ),
-      //                     )
-      //                   ],
-      //                 ),
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       );
-      //     },
-      //     elevation: 0,
-      //     physics: NeverScrollableScrollPhysics(),
-      //     type: StepperType.horizontal,
-      //     steps: getSteps(),
-      //     currentStep: currentStep,
-      //     onStepContinue: () async {
-      //       final isLastStep = currentStep == getSteps().length - 1;
-      //       if (isLastStep) {
-      //         final date = DateTime.now();
-      //         final dueDate = date.add(Duration(days: 7));
-      //       _invoiceController.addBankInvoice();
-      //                     _invoiceController.createBusinessInvoice();
-      //         // final invoice = Invoice(
-      //         //   supplier: Supplier(
-      //         //     name: 'Business Name',
-      //         //     mail: 'tunmisehassan@gmail.com',
-      //         //     phone: '+234 8123 456 789',
-      //         //   ),
-      //         //   bankDetails: BankDetails(
-      //         //       name: accountName.text,
-      //         //       no: accountNo.text,
-      //         //       mode: 'BANK TRANSFER'),
-      //         //   customer: InvoiceCustomer(
-      //         //     name: 'Joshua Olatunde',
-      //         //     phone: '+234 903 872 6495',
-      //         //   ),
-      //         //   info: InvoiceInfo(
-      //         //     date: date,
-      //         //     dueDate: dueDate,
-      //         //     description: 'My description...',
-      //         //     number: '${DateTime.now().year}-9999',
-      //         //   ),
-      //         //   items: [
-      //         //     InvoiceItem(
-      //         //       item: 'MacBook',
-      //         //       quantity: 3,
-      //         //       amount: 500000,
-      //         //     ),
-      //         //     InvoiceItem(
-      //         //       item: 'MacBook',
-      //         //       quantity: 3,
-      //         //       amount: 500000,
-      //         //     ),
-      //         //     InvoiceItem(
-      //         //       item: 'MacBook',
-      //         //       quantity: 3,
-      //         //       amount: 500000,
-      //         //     ),
-      //         //     InvoiceItem(
-      //         //       item: 'MacBook',
-      //         //       quantity: 3,
-      //         //       amount: 500000,
-      //         //     ),
-      //         //   ],
-      //         // );
+      body: Theme(
+        data: ThemeData(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+                onSurface: Colors.transparent, primary: Palette.primaryColor),
+            primarySwatch: Palette.primaryColor,
+            canvasColor: Colors.white,
+            shadowColor: Colors.white),
+        child:
+            // Container(),
+            Stepper(
+          //   controlsBuilder: (
+          //     BuildContext context, {
+          //     VoidCallback? onStepContinue,
+          //     VoidCallback? onStepCancel,
+          //   }) {
+          //     return Padding(
+          //       padding: EdgeInsets.only(top: 20),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: <Widget>[
+          //           InkWell(
+          //             onTap: onStepCancel,
+          //             child: Container(
+          //               height: 40,
+          //               width: 110,
+          //               decoration: BoxDecoration(
+          //                   color: AppColor().whiteColor,
+          //                   border: Border.all(
+          //                       width: 2, color: AppColor().backgroundColor),
+          //                   borderRadius: BorderRadius.circular(10)),
+          //               child: Row(
+          //                 mainAxisAlignment: MainAxisAlignment.center,
+          //                 crossAxisAlignment: CrossAxisAlignment.center,
+          //                 children: [
+          //                   Container(
+          //                     padding: EdgeInsets.all(2),
+          //                     decoration: BoxDecoration(
+          //                         color: AppColor().backgroundColor,
+          //                         shape: BoxShape.circle),
+          //                     child: Icon(
+          //                       Icons.arrow_back,
+          //                       color: AppColor().whiteColor,
+          //                       size: 15,
+          //                     ),
+          //                   ),
+          //                   SizedBox(width: 8),
+          //                   Text(
+          //                     'Back',
+          //                     style: TextStyle(
+          //                         color: AppColor().backgroundColor,
+          //                         fontFamily: 'DMSans'),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //           InkWell(
+          //             onTap: onStepContinue,
+          //             child: Container(
+          //               height: 40,
+          //               width: 110,
+          //               decoration: BoxDecoration(
+          //                   color: AppColor().backgroundColor,
+          //                   borderRadius: BorderRadius.circular(10)),
+          //               child: Row(
+          //                 mainAxisAlignment: MainAxisAlignment.center,
+          //                 crossAxisAlignment: CrossAxisAlignment.center,
+          //                 children: [
+          //                   Text(
+          //                     'Continue',
+          //                     style: TextStyle(
+          //                         color: Colors.white, fontFamily: 'DMSans'),
+          //                   ),
+          //                   SizedBox(width: 4),
+          //                   Container(
+          //                     padding: EdgeInsets.all(2),
+          //                     decoration: BoxDecoration(
+          //                         color: Colors.white, shape: BoxShape.circle),
+          //                     child: Icon(
+          //                       Icons.arrow_forward,
+          //                       color: AppColor().backgroundColor,
+          //                       size: 15,
+          //                     ),
+          //                   )
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     );
+          //   },
+          elevation: 0,
+          physics: NeverScrollableScrollPhysics(),
+          type: StepperType.horizontal,
+          steps: getSteps(),
+          currentStep: currentStep,
+          onStepContinue: () async {
+            final isLastStep = currentStep == getSteps().length - 1;
+            if (isLastStep) {
+              final date = DateTime.now();
+              final dueDate = date.add(Duration(days: 7));
+              _invoiceController.addBankInvoice();
+              _invoiceController.createBusinessInvoice();
+              // final invoice = Invoice(
+              //   supplier: Supplier(
+              //     name: 'Business Name',
+              //     mail: 'tunmisehassan@gmail.com',
+              //     phone: '+234 8123 456 789',
+              //   ),
+              //   bankDetails: BankDetails(
+              //       name: accountName.text,
+              //       no: accountNo.text,
+              //       mode: 'BANK TRANSFER'),
+              //   customer: InvoiceCustomer(
+              //     name: 'Joshua Olatunde',
+              //     phone: '+234 903 872 6495',
+              //   ),
+              //   info: InvoiceInfo(
+              //     date: date,
+              //     dueDate: dueDate,
+              //     description: 'My description...',
+              //     number: '${DateTime.now().year}-9999',
+              //   ),
+              //   items: [
+              //     InvoiceItem(
+              //       item: 'MacBook',
+              //       quantity: 3,
+              //       amount: 500000,
+              //     ),
+              //     InvoiceItem(
+              //       item: 'MacBook',
+              //       quantity: 3,
+              //       amount: 500000,
+              //     ),
+              //     InvoiceItem(
+              //       item: 'MacBook',
+              //       quantity: 3,
+              //       amount: 500000,
+              //     ),
+              //     InvoiceItem(
+              //       item: 'MacBook',
+              //       quantity: 3,
+              //       amount: 500000,
+              //     ),
+              //   ],
+              // );
 
-      //       } else {
-      //         setState(() {
-      //           currentStep += 1;
-      //         });
-      //       }
-      //     },
-      //     onStepCancel: () {
-      //       currentStep == 0
-      //           // ignore: unnecessary_statements
-      //           ? null
-      //           : setState(() {
-      //               currentStep -= 1;
-      //             });
-      //     },
-      //   ),
-      // ),
+            } else {
+              setState(() {
+                currentStep += 1;
+              });
+            }
+          },
+          onStepCancel: () {
+            currentStep == 0
+                // ignore: unnecessary_statements
+                ? null
+                : setState(() {
+                    currentStep -= 1;
+                  });
+          },
+        ),
+      ),
     );
   }
 
