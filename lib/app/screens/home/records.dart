@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/customer_repository.dart';
-import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/Repository/transaction_respository.dart';
-import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
-import 'package:huzz/model/payment_item.dart';
-import 'package:huzz/model/product.dart';
 import 'package:huzz/model/records_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
-
-import 'itemCard.dart';
+import 'transaction_history.dart';
 
 class Records extends StatefulWidget {
   const Records({Key? key}) : super(key: key);
@@ -22,11 +14,14 @@ class Records extends StatefulWidget {
 }
 
 class _RecordsState extends State<Records> {
-  final _transactionController = Get.find<TransactionRespository>();
-  final _customerController = Get.find<CustomerRepository>();
-  final _productController = Get.find<ProductRepository>();
-
-  final recordFilter = ['This month', 'Last month'];
+  final recordFilter = [
+    'Today',
+    'This Year',
+    'This Week',
+    'All Time',
+    'This month',
+    'Custom date range'
+  ];
 
   String? value;
   List<_SalesData> data = [
@@ -260,6 +255,14 @@ class _RecordsState extends State<Records> {
                         items: recordFilter.map(buildDropDown).toList(),
                         onChanged: (value) =>
                             setState(() => this.value = value),
+                        onTap: () {
+                          showModalBottomSheet(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))),
+                              context: context,
+                              builder: (context) => buildCustomDate());
+                        },
                       ),
                     ),
                   ),
@@ -409,39 +412,31 @@ class _RecordsState extends State<Records> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(
-                                  child: Text(
-                                    item.date!,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'DMSans',
-                                        fontSize: 10,
-                                        color: AppColor().blackColor),
-                                  ),
+                                Text(
+                                  item.date!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                      fontSize: 10,
+                                      color: AppColor().blackColor),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    item.moneyOut!,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'DMSans',
-                                        fontSize: 10,
-                                        color: AppColor().orangeBorderColor),
-                                  ),
+                                Text(
+                                  item.moneyOut!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                      fontSize: 10,
+                                      color: AppColor().orangeBorderColor),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Expanded(
-                                    child: Text(
-                                      item.moneyIn!,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().blueColor),
-                                    ),
-                                  ),
+                                Text(
+                                  item.moneyIn!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                      fontSize: 10,
+                                      color: AppColor().blueColor),
                                 ),
                               ],
                             ),
@@ -622,120 +617,93 @@ class _RecordsState extends State<Records> {
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).size.width * 0.02),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.015),
-                  child: Row(
-                    children: [
-                      Image.asset('assets/images/arrow_up.png'),
-                      SizedBox(width: 10),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Stuff',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
-                            ),
-                            Text(
-                              '3:00pm',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
-                            ),
-                          ],
+              Expanded(
+                child: ListView.separated(
+                    separatorBuilder: (context, index) => Divider(),
+                    itemCount: recordSummaryList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var item = recordSummaryList[index];
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width * 0.02),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.height * 0.015),
+                          child: Row(
+                            children: [
+                              Image.asset(item.image!),
+                              SizedBox(width: 10),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.name!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'DMSans',
+                                          fontSize: 10,
+                                          color: AppColor().blackColor),
+                                    ),
+                                    Text(
+                                      item.time!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'DMSans',
+                                          fontSize: 10,
+                                          color: AppColor().blackColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.price!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'DMSans',
+                                          fontSize: 10,
+                                          color: AppColor().blackColor),
+                                    ),
+                                    Text(
+                                      item.detail!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'DMSans',
+                                          fontSize: 10,
+                                          color: AppColor().blackColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Get.back();
+                                  Get.to(() => TransactionHistory());
+                                },
+                                child: Icon(
+                                  Icons.visibility,
+                                  color: AppColor().backgroundColor,
+                                  size: 20,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'N5,000',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
-                            ),
-                            Text(
-                              'FULLY PAID',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Icon(
-                        Icons.visibility,
-                        color: AppColor().backgroundColor,
-                        size: 20,
-                      ),
-                    ],
-                  ),
-                ),
+                      );
+                    }),
               )
             ],
           ),
         );
       });
 
-  DropdownMenuItem<String> buildDropDown(String item) => DropdownMenuItem(
-        value: item,
-        child: Text(
-          item,
-          style: TextStyle(
-              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
-        ),
-      );
-
-  Widget showAllItems() {
-    return Container(
-        margin: EdgeInsets.only(top: 20),
-        width: MediaQuery.of(context).size.width,
-        height: _transactionController.productList.length * 100,
-        child: ListView.builder(
-            itemCount: _transactionController.productList.length,
-            itemBuilder: (context, index) => ItemCard(
-                  item: _transactionController.productList[index],
-                  onDelete: () {
-                    var item = _transactionController.productList[index];
-                    _transactionController.productList.remove(item);
-                    if (_transactionController.productList.length == 1) {
-                      _transactionController
-                          .setValue(_transactionController.productList.first);
-                    }
-                    setState(() {});
-                  },
-                  onEdit: () {
-                    _transactionController.selectEditValue(
-                        _transactionController.productList[index]);
-
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20))),
-                        context: context,
-                        builder: (context) => buildEditItem(
-                            _transactionController.productList[index], index));
-                  },
-                )));
-  }
-
-  Widget buildEditItem(PaymentItem item, int index) =>
+  Widget buildCustomDate() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
           padding: EdgeInsets.only(
@@ -752,51 +720,53 @@ class _RecordsState extends State<Records> {
                 },
                 child: Container(
                   height: 6,
-                  width: 80,
+                  width: 60,
                   decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(10)),
                 ),
               ),
-              CustomTextField(
-                label: 'Item Name',
-                hint: 'Television',
-                keyType: TextInputType.name,
-                validatorText: 'Item name is needed',
-                enabled: item.productId == null || item.productId!.isEmpty,
-                textEditingController:
-                    _transactionController.itemNameController,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      label: "Amount",
-                      hint: 'N 0.00',
-                      validatorText: "Amount name is needed",
-                      enabled:
-                          item.productId == null || item.productId!.isEmpty,
-                      textEditingController:
-                          _transactionController.amountController,
-                      keyType: TextInputType.phone,
-                    ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.width * 0.02),
+                child: Container(
+                  padding: EdgeInsets.all(
+                      MediaQuery.of(context).size.height * 0.015),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey.withOpacity(0.1),
+                      border: Border.all(
+                          width: 2, color: Colors.grey.withOpacity(0.1))),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Date',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              color: AppColor().blackColor),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Money Out',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              color: AppColor().blackColor),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.height * 0.03),
-                  Expanded(
-                    child: CustomTextField(
-                        label: "Quantity",
-                        hint: '4',
-                        keyType: TextInputType.phone,
-                        validatorText: "Quantity name is needed",
-                        textEditingController:
-                            _transactionController.quantityController),
-                  ),
-                ],
+                ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
                 onTap: () {
-                  _transactionController.updatePaymetItem(item, index);
                   setState(() {});
                   Get.back();
                 },
@@ -808,9 +778,10 @@ class _RecordsState extends State<Records> {
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(
-                      'Update',
+                      'Filter',
                       style: TextStyle(
                           color: Colors.white,
+                          fontWeight: FontWeight.w500,
                           fontSize: 18,
                           fontFamily: 'DMSans'),
                     ),
@@ -821,6 +792,15 @@ class _RecordsState extends State<Records> {
           ),
         );
       });
+
+  DropdownMenuItem<String> buildDropDown(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: TextStyle(
+              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
+        ),
+      );
 }
 
 class _SalesData {
