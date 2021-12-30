@@ -8,8 +8,10 @@ class AppColor {
   Color orangeColor = Color(0xffF4D8C4);
   Color whiteColor = Color(0xffffffff);
   Color blackColor = Color(0xff000000);
-
+  Color purpleColor = Color(0xff881583);
   Color hintColor = Color(0xffC4C4C4);
-
+  Color wineColor = Color(0xffC82525);
   Color blueColor = Color(0xff0065D3);
+  Color lightblueColor = Color(0xff56718E);
+  Color brownColor = Color(0xffA0616A);
 }

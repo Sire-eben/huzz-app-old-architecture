@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
-
 import 'notification.dart';
 import 'personalInfo.dart';
 
@@ -48,7 +47,7 @@ class _SettingsState extends State<Settings> {
       body: Stack(
         children: [
           Positioned(
-            top: 80,
+            top: 20,
             left: 100,
             right: 100,
             child: Center(
@@ -60,7 +59,7 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           Positioned(
-            top: 130,
+            top: 70,
             left: 200,
             right: 150,
             child: Container(
@@ -174,24 +173,10 @@ class _SettingsState extends State<Settings> {
                         onTap: () {
                           Get.to(PersonalInfo());
                         },
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColor().whiteColor,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/setting.svg",
-                              height: 20,
-                              width: 20,
-                            ),
-                          ),
+                        child: SvgPicture.asset(
+                          "assets/images/setting.svg",
+                          height: 20,
+                          width: 20,
                         ),
                       ),
                       SizedBox(
@@ -204,24 +189,10 @@ class _SettingsState extends State<Settings> {
                               "are you sure want to delete your account",
                               () {});
                         },
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColor().whiteColor,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/delete.svg",
-                              height: 20,
-                              width: 20,
-                            ),
-                          ),
+                        child: SvgPicture.asset(
+                          "assets/images/delete.svg",
+                          height: 20,
+                          width: 20,
                         ),
                       ),
                     ],
@@ -278,24 +249,10 @@ class _SettingsState extends State<Settings> {
                         onTap: () {
                           Get.to(BusinessInfo());
                         },
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColor().whiteColor,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/setting.svg",
-                              height: 20,
-                              width: 20,
-                            ),
-                          ),
+                        child: SvgPicture.asset(
+                          "assets/images/setting.svg",
+                          height: 20,
+                          width: 20,
                         ),
                       ),
                       SizedBox(
@@ -309,24 +266,10 @@ class _SettingsState extends State<Settings> {
                             () {},
                           );
                         },
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColor().whiteColor,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/delete.svg",
-                              height: 20,
-                              width: 20,
-                            ),
-                          ),
+                        child: SvgPicture.asset(
+                          "assets/images/delete.svg",
+                          height: 20,
+                          width: 20,
                         ),
                       ),
                     ],
@@ -383,24 +326,10 @@ class _SettingsState extends State<Settings> {
                         onTap: () {
                           Get.to(NotificationSettings());
                         },
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColor().whiteColor,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/setting.svg",
-                              height: 20,
-                              width: 20,
-                            ),
-                          ),
+                        child: SvgPicture.asset(
+                          "assets/images/setting.svg",
+                          height: 20,
+                          width: 20,
                         ),
                       ),
                     ],
@@ -421,24 +350,17 @@ class _SettingsState extends State<Settings> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: AppColor().whiteColor,
-                          border: Border.all(
-                            width: 2,
-                            color: AppColor().whiteColor,
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/images/money_in.svg",
-                            color: AppColor().backgroundColor,
-                            height: 20,
-                            width: 20,
-                          ),
+                      InkWell(
+                        onTap: () {
+                          _displayDialog(
+                              context, "Are you sure you want to log out", () {
+                            controller.logout();
+                          });
+                        },
+                        child: SvgPicture.asset(
+                          "assets/images/logout.svg",
+                          height: 30,
+                          width: 30,
                         ),
                       ),
                       SizedBox(
@@ -454,34 +376,6 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                       Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          _displayDialog(
-                              context, "Are you sure you want to log out", () {
-                            controller.logout();
-                          });
-                        },
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColor().whiteColor,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/money_out.svg",
-                              color: AppColor().orangeBorderColor,
-                              height: 20,
-                              width: 20,
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),

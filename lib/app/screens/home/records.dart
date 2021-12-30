@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/home/insight.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/records_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'transaction_history.dart';
 
 class Records extends StatefulWidget {
-  const Records({Key? key}) : super(key: key);
-
   @override
   _RecordsState createState() => _RecordsState();
 }
@@ -340,7 +339,11 @@ class _RecordsState extends State<Records> {
                     ],
                   ),
                   Spacer(),
-                  SvgPicture.asset('assets/images/graph.svg'),
+                  InkWell(
+                      onTap: () {
+                        Get.to(() => Insight());
+                      },
+                      child: SvgPicture.asset('assets/images/graph.svg')),
                   SizedBox(width: 5),
                   SvgPicture.asset('assets/images/download.svg')
                 ],
