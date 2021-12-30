@@ -361,15 +361,16 @@ class _SettingsState extends State<Settings> {
                           "assets/images/logout.svg",
                           height: 30,
                           width: 30,
+
                         ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
                       Text(
-                        'Logout',
+                        'Log Out',
                         style: TextStyle(
-                          color: AppColor().blackColor,
+                          color: AppColor().orangeBorderColor,
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.normal,
                           fontSize: 14,
