@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/home/insight.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/records_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'transaction_history.dart';
 
 class Records extends StatefulWidget {
-  const Records({Key? key}) : super(key: key);
-
   @override
   _RecordsState createState() => _RecordsState();
 }
@@ -256,12 +255,12 @@ class _RecordsState extends State<Records> {
                         onChanged: (value) =>
                             setState(() => this.value = value),
                         onTap: () {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => buildCustomDate());
+                          // showModalBottomSheet(
+                          //     shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.vertical(
+                          //             top: Radius.circular(20))),
+                          //     context: context,
+                          //     builder: (context) => buildCustomDate());
                         },
                       ),
                     ),
@@ -287,7 +286,7 @@ class _RecordsState extends State<Records> {
                     series: <ChartSeries<_SalesData, String>>[
                       SplineSeries<_SalesData, String>(
                           dataSource: data,
-                          color: AppColor().backgroundColor,
+                          color: AppColor().blueColor,
                           xValueMapper: (_SalesData sales, _) => sales.year,
                           yValueMapper: (_SalesData sales, _) => sales.sales,
                           name: 'Sales',
@@ -340,7 +339,11 @@ class _RecordsState extends State<Records> {
                     ],
                   ),
                   Spacer(),
-                  SvgPicture.asset('assets/images/graph.svg'),
+                  InkWell(
+                      onTap: () {
+                        Get.to(() => Insight());
+                      },
+                      child: SvgPicture.asset('assets/images/graph.svg')),
                   SizedBox(width: 5),
                   SvgPicture.asset('assets/images/download.svg')
                 ],
@@ -395,62 +398,63 @@ class _RecordsState extends State<Records> {
                   itemCount: recordList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var item = recordList[index];
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.width * 0.02,
-                          left: MediaQuery.of(context).size.height * 0.03,
-                          right: MediaQuery.of(context).size.height * 0.03),
-                      child: Container(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.height * 0.015),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey.withOpacity(0.1),
-                            border: Border.all(
-                                width: 2, color: Colors.grey.withOpacity(0.1))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  item.date!,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().blackColor),
-                                ),
-                                Text(
-                                  item.moneyOut!,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().orangeBorderColor),
-                                ),
-                                Text(
-                                  item.moneyIn!,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().blueColor),
-                                ),
-                              ],
-                            ),
-                            InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20))),
-                                    context: context,
-                                    builder: (context) =>
-                                        buildRecordSummary(item));
-                              },
-                              child: Text(
+                    return InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20))),
+                            context: context,
+                            builder: (context) => buildRecordSummary(item));
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width * 0.02,
+                            left: MediaQuery.of(context).size.height * 0.03,
+                            right: MediaQuery.of(context).size.height * 0.03),
+                        child: Container(
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.height * 0.015),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey.withOpacity(0.1),
+                              border: Border.all(
+                                  width: 2,
+                                  color: Colors.grey.withOpacity(0.1))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    item.date!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().blackColor),
+                                  ),
+                                  Text(
+                                    item.moneyOut!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().orangeBorderColor),
+                                  ),
+                                  Text(
+                                    item.moneyIn!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().blueColor),
+                                  ),
+                                ],
+                              ),
+                              Text(
                                 'View',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -458,8 +462,8 @@ class _RecordsState extends State<Records> {
                                     fontSize: 10,
                                     color: AppColor().backgroundColor),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -484,7 +488,9 @@ class _RecordsState extends State<Records> {
             children: [
               InkWell(
                 onTap: () {
-                  Get.back();
+                  myState(() {
+                    Get.back();
+                  });
                 },
                 child: Container(
                   height: 6,
@@ -683,9 +689,11 @@ class _RecordsState extends State<Records> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Get.back();
-                                  Get.to(() =>
-                                      TransactionHistory(recordSummary: item));
+                                  myState(() {
+                                    Get.back();
+                                    Get.to(() => TransactionHistory(
+                                        recordSummary: item));
+                                  });
                                 },
                                 child: Icon(
                                   Icons.visibility,
