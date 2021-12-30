@@ -434,8 +434,7 @@ class _SettingsState extends State<Settings> {
                         ),
                         child: Center(
                           child: SvgPicture.asset(
-                            "assets/images/money_in.svg",
-                            color: AppColor().backgroundColor,
+                            "assets/images/logout.svg",
                             height: 20,
                             width: 20,
                           ),
@@ -445,43 +444,15 @@ class _SettingsState extends State<Settings> {
                         width: 10,
                       ),
                       Text(
-                        'Logout',
+                        'Log Out',
                         style: TextStyle(
-                          color: AppColor().blackColor,
+                          color: AppColor().orangeBorderColor,
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.normal,
                           fontSize: 14,
                         ),
                       ),
                       Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          _displayDialog(
-                              context, "Are you sure you want to log out", () {
-                            controller.logout();
-                          });
-                        },
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColor().whiteColor,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/money_out.svg",
-                              color: AppColor().orangeBorderColor,
-                              height: 20,
-                              width: 20,
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
