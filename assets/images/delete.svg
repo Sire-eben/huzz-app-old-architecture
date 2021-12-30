@@ -1,6 +1,14 @@
+<<<<<<< HEAD
+<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 4.28857H2.55556H15" stroke="#EF6500" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.88851 4.28869V2.64435C4.88851 2.20824 5.0524 1.78999 5.34412 1.48162C5.63584 1.17324 6.0315 1 6.44406 1H9.55517C9.96773 1 10.3634 1.17324 10.6551 1.48162C10.9468 1.78999 11.1107 2.20824 11.1107 2.64435V4.28869M13.4441 4.28869V15.7991C13.4441 16.2352 13.2802 16.6535 12.9884 16.9618C12.6967 17.2702 12.3011 17.4435 11.8885 17.4435H4.11073C3.69817 17.4435 3.30251 17.2702 3.01079 16.9618C2.71906 16.6535 2.55518 16.2352 2.55518 15.7991V4.28869H13.4441Z" stroke="#EF6500" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.44482 8.39941V13.3325" stroke="#EF6500" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.55518 8.39941V13.3325" stroke="#EF6500" stroke-linecap="round" stroke-linejoin="round"/>
+=======
 <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 4.06647H2.55556H15" stroke="#EF6500" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M4.88802 4.06658V2.53329C4.88802 2.12664 5.05191 1.73664 5.34363 1.44909C5.63536 1.16154 6.03102 1 6.44358 1H9.55469C9.96724 1 10.3629 1.16154 10.6546 1.44909C10.9464 1.73664 11.1102 2.12664 11.1102 2.53329V4.06658M13.4436 4.06658V14.7996C13.4436 15.2063 13.2797 15.5962 12.988 15.8838C12.6962 16.1713 12.3006 16.3329 11.888 16.3329H4.11024C3.69768 16.3329 3.30202 16.1713 3.0103 15.8838C2.71858 15.5962 2.55469 15.2063 2.55469 14.7996V4.06658H13.4436Z" stroke="#EF6500" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M6.44531 7.89984V12.4997" stroke="#EF6500" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M9.55469 7.89984V12.4997" stroke="#EF6500" stroke-linecap="round" stroke-linejoin="round"/>
+>>>>>>> dev
 </svg>

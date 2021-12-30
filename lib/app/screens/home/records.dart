@@ -1,23 +1,10 @@
-import 'dart:io';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/customer_repository.dart';
-import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/Repository/transaction_respository.dart';
-import 'package:huzz/app/screens/home/income_success.dart';
-import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
-import 'package:huzz/model/customer_model.dart';
-import 'package:huzz/model/payment_item.dart';
-import 'package:huzz/model/product.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-
-import 'itemCard.dart';
+import 'package:huzz/model/records_model.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'transaction_history.dart';
 
 class Records extends StatefulWidget {
   const Records({Key? key}) : super(key: key);
@@ -27,103 +14,37 @@ class Records extends StatefulWidget {
 }
 
 class _RecordsState extends State<Records> {
-  final _transactionController = Get.find<TransactionRespository>();
-  final _customerController = Get.find<CustomerRepository>();
-  final _productController = Get.find<ProductRepository>();
-  @override
-  void initState() {
-    _transactionController.clearValue();
-    _transactionController.dateController.text =
-        DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
-
-    // timeController.text =
-    // '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
-    super.initState();
-  }
-
-  final paymentMode = ['FULLY_PAID', 'DEPOSIT'];
-  final products = ['Shoe', 'Bag', 'Clothes'];
-  final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
-  final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
+  final recordFilter = [
+    'Today',
+    'This Year',
+    'This Week',
+    'All Time',
+    'This month',
+    'Custom date range'
+  ];
 
   String? value;
+  List<_SalesData> data = [
+    _SalesData('Nov 1', 35),
+    _SalesData('Nov 2', 28),
+    _SalesData('Nov 3', 34),
+    _SalesData('Nov 4', 32),
+    _SalesData('Nov 5', 40),
+    _SalesData('Nov 6', 28),
+    _SalesData('Nov 7', 34),
+    _SalesData('Nov 8', 32)
+  ];
 
-  String countryFlag = "NG";
-  String countryCode = "234";
-  String am = 'AM';
-  String pm = "PM";
-
-  int paymentType = 0;
-  int paymentModes = 0;
-
-  Future pickImageFromGallery() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemporary = File(image.path);
-      print(imageTemporary);
-      setState(
-        () {
-          _transactionController.image = imageTemporary;
-        },
-      );
-    } on PlatformException catch (e) {
-      print('$e');
-    }
-  }
-
-  Future pickImageFromCamera() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      if (image == null) return;
-      final imageTemporary = File(image.path);
-      print(imageTemporary);
-      setState(
-        () {
-          _transactionController.image = imageTemporary;
-        },
-      );
-    } on PlatformException catch (e) {
-      print('$e');
-    }
-  }
-
-  Future pickDate(BuildContext context) async {
-    final initialDate = DateTime.now();
-    final newDate = await showDatePicker(
-      context: context,
-      initialDate: _transactionController.date ?? initialDate,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
-    );
-
-    if (newDate == null) return;
-
-    setState(() {
-      _transactionController.dateController.text =
-          DateFormat("yyyy-MM-dd").format(newDate).toString();
-      _transactionController.date = newDate;
-      // print(dateController.text);
-    });
-  }
-
-  Future pickTime(BuildContext context) async {
-    final initialTime = TimeOfDay.now();
-    final newTime = await showTimePicker(
-      context: context,
-      initialTime: _transactionController.time ?? initialTime,
-    );
-
-    if (newTime == null) return;
-
-    setState(() {
-      _transactionController.time = newTime;
-      _transactionController.timeController.text =
-          '${_transactionController.time!.hour.toString().padLeft(2, '0')}:${_transactionController.time!.minute.toString().padLeft(2, '0')} ${_transactionController.time!.period.index == 0 ? am : pm}';
-      print(_transactionController.timeController.text);
-    });
-  }
-
+  List<_SalesData> data2 = [
+    _SalesData('Nov 1', 15),
+    _SalesData('Nov 2', 10),
+    _SalesData('Nov 3', 40),
+    _SalesData('Nov 4', 32),
+    _SalesData('Nov 5', 20),
+    _SalesData('Nov 6', 15),
+    _SalesData('Nov 7', 40),
+    _SalesData('Nov 8', 32)
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,58 +75,31 @@ class _RecordsState extends State<Records> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 30),
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/home_rectangle.png"),
-                      fit: BoxFit.fill,
-                    ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.03),
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                height: 90,
+                decoration: BoxDecoration(
+                  color: AppColor().backgroundColor,
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/home_rectangle.png"),
+                    fit: BoxFit.fill,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.025),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Money Out",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Text(
-                              "N55,000",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Column(
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.025),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -214,62 +108,370 @@ class _RecordsState extends State<Records> {
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'DMSans',
-                              fontSize: 12,
+                              fontSize: 10,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
-                            "N3,570",
+                            "N55,000",
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'DMSans',
-                              fontSize: 24,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.025),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Money Out",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Balance",
+                          style: TextStyle(
+                            color: AppColor().whiteColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          "N3,570",
+                          style: TextStyle(
+                            color: AppColor().whiteColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.025),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Money Out",
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
                             ),
-                            Text(
-                              "N55,000",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                          ),
+                          Text(
+                            "N55,000",
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'DMSans',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.03),
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColor().orangeBorderColor),
+                      ),
+                      SizedBox(width: 2),
+                      Text(
+                        'Money Out (₦)',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 9,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 20),
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColor().blueColor),
+                      ),
+                      SizedBox(width: 2),
+                      Text(
+                        'Money in (₦)',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 9,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                            width: 2, color: AppColor().backgroundColor)),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: value,
+                        icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 14,
+                          color: AppColor().backgroundColor,
+                        ),
+                        hint: Text(
+                          'This month',
+                          style: TextStyle(
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        isDense: true,
+                        items: recordFilter.map(buildDropDown).toList(),
+                        onChanged: (value) =>
+                            setState(() => this.value = value),
+                        onTap: () {
+                          showModalBottomSheet(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))),
+                              context: context,
+                              builder: (context) => buildCustomDate());
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.03),
+              child: Container(
+                height: 200,
+                child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+
+                    // Chart title
+                    // title: ChartTitle(text: 'Half yearly sales analysis'),
+                    // Enable legend
+                    legend: Legend(isVisible: false),
+                    // Enable tooltip
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_SalesData, String>>[
+                      SplineSeries<_SalesData, String>(
+                          dataSource: data,
+                          color: AppColor().backgroundColor,
+                          xValueMapper: (_SalesData sales, _) => sales.year,
+                          yValueMapper: (_SalesData sales, _) => sales.sales,
+                          name: 'Sales',
+                          splineType: SplineType.cardinal,
+                          cardinalSplineTension: 0.9,
+                          // Enable data label
+                          dataLabelSettings:
+                              DataLabelSettings(isVisible: false)),
+                      SplineSeries<_SalesData, String>(
+                          dataSource: data2,
+                          color: AppColor().orangeBorderColor,
+                          xValueMapper: (_SalesData sales, _) => sales.year,
+                          yValueMapper: (_SalesData sales, _) => sales.sales,
+                          name: 'Sales',
+                          splineType: SplineType.cardinal,
+                          cardinalSplineTension: 0.9,
+                          // Enable data label
+                          dataLabelSettings:
+                              DataLabelSettings(isVisible: false)),
+                    ]),
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.03),
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Transactions',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        '(This Month)',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 9,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  SvgPicture.asset('assets/images/graph.svg'),
+                  SizedBox(width: 5),
+                  SvgPicture.asset('assets/images/download.svg')
+                ],
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.03),
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: AppColor().backgroundColor.withOpacity(0.2)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'DATE',
+                      style: TextStyle(
+                        color: AppColor().backgroundColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'MONEY OUT (N)',
+                      style: TextStyle(
+                        color: AppColor().backgroundColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 9,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Text(
+                      'MONEY IN (N)',
+                      style: TextStyle(
+                        color: AppColor().backgroundColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 9,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: recordList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = recordList[index];
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.width * 0.02,
+                          left: MediaQuery.of(context).size.height * 0.03,
+                          right: MediaQuery.of(context).size.height * 0.03),
+                      child: Container(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.height * 0.015),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey.withOpacity(0.1),
+                            border: Border.all(
+                                width: 2, color: Colors.grey.withOpacity(0.1))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  item.date!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                      fontSize: 10,
+                                      color: AppColor().blackColor),
+                                ),
+                                Text(
+                                  item.moneyOut!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                      fontSize: 10,
+                                      color: AppColor().orangeBorderColor),
+                                ),
+                                Text(
+                                  item.moneyIn!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                      fontSize: 10,
+                                      color: AppColor().blueColor),
+                                ),
+                              ],
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(20))),
+                                    context: context,
+                                    builder: (context) =>
+                                        buildRecordSummary(item));
+                              },
+                              child: Text(
+                                'View',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().backgroundColor),
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+                    );
+                  }),
+            )
+          ],
         ),
       ),
     );
   }
 
-  Widget buildAddNewItem() =>
+  Widget buildRecordSummary(RecordModel recordModel) =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
           padding: EdgeInsets.only(
@@ -286,7 +488,7 @@ class _RecordsState extends State<Records> {
                 },
                 child: Container(
                   height: 6,
-                  width: 80,
+                  width: 60,
                   decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(10)),
@@ -295,245 +497,214 @@ class _RecordsState extends State<Records> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      myState(() {
-                        _transactionController.selectedValue = 1;
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        Radio<int>(
-                          value: 1,
-                          activeColor: AppColor().backgroundColor,
-                          groupValue: _transactionController.selectedValue,
-                          onChanged: (value) {
-                            myState(() {
-                              _transactionController.selectedValue = 1;
-                            });
-                          },
-                        ),
-                        Text(
-                          'Enter Item',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
+                  Text(
+                    '10, Nov. 2021',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: "DMSans",
+                      fontStyle: FontStyle.normal,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   InkWell(
-                    onTap: () {
-                      myState(() {
-                        _transactionController.selectedValue = 0;
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        Radio<int>(
-                            value: 0,
-                            activeColor: AppColor().backgroundColor,
-                            groupValue: _transactionController.selectedValue,
-                            onChanged: (value) {
-                              myState(() {
-                                value = 0;
-                                _transactionController.selectedValue = 0;
-                              });
-                            }),
-                        Text(
-                          'Select Product',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      onTap: () {
+                        myState(() {
+                          Get.back();
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColor().backgroundColor.withOpacity(0.2)),
+                        child: Icon(
+                          Icons.close,
+                          size: 20,
+                          color: AppColor().backgroundColor,
                         ),
-                      ],
-                    ),
-                  )
+                      ))
                 ],
               ),
-              _transactionController.selectedValue == 1
-                  ? CustomTextField(
-                      label: 'Item Name',
-                      hint: 'Television',
-                      keyType: TextInputType.name,
-                      validatorText: 'Item name is needed',
-                      textEditingController:
-                          _transactionController.itemNameController,
-                    )
-                  : Container(),
-              _transactionController.selectedValue == 1
-                  ? Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField(
-                            label: "Amount",
-                            hint: 'N 0.00',
-                            validatorText: "Amount name is needed",
-                            textEditingController:
-                                _transactionController.amountController,
-                            keyType: TextInputType.phone,
-                          ),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.height * 0.03),
-                        Expanded(
-                          child: CustomTextField(
-                              label: "Quantity",
-                              hint: '4',
-                              keyType: TextInputType.phone,
-                              validatorText: "Quantity name is needed",
-                              textEditingController:
-                                  _transactionController.quantityController),
-                        ),
-                      ],
-                    )
-                  : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              _transactionController.selectedValue == 1
-                  ? Container()
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Select Product',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                              fontFamily: 'DMSans'),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  width: 2, color: AppColor().backgroundColor)),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<Product>(
-                              value: _transactionController.selectedProduct,
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: AppColor().backgroundColor,
-                              ),
-                              iconSize: 30,
-                              items:
-                                  _productController.productGoods.map((value) {
-                                return DropdownMenuItem<Product>(
-                                  value: value,
-                                  child: Text(value.productName!),
-                                );
-                              }).toList(),
-                              onChanged: (value) => myState(() {
-                                _transactionController.selectedProduct = value;
-                                _transactionController
-                                    .selectedProduct!.quantity = 1;
-                              }),
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.width * 0.02),
+                child: Container(
+                  padding: EdgeInsets.all(
+                      MediaQuery.of(context).size.height * 0.015),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey.withOpacity(0.1),
+                      border: Border.all(
+                          width: 2, color: Colors.grey.withOpacity(0.1))),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Date',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 10,
+                                  color: AppColor().blackColor),
                             ),
+                            Text(
+                              recordModel.date!,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 10,
+                                  color: AppColor().blackColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Money Out',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 10,
+                                  color: AppColor().blackColor),
+                            ),
+                            Text(
+                              recordModel.moneyOut!,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 10,
+                                  color: AppColor().orangeBorderColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Money In',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
+                              Text(
+                                recordModel.moneyIn!,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blueColor),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-              _transactionController.selectedValue == 1
-                  ? Container()
-                  : SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  _transactionController.addMoreProduct();
-                  setState(() {});
-                  Get.back();
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      'Save',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'DMSans'),
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Expanded(
+                child: ListView.separated(
+                    separatorBuilder: (context, index) => Divider(),
+                    itemCount: recordSummaryList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var item = recordSummaryList[index];
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width * 0.02),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.height * 0.015),
+                          child: Row(
+                            children: [
+                              Image.asset(item.image!),
+                              SizedBox(width: 10),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.name!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'DMSans',
+                                          fontSize: 10,
+                                          color: AppColor().blackColor),
+                                    ),
+                                    Text(
+                                      item.time!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'DMSans',
+                                          fontSize: 10,
+                                          color: AppColor().blackColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.price!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'DMSans',
+                                          fontSize: 10,
+                                          color: AppColor().blackColor),
+                                    ),
+                                    Text(
+                                      item.detail!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'DMSans',
+                                          fontSize: 10,
+                                          color: AppColor().blackColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Get.back();
+                                  Get.to(() =>
+                                      TransactionHistory(recordSummary: item));
+                                },
+                                child: Icon(
+                                  Icons.visibility,
+                                  color: AppColor().backgroundColor,
+                                  size: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+              )
             ],
           ),
         );
       });
 
-  DropdownMenuItem<String> buildPaymentItem(String item) => DropdownMenuItem(
-        value: item,
-        child: Text(
-          item,
-          style: TextStyle(fontSize: 14, fontFamily: 'DMSans'),
-        ),
-      );
-
-  Future showCountryCode(BuildContext context) async {
-    showCountryPicker(
-      context: context,
-      showPhoneCode:
-          true, // optional. Shows phone code before the country name.
-      onSelect: (Country country) {
-        countryCode = country.toJson()['e164_cc'];
-        countryFlag = country.toJson()['iso2_cc'];
-        country.toJson();
-        setState(() {});
-
-        print('Select country: ${country.toJson()}');
-      },
-    );
-  }
-
-  Widget showAllItems() {
-    return Container(
-        margin: EdgeInsets.only(top: 20),
-        width: MediaQuery.of(context).size.width,
-        height: _transactionController.productList.length * 100,
-        child: ListView.builder(
-            itemCount: _transactionController.productList.length,
-            itemBuilder: (context, index) => ItemCard(
-                  item: _transactionController.productList[index],
-                  onDelete: () {
-                    var item = _transactionController.productList[index];
-                    _transactionController.productList.remove(item);
-                    if (_transactionController.productList.length == 1) {
-                      _transactionController
-                          .setValue(_transactionController.productList.first);
-                    }
-                    setState(() {});
-                  },
-                  onEdit: () {
-                    _transactionController.selectEditValue(
-                        _transactionController.productList[index]);
-
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20))),
-                        context: context,
-                        builder: (context) => buildEditItem(
-                            _transactionController.productList[index], index));
-                  },
-                )));
-  }
-
-  Widget buildEditItem(PaymentItem item, int index) =>
+  Widget buildCustomDate() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
           padding: EdgeInsets.only(
@@ -550,51 +721,53 @@ class _RecordsState extends State<Records> {
                 },
                 child: Container(
                   height: 6,
-                  width: 80,
+                  width: 60,
                   decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(10)),
                 ),
               ),
-              CustomTextField(
-                label: 'Item Name',
-                hint: 'Television',
-                keyType: TextInputType.name,
-                validatorText: 'Item name is needed',
-                enabled: item.productId == null || item.productId!.isEmpty,
-                textEditingController:
-                    _transactionController.itemNameController,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      label: "Amount",
-                      hint: 'N 0.00',
-                      validatorText: "Amount name is needed",
-                      enabled:
-                          item.productId == null || item.productId!.isEmpty,
-                      textEditingController:
-                          _transactionController.amountController,
-                      keyType: TextInputType.phone,
-                    ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.width * 0.02),
+                child: Container(
+                  padding: EdgeInsets.all(
+                      MediaQuery.of(context).size.height * 0.015),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey.withOpacity(0.1),
+                      border: Border.all(
+                          width: 2, color: Colors.grey.withOpacity(0.1))),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Date',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              color: AppColor().blackColor),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          'Money Out',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              color: AppColor().blackColor),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.height * 0.03),
-                  Expanded(
-                    child: CustomTextField(
-                        label: "Quantity",
-                        hint: '4',
-                        keyType: TextInputType.phone,
-                        validatorText: "Quantity name is needed",
-                        textEditingController:
-                            _transactionController.quantityController),
-                  ),
-                ],
+                ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
                 onTap: () {
-                  _transactionController.updatePaymetItem(item, index);
                   setState(() {});
                   Get.back();
                 },
@@ -606,9 +779,10 @@ class _RecordsState extends State<Records> {
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(
-                      'Update',
+                      'Filter',
                       style: TextStyle(
                           color: Colors.white,
+                          fontWeight: FontWeight.w500,
                           fontSize: 18,
                           fontFamily: 'DMSans'),
                     ),
@@ -619,4 +793,20 @@ class _RecordsState extends State<Records> {
           ),
         );
       });
+
+  DropdownMenuItem<String> buildDropDown(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: TextStyle(
+              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
+        ),
+      );
+}
+
+class _SalesData {
+  _SalesData(this.year, this.sales);
+
+  final String year;
+  final double sales;
 }
