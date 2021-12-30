@@ -132,12 +132,12 @@ class _InsightState extends State<Insight> {
                           onChanged: (value) =>
                               setState(() => this.value = value),
                           onTap: () {
-                            showModalBottomSheet(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))),
-                                context: context,
-                                builder: (context) => buildCustomDate());
+                            // showModalBottomSheet(
+                            //     shape: RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.vertical(
+                            //             top: Radius.circular(20))),
+                            //     context: context,
+                            //     builder: (context) => buildCustomDate());
                           },
                         ),
                       ),
