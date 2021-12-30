@@ -137,88 +137,85 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         child:
             // Container(),
             Stepper(
-          //   controlsBuilder: (
-          //     BuildContext context, {
-          //     VoidCallback? onStepContinue,
-          //     VoidCallback? onStepCancel,
-          //   }) {
-          //     return Padding(
-          //       padding: EdgeInsets.only(top: 20),
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         children: <Widget>[
-          //           InkWell(
-          //             onTap: onStepCancel,
-          //             child: Container(
-          //               height: 40,
-          //               width: 110,
-          //               decoration: BoxDecoration(
-          //                   color: AppColor().whiteColor,
-          //                   border: Border.all(
-          //                       width: 2, color: AppColor().backgroundColor),
-          //                   borderRadius: BorderRadius.circular(10)),
-          //               child: Row(
-          //                 mainAxisAlignment: MainAxisAlignment.center,
-          //                 crossAxisAlignment: CrossAxisAlignment.center,
-          //                 children: [
-          //                   Container(
-          //                     padding: EdgeInsets.all(2),
-          //                     decoration: BoxDecoration(
-          //                         color: AppColor().backgroundColor,
-          //                         shape: BoxShape.circle),
-          //                     child: Icon(
-          //                       Icons.arrow_back,
-          //                       color: AppColor().whiteColor,
-          //                       size: 15,
-          //                     ),
-          //                   ),
-          //                   SizedBox(width: 8),
-          //                   Text(
-          //                     'Back',
-          //                     style: TextStyle(
-          //                         color: AppColor().backgroundColor,
-          //                         fontFamily: 'DMSans'),
-          //                   ),
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //           InkWell(
-          //             onTap: onStepContinue,
-          //             child: Container(
-          //               height: 40,
-          //               width: 110,
-          //               decoration: BoxDecoration(
-          //                   color: AppColor().backgroundColor,
-          //                   borderRadius: BorderRadius.circular(10)),
-          //               child: Row(
-          //                 mainAxisAlignment: MainAxisAlignment.center,
-          //                 crossAxisAlignment: CrossAxisAlignment.center,
-          //                 children: [
-          //                   Text(
-          //                     'Continue',
-          //                     style: TextStyle(
-          //                         color: Colors.white, fontFamily: 'DMSans'),
-          //                   ),
-          //                   SizedBox(width: 4),
-          //                   Container(
-          //                     padding: EdgeInsets.all(2),
-          //                     decoration: BoxDecoration(
-          //                         color: Colors.white, shape: BoxShape.circle),
-          //                     child: Icon(
-          //                       Icons.arrow_forward,
-          //                       color: AppColor().backgroundColor,
-          //                       size: 15,
-          //                     ),
-          //                   )
-          //                 ],
-          //               ),
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     );
-          //   },
+          controlsBuilder:
+              (BuildContext context, ControlsDetails controlsDetails) {
+            return Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  InkWell(
+                    onTap: controlsDetails.onStepCancel,
+                    child: Container(
+                      height: 40,
+                      width: 110,
+                      decoration: BoxDecoration(
+                          color: AppColor().whiteColor,
+                          border: Border.all(
+                              width: 2, color: AppColor().backgroundColor),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                                color: AppColor().backgroundColor,
+                                shape: BoxShape.circle),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: AppColor().whiteColor,
+                              size: 15,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            'Back',
+                            style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: 'DMSans'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: controlsDetails.onStepContinue,
+                    child: Container(
+                      height: 40,
+                      width: 110,
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Continue',
+                            style: TextStyle(
+                                color: Colors.white, fontFamily: 'DMSans'),
+                          ),
+                          SizedBox(width: 4),
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                                color: Colors.white, shape: BoxShape.circle),
+                            child: Icon(
+                              Icons.arrow_forward,
+                              color: AppColor().backgroundColor,
+                              size: 15,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
           elevation: 0,
           physics: NeverScrollableScrollPhysics(),
           type: StepperType.horizontal,
@@ -514,6 +511,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   Container ItemInfo() {
     return Container(
         child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         (_invoiceController.productList.length < 2)
             ? Padding(
@@ -759,7 +757,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         (_invoiceController.productList.length >= 2)
             ? showAllItems()
             : Container(),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+        // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
         GestureDetector(
           onTap: () {
             print("New Item is selected");
@@ -779,39 +777,33 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   builder: (context) => buildAddNewItem());
             }
           },
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.height * 0.03),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.055,
-              width: MediaQuery.of(context).size.width * 0.35,
-              decoration: BoxDecoration(
-                  color: (_invoiceController.productList.length >= 2 ||
-                          _invoiceController.selectedProduct != null ||
-                          _invoiceController
-                                  .itemNameController.text.isNotEmpty &&
-                              _invoiceController
-                                  .quantityController.text.isNotEmpty &&
-                              _invoiceController
-                                  .amountController.text.isNotEmpty)
-                      ? AppColor().backgroundColor
-                      : AppColor().backgroundColor.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(45)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.add, color: Colors.white),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                  Text(
-                    'Add another item',
-                    style: TextStyle(
-                        fontFamily: 'DMSans',
-                        fontSize: 10,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.055,
+            width: MediaQuery.of(context).size.width * 0.35,
+            decoration: BoxDecoration(
+                color: (_invoiceController.productList.length >= 2 ||
+                        _invoiceController.selectedProduct != null ||
+                        _invoiceController.itemNameController.text.isNotEmpty &&
+                            _invoiceController
+                                .quantityController.text.isNotEmpty &&
+                            _invoiceController.amountController.text.isNotEmpty)
+                    ? AppColor().backgroundColor
+                    : AppColor().backgroundColor.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(45)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.add, color: Colors.white),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                Text(
+                  'Add another item',
+                  style: TextStyle(
+                      fontFamily: 'DMSans',
+                      fontSize: 10,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
         ),

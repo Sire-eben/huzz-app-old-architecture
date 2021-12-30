@@ -287,7 +287,7 @@ class _RecordsState extends State<Records> {
                     series: <ChartSeries<_SalesData, String>>[
                       SplineSeries<_SalesData, String>(
                           dataSource: data,
-                          color: AppColor().backgroundColor,
+                          color: AppColor().blueColor,
                           xValueMapper: (_SalesData sales, _) => sales.year,
                           yValueMapper: (_SalesData sales, _) => sales.sales,
                           name: 'Sales',
