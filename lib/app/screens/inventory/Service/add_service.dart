@@ -53,9 +53,6 @@ class _AddServiceState extends State<AddService> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 80,
-            ),
             GestureDetector(
               onTap: () => showModalBottomSheet(
                   shape: RoundedRectangleBorder(
@@ -99,9 +96,6 @@ class _AddServiceState extends State<AddService> {
               hint: 'E.g Television',
               textEditingController: _productController.productNameController,
             ),
-            SizedBox(
-              height: 10,
-            ),
             CustomTextField(
               label: "Service Amount",
               validatorText: "Service amount is needed",
@@ -109,15 +103,8 @@ class _AddServiceState extends State<AddService> {
               textEditingController:
                   _productController.productCostPriceController,
             ),
-            SizedBox(
-              height: 10,
-            ),
             Container(
               height: 50,
-              margin: EdgeInsets.only(
-                left: 20,
-                right: 20,
-              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -138,44 +125,35 @@ class _AddServiceState extends State<AddService> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 3,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: AppColor().whiteColor,
-                  border: Border.all(
-                    width: 2,
-                    color: AppColor().backgroundColor,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: AppColor().whiteColor,
+                border: Border.all(
+                  width: 2,
+                  color: AppColor().backgroundColor,
                 ),
-                child: TextFormField(
-                  controller: _productController.serviceDescription,
-                  textInputAction: TextInputAction.none,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                    hintText: 'Add a brief service description',
-                    hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontFamily: 'DMSans',
-                          color: Colors.black26,
-                          fontSize: 14,
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.normal,
-                        ),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: TextFormField(
+                controller: _productController.serviceDescription,
+                textInputAction: TextInputAction.none,
+                decoration: InputDecoration(
+                  isDense: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
                   ),
+                  hintText: 'Add a brief service description',
+                  hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                        fontFamily: 'DMSans',
+                        color: Colors.black26,
+                        fontSize: 14,
+                        fontStyle: FontStyle.normal,
+                        fontWeight: FontWeight.normal,
+                      ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
             ),
             Spacer(),
             InkWell(
@@ -194,10 +172,7 @@ class _AddServiceState extends State<AddService> {
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 55,
-                margin: EdgeInsets.symmetric(
-                  horizontal: 15,
-                ),
+                height: 50,
                 decoration: BoxDecoration(
                     color: AppColor().backgroundColor,
                     borderRadius: BorderRadius.circular(10)),
@@ -215,6 +190,7 @@ class _AddServiceState extends State<AddService> {
                           (widget.item == null) ? 'Save' : "Update",
                           style: TextStyle(
                             color: AppColor().whiteColor,
+                            fontSize: 18,
                             fontFamily: 'DMSans',
                             fontWeight: FontWeight.bold,
                           ),
@@ -223,7 +199,7 @@ class _AddServiceState extends State<AddService> {
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 20,
             ),
           ],
         ),

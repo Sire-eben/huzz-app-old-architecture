@@ -428,7 +428,7 @@ class _AddProductState extends State<AddProduct> {
                 }
               },
               child: Container(
-                height: 55,
+                height: 50,
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(
                   horizontal: 15,
@@ -450,6 +450,7 @@ class _AddProductState extends State<AddProduct> {
                           (widget.item == null) ? 'Save' : "Update",
                           style: TextStyle(
                             color: AppColor().whiteColor,
+                            fontSize: 18,
                             fontFamily: 'DMSans',
                             fontWeight: FontWeight.bold,
                           ),
@@ -458,7 +459,7 @@ class _AddProductState extends State<AddProduct> {
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 20,
             ),
           ],
         );

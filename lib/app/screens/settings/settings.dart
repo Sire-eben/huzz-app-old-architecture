@@ -347,37 +347,36 @@ class _SettingsState extends State<Settings> {
                     color: Color(0xffE6F4F2),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          _displayDialog(
-                              context, "Are you sure you want to log out", () {
-                            controller.logout();
-                          });
-                        },
-                        child: SvgPicture.asset(
+                  child: InkWell(
+                    onTap: () {
+                      _displayDialog(
+                          context, "Are you sure you want to log out", () {
+                        controller.logout();
+                      });
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SvgPicture.asset(
                           "assets/images/logout.svg",
                           height: 30,
                           width: 30,
-
                         ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Log Out',
-                        style: TextStyle(
-                          color: AppColor().orangeBorderColor,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14,
+                        SizedBox(
+                          width: 10,
                         ),
-                      ),
-                      Spacer(),
-                    ],
+                        Text(
+                          'Logout',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    ),
                   ),
                 ),
               ],
