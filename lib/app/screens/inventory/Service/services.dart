@@ -140,6 +140,7 @@ class _ServicesState extends State<Services> {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
