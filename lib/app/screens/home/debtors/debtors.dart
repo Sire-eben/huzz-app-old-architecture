@@ -25,7 +25,9 @@ class Debtors extends StatefulWidget {
 }
 
 class _DebtorsState extends State<Debtors> {
+  // ignore: unused_field
   final _debtorController = Get.find<DebtorRepository>();
+  // ignore: unused_field
   final _productController = Get.find<ProductRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _transactionController = Get.find<TransactionRespository>();
@@ -151,7 +153,7 @@ class _DebtorsState extends State<Debtors> {
                                     fontFamily: 'DMSans'),
                               ),
                               Text(
-                                'New Debtors button to add your first debtor',
+                                'Add New Debtors button to add your first debtor',
                                 style: TextStyle(
                                     fontSize: 11,
                                     color: Colors.black,

@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
@@ -8,22 +9,21 @@ import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice.dart';
-
+import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
 class PdfInvoiceApi {
- static final _invoiceController=Get.find<InvoiceRespository>();
- static final _businessController=Get.find<BusinessRespository>();
- static final _customerController=Get.find<CustomerRepository>();
+  static final _invoiceController = Get.find<InvoiceRespository>();
+  static final _businessController = Get.find<BusinessRespository>();
+  static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
-var  customer = _customerController
-          .checkifCustomerAvailableWithValue(invoice.customerId!);
+    var customer = _customerController
+        .checkifCustomerAvailableWithValue(invoice.customerId!);
 
     pdf.addPage(MultiPage(
       build: (context) => [
@@ -61,41 +61,44 @@ var  customer = _customerController
   static Widget buildCustomerAddress(Customer? customer) {
     print("consumer ${customer!.name}");
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Ade", style: TextStyle(fontWeight: FontWeight.bold)),
-          Text("086"),
-        ],
-      );
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Ade", style: TextStyle(fontWeight: FontWeight.bold)),
+        Text("086"),
+      ],
+    );
+  }
 
-  }
-  static Widget buildSupplierAddress(Business business) { 
+  static Widget buildSupplierAddress(Business business) {
     print("business is ${business.businessName}");
-    return  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              height: 40,
-              width: 40,
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
-              child: Center(
-                child: Text(business.businessName![0],
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: PdfColors.blue)),
-              )),
-          Text(business.businessName??"",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, color: PdfColors.white)),
-          SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(business.businessEmail??"", style: TextStyle(color: PdfColors.white)),
-          SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(business.businessPhoneNumber??"", style: TextStyle(color: PdfColors.white)),
-        ],
-      );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+            height: 40,
+            width: 40,
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
+            child: Center(
+              child: Text(business.businessName![0],
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: PdfColors.blue)),
+            )),
+        Text(business.businessName ?? "",
+            style:
+                TextStyle(fontWeight: FontWeight.bold, color: PdfColors.white)),
+        SizedBox(height: 1 * PdfPageFormat.mm),
+        Text(business.businessEmail ?? "",
+            style: TextStyle(color: PdfColors.white)),
+        SizedBox(height: 1 * PdfPageFormat.mm),
+        Text(business.businessPhoneNumber ?? "",
+            style: TextStyle(color: PdfColors.white)),
+      ],
+    );
   }
+
   static Widget buildBankDetails(Bank bankDetails) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -120,11 +123,11 @@ var  customer = _customerController
           Text("Trnasfer",
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
-          Text(bankDetails!.bankAccountName!,
+          Text(bankDetails.bankAccountName!,
               style: TextStyle(color: PdfColors.white, fontSize: 10)),
           Text(bankDetails.bankAccountNumber!,
               style: TextStyle(color: PdfColors.white, fontSize: 10)),
-              Text(bankDetails.bankName!,
+          Text(bankDetails.bankName!,
               style: TextStyle(color: PdfColors.white, fontSize: 10)),
         ],
       );
@@ -150,7 +153,7 @@ var  customer = _customerController
     ];
     final data = invoice.paymentItemRequestList!.map((item) {
       // final total = item.amount! * item.quality!;
-print("item name ${item.itemName}");
+      print("item name ${item.itemName}");
       return [
         '${item.itemName}',
         '${item.quality}',
@@ -215,94 +218,94 @@ print("item name ${item.itemName}");
     );
   }
 
-  static Widget buildSubTotal(Invoice invoice){
-    int totalAmount=0;
-    invoice.paymentItemRequestList!.forEach((element){
-totalAmount=totalAmount+element.totalAmount!;
-
+  static Widget buildSubTotal(Invoice invoice) {
+    int totalAmount = 0;
+    invoice.paymentItemRequestList!.forEach((element) {
+      totalAmount = totalAmount + element.totalAmount!;
     });
-     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            'Issue Date',
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-            ),
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(
+          'Issue Date',
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            DateFormat.yMMMd().format(DateTime.now()).toString(),
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        Text(
+          DateFormat.yMMMd().format(DateTime.now()).toString(),
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-        ]),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            'Due Date',
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+      ]),
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(
+          'Due Date',
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            DateFormat.yMMMd().format(DateTime.now()).toString(),
-            style: TextStyle(
-              color: PdfColors.orange,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        Text(
+          DateFormat.yMMMd().format(DateTime.now()).toString(),
+          style: TextStyle(
+            color: PdfColors.orange,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-        ]),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(
-            'Sub-total',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+      ]),
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(
+          'Sub-total',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            'Tax',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        Text(
+          'Tax',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            'DIscount',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        Text(
+          'DIscount',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-        ]),
-        Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Text(
-            'N $totalAmount',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+      ]),
+      Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+        Text(
+          'N $totalAmount',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            'N ${invoice.tax}',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        Text(
+          'N ${invoice.tax}',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            'N ${invoice.discountAmount}',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        Text(
+          'N ${invoice.discountAmount}',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-        ])
-      ]);
+        ),
+      ])
+    ]);
   }
+
   static Widget buildFooter(Customer? customer) =>
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
