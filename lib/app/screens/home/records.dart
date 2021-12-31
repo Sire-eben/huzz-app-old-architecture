@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/home/insight.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/records_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'transaction_history.dart';
 
 class Records extends StatefulWidget {
-  const Records({Key? key}) : super(key: key);
-
   @override
   _RecordsState createState() => _RecordsState();
 }
@@ -256,12 +255,12 @@ class _RecordsState extends State<Records> {
                         onChanged: (value) =>
                             setState(() => this.value = value),
                         onTap: () {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => buildCustomDate());
+                          // showModalBottomSheet(
+                          //     shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.vertical(
+                          //             top: Radius.circular(20))),
+                          //     context: context,
+                          //     builder: (context) => buildCustomDate());
                         },
                       ),
                     ),
@@ -287,7 +286,7 @@ class _RecordsState extends State<Records> {
                     series: <ChartSeries<_SalesData, String>>[
                       SplineSeries<_SalesData, String>(
                           dataSource: data,
-                          color: AppColor().backgroundColor,
+                          color: AppColor().blueColor,
                           xValueMapper: (_SalesData sales, _) => sales.year,
                           yValueMapper: (_SalesData sales, _) => sales.sales,
                           name: 'Sales',
@@ -340,7 +339,11 @@ class _RecordsState extends State<Records> {
                     ],
                   ),
                   Spacer(),
-                  SvgPicture.asset('assets/images/graph.svg'),
+                  InkWell(
+                      onTap: () {
+                        Get.to(() => Insight());
+                      },
+                      child: SvgPicture.asset('assets/images/graph.svg')),
                   SizedBox(width: 5),
                   SvgPicture.asset('assets/images/download.svg')
                 ],
@@ -395,62 +398,63 @@ class _RecordsState extends State<Records> {
                   itemCount: recordList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var item = recordList[index];
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.width * 0.02,
-                          left: MediaQuery.of(context).size.height * 0.03,
-                          right: MediaQuery.of(context).size.height * 0.03),
-                      child: Container(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.height * 0.015),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey.withOpacity(0.1),
-                            border: Border.all(
-                                width: 2, color: Colors.grey.withOpacity(0.1))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  item.date!,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().blackColor),
-                                ),
-                                Text(
-                                  item.moneyOut!,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().orangeBorderColor),
-                                ),
-                                Text(
-                                  item.moneyIn!,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().blueColor),
-                                ),
-                              ],
-                            ),
-                            InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20))),
-                                    context: context,
-                                    builder: (context) =>
-                                        buildRecordSummary(item));
-                              },
-                              child: Text(
+                    return InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20))),
+                            context: context,
+                            builder: (context) => buildRecordSummary(item));
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width * 0.02,
+                            left: MediaQuery.of(context).size.height * 0.03,
+                            right: MediaQuery.of(context).size.height * 0.03),
+                        child: Container(
+                          padding: EdgeInsets.all(
+                              MediaQuery.of(context).size.height * 0.015),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey.withOpacity(0.1),
+                              border: Border.all(
+                                  width: 2,
+                                  color: Colors.grey.withOpacity(0.1))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    item.date!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().blackColor),
+                                  ),
+                                  Text(
+                                    item.moneyOut!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().orangeBorderColor),
+                                  ),
+                                  Text(
+                                    item.moneyIn!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().blueColor),
+                                  ),
+                                ],
+                              ),
+                              Text(
                                 'View',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -458,8 +462,8 @@ class _RecordsState extends State<Records> {
                                     fontSize: 10,
                                     color: AppColor().backgroundColor),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -471,328 +475,320 @@ class _RecordsState extends State<Records> {
     );
   }
 
-  Widget buildRecordSummary(RecordModel recordModel) =>
-      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
-        return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: Container(
-                  height: 6,
-                  width: 60,
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10)),
+  Widget buildRecordSummary(RecordModel recordModel) => Container(
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+            bottom: MediaQuery.of(context).size.width * 0.04,
+            top: MediaQuery.of(context).size.width * 0.02),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Container(
+                height: 6,
+                width: 60,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '10, Nov. 2021',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: "DMSans",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColor().backgroundColor.withOpacity(0.2)),
+                      child: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ))
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.width * 0.02),
+              child: Container(
+                padding:
+                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey.withOpacity(0.1),
+                    border: Border.all(
+                        width: 2, color: Colors.grey.withOpacity(0.1))),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Date',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'DMSans',
+                                fontSize: 10,
+                                color: AppColor().blackColor),
+                          ),
+                          Text(
+                            recordModel.date!,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'DMSans',
+                                fontSize: 10,
+                                color: AppColor().blackColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Money Out',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'DMSans',
+                                fontSize: 10,
+                                color: AppColor().blackColor),
+                          ),
+                          Text(
+                            recordModel.moneyOut!,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'DMSans',
+                                fontSize: 10,
+                                color: AppColor().orangeBorderColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Money In',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 10,
+                                  color: AppColor().blackColor),
+                            ),
+                            Text(
+                              recordModel.moneyIn!,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 10,
+                                  color: AppColor().blueColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '10, Nov. 2021',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: "DMSans",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  InkWell(
-                      onTap: () {
-                        myState(() {
-                          Get.back();
-                        });
-                      },
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Expanded(
+              child: ListView.separated(
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: recordSummaryList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = recordSummaryList[index];
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.width * 0.02),
                       child: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColor().backgroundColor.withOpacity(0.2)),
-                        child: Icon(
-                          Icons.close,
-                          size: 20,
-                          color: AppColor().backgroundColor,
-                        ),
-                      ))
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).size.width * 0.02),
-                child: Container(
-                  padding: EdgeInsets.all(
-                      MediaQuery.of(context).size.height * 0.015),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey.withOpacity(0.1),
-                      border: Border.all(
-                          width: 2, color: Colors.grey.withOpacity(0.1))),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.height * 0.015),
+                        child: Row(
                           children: [
-                            Text(
-                              'Date',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Image.asset(item.image!),
+                            SizedBox(width: 10),
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item.name!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().blackColor),
+                                  ),
+                                  Text(
+                                    item.time!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().blackColor),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              recordModel.date!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item.price!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().blackColor),
+                                  ),
+                                  Text(
+                                    item.detail!,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().blackColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.back();
+                                Get.to(() =>
+                                    TransactionHistory(recordSummary: item));
+                              },
+                              child: Icon(
+                                Icons.visibility,
+                                color: AppColor().backgroundColor,
+                                size: 20,
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Money Out',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
-                            ),
-                            Text(
-                              recordModel.moneyOut!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().orangeBorderColor),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Money In',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
-                                    fontSize: 10,
-                                    color: AppColor().blackColor),
-                              ),
-                              Text(
-                                recordModel.moneyIn!,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
-                                    fontSize: 10,
-                                    color: AppColor().blueColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Expanded(
-                child: ListView.separated(
-                    separatorBuilder: (context, index) => Divider(),
-                    itemCount: recordSummaryList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = recordSummaryList[index];
-                      return Padding(
-                        padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.width * 0.02),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.height * 0.015),
-                          child: Row(
-                            children: [
-                              Image.asset(item.image!),
-                              SizedBox(width: 10),
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item.name!,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().blackColor),
-                                    ),
-                                    Text(
-                                      item.time!,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().blackColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item.price!,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().blackColor),
-                                    ),
-                                    Text(
-                                      item.detail!,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().blackColor),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Get.back();
-                                  Get.to(() =>
-                                      TransactionHistory(recordSummary: item));
-                                },
-                                child: Icon(
-                                  Icons.visibility,
-                                  color: AppColor().backgroundColor,
-                                  size: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-              )
-            ],
-          ),
-        );
-      });
+                    );
+                  }),
+            )
+          ],
+        ),
+      );
 
-  Widget buildCustomDate() =>
-      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
-        return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: Container(
-                  height: 6,
-                  width: 60,
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10)),
-                ),
+  Widget buildCustomDate() => Container(
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+            bottom: MediaQuery.of(context).size.width * 0.04,
+            top: MediaQuery.of(context).size.width * 0.02),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Container(
+                height: 6,
+                width: 60,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).size.width * 0.02),
-                child: Container(
-                  padding: EdgeInsets.all(
-                      MediaQuery.of(context).size.height * 0.015),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey.withOpacity(0.1),
-                      border: Border.all(
-                          width: 2, color: Colors.grey.withOpacity(0.1))),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Date',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'DMSans',
-                              fontSize: 10,
-                              color: AppColor().blackColor),
-                        ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.width * 0.02),
+              child: Container(
+                padding:
+                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey.withOpacity(0.1),
+                    border: Border.all(
+                        width: 2, color: Colors.grey.withOpacity(0.1))),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Date',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'DMSans',
+                            fontSize: 10,
+                            color: AppColor().blackColor),
                       ),
-                      Expanded(
-                        child: Text(
-                          'Money Out',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'DMSans',
-                              fontSize: 10,
-                              color: AppColor().blackColor),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  setState(() {});
-                  Get.back();
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      'Filter',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          fontFamily: 'DMSans'),
                     ),
+                    Expanded(
+                      child: Text(
+                        'Money Out',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'DMSans',
+                            fontSize: 10,
+                            color: AppColor().blackColor),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            InkWell(
+              onTap: () {
+                setState(() {});
+                Get.back();
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: AppColor().backgroundColor,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Center(
+                  child: Text(
+                    'Filter',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        fontFamily: 'DMSans'),
                   ),
                 ),
               ),
-            ],
-          ),
-        );
-      });
+            ),
+          ],
+        ),
+      );
 
   DropdownMenuItem<String> buildDropDown(String item) => DropdownMenuItem(
         value: item,

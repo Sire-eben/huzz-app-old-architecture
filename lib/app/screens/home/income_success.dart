@@ -44,7 +44,7 @@ class IncomeSuccess extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Your $title transaction has',
+                      'Your $title has',
                       style: TextStyle(
                         color: AppColor().backgroundColor,
                         fontFamily: "DMSans",
