@@ -5,11 +5,9 @@ import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/create_business.dart';
-// import 'package:huzz/app/screens/home/add_new_sale.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
 import 'package:huzz/app/screens/home/records.dart';
-import 'package:huzz/app/screens/home/transaction_history.dart';
 import 'package:huzz/app/screens/settings/notification.dart';
 import 'package:huzz/app/screens/settings/settings.dart';
 import 'package:huzz/colors.dart';
@@ -498,8 +496,11 @@ class _HomeState extends State<Home> {
                       SizedBox(
                         width: 10,
                       ),
-                      buildMenuItem(
-                          "${_businessController.selectedBusiness.value!.businessName}"),
+                      buildMenuItem(_businessController
+                                  .selectedBusiness.value!.businessName ==
+                              null
+                          ? "No Business"
+                          : "${_businessController.selectedBusiness.value!.businessName}"),
                       Expanded(child: SizedBox()),
                       Icon(
                         Icons.keyboard_arrow_down,

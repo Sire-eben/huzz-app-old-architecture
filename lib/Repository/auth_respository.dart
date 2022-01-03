@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, unused_field, must_call_super, unnecessary_brace_in_string_interps
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -22,6 +24,7 @@ import 'home_respository.dart';
 enum OtpAuthStatus { Empty, Loading, Error, Success }
 enum OtpVerifyStatus { Empty, Loading, Error, Success }
 enum SignupStatus { Empty, Loading, Error, Success }
+enum UpdateProfileStatus { Empty, Loading, Error, Success }
 enum SigninStatus { Empty, Loading, Error, Success, InvalidPinOrPhoneNumber }
 enum AuthStatus {
   Loading,
@@ -38,40 +41,52 @@ enum AuthStatus {
 enum OnlineStatus { Onilne, Offline, Empty }
 
 class AuthRepository extends GetxController {
-  final _Otpauthstatus = OtpAuthStatus.Empty.obs;
-  OtpAuthStatus get Otpauthstatus => _Otpauthstatus.value;
-  final phoneNumberController = TextEditingController();
-  final otpController = TextEditingController();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final pinController = TextEditingController();
-  final forgetpinController = TextEditingController();
-  final verifypinController = TextEditingController();
-  final confirmPinController = TextEditingController();
-  final _Otpverifystatus = OtpVerifyStatus.Empty.obs;
-  final _signupStatus = SignupStatus.Empty.obs;
+  final _homeController = Get.find<HomeRespository>();
+
+  late final otpController = TextEditingController();
+  late final pinController = TextEditingController();
+  late final emailController = TextEditingController();
+  late final lastNameController = TextEditingController();
+  late final firstNameController = TextEditingController();
+  late final forgetpinController = TextEditingController();
+  late final verifypinController = TextEditingController();
+  late final confirmPinController = TextEditingController();
+  late final phoneNumberController = TextEditingController();
+
   final _authStatus = AuthStatus.Empty.obs;
   final _signinStatus = SigninStatus.Empty.obs;
-  SigninStatus get signinStatus => _signinStatus.value;
+  final _signupStatus = SignupStatus.Empty.obs;
+  final _Otpauthstatus = OtpAuthStatus.Empty.obs;
+  final _Otpverifystatus = OtpVerifyStatus.Empty.obs;
+  final _updateProfileStatus = UpdateProfileStatus.Empty.obs;
 
   AuthStatus get authStatus => _authStatus.value;
   SignupStatus get signupStatus => _signupStatus.value;
+  SigninStatus get signinStatus => _signinStatus.value;
+  OtpAuthStatus get Otpauthstatus => _Otpauthstatus.value;
   OtpVerifyStatus get Otpverifystatus => _Otpverifystatus.value;
-  String countryText = "234";
-  String countryCodeFLag = "NG";
-  final _homeController = Get.find<HomeRespository>();
+  UpdateProfileStatus get updateProfileStatus => _updateProfileStatus.value;
+
   final _connectionStatus = ConnectivityResult.none.obs;
   ConnectivityResult get connectionStatus => _connectionStatus.value;
+
+  // ignore: cancel_subscriptions
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
+  String countryText = "234";
+  String countryCodeFLag = "NG";
+
   final MonlineStatus = OnlineStatus.Empty.obs;
   OnlineStatus get onlineStatus => MonlineStatus.value;
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  SharePref? pref;
-  final Mtoken = "".obs;
-  String get token => Mtoken.value;
-   SqliteDb sqliteDb = SqliteDb();
 
   User? user;
+  SharePref? pref;
+
+  final Mtoken = "".obs;
+  String get token => Mtoken.value;
+
+  SqliteDb sqliteDb = SqliteDb();
+
   @override
   void onInit() async {
     pref = SharePref();
@@ -103,6 +118,34 @@ class AuthRepository extends GetxController {
     });
   }
 
+  @override
+  void onClose() {
+    super.onClose();
+    phoneNumberController.dispose();
+    otpController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    pinController.dispose();
+    forgetpinController.dispose();
+    verifypinController.dispose();
+    confirmPinController.dispose();
+  }
+
+  @override
+  void dispose() {
+    phoneNumberController.dispose();
+    otpController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    pinController.dispose();
+    forgetpinController.dispose();
+    verifypinController.dispose();
+    confirmPinController.dispose();
+    super.dispose();
+  }
+
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     _connectionStatus(result);
     if (result == ConnectivityResult.mobile ||
@@ -116,7 +159,7 @@ class AuthRepository extends GetxController {
     }
   }
 
-  Future sendSmsOtp({bool isresend=false}) async {
+  Future sendSmsOtp({bool isresend = false}) async {
     print("phone number ${countryText}${phoneNumberController.text}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
@@ -127,8 +170,7 @@ class AuthRepository extends GetxController {
       print("response is ${response.body}");
       if (response.statusCode == 200) {
         _Otpauthstatus(OtpAuthStatus.Success);
-        if(!isresend)
-        _homeController.selectOnboardSelectedNext();
+        if (!isresend) _homeController.selectOnboardSelectedNext();
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
       }
@@ -211,34 +253,91 @@ class AuthRepository extends GetxController {
     try {
       _Otpverifystatus(OtpVerifyStatus.Loading);
       print("otp value ${otpController.text}");
-      final response = await http.put(Uri.parse(ApiLink.forget_pin),
+      final resposne = await http.put(Uri.parse(ApiLink.forget_pin),
           body: jsonEncode({
-            "phoneNumber": countryText + phoneNumberController.text,
+            "phoneNumber": countryText + phoneNumberController.text.trim(),
             "otp": otpController.text,
-            "pin": pinController.text,
+            "pin": pinController.text
           }),
           headers: {"Content-Type": "application/json"});
 
-      print("response of verify otp ${response.body}");
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
+      print("response of verify otp ${resposne.body}");
+      if (resposne.statusCode == 200) {
+        var json = jsonDecode(resposne.body);
         if (json['success']) {
-          _homeController.selectOnboardSelectedNext();
-
           _Otpverifystatus(OtpVerifyStatus.Success);
-          Get.snackbar("Success", "OTP verified successfully");
+          Get.snackbar(
+            "PIN successfully changed.",
+            "Proceed to Login.",
+          );
+          // _homeController.selectOnboardSelectedNext();
           Timer(Duration(milliseconds: 2000), () {
             Get.offAll(Signin());
           });
         } else {
           _Otpverifystatus(OtpVerifyStatus.Error);
-          Get.snackbar("Error", "Unable to send Otp");
+          Get.snackbar("Error", "Unable to change PIN");
         }
       }
     } catch (ex) {
       print("error from verify otp ${ex.toString()}");
-      Get.snackbar("Error", "Error sending Otp");
+      Get.snackbar("Error", "Unable to change PIN");
       _Otpverifystatus(OtpVerifyStatus.Error);
+    }
+  }
+
+  Future updateProfile() async {
+    try {
+      _updateProfileStatus(UpdateProfileStatus.Loading);
+      print("otp value ${otpController.text}");
+      final resposne = await http.put(Uri.parse(ApiLink.update_profile),
+          body: jsonEncode({
+            "firstName": firstNameController.text,
+            "lastName": lastNameController.text,
+            "email": emailController.text,
+            "phoneNumber": countryText + phoneNumberController.text.trim()
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            // "accessToken": "${token}"
+          });
+
+      print("response of verify otp ${resposne.body}");
+      if (resposne.statusCode == 200) {
+        var json = jsonDecode(resposne.body);
+        if (json['success']) {
+          var token = json['data']['accessToken'];
+          var user = User.fromJson(json['data']);
+          Mtoken(token);
+          pref!.saveToken(token);
+          this.user = user;
+          pref!.setUser(user);
+          DateTime date = DateTime.now();
+          DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
+          pref!.setDateTokenExpired(expireToken);
+          _authStatus(AuthStatus.Authenticated);
+          // _homeController.selectOnboardSelectedNext();
+
+          _updateProfileStatus(UpdateProfileStatus.Success);
+          Get.snackbar(
+            "Success",
+            "Personal Information Updated",
+          );
+        } else {
+          _updateProfileStatus(UpdateProfileStatus.Error);
+          Get.snackbar(
+            "Error",
+            "Failed to update Personal Information",
+          );
+        }
+      }
+    } catch (ex) {
+      print("error from verify otp ${ex.toString()}");
+      Get.snackbar(
+        "Error",
+        "Failed to update Personal Information",
+      );
+      _updateProfileStatus(UpdateProfileStatus.Error);
     }
   }
 
@@ -375,13 +474,12 @@ class AuthRepository extends GetxController {
     pref!.logout();
     Get.off(Signin());
   }
-  void clearDatabase()async{
 
-await sqliteDb.openDatabae();
-sqliteDb.deleteAllOfflineBusiness();
-sqliteDb.deleteAllOfflineTransaction();
-sqliteDb.deleteAllProducts();
-sqliteDb.deleteAllCustomers();
-
+  void clearDatabase() async {
+    await sqliteDb.openDatabae();
+    sqliteDb.deleteAllOfflineBusiness();
+    sqliteDb.deleteAllOfflineTransaction();
+    sqliteDb.deleteAllProducts();
+    sqliteDb.deleteAllCustomers();
   }
 }

@@ -1,11 +1,13 @@
+// ignore_for_file: unused_field, close_sinks
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
-import 'package:huzz/Repository/home_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:timer_button/timer_button.dart';
 
 import '../../../colors.dart';
 
@@ -17,8 +19,6 @@ class EnterForgotPIN extends StatefulWidget {
 }
 
 class _EnterForgotPINState extends State<EnterForgotPIN> {
-  final _homeController = Get.find<HomeRespository>();
-
   StreamController<ErrorAnimationType>? pinErrorController;
   StreamController<ErrorAnimationType>? errorController;
   final _authController = Get.find<AuthRepository>();
@@ -156,26 +156,33 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                 SizedBox(
                   height: 20,
                 ),
-                GestureDetector(
-                    onTap: () {
-                      _authController.sendVoiceOtp();
-                    },
-                    child: Text(
-                      "Send as Voice Call",
-                      style: TextStyle(
-                          color: AppColor().backgroundColor, fontSize: 12),
-                    )),
-                SizedBox(
-                  height: 10,
+                TimerButton(
+                  label: "Send as Voice Call",
+                  timeOutInSeconds: 20,
+                  activeTextStyle: TextStyle(
+                      color: AppColor().backgroundColor, fontSize: 12),
+                  onPressed: () {
+                    _authController.sendVoiceOtp();
+                  },
+                  buttonType: ButtonType.TextButton,
+                  disabledColor: Colors.white,
+                  color: Colors.transparent,
                 ),
-                GestureDetector(
-                    onTap: () {
-                      _authController.sendSmsOtp();
-                    },
-                    child: Text(
-                      "Resend via sms",
-                      style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
-                    )),
+                SizedBox(
+                  height: 20,
+                ),
+                TimerButton(
+                  label: "Resend via sms",
+                  timeOutInSeconds: 20,
+                  activeTextStyle:
+                      TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                  onPressed: () {
+                    _authController.sendSmsOtp(isresend: true);
+                  },
+                  buttonType: ButtonType.TextButton,
+                  disabledColor: Colors.white,
+                  color: Colors.transparent,
+                ),
                 SizedBox(
                   height: 30,
                 ),

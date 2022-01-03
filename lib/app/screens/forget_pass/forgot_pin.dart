@@ -1,3 +1,5 @@
+// ignore_for_file: close_sinks, unused_field
+
 import 'dart:async';
 
 import 'package:country_currency_pickers/country_pickers.dart';
@@ -20,12 +22,13 @@ class ForgotPIN extends StatefulWidget {
 }
 
 class _ForgotPINState extends State<ForgotPIN> {
+  final _authController = Get.find<AuthRepository>();
   final _homeController = Get.find<HomeRespository>();
   StreamController<ErrorAnimationType>? errorController;
 
   String countryFlag = "NG";
   String countryCode = "234";
-  final _authController = Get.find<AuthRepository>();
+
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
@@ -34,7 +37,7 @@ class _ForgotPINState extends State<ForgotPIN> {
   @override
   void dispose() {
     errorController!.close();
-
+    _authController.dispose();
     super.dispose();
   }
 
