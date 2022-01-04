@@ -324,7 +324,7 @@ class _SettingsState extends State<Settings> {
                       Spacer(),
                       GestureDetector(
                         onTap: () {
-                          Get.to(NotificationSettings());
+                          Get.to(Notifications());
                         },
                         child: SvgPicture.asset(
                           "assets/images/setting.svg",

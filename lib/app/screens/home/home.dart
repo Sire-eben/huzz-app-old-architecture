@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(NotificationSettings());
+                        Get.to(Notifications());
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',
@@ -398,56 +398,64 @@ class _HomeState extends State<Home> {
                   var item = _transactionController.allPaymentItem[index];
                   return InkWell(
                     onTap: () {
-                      Get.to(() => MoneySummary());
+                      Get.to(() => MoneySummary(paymentItem: item));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              (item.transactionType == "EXPENDITURE")
-                                  ? "assets/images/arrow_up.png"
-                                  : "assets/images/arrow_down.png",
-                              width: 20,
-                              height: 20,
-                            ),
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.02),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.itemName!,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                (item.transactionType == "EXPENDITURE")
+                                    ? "assets/images/arrow_up.png"
+                                    : "assets/images/arrow_down.png",
+                                width: 20,
+                                height: 20,
+                              ),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.itemName!,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      item.createdTime!.formatDate()!,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  item.createdTime!.formatDate()!,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'N ${display(item.totalAmount)}',
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              item.isFullyPaid! ? "Fully Paid" : "Partially",
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        Spacer(),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'N ${display(item.totalAmount)}',
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                item.isFullyPaid! ? "Fully Paid" : "Partially",
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -518,7 +526,7 @@ class _HomeState extends State<Home> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(NotificationSettings());
+                        Get.to(Notifications());
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',

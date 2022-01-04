@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/records_model.dart';
-import 'package:huzz/model/transaction_model.dart';
+import 'package:number_display/number_display.dart';
 
 class MoneySummary extends StatefulWidget {
+  final PaymentItem? paymentItem;
+
+  const MoneySummary({Key? key, this.paymentItem}) : super(key: key);
   @override
   _MoneySummaryState createState() => _MoneySummaryState();
 }
 
 class _MoneySummaryState extends State<MoneySummary> {
-  final recordFilter = ['This month', 'Last month'];
-
   String? value;
+  final display = createDisplay(
+    length: 10,
+    decimal: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +94,11 @@ class _MoneySummaryState extends State<MoneySummary> {
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: AppColor().backgroundColor.withOpacity(0.2)),
+                  color: AppColor().orangeBorderColor.withOpacity(0.2)),
               child: Text(
-                'Fully Paid',
+                widget.paymentItem!.isFullyPaid! ? 'Fully Paid' : 'Partially',
                 style: TextStyle(
-                  color: AppColor().blackColor,
+                  color: AppColor().orangeBorderColor,
                   fontFamily: "DMSans",
                   fontStyle: FontStyle.normal,
                   fontSize: 10,
@@ -101,28 +107,118 @@ class _MoneySummaryState extends State<MoneySummary> {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            Text(
-              'Total Amount',
-              style: TextStyle(
-                color: AppColor().blackColor,
-                fontFamily: "DMSans",
-                fontStyle: FontStyle.normal,
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.05),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Total Amt.',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: "DMSans",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      Text(
+                        display(widget.paymentItem!.totalAmount!),
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: "DMSans",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Bal.',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: "DMSans",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      Text(
+                        display(widget.paymentItem!.totalAmount! -
+                            widget.paymentItem!.amount!),
+                        style: TextStyle(
+                          color: AppColor().orangeBorderColor,
+                          fontFamily: "DMSans",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Paid Amt.',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: "DMSans",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      Text(
+                        display(widget.paymentItem!.amount!),
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: "DMSans",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            Text(
-              'N100,000',
-              style: TextStyle(
-                color: AppColor().backgroundColor,
-                fontFamily: "DMSans",
-                fontStyle: FontStyle.normal,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              padding: EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: AppColor().backgroundColor.withOpacity(0.2)),
+              child: Center(
+                child: Text(
+                  'Update payment',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: "DMSans",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
