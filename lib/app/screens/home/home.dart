@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(NotificationSettings());
+                        Get.to(Notifications());
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',
@@ -526,7 +526,7 @@ class _HomeState extends State<Home> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(NotificationSettings());
+                        Get.to(Notifications());
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',
