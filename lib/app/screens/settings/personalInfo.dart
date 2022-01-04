@@ -211,7 +211,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            controller: _controller.phoneNumberController,
+                            controller: _controller.updatePhoneNumberController,
                             keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
