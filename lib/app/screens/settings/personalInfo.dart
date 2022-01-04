@@ -257,28 +257,40 @@ class _PersonalInfoState extends State<PersonalInfo> {
               ),
             ),
             Spacer(),
-            InkWell(
-              onTap: () {
-                // Get.to(Confirmation());
-                _controller.updateProfile();
-              },
-              child: Container(
-                height: 55,
-                decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                  child: Text(
-                    'Save',
-                    style: TextStyle(
-                      color: AppColor().whiteColor,
-                      fontFamily: 'DMSans',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            Obx(() {
+              return InkWell(
+                onTap: () {
+                  if (_controller.updateProfileStatus !=
+                      UpdateProfileStatus.Loading) _controller.updateProfile();
+                },
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: (_controller.updateProfileStatus ==
+                          UpdateProfileStatus.Loading)
+                      ? Container(
+                          width: 30,
+                          height: 30,
+                          child: Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white)),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Save',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                          ],
+                        ),
                 ),
-              ),
-            ),
+              );
+            }),
             SizedBox(
               height: 40,
             ),
