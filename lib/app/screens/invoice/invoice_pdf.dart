@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
@@ -20,14 +21,17 @@ class PdfInvoiceApi {
  static final _invoiceController=Get.find<InvoiceRespository>();
  static final _businessController=Get.find<BusinessRespository>();
  static final _customerController=Get.find<CustomerRepository>();
+ static final _bankController=Get.find<BankAccountRepository>();
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
 var  customer = _customerController
           .checkifCustomerAvailableWithValue(invoice.customerId!);
+          print("bank id ${invoice.bankId}");
+var bank=_bankController.checkifBankAvailableWithValue(invoice.bankId!);
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(),
+        buildHeader(bank!),
         SizedBox(height: 2 * PdfPageFormat.cm),
         buildInvoice(invoice),
         Divider(),
@@ -42,7 +46,7 @@ var  customer = _customerController
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader() => Container(
+  static Widget buildHeader(Bank bank) => Container(
       padding: EdgeInsets.all(20),
       color: PdfColors.blue,
       child: Column(
@@ -52,7 +56,7 @@ var  customer = _customerController
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               buildSupplierAddress(_businessController.selectedBusiness.value!),
-              buildBankDetails(_invoiceController.invoiceBank!),
+              buildBankDetails(bank),
             ],
           ),
         ],
@@ -247,7 +251,7 @@ totalAmount=totalAmount+element.totalAmount!;
             ),
           ),
           Text(
-            DateFormat.yMMMd().format(DateTime.now()).toString(),
+            DateFormat.yMMMd().format(invoice.dueDateTime!).toString(),
             style: TextStyle(
               color: PdfColors.orange,
               fontSize: 12,

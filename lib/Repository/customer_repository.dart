@@ -230,7 +230,7 @@ Future<String?> addBusinessCustomerWithString(String transactionType) async {
     }
   }
 
-  Future<String?> addBusinessCustomerOfflineWithString(String transactionType)async
+  Future<String?> addBusinessCustomerOfflineWithString(String transactionType,{bool isinvoice=false,bool istransaction=false})async
   {
 var customer= Customer(
   name: nameController.text,
@@ -239,7 +239,8 @@ var customer= Customer(
   businessId:  _businessController.selectedBusiness.value!.businessId,
   businessTransactionType: transactionType,
   customerId: uuid.v1(),
-isCreatedFromTransaction: true,
+isCreatedFromTransaction: istransaction,
+isCreatedFromInvoice: isinvoice
 
 
 );
@@ -466,7 +467,12 @@ await _businessController.sqliteDb.updateOfflineCustomer(customer);
       _businessController.sqliteDb.deleteCustomer(customer);
       getOfflineCustomer(
           _businessController.selectedBusiness.value!.businessId!);
-    } else {}
+    } else {
+   _businessController.sqliteDb.deleteCustomer(customer);
+      getOfflineCustomer(
+          _businessController.selectedBusiness.value!.businessId!);
+
+    }
   }
   Future deleteCustomerOffline(Customer customer)async{
 customer.deleted=true;
@@ -651,8 +657,9 @@ var deletenext=pendingJobToBeDelete.first;
       getOfflineCustomer(
           _businessController.selectedBusiness.value!.businessId!);
     } else {
-
-
+ _businessController.sqliteDb.deleteCustomer(deletenext);
+      getOfflineCustomer(
+          _businessController.selectedBusiness.value!.businessId!);
     }
 
 pendingJobToBeDelete.remove(deletenext);

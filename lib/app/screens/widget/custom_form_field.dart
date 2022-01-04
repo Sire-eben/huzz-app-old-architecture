@@ -1071,9 +1071,9 @@ class _CustomTextFieldWithImageTransactionState
                       enabled: widget.enabled,
                       keyboardType: this.widget.keyType,
                       textInputAction: this.widget.keyAction,
-                      validator: (value) {
+                           validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return widget.validatorText;
+                          return "Name is required";
                         }
                         return null;
                       },
@@ -1161,9 +1161,16 @@ class _CustomTextFieldWithImageTransactionState
                       Expanded(
                         child: TextFormField(
                           controller: widget.contactPhone,
+                                validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Phone Number is required";
+                        }
+                        return null;
+                      },
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "9034678966",
+                              
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
@@ -1219,12 +1226,7 @@ class _CustomTextFieldWithImageTransactionState
                       enabled: widget.enabled,
                       keyboardType: this.widget.keyType,
                       textInputAction: this.widget.keyAction,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return widget.validatorText;
-                        }
-                        return null;
-                      },
+                
                       initialValue: this.widget.initialValue,
                       decoration: InputDecoration(
                         isDense: true,

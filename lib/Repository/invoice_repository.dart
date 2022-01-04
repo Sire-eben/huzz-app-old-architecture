@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
@@ -74,6 +75,7 @@ class InvoiceRespository extends GetxController {
   List<Invoice> deletedItem=[];
   final _addingInvoiceStatus = AddingInvoiceStatus.Empty.obs;
   var uuid = Uuid();
+  final _bankController=Get.find<BankAccountRepository>();
 // final _uploadFileController=Get.find<FileUploadRespository>();
   AddingInvoiceStatus get addingInvoiceStatus =>
       _addingInvoiceStatus.value;
@@ -93,9 +95,18 @@ class InvoiceRespository extends GetxController {
   List<String> paymentMode = ["FULLY_PAID", "DEPOSIT"];
   String? selectedPaymentMode;
   List<Invoice> pendingInvoiceToBeAdded=[];
-  final bankName=TextEditingController();
-  final bankAccountNumber=TextEditingController();
-  final bankAccountName=TextEditingController();
+  Rx<List<Invoice>> _paidInvoiceList=Rx([]);
+  Rx<List<Invoice>> _InvoicePendingList=Rx([]);
+    Rx<List<Invoice>> _InvoiceDepositList=Rx([]);
+      Rx<List<Invoice>> _InvoiceDueList=Rx([]);
+      List<Invoice> get paidInvoiceList=>_paidInvoiceList.value;
+       List<Invoice> get InvoicePendingList=>_InvoicePendingList.value;
+        List<Invoice> get InvoiceDepositList=>_InvoiceDepositList.value;
+         List<Invoice> get InvoiceDueList=>_InvoiceDueList.value;
+  // final bankName=TextEditingController();
+  // final bankAccountNumber=TextEditingController();
+  // final bankAccountName=TextEditingController();
+
 
   @override
   void onInit() async {
@@ -176,8 +187,74 @@ print("online Invoice ${result.length}");
     print("offline Invoice ${results.length}");
 
     _offlineInvoices(results);
+categorizedInvoice();  
+  }
 
-  
+  Future categorizedInvoice()async{
+    print("invoice list to be category is ${offlineInvoices.length}");
+    List<Invoice> _pending=[];
+    List<Invoice> _paid=[];
+    List<Invoice> _deposit=[];
+    List<Invoice> _overDue=[];
+
+for(int i=0; i<offlineInvoices.length;++i){
+var element=offlineInvoices[i];
+ print("invoice status ${offlineInvoices[i].businessInvoiceStatus}");
+  if(element.businessInvoiceStatus=="PENDING"){
+    print("pending is found");
+_pending.add(element);
+
+print("found pending");
+  }else if(element.businessInvoiceStatus=="PAID"){
+print("found paid");
+_paid.add(element);
+
+  }else if(element.businessInvoiceStatus=="DEPOSIT"){
+print("found deposit");
+_deposit.add(element);
+
+  }
+//    if(element.businessInvoiceStatus=="OVERDUE" || element.dueDateTime!.isAfter(DateTime.now())){
+//     print("found overdue");
+// _overDue.add(element);
+
+
+//   }
+
+
+}
+//    await Future.forEach<Invoice>(offlineInvoices, (element){
+//  print("invoice status ${element.businessInvoiceStatus}");
+//  if(element.businessInvoiceStatus=="PENDING"){
+// // _pending.add(element);
+
+// print("found pending");
+//   }else if(element.businessInvoiceStatus=="PAID"){
+// print("found paid");
+// // _paid.add(element);
+
+//   }else if(element.businessInvoiceStatus=="DEPOSIT"){
+// print("found deposit");
+// // _deposit.add(element);
+
+//   }
+//    if(element.businessInvoiceStatus=="OVERDUE" || element.dueDateTime!.isAfter(DateTime.now())){
+    
+// // _overDue.add(element);
+
+
+//   }
+
+
+//     });
+
+
+
+_InvoicePendingList(_pending);
+_paidInvoiceList(_paid);
+_InvoiceDepositList(_deposit);
+ _InvoiceDueList(_overDue);  
+
   }
 
   // Future getTodayInvoice() async {
@@ -408,6 +485,15 @@ discount=(double.parse(discountController.text)*totalAmount)/100;
 
 
 }
+String? bankselectedId;
+if(paymentValue==1){
+
+bankselectedId= await _bankController.addBusinessBankWithString();
+ }else{
+
+bankselectedId=selectedBank!.id;
+
+ }
 double newTotalAmount=totalAmount+tax-discount;
 // String? timeday=date!.toIso8601String();
 String body=jsonEncode({
@@ -420,7 +506,9 @@ String body=jsonEncode({
     "customerId":customerId,
     "tax":tax,
     "discountAmount":discount,
-    "totalAmount":newTotalAmount
+    "totalAmount":newTotalAmount,
+    "bankInfoId":bankselectedId,
+    "dueDateTime":date!.toIso8601String().split("T")[0]+" 00:00"
     
     
 
@@ -504,8 +592,15 @@ double newTotalAmount=totalAmount+tax-discount;
 print("trying to save offline");
  
   Invoice? value;
+String? bankselectedId;
+ if(paymentValue==1){
 
- 
+bankselectedId= await _bankController.addBusinessBankOfflineWithString();
+ }else{
+
+bankselectedId=selectedBank!.id;
+
+ }
 
 
 
@@ -522,7 +617,9 @@ businessId: _businessController.selectedBusiness.value!.businessId,
 paymentItemRequestList: productList,
 isPending: true,
 tax:tax,
-discountAmount: discount
+discountAmount: discount,
+bankId: bankselectedId,
+dueDateTime: date
 
 );
 
@@ -617,7 +714,8 @@ String body=jsonEncode({
    
    
     "amountPaid":savenext.totalAmount,
-
+    "bankInfoId":savenext.bankId,
+    "dueDateTime":savenext.dueDateTime!.toIso8601String().split("T")[0]+" 00:00"
 
 });
 print("Invoice body $body");
@@ -687,6 +785,7 @@ deletedItem.forEach((element) {
 });
 
 }
+
 
  Future deleteInvoiceOnline(Invoice invoice) async {
     var response = await http.delete(
@@ -818,25 +917,25 @@ totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
  itemNameController.text="";
 }
 
-void addBankInvoice(){
-if(paymentValue==0){
+// void addBankInvoice(){
+// if(paymentValue==0){
 
-invoiceBank=selectedBank;
+// invoiceBank=selectedBank;
 
-}else{
-invoiceBank=Bank(
-  bankName: bankName.text,
-  bankAccountName: bankAccountName.text,
-  bankAccountNumber: bankAccountNumber.text
+// }else{
+// invoiceBank=Bank(
+//   bankName: bankName.text,
+//   bankAccountName: bankAccountName.text,
+//   bankAccountNumber: bankAccountNumber.text
 
-);
+// );
 
-}
-
-
+// }
 
 
-}
+
+
+// }
 
 
 Future selectEditValue(PaymentItem item)async{
