@@ -21,10 +21,11 @@ import 'package:huzz/sqlite/sqlite_db.dart';
 import 'fingerprint_repository.dart';
 import 'home_respository.dart';
 
+enum SignupStatus { Empty, Loading, Error, Success }
 enum OtpAuthStatus { Empty, Loading, Error, Success }
 enum OtpVerifyStatus { Empty, Loading, Error, Success }
-enum SignupStatus { Empty, Loading, Error, Success }
 enum UpdateProfileStatus { Empty, Loading, Error, Success }
+enum OtpForgotVerifyStatus { Empty, Loading, Error, Success }
 enum SigninStatus { Empty, Loading, Error, Success, InvalidPinOrPhoneNumber }
 enum AuthStatus {
   Loading,
@@ -48,10 +49,12 @@ class AuthRepository extends GetxController {
   late final emailController = TextEditingController();
   late final lastNameController = TextEditingController();
   late final firstNameController = TextEditingController();
+  late final forgotOtpController = TextEditingController();
   late final forgetpinController = TextEditingController();
   late final verifypinController = TextEditingController();
   late final confirmPinController = TextEditingController();
   late final phoneNumberController = TextEditingController();
+  late final forgotPhoneNumberController = TextEditingController();
 
   final _authStatus = AuthStatus.Empty.obs;
   final _signinStatus = SigninStatus.Empty.obs;
@@ -59,6 +62,7 @@ class AuthRepository extends GetxController {
   final _Otpauthstatus = OtpAuthStatus.Empty.obs;
   final _Otpverifystatus = OtpVerifyStatus.Empty.obs;
   final _updateProfileStatus = UpdateProfileStatus.Empty.obs;
+  final _Otpforgotverifystatus = OtpForgotVerifyStatus.Empty.obs;
 
   AuthStatus get authStatus => _authStatus.value;
   SignupStatus get signupStatus => _signupStatus.value;
@@ -66,6 +70,8 @@ class AuthRepository extends GetxController {
   OtpAuthStatus get Otpauthstatus => _Otpauthstatus.value;
   OtpVerifyStatus get Otpverifystatus => _Otpverifystatus.value;
   UpdateProfileStatus get updateProfileStatus => _updateProfileStatus.value;
+  OtpForgotVerifyStatus get Otpforgotverifystatus =>
+      _Otpforgotverifystatus.value;
 
   final _connectionStatus = ConnectivityResult.none.obs;
   ConnectivityResult get connectionStatus => _connectionStatus.value;
@@ -99,7 +105,6 @@ class AuthRepository extends GetxController {
       if (pref!.getUser() != null) {
         user = pref!.getUser()!;
         Mtoken(pref!.read());
-        // print("token is ${token.value}");
 
         _authStatus(AuthStatus.Authenticated);
         if (Mtoken.value == "0") {
@@ -112,39 +117,38 @@ class AuthRepository extends GetxController {
     _connectivitySubscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
-      // Got a new connectivity status!
       _updateConnectionStatus(result);
       print("result is $result");
     });
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-    phoneNumberController.dispose();
-    otpController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    emailController.dispose();
-    pinController.dispose();
-    forgetpinController.dispose();
-    verifypinController.dispose();
-    confirmPinController.dispose();
-  }
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  //   phoneNumberController.dispose();
+  //   otpController.dispose();
+  //   firstNameController.dispose();
+  //   lastNameController.dispose();
+  //   emailController.dispose();
+  //   pinController.dispose();
+  //   forgetpinController.dispose();
+  //   verifypinController.dispose();
+  //   confirmPinController.dispose();
+  // }
 
-  @override
-  void dispose() {
-    phoneNumberController.dispose();
-    otpController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    emailController.dispose();
-    pinController.dispose();
-    forgetpinController.dispose();
-    verifypinController.dispose();
-    confirmPinController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   phoneNumberController.dispose();
+  //   otpController.dispose();
+  //   firstNameController.dispose();
+  //   lastNameController.dispose();
+  //   emailController.dispose();
+  //   pinController.dispose();
+  //   forgetpinController.dispose();
+  //   verifypinController.dispose();
+  //   confirmPinController.dispose();
+  //   super.dispose();
+  // }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     _connectionStatus(result);
@@ -185,8 +189,9 @@ class AuthRepository extends GetxController {
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.send_smsOtp),
-          body: jsonEncode(
-              {"phoneNumber": countryText + phoneNumberController.text.trim()}),
+          body: jsonEncode({
+            "phoneNumber": countryText + forgotPhoneNumberController.text.trim()
+          }),
           headers: {"Content-Type": "application/json"});
       print("response is ${response.body}");
       if (response.statusCode == 200) {
@@ -195,7 +200,6 @@ class AuthRepository extends GetxController {
         Timer(Duration(milliseconds: 2000), () {
           Get.to(EnterForgotPIN());
         });
-        // _homeController.selectOnboardSelectedNext();
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
       }
@@ -219,9 +223,9 @@ class AuthRepository extends GetxController {
   }
 
   Future verifyOpt() async {
+    print("otp value ${otpController.text}");
     try {
       _Otpverifystatus(OtpVerifyStatus.Loading);
-      print("otp value ${otpController.text}");
       final resposne = await http.post(Uri.parse(ApiLink.verify_otp),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text.trim(),
@@ -236,53 +240,53 @@ class AuthRepository extends GetxController {
           _homeController.selectOnboardSelectedNext();
 
           _Otpverifystatus(OtpVerifyStatus.Success);
-          Get.snackbar("Success", "Otp is sent successfully");
+          Get.snackbar("Success", "Otp verified successfully");
         } else {
           _Otpverifystatus(OtpVerifyStatus.Error);
-          Get.snackbar("Error", "Unable to send Otp");
+          Get.snackbar("Error", "Unable to verify Otp");
         }
       }
     } catch (ex) {
       print("error from verify otp ${ex.toString()}");
-      Get.snackbar("Error", "Error sending Otp");
+      Get.snackbar("Error", "Error verifying Otp");
       _Otpverifystatus(OtpVerifyStatus.Error);
     }
   }
 
   Future verifyForgotOpt() async {
     try {
-      _Otpverifystatus(OtpVerifyStatus.Loading);
+      _Otpforgotverifystatus(OtpForgotVerifyStatus.Loading);
       print("otp value ${otpController.text}");
       final resposne = await http.put(Uri.parse(ApiLink.forget_pin),
           body: jsonEncode({
-            "phoneNumber": countryText + phoneNumberController.text.trim(),
-            "otp": otpController.text,
-            "pin": pinController.text
+            "phoneNumber":
+                countryText + forgotPhoneNumberController.text.trim(),
+            "otp": forgotOtpController.text,
+            "pin": forgetpinController.text
           }),
           headers: {"Content-Type": "application/json"});
 
-      print("response of verify otp ${resposne.body}");
+      print("response of verify forgot pass otp ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
         if (json['success']) {
-          _Otpverifystatus(OtpVerifyStatus.Success);
+          _Otpforgotverifystatus(OtpForgotVerifyStatus.Success);
           Get.snackbar(
             "PIN successfully changed.",
             "Proceed to Login.",
           );
-          // _homeController.selectOnboardSelectedNext();
           Timer(Duration(milliseconds: 2000), () {
             Get.offAll(Signin());
           });
         } else {
-          _Otpverifystatus(OtpVerifyStatus.Error);
+          _Otpforgotverifystatus(OtpForgotVerifyStatus.Error);
           Get.snackbar("Error", "Unable to change PIN");
         }
       }
     } catch (ex) {
-      print("error from verify otp ${ex.toString()}");
+      print("error from PIN changing ${ex.toString()}");
       Get.snackbar("Error", "Unable to change PIN");
-      _Otpverifystatus(OtpVerifyStatus.Error);
+      _Otpforgotverifystatus(OtpForgotVerifyStatus.Error);
     }
   }
 
@@ -299,10 +303,10 @@ class AuthRepository extends GetxController {
           }),
           headers: {
             "Content-Type": "application/json",
-            // "accessToken": "${token}"
+            "Authorization": "Bearer ${token}"
           });
 
-      print("response of verify otp ${resposne.body}");
+      print("response of update personal info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
         if (json['success']) {
@@ -316,7 +320,6 @@ class AuthRepository extends GetxController {
           DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
           pref!.setDateTokenExpired(expireToken);
           _authStatus(AuthStatus.Authenticated);
-          // _homeController.selectOnboardSelectedNext();
 
           _updateProfileStatus(UpdateProfileStatus.Success);
           Get.snackbar(
@@ -332,7 +335,7 @@ class AuthRepository extends GetxController {
         }
       }
     } catch (ex) {
-      print("error from verify otp ${ex.toString()}");
+      print("error from updating personal information ${ex.toString()}");
       Get.snackbar(
         "Error",
         "Failed to update Personal Information",

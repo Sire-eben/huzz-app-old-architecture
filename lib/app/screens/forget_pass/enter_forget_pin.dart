@@ -74,7 +74,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                     ],
                   ),
                 ),
-                Text('Enter OTP & Password',
+                Text('Enter OTP & PIN',
                     style: TextStyle(
                         color: AppColor().orangeBorderColor,
                         fontSize: 28,
@@ -113,7 +113,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: PinCodeTextField(
-                      controller: _authController.otpController,
+                      controller: _authController.forgotOtpController,
                       length: 4,
                       obscureText: true,
                       animationType: AnimationType.fade,
@@ -168,9 +168,6 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   disabledColor: Colors.white,
                   color: Colors.transparent,
                 ),
-                SizedBox(
-                  height: 20,
-                ),
                 TimerButton(
                   label: "Resend via sms",
                   timeOutInSeconds: 20,
@@ -205,7 +202,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: PinCodeTextField(
-                      controller: _authController.pinController,
+                      controller: _authController.forgetpinController,
                       length: 4,
                       obscureText: true,
                       animationType: AnimationType.fade,
@@ -246,54 +243,58 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   ),
                 ),
                 Expanded(child: SizedBox()),
-                GestureDetector(
-                  onTap: () {
-                    _authController.verifyForgotOpt();
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(left: 50, right: 50),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_authController.Otpverifystatus ==
-                            OtpVerifyStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Continue',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50))),
-                                child: Icon(
-                                  Icons.arrow_forward,
-                                  color: AppColor().backgroundColor,
-                                  size: 16,
+                Obx(() {
+                  return GestureDetector(
+                    onTap: () {
+                      if (_authController.Otpforgotverifystatus !=
+                          OtpForgotVerifyStatus.Loading)
+                        _authController.verifyForgotOpt();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(left: 50, right: 50),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: (_authController.Otpforgotverifystatus ==
+                              OtpForgotVerifyStatus.Loading)
+                          ? Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Continue',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
                                 ),
-                              )
-                            ],
-                          ),
-                  ),
-                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(3),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Icon(
+                                    Icons.arrow_forward,
+                                    color: AppColor().backgroundColor,
+                                    size: 16,
+                                  ),
+                                )
+                              ],
+                            ),
+                    ),
+                  );
+                }),
                 SizedBox(
                   height: 40,
                 )

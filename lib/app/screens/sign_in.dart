@@ -83,7 +83,7 @@ class _SiginState extends State<Signin> {
               "Keep your business going with Huzz",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 10,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400),
             )),
             SizedBox(
@@ -341,14 +341,6 @@ class _SiginState extends State<Signin> {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             ),
-
-                            //  Container(padding: EdgeInsets.all(3),
-                            //    decoration:BoxDecoration(
-                            //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
-
-                            //    ),
-                            //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
-                            //  )
                           ],
                         ),
                 ),

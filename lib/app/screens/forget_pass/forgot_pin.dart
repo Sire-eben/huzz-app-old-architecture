@@ -169,7 +169,8 @@ class _ForgotPINState extends State<ForgotPIN> {
                       ),
                       Expanded(
                         child: TextFormField(
-                          controller: _authController.phoneNumberController,
+                          controller:
+                              _authController.forgotPhoneNumberController,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "9034678966",
@@ -191,55 +192,59 @@ class _ForgotPINState extends State<ForgotPIN> {
                   ),
                 ),
                 Expanded(child: SizedBox()),
-                GestureDetector(
-                  onTap: () {
-                    _authController.sendForgetOtp();
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(left: 50, right: 50),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_authController.Otpverifystatus ==
-                            OtpVerifyStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                  color: Colors.white),
-                            ),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Continue',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
+                Obx(() {
+                  return GestureDetector(
+                    onTap: () {
+                      if (_authController.Otpauthstatus !=
+                          OtpAuthStatus.Loading)
+                        _authController.sendForgetOtp();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(left: 50, right: 50),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: (_authController.Otpauthstatus ==
+                              OtpAuthStatus.Loading)
+                          ? Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                    color: Colors.white),
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50))),
-                                child: Icon(
-                                  Icons.arrow_forward,
-                                  color: AppColor().backgroundColor,
-                                  size: 16,
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Continue',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
                                 ),
-                              )
-                            ],
-                          ),
-                  ),
-                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(3),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Icon(
+                                    Icons.arrow_forward,
+                                    color: AppColor().backgroundColor,
+                                    size: 16,
+                                  ),
+                                )
+                              ],
+                            ),
+                    ),
+                  );
+                }),
                 SizedBox(
                   height: 40,
                 )
