@@ -1,11 +1,17 @@
+// ignore_for_file: close_sinks
+
 import 'dart:async';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
+import 'package:huzz/model/user.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:timer_button/timer_button.dart';
 
 import '../../../colors.dart';
 
@@ -17,13 +23,29 @@ class PersonalInfo extends StatefulWidget {
 }
 
 class _PersonalInfoState extends State<PersonalInfo> {
-  final TextEditingController textEditingController = TextEditingController();
+  final _controller = Get.find<AuthRepository>();
   String countryFlag = "NG";
   String countryCode = "234";
 
+  late String email;
+  late String phone;
+  late String? lastName;
+  late String firstName;
+
+  final users = Rx(User());
+  User? get usersData => users.value;
+
   StreamController<ErrorAnimationType>? errorController;
+  StreamController<ErrorAnimationType>? otpErrorController;
+
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    otpErrorController = StreamController<ErrorAnimationType>();
+
+    email = _controller.user!.email!;
+    firstName = _controller.user!.firstName!;
+    lastName = _controller.user!.lastName!;
+    phone = _controller.user!.phoneNumber!;
     super.initState();
   }
 
@@ -50,7 +72,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           ),
         ),
         title: Text(
-          "Add Product",
+          "Personal Information",
           style: TextStyle(
             color: AppColor().backgroundColor,
             fontSize: 18,
@@ -59,83 +81,86 @@ class _PersonalInfoState extends State<PersonalInfo> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextField(
               label: "First Name",
               validatorText: "First name is needed",
+              hint: firstName,
+              colors: AppColor().blackColor,
+              keyType: TextInputType.name,
+              textEditingController: _controller.firstNameController,
             ),
             CustomTextField(
               label: "Last Name",
               validatorText: "Last name is needed",
+              hint: lastName,
+              colors: AppColor().blackColor,
+              keyType: TextInputType.name,
+              textEditingController: _controller.lastNameController,
+            ),
+            SizedBox(
+              height: 10,
             ),
             Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20, right: 20, top: 9),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Phone Number',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 5),
-                              child: Text(
-                                "*",
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 12),
-                              ),
-                            ),
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _displayDialog(context);
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                child: Image.asset(
-                                  'assets/images/pen.png',
-                                  scale: 1.2,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Change',
-                                style: TextStyle(
-                                    color: AppColor().backgroundColor,
-                                    fontSize: 12),
-                              ),
-                            ],
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Phone Number',
+                            style: TextStyle(color: Colors.black, fontSize: 12),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 5),
+                            child: Text(
+                              "*",
+                              style: TextStyle(color: Colors.red, fontSize: 12),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     _displayDialog(context);
+                      //   },
+                      //   child: Row(
+                      //     children: [
+                      //       Container(
+                      //         child: Image.asset(
+                      //           'assets/images/pen.png',
+                      //           scale: 1.2,
+                      //         ),
+                      //       ),
+                      //       SizedBox(
+                      //         width: 5,
+                      //       ),
+                      //       Text(
+                      //         'Change',
+                      //         style: TextStyle(
+                      //             color: AppColor().backgroundColor,
+                      //             fontSize: 12),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                    ],
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
                     width: MediaQuery.of(context).size.width,
                     height: 50,
                     decoration: BoxDecoration(
@@ -186,11 +211,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         ),
                         Expanded(
                           child: TextFormField(
+                            controller: _controller.updatePhoneNumberController,
+                            keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "9034678966",
+                                hintText: phone,
                                 hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.5),
+                                    color: Colors.black,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500),
                                 prefixText: "+$countryCode ",
@@ -215,64 +242,55 @@ class _PersonalInfoState extends State<PersonalInfo> {
             CustomTextField(
               label: "Email",
               validatorText: "Email required",
+              hint: email,
+              colors: AppColor().blackColor,
+              keyType: TextInputType.emailAddress,
+              textEditingController: _controller.emailController,
             ),
             SizedBox(
-              height: 20,
+              height: 25,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Stack(
-                children: [
-                  Image.asset('assets/images/dottedline.png'),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset('assets/images/imageicon.png'),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'Add signature image (Optional)',
-                          style: TextStyle(
-                            color: AppColor().hintColor.withOpacity(0.5),
-                            fontFamily: 'DMSans',
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+            Center(
+              child: SvgPicture.asset(
+                'assets/images/image-signature.svg',
+                // height: 50,
               ),
             ),
             Spacer(),
-            InkWell(
-              onTap: () {
-                // Get.to(Confirmation());
-              },
-              child: Container(
-                height: 55,
-                margin: EdgeInsets.symmetric(
-                  horizontal: 15,
+            Obx(() {
+              return InkWell(
+                onTap: () {
+                  if (_controller.updateProfileStatus !=
+                      UpdateProfileStatus.Loading) _controller.updateProfile();
+                },
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: (_controller.updateProfileStatus ==
+                          UpdateProfileStatus.Loading)
+                      ? Container(
+                          width: 30,
+                          height: 30,
+                          child: Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white)),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Save',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                          ],
+                        ),
                 ),
-                decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                  child: Text(
-                    'Save',
-                    style: TextStyle(
-                      color: AppColor().whiteColor,
-                      fontFamily: 'DMSans',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+              );
+            }),
             SizedBox(
               height: 40,
             ),
@@ -374,11 +392,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         ),
                         Expanded(
                           child: TextFormField(
+                            controller: _controller.phoneNumberController,
+                            keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "9034678966",
+                                hintText: phone,
                                 hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.5),
+                                    color: Colors.black.withOpacity(0.3),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500),
                                 prefixText: "+$countryCode ",
@@ -438,6 +458,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                     InkWell(
                       onTap: () {
+                        _controller.sendForgetOtp();
                         _otpDialog(context);
                       },
                       child: Container(
@@ -534,6 +555,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 child: PinCodeTextField(
                   length: 4,
                   obscureText: true,
+                  controller: _controller.otpController,
                   animationType: AnimationType.fade,
                   pinTheme: PinTheme(
                     inactiveColor: AppColor().backgroundColor,
@@ -550,8 +572,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   animationDuration: Duration(milliseconds: 300),
                   backgroundColor: Colors.white,
                   enableActiveFill: true,
-                  errorAnimationController: errorController,
-                  // controller: textEditingController,
+                  errorAnimationController: otpErrorController,
                   onCompleted: (v) {
                     print("Completed");
                   },
@@ -570,20 +591,29 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   appContext: context,
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Send as Voice Call",
-                style:
+              TimerButton(
+                label: "Send as Voice Call",
+                timeOutInSeconds: 20,
+                activeTextStyle:
                     TextStyle(color: AppColor().backgroundColor, fontSize: 12),
+                onPressed: () {
+                  _controller.sendVoiceOtp();
+                },
+                buttonType: ButtonType.TextButton,
+                disabledColor: Colors.white,
+                color: Colors.transparent,
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Resend via sms",
-                style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
+              TimerButton(
+                label: "Resend via sms",
+                timeOutInSeconds: 20,
+                activeTextStyle:
+                    TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                onPressed: () {
+                  _controller.sendSmsOtp(isresend: true);
+                },
+                buttonType: ButtonType.TextButton,
+                disabledColor: Colors.white,
+                color: Colors.transparent,
               ),
             ]),
             actions: <Widget>[
@@ -624,6 +654,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                     InkWell(
                       onTap: () {
+                        _controller.verifyForgotOpt();
                         _successDialog(context);
                       },
                       child: Container(

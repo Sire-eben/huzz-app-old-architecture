@@ -5,7 +5,6 @@ import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/create_business.dart';
-// import 'package:huzz/app/screens/home/add_new_sale.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
 import 'package:huzz/app/screens/home/records.dart';
@@ -17,6 +16,7 @@ import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 
 import 'debtors/debtorstab.dart';
+import 'money_history.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -126,6 +126,8 @@ class _HomeState extends State<Home> {
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',
+                        height: 20,
+                        width: 20,
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.02),
@@ -135,6 +137,9 @@ class _HomeState extends State<Home> {
                       },
                       child: SvgPicture.asset(
                         'assets/images/settings.svg',
+                        color: AppColor().backgroundColor,
+                        height: 20,
+                        width: 20,
                       ),
                     ),
                   ],
@@ -348,7 +353,10 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          'N${display(_transactionController.debtors.value)}',
+                          // ignore: unnecessary_null_comparison
+                          display(_transactionController.debtors.value) == null
+                              ? 'No debtors yet'
+                              : 'N${display(_transactionController.debtors.value)}',
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),
@@ -388,53 +396,61 @@ class _HomeState extends State<Home> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   var item = _transactionController.allPaymentItem[index];
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            (item.transactionType == "EXPENDITURE")
-                                ? "assets/images/arrow_up.png"
-                                : "assets/images/arrow_down.png",
-                            width: 20,
-                            height: 20,
-                          ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.02),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.itemName!,
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                item.createdTime!.formatDate()!,
-                                style: TextStyle(
-                                    fontSize: 12, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'N ${display(item.totalAmount)}',
-                            style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            item.isFullyPaid! ? "Fully Paid" : "Partially",
-                            style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ],
+                  return InkWell(
+                    onTap: () {
+                      Get.to(() => MoneySummary());
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              (item.transactionType == "EXPENDITURE")
+                                  ? "assets/images/arrow_up.png"
+                                  : "assets/images/arrow_down.png",
+                              width: 20,
+                              height: 20,
+                            ),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.02),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.itemName!,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  item.createdTime!.formatDate()!,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'N ${display(item.totalAmount)}',
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              item.isFullyPaid! ? "Fully Paid" : "Partially",
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   );
                 },
                 separatorBuilder: (context, index) => Divider(),
@@ -480,8 +496,11 @@ class _HomeState extends State<Home> {
                       SizedBox(
                         width: 10,
                       ),
-                      buildMenuItem(
-                          "${_businessController.selectedBusiness.value!.businessName}"),
+                      buildMenuItem(_businessController
+                                  .selectedBusiness.value!.businessName ==
+                              null
+                          ? "No Business"
+                          : "${_businessController.selectedBusiness.value!.businessName}"),
                       Expanded(child: SizedBox()),
                       Icon(
                         Icons.keyboard_arrow_down,
@@ -951,100 +970,109 @@ class _HomeState extends State<Home> {
             children: [
               Container(
                 height: 6,
-                width: 100,
+                width: 80,
                 decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(4)),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Container(
-                height: (_businessController.offlineBusiness.length * 50) + 20,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    var item = _businessController.offlineBusiness[index];
-                    return GestureDetector(
-                      onTap: () {
-                        _businessController.selectedBusiness(item.business);
-                        Navigator.pop(context);
-                      },
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: Container(
-                            margin: EdgeInsets.only(bottom: 10),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: _randomColor.randomColor()),
-                                  child: Center(
-                                      child: Text(
-                                   (item.business==null || item.business!.businessName!.isEmpty )? '':item.business!.businessName![0],
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        color: Colors.white,
-                                        fontFamily: 'DMSans',
-                                        fontWeight: FontWeight.bold),
-                                  ))),
-                            ),
-                          )),
-                          Expanded(
-                              flex: 2,
-                              child: Text(
-                                '${item.business!.businessName!}',
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.bold),
-                              )),
-                          Expanded(
+              Expanded(
+                flex: 3,
+                child: Container(
+                  height:
+                      (_businessController.offlineBusiness.length * 50) + 20,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      var item = _businessController.offlineBusiness[index];
+                      return GestureDetector(
+                        onTap: () {
+                          _businessController.selectedBusiness(item.business);
+                          Navigator.pop(context);
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Container(
+                              margin: EdgeInsets.only(bottom: 10),
                               child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Radio<Business>(
-                                value: item.business!,
-                                activeColor: AppColor().backgroundColor,
-                                groupValue:
-                                    _businessController.selectedBusiness.value,
-                                onChanged: (value) {
-                                  _businessController.selectedBusiness(value);
-                                  Navigator.pop(context);
-                                }),
-                          )),
-                        ],
-                      ),
-                    );
-                  },
-                  itemCount: _businessController.offlineBusiness.length,
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: _randomColor.randomColor()),
+                                    child: Center(
+                                        child: Text(
+                                      (item.business == null ||
+                                              item.business!.businessName!
+                                                  .isEmpty)
+                                          ? ''
+                                          : item.business!.businessName![0],
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontFamily: 'DMSans',
+                                          fontWeight: FontWeight.bold),
+                                    ))),
+                              ),
+                            )),
+                            Expanded(
+                                flex: 2,
+                                child: Text(
+                                  '${item.business!.businessName!}',
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.black,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            Expanded(
+                                child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Radio<Business>(
+                                  value: item.business!,
+                                  activeColor: AppColor().backgroundColor,
+                                  groupValue: _businessController
+                                      .selectedBusiness.value,
+                                  onChanged: (value) {
+                                    _businessController.selectedBusiness(value);
+                                    Navigator.pop(context);
+                                  }),
+                            )),
+                          ],
+                        ),
+                      );
+                    },
+                    itemCount: _businessController.offlineBusiness.length,
+                  ),
                 ),
               ),
               // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
-              // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  // Get.to(() => AddNewSale());
-                  Get.to(CreateBusiness());
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03,
-                      vertical: 20),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      'Create New Business',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'DMSans'),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    // Get.to(() => AddNewSale());
+                    Get.to(CreateBusiness());
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03,
+                        vertical: 20),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Center(
+                      child: Text(
+                        'Create New Business',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'DMSans'),
+                      ),
                     ),
                   ),
                 ),

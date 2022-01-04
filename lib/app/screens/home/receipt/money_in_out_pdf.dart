@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
@@ -7,10 +8,10 @@ import 'package:huzz/model/business.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/transaction_model.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 // import 'package:huzz/model/money_reciept_model.dart';
 import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
@@ -205,7 +206,7 @@ class PdfMoneyInOutApi {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(customer!.name!),
+                        Text(customer.name!),
                         Text(customer.phone!),
                       ])
                 : Container(),

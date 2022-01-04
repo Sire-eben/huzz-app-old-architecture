@@ -8,7 +8,6 @@ import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
-import 'package:huzz/model/product.dart';
 
 import '../../../../colors.dart';
 import 'debtorreminder.dart';
@@ -26,7 +25,9 @@ class Debtors extends StatefulWidget {
 }
 
 class _DebtorsState extends State<Debtors> {
+  // ignore: unused_field
   final _debtorController = Get.find<DebtorRepository>();
+  // ignore: unused_field
   final _productController = Get.find<ProductRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _transactionController = Get.find<TransactionRespository>();
@@ -42,6 +43,8 @@ class _DebtorsState extends State<Debtors> {
   final amountPaidController = TextEditingController();
 
   final TextEditingController textEditingController = TextEditingController();
+
+  final debtStatus = ['Pending', 'Fully Paid'];
 
   final items = [
     'Box',
@@ -85,48 +88,79 @@ class _DebtorsState extends State<Debtors> {
                   vertical: 20,
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SizedBox(
-                      height: 10,
-                    ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.66,
+                      padding: EdgeInsets.symmetric(horizontal: 12),
                       decoration: BoxDecoration(
-                        color: Color(0xffF5F5F5),
-                        borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                              width: 2, color: AppColor().backgroundColor)),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: value,
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            size: 14,
+                            color: AppColor().backgroundColor,
+                          ),
+                          hint: Text(
+                            'Pending',
+                            style: TextStyle(
+                                fontFamily: 'DMSans',
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          isDense: true,
+                          items: debtStatus.map(buildDropDown).toList(),
+                          onChanged: (value) =>
+                              setState(() => this.value = value),
+                        ),
                       ),
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset('assets/images/debtors.svg'),
-                            Text(
-                              'Add Debtors',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans',
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Your debtors will show here. Click the ',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans'),
-                            ),
-                            Text(
-                              'New Debtors button to add your first debtor',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.black,
-                                  fontFamily: 'DMSans'),
-                            ),
-                          ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: Container(
+                        // height: MediaQuery.of(context).size.height * 0.5,
+                        decoration: BoxDecoration(
+                          color: Color(0xffF5F5F5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset('assets/images/debtors.svg'),
+                              Text(
+                                'Add Debtors',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontFamily: 'DMSans',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Your debtors will show here. Click the ',
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.black,
+                                    fontFamily: 'DMSans'),
+                              ),
+                              Text(
+                                'Add New Debtors button to add your first debtor',
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.black,
+                                    fontFamily: 'DMSans'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -182,135 +216,152 @@ class _DebtorsState extends State<Debtors> {
         : DebtorListing();
   }
 
-  Widget buildAddDebtor() => Container(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.04,
-            right: MediaQuery.of(context).size.width * 0.04,
-            bottom: MediaQuery.of(context).size.width * 0.04,
-            top: MediaQuery.of(context).size.width * 0.02),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  height: 3,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-              ),
-              SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Add Debtor',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: newCustomersInfo(),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Obx(() {
-                return InkWell(
-                  onTap: () {
-                    if (1<0) {
-                      if (1!=0) {
-                        _transactionController.addMoreProduct();
-                      }
-                      if (_transactionController.productList.isNotEmpty) {
-                        if (_transactionController.selectedPaymentMode !=
-                                null &&
-                            _transactionController.selectedPaymentSource !=
-                                null) {
-                          if (_transactionController.addCustomer) {
-                            if (_transactionController.selectedCustomer !=
-                                    null ||
-                                _customerController
-                                        .nameController.text.isNotEmpty &&
-                                    _customerController.phoneNumberController
-                                        .text.isNotEmpty) {
-                            } else {
-                              Get.snackbar(
-                                  "Error", "Fill up your contact details");
-                              return;
-                            }
-                          }
-
-                          //  _transactionController.createTransaction("INCOME");
-                          _transactionController
-                              .createBusinessTransaction("EXPENDITURE");
-                        } else {
-                          Get.snackbar(
-                              "Error", "Fill up important information");
-                        }
-                      } else {
-                        Get.snackbar("Error",
-                            "You need to have at least one product to proceed");
-                      }
-                    }
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.03),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_transactionController.addingTransactionStatus ==
-                            AddingTransactionStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                size: 22,
-                                color: AppColor().whiteColor,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Center(
-                                child: Text(
-                                  'Add Debtor',
-                                  style: TextStyle(
-                                    color: AppColor().whiteColor,
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                  ),
-                );
-              }),
-            ],
-          ),
+  DropdownMenuItem<String> buildDropDown(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: TextStyle(
+              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
         ),
       );
+
+  StatefulBuilder buildAddDebtor() =>
+      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    height: 3,
+                    width: 70,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Add Debtor',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: newCustomersInfo(),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Obx(() {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        if (1 < 0) {
+                          if (1 != 0) {
+                            _transactionController.addMoreProduct();
+                          }
+                          if (_transactionController.productList.isNotEmpty) {
+                            if (_transactionController.selectedPaymentMode !=
+                                    null &&
+                                _transactionController.selectedPaymentSource !=
+                                    null) {
+                              if (_transactionController.addCustomer) {
+                                if (_transactionController.selectedCustomer !=
+                                        null ||
+                                    _customerController
+                                            .nameController.text.isNotEmpty &&
+                                        _customerController
+                                            .phoneNumberController
+                                            .text
+                                            .isNotEmpty) {
+                                } else {
+                                  Get.snackbar(
+                                      "Error", "Fill up your contact details");
+                                  return;
+                                }
+                              }
+
+                              //  _transactionController.createTransaction("INCOME");
+                              _transactionController
+                                  .createBusinessTransaction("EXPENDITURE");
+                            } else {
+                              Get.snackbar(
+                                  "Error", "Fill up important information");
+                            }
+                          } else {
+                            Get.snackbar("Error",
+                                "You need to have at least one product to proceed");
+                          }
+                        }
+                      });
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: (_transactionController.addingTransactionStatus ==
+                              AddingTransactionStatus.Loading)
+                          ? Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  size: 22,
+                                  color: AppColor().whiteColor,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Center(
+                                  child: Text(
+                                    'Add Debtor',
+                                    style: TextStyle(
+                                      color: AppColor().whiteColor,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                  );
+                }),
+              ],
+            ),
+          ),
+        );
+      });
 
   StatefulBuilder newCustomersInfo() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
@@ -323,7 +374,7 @@ class _DebtorsState extends State<Debtors> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: () => setState(
+                          onTap: () => myState(
                               () => _transactionController.customerType = 1),
                           child: Row(
                             children: [
@@ -332,10 +383,10 @@ class _DebtorsState extends State<Debtors> {
                                   activeColor: AppColor().backgroundColor,
                                   groupValue:
                                       _transactionController.customerType,
-                                  onChanged: (value) => setState(() =>
+                                  onChanged: (value) => myState(() =>
                                       _transactionController.customerType = 1)),
                               Text(
-                                'New Customer',
+                                'New Merchant',
                                 style: TextStyle(
                                   color: AppColor().backgroundColor,
                                   fontFamily: "DMSans",
@@ -348,7 +399,7 @@ class _DebtorsState extends State<Debtors> {
                           ),
                         ),
                         InkWell(
-                          onTap: () => setState(
+                          onTap: () => myState(
                               () => _transactionController.customerType = 0),
                           child: Row(
                             children: [
@@ -357,10 +408,10 @@ class _DebtorsState extends State<Debtors> {
                                   activeColor: AppColor().backgroundColor,
                                   groupValue:
                                       _transactionController.customerType,
-                                  onChanged: (value) => setState(() =>
+                                  onChanged: (value) => myState(() =>
                                       _transactionController.customerType = 0)),
                               Text(
-                                'Existing Customer',
+                                'Existing Merchants',
                                 style: TextStyle(
                                   color: AppColor().backgroundColor,
                                   fontFamily: "DMSans",
@@ -375,41 +426,101 @@ class _DebtorsState extends State<Debtors> {
                       ],
                     ),
                     _transactionController.customerType == 0
-                        ? CustomTextFieldWithImageTransaction(
-                            contactName: _customerController.nameController,
-                            contactPhone:
-                                _customerController.phoneNumberController,
-                            contactMail: _customerController.emailController,
-                            label: "Customer name",
-                            validatorText: "Customer name is needed",
-                            hint: 'customer name',
-                          )
-                        : Column(
+                        // ? Column(
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: [
+                        //       CustomTextFieldInvoiceOptional(
+                        //         label: 'Name',
+                        //         keyType: TextInputType.name,
+                        //         textEditingController:
+                        //             _transactionController.contactName,
+                        //       ),
+                        //       CustomTextFieldInvoiceOptional(
+                        //         label: 'Phone Number',
+                        //         keyType: TextInputType.name,
+                        //         textEditingController:
+                        //             _transactionController.contactName,
+                        //       ),
+                        //       CustomTextFieldInvoiceOptional(
+                        //         label: 'Amount',
+                        //         keyType: TextInputType.number,
+                        //         textEditingController:
+                        //             _transactionController.amountController,
+                        //       ),
+                        //       Container(
+                        //         margin: EdgeInsets.only(
+                        //           top: 10,
+                        //           right: 20,
+                        //           bottom: 10,
+                        //         ),
+                        //         child: Text(
+                        //           'Brief Description',
+                        //           style: TextStyle(
+                        //               color: Colors.black, fontSize: 12),
+                        //         ),
+                        //       ),
+                        //       Container(
+                        //         height:
+                        //             MediaQuery.of(context).size.height * 0.2,
+                        //         width: MediaQuery.of(context).size.width,
+                        //         decoration: BoxDecoration(
+                        //           color: AppColor().whiteColor,
+                        //           border: Border.all(
+                        //             width: 2,
+                        //             color: AppColor().backgroundColor,
+                        //           ),
+                        //           borderRadius: BorderRadius.circular(12),
+                        //         ),
+                        //         child: TextFormField(
+                        //           controller: textEditingController,
+                        //           textInputAction: TextInputAction.none,
+                        //           decoration: InputDecoration(
+                        //             isDense: true,
+                        //             enabledBorder: OutlineInputBorder(
+                        //               borderSide: BorderSide.none,
+                        //             ),
+                        //             hintText: 'Delivered some drugs',
+                        //             hintStyle: Theme.of(context)
+                        //                 .textTheme
+                        //                 .headline4!
+                        //                 .copyWith(
+                        //                   fontFamily: 'DMSans',
+                        //                   color: Colors.black26,
+                        //                   fontSize: 14,
+                        //                   fontStyle: FontStyle.normal,
+                        //                   fontWeight: FontWeight.normal,
+                        //                 ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   )
+                        ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Select Customer',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans'),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "*",
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans'),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 8,
+                              Container(
+                                margin: EdgeInsets.only(
+                                  top: 10,
+                                  right: 20,
+                                  bottom: 10,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Select Customer',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 12),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      '*',
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: 12),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
@@ -436,7 +547,7 @@ class _DebtorsState extends State<Debtors> {
                                         child: Text(value.name!),
                                       );
                                     }).toList(),
-                                    onChanged: (value) => setState(
+                                    onChanged: (value) => myState(
                                       () => _transactionController
                                           .selectedCustomer = value,
                                     ),
@@ -450,133 +561,79 @@ class _DebtorsState extends State<Debtors> {
                                 ),
                               ),
                             ],
-                          ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomTextFieldInvoiceOptional(
-                          label: 'Enter name',
-                          keyType: TextInputType.name,
-                          textEditingController:
-                              _transactionController.contactName,
-                        ),
-                        CustomTextFieldInvoiceOptional(
-                          label: 'Amount',
-                          keyType: TextInputType.number,
-                          textEditingController:
-                              _transactionController.amountController,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Select Product',
-                              style: TextStyle(
-                                color: AppColor().blackColor,
-                                fontSize: 12,
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomTextFieldInvoiceOptional(
+                                label: 'Name',
+                                keyType: TextInputType.name,
+                                textEditingController:
+                                    _transactionController.contactName,
                               ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              '(Optional)',
-                              style: TextStyle(
-                                color: AppColor().hintColor,
-                                fontSize: 12,
+                              CustomTextFieldInvoiceOptional(
+                                label: 'Phone Number',
+                                keyType: TextInputType.name,
+                                textEditingController:
+                                    _transactionController.contactName,
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  width: 2, color: AppColor().backgroundColor)),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<Product>(
-                              value: _transactionController.selectedProduct,
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: AppColor().backgroundColor,
+                              CustomTextFieldInvoiceOptional(
+                                label: 'Amount',
+                                keyType: TextInputType.number,
+                                textEditingController:
+                                    _transactionController.amountController,
                               ),
-                              iconSize: 30,
-                              items:
-                                  _productController.productGoods.map((value) {
-                                return DropdownMenuItem<Product>(
-                                  value: value,
-                                  child: Text(value.productName!),
-                                );
-                              }).toList(),
-                              onChanged: (value) => myState(() {
-                                _transactionController.selectedProduct = value;
-                                _transactionController
-                                    .selectedProduct!.quantity = 1;
-                              }),
-                              hint: Text(
-                                'Select existing customer',
-                                style: TextStyle(
-                                  color: AppColor().hintColor,
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  left: 5,
+                                  right: 20,
+                                  bottom: 10,
+                                ),
+                                child: Text(
+                                  'Brief Description',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 12),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: 5,
-                            right: 20,
-                            bottom: 10,
-                          ),
-                          child: Text(
-                            'Brief Description',
-                            style: TextStyle(color: Colors.black, fontSize: 12),
-                          ),
-                        ),
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColor().backgroundColor,
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: TextFormField(
-                            controller: textEditingController,
-                            textInputAction: TextInputAction.none,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                              ),
-                              hintText: 'Delivered some drugs',
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(
-                                    fontFamily: 'DMSans',
-                                    color: Colors.black26,
-                                    fontSize: 14,
-                                    fontStyle: FontStyle.normal,
-                                    fontWeight: FontWeight.normal,
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().backgroundColor,
                                   ),
-                            ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: TextFormField(
+                                  controller: textEditingController,
+                                  textInputAction: TextInputAction.none,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    hintText: 'Delivered some drugs',
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .headline4!
+                                        .copyWith(
+                                          fontFamily: 'DMSans',
+                                          color: Colors.black26,
+                                          fontSize: 14,
+                                          fontStyle: FontStyle.normal,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
         );
@@ -658,7 +715,7 @@ class _DebtorsState extends State<Debtors> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               CustomTextField(
                 label: "Enter Name *",
-                validatorText: "customers name is needed",
+                validatorText: "merchants name is needed",
                 hint: 'E.g.  Debtors Name',
               ),
               Row(
@@ -692,7 +749,7 @@ class _DebtorsState extends State<Debtors> {
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(
-                      'Add customers',
+                      'Add Merchants',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -779,7 +836,7 @@ class _DebtorListingState extends State<DebtorListing> {
           ),
         ),
         Expanded(
-          child: Image.asset('assets/images/eye.png'),
+          child: SvgPicture.asset('assets/images/edit_pri.svg'),
         ),
         Expanded(
           child: GestureDetector(

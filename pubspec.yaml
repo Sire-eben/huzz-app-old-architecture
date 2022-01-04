@@ -60,8 +60,9 @@ dependencies:
   uuid: ^3.0.5
   connectivity_plus: ^2.1.0
   timer_button: ^2.0.0
-
+  syncfusion_flutter_charts: ^19.4.40
   path: ^1.8.0
+  syncfusion_flutter_datepicker: ^19.4.40
 
 dev_dependencies:
   flutter_test:

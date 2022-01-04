@@ -18,13 +18,13 @@ class Signin extends StatefulWidget {
 }
 
 class _SiginState extends State<Signin> {
+  final _authController = Get.find<AuthRepository>();
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
   String countryFlag = "NG";
-  final _loginKey = GlobalKey<FormState>();
   String countryCode = "234";
-  final _authController = Get.find<AuthRepository>();
+
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
@@ -33,13 +33,13 @@ class _SiginState extends State<Signin> {
   @override
   void dispose() {
     // errorController!.close();
-
+    // _authController.phoneNumberController.dispose();
+    // _authController.pinController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -83,7 +83,7 @@ class _SiginState extends State<Signin> {
               "Keep your business going with Huzz",
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 10,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400),
             )),
             SizedBox(
@@ -216,10 +216,8 @@ class _SiginState extends State<Signin> {
                     activeFillColor: Colors.white,
                   ),
                   animationDuration: Duration(milliseconds: 300),
-                  // backgroundColor: Colors.white,
                   enableActiveFill: true,
                   errorAnimationController: errorController,
-                  // controller: textEditingController,
                   onCompleted: (v) {
                     print("Completed");
                   },
@@ -343,14 +341,6 @@ class _SiginState extends State<Signin> {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             ),
-
-                            //  Container(padding: EdgeInsets.all(3),
-                            //    decoration:BoxDecoration(
-                            //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
-
-                            //    ),
-                            //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
-                            //  )
                           ],
                         ),
                 ),

@@ -6,16 +6,14 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/api_link.dart';
-
-
 import 'package:huzz/model/debtor.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 import 'auth_respository.dart';
 import 'file_upload_respository.dart';
-import 'package:path/path.dart' as path;
 
 enum AddingDebtorStatus { Loading, Error, Success, Empty }
 
@@ -168,8 +166,7 @@ class DebtorRepository extends GetxController
       DebtorImage.value!.copySync(outFile.path);
     }
 
-    Debtor debtor = Debtor(
-    );
+    Debtor debtor = Debtor();
 
     print("Debtor offline saving ${debtor.toJson()}");
     _businessController.sqliteDb.insertDebtor(debtor);
@@ -183,14 +180,16 @@ class DebtorRepository extends GetxController
 
   Future updateBusinessDebtorOffline(Debtor newDebtor, String title) async {
     File? outFile;
+    // ignore: unnecessary_null_comparison
     if (DebtorImage != null) {
       var list = await getApplicationDocumentsDirectory();
 
       Directory appDocDir = list;
       String appDocPath = appDocDir.path;
 
-      String basename = path.basename(DebtorImage.value!.path!);
+      String basename = path.basename(DebtorImage.value!.path);
       var newPath = appDocPath + basename;
+      // ignore: unnecessary_brace_in_string_interps
       print("new file path is ${newPath}");
       outFile = File(newPath);
       DebtorImage.value!.copySync(outFile.path);
@@ -232,8 +231,8 @@ class DebtorRepository extends GetxController
         fileId =
             await _uploadFileController.uploadFile(DebtorImage.value!.path);
       }
-      var response = await http
-          .put(Uri.parse(ApiLink.add_debtor + "/" + Debtor.debtorId!),
+      var response =
+          await http.put(Uri.parse(ApiLink.add_debtor + "/" + Debtor.debtorId!),
               body: jsonEncode({
                 "name": DebtorNameController.text,
                 "costPrice": DebtorCostPriceController.text,
@@ -288,7 +287,7 @@ class DebtorRepository extends GetxController
   Future getOnlineDebtor(String businessId) async {
     print("trying to get Debtor online");
     final response = await http.get(
-        Uri.parse(ApiLink.add_debtor+ "?businessId=" + businessId),
+        Uri.parse(ApiLink.add_debtor + "?businessId=" + businessId),
         headers: {"Authorization": "Bearer ${_userController.token}"});
 
     print("result of get Debtor online ${response.body}");

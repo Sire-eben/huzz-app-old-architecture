@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
@@ -10,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../colors.dart';
 
+// ignore: must_be_immutable
 class AddProduct extends StatefulWidget {
   Product? item;
   AddProduct({Key? key, this.item}) : super(key: key);
@@ -172,7 +172,6 @@ class _AddProductState extends State<AddProduct> {
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            // labelText: label,
                             hintText: 'N 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
@@ -428,7 +427,7 @@ class _AddProductState extends State<AddProduct> {
                 }
               },
               child: Container(
-                height: 55,
+                height: 50,
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(
                   horizontal: 15,
@@ -450,6 +449,7 @@ class _AddProductState extends State<AddProduct> {
                           (widget.item == null) ? 'Save' : "Update",
                           style: TextStyle(
                             color: AppColor().whiteColor,
+                            fontSize: 18,
                             fontFamily: 'DMSans',
                             fontWeight: FontWeight.bold,
                           ),
@@ -458,7 +458,7 @@ class _AddProductState extends State<AddProduct> {
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 20,
             ),
           ],
         );

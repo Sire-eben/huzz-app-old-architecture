@@ -313,7 +313,7 @@ class _MoneyOutState extends State<MoneyOut> {
                             ),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.03),
+                                    MediaQuery.of(context).size.height * 0.02),
                           ],
                         )
                       : Padding(
@@ -377,8 +377,11 @@ class _MoneyOutState extends State<MoneyOut> {
                                           value;
                                       _transactionController
                                           .selectedProduct!.quantity = 1;
-                                           _transactionController.amountController.text=value!.sellingPrice!.toString();
-                                            _transactionController.quantityController.text=1.toString();
+                                      _transactionController
+                                              .amountController.text =
+                                          value!.sellingPrice!.toString();
+                                      _transactionController.quantityController
+                                          .text = 1.toString();
                                     }),
                                   ),
                                 ),
@@ -1217,8 +1220,10 @@ class _MoneyOutState extends State<MoneyOut> {
                                 _transactionController.selectedProduct = value;
                                 _transactionController
                                     .selectedProduct!.quantity = 1;
-                                     _transactionController.amountController.text=value!.sellingPrice!.toString();
-                                            _transactionController.quantityController.text=1.toString();
+                                _transactionController.amountController.text =
+                                    value!.sellingPrice!.toString();
+                                _transactionController.quantityController.text =
+                                    1.toString();
                               }),
                             ),
                           ),

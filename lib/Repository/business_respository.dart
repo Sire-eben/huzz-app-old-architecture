@@ -1,3 +1,5 @@
+// ignore_for_file: must_call_super, non_constant_identifier_names
+
 import 'dart:convert';
 import 'dart:core';
 
@@ -6,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/api_link.dart';
-import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
-import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
@@ -79,7 +79,7 @@ class BusinessRespository extends GetxController {
     businessListFromServer.addAll(list);
     print("online data business lenght ${list.length}");
     getBusinessYetToBeSavedLocally();
-}
+  }
 
   Future getBusinessYetToBeSavedLocally() async {
 // if(offlineBusiness.length==businessListFromServer.length)
@@ -153,7 +153,7 @@ class BusinessRespository extends GetxController {
         var json = jsonDecode(response.body);
         if (json['success']) {
           OnlineBusiness();
-          var business=Business.fromJson(json['data']);
+          var business = Business.fromJson(json['data']);
           selectedBusiness(business);
           _createBusinessStatus(CreateBusinessStatus.Success);
 
