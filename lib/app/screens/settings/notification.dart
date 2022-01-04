@@ -48,6 +48,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
         ),
         elevation: 0,
       ),
+      backgroundColor: AppColor().whiteColor,
       body: Column(
         children: [
           Padding(
