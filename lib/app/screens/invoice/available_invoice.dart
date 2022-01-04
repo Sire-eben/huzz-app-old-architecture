@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/all.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/overdue.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/paid.dart';
@@ -16,6 +18,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
     with SingleTickerProviderStateMixin {
   ScrollController? _scrollController;
   TabController? _tabController;
+final _invoiceRepository=Get.find<InvoiceRespository>();
   bool? fixedScroll;
 
   @override
@@ -61,88 +64,92 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(270),
-          child: Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Manage Invoices",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: AppColor().backgroundColor),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                Row(
+      child: Obx(()
+        {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(270),
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    DashboardDetails(name: 'Pending', no: 9),
-                    SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                    DashboardDetails(name: 'Overdue', no: 9),
-                    SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                    DashboardDetails(name: 'Deposit', no: 5),
-                    SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                    DashboardDetails(name: 'Paid', no: 8)
+                    Text(
+                      "Manage Invoices",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: AppColor().backgroundColor),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    Row(
+                      children: [
+                        DashboardDetails(name: 'Pending', no: _invoiceRepository.InvoicePendingList.length),
+                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                        DashboardDetails(name: 'Overdue', no: _invoiceRepository.InvoiceDueList.length),
+                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                        DashboardDetails(name: 'Deposit', no: _invoiceRepository.InvoiceDepositList.length),
+                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                        DashboardDetails(name: 'Paid', no:_invoiceRepository.paidInvoiceList.length)
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+                    Text(
+                      "Invoices",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 24,
+                          color: AppColor().backgroundColor),
+                    ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-                Text(
-                  "Invoices",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 24,
-                      color: AppColor().backgroundColor),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-        body: NestedScrollView(
-          controller: _scrollController,
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverToBoxAdapter(
-                child: TabBar(
-                  controller: _tabController,
-                  labelColor: AppColor().backgroundColor,
-                  unselectedLabelColor: Colors.grey,
-                  labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: Colors.black,
-                        fontFamily: "DMSans",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                  unselectedLabelStyle:
-                      Theme.of(context).textTheme.headline2!.copyWith(
-                            color: AppColor().backgroundColor,
+            body: NestedScrollView(
+              controller: _scrollController,
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  SliverToBoxAdapter(
+                    child: TabBar(
+                      controller: _tabController,
+                      labelColor: AppColor().backgroundColor,
+                      unselectedLabelColor: Colors.grey,
+                      labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
+                            color: Colors.black,
                             fontFamily: "DMSans",
                             fontStyle: FontStyle.normal,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicatorColor: AppColor().backgroundColor,
-                  tabs: [
-                    Tab(text: 'All'),
-                    Tab(text: 'Pending'),
-                    Tab(text: 'Paid'),
-                    Tab(text: 'Overdue'),
-                  ],
-                ),
-              )
-            ];
-          },
-          body: TabBarView(
-            controller: _tabController,
-            children: <Widget>[All(), Pending(), Paid(), Overdue()],
-          ),
-        ),
+                      unselectedLabelStyle:
+                          Theme.of(context).textTheme.headline2!.copyWith(
+                                color: AppColor().backgroundColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorColor: AppColor().backgroundColor,
+                      tabs: [
+                        Tab(text: 'All'),
+                        Tab(text: 'Pending'),
+                        Tab(text: 'Paid'),
+                        Tab(text: 'Overdue'),
+                      ],
+                    ),
+                  )
+                ];
+              },
+              body: TabBarView(
+                controller: _tabController,
+                children: <Widget>[All(), Pending(), Paid(), Overdue()],
+              ),
+            ),
+          );
+        }
       ),
     );
   }
