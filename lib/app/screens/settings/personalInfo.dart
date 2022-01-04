@@ -131,30 +131,30 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          _displayDialog(context);
-                        },
-                        child: Row(
-                          children: [
-                            Container(
-                              child: Image.asset(
-                                'assets/images/pen.png',
-                                scale: 1.2,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Change',
-                              style: TextStyle(
-                                  color: AppColor().backgroundColor,
-                                  fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     _displayDialog(context);
+                      //   },
+                      //   child: Row(
+                      //     children: [
+                      //       Container(
+                      //         child: Image.asset(
+                      //           'assets/images/pen.png',
+                      //           scale: 1.2,
+                      //         ),
+                      //       ),
+                      //       SizedBox(
+                      //         width: 5,
+                      //       ),
+                      //       Text(
+                      //         'Change',
+                      //         style: TextStyle(
+                      //             color: AppColor().backgroundColor,
+                      //             fontSize: 12),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                   SizedBox(
