@@ -169,6 +169,7 @@ class _ProductListingState extends State<ProductListing> {
                 itemCount: _productController.productGoods.length,
                 itemBuilder: (BuildContext context, int index) {
                   var item = _productController.productGoods[index];
+                  print("product item ${item.toJson()}");
                   return ListingProduct(
                     item: item,
                   );
@@ -646,7 +647,7 @@ class _ListingProductState extends State<ListingProduct> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    widget.item!.productName!,
+                    "${widget.item!.productName}",
                     style: TextStyle(
                       color: AppColor().blackColor,
                       fontFamily: 'DMSans',
@@ -681,7 +682,7 @@ class _ListingProductState extends State<ListingProduct> {
                         width: 50,
                       ),
                       Text(
-                        'N${display(widget.item!.costPrice!)}',
+                        'N${display(widget.item!.costPrice??0)}',
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',

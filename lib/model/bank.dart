@@ -35,7 +35,7 @@ id: json['id'],
 bankAccountName: json['bankAccountName'],
 bankName: json['bankName'],
 bankAccountNumber: json['bankAccountNumber'],
-deleted: json['deleted'],
+deleted: json['deleted']??false,
 createdDateTime: DateTime.parse(json['timeCreated']),
 updatedDateTime: json['timeUpdated']==null ? DateTime.parse(json['timeCreated']):DateTime.parse(json['timeUpdated']),
 userId: json['userId'],
@@ -59,7 +59,8 @@ Map<String,dynamic> toJson()=>{
 "isAddingPending": isAddingPending,
 "isCreatedFromInvoice":isCreatedFromInvoice,
 "isUpdatingPending":isUpdatingPending,
-"businessId":businessId
+"businessId":businessId,
+
 
 };
 }
