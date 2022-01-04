@@ -54,6 +54,7 @@ class AuthRepository extends GetxController {
   late final verifypinController = TextEditingController();
   late final confirmPinController = TextEditingController();
   late final phoneNumberController = TextEditingController();
+  late final updatePhoneNumberController = TextEditingController();
   late final forgotPhoneNumberController = TextEditingController();
 
   final _authStatus = AuthStatus.Empty.obs;
@@ -299,7 +300,7 @@ class AuthRepository extends GetxController {
             "firstName": firstNameController.text,
             "lastName": lastNameController.text,
             "email": emailController.text,
-            "phoneNumber": countryText + phoneNumberController.text.trim()
+            "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
           headers: {
             "Content-Type": "application/json",
