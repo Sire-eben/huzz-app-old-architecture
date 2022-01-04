@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
@@ -86,16 +87,16 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
               ),
             ),
             SizedBox(width: 4),
-            Text(
-              '(#00000001)',
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: "DMSans",
-                fontStyle: FontStyle.normal,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            // Text(
+            //   '(#00000001)',
+            //   style: TextStyle(
+            //     color: Colors.black,
+            //     fontFamily: "DMSans",
+            //     fontStyle: FontStyle.normal,
+            //     fontSize: 16,
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -225,12 +226,13 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               InkWell(
                 onTap: () {
-                  showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(20))),
-                      context: context,
-                      builder: (context) => buildSaveInvoice());
+                  Get.off(Dashboard(selectedIndex: 3,));
+                  // showModalBottomSheet(
+                  //     shape: RoundedRectangleBorder(
+                  //         borderRadius:
+                  //             BorderRadius.vertical(top: Radius.circular(20))),
+                  //     context: context,
+                  //     builder: (context) => buildSaveInvoice());
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,

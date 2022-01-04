@@ -237,12 +237,14 @@ var bank= Bank(
 
   id: uuid.v1(),
 isCreatedFromInvoice: true,
+createdDateTime: DateTime.now(),
+updatedDateTime:  DateTime.now()
 
 
 );
   
    await _businessController.sqliteDb.insertBankAccount(bank);
-   getOfflineBank(_businessController.selectedBusiness.value!.businessId!);
+   await getOfflineBank(_businessController.selectedBusiness.value!.businessId!);
       clearValue();
    return bank.id!;
 
@@ -259,11 +261,11 @@ var bank= Bank(
   businessId:  _businessController.selectedBusiness.value!.businessId,
 
   id: uuid.v1(),
-  isAddingPending: true
-
-
+  isAddingPending: true,
+  createdDateTime:DateTime.now(),
+  updatedDateTime: DateTime.now()
 );
-  
+  print("bank json is ${bank.toJson()}");
    await _businessController.sqliteDb.insertBankAccount(bank);
    getOfflineBank(bank.businessId!);
       clearValue();
@@ -441,8 +443,8 @@ await _businessController.sqliteDb.updateOfflineBank(bank);
   Bank? checkifBankAvailableWithValue(String id) {
     Bank? item;
 
-    offlineBusinessBank.forEach((element) {
-      print("checking transaction whether exist");
+    _offlineBusinessBank.value.forEach((element) {
+      print("bank id ${element.id} compare to $id");
       if (element.id == id) {
         print("Bank   found");
         item = element;
@@ -544,6 +546,29 @@ deletePendingJobToServer();
 
 }
 
+
+// Future<String?> addBusinessBankOfflineWithString({bool isinvoice=false})async
+//   {
+// var bank= Bank(
+//    bankName: bankNameController.text,
+//   bankAccountName: bankAccountNameController.text,
+//   bankAccountNumber: accoutNumberController.text,
+//   businessId:  _businessController.selectedBusiness.value!.businessId,
+
+
+//   id: uuid.v1(),
+
+// isCreatedFromInvoice: isinvoice
+
+
+// );
+  
+//    await _businessController.sqliteDb.insertBankAccount(bank);
+//    getOfflineBank(_businessController.selectedBusiness.value!.businessId!);
+//       clearValue();
+//    return bank.id!;
+
+//   }
 
  Future addPendingJobBankToServer()async{
 if(pendingJobToBeAdded.isEmpty){

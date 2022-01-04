@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
-import 'package:huzz/app/screens/invoice/available_invoice/single_invoice_pdf.dart';
 import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/colors.dart';
-import 'package:huzz/model/invoice_receipt_model.dart';
-import 'package:number_display/number_display.dart';
-import 'single_invoice_preview.dart';
+import 'package:huzz/model/invoice_model.dart';
+
+import '../invoice_pdf.dart';
+import '../preview_invoice.dart';
 
 class All extends StatefulWidget {
   const All({Key? key}) : super(key: key);
@@ -25,10 +25,6 @@ class _AllState extends State<All> {
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
-  final display = createDisplay(
-    length: 10,
-    decimal: 0,
-  );
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -90,58 +86,13 @@ class _AllState extends State<All> {
                         itemCount: _invoiceController.offlineInvoices.length,
                         itemBuilder: (BuildContext context, int index) {
                           var item = _invoiceController.offlineInvoices[index];
-                          return InkWell(
+                          return GestureDetector(
                             onTap: () async {
-                              final date = DateTime.now();
-                              final dueDate = date.add(Duration(days: 7));
-                              final singleTransactionInvoice = Invoice(
-                                supplier: Supplier(
-                                  name: 'Business Name',
-                                  mail: 'tunmisehassan@gmail.com',
-                                  phone: '+234 8123 456 789',
-                                ),
-                                bankDetails: BankDetails(
-                                    name: 'accountName',
-                                    no: 'accountNo',
-                                    mode: 'BANK TRANSFER'),
-                                customer: InvoiceCustomer(
-                                  name: 'Joshua Olatunde',
-                                  phone: '+234 903 872 6495',
-                                ),
-                                info: InvoiceInfo(
-                                  date: date,
-                                  dueDate: dueDate,
-                                  description: 'My description...',
-                                  number: '${DateTime.now().year}-9999',
-                                ),
-                                items: [
-                                  InvoiceItem(
-                                    item: 'MacBook',
-                                    quantity: 3,
-                                    amount: 500000,
-                                  ),
-                                  InvoiceItem(
-                                    item: 'MacBook',
-                                    quantity: 3,
-                                    amount: 500000,
-                                  ),
-                                  InvoiceItem(
-                                    item: 'MacBook',
-                                    quantity: 3,
-                                    amount: 500000,
-                                  ),
-                                  InvoiceItem(
-                                    item: 'MacBook',
-                                    quantity: 3,
-                                    amount: 500000,
-                                  ),
-                                ],
-                              );
+                              print("product item is ${item.toJson()}");
                               final invoiceReceipt =
-                                  await SingleInvoicePdf.generate(
-                                      singleTransactionInvoice);
-                              Get.to(() =>
-                                  PreviewSingleInvoice(file: invoiceReceipt));
+                                  await PdfInvoiceApi.generate(item);
+                              Get.to(
+                                  () => PreviewInvoice(file: invoiceReceipt));
                             },
                             child: Padding(
                               padding: EdgeInsets.only(
@@ -181,7 +132,7 @@ class _AllState extends State<All> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${display(item.totalAmount)}",
+                                                "N ${item.totalAmount}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',

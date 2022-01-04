@@ -200,22 +200,26 @@ class CustomerRepository extends GetxController {
     }
   }
 
-  Future<String?> addBusinessCustomerOfflineWithString(
-      String transactionType) async {
-    var customer = Customer(
-      name: nameController.text,
-      phone: phoneNumberController.text,
-      email: emailController.text,
-      businessId: _businessController.selectedBusiness.value!.businessId,
-      businessTransactionType: transactionType,
-      customerId: uuid.v1(),
-      isCreatedFromTransaction: true,
-    );
+  Future<String?> addBusinessCustomerOfflineWithString(String transactionType,{bool isinvoice=false,bool istransaction=false})async
+  {
+var customer= Customer(
+  name: nameController.text,
+  phone: phoneNumberController.text,
+  email: emailController.text,
+  businessId:  _businessController.selectedBusiness.value!.businessId,
+  businessTransactionType: transactionType,
+  customerId: uuid.v1(),
+isCreatedFromTransaction: istransaction,
+isCreatedFromInvoice: isinvoice
 
-    await _businessController.sqliteDb.insertCustomer(customer);
-    getOfflineCustomer(customer.businessId!);
-    clearValue();
-    return customer.customerId!;
+
+);
+  
+   await _businessController.sqliteDb.insertCustomer(customer);
+   getOfflineCustomer(customer.businessId!);
+      clearValue();
+   return customer.customerId!;
+
   }
 
   Future addBusinessCustomerOffline(String transactionType) async {
@@ -424,7 +428,12 @@ class CustomerRepository extends GetxController {
       _businessController.sqliteDb.deleteCustomer(customer);
       getOfflineCustomer(
           _businessController.selectedBusiness.value!.businessId!);
-    } else {}
+    } else {
+   _businessController.sqliteDb.deleteCustomer(customer);
+      getOfflineCustomer(
+          _businessController.selectedBusiness.value!.businessId!);
+
+    }
   }
 
   Future deleteCustomerOffline(Customer customer) async {
@@ -559,14 +568,37 @@ class CustomerRepository extends GetxController {
         getOnlineCustomer(
             _businessController.selectedBusiness.value!.businessId!);
       }
+      
+      if(pendingJobToBeUpdated.isNotEmpty)
+      addPendingJobToBeUpdateToServer();
+  });
 
-      if (pendingJobToBeUpdated.isNotEmpty) addPendingJobToBeUpdateToServer();
-    });
-  }
 
-  Future deletePendingJobToServer() async {
-    if (pendingJobToBeDelete.isEmpty) {
-      return;
+
+
+ }
+ Future deletePendingJobToServer()async{
+
+if(pendingJobToBeDelete.isEmpty){
+
+  return;
+}
+
+pendingJobToBeDelete.forEach((element)async { 
+var deletenext=pendingJobToBeDelete.first;
+ var response = await http.delete(
+        Uri.parse(ApiLink.add_customer +
+            "/${deletenext.customerId}?businessId=${deletenext.businessId}"),
+        headers: {"Authorization": "Bearer ${_userController.token}"});
+    print("previous deleted response ${response.body}");
+    if (response.statusCode == 200) {
+      _businessController.sqliteDb.deleteCustomer(deletenext);
+      getOfflineCustomer(
+          _businessController.selectedBusiness.value!.businessId!);
+    } else {
+ _businessController.sqliteDb.deleteCustomer(deletenext);
+      getOfflineCustomer(
+          _businessController.selectedBusiness.value!.businessId!);
     }
 
     pendingJobToBeDelete.forEach((element) async {
@@ -580,15 +612,17 @@ class CustomerRepository extends GetxController {
         _businessController.sqliteDb.deleteCustomer(deletenext);
         getOfflineCustomer(
             _businessController.selectedBusiness.value!.businessId!);
-      } else {}
+      } else {
+
+      }
 
       pendingJobToBeDelete.remove(deletenext);
       if (pendingJobToBeDelete.isNotEmpty) {
         deletePendingJobToServer();
       }
     });
-  }
-
+  });
+ }
   Future deleteSelectedItem() async {
     if (deleteCustomerList.isEmpty) {
       return;

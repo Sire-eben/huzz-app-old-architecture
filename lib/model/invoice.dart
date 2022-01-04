@@ -21,6 +21,7 @@ bool? deleted;
 bool? isPending;
 bool? isUpdatePending;
 List<PaymentItem>? paymentItemRequestList;
+String? bankId;
 
 
 Invoice({
@@ -41,7 +42,8 @@ this.createdDateTime,
 this.deleted,
 this.isPending,
 this.isUpdatePending,
-this.paymentItemRequestList
+this.paymentItemRequestList,
+this.bankId
 
 
 });
@@ -51,7 +53,7 @@ factory Invoice.fromJson(Map<String,dynamic> json)=>Invoice(id: json['id'],
 customerId: json['customerId'],
 businessId: json['businessId'],
 businessTransactionId: json['businessTransactionId'],
-businessInvoiceStatus: json['businessInvoiceStatus'],
+businessInvoiceStatus: json['businessInvoiceStatus']??"PENDING",
 totalAmount:json['totalAmount']==null?0.0: json['totalAmount']*1.0,
 discountAmount: json['discountAmount'],
 tax: json['tax'],
@@ -64,8 +66,9 @@ createdDateTime: DateTime.parse(json['createdDateTime']),
 deleted: json['deleted']??false,
 isPending: json['isPending']??false,
 isUpdatePending: json['isUpdatingPending']??false,
+bankId: json['bankInfoId'],
  paymentItemRequestList:
-          json['paymentItemRequestList']==null?[]:    List.from(json['paymentItemRequestList'])
+          json['businessTransactionPaymentItemList']==null?[]:    List.from(json['businessTransactionPaymentItemList'])
                   .map((e) => PaymentItem.fromJson(
                       e,
                       "INCOME",
@@ -95,6 +98,7 @@ Map<String,dynamic> toJson()=>{
             paymentItemRequestList!.map((e) => e.toJson()).toList(),
 "isPending":isPending,
 "isUpdatingPending":isUpdatePending,
+"bankInfoId":bankId
             
 
 
