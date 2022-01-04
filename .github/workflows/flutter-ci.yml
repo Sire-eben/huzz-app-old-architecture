@@ -16,6 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
+    - uses: kolpav/purge-artifacts-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        expire-in: 7days
+          
     # Setup Java environment in order to build the Android app.
     - uses: actions/checkout@v1
     - uses: actions/setup-java@v1
