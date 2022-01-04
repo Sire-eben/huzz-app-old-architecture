@@ -26,10 +26,14 @@ class CustomTextField extends StatelessWidget {
       this.onSubmited,
       this.validate,
       this.onChanged,
+      this.colors,
+      // ignore: non_constant_identifier_names
       this.AllowClickable = false,
       this.validatorText,
       this.onClick});
   final VoidCallback? onClick;
+  final Color? colors;
+  // ignore: non_constant_identifier_names
   final bool? AllowClickable;
   final String? hint;
   final String? label;
@@ -123,7 +127,7 @@ class CustomTextField extends StatelessWidget {
                     //     fontFamily: FontFamily.sofiaPro,
                     //     fontSize: 14),
                     hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                          color: Colors.black26,
+                          color: colors ?? Colors.black26,
                           fontFamily: 'DMSans',
                           fontSize: 14,
                           fontStyle: FontStyle.normal,

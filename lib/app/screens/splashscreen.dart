@@ -9,13 +9,13 @@ import 'package:huzz/app/screens/onboarding_main..dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/colors.dart';
 
-class SplashScreen extends StatefulWidget{
-
- _SplashScreenState createState()=>_SplashScreenState();  
+class SplashScreen extends StatefulWidget {
+  _SplashScreenState createState() => _SplashScreenState();
 }
-class _SplashScreenState extends State<SplashScreen>{
-final _controller=Get.find<AuthRepository>();
-    @override
+
+class _SplashScreenState extends State<SplashScreen> {
+  final _controller = Get.find<AuthRepository>();
+  @override
   void initState() {
     super.initState();
     // pref.init();
@@ -30,52 +30,46 @@ final _controller=Get.find<AuthRepository>();
   route() async {
 // Get.off(OnboardingMain());
     // Get.off(AboutUs());
-  
-   if (_controller.authStatus == AuthStatus.IsFirstTime) {
-        Get.off(() => OnboardingMain());
-      } else if (_controller.authStatus == AuthStatus.Authenticated) {
-        // Get.off(() => UserNavScreen());
-         Get.off(() => Dashboard());
-      } else {
-   
-        Get.off(() => Signin());
-      }
-    
+
+    if (_controller.authStatus == AuthStatus.IsFirstTime) {
+      Get.off(() => OnboardingMain());
+    } else if (_controller.authStatus == AuthStatus.Authenticated) {
+      // Get.off(() => UserNavScreen());
+      Get.off(() => Dashboard());
+    } else {
+      Get.off(() => Signin());
+    }
   }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-     body: Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      color: AppColor().backgroundColor,
-      child: Center(
-
-        child: Row(
-           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-           Container(
-             width:70,
-             height: 70,
-             decoration: BoxDecoration(
-               color: Colors.white,
-               borderRadius: BorderRadius.all(Radius.circular(5))
-             ),
-             child: Padding(
-               padding: const EdgeInsets.all(8.0),
-               child: SvgPicture.asset("assets/images/Vector (1).svg"),
-             )),
-             SizedBox(width: 10,),
-           SvgPicture.asset("assets/images/Huzz.svg")
-          ],
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: AppColor().backgroundColor,
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SvgPicture.asset("assets/images/Vector (1).svg"),
+                  )),
+              SizedBox(
+                width: 10,
+              ),
+              SvgPicture.asset("assets/images/Huzz.svg")
+            ],
+          ),
         ),
       ),
-
-     ),
-
-
-
     );
   }
 }

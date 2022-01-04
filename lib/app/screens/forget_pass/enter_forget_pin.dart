@@ -1,11 +1,13 @@
+// ignore_for_file: unused_field, close_sinks
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
-import 'package:huzz/Repository/home_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:timer_button/timer_button.dart';
 
 import '../../../colors.dart';
 
@@ -17,8 +19,6 @@ class EnterForgotPIN extends StatefulWidget {
 }
 
 class _EnterForgotPINState extends State<EnterForgotPIN> {
-  final _homeController = Get.find<HomeRespository>();
-
   StreamController<ErrorAnimationType>? pinErrorController;
   StreamController<ErrorAnimationType>? errorController;
   final _authController = Get.find<AuthRepository>();
@@ -74,7 +74,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                     ],
                   ),
                 ),
-                Text('Enter OTP & Password',
+                Text('Enter OTP & PIN',
                     style: TextStyle(
                         color: AppColor().orangeBorderColor,
                         fontSize: 28,
@@ -113,7 +113,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: PinCodeTextField(
-                      controller: _authController.otpController,
+                      controller: _authController.forgotOtpController,
                       length: 4,
                       obscureText: true,
                       animationType: AnimationType.fade,
@@ -156,26 +156,30 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                 SizedBox(
                   height: 20,
                 ),
-                GestureDetector(
-                    onTap: () {
-                      _authController.sendVoiceOtp();
-                    },
-                    child: Text(
-                      "Send as Voice Call",
-                      style: TextStyle(
-                          color: AppColor().backgroundColor, fontSize: 12),
-                    )),
-                SizedBox(
-                  height: 10,
+                TimerButton(
+                  label: "Send as Voice Call",
+                  timeOutInSeconds: 20,
+                  activeTextStyle: TextStyle(
+                      color: AppColor().backgroundColor, fontSize: 12),
+                  onPressed: () {
+                    _authController.sendVoiceOtp();
+                  },
+                  buttonType: ButtonType.TextButton,
+                  disabledColor: Colors.white,
+                  color: Colors.transparent,
                 ),
-                GestureDetector(
-                    onTap: () {
-                      _authController.sendSmsOtp();
-                    },
-                    child: Text(
-                      "Resend via sms",
-                      style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
-                    )),
+                TimerButton(
+                  label: "Resend via sms",
+                  timeOutInSeconds: 20,
+                  activeTextStyle:
+                      TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                  onPressed: () {
+                    _authController.sendSmsOtp(isresend: true);
+                  },
+                  buttonType: ButtonType.TextButton,
+                  disabledColor: Colors.white,
+                  color: Colors.transparent,
+                ),
                 SizedBox(
                   height: 30,
                 ),
@@ -198,7 +202,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: PinCodeTextField(
-                      controller: _authController.pinController,
+                      controller: _authController.forgetpinController,
                       length: 4,
                       obscureText: true,
                       animationType: AnimationType.fade,
@@ -239,54 +243,58 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   ),
                 ),
                 Expanded(child: SizedBox()),
-                GestureDetector(
-                  onTap: () {
-                    _authController.verifyForgotOpt();
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(left: 50, right: 50),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_authController.Otpverifystatus ==
-                            OtpVerifyStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Continue',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50))),
-                                child: Icon(
-                                  Icons.arrow_forward,
-                                  color: AppColor().backgroundColor,
-                                  size: 16,
+                Obx(() {
+                  return GestureDetector(
+                    onTap: () {
+                      if (_authController.Otpforgotverifystatus !=
+                          OtpForgotVerifyStatus.Loading)
+                        _authController.verifyForgotOpt();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(left: 50, right: 50),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: (_authController.Otpforgotverifystatus ==
+                              OtpForgotVerifyStatus.Loading)
+                          ? Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Continue',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
                                 ),
-                              )
-                            ],
-                          ),
-                  ),
-                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(3),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Icon(
+                                    Icons.arrow_forward,
+                                    color: AppColor().backgroundColor,
+                                    size: 16,
+                                  ),
+                                )
+                              ],
+                            ),
+                    ),
+                  );
+                }),
                 SizedBox(
                   height: 40,
                 )

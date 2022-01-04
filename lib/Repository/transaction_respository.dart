@@ -3,22 +3,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/home/income_success.dart';
-import 'package:huzz/main.dart';
 import 'package:huzz/model/customer_model.dart';
-import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/transaction_model.dart';
-import 'package:http/http.dart' as http;
 import 'package:huzz/sqlite/sqlite_db.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import 'package:path/path.dart' as path;
 
 import 'auth_respository.dart';
 import 'customer_repository.dart';
@@ -185,7 +183,7 @@ class TransactionRespository extends GetxController {
   Future getTransactionYetToBeSavedLocally() async {
     OnlineTransaction.forEach((element) {
       if (!checkifTransactionAvailable(element.id!)) {
-        if (!element.isPending!) pendingTransaction.add(element);
+        if (!element.isPending) pendingTransaction.add(element);
       }
     });
     // print("does contain value ${pendingTransaction.first.isPending}");
@@ -193,6 +191,7 @@ class TransactionRespository extends GetxController {
     savePendingJob();
   }
 
+  // ignore: non_constant_identifier_names
   Future PendingTransaction() async {}
 
   bool checkifTransactionAvailable(String id) {
@@ -469,8 +468,8 @@ class TransactionRespository extends GetxController {
       isPending: true,
     );
 
-    print("offline saving to database ${value!.toJson()}}");
-    await _businessController.sqliteDb.insertTransaction(value!);
+    print("offline saving to database ${value.toJson()}}");
+    await _businessController.sqliteDb.insertTransaction(value);
     GetOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
     Get.to(() => IncomeSuccess(
@@ -513,7 +512,7 @@ class TransactionRespository extends GetxController {
 
         var customervalue = await _businessController.sqliteDb
             .getOfflineCustomer(savenext.customerId!);
-        if (customervalue != null && customervalue!.isCreatedFromTransaction!) {
+        if (customervalue != null && customervalue.isCreatedFromTransaction!) {
           String? customerId = await _customerController
               .addBusinessCustomerWithString(savenext.transactionType!);
           savenext.customerId = customerId;

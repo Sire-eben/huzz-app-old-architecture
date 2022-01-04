@@ -2,18 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/business_respository.dart';
-import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/customers/confirmation.dart';
-import 'package:huzz/app/screens/inventory/Product/productConfirm.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
@@ -51,15 +48,12 @@ class CustomerRepository extends GetxController {
   final _uploadFileController = Get.find<FileUploadRespository>();
   SqliteDb sqliteDb = SqliteDb();
   RandomColor _randomColor = RandomColor();
-  List<Customer> pendingJobToBeAdded=[];
-  List<Customer> pendingJobToBeUpdated=[];
-  List<Customer> pendingJobToBeDelete=[];
-  
+  List<Customer> pendingJobToBeAdded = [];
+  List<Customer> pendingJobToBeUpdated = [];
+  List<Customer> pendingJobToBeDelete = [];
+
   @override
   void onInit() {
-    // TODO: implement onInit
-
-
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
@@ -81,27 +75,20 @@ class CustomerRepository extends GetxController {
         });
       }
     });
-  
-    _userController.MonlineStatus.listen((po){
-       if(po==OnlineStatus.Onilne){
- _businessController.selectedBusiness.listen((p0) {
-checkPendingCustomerToBeAddedToSever();
-checkPendingCustomerToBeDeletedOnServer();
-checkPendingCustomerTobeUpdatedToServer();
-         //update server with pending job
- });
-       }
- });
+
+    _userController.MonlineStatus.listen((po) {
+      if (po == OnlineStatus.Onilne) {
+        _businessController.selectedBusiness.listen((p0) {
+          checkPendingCustomerToBeAddedToSever();
+          checkPendingCustomerToBeDeletedOnServer();
+          checkPendingCustomerTobeUpdatedToServer();
+          //update server with pending job
+        });
+      }
+    });
 
     getPhoneContact();
   }
-
- 
-
-   
-     
-   
-  
 
   Future getPhoneContact() async {
     print("trying phone contact list");
@@ -111,47 +98,32 @@ checkPendingCustomerTobeUpdatedToServer();
       print("phone contact ${contactList.length}");
     }
   }
-Future addBusinnessCustomer(String type)async{
 
-  if( _userController.onlineStatus==OnlineStatus.Onilne){
-addBusinessCustomerOnline(type);
-
-  }else{
-
-    addBusinessCustomerOffline(type);
+  Future addBusinnessCustomer(String type) async {
+    if (_userController.onlineStatus == OnlineStatus.Onilne) {
+      addBusinessCustomerOnline(type);
+    } else {
+      addBusinessCustomerOffline(type);
+    }
   }
-}
 
-Future updateBusinesscustomer(Customer item)async{
-if(_userController.onlineStatus==OnlineStatus.Onilne){
-updateCustomerOnline(item);
+  Future updateBusinesscustomer(Customer item) async {
+    if (_userController.onlineStatus == OnlineStatus.Onilne) {
+      updateCustomerOnline(item);
+    } else {
+      updateCustomerOffline(item);
+    }
+  }
 
-}else{
-
-updateCustomerOffline(item);
-}
-
-
-}
-Future deleteBusinessCustomer(Customer item)async{
-if(_userController.onlineStatus==OnlineStatus.Onilne){
-
-deleteCustomerOnline(item);
-
-}else{
-deleteCustomerOffline(item);
-
-
-}
-
-
-
-
-}
+  Future deleteBusinessCustomer(Customer item) async {
+    if (_userController.onlineStatus == OnlineStatus.Onilne) {
+      deleteCustomerOnline(item);
+    } else {
+      deleteCustomerOffline(item);
+    }
+  }
 
   Future addBusinessCustomerOnline(String transactionType) async {
-
-
     try {
       _addingCustomerStatus(AddingCustomerStatus.Loading);
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
@@ -193,9 +165,8 @@ deleteCustomerOffline(item);
     }
   }
 
-Future<String?> addBusinessCustomerWithString(String transactionType) async {
+  Future<String?> addBusinessCustomerWithString(String transactionType) async {
     try {
-    
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
           body: jsonEncode({
             "email": emailController.text,
@@ -213,67 +184,56 @@ Future<String?> addBusinessCustomerWithString(String transactionType) async {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
-         
           getOnlineCustomer(
               _businessController.selectedBusiness.value!.businessId!);
           clearValue();
-     
+
           return json['data']['id'];
         } else {
-         return null;
+          return null;
         }
       } else {
         return null;
       }
     } catch (ex) {
-       return null;
+      return null;
     }
   }
 
-  Future<String?> addBusinessCustomerOfflineWithString(String transactionType)async
-  {
-var customer= Customer(
-  name: nameController.text,
-  phone: phoneNumberController.text,
-  email: emailController.text,
-  businessId:  _businessController.selectedBusiness.value!.businessId,
-  businessTransactionType: transactionType,
-  customerId: uuid.v1(),
-isCreatedFromTransaction: true,
+  Future<String?> addBusinessCustomerOfflineWithString(
+      String transactionType) async {
+    var customer = Customer(
+      name: nameController.text,
+      phone: phoneNumberController.text,
+      email: emailController.text,
+      businessId: _businessController.selectedBusiness.value!.businessId,
+      businessTransactionType: transactionType,
+      customerId: uuid.v1(),
+      isCreatedFromTransaction: true,
+    );
 
-
-);
-  
-   await _businessController.sqliteDb.insertCustomer(customer);
-   getOfflineCustomer(customer.businessId!);
-      clearValue();
-   return customer.customerId!;
-
+    await _businessController.sqliteDb.insertCustomer(customer);
+    getOfflineCustomer(customer.businessId!);
+    clearValue();
+    return customer.customerId!;
   }
 
+  Future addBusinessCustomerOffline(String transactionType) async {
+    var customer = Customer(
+        name: nameController.text,
+        phone: phoneNumberController.text,
+        email: emailController.text,
+        businessId: _businessController.selectedBusiness.value!.businessId,
+        businessTransactionType: transactionType,
+        customerId: uuid.v1(),
+        isAddingPending: true);
 
-
-  Future addBusinessCustomerOffline(String transactionType)async
-  {
-var customer= Customer(
-  name: nameController.text,
-  phone: phoneNumberController.text,
-  email: emailController.text,
-  businessId:  _businessController.selectedBusiness.value!.businessId,
-  businessTransactionType: transactionType,
-  customerId: uuid.v1(),
-  isAddingPending: true
-
-
-);
-  
-   await _businessController.sqliteDb.insertCustomer(customer);
-   getOfflineCustomer(customer.businessId!);
-      clearValue();
-   Get.to(ConfirmationCustomer(
-            text: "Added",
-          ));
-
+    await _businessController.sqliteDb.insertCustomer(customer);
+    getOfflineCustomer(customer.businessId!);
+    clearValue();
+    Get.to(ConfirmationCustomer(
+      text: "Added",
+    ));
   }
 
   Future updateCustomerOnline(Customer customer) async {
@@ -319,27 +279,25 @@ var customer= Customer(
     }
   }
 
-  Future updateCustomerOffline(Customer customer)async{
-   customer.isUpdatingPending=true;
-  customer.updatedTime=DateTime.now();
+  Future updateCustomerOffline(Customer customer) async {
+    customer.isUpdatingPending = true;
+    customer.updatedTime = DateTime.now();
 
-await _businessController.sqliteDb.updateOfflineCustomer(customer);
- Get.to(ConfirmationCustomer(
-          text: "Updated",
-        ));
-        getOfflineCustomer(customer.businessId!);
-
+    await _businessController.sqliteDb.updateOfflineCustomer(customer);
+    Get.to(ConfirmationCustomer(
+      text: "Updated",
+    ));
+    getOfflineCustomer(customer.businessId!);
   }
 
   Future getOfflineCustomer(String businessId) async {
     var result =
         await _businessController.sqliteDb.getOfflineCustomers(businessId);
-        var list=result.where((c)=>c.deleted==false).toList();
+    var list = result.where((c) => c.deleted == false).toList();
     _offlineBusinessCustomer(list);
     print("offline Customer found ${result.length}");
     setCustomerDifferent();
   }
-
 
   Future getOnlineCustomer(String businessId) async {
     print("trying to get Customer online");
@@ -468,19 +426,17 @@ await _businessController.sqliteDb.updateOfflineCustomer(customer);
           _businessController.selectedBusiness.value!.businessId!);
     } else {}
   }
-  Future deleteCustomerOffline(Customer customer)async{
-customer.deleted=true;
 
-if(!customer.isAddingPending!){
-_businessController.sqliteDb.updateOfflineCustomer(customer);
- 
-}else{
+  Future deleteCustomerOffline(Customer customer) async {
+    customer.deleted = true;
 
-  _businessController.sqliteDb.deleteCustomer(customer);
-}
+    if (!customer.isAddingPending!) {
+      _businessController.sqliteDb.updateOfflineCustomer(customer);
+    } else {
+      _businessController.sqliteDb.deleteCustomer(customer);
+    }
 
-   getOfflineCustomer(
-          _businessController.selectedBusiness.value!.businessId!);
+    getOfflineCustomer(_businessController.selectedBusiness.value!.businessId!);
   }
 
   bool checkifSelectedForDelted(String id) {
@@ -495,119 +451,101 @@ _businessController.sqliteDb.updateOfflineCustomer(customer);
     return result;
   }
 
- Future checkPendingCustomerToBeAddedToSever()async{
-   print("checking customer that is pending to be added");
-  
-   var list= await _businessController.sqliteDb.getOfflineCustomers(_businessController.selectedBusiness.value!.businessId!);
- print("offline customer lenght ${list.length}");
-list.forEach((element) {
-  
- if(element.isAddingPending!){
+  Future checkPendingCustomerToBeAddedToSever() async {
+    print("checking customer that is pending to be added");
 
-pendingJobToBeAdded.add(element);
-print("item is found to be added");
- }
-
-});
-print("number of customer to be added to server ${pendingJobToBeAdded.length}");
-addPendingJobCustomerToServer();
-
-
- }
-
- Future checkPendingCustomerTobeUpdatedToServer()async{
-    var list= await _businessController.sqliteDb.getOfflineCustomers(_businessController.selectedBusiness.value!.businessId!);
-list.forEach((element) {
-  
-if(element.isUpdatingPending! && !element.isAddingPending!){
-
-  pendingJobToBeUpdated.add(element);
-}
-
-});
-
-updatePendingJob();
-
- }
-Future checkPendingCustomerToBeDeletedOnServer()async
-{
-print("checking customer to be deleted");
-var list= await _businessController.sqliteDb.getOfflineCustomers(_businessController.selectedBusiness.value!.businessId!);
-print("checking customer to be deleted list ${list.length}");
-list.forEach((element) {
-  
-  if(element.deleted!){
-
-    pendingJobToBeDelete.add(element);
-    print("Customer to be deleted is found ");
+    var list = await _businessController.sqliteDb.getOfflineCustomers(
+        _businessController.selectedBusiness.value!.businessId!);
+    print("offline customer lenght ${list.length}");
+    list.forEach((element) {
+      if (element.isAddingPending!) {
+        pendingJobToBeAdded.add(element);
+        print("item is found to be added");
+      }
+    });
+    print(
+        "number of customer to be added to server ${pendingJobToBeAdded.length}");
+    addPendingJobCustomerToServer();
   }
 
-});
-print("customer to be deleted ${pendingJobToBeDelete.length}");
-deletePendingJobToServer();
-
-
-}
-
-
- Future addPendingJobCustomerToServer()async{
-if(pendingJobToBeAdded.isEmpty){
-
-  return;
-}
-var savenext=pendingJobToBeAdded.first;
-
- var response = await http.post(Uri.parse(ApiLink.addCustomer),
-          body: jsonEncode({
-            "email": savenext.email,
-            "phone": savenext.phone,
-            "name": savenext.name,
-            "businessId":
-               savenext.businessId,
-            "businessTransactionType": savenext.businessTransactionType,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer ${_userController.token}"
-          });
-
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        if (json['success']) {
-         
-          getOnlineCustomer(
-              _businessController.selectedBusiness.value!.businessId!);
-         
-     _businessController.sqliteDb.deleteCustomer(savenext);
-     print("pending to be added is delete");
-          return json['data']['id'];
-        }
-
+  Future checkPendingCustomerTobeUpdatedToServer() async {
+    var list = await _businessController.sqliteDb.getOfflineCustomers(
+        _businessController.selectedBusiness.value!.businessId!);
+    list.forEach((element) {
+      if (element.isUpdatingPending! && !element.isAddingPending!) {
+        pendingJobToBeUpdated.add(element);
       }
-      pendingJobToBeAdded.remove(savenext);
-      if(pendingJobToBeAdded.isNotEmpty){
+    });
 
-        addPendingJobCustomerToServer();
-      }
- }
-
- Future addPendingJobToBeUpdateToServer()async{
-  if(pendingJobToBeUpdated.isEmpty){
-
-    return;
+    updatePendingJob();
   }
 
-  pendingJobToBeUpdated.forEach((element) async{ 
-var updatenext=element;
+  Future checkPendingCustomerToBeDeletedOnServer() async {
+    print("checking customer to be deleted");
+    var list = await _businessController.sqliteDb.getOfflineCustomers(
+        _businessController.selectedBusiness.value!.businessId!);
+    print("checking customer to be deleted list ${list.length}");
+    list.forEach((element) {
+      if (element.deleted!) {
+        pendingJobToBeDelete.add(element);
+        print("Customer to be deleted is found ");
+      }
+    });
+    print("customer to be deleted ${pendingJobToBeDelete.length}");
+    deletePendingJobToServer();
+  }
 
- var response = await http
+  Future addPendingJobCustomerToServer() async {
+    if (pendingJobToBeAdded.isEmpty) {
+      return;
+    }
+    var savenext = pendingJobToBeAdded.first;
+
+    var response = await http.post(Uri.parse(ApiLink.addCustomer),
+        body: jsonEncode({
+          "email": savenext.email,
+          "phone": savenext.phone,
+          "name": savenext.name,
+          "businessId": savenext.businessId,
+          "businessTransactionType": savenext.businessTransactionType,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${_userController.token}"
+        });
+
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      if (json['success']) {
+        getOnlineCustomer(
+            _businessController.selectedBusiness.value!.businessId!);
+
+        _businessController.sqliteDb.deleteCustomer(savenext);
+        print("pending to be added is delete");
+        return json['data']['id'];
+      }
+    }
+    pendingJobToBeAdded.remove(savenext);
+    if (pendingJobToBeAdded.isNotEmpty) {
+      addPendingJobCustomerToServer();
+    }
+  }
+
+  Future addPendingJobToBeUpdateToServer() async {
+    if (pendingJobToBeUpdated.isEmpty) {
+      return;
+    }
+
+    pendingJobToBeUpdated.forEach((element) async {
+      var updatenext = element;
+
+      var response = await http
           .put(Uri.parse(ApiLink.add_customer + "/" + updatenext.customerId!),
               body: jsonEncode({
                 "email": updatenext.email,
                 "phone": updatenext.phone,
                 "name": updatenext.name,
-                "businessId":
-                  updatenext.businessId,
+                "businessId": updatenext.businessId,
                 "businessTransactionType": updatenext.businessTransactionType
               }),
               headers: {
@@ -620,49 +558,36 @@ var updatenext=element;
         _addingCustomerStatus(AddingCustomerStatus.Success);
         getOnlineCustomer(
             _businessController.selectedBusiness.value!.businessId!);
-      
-  
       }
-      
-      if(pendingJobToBeUpdated.isNotEmpty)
-      addPendingJobToBeUpdateToServer();
-  });
 
+      if (pendingJobToBeUpdated.isNotEmpty) addPendingJobToBeUpdateToServer();
+    });
+  }
 
-
-
- }
- Future deletePendingJobToServer()async{
-
-if(pendingJobToBeDelete.isEmpty){
-
-  return;
-}
-
-pendingJobToBeDelete.forEach((element)async { 
-var deletenext=pendingJobToBeDelete.first;
- var response = await http.delete(
-        Uri.parse(ApiLink.add_customer +
-            "/${deletenext.customerId}?businessId=${deletenext.businessId}"),
-        headers: {"Authorization": "Bearer ${_userController.token}"});
-    print("previous deleted response ${response.body}");
-    if (response.statusCode == 200) {
-      _businessController.sqliteDb.deleteCustomer(deletenext);
-      getOfflineCustomer(
-          _businessController.selectedBusiness.value!.businessId!);
-    } else {
-
-
+  Future deletePendingJobToServer() async {
+    if (pendingJobToBeDelete.isEmpty) {
+      return;
     }
 
-pendingJobToBeDelete.remove(deletenext);
-if(pendingJobToBeDelete.isNotEmpty){
-  deletePendingJobToServer();
-}
-});
+    pendingJobToBeDelete.forEach((element) async {
+      var deletenext = pendingJobToBeDelete.first;
+      var response = await http.delete(
+          Uri.parse(ApiLink.add_customer +
+              "/${deletenext.customerId}?businessId=${deletenext.businessId}"),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
+      print("previous deleted response ${response.body}");
+      if (response.statusCode == 200) {
+        _businessController.sqliteDb.deleteCustomer(deletenext);
+        getOfflineCustomer(
+            _businessController.selectedBusiness.value!.businessId!);
+      } else {}
 
- }
-
+      pendingJobToBeDelete.remove(deletenext);
+      if (pendingJobToBeDelete.isNotEmpty) {
+        deletePendingJobToServer();
+      }
+    });
+  }
 
   Future deleteSelectedItem() async {
     if (deleteCustomerList.isEmpty) {

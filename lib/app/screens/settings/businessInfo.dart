@@ -6,6 +6,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/app/screens/settings/itemCard.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
@@ -22,6 +23,7 @@ class BusinessInfo extends StatefulWidget {
 }
 
 class _BusinessInfoState extends State<BusinessInfo> {
+  final controller = Get.find<AuthRepository>();
   final TextEditingController textEditingController = TextEditingController();
   final bankInfoController = Get.find<BankAccountRepository>();
   String countryFlag = "NG";
