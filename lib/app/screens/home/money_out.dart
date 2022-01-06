@@ -953,7 +953,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                             ),
                                             iconSize: 30,
                                             items: _customerController
-                                                .customerCustomer
+                                                .customerMerchant
                                                 .map((value) {
                                               return DropdownMenuItem<Customer>(
                                                 value: value,
