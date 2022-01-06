@@ -206,10 +206,10 @@ class _MoneySummaryState extends State<MoneySummary> {
                         Text(
                           'N ${display(transactionModel!.balance ?? 0)}',
                           style: TextStyle(
-                            color: AppColor().backgroundColor,
+                            color: AppColor().orangeBorderColor,
                             fontFamily: "DMSans",
                             fontStyle: FontStyle.normal,
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -265,7 +265,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )),
                       decoration: BoxDecoration(
-                          color: Colors.green[200],
+                          color: AppColor().backgroundColor.withOpacity(0.2),
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                     ),
                   )
