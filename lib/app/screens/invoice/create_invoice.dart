@@ -132,235 +132,250 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Theme(
-        data: ThemeData(
-            colorScheme: Theme.of(context).colorScheme.copyWith(
-                onSurface: Colors.transparent, primary: Palette.primaryColor),
-            primarySwatch: Palette.primaryColor,
-            canvasColor: Colors.white,
-            shadowColor: Colors.white),
-        child:
-            // Container(),
-            Stepper(
-          controlsBuilder:
-              (BuildContext context, ControlsDetails controlsDetails) {
-            return Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  InkWell(
-                    onTap: controlsDetails.onStepCancel,
-                    child: Container(
-                      height: 40,
-                      width: 110,
-                      decoration: BoxDecoration(
-                          color: AppColor().whiteColor,
-                          border: Border.all(
-                              width: 2, color: AppColor().backgroundColor),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                color: AppColor().backgroundColor,
-                                shape: BoxShape.circle),
-                            child: Icon(
-                              Icons.arrow_back,
+      body: Obx(
+        () {
+          return Theme(
+            data: ThemeData(
+                colorScheme: Theme.of(context).colorScheme.copyWith(
+                    onSurface: Colors.transparent, primary: Palette.primaryColor),
+                primarySwatch: Palette.primaryColor,
+                canvasColor: Colors.white,
+                shadowColor: Colors.white),
+            child:
+                // Container(),
+                Stepper(
+              controlsBuilder:
+                  (BuildContext context, ControlsDetails controlsDetails) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: controlsDetails.onStepCancel,
+                        child: Container(
+                          height: 40,
+                          width: 110,
+                          decoration: BoxDecoration(
                               color: AppColor().whiteColor,
-                              size: 15,
-                            ),
+                              border: Border.all(
+                                  width: 2, color: AppColor().backgroundColor),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    color: AppColor().backgroundColor,
+                                    shape: BoxShape.circle),
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  color: AppColor().whiteColor,
+                                  size: 15,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Back',
+                                style: TextStyle(
+                                    color: AppColor().backgroundColor,
+                                    fontFamily: 'DMSans'),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 8),
-                          Text(
-                            'Back',
-                            style: TextStyle(
-                                color: AppColor().backgroundColor,
-                                fontFamily: 'DMSans'),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: controlsDetails.onStepContinue,
-                    child: Container(
-                      height: 40,
-                      width: 110,
-                      decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Continue',
-                            style: TextStyle(
-                                color: Colors.white, fontFamily: 'DMSans'),
-                          ),
-                          SizedBox(width: 4),
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                color: Colors.white, shape: BoxShape.circle),
-                            child: Icon(
-                              Icons.arrow_forward,
+                      InkWell(
+                        onTap: controlsDetails.onStepContinue,
+                        child: Container(
+                          height: 40,
+                          width: 110,
+                          decoration: BoxDecoration(
                               color: AppColor().backgroundColor,
-                              size: 15,
-                            ),
-                          )
-                        ],
+                              borderRadius: BorderRadius.circular(10)),
+                          child: (_invoiceController.addingInvoiceStatus ==
+                            AddingInvoiceStatus.Loading)
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            child: Center(
+                                child:
+                                    CircularProgressIndicator(color: Colors.white)),
+                          ): Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Continue',
+                                style: TextStyle(
+                                    color: Colors.white, fontFamily: 'DMSans'),
+                              ),
+                              SizedBox(width: 4),
+                              Container(
+                                padding: EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    color: Colors.white, shape: BoxShape.circle),
+                                child: Icon(
+                                  Icons.arrow_forward,
+                                  color: AppColor().backgroundColor,
+                                  size: 15,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          },
-          elevation: 0,
-          physics: NeverScrollableScrollPhysics(),
-          type: StepperType.horizontal,
-          steps: getSteps(),
-          currentStep: currentStep,
-          onStepContinue: () async {
-            final isLastStep = currentStep == getSteps().length - 1;
-      
-            if (isLastStep) {
-              final date = DateTime.now();
-              final dueDate = date.add(Duration(days: 7));
-              if(_invoiceController.paymentValue==1){
-              if(_bankKey.currentState!.validate()){
-              if(_invoiceController.productList.isEmpty)
-              _invoiceController.addMoreProduct();
-        _invoiceController.createBusinessInvoice();
-              }
-
-              }else{
-               if(_invoiceController.selectedBank!=null){
-  if(_invoiceController.productList.isEmpty)
-              _invoiceController.addMoreProduct();
-                         _invoiceController.createBusinessInvoice();
-               }
-
-              }
-            // _invoiceController.addBankInvoice();
-                  
-              // final invoice = Invoice(
-              //   supplier: Supplier(
-              //     name: 'Business Name',
-              //     mail: 'tunmisehassan@gmail.com',
-              //     phone: '+234 8123 456 789',
-              //   ),
-              //   bankDetails: BankDetails(
-              //       name: accountName.text,
-              //       no: accountNo.text,
-              //       mode: 'BANK TRANSFER'),
-              //   customer: InvoiceCustomer(
-              //     name: 'Joshua Olatunde',
-              //     phone: '+234 903 872 6495',
-              //   ),
-              //   info: InvoiceInfo(
-              //     date: date,
-              //     dueDate: dueDate,
-              //     description: 'My description...',
-              //     number: '${DateTime.now().year}-9999',
-              //   ),
-              //   items: [
-              //     InvoiceItem(
-              //       item: 'MacBook',
-              //       quantity: 3,
-              //       amount: 500000,
-              //     ),
-              //     InvoiceItem(
-              //       item: 'MacBook',
-              //       quantity: 3,
-              //       amount: 500000,
-              //     ),
-              //     InvoiceItem(
-              //       item: 'MacBook',
-              //       quantity: 3,
-              //       amount: 500000,
-              //     ),
-              //     InvoiceItem(
-              //       item: 'MacBook',
-              //       quantity: 3,
-              //       amount: 500000,
-              //     ),
-              //   ],
-              // );
-
-            } else {
-                    if(currentStep==1){
-              if(_invoiceController.productList.isEmpty){
-                if(_invoiceController.selectedValue==1){
-
-                  if(_productKey.currentState!.validate()){
-
-                       setState(() {
-                currentStep += 1;
-              });
-            }
-                  
-                }else{
-            if( _invoiceController.selectedProduct!=null){
-         setState(() {
-                currentStep += 1;
-              });
-
-            }
-
-
-                }
-              }else{
-   setState(() {
-                currentStep += 1;
-              });
-
-              }
+                );
+              },
+              elevation: 0,
+              physics: NeverScrollableScrollPhysics(),
+              type: StepperType.horizontal,
+              steps: getSteps(),
+              currentStep: currentStep,
+              onStepContinue: () async {
+                final isLastStep = currentStep == getSteps().length - 1;
+          
+                if (isLastStep) {
+                  final date = DateTime.now();
+                  final dueDate = date.add(Duration(days: 7));
+                  if(_invoiceController.paymentValue==1){
+                  if(_bankKey.currentState!.validate()){
+                  if(_invoiceController.productList.isEmpty)
+                  _invoiceController.addMoreProduct();
+            _invoiceController.createBusinessInvoice();
+            setState(() {
               
-            }else if(currentStep==0){
-
-           if(_invoiceController.customerType==1){
-             if(_customerKey.currentState!.validate()){
-
-   setState(() {
-                currentStep += 1;
-              });
-
-             }
-
-
-           }else{
-           if(_invoiceController.selectedCustomer!=null){
- setState(() {
-                currentStep += 1;
-              });
-
-             
-
-           }
-
-
-           }
-
-
-            }
-           
-            }
-          },
-          onStepCancel: () {
-            currentStep == 0
-                // ignore: unnecessary_statements
-                ? null
-                : setState(() {
-                    currentStep -= 1;
+            });
+                  }
+      
+                  }else{
+                   if(_invoiceController.selectedBank!=null){
+        if(_invoiceController.productList.isEmpty)
+                  _invoiceController.addMoreProduct();
+                             _invoiceController.createBusinessInvoice();
+                   }
+      
+                  }
+                // _invoiceController.addBankInvoice();
+                      
+                  // final invoice = Invoice(
+                  //   supplier: Supplier(
+                  //     name: 'Business Name',
+                  //     mail: 'tunmisehassan@gmail.com',
+                  //     phone: '+234 8123 456 789',
+                  //   ),
+                  //   bankDetails: BankDetails(
+                  //       name: accountName.text,
+                  //       no: accountNo.text,
+                  //       mode: 'BANK TRANSFER'),
+                  //   customer: InvoiceCustomer(
+                  //     name: 'Joshua Olatunde',
+                  //     phone: '+234 903 872 6495',
+                  //   ),
+                  //   info: InvoiceInfo(
+                  //     date: date,
+                  //     dueDate: dueDate,
+                  //     description: 'My description...',
+                  //     number: '${DateTime.now().year}-9999',
+                  //   ),
+                  //   items: [
+                  //     InvoiceItem(
+                  //       item: 'MacBook',
+                  //       quantity: 3,
+                  //       amount: 500000,
+                  //     ),
+                  //     InvoiceItem(
+                  //       item: 'MacBook',
+                  //       quantity: 3,
+                  //       amount: 500000,
+                  //     ),
+                  //     InvoiceItem(
+                  //       item: 'MacBook',
+                  //       quantity: 3,
+                  //       amount: 500000,
+                  //     ),
+                  //     InvoiceItem(
+                  //       item: 'MacBook',
+                  //       quantity: 3,
+                  //       amount: 500000,
+                  //     ),
+                  //   ],
+                  // );
+      
+                } else {
+                        if(currentStep==1){
+                  if(_invoiceController.productList.isEmpty){
+                    if(_invoiceController.selectedValue==1){
+      
+                      if(_productKey.currentState!.validate()){
+      
+                           setState(() {
+                    currentStep += 1;
                   });
-          },
-        ),
+                }
+                      
+                    }else{
+                if( _invoiceController.selectedProduct!=null){
+             setState(() {
+                    currentStep += 1;
+                  });
+      
+                }
+      
+      
+                    }
+                  }else{
+         setState(() {
+                    currentStep += 1;
+                  });
+      
+                  }
+                  
+                }else if(currentStep==0){
+      
+               if(_invoiceController.customerType==1){
+                 if(_customerKey.currentState!.validate()){
+      
+         setState(() {
+                    currentStep += 1;
+                  });
+      
+                 }
+      
+      
+               }else{
+               if(_invoiceController.selectedCustomer!=null){
+       setState(() {
+                    currentStep += 1;
+                  });
+      
+                 
+      
+               }
+      
+      
+               }
+      
+      
+                }
+               
+                }
+              },
+              onStepCancel: () {
+                currentStep == 0
+                    // ignore: unnecessary_statements
+                    ? null
+                    : setState(() {
+                        currentStep -= 1;
+                      });
+              },
+            ),
+          );
+        }
       ),
     );
   }
@@ -2047,13 +2062,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     : SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 InkWell(
                   onTap: () {
-                    if(_invoiceController.selectedValue==1 && _createMoreProductKey.currentState!.validate()){
+                    if(_invoiceController.selectedValue==1 ){
+                      if( _createMoreProductKey.currentState!.validate()){
                     _invoiceController.addMoreProduct();
                           Get.back();
-                    
+                      }
                     }else{
-                      // _invoiceController.addMoreProduct(); 
-                      //       Get.back();
+                      _invoiceController.addMoreProduct(); 
+                            Get.back();
                     }
                     setState(() {});
               

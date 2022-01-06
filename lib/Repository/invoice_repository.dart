@@ -498,7 +498,7 @@ double newTotalAmount=totalAmount+tax-discount;
 // String? timeday=date!.toIso8601String();
 String body=jsonEncode({
 
-"paymentItemRequestList":productList.map((e) => e.toJson()).toList(),
+"paymentItemRequestList":productList.map((e) => e.toJson("")).toList(),
    
     "paymentSource": selectedPaymentSource,
     "businessId":_businessController.selectedBusiness.value!.businessId,
@@ -705,7 +705,7 @@ if(customervalue!=null&&customervalue!.isCreatedFromInvoice!){
 
 String body=jsonEncode({
 
-"paymentItemRequestList":savenext.paymentItemRequestList!.map((e) => e.toJson()).toList(),
+"paymentItemRequestList":savenext.paymentItemRequestList!.map((e) => e.toJson("")).toList(),
 
     "businessId":savenext.businessId,
 
