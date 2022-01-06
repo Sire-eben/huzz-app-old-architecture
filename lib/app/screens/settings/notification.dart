@@ -1,226 +1,146 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/colors.dart';
+import 'package:huzz/model/notification_model.dart';
+import 'package:random_color/random_color.dart';
 
-import '../../../colors.dart';
-
-// ignore: must_be_immutable
-class NotificationSettings extends StatefulWidget {
-  const NotificationSettings({Key? key}) : super(key: key);
+class Notifications extends StatefulWidget {
+  const Notifications({Key? key}) : super(key: key);
 
   @override
-  State<NotificationSettings> createState() => _NotificationSettingsState();
+  _NotificationsState createState() => _NotificationsState();
 }
 
-class _NotificationSettingsState extends State<NotificationSettings> {
-  final TextEditingController contactName = TextEditingController();
-  final TextEditingController contactPhone = TextEditingController();
-  final TextEditingController contactMail = TextEditingController();
-
-  final intervals = ['Daily', 'Weekly', 'Monthly'];
-  String? value;
-  bool reminder = false;
-  bool debtowned = false;
-
-  int selectedValue = 0;
-  int customerType = 0;
+class _NotificationsState extends State<Notifications> {
+  RandomColor _randomColor = RandomColor();
+  final controller = Get.find<AuthRepository>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColor().whiteColor,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: Icon(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
             Icons.arrow_back,
             color: AppColor().backgroundColor,
           ),
+          onPressed: () {
+            Get.back();
+          },
         ),
         title: Text(
-          "Notification Settings",
+          'Notifications',
           style: TextStyle(
             color: AppColor().backgroundColor,
+            fontFamily: 'DMSans',
+            fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
-        elevation: 0,
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.height * 0.03),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Remind me about debtors',
-                  style: TextStyle(
-                      color: reminder == true
-                          ? AppColor().backgroundColor
-                          : Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'DMSans'),
-                ),
-                Switch.adaptive(
-                    activeColor: AppColor().backgroundColor,
-                    value: reminder,
-                    onChanged: (newValue) =>
-                        setState(() => this.reminder = newValue))
-              ],
-            ),
-          ),
-          reminder == true
-              ? Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Column(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Interval',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontFamily: 'DMSans'),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 4),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    width: 2,
-                                    color: AppColor().backgroundColor)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: value,
-                                icon: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: AppColor().backgroundColor,
-                                ),
-                                iconSize: 30,
-                                items: intervals.map(buildPaymentItem).toList(),
-                                onChanged: (value) =>
-                                    setState(() => this.value = value),
+      backgroundColor: Colors.white,
+      body: notificationList.length > 0
+          ? Padding(
+              padding:
+                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: notificationList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = notificationList[index];
+                    return GestureDetector(
+                      onTap: () {},
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width * 0.02),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: _randomColor.randomColor()),
+                                child: SvgPicture.asset(item.image!)),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                item.message!,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              : Container(),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.height * 0.03),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Remind me about debt owed',
-                  style: TextStyle(
-                      color: reminder == true
-                          ? AppColor().backgroundColor
-                          : Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'DMSans'),
-                ),
-                Switch.adaptive(
-                    activeColor: AppColor().backgroundColor,
-                    value: debtowned,
-                    onChanged: (newValue) =>
-                        setState(() => this.debtowned = newValue))
-              ],
-            ),
-          ),
-          debtowned == true
-              ? Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Column(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Interval',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontFamily: 'DMSans'),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 4),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    width: 2,
-                                    color: AppColor().backgroundColor)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: value,
-                                icon: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: AppColor().backgroundColor,
+                            Column(
+                              children: [
+                                Text(
+                                  item.time!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                      color: AppColor()
+                                          .blackColor
+                                          .withOpacity(0.5),
+                                      fontSize: 8),
                                 ),
-                                iconSize: 30,
-                                items: intervals.map(buildPaymentItem).toList(),
-                                onChanged: (value) =>
-                                    setState(() => this.value = value),
-                              ),
+                                Text(
+                                  item.time!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                      color: AppColor()
+                                          .blackColor
+                                          .withOpacity(0.5),
+                                      fontSize: 8),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ],
+                    );
+                  }),
+            )
+          : Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/images/notification_bell.svg",
                   ),
-                )
-              : Container(),
-        ],
-      ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Messages',
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.black,
+                        fontFamily: 'DMSans',
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Your notifications will appear here',
+                    style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.black,
+                        fontFamily: 'DMSans'),
+                  ),
+                ],
+              ),
+            ),
     );
   }
-
-  DropdownMenuItem<String> buildPaymentItem(String item) => DropdownMenuItem(
-        value: item,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          height: 50,
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Color(0xffCFD1D2),
-            ),
-            borderRadius: BorderRadius.circular(10),
-            color: Color(0xffDCF2EF),
-          ),
-          child: Center(
-            child: Text(
-              item,
-              style: TextStyle(fontSize: 14, fontFamily: 'DMSans'),
-            ),
-          ),
-        ),
-      );
 }

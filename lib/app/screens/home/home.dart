@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(NotificationSettings());
+                        Get.to(Notifications());
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',
@@ -449,11 +449,11 @@ class _HomeState extends State<Home> {
                                   item.isFullyPaid! ? "Fully Paid" : "Partially",
                                   style: TextStyle(
                                       fontSize: 12, fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                ),]
+                              ),
+                            ],
+                          ),
+                        
                       );
                     },
                     separatorBuilder: (context, index) => Divider(),
@@ -523,7 +523,7 @@ class _HomeState extends State<Home> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(NotificationSettings());
+                        Get.to(Notifications());
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',

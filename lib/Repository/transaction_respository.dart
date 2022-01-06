@@ -778,6 +778,7 @@ return result;
   }
   Future updatePaymentHistoryOnline(String transactionId,String businessId,int amount,String mode)async{
   try{
+    print("business id is $businessId");
     _addingTransactionStatus(AddingTransactionStatus.Loading);
 var response=await http.put(Uri.parse(ApiLink.get_business_transaction+"/"+transactionId),
 body: jsonEncode({
