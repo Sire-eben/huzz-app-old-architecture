@@ -391,21 +391,24 @@ class _HomeState extends State<Home> {
               color: Color(0xffF5F5F5),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: ListView.separated(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  var item = _transactionController.allPaymentItem[index];
-                  return InkWell(
-                    onTap: () {
-                      Get.to(() => MoneySummary(paymentItem: item));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Row(
+            child: Obx(() {
+              return ListView.separated(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    var item = _transactionController.allPaymentItem[index];
+                    return InkWell(
+                      onTap: () {
+                        print(
+                            "item payment transaction id is ${item.businessTransactionId}");
+                        Get.to(() => MoneySummary(
+                              item: item,
+                            ));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
                             children: [
                               Image.asset(
                                 (item.transactionType == "EXPENDITURE")
@@ -417,31 +420,26 @@ class _HomeState extends State<Home> {
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
-                              Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item.itemName!,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      item.createdTime!.formatDate()!,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item.itemName!,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    item.createdTime!.formatDate()!,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ),
-                        Spacer(),
-                        Expanded(
-                          child: Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -456,13 +454,13 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => Divider(),
-                itemCount: _transactionController.allPaymentItem.length),
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: _transactionController.allPaymentItem.length);
+            }),
           ))
         ],
       ),
