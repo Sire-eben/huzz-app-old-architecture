@@ -73,30 +73,15 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
             Get.back();
           },
         ),
-        title: Row(
-          children: [
-            Text(
-              'View Invoice',
-              style: TextStyle(
-                color: AppColor().backgroundColor,
-                fontFamily: "DMSans",
-                fontStyle: FontStyle.normal,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            SizedBox(width: 4),
-            Text(
-              '(#00000001)',
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: "DMSans",
-                fontStyle: FontStyle.normal,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
+        title: Text(
+          'View Invoice',
+          style: TextStyle(
+            color: AppColor().backgroundColor,
+            fontFamily: "DMSans",
+            fontStyle: FontStyle.normal,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
       backgroundColor: Colors.white,
