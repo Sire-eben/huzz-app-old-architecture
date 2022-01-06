@@ -9,6 +9,7 @@ import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/home/income_success.dart';
+import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/payment_history.dart';
 import 'package:huzz/model/payment_item.dart';
@@ -145,6 +146,7 @@ _allPaymentItem([]);
   }
 
   Future getOnlineTransaction(String businessId) async {
+  OnlineTransaction=[];
     var response = await http.get(
         Uri.parse(
             ApiLink.get_business_transaction + "?businessId=" + businessId),
@@ -160,7 +162,17 @@ _allPaymentItem([]);
       // getTodayTransaction();
       getTransactionYetToBeSavedLocally();
       checkIfUpdateAvailable();
-    } else {
+    }else if(response.statusCode==401){
+if(json['error']=="Unauthorized"){
+  _userController.tokenExpired=true;
+ Get.offAll(Signin());
+
+}
+
+
+    }
+    
+     else {
 
     }
   }
@@ -518,21 +530,39 @@ return result;
     productList.forEach((element) {
       totalamount = totalamount + (element.totalAmount!);
     });
-
+print("payment mode is $selectedPaymentMode");
     value = TransactionModel(
       paymentMethod: selectedPaymentMode,
       paymentSource: selectedPaymentSource,
       id: uuid.v1(),
       totalAmount: totalamount,
+      balance: (selectedPaymentMode=="DEPOSIT")?totalamount- int.parse(amountPaidController.text):0,
       createdTime: DateTime.now(),
       entryDateTime: date,
       transactionType: type,
+      
       businessTransactionFileStoreId: (image == null) ? null : image!.path,
       customerId: customerId,
       businessId: _businessController.selectedBusiness.value!.businessId,
       businessTransactionPaymentItemList: productList,
       isPending: true,
     );
+    List<PaymentHistory> transactionList=[];
+transactionList.add(PaymentHistory(
+
+  id: uuid.v1(),
+  isPendingUpdating: true,
+  amountPaid:(selectedPaymentMode=="DEPOSIT")?int.parse(amountPaidController.text):totalamount,
+  paymentMode: selectedPaymentMode,
+  createdDateTime: DateTime.now(),
+  updateDateTime: DateTime.now(),
+  deleted: false,
+  businessTransactionId: value.id
+));
+
+
+value.businessTransactionPaymentHistoryList=transactionList;
+
 
     print("offline saving to database ${value.toJson()}}");
     await _businessController.sqliteDb.insertTransaction(value);
@@ -596,7 +626,15 @@ return result;
         savenext.businessTransactionFileStoreId = image;
         _file.deleteSync();
       }
+      print("server payment mode ${savenext.paymentMethod}");
+      
+      var firstItem=savenext.businessTransactionPaymentHistoryList![0];
+      print("server first payment is ${firstItem.toJson()} ");
 
+      savenext.businessTransactionPaymentHistoryList!.remove(firstItem);
+      savenext.businessTransactionPaymentHistoryList!.forEach((element) { 
+print("server rest payment is ${element.toJson()} ");
+      });
       String body = jsonEncode({
         "paymentItemRequestList": savenext.businessTransactionPaymentItemList!
             .map((e) => e.toJson(""))
@@ -609,9 +647,16 @@ return result;
         "businessTransactionFileStoreId":
             savenext.businessTransactionFileStoreId,
         "entyDateTime": savenext.entryDateTime!.toIso8601String(),
-        "amountPaid": savenext.totalAmount,
+        "amountPaid":(savenext.paymentMethod=="DEPOSIT")? firstItem.amountPaid:savenext.totalAmount,
+        // "businessTransactionPaymentHistoryList":
+      
+        // savenext.businessTransactionPaymentHistoryList!.map((e) => e.toJson()).toList()
       });
-      print("transaction body $body");
+
+      print(" transaction body $body");
+      
+         
+
       final response =
           await http.post(Uri.parse(ApiLink.get_business_transaction),
               headers: {
@@ -621,10 +666,23 @@ return result;
               body: body);
 
       print({"sending to server transaction response ${response.body}"});
-      await deleteItem(savenext);
-      pendingTransactionToBeAdded.remove(savenext);
+      
+
+      
       if (response.statusCode == 200) {
         print("transaction response ${response.body}");
+             var json=jsonDecode(response.body);
+       if( savenext.businessTransactionPaymentHistoryList!.isNotEmpty){
+    
+         var response=TransactionModel.fromJson(json['data']);
+         response.businessTransactionPaymentHistoryList=savenext.businessTransactionPaymentHistoryList!;
+await updateTransactionHisotryList(response);
+//update Transaction
+
+
+       }
+        await deleteItem(savenext);
+      pendingTransactionToBeAdded.remove(savenext);
 // pendingTransaction.remove(savenext);
 
 // deletedItem.add(savenext);
@@ -795,14 +853,18 @@ headers: {
      "Authorization": "Bearer ${_userController.token}",
                 "Content-Type": "application/json"
 });
-print("update payment history response ${response.body}");
+print("update payment history response status code is ${response.statusCode} ${response.body} ");
 if(response.statusCode==200){
 
 //         
 var json=jsonDecode(response.body);
-var transactionReponse=TransactionModel.fromJson(json['data']);
-updateTransaction(transactionReponse);
-return transactionReponse;
+List<PaymentHistory> transactionReponseList=List.from(json['data']['businessTransactionPaymentHistoryList']).map((e)=>PaymentHistory.fromJson(e)).toList();
+var transaction=getTransactionById(transactionId);
+transaction!.balance=json['data']['balance'];
+transaction.updatedTime=DateTime.parse(json['data']['updatedDateTime']);
+transaction.businessTransactionPaymentHistoryList=transactionReponseList;
+updateTransaction(transaction);
+return transaction;
 }else{
 Get.snackbar("Error", "Unable to Update Transaction");
 
@@ -813,7 +875,7 @@ Get.snackbar("Error", "Unable to Update Transaction");
 
   }catch(ex){
  _addingTransactionStatus(AddingTransactionStatus.Empty);
-
+print("error occurred ${ex.toString()}");
 
 
   }finally{
@@ -844,6 +906,7 @@ transactionList!.add(PaymentHistory(
 ));
 
 transaction.isHistoryPending=true;
+transaction.balance=transaction.balance!-amount;
 transaction.businessTransactionPaymentHistoryList=transactionList;
 updateTransaction(transaction);
   return transaction;
@@ -907,9 +970,11 @@ headers: {
      "Authorization": "Bearer ${_userController.token}",
                 "Content-Type": "application/json"
 }); 
+print("update history to server ${response.body}");
     }
 
   });
+  
   
 
 }catch(ex){
@@ -928,6 +993,50 @@ if(pendingJobToBeUpdated.isNotEmpty){
 }
 
   }
+
+  Future updateTransactionHisotryList(TransactionModel transactionModel)async{
+
+var updatedNext=transactionModel;
+try{
+  updatedNext.businessTransactionPaymentHistoryList!.forEach((element) async{
+ 
+   var response=await http.put(Uri.parse(ApiLink.get_business_transaction+"/"+updatedNext.id!),
+body: jsonEncode({
+  "businessTransactionRequest": {
+        "businessId":updatedNext.businessId
+    },
+    "paymentHistoryRequest": {
+        "amountPaid":element.amountPaid,
+        "paymentMode":element.paymentMode
+    }
+
+}),
+headers: {
+     "Authorization": "Bearer ${_userController.token}",
+                "Content-Type": "application/json"
+}); 
+print("update history to server ${response.body}");
+    
+
+  });
+  
+  
+
+}catch(ex){
+
+}finally{
+  await  getOnlineTransaction(
+              _businessController.selectedBusiness.value!.businessId!);
+}
+ 
+
+
+
+}
+
+  
+
+  
 
 Future deleteTransactionOnline(TransactionModel transactionModel)async{
 
