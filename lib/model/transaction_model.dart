@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
+import 'package:huzz/model/payment_history.dart';
 import 'package:huzz/model/payment_item.dart';
+
 
 class TransactionModel {
   String? id;
@@ -18,10 +20,11 @@ class TransactionModel {
   String? expenseCategory;
   String? paymentMethod;
   int? balance;
-  List? businessTransactionPaymentHistoryList;
-  String? currentBusinessTransactionPaymentHistory;
+  List<PaymentHistory>? businessTransactionPaymentHistoryList;
+  PaymentHistory? currentBusinessTransactionPaymentHistory;
   List<PaymentItem>? businessTransactionPaymentItemList;
   bool isPending;
+  bool? isHistoryPending;
   TransactionModel({
     this.id,
     this.totalAmount,
@@ -41,6 +44,7 @@ class TransactionModel {
     this.currentBusinessTransactionPaymentHistory,
     this.businessTransactionPaymentItemList,
     required this.isPending,
+    this.isHistoryPending
   });
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) =>
@@ -65,12 +69,13 @@ class TransactionModel {
           paymentMethod: json['paymentMethod'],
           balance: json['balance'] ?? 0,
           isPending: json['isPending'] ?? false,
+          isHistoryPending: json['isHistoryPending']??false,
           businessTransactionPaymentHistoryList:
-              json['businessTransactionPaymentHistoryList'] == null
+              json['businessTransactionPaymentHistoryList'] == null 
                   ? []
-                  : List.from(json['businessTransactionPaymentHistoryList']),
+                  : List.from(json['businessTransactionPaymentHistoryList']).map((e) => PaymentHistory.fromJson(e)).toList(),
           currentBusinessTransactionPaymentHistory:
-              json['currentBusinessTransactionPaymentHistory'],
+              json['currentBusinessTransactionPaymentHistory']==null|| json['currentBusinessTransactionPaymentHistory']==""?null:PaymentHistory.fromJson(json['currentBusinessTransactionPaymentHistory']),
           businessTransactionPaymentItemList:
               List.from(json['businessTransactionPaymentItemList'])
                   .map((e) => PaymentItem.fromJson(
@@ -78,7 +83,7 @@ class TransactionModel {
                       json['transactionType'],
                       json['balance'] == null || json['balance'] == 0
                           ? true
-                          : false))
+                          : false,json['id']))
                   .toList());
 
   Map<String, dynamic> toJson() => {
@@ -100,16 +105,17 @@ class TransactionModel {
         "expenseCategory": expenseCategory,
         "balance": balance,
         "isPending": isPending,
+        "isHistoryPending":isHistoryPending,
         "businessTransactionPaymentHistoryList":
             businessTransactionPaymentHistoryList == null ||
                     businessTransactionPaymentHistoryList!.isEmpty
                 ? []
-                : businessTransactionPaymentHistoryList,
+                : businessTransactionPaymentHistoryList!.map((e) => e.toJson()).toList(),
         "currentBusinessTransactionPaymentHistory":
-            currentBusinessTransactionPaymentHistory == null
-                ? currentBusinessTransactionPaymentHistory
-                : "",
+            currentBusinessTransactionPaymentHistory != null 
+                ? currentBusinessTransactionPaymentHistory!.toJson()
+                : null,
         "businessTransactionPaymentItemList":
-            businessTransactionPaymentItemList!.map((e) => e.toJson()).toList(),
+            businessTransactionPaymentItemList!.map((e) => e.toJson(id!)).toList(),
       };
 }

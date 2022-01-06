@@ -74,7 +74,7 @@ bankId: json['bankInfoId'],
                       "INCOME",
                       json['balance'] == null || json['balance'] == 0
                           ? true
-                          : false))
+                          : false,json['id']))
                   .toList()
 );
 
@@ -95,7 +95,7 @@ Map<String,dynamic> toJson()=>{
 "createdDateTime":createdDateTime!.toIso8601String(),
 "deleted":deleted,
   "businessTransactionPaymentItemList":
-            paymentItemRequestList!.map((e) => e.toJson()).toList(),
+            paymentItemRequestList!.map((e) => e.toJson(id!)).toList(),
 "isPending":isPending,
 "isUpdatingPending":isUpdatePending,
 "bankInfoId":bankId

@@ -444,9 +444,9 @@ await _businessController.sqliteDb.updateOfflineBank(bank);
     Bank? item;
 
     _offlineBusinessBank.value.forEach((element) {
-      print("bank id ${element.id} compare to $id");
+      // print("bank id ${element.id} compare to $id");
       if (element.id == id) {
-        print("Bank   found");
+        // print("Bank   found");
         item = element;
       }
     });
