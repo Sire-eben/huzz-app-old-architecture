@@ -135,116 +135,102 @@ class _MoneySummaryState extends State<MoneySummary> {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            (transactionModel!.balance == 0)
-                ? Text(
-                    'Total Amount',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: "DMSans",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                : Container(),
-            (transactionModel!.balance == 0)
-                ? SizedBox(height: MediaQuery.of(context).size.height * 0.01)
-                : Container(),
-            (transactionModel!.balance == 0)
-                ? Text(
-                    'N ${display(transactionModel!.totalAmount ?? 0)}',
-                    style: TextStyle(
-                      color: AppColor().backgroundColor,
-                      fontFamily: "DMSans",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                : Container(),
             (transactionModel!.balance != 0)
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(children: [
-                        Text(
-                          'Total Amount',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Text(
-                          'N ${display(transactionModel!.totalAmount ?? 0)}',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ]),
-                      Column(children: [
-                        Text(
-                          'Bal',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Text(
-                          'N ${display(transactionModel!.balance ?? 0)}',
-                          style: TextStyle(
-                            color: AppColor().orangeBorderColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ]),
-                      Column(
-                        children: [
-                          Text(
-                            'Paid Amount',
-                            style: TextStyle(
-                              color: AppColor().blackColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
+                ? Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Total Amt.',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                          Text(
-                            'N ${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
-                            style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Text(
+                              'N${display(transactionModel!.totalAmount!)}',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          )
-                        ],
-                      )
-                    ],
+                          ],
+                        ),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Bal.',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: "DMSans",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(
+                                'N${display(transactionModel!.balance!)}',
+                                style: TextStyle(
+                                  color: AppColor().orangeBorderColor,
+                                  fontFamily: "DMSans",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ]),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Paid Amt.',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Text(
+                              'N${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   )
                 : Container(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
             (transactionModel!.balance != 0)
                 ? GestureDetector(
                     onTap: () {
@@ -256,20 +242,84 @@ class _MoneySummaryState extends State<MoneySummary> {
                           builder: (context) => buildSaveInvoice());
                     },
                     child: Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(left: 50, right: 50),
-                      child: Center(
-                          child: Text(
-                        "Update Payment",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      padding: EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor.withOpacity(0.2),
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppColor().backgroundColor.withOpacity(0.2)),
+                      child: Center(
+                        child: Text(
+                          'Update payment',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   )
                 : Container(),
+//           (transactionModel!.balance==0) ?  Text(
+//               'N ${display(transactionModel!.totalAmount??0)}',
+//               style: TextStyle(
+//                 color: AppColor().backgroundColor,
+//                 fontFamily: "DMSans",
+//                 fontStyle: FontStyle.normal,
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ):Container(),
+//           (transactionModel!.balance!=0) ?   Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceAround,
+//               children: [
+// Column(
+//   children: [
+//     Text(
+// 'Total Amount',
+//               style: TextStyle(
+//                 color: AppColor().blackColor,
+//                 fontFamily: "DMSans",
+//                 fontStyle: FontStyle.normal,
+//                 fontSize: 10,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
+//             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+//             Container(
+//               width: MediaQuery.of(context).size.width * 0.8,
+//               padding: EdgeInsets.symmetric(vertical: 12),
+//               decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(16),
+//                   color: AppColor().backgroundColor.withOpacity(0.2)),
+//               child: Center(
+//                 child: Text(
+//                   'Update payment',
+//                   style: TextStyle(
+//                     color: AppColor().blackColor,
+//                     fontFamily: "DMSans",
+//                     fontStyle: FontStyle.normal,
+//                     fontSize: 12,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//             ),]),
+//             Column(
+//   children: [
+//     Text(
+// 'Bal',
+//               style: TextStyle(
+//                 color: AppColor().blackColor,
+//                 fontFamily: "DMSans",
+//                 fontStyle: FontStyle.normal,
+//                 fontSize: 10,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),]),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -301,29 +351,38 @@ class _MoneySummaryState extends State<MoneySummary> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Item',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Item',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
-                    Text(
-                      'Qty',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Qty',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
-                    Text(
-                      'Amount',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Amount',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
                   ],
                 ),
@@ -347,29 +406,38 @@ class _MoneySummaryState extends State<MoneySummary> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              item.itemName!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                item.itemName!,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
-                            Text(
-                              "${item.quality}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                "${item.quality}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
-                            Text(
-                              "'N ${display(item.totalAmount)}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                "'N ${display(item.totalAmount)}",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
                           ],
                         ),
@@ -409,29 +477,38 @@ class _MoneySummaryState extends State<MoneySummary> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Date',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Date',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
-                    Text(
-                      'Amount',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Amount',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
-                    Text(
-                      '',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        '',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
                   ],
                 ),
@@ -455,44 +532,52 @@ class _MoneySummaryState extends State<MoneySummary> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              item.createdDateTime!.formatDate()!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                item.createdDateTime!.formatDate()!,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
-                            Text(
-                              'N ${display(item.amountPaid)}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                'N ${display(item.amountPaid)}',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  'View Receipt',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().backgroundColor),
-                                ),
-                                SizedBox(width: 4),
-                                Container(
-                                    padding: EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'View Receipt',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
                                         color: AppColor().backgroundColor),
-                                    child: Icon(
-                                      Icons.arrow_forward,
-                                      color: AppColor().whiteColor,
-                                      size: 15,
-                                    ))
-                              ],
+                                  ),
+                                  SizedBox(width: 4),
+                                  Container(
+                                      padding: EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColor().backgroundColor),
+                                      child: Icon(
+                                        Icons.arrow_forward,
+                                        color: AppColor().whiteColor,
+                                        size: 15,
+                                      ))
+                                ],
+                              ),
                             ),
                           ],
                         ),
