@@ -802,7 +802,7 @@ if(response.statusCode==200){
 var json=jsonDecode(response.body);
 var transactionReponse=TransactionModel.fromJson(json['data']);
 updateTransaction(transactionReponse);
-
+return transactionReponse;
 }else{
 Get.snackbar("Error", "Unable to Update Transaction");
 
@@ -846,13 +846,14 @@ transactionList!.add(PaymentHistory(
 transaction.isHistoryPending=true;
 transaction.businessTransactionPaymentHistoryList=transactionList;
 updateTransaction(transaction);
+  return transaction;
 }catch(ex){
  _addingTransactionStatus(AddingTransactionStatus.Empty);
 }finally{
 
  _addingTransactionStatus(AddingTransactionStatus.Empty);
  Get.back();
-  
+
 }
 
   }
@@ -862,14 +863,15 @@ updateTransaction(transaction);
               _businessController.selectedBusiness.value!.businessId!);
   }
 
-Future updateTransactionHistory(String transactionId,String businessId,int amount,String mode)async{
+Future<TransactionModel?> updateTransactionHistory(String transactionId,String businessId,int amount,String mode)async{
+  var result;
   if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      updatePaymentHistoryOnline(transactionId,businessId, amount, mode);
+    result=await  updatePaymentHistoryOnline(transactionId,businessId, amount, mode);
     } else {
-    updatePaymentHistoryOffline(transactionId, businessId,amount,mode);
+  result=await  updatePaymentHistoryOffline(transactionId, businessId,amount,mode);
     }
 
-
+return result;
 }
  Future checkPendingTransactionbeUpdatedToServer() async {
     var list = await _businessController.sqliteDb.getOfflineTransactions(
@@ -930,12 +932,13 @@ if(pendingJobToBeUpdated.isNotEmpty){
 Future deleteTransactionOnline(TransactionModel transactionModel)async{
 
 try{
+  print("deleting from online");
 var response=await http.delete(Uri.parse(ApiLink.get_business_transaction+"/"+transactionModel.id!),headers: {
 
        "Authorization": "Bearer ${_userController.token}",
                 "Content-Type": "application/json"
 });
-print("transaction detail response ${response.body}}");
+print("transaction deletion detail response ${response.body}}");
 
 if(response.statusCode==200){
 
@@ -955,7 +958,7 @@ Get.back();
 }
 
 }catch(ex){
-
+print("error from transaction deletion ${ex.toString()}");
 
 
 }

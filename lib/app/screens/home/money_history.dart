@@ -36,7 +36,7 @@ class _MoneySummaryState extends State<MoneySummary> {
     super.initState();
     transactionModel=_transactionController.getTransactionById(widget.item!.businessTransactionId!);
     if(transactionModel!=null){
-
+print("transaction result ${transactionModel!.toJson()}");
       print("transaction is not null");
     }else{
 
@@ -939,7 +939,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   )
                 ],
               ),
-              paymentType == 1
+              paymentType == 0
                   ? CustomTextFieldInvoiceOptional(
                       label: 'Amount',
                       hint: 'N',
@@ -1026,13 +1026,27 @@ class _MoneySummaryState extends State<MoneySummary> {
               Obx(()
               {
                   return InkWell(
-                    onTap: () {
+                    onTap: () async{
                       
 if(_transactionController.addingTransactionStatus !=
                             AddingTransactionStatus.Loading){
 
-_transactionController.updateTransactionHistory(transactionModel!.id!, transactionModel!.businessId!, (paymentType==0)?int.parse(_amountController.text):(transactionModel!.balance??0), (paymentType==0)?"DEPOSIT":"FULLY_PAID");
+var result=await _transactionController.updateTransactionHistory(transactionModel!.id!, transactionModel!.businessId!, (paymentType==0)?int.parse(_amountController.text):(transactionModel!.balance??0), (paymentType==0)?"DEPOSIT":"FULLY_PAID");
 
+if(result!=null){
+print("result is not null");
+  transactionModel=result;
+  setState(() {
+    
+  });
+}else{
+
+  print("result is null");
+}
+  transactionModel=_transactionController.getTransactionById(widget.item!.businessTransactionId!);
+  setState(() {
+    
+  });
                             }
                     },
                     child: Container(
