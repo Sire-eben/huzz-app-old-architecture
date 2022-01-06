@@ -491,7 +491,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     Expanded(
                       child: Text(
                         'Amount',
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontFamily: 'DMSans',
@@ -499,16 +499,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                             color: AppColor().whiteColor),
                       ),
                     ),
-                    Expanded(
-                      child: Text(
-                        '',
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'DMSans',
-                            fontSize: 12,
-                            color: AppColor().whiteColor),
-                      ),
+                    Text(
+                      '',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'DMSans',
+                          fontSize: 12,
+                          color: AppColor().whiteColor),
                     ),
                   ],
                 ),
@@ -554,30 +552,28 @@ class _MoneySummaryState extends State<MoneySummary> {
                                     color: AppColor().blackColor),
                               ),
                             ),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'View Receipt',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'DMSans',
-                                        fontSize: 10,
+                            Row(
+                              children: [
+                                Text(
+                                  'View Receipt',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                      fontSize: 10,
+                                      color: AppColor().backgroundColor),
+                                ),
+                                SizedBox(width: 4),
+                                Container(
+                                    padding: EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
                                         color: AppColor().backgroundColor),
-                                  ),
-                                  SizedBox(width: 4),
-                                  Container(
-                                      padding: EdgeInsets.all(2),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: AppColor().backgroundColor),
-                                      child: Icon(
-                                        Icons.arrow_forward,
-                                        color: AppColor().whiteColor,
-                                        size: 15,
-                                      ))
-                                ],
-                              ),
+                                    child: Icon(
+                                      Icons.arrow_forward,
+                                      color: AppColor().whiteColor,
+                                      size: 15,
+                                    ))
+                              ],
                             ),
                           ],
                         ),
