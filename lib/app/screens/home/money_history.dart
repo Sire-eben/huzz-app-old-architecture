@@ -20,17 +20,17 @@ class MoneySummary extends StatefulWidget {
 
 class _MoneySummaryState extends State<MoneySummary> {
   final recordFilter = ['This month', 'Last month'];
-   final _transactionController=Get.find<TransactionRespository>();
+  final _transactionController = Get.find<TransactionRespository>();
   String? value;
-    int paymentType = 0;
+  int paymentType = 0;
   int paymentMode = 0;
   TransactionModel? transactionModel;
-    final display = createDisplay(
+  final display = createDisplay(
     length: 10,
     decimal: 0,
   );
-  final _amountController=TextEditingController();
-@override
+  final _amountController = TextEditingController();
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -38,11 +38,11 @@ class _MoneySummaryState extends State<MoneySummary> {
     if(transactionModel!=null){
 print("transaction result ${transactionModel!.toJson()}");
       print("transaction is not null");
-    }else{
-
+    } else {
       print("transaction is null");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +75,8 @@ print("transaction result ${transactionModel!.toJson()}");
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  transactionModel!.createdTime!.formatDate(pattern:"dd, MMM y")!,
+                  transactionModel!.createdTime!
+                      .formatDate(pattern: "dd, MMM y")!,
                   style: TextStyle(
                     color: AppColor().blackColor,
                     fontFamily: "DMSans",
@@ -85,7 +86,8 @@ print("transaction result ${transactionModel!.toJson()}");
                   ),
                 ),
                 Text(
-                  transactionModel!.createdTime!.formatDate(pattern:"hh:mm a")!,
+                  transactionModel!.createdTime!
+                      .formatDate(pattern: "hh:mm a")!,
                   style: TextStyle(
                     color: AppColor().blackColor,
                     fontFamily: "DMSans",
@@ -100,10 +102,10 @@ print("transaction result ${transactionModel!.toJson()}");
         ),
         actions: [
           GestureDetector(
-            onTap: (){
-              _transactionController.deleteTransaction(transactionModel!);
-            },
-            child: SvgPicture.asset('assets/images/delete.svg')),
+              onTap: () {
+                _transactionController.deleteTransaction(transactionModel!);
+              },
+              child: SvgPicture.asset('assets/images/delete.svg')),
           SizedBox(
             width: MediaQuery.of(context).size.height * 0.02,
           )
@@ -122,7 +124,7 @@ print("transaction result ${transactionModel!.toJson()}");
                   borderRadius: BorderRadius.circular(16),
                   color: AppColor().orangeBorderColor.withOpacity(0.2)),
               child: Text(
-                 transactionModel!.balance==0?'Fully Paid':"Partially",
+                transactionModel!.balance == 0 ? 'Fully Paid' : "Partially",
                 style: TextStyle(
                   color: AppColor().orangeBorderColor,
                   fontFamily: "DMSans",
@@ -133,130 +135,133 @@ print("transaction result ${transactionModel!.toJson()}");
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            (transactionModel!.balance!=0) ? Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.height * 0.05),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Total Amt.',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: "DMSans",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
+            (transactionModel!.balance != 0)
+                ? Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Total Amt.',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Text(
+                              'N${display(transactionModel!.totalAmount!)}',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
-                      Text(
-                        display(transactionModel!.totalAmount!),
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontFamily: "DMSans",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Bal.',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: "DMSans",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
-                      Text(
-                        display(
-                            transactionModel!.balance!),
-                        style: TextStyle(
-                          color: AppColor().orangeBorderColor,
-                          fontFamily: "DMSans",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Paid Amt.',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: "DMSans",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
-                      Text(
-                        display(transactionModel!.totalAmount! -
-                            transactionModel!.balance!),
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontFamily: "DMSans",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ):Container(),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-
-              (transactionModel!.balance!=0) ? GestureDetector(
-                onTap: (){
-
-                       showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(20))),
-                      context: context,
-                      builder: (context) => buildSaveInvoice());
-                },
-                child: Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                padding: EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: AppColor().backgroundColor.withOpacity(0.2)),
-                child: Center(
-                  child: Text(
-                    'Update payment',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: "DMSans",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Bal.',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: "DMSans",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(
+                                'N${display(transactionModel!.balance!)}',
+                                style: TextStyle(
+                                  color: AppColor().orangeBorderColor,
+                                  fontFamily: "DMSans",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ]),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Paid Amt.',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Text(
+                              'N${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
-                  ),
-                ),
+                  )
+                : Container(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+            (transactionModel!.balance != 0)
+                ? GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          context: context,
+                          builder: (context) => buildSaveInvoice());
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppColor().backgroundColor.withOpacity(0.2)),
+                      child: Center(
+                        child: Text(
+                          'Update payment',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
                           ),
-              ):Container(),
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
 //           (transactionModel!.balance==0) ?  Text(
 //               'N ${display(transactionModel!.totalAmount??0)}',
 //               style: TextStyle(
@@ -346,29 +351,38 @@ print("transaction result ${transactionModel!.toJson()}");
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Item',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Item',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
-                    Text(
-                      'Qty',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Qty',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
-                    Text(
-                      'Amount',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Amount',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
                   ],
                 ),
@@ -377,9 +391,11 @@ print("transaction result ${transactionModel!.toJson()}");
             Expanded(
               child: ListView.separated(
                   separatorBuilder: (context, index) => Divider(),
-                  itemCount: transactionModel!.businessTransactionPaymentItemList!.length,
+                  itemCount: transactionModel!
+                      .businessTransactionPaymentItemList!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    var item = transactionModel!.businessTransactionPaymentItemList![index];
+                    var item = transactionModel!
+                        .businessTransactionPaymentItemList![index];
                     return Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal:
@@ -390,29 +406,38 @@ print("transaction result ${transactionModel!.toJson()}");
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              item.itemName!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                item.itemName!,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
-                            Text(
-                              "${item.quality}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                "${item.quality}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
-                            Text(
-                              "'N ${display(item.totalAmount)}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                "'N ${display(item.totalAmount)}",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
                           ],
                         ),
@@ -452,24 +477,31 @@ print("transaction result ${transactionModel!.toJson()}");
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Date',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Date',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
-                    Text(
-                      'Amount',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        'Amount',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
                     Text(
                       '',
+                      textAlign: TextAlign.right,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontFamily: 'DMSans',
@@ -483,9 +515,11 @@ print("transaction result ${transactionModel!.toJson()}");
             Expanded(
               child: ListView.separated(
                   separatorBuilder: (context, index) => Divider(),
-                  itemCount: transactionModel!.businessTransactionPaymentHistoryList!.length,
+                  itemCount: transactionModel!
+                      .businessTransactionPaymentHistoryList!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    var item = transactionModel!.businessTransactionPaymentHistoryList![index];
+                    var item = transactionModel!
+                        .businessTransactionPaymentHistoryList![index];
                     return Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal:
@@ -496,21 +530,27 @@ print("transaction result ${transactionModel!.toJson()}");
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              item.createdDateTime!.formatDate()!,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                item.createdDateTime!.formatDate()!,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
-                            Text(
-                             'N ${display(item.amountPaid)}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 10,
-                                  color: AppColor().blackColor),
+                            Expanded(
+                              child: Text(
+                                'N ${display(item.amountPaid)}',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
                             ),
                             Row(
                               children: [
@@ -782,8 +822,7 @@ print("transaction result ${transactionModel!.toJson()}");
         ),
       );
 
-
-    Widget buildSaveInvoice() =>
+  Widget buildSaveInvoice() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         // Future pickImgFromGallery() async {
         //   try {
@@ -948,7 +987,7 @@ print("transaction result ${transactionModel!.toJson()}");
                     )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              
+
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
               //   children: [
@@ -1066,22 +1105,20 @@ print("result is not null");
                                 child: CircularProgressIndicator(
                                     color: Colors.white)),
                           )
-                        :Center(
-                        child: Text(
-                          'Save',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'DMSans'),
-                        ),
-                      ),
-                    ),
-                  );
-                }
-              ),
+                        : Center(
+                            child: Text(
+                              'Save',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'DMSans'),
+                            ),
+                          ),
+                  ),
+                );
+              }),
             ],
           ),
         );
-      });  
+      });
 }
-
