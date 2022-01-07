@@ -171,8 +171,13 @@ db.delete(businessTableName);
   }
 
   Future updateOfflineTransaction(TransactionModel transactionModel) async {
+       var value = jsonEncode(transactionModel.toJson());
     var result = await db.update(
-        transactionTableName, transactionModel.toJson(),
+        transactionTableName,{
+      transactionId: transactionModel.id,
+      businessId: transactionModel.businessId,
+      transactionJson: value
+    },
         where: '"$transactionId" = ?', whereArgs: [transactionModel.id]);
 
     print("updated $result");
