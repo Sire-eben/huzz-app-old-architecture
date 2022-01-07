@@ -80,7 +80,7 @@ class TransactionModel {
               List.from(json['businessTransactionPaymentItemList'])
                   .map((e) => PaymentItem.fromJson(
                       e,
-                      json['transactionType'],
+                      json['transactionType']??"",
                       json['balance'] == null || json['balance'] == 0
                           ? true
                           : false,json['id']))
