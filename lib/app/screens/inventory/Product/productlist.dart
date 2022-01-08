@@ -682,7 +682,7 @@ class _ListingProductState extends State<ListingProduct> {
                         width: 50,
                       ),
                       Text(
-                        'N${display(widget.item!.costPrice??0)}',
+                        'N${display(widget.item!.costPrice ?? 0)}',
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',
@@ -727,7 +727,7 @@ class _ListingProductState extends State<ListingProduct> {
                         width: 5,
                       ),
                       Text(
-                        'Edit stock',
+                        'Edit',
                         style: TextStyle(
                           color: AppColor().orangeBorderColor,
                           fontFamily: 'DMSans',

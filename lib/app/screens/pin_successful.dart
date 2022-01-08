@@ -42,7 +42,7 @@ class PinSuccesful extends StatelessWidget {
           Container(
               width: MediaQuery.of(context).size.width * 0.5,
               child: Text(
-                "PIN Created Successfully",
+                "Otp Verified Successfully",
                 textAlign: TextAlign.center,
                 style:
                     TextStyle(fontSize: 30, color: AppColor().backgroundColor),
@@ -50,7 +50,7 @@ class PinSuccesful extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.2,
           ),
-          SvgPicture.asset("assets/images/Vector (2).svg"),
+          SvgPicture.asset("assets/images/Vector(2).svg"),
           Expanded(child: SizedBox()),
           GestureDetector(
             onTap: () {

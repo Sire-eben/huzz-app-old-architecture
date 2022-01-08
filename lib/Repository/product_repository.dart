@@ -54,6 +54,7 @@ class ProductRepository extends GetxController
   var uuid = Uuid();
   @override
   void onInit() async {
+    // ignore: todo
     // TODO: implement onInit
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
@@ -95,6 +96,7 @@ class ProductRepository extends GetxController
   Future addProductOnline(String type, String title) async {
     try {
       _addingProductStatus(AddingProductStatus.Loading);
+      // ignore: avoid_init_to_null
       String? fileId = null;
       if (productImage.value != null) {
         fileId =
@@ -144,6 +146,7 @@ class ProductRepository extends GetxController
     }
   }
 
+  // ignore: non_constant_identifier_names
   Future UpdateBusinessProduct(Product product, String title) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       updateBusinessProductOnline(product, title);
@@ -162,6 +165,7 @@ class ProductRepository extends GetxController
 
       String basename = path.basename(productImage.value!.path);
       var newPath = appDocPath + basename;
+      // ignore: unnecessary_brace_in_string_interps
       print("new file path is ${newPath}");
       outFile = File(newPath);
       productImage.value!.copySync(outFile.path);
@@ -190,14 +194,16 @@ class ProductRepository extends GetxController
 
   Future updateBusinessProductOffline(Product newproduct, String title) async {
     File? outFile;
+    // ignore: unnecessary_null_comparison
     if (productImage != null) {
       var list = await getApplicationDocumentsDirectory();
 
       Directory appDocDir = list;
       String appDocPath = appDocDir.path;
 
-      String basename = path.basename(productImage.value!.path!);
+      String basename = path.basename(productImage.value!.path);
       var newPath = appDocPath + basename;
+      // ignore: unnecessary_brace_in_string_interps
       print("new file path is ${newPath}");
       outFile = File(newPath);
       productImage.value!.copySync(outFile.path);
@@ -233,6 +239,7 @@ class ProductRepository extends GetxController
   Future updateBusinessProductOnline(Product product, String title) async {
     try {
       _addingProductStatus(AddingProductStatus.Loading);
+      // ignore: avoid_init_to_null
       String? fileId = null;
 
       if (productImage.value != null) {
@@ -479,6 +486,7 @@ class ProductRepository extends GetxController
   }
 
   Future checkPendingProductToBeAddedToSever() async {
+    // ignore: unused_local_variable
     var list = await _businessController.sqliteDb.getOfflineProducts(
         _businessController.selectedBusiness.value!.businessId!);
     offlineBusinessProduct.forEach((element) {

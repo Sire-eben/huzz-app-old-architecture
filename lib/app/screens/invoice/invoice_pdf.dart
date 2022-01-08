@@ -18,16 +18,16 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
 class PdfInvoiceApi {
- static final _invoiceController=Get.find<InvoiceRespository>();
- static final _businessController=Get.find<BusinessRespository>();
- static final _customerController=Get.find<CustomerRepository>();
- static final _bankController=Get.find<BankAccountRepository>();
+  static final _invoiceController = Get.find<InvoiceRespository>();
+  static final _businessController = Get.find<BusinessRespository>();
+  static final _customerController = Get.find<CustomerRepository>();
+  static final _bankController = Get.find<BankAccountRepository>();
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
-var  customer = _customerController
-          .checkifCustomerAvailableWithValue(invoice.customerId!);
-          print("bank id ${invoice.bankId}");
-var bank=_bankController.checkifBankAvailableWithValue(invoice.bankId!);
+    var customer = _customerController
+        .checkifCustomerAvailableWithValue(invoice.customerId!);
+    print("bank id ${invoice.bankId}");
+    var bank = _bankController.checkifBankAvailableWithValue(invoice.bankId!);
 
     pdf.addPage(MultiPage(
       build: (context) => [
@@ -245,21 +245,19 @@ var bank=_bankController.checkifBankAvailableWithValue(invoice.bankId!);
         ),
       ]),
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          'Due Date',
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.bold,
-          )),
-          Text(
-            DateFormat.yMMMd().format(invoice.dueDateTime!).toString(),
+        Text('Due Date',
             style: TextStyle(
-              color: PdfColors.orange,
-              fontSize: 12,
+              fontSize: 10,
               fontWeight: FontWeight.bold,
-            ),
+            )),
+        Text(
+          DateFormat.yMMMd().format(invoice.dueDateTime!).toString(),
+          style: TextStyle(
+            color: PdfColors.orange,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
           ),
-        
+        ),
       ]),
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
@@ -322,7 +320,7 @@ var bank=_bankController.checkifBankAvailableWithValue(invoice.bankId!);
             ),
           ),
           Text("${customer!.name}"),
-          Text("${customer!.phone}"),
+          Text("${customer.phone}"),
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
