@@ -7,7 +7,6 @@ import 'package:huzz/app/screens/reg_home.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/onboarding_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:huzz/app/screens/sign_up.dart';
 
 class OnboardingMain extends StatefulWidget {
   _OnboardingMainState createState() => _OnboardingMainState();
@@ -58,7 +57,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                       top: 40,
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(Signup());
+                          Get.to(RegHome());
                         },
                         child: Text(
                           "Skip",
