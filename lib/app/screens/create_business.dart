@@ -8,8 +8,10 @@ import 'package:huzz/colors.dart';
 class CreateBusiness extends StatelessWidget {
   final _businessController = Get.find<BusinessRespository>();
   @override
+  // ignore: dead_code
   Widget build(BuildContext context) {
     return Obx(() {
+      // ignore: dead_code, dead_code
       return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
