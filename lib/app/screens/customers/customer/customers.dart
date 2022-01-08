@@ -150,7 +150,8 @@ class _CustomersState extends State<Customers> {
                                       item: item,
                                     ));
                                   },
-                                  child: SvgPicture.asset('')),
+                                  child: SvgPicture.asset(
+                                      'assets/images/edit.svg')),
                               SizedBox(
                                 width: 10,
                               ),

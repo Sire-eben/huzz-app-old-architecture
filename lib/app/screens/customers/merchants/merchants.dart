@@ -187,7 +187,7 @@ class _MerchantsState extends State<Merchants> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Your merchant will show here. Click the',
+                                'Your merchants will show here. Click the',
                                 style: TextStyle(
                                     fontSize: 8,
                                     color: Colors.black,
