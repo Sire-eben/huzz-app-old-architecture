@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, unused_field
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -8,7 +10,6 @@ import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
-import 'package:huzz/app/screens/home/income_success.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/app/screens/invoice/preview_invoice.dart';
 import 'package:huzz/main.dart';
@@ -26,7 +27,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as path;
 
-
 import 'auth_respository.dart';
 import 'customer_repository.dart';
 
@@ -37,7 +37,8 @@ class InvoiceRespository extends GetxController {
   List<Invoice> get offlineInvoices => _offlineInvoices.value;
   final _uploadImageController = Get.find<FileUploadRespository>();
   final _customerController = Get.find<CustomerRepository>();
-  final _productController=Get.find<ProductRepository>();
+  final _productController = Get.find<ProductRepository>();
+  // ignore: non_constant_identifier_names
   List<Invoice> OnlineInvoice = [];
   List<Invoice> pendingInvoice = [];
   Rx<List<PaymentItem>> _allPaymentItem = Rx([]);
@@ -49,11 +50,11 @@ class InvoiceRespository extends GetxController {
   final numberofincome = 0.obs;
   final numberofexpenses = 0.obs;
   final totalbalance = 0.obs;
-   bool isBusyAdding=false;
- bool isBusyUpdating=false;
-  bool isbusyDeleting=false;
+  bool isBusyAdding = false;
+  bool isBusyUpdating = false;
+  bool isbusyDeleting = false;
   final debtors = 0.obs;
-   List<PaymentItem> productList=[];
+  List<PaymentItem> productList = [];
   List<Invoice> todayInvoice = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
@@ -65,21 +66,20 @@ class InvoiceRespository extends GetxController {
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
   final amountPaidController = TextEditingController();
-  final taxController=TextEditingController();
-  final discountController=TextEditingController();
+  final taxController = TextEditingController();
+  final discountController = TextEditingController();
   Bank? invoiceBank;
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController timeController = TextEditingController();
   final TextEditingController contactName = TextEditingController();
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
-  List<Invoice> deletedItem=[];
+  List<Invoice> deletedItem = [];
   final _addingInvoiceStatus = AddingInvoiceStatus.Empty.obs;
   var uuid = Uuid();
-  final _bankController=Get.find<BankAccountRepository>();
+  final _bankController = Get.find<BankAccountRepository>();
 // final _uploadFileController=Get.find<FileUploadRespository>();
-  AddingInvoiceStatus get addingInvoiceStatus =>
-      _addingInvoiceStatus.value;
+  AddingInvoiceStatus get addingInvoiceStatus => _addingInvoiceStatus.value;
   Product? selectedProduct;
   Bank? selectedBank;
   int? remain;
@@ -89,7 +89,7 @@ class InvoiceRespository extends GetxController {
   File? image;
   int selectedValue = 0;
   int customerType = 0;
-  int paymentValue=0;
+  int paymentValue = 0;
   bool addCustomer = false;
   List<String> paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
   String? selectedPaymentSource;
@@ -109,7 +109,6 @@ class InvoiceRespository extends GetxController {
   // final bankName=TextEditingController();
   // final bankAccountNumber=TextEditingController();
   // final bankAccountName=TextEditingController();
-
 
   @override
   void onInit() async {
@@ -140,7 +139,6 @@ class InvoiceRespository extends GetxController {
             GetOfflineInvoices(p0.businessId!);
             // getSpending(p0.businessId!);
 
-     
           }
         });
       }
@@ -170,18 +168,16 @@ checkPendingTransactionbeUpdatedToServer();
 
   Future getOnlineInvoice(String businessId) async {
     var response = await http.get(
-        Uri.parse(
-            ApiLink.invoice_link +"?businessId=" + businessId),
+        Uri.parse(ApiLink.invoice_link + "?businessId=" + businessId),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     var json = jsonDecode(response.body);
     print("get online Invoice $json");
     if (response.statusCode == 200) {
-      var result =
-          List.from(json['data']).map((e) => Invoice.fromJson(e));
+      var result = List.from(json['data']).map((e) => Invoice.fromJson(e));
 
       OnlineInvoice.addAll(result);
-print("online Invoice ${result.length}");
-    // getTodayInvoice();
+      print("online Invoice ${result.length}");
+      // getTodayInvoice();
       getInvoiceYetToBeSavedLocally();
     } else {}
   }
@@ -191,42 +187,38 @@ print("online Invoice ${result.length}");
     print("offline Invoice ${results.length}");
 
     _offlineInvoices(results);
-categorizedInvoice();  
+    categorizedInvoice();
   }
 
-  Future categorizedInvoice()async{
+  Future categorizedInvoice() async {
     print("invoice list to be category is ${offlineInvoices.length}");
-    List<Invoice> _pending=[];
-    List<Invoice> _paid=[];
-    List<Invoice> _deposit=[];
-    List<Invoice> _overDue=[];
+    List<Invoice> _pending = [];
+    List<Invoice> _paid = [];
+    List<Invoice> _deposit = [];
+    List<Invoice> _overDue = [];
 
-for(int i=0; i<offlineInvoices.length;++i){
-var element=offlineInvoices[i];
- print("invoice status ${offlineInvoices[i].businessInvoiceStatus}");
-  if(element.businessInvoiceStatus=="PENDING"){
-    print("pending is found");
-_pending.add(element);
+    for (int i = 0; i < offlineInvoices.length; ++i) {
+      var element = offlineInvoices[i];
+      print("invoice status ${offlineInvoices[i].businessInvoiceStatus}");
+      if (element.businessInvoiceStatus == "PENDING") {
+        print("pending is found");
+        _pending.add(element);
 
-print("found pending");
-  }else if(element.businessInvoiceStatus=="PAID"){
-print("found paid");
-_paid.add(element);
-
-  }else if(element.businessInvoiceStatus=="DEPOSIT"){
-print("found deposit");
-_deposit.add(element);
-
-  }
+        print("found pending");
+      } else if (element.businessInvoiceStatus == "PAID") {
+        print("found paid");
+        _paid.add(element);
+      } else if (element.businessInvoiceStatus == "DEPOSIT") {
+        print("found deposit");
+        _deposit.add(element);
+      }
 //    if(element.businessInvoiceStatus=="OVERDUE" || element.dueDateTime!.isAfter(DateTime.now())){
 //     print("found overdue");
 // _overDue.add(element);
 
-
 //   }
 
-
-}
+    }
 //    await Future.forEach<Invoice>(offlineInvoices, (element){
 //  print("invoice status ${element.businessInvoiceStatus}");
 //  if(element.businessInvoiceStatus=="PENDING"){
@@ -243,22 +235,17 @@ _deposit.add(element);
 
 //   }
 //    if(element.businessInvoiceStatus=="OVERDUE" || element.dueDateTime!.isAfter(DateTime.now())){
-    
-// // _overDue.add(element);
 
+// // _overDue.add(element);
 
 //   }
 
-
 //     });
 
-
-
-_InvoicePendingList(_pending);
-_paidInvoiceList(_paid);
-_InvoiceDepositList(_deposit);
- _InvoiceDueList(_overDue);  
-
+    _InvoicePendingList(_pending);
+    _paidInvoiceList(_paid);
+    _InvoiceDepositList(_deposit);
+    _InvoiceDueList(_overDue);
   }
 
   // Future getTodayInvoice() async {
@@ -282,13 +269,11 @@ _InvoiceDepositList(_deposit);
   Future getInvoiceYetToBeSavedLocally() async {
     OnlineInvoice.forEach((element) {
       if (!checkifInvoiceAvailable(element.id!)) {
-      
-        if(!element.isPending!)
-        pendingInvoice.add(element);
+        if (!element.isPending!) pendingInvoice.add(element);
       }
     });
-      // print("does contain value ${pendingInvoice.first.isPending}");
-print("item yet to be save yet ${pendingInvoice.length}");
+    // print("does contain value ${pendingInvoice.first.isPending}");
+    print("item yet to be save yet ${pendingInvoice.length}");
     savePendingJob();
   }
 
@@ -298,7 +283,7 @@ print("item yet to be save yet ${pendingInvoice.length}");
     bool result = false;
     offlineInvoices.forEach((element) {
       // print("checking Invoice whether exist");
-      if (element.id == id ) {
+      if (element.id == id) {
         // print("Invoice   found");
         result = true;
       }
@@ -429,233 +414,185 @@ print("item yet to be save yet ${pendingInvoice.length}");
 //       _addingInvoiceStatus(AddingInvoiceStatus.Error);
 //     }
 //   }
-Future createBusinessInvoice()async{
-if(_userController.onlineStatus==OnlineStatus.Onilne){
-createInvoiceOnline();
-
-}else{
-
-createInvoiceOffline();
-}
-
-}
-
-Future createInvoiceOnline()async{
-  
-  try{
-  _addingInvoiceStatus(AddingInvoiceStatus.Loading);
-  String? fileid;
-  String? customerId=null;
- 
-  if(quantityController.text.isEmpty){
-
-    quantityController.text="1";
+  Future createBusinessInvoice() async {
+    if (_userController.onlineStatus == OnlineStatus.Onilne) {
+      createInvoiceOnline();
+    } else {
+      createInvoiceOffline();
+    }
   }
 
+  Future createInvoiceOnline() async {
+    try {
+      _addingInvoiceStatus(AddingInvoiceStatus.Loading);
+      String? fileid;
+      String? customerId = null;
 
+      if (quantityController.text.isEmpty) {
+        quantityController.text = "1";
+      }
 
-if(customerType==1){
-customerId=await _customerController.addBusinessCustomerWithString("INCOME");
-}else{
-  if(selectedCustomer!=null)
-  customerId=selectedCustomer!.customerId;
-}
+      if (customerType == 1) {
+        customerId =
+            await _customerController.addBusinessCustomerWithString("INCOME");
+      } else {
+        if (selectedCustomer != null) customerId = selectedCustomer!.customerId;
+      }
 
-
-
-
-if(time!=null&&date!=null){
+      if (time != null && date != null) {
 // date!.hour=time!.hour;
-date!.add(Duration(hours: time!.hour,minutes: time!.minute));
-print("date Time to string ${date!.toIso8601String()}");
-}
-double tax=0;
-int totalAmount=0;
-productList.forEach((element) {
-  
+        date!.add(Duration(hours: time!.hour, minutes: time!.minute));
+        print("date Time to string ${date!.toIso8601String()}");
+      }
+      double tax = 0;
+      int totalAmount = 0;
+      productList.forEach((element) {
+        totalAmount = totalAmount + element.totalAmount!;
+      });
+      if (taxController.text.isNotEmpty) {
+        tax = (double.parse(taxController.text) * totalAmount) / 100;
+      }
 
-totalAmount=totalAmount+element.totalAmount!;
-});
-if(taxController.text.isNotEmpty){
+      double discount = 0;
 
-tax=(double.parse(taxController.text)*totalAmount)/100;
-
-}
-
-double discount=0;
-
-if(discountController.text.isNotEmpty){
-discount=(double.parse(discountController.text)*totalAmount)/100;
-
-
-}
-String? bankselectedId;
-if(paymentValue==1){
-
-bankselectedId= await _bankController.addBusinessBankWithString();
- }else{
-
-bankselectedId=selectedBank!.id;
-
- }
-double newTotalAmount=totalAmount+tax-discount;
+      if (discountController.text.isNotEmpty) {
+        discount = (double.parse(discountController.text) * totalAmount) / 100;
+      }
+      String? bankselectedId;
+      if (paymentValue == 1) {
+        bankselectedId = await _bankController.addBusinessBankWithString();
+      } else {
+        bankselectedId = selectedBank!.id;
+      }
+      double newTotalAmount = totalAmount + tax - discount;
 // String? timeday=date!.toIso8601String();
-String body=jsonEncode({
+      String body = jsonEncode({
+        "paymentItemRequestList": productList.map((e) => e.toJson("")).toList(),
+        "paymentSource": selectedPaymentSource,
+        "businessId": _businessController.selectedBusiness.value!.businessId,
+        "paymentMode": selectedPaymentMode,
+        "customerId": customerId,
+        "tax": tax,
+        "discountAmount": discount,
+        "totalAmount": newTotalAmount,
+        "bankInfoId": bankselectedId,
+        "dueDateTime": date!.toIso8601String().split("T")[0] + " 00:00"
+      });
+      print("Invoice body $body");
+      final response = await http.post(Uri.parse(ApiLink.invoice_link),
+          headers: {
+            "Authorization": "Bearer ${_userController.token}",
+            "Content-Type": "application/json"
+          },
+          body: body);
 
-"paymentItemRequestList":productList.map((e) => e.toJson("")).toList(),
-   
-    "paymentSource": selectedPaymentSource,
-    "businessId":_businessController.selectedBusiness.value!.businessId,
-    "paymentMode":selectedPaymentMode,
-    "customerId":customerId,
-    "tax":tax,
-    "discountAmount":discount,
-    "totalAmount":newTotalAmount,
-    "bankInfoId":bankselectedId,
-    "dueDateTime":date!.toIso8601String().split("T")[0]+" 00:00"
-    
-    
+      print({"creatng Invoice response ${response.body}"});
+      if (response.statusCode == 200) {
+        _addingInvoiceStatus(AddingInvoiceStatus.Success);
+        var json = jsonDecode(response.body);
+        var result = Invoice.fromJson(json['data']);
+        result.paymentItemRequestList = productList;
+        print("second result is ${result.toJson()}");
+        final invoiceReceipt = await PdfInvoiceApi.generate(result);
+        Get.to(() => PreviewInvoice(file: invoiceReceipt));
+        //  Get.to(() => IncomeSuccess(Invoice: result,title: "Invoice",));
+        getOnlineInvoice(
+            _businessController.selectedBusiness.value!.businessId!);
 
-
-});
-print("Invoice body $body");
-final response=await http.post(Uri.parse(ApiLink.invoice_link),headers: {
-"Authorization":"Bearer ${_userController.token}",
-"Content-Type":"application/json"
-
-},body:body );
-
-print({"creatng Invoice response ${response.body}"});
-if(response.statusCode==200){
- _addingInvoiceStatus(AddingInvoiceStatus.Success);
- var json=jsonDecode(response.body);
- var result=Invoice.fromJson(json['data']);
- result.paymentItemRequestList=productList;
- print("second result is ${result.toJson()}");
-  final invoiceReceipt = await PdfInvoiceApi.generate(result);
-              Get.to(() => PreviewInvoice(file: invoiceReceipt));
-          //  Get.to(() => IncomeSuccess(Invoice: result,title: "Invoice",));
-         getOnlineInvoice(_businessController.selectedBusiness.value!.businessId!);
-
-GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
+        GetOfflineInvoices(
+            _businessController.selectedBusiness.value!.businessId!);
 
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
-clearValue();
-}else{
- _addingInvoiceStatus(AddingInvoiceStatus.Error);
+        clearValue();
+      } else {
+        _addingInvoiceStatus(AddingInvoiceStatus.Error);
+      }
+    } catch (ex) {
+      print("error occurred ${ex.toString()}");
+      _addingInvoiceStatus(AddingInvoiceStatus.Error);
+    }
+  }
 
-}
-}
-catch(ex){
-  print("error occurred ${ex.toString()}");
-_addingInvoiceStatus(AddingInvoiceStatus.Error);
+  Future createInvoiceOffline() async {
+    String? fileid;
+    String? customerId = null;
 
-}
+    if (quantityController.text.isEmpty) {
+      quantityController.text = "1";
+    }
 
-}
+    if (customerType == 1) {
+      customerId = await _customerController
+          .addBusinessCustomerOfflineWithString("INCOME");
+    } else {
+      if (selectedCustomer != null) customerId = selectedCustomer!.customerId;
+    }
+    double tax = 0;
+    int totalAmount = 0;
+    productList.forEach((element) {
+      totalAmount = totalAmount + element.totalAmount!;
+    });
+    if (taxController.text.isNotEmpty) {
+      tax = (double.parse(taxController.text) * totalAmount) / 100;
+    }
 
-Future createInvoiceOffline()async{
-String? fileid;
-  String? customerId=null;
+    double discount = 0;
 
+    if (discountController.text.isNotEmpty) {
+      discount = (double.parse(discountController.text) * totalAmount) / 100;
+    }
+    double newTotalAmount = totalAmount + tax - discount;
 
-if(quantityController.text.isEmpty){
+    print("trying to save offline");
 
-  quantityController.text="1";
-}
+    Invoice? value;
+    String? bankselectedId;
+    if (paymentValue == 1) {
+      bankselectedId = await _bankController.addBusinessBankOfflineWithString();
+    } else {
+      bankselectedId = selectedBank!.id;
+    }
 
-if(customerType==1){
-customerId=await _customerController.addBusinessCustomerOfflineWithString("INCOME");
-}else{
-  if(selectedCustomer!=null)
-  customerId=selectedCustomer!.customerId;
-}
-double tax=0;
-int totalAmount=0;
-productList.forEach((element) {
-  
+    value = Invoice(
+        id: uuid.v1(),
+        totalAmount: newTotalAmount,
+        createdDateTime: DateTime.now(),
+        issuranceDateTime: DateTime.now(),
+        customerId: customerId,
+        businessId: _businessController.selectedBusiness.value!.businessId,
+        paymentItemRequestList: productList,
+        isPending: true,
+        tax: tax,
+        discountAmount: discount,
+        bankId: bankselectedId,
+        dueDateTime: date);
 
-totalAmount=totalAmount+element.totalAmount!;
-});
-if(taxController.text.isNotEmpty){
-
-tax=(double.parse(taxController.text)*totalAmount)/100;
-
-}
-
-double discount=0;
-
-if(discountController.text.isNotEmpty){
-discount=(double.parse(discountController.text)*totalAmount)/100;
-
-
-}
-double newTotalAmount=totalAmount+tax-discount;
-
-  
-print("trying to save offline");
- 
-  Invoice? value;
-String? bankselectedId;
- if(paymentValue==1){
-
-bankselectedId= await _bankController.addBusinessBankOfflineWithString();
- }else{
-
-bankselectedId=selectedBank!.id;
-
- }
-
-
-
- value=Invoice(
-
-id:  uuid.v1(),
-totalAmount: newTotalAmount,
-createdDateTime: DateTime.now(),
-issuranceDateTime: DateTime.now(),
-
-
-customerId: customerId,
-businessId: _businessController.selectedBusiness.value!.businessId,
-paymentItemRequestList: productList,
-isPending: true,
-tax:tax,
-discountAmount: discount,
-bankId: bankselectedId,
-dueDateTime: date
-
-);
-
-print("offline saving to database ${value!.toJson()}}");
-   await _businessController.sqliteDb.insertInvoce(value!);
-   GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
-  // Get.to(() => IncomeSuccess(Invoice: value!,title: "Invoice",));
+    print("offline saving to database ${value.toJson()}}");
+    await _businessController.sqliteDb.insertInvoce(value);
+    GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
+    // Get.to(() => IncomeSuccess(Invoice: value!,title: "Invoice",));
     final invoiceReceipt = await PdfInvoiceApi.generate(value);
-              Get.to(() => PreviewInvoice(file: invoiceReceipt));
-clearValue();
-}
-Future checkIfInvoiceThatIsYetToBeAdded()async{
+    Get.to(() => PreviewInvoice(file: invoiceReceipt));
+    clearValue();
+  }
 
-  
-  print("hoping Invoice to be added");
-   var list= await _businessController.sqliteDb.getOfflineInvovoices(_businessController.selectedBusiness.value!.businessId!);
-print("number of Invoice is ${list.length}");
-list.forEach((element) {
-  
-if(element.isPending!){
+  Future checkIfInvoiceThatIsYetToBeAdded() async {
+    print("hoping Invoice to be added");
+    var list = await _businessController.sqliteDb.getOfflineInvovoices(
+        _businessController.selectedBusiness.value!.businessId!);
+    print("number of Invoice is ${list.length}");
+    list.forEach((element) {
+      if (element.isPending!) {
+        pendingInvoiceToBeAdded.add(element);
+        print("is pending to be added");
+      }
+    });
+    print(
+        "number of Invoice that is yet to saved on server is ${pendingInvoiceToBeAdded.length}");
+    saveInvoiceOnline();
+  }
 
-  pendingInvoiceToBeAdded.add(element);
-  print("is pending to be added");
-}
-
-
-});
-print("number of Invoice that is yet to saved on server is ${pendingInvoiceToBeAdded.length}");
-saveInvoiceOnline();
-}
-
- bool checkifSelectedForDeleted(String id) {
+  bool checkifSelectedForDeleted(String id) {
     bool result = false;
     deletedItem.forEach((element) {
       print("checking transaction whether exist");
@@ -666,41 +603,37 @@ saveInvoiceOnline();
     });
     return result;
   }
-Future saveInvoiceOnline()async{
 
-  
-  if(pendingInvoiceToBeAdded.isEmpty){
-
-  return;
-
-}
-
- 
+  Future saveInvoiceOnline() async {
+    if (pendingInvoiceToBeAdded.isEmpty) {
+      return;
+    }
 
 // pendingInvoice.forEach((e)async{
-print("loading Invoice to server ");
-try{
+    print("loading Invoice to server ");
+    try {
 // if(!isBusyAdding){
-var savenext=pendingInvoiceToBeAdded.first;
-isBusyAdding=true;
-print("saved next is ${savenext.toJson()}");
-if(savenext.customerId!=null&& savenext.customerId!=" "){
-  print("saved yet customer is not null");
+      var savenext = pendingInvoiceToBeAdded.first;
+      isBusyAdding = true;
+      print("saved next is ${savenext.toJson()}");
+      if (savenext.customerId != null && savenext.customerId != " ") {
+        print("saved yet customer is not null");
 
-var customervalue=await _businessController.sqliteDb.getOfflineCustomer(savenext.customerId!);
-if(customervalue!=null&&customervalue!.isCreatedFromInvoice!){ 
-  String? customerId= await _customerController.addBusinessCustomerWithString("INCOME");
-  savenext.customerId=customerId;
-  _businessController.sqliteDb.deleteCustomer(customervalue);
-}else{
-
-  print("saved yet customer is null");
-}
-}
+        var customervalue = await _businessController.sqliteDb
+            .getOfflineCustomer(savenext.customerId!);
+        if (customervalue != null && customervalue.isCreatedFromInvoice!) {
+          String? customerId =
+              await _customerController.addBusinessCustomerWithString("INCOME");
+          savenext.customerId = customerId;
+          _businessController.sqliteDb.deleteCustomer(customervalue);
+        } else {
+          print("saved yet customer is null");
+        }
+      }
 // if(savenext.businessInvoiceFileStoreId!=null&& savenext.businessInvoiceFileStoreId!=''){
 
 //   String image=await _uploadImageController.uploadFile(savenext.businessInvoiceFileStoreId!);
-  
+
 //   File _file=File(savenext.businessInvoiceFileStoreId!);
 //   savenext.businessInvoiceFileStoreId=image;
 //   _file.deleteSync();
@@ -747,67 +680,54 @@ var json=jsonDecode(response.body);
 await updateInvoiceHisotryList(response);
    }
 // deletedItem.add(savenext);
-  // saveInvoiceOnline();
+        // saveInvoiceOnline();
 
-if(pendingInvoiceToBeAdded.isNotEmpty){
-print("saved size  left is ${pendingInvoiceToBeAdded.length}");
-saveInvoiceOnline();
-  // await GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
-  //  getOnlineInvoice(_businessController.selectedBusiness.value!.businessId!);
-
+        if (pendingInvoiceToBeAdded.isNotEmpty) {
+          print("saved size  left is ${pendingInvoiceToBeAdded.length}");
+          saveInvoiceOnline();
+          // await GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
+          //  getOnlineInvoice(_businessController.selectedBusiness.value!.businessId!);
 
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
-}else{
-print("done uploading  Invoice to server ");
-await GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
-   getOnlineInvoice(_businessController.selectedBusiness.value!.businessId!);
-}
-isBusyAdding=false;
-}else{
-
-  isBusyAdding=false;
-
+        } else {
+          print("done uploading  Invoice to server ");
+          await GetOfflineInvoices(
+              _businessController.selectedBusiness.value!.businessId!);
+          getOnlineInvoice(
+              _businessController.selectedBusiness.value!.businessId!);
+        }
+        isBusyAdding = false;
+      } else {
+        isBusyAdding = false;
 
 //   print("pending Invoice is uploaded finished");
 //   deleteItems();
 
-Future.delayed(Duration(seconds: 5));
+        Future.delayed(Duration(seconds: 5));
+      }
+    } catch (ex) {}
+  }
 
-}
-}catch(ex){
+  Future deleteItem(Invoice model) async {
+    await _businessController.sqliteDb.deleteInvoice(model);
+  }
 
+  void deleteItems() {
+    deletedItem.forEach((element) {
+      deleteBusinessInvoice(element);
+    });
+  }
 
-
-}
-
-
-
-}
-
-Future deleteItem(Invoice model)async{
-
- await  _businessController.sqliteDb.deleteInvoice(model);
-}
-void deleteItems(){
-
-deletedItem.forEach((element) {
-  deleteBusinessInvoice(element);
-
-});
-
-}
-
-
- Future deleteInvoiceOnline(Invoice invoice) async {
+  Future deleteInvoiceOnline(Invoice invoice) async {
     var response = await http.delete(
-        Uri.parse(ApiLink.invoice_link+
+        Uri.parse(ApiLink.invoice_link +
             "/${invoice.id}?businessId=${invoice.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     print("delete response ${response.body}");
     if (response.statusCode == 200) {
     } else {}
-  await  _businessController.sqliteDb.deleteInvoice(invoice);
-   GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
+    await _businessController.sqliteDb.deleteInvoice(invoice);
+    GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
   }
 
   Future deleteBusinessInvoice(Invoice invoice) async {
@@ -822,40 +742,33 @@ deletedItem.forEach((element) {
     invoice.deleted = true;
 
     if (!invoice.isPending!) {
-     await _businessController.sqliteDb.updateOfflineInvoice(invoice);
+      await _businessController.sqliteDb.updateOfflineInvoice(invoice);
     } else {
-    await  _businessController.sqliteDb.deleteInvoice(invoice);
+      await _businessController.sqliteDb.deleteInvoice(invoice);
     }
     GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
     // getOfflineInvoice(_businessController.selectedBusiness.value!.businessId!);
   }
-clearValue(){
-print("clearing value");
-  itemNameController.text="";
-   amountController.text="";
-   quantityController.text="";
-  dateController.text="";
-timeController.text="";
-   paymentController.text="";
-   paymentSourceController.text="";
-  receiptFileController.text="";
-amountPaidController.text="";
-date=null;
-image=null;
-selectedPaymentMode=null;
-selectedCustomer=null;
-selectedPaymentSource=null;
-selectedProduct=null;
-productList=[];
 
-  
-
-
-
-
-
- 
-}
+  clearValue() {
+    print("clearing value");
+    itemNameController.text = "";
+    amountController.text = "";
+    quantityController.text = "";
+    dateController.text = "";
+    timeController.text = "";
+    paymentController.text = "";
+    paymentSourceController.text = "";
+    receiptFileController.text = "";
+    amountPaidController.text = "";
+    date = null;
+    image = null;
+    selectedPaymentMode = null;
+    selectedCustomer = null;
+    selectedPaymentSource = null;
+    selectedProduct = null;
+    productList = [];
+  }
 // Future calculateOverView()async{
 
 // var todayBalance=0;
@@ -871,14 +784,11 @@ productList=[];
 // todayMoneyIn=todayMoneyIn+ element.totalAmount!;
 
 //   }else{
- 
+
 //     print("total amount is ${element.totalAmount} ${element.toJson()}");
 // todayMoneyout=todayMoneyout+element.totalAmount!;
 
-
 //   }
-
-
 
 // });
 // todayBalance=todayMoneyIn-todayMoneyout;
@@ -886,47 +796,43 @@ productList=[];
 // expenses(todayMoneyout);
 // totalbalance(todayBalance);
 // }
-void addMoreProduct(){
+  void addMoreProduct() {
+    if (selectedValue == 0) {
+      if (selectedProduct != null)
+        productList.add(PaymentItem(
+            productId: selectedProduct!.productId!,
+            itemName: selectedProduct!.productName,
+            amount: (amountController.text.isEmpty)
+                ? selectedProduct!.sellingPrice
+                : int.parse(amountController.text),
+            totalAmount: (amountController.text.isEmpty)
+                ? (selectedProduct!.sellingPrice! *
+                    (quantityController.text.isEmpty
+                        ? 1
+                        : int.parse(quantityController.text)))
+                : int.parse(amountController.text) *
+                    (quantityController.text.isEmpty
+                        ? 1
+                        : int.parse(quantityController.text)),
+            quality: (quantityController.text.isEmpty)
+                ? 1
+                : int.parse(quantityController.text)));
+    } else {
+      if (itemNameController.text.isNotEmpty &&
+          amountController.text.isNotEmpty)
+        productList.add(PaymentItem(
+            itemName: itemNameController.text,
+            quality: int.parse(quantityController.text),
+            amount: int.parse(amountController.text),
+            totalAmount: int.parse(amountController.text) *
+                int.parse(quantityController.text)));
+    }
 
- 
- if(selectedValue==0){
-   
-   if(selectedProduct!=null)
-  productList.add(PaymentItem(
-productId: selectedProduct!.productId!,
-itemName:selectedProduct!.productName, 
-amount:(amountController.text.isEmpty)? selectedProduct!.sellingPrice:int.parse(amountController.text),
-totalAmount: (amountController.text.isEmpty)? (selectedProduct!.sellingPrice!*
-(quantityController.text.isEmpty?1:int.parse(quantityController.text))):int.parse(amountController.text)*
-(quantityController.text.isEmpty?1:int.parse(quantityController.text)),
-quality:(quantityController.text.isEmpty)? 1:int.parse(quantityController.text)
-
-  )); 
-
-
-
-
-
- }else{
-   if(itemNameController.text.isNotEmpty && amountController.text.isNotEmpty)
-productList.add(PaymentItem(
-itemName: itemNameController.text,
-quality: int.parse(quantityController.text),
-amount: int.parse(amountController.text),
-totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
-
-));
-
-
-
-
- }
-
- selectedProduct=null;
- quantityController.text="1";
- amountController.text="";
- itemNameController.text="";
-}
+    selectedProduct = null;
+    quantityController.text = "1";
+    amountController.text = "";
+    itemNameController.text = "";
+  }
 
 // void addBankInvoice(){
 // if(paymentValue==0){
@@ -943,48 +849,39 @@ totalAmount: int.parse(amountController.text)*int.parse(quantityController.text)
 
 // }
 
-
-
-
 // }
 
-
-Future selectEditValue(PaymentItem item)async{
- quantityController.text=item.quality.toString();
- amountController.text=item.amount.toString();
- itemNameController.text=item.itemName!;
-
-}
-
-Future updatePaymetItem(PaymentItem item,int index)async{
-item.itemName=itemNameController.text;
-item.quality=int.parse(quantityController.text);
-item.amount=int.parse(amountController.text);
-productList[index]=item;
- quantityController.text="1";
- amountController.text="";
- itemNameController.text="";
-
-}
-
-Future setValue(PaymentItem item)async{
-  if(item.productId==null || item.productId!.isEmpty){
- quantityController.text=item.quality.toString();
- amountController.text=item.amount.toString();
- itemNameController.text=item.itemName!;
-selectedValue=1;
-  }else{
-    selectedValue=0;
-  selectedProduct=  _productController.productGoods.where((element) => element.productId==item.productId).toList().first;
-
-
-
-
-
+  Future selectEditValue(PaymentItem item) async {
+    quantityController.text = item.quality.toString();
+    amountController.text = item.amount.toString();
+    itemNameController.text = item.itemName!;
   }
 
+  Future updatePaymetItem(PaymentItem item, int index) async {
+    item.itemName = itemNameController.text;
+    item.quality = int.parse(quantityController.text);
+    item.amount = int.parse(amountController.text);
+    productList[index] = item;
+    quantityController.text = "1";
+    amountController.text = "";
+    itemNameController.text = "";
+  }
 
-}
+  Future setValue(PaymentItem item) async {
+    if (item.productId == null || item.productId!.isEmpty) {
+      quantityController.text = item.quality.toString();
+      amountController.text = item.amount.toString();
+      itemNameController.text = item.itemName!;
+      selectedValue = 1;
+    } else {
+      selectedValue = 0;
+      selectedProduct = _productController.productGoods
+          .where((element) => element.productId == item.productId)
+          .toList()
+          .first;
+    }
+  }
+
 
 
 Future checkPendingTransactionbeUpdatedToServer() async {

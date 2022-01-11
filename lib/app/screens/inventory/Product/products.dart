@@ -113,7 +113,7 @@ class _ProductsState extends State<Products> {
                           width: 10,
                         ),
                         Text(
-                          'New Product',
+                          'New Services',
                           style: TextStyle(
                             color: AppColor().whiteColor,
                             fontFamily: 'DMSans',

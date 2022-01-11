@@ -57,11 +57,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                       top: 40,
                       child: GestureDetector(
                         onTap: () {
-                          if (selectedIndex < boards.length - 1) {
-                            ++selectedIndex;
-                            progress = 22;
-                          }
-                          setState(() {});
+                          Get.to(RegHome());
                         },
                         child: Text(
                           "Skip",
