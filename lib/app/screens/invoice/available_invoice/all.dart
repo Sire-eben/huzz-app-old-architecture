@@ -9,6 +9,7 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:number_display/number_display.dart';
 
+import '../invoice_pdf.dart';
 import 'single_invoice_pdf.dart';
 import 'single_invoice_preview.dart';
 
@@ -96,53 +97,11 @@ class _AllState extends State<All> {
                               final date = DateTime.now();
                               final dueDate = date.add(Duration(days: 7));
 
-                              final singleInvoice = Invoice(
-                                supplier: Supplier(
-                                  name: 'Business Name',
-                                  mail: 'tunmisehassan@gmail.com',
-                                  phone: '+234 8123 456 789',
-                                ),
-                                bankDetails: BankDetails(
-                                    name: 'First Bank of Nigeria',
-                                    no: '0123456789',
-                                    mode: 'BANK TRANSFER'),
-                                customer: InvoiceCustomer(
-                                  name: 'Joshua Olatunde',
-                                  phone: '+234 903 872 6495',
-                                ),
-                                info: InvoiceInfo(
-                                  date: date,
-                                  dueDate: dueDate,
-                                  description: 'My description...',
-                                  number: '${DateTime.now().year}-9999',
-                                ),
-                                items: [
-                                  InvoiceItem(
-                                    item: 'MacBook',
-                                    quantity: 3,
-                                    amount: 500000,
-                                  ),
-                                  InvoiceItem(
-                                    item: 'MacBook',
-                                    quantity: 3,
-                                    amount: 500000,
-                                  ),
-                                  InvoiceItem(
-                                    item: 'MacBook',
-                                    quantity: 3,
-                                    amount: 500000,
-                                  ),
-                                  InvoiceItem(
-                                    item: 'MacBook',
-                                    quantity: 3,
-                                    amount: 500000,
-                                  ),
-                                ],
-                              );
                               final singleInvoiceReceipt =
-                                  await SingleInvoicePdf.generate(
-                                      singleInvoice);
+                                  await PdfInvoiceApi .generate(
+                                      item);
                               Get.to(() => PreviewSingleInvoice(
+                                invoice: item,
                                   file: singleInvoiceReceipt));
                             },
                             child: Padding(
