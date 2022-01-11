@@ -2,7 +2,7 @@ class Debtor {
   String? debtorId;
   String? customerId;
   String? businessId;
-  int? businessTransactionId;
+  String? businessTransactionId;
   int? balance;
   int? totalAmount;
   DateTime? createdTime;
@@ -10,6 +10,8 @@ class Debtor {
   bool? paid;
   bool? deleted;
   String? businessTransactionType;
+  bool? isPendingAdding;
+  bool? isPendingUpdating;
 
   Debtor({
     this.debtorId,
@@ -23,6 +25,8 @@ class Debtor {
     this.createdTime,
     this.updatedTime,
     this.deleted,
+    this.isPendingAdding,
+    this.isPendingUpdating
   });
 
   factory Debtor.fromJson(Map<String, dynamic> json) => Debtor(
@@ -33,10 +37,12 @@ class Debtor {
         balance: json["balance"],
         totalAmount: json["totalAmount"],
         businessTransactionType: json["businessTransactionType"],
-        paid: json["paid"],
+        paid: json["paid"]??false,
         createdTime: DateTime.parse(json["createdDateTime"]),
-        updatedTime: json["updatedDateTime"],
-        deleted: json["deleted"],
+        updatedTime: json["updatedDateTime"]==null?DateTime.parse(json['createdDateTime']):DateTime.parse(json['updatedDateTime']),
+        deleted: json["deleted"]??false,
+        isPendingAdding: json['isPendingAdding']??false,
+        isPendingUpdating: json['isPendingUpdating']??false
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,13 +53,13 @@ class Debtor {
         "balance": balance,
         "totalAmount": totalAmount,
         "businessTransactionType": businessTransactionType,
-        "paid": paid,
-        "createdDateTime": createdTime == null
-            ? DateTime.now().toIso8601String()
-            : createdTime!.toIso8601String(),
-        "updatedDateTime": updatedTime == null
-            ? DateTime.now().toIso8601String()
-            : updatedTime!.toIso8601String(),
-        "deleted": deleted,
+        "paid": paid??false,
+        "createdDateTime": 
+             createdTime!.toIso8601String(),
+        "updatedDateTime": updatedTime==null?createdTime!.toIso8601String():
+             updatedTime!.toIso8601String(),
+        "deleted": deleted??false,
+        "isPendingAdding":isPendingAdding??false,
+        "isPendingUpdating":isPendingUpdating??false
       };
 }

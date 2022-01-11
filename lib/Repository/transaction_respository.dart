@@ -632,9 +632,9 @@ value.businessTransactionPaymentHistoryList=transactionList;
       print("server first payment is ${firstItem.toJson()} ");
 
       savenext.businessTransactionPaymentHistoryList!.remove(firstItem);
-      savenext.businessTransactionPaymentHistoryList!.forEach((element) { 
-print("server rest payment is ${element.toJson()} ");
-      });
+//       savenext.businessTransactionPaymentHistoryList!.forEach((element) { 
+// print("server rest payment is ${element.toJson()} ");
+//       });
       String body = jsonEncode({
         "paymentItemRequestList": savenext.businessTransactionPaymentItemList!
             .map((e) => e.toJson(""))
