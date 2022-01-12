@@ -6,6 +6,7 @@ DateTime? updateDateTime;
 bool? deleted;
 bool? isPendingUpdating;
 String? id;
+String? paymentSource;
 String? businessTransactionId;
 
 PaymentHistory({this.id,
@@ -15,7 +16,8 @@ this.createdDateTime,
 this.updateDateTime,
 this.isPendingUpdating,
 this.deleted,
-this.businessTransactionId
+this.businessTransactionId,
+this.paymentSource
 });
 
 factory PaymentHistory.fromJson(Map<String,dynamic> json)=>PaymentHistory(
@@ -26,7 +28,8 @@ createdDateTime: DateTime.parse(json['createdDateTime']),
 updateDateTime: json['updatedDateTime']==null?DateTime.parse(json['createdDateTime']):DateTime.parse(json['updatedDateTime']),
 isPendingUpdating: json['isPendingUpdating']??false,
 businessTransactionId: json['businessTransactionId'],
-deleted: json['deleted']??false
+deleted: json['deleted']??false,
+paymentSource:json['paymentSource']
 
 );
 Map<String,dynamic> toJson()=>{
@@ -37,7 +40,8 @@ Map<String,dynamic> toJson()=>{
 "updatedDateTime":updateDateTime!.toIso8601String(),
 "isPendingUpdating":isPendingUpdating,
 "businessTransactionId":businessTransactionId,
-"deleted":deleted
+"deleted":deleted,
+"paymentSource":paymentSource
 
 };
 }

@@ -116,7 +116,7 @@ class TransactionModel {
             currentBusinessTransactionPaymentHistory != null 
                 ? currentBusinessTransactionPaymentHistory!.toJson()
                 : null,
-        "businessTransactionPaymentItemList":
+        "businessTransactionPaymentItemList":businessTransactionPaymentItemList==null?[]:
             businessTransactionPaymentItemList!.map((e) => e.toJson(id!)).toList(),
       };
 }

@@ -17,11 +17,15 @@ import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice.dart';
 import 'package:huzz/model/offline_business.dart';
-import 'package:huzz/model/payment_history_request.dart';
+import 'package:huzz/model/payment_history.dart';
+// import 'package:huzz/model/payment_history_request.dart';
+// import 'package:huzz/model/payment_history_request.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:huzz/model/transaction_model.dart';
+// import 'package:huzz/model/records_model.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -565,7 +569,21 @@ checkPendingTransactionbeUpdatedToServer();
         tax: tax,
         discountAmount: discount,
         bankId: bankselectedId,
-        dueDateTime: date);
+        dueDateTime: date,
+        businessTransaction: TransactionModel(balance: 0,
+        id: uuid.v1(),
+        createdTime: DateTime.now(),
+        entryDateTime: DateTime.now(),
+        transactionType: "INCOME",
+        paymentSource: "CASH",
+        customerId: customerId,
+        businessId:  _businessController.selectedBusiness.value!.businessId,
+        deleted: false,
+        paymentMethod: "FULLY_PAID",
+        isPending: false,
+        totalAmount: newTotalAmount.toInt(),
+
+        ));
 
     print("offline saving to database ${value.toJson()}}");
     await _businessController.sqliteDb.insertInvoce(value);
@@ -639,10 +657,10 @@ checkPendingTransactionbeUpdatedToServer();
 //   _file.deleteSync();
 
 // }
-var firstItem=savenext.paymentHistoryRequest![0];
+var firstItem=savenext.businessTransaction!.businessTransactionPaymentHistoryList![0];
       print("server first payment is ${firstItem.toJson()} ");
 
-      savenext.paymentHistoryRequest!.remove(firstItem);
+      savenext.businessTransaction!.businessTransactionPaymentHistoryList!.remove(firstItem);
 String body=jsonEncode({
 
 "paymentItemRequestList":savenext.paymentItemRequestList!.map((e) => e.toJson("")).toList(),
@@ -673,10 +691,10 @@ if(response.statusCode==200){
       print("Invoice response ${response.body}");
 // pendingInvoice.remove(savenext);
 var json=jsonDecode(response.body);
-   if( savenext.paymentHistoryRequest!.isNotEmpty){
+   if( savenext.businessTransaction!.businessTransactionPaymentHistoryList!.isNotEmpty){
     
          var response=Invoice.fromJson(json['data']);
-         response.paymentHistoryRequest=savenext.paymentHistoryRequest!;
+         response.businessTransaction!.businessTransactionPaymentHistoryList=savenext.businessTransaction!.businessTransactionPaymentHistoryList!;
 await updateInvoiceHisotryList(response);
    }
 // deletedItem.add(savenext);
@@ -901,11 +919,11 @@ if(pendingJobToBeUpdated.isEmpty){
 }
 var updatedNext=pendingJobToBeUpdated[0];
 try{
-  updatedNext.paymentHistoryRequest!.forEach((element) async{
+  updatedNext.businessTransaction!.businessTransactionPaymentHistoryList!.forEach((element) async{
     if(element.isPendingUpdating!){
    var response=await http.put(Uri.parse(ApiLink.invoice_link+"/"+updatedNext.id!),
 body: jsonEncode({
-  "businessTransactionRequest": {
+  "businessInvoiceRequest": {
         "businessId":updatedNext.businessId
     },
     "paymentHistoryRequest": {
@@ -947,7 +965,7 @@ if(pendingJobToBeUpdated.isNotEmpty){
 
 var updatedNext=invoice;
 try{
-  updatedNext.paymentHistoryRequest!.forEach((element) async{
+  updatedNext.businessTransaction!.businessTransactionPaymentHistoryList!.forEach((element) async{
  
    var response=await http.put(Uri.parse(ApiLink.invoice_link+"/"+updatedNext.id!),
 body: jsonEncode({
@@ -989,9 +1007,9 @@ Future updatePaymentHistoryOnline(String invoiceId,String businessId,int amount,
   try{
     print("business id is $businessId");
     _addingInvoiceStatus(AddingInvoiceStatus.Loading);
-var response=await http.put(Uri.parse(ApiLink.get_business_transaction+"/"+invoiceId),
+var response=await http.put(Uri.parse(ApiLink.invoice_link+"/"+invoiceId),
 body: jsonEncode({
-  "businessInvoiceRequest": {
+  "businessTransactionRequest": {
         "businessId":  _businessController.selectedBusiness.value!.businessId!
     },
     "paymentHistoryRequest": {
@@ -1063,8 +1081,8 @@ return result;
 try{
     _addingInvoiceStatus(AddingInvoiceStatus.Loading);
 var invoice=getInvoiceById(invoiceId);
-var invoiceList=invoice!.paymentHistoryRequest;
-invoiceList!.add(PaymentHistoryRequest(
+var invoiceList=invoice!.businessTransaction!.businessTransactionPaymentHistoryList;
+invoiceList!.add(PaymentHistory(
 
   id: uuid.v1(),
   isPendingUpdating: true,
@@ -1073,12 +1091,12 @@ invoiceList!.add(PaymentHistoryRequest(
   createdDateTime: DateTime.now(),
   updateDateTime: DateTime.now(),
   deleted: false,
-  invoiceId: invoiceId
+
 ));
 
 invoice.isHistoryPending=true;
 
-invoice.paymentHistoryRequest=invoiceList;
+invoice.businessTransaction!.businessTransactionPaymentHistoryList=invoiceList;
 updateInvoice(invoice);
   return invoice;
 }catch(ex){
