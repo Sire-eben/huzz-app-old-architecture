@@ -23,8 +23,8 @@ class _DebtOwnedState extends State<DebtOwned> {
   TextEditingController quantityController = TextEditingController();
   TextEditingController mountController = TextEditingController();
   TextEditingController textEditingController = TextEditingController();
-  final _debtorRepository=Get.find<DebtorRepository>();
-  final _customerRepository=Get.find<CustomerRepository>();
+  final _debtorRepository = Get.find<DebtorRepository>();
+  final _customerRepository = Get.find<CustomerRepository>();
   RandomColor _randomColor = RandomColor();
 
   final debtStatus = ['Pending', 'Fully Paid'];
@@ -87,144 +87,163 @@ class _DebtOwnedState extends State<DebtOwned> {
                           color: Color(0xffF5F5F5),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child:(_debtorRepository.debtOwnedList.isEmpty)? Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset('assets/images/debtors.svg'),
-                              Text(
-                                'Add Debt Owed',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                'Your debts will show here. Click the ',
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans'),
-                              ),
-                              Text(
-                                'Add New Debt Owed button to add your first debtor',
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans'),
-                              ),
-                            ],
-                          ),
-                        ):ListView.separated(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) => Divider(),
-                  itemCount:_debtorRepository.debtOwnedList.length,
-                  itemBuilder: (context, index) {
-                   
-                      var item=_debtorRepository.debtOwnedList[index];
-                      var customer=_customerRepository.checkifCustomerAvailableWithValue(item.customerId!);
-                      return Row(
-                        children: [
-                            Expanded(
-                                  child: Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Container(
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: _randomColor.randomColor()),
-                                      child: Center(
-                                          child: Text(
-                                        '${customer!.name![0]}',
-                                        style: TextStyle(
-                                            fontSize: 30,
-                                            color: Colors.white,
-                                            fontFamily: 'DMSans',
-                                            fontWeight: FontWeight.bold),
-                                      ))),
+                        child: (_debtorRepository.debtOwnedList.isEmpty)
+                            ? Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                        'assets/images/debtors.svg'),
+                                    Text(
+                                      'Add Debt Owed',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                          fontFamily: 'DMSans',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Your debts will show here. Click the ',
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          color: Colors.black,
+                                          fontFamily: 'DMSans'),
+                                    ),
+                                    Text(
+                                      'Add New Debt Owed button to add your first debtor',
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          color: Colors.black,
+                                          fontFamily: 'DMSans'),
+                                    ),
+                                  ],
                                 ),
-                              )),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.02),
-                          Expanded(
-                            flex: 5,
-                            child: Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    customer!.name!,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans',
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  Text(
-                                   customer.phone!,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans',
-                                        color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Bal: ${item.balance!}",
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontFamily: 'DMSans',
-                                        color: AppColor().orangeBorderColor,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  Text(
-                                    "Paid: ${(item.totalAmount!-item.balance!)}",
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        fontFamily: 'DMSans',
-                                        color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: InkWell(
-                                onTap: () {
-                                  print(index);
-                                  showModalBottomSheet(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(20))),
-                                      context: context,
-                                      isScrollControlled: true,
-                                      builder: (context) => buildUpdatePayment(
-                                          debtOwnedList[index]));
-                                },
-                                child: SvgPicture.asset(
-                                    'assets/images/edit_pri.svg')),
-                          ),
-                        ],
-                      );
-                    }
-                  
-                ),
+                              )
+                            : ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                separatorBuilder: (context, index) => Divider(),
+                                itemCount:
+                                    _debtorRepository.debtOwnedList.length,
+                                itemBuilder: (context, index) {
+                                  var item =
+                                      _debtorRepository.debtOwnedList[index];
+                                  var customer = _customerRepository
+                                      .checkifCustomerAvailableWithValue(
+                                          item.customerId!);
+                                  return Row(
+                                    children: [
+                                      Expanded(
+                                          child: Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: _randomColor
+                                                      .randomColor()),
+                                              child: Center(
+                                                  child: Text(
+                                                '${customer!.name![0]}',
+                                                style: TextStyle(
+                                                    fontSize: 30,
+                                                    color: Colors.white,
+                                                    fontFamily: 'DMSans',
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ))),
+                                        ),
+                                      )),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02),
+                                      Expanded(
+                                        flex: 5,
+                                        child: Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                customer.name!,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontFamily: 'DMSans',
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              Text(
+                                                customer.phone!,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontFamily: 'DMSans',
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Bal: ${item.balance!}",
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontFamily: 'DMSans',
+                                                    color: AppColor()
+                                                        .orangeBorderColor,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              Text(
+                                                "Paid: ${(item.totalAmount! - item.balance!)}",
+                                                style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontFamily: 'DMSans',
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                            onTap: () {
+                                              print(index);
+                                              showModalBottomSheet(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.vertical(
+                                                              top: Radius
+                                                                  .circular(
+                                                                      20))),
+                                                  context: context,
+                                                  isScrollControlled: true,
+                                                  builder: (context) =>
+                                                      buildUpdatePayment(
+                                                          debtOwnedList[
+                                                              index]));
+                                            },
+                                            child: SvgPicture.asset(
+                                                'assets/images/edit_pri.svg')),
+                                      ),
+                                    ],
+                                  );
+                                }),
                       ),
                     ),
                     SizedBox(

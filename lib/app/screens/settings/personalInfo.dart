@@ -265,6 +265,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 },
                 child: Container(
                   height: 50,
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                       color: AppColor().backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),

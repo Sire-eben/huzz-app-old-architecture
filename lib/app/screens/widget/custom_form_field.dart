@@ -955,6 +955,8 @@ class CustomTextFieldWithImageTransaction extends StatefulWidget {
       this.contactName,
       this.contactPhone,
       this.contactMail,
+      this.contactAmount,
+      this.contactDescription,
       this.onSubmited,
       this.validate,
       this.onChanged,
@@ -972,7 +974,11 @@ class CustomTextFieldWithImageTransaction extends StatefulWidget {
   final bool? enabled;
   final Widget? icon, prefixIcon, suffixIcon;
   final TextInputType? keyType;
-  final TextEditingController? contactName, contactPhone, contactMail;
+  final TextEditingController? contactName,
+      contactPhone,
+      contactMail,
+      contactAmount,
+      contactDescription;
   final TextInputAction? keyAction;
   final ValueChanged<String>? validate;
   final ValueChanged<String>? onSubmited;
@@ -1075,7 +1081,7 @@ class _CustomTextFieldWithImageTransactionState
                       enabled: widget.enabled,
                       keyboardType: this.widget.keyType,
                       textInputAction: this.widget.keyAction,
-                           validator: (value) {
+                      validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Name is required";
                         }
@@ -1165,16 +1171,15 @@ class _CustomTextFieldWithImageTransactionState
                       Expanded(
                         child: TextFormField(
                           controller: widget.contactPhone,
-                                validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Phone Number is required";
-                        }
-                        return null;
-                      },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Phone Number is required";
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "9034678966",
-                              
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
@@ -1230,7 +1235,6 @@ class _CustomTextFieldWithImageTransactionState
                       enabled: widget.enabled,
                       keyboardType: this.widget.keyType,
                       textInputAction: this.widget.keyAction,
-                
                       initialValue: this.widget.initialValue,
                       decoration: InputDecoration(
                         isDense: true,
@@ -1309,10 +1313,14 @@ class CustomTextFieldInvoice extends StatefulWidget {
       this.onSubmited,
       this.validate,
       this.onChanged,
+      // ignore: non_constant_identifier_names
       this.AllowClickable = false,
       this.validatorText,
-      this.onClick});
+      this.onClick,
+      this.contactAmount,
+      this.contactDescription});
   final VoidCallback? onClick;
+  // ignore: non_constant_identifier_names
   final bool? AllowClickable;
   final String? hint;
   final String? label;
@@ -1326,6 +1334,8 @@ class CustomTextFieldInvoice extends StatefulWidget {
   final TextEditingController? contactName,
       contactPhone,
       contactMail,
+      contactAmount,
+      contactDescription,
       contactAddress;
   final TextInputAction? keyAction;
   final ValueChanged<String>? validate;
@@ -1594,6 +1604,54 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText: 'yourmail@mail.com',
+                        prefixIcon: widget.prefixIcon,
+                        suffixIcon: widget.suffixIcon,
+                        hintStyle:
+                            Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontSize: 14,
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                      ),
+                      onFieldSubmitted: widget.onSubmited),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: TextFormField(
+                      onChanged: this.widget.onChanged,
+                      maxLength: this.widget.maxLength,
+                      controller: widget.contactAmount,
+                      enabled: widget.enabled,
+                      keyboardType: this.widget.keyType,
+                      textInputAction: this.widget.keyAction,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return widget.validatorText;
+                        }
+                        return null;
+                      },
+                      initialValue: this.widget.initialValue,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        prefixText: this.widget.pretext,
+                        suffixText: this.widget.sufText,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor().backgroundColor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor().backgroundColor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor().backgroundColor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        hintText: '0.0',
                         prefixIcon: widget.prefixIcon,
                         suffixIcon: widget.suffixIcon,
                         hintStyle:
