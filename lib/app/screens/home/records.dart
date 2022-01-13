@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/home/insight.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/model/recordData.dart';
 import 'package:huzz/model/records_model.dart';
+import 'package:huzz/model/transaction_model.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'transaction_history.dart';
 
@@ -13,6 +16,9 @@ class Records extends StatefulWidget {
 }
 
 class _RecordsState extends State<Records> {
+  final transactionController = Get.find<TransactionRespository>();
+  List<TransactionModel> transactionList = [];
+
   final recordFilter = [
     'Today',
     'This Year',
@@ -24,28 +30,29 @@ class _RecordsState extends State<Records> {
 
   String? value;
   List<_SalesData> data = [
-    _SalesData('Nov 1', 35),
-    _SalesData('Nov 2', 28),
-    _SalesData('Nov 3', 34),
-    _SalesData('Nov 4', 32),
-    _SalesData('Nov 5', 40),
-    _SalesData('Nov 6', 28),
-    _SalesData('Nov 7', 34),
-    _SalesData('Nov 8', 32)
+    _SalesData('1pm', 35),
+    _SalesData('2pm', 28),
+    _SalesData('3pm', 34),
+    _SalesData('4pm', 32),
+    _SalesData('5pm', 40),
+    _SalesData('6pm', 28),
+    _SalesData('7pm', 34),
+    _SalesData('8pm', 32)
   ];
 
   List<_SalesData> data2 = [
-    _SalesData('Nov 1', 15),
-    _SalesData('Nov 2', 10),
-    _SalesData('Nov 3', 40),
-    _SalesData('Nov 4', 32),
-    _SalesData('Nov 5', 20),
-    _SalesData('Nov 6', 15),
-    _SalesData('Nov 7', 40),
-    _SalesData('Nov 8', 32)
+    _SalesData('1pm', 15),
+    _SalesData('2pm', 10),
+    _SalesData('3pm', 40),
+    _SalesData('4pm', 32),
+    _SalesData('5pm', 20),
+    _SalesData('6pm', 15),
+    _SalesData('7pm', 40),
+    _SalesData('8pm', 32)
   ];
   @override
   Widget build(BuildContext context) {
+    // transactionController.
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -274,39 +281,43 @@ class _RecordsState extends State<Records> {
                   horizontal: MediaQuery.of(context).size.height * 0.03),
               child: Container(
                 height: 200,
-                child: SfCartesianChart(
-                    primaryXAxis: CategoryAxis(),
+                child: Obx(() {
+                  return SfCartesianChart(
+                      primaryXAxis: CategoryAxis(),
 
-                    // Chart title
-                    // title: ChartTitle(text: 'Half yearly sales analysis'),
-                    // Enable legend
-                    legend: Legend(isVisible: false),
-                    // Enable tooltip
-                    tooltipBehavior: TooltipBehavior(enable: true),
-                    series: <ChartSeries<_SalesData, String>>[
-                      SplineSeries<_SalesData, String>(
-                          dataSource: data,
-                          color: AppColor().blueColor,
-                          xValueMapper: (_SalesData sales, _) => sales.year,
-                          yValueMapper: (_SalesData sales, _) => sales.sales,
-                          name: 'Sales',
-                          splineType: SplineType.cardinal,
-                          cardinalSplineTension: 0.9,
-                          // Enable data label
-                          dataLabelSettings:
-                              DataLabelSettings(isVisible: false)),
-                      SplineSeries<_SalesData, String>(
-                          dataSource: data2,
-                          color: AppColor().orangeBorderColor,
-                          xValueMapper: (_SalesData sales, _) => sales.year,
-                          yValueMapper: (_SalesData sales, _) => sales.sales,
-                          name: 'Sales',
-                          splineType: SplineType.cardinal,
-                          cardinalSplineTension: 0.9,
-                          // Enable data label
-                          dataLabelSettings:
-                              DataLabelSettings(isVisible: false)),
-                    ]),
+                      // Chart title
+                      // title: ChartTitle(text: 'Half yearly sales analysis'),
+                      // Enable legend
+                      legend: Legend(isVisible: false),
+                      // Enable tooltip
+                      tooltipBehavior: TooltipBehavior(enable: true),
+                      series: <ChartSeries<RecordsData, String>>[
+                        SplineSeries<RecordsData, String>(
+                            dataSource:
+                                transactionController.allIncomeHoursData,
+                            color: AppColor().blueColor,
+                            xValueMapper: (RecordsData value, _) => value.label,
+                            yValueMapper: (RecordsData value, _) => value.value,
+                            name: 'Sales',
+                            splineType: SplineType.cardinal,
+                            cardinalSplineTension: 0.9,
+                            // Enable data label
+                            dataLabelSettings:
+                                DataLabelSettings(isVisible: false)),
+                        SplineSeries<RecordsData, String>(
+                            dataSource:
+                                transactionController.allExpenditureHoursData,
+                            color: AppColor().orangeBorderColor,
+                            xValueMapper: (RecordsData value, _) => value.label,
+                            yValueMapper: (RecordsData value, _) => value.value,
+                            name: 'Value',
+                            splineType: SplineType.cardinal,
+                            cardinalSplineTension: 0.9,
+                            // Enable data label
+                            dataLabelSettings:
+                                DataLabelSettings(isVisible: false)),
+                      ]);
+                }),
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -617,7 +628,8 @@ class _RecordsState extends State<Records> {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            Expanded(
+            Container(
+              height: MediaQuery.of(context).size.height / 3,
               child: ListView.separated(
                   separatorBuilder: (context, index) => Divider(),
                   itemCount: recordSummaryList.length,

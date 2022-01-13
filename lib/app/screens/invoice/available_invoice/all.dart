@@ -98,11 +98,9 @@ class _AllState extends State<All> {
                               final dueDate = date.add(Duration(days: 7));
 
                               final singleInvoiceReceipt =
-                                  await PdfInvoiceApi .generate(
-                                      item);
+                                  await PdfInvoiceApi.generate(item);
                               Get.to(() => PreviewSingleInvoice(
-                                invoice: item,
-                                  file: singleInvoiceReceipt));
+                                  invoice: item, file: singleInvoiceReceipt));
                             },
                             child: Padding(
                               padding: EdgeInsets.only(
@@ -356,7 +354,7 @@ class _AllState extends State<All> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 300,
+              vertical: 100,
             ),
             title: Row(
               children: [

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:huzz/model/payment_history_request.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/records_model.dart';
+import 'package:huzz/model/transaction_model.dart';
 
 class Invoice {
 
@@ -23,9 +24,10 @@ bool? deleted;
 bool? isPending;
 bool? isUpdatePending;
 List<PaymentItem>? paymentItemRequestList;
-List<PaymentHistoryRequest>? paymentHistoryRequest;
+// List<PaymentHistoryRequest>? paymentHistoryRequest;
 String? bankId;
 bool? isHistoryPending;
+TransactionModel? businessTransaction;
 
 
 Invoice({
@@ -48,7 +50,7 @@ this.isPending,
 this.isUpdatePending,
 this.paymentItemRequestList,
 this.bankId,
-this.paymentHistoryRequest,
+this.businessTransaction,
 this.isHistoryPending
 
 
@@ -74,7 +76,7 @@ isPending: json['isPending']??false,
 isUpdatePending: json['isUpdatingPending']??false,
 bankId: json['bankInfoId'],
 isHistoryPending: json['isHistoryPending']??false,
-paymentHistoryRequest: json['paymentHistoryRequest']==null?[]:List.from(json['PaymentHistoryRequest']).map((e) => PaymentHistoryRequest.fromJson(e)).toList(),
+businessTransaction: json['businessTransaction']==null?null:TransactionModel.fromJson(json['businessTransaction']),
  paymentItemRequestList:
           json['businessTransactionPaymentItemList']==null?[]:    List.from(json['businessTransactionPaymentItemList'])
                   .map((e) => PaymentItem.fromJson(
@@ -108,7 +110,7 @@ Map<String,dynamic> toJson()=>{
 "isUpdatingPending":isUpdatePending,
 "bankInfoId":bankId,
 "isHistoryPending":isHistoryPending??false,
-"PaymentHistoryRequest":paymentHistoryRequest!.map((e) => e.toJson()).toList()
+"businessTransaction":businessTransaction==null?null: businessTransaction!.toJson()
             
 
 

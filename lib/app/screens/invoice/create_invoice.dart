@@ -104,30 +104,15 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             Get.back();
           },
         ),
-        title: Row(
-          children: [
-            Text(
-              'Create Invoice',
-              style: TextStyle(
-                color: AppColor().backgroundColor,
-                fontFamily: "DMSans",
-                fontStyle: FontStyle.normal,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            SizedBox(width: 4),
-            Text(
-              '(#00000001)',
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: "DMSans",
-                fontStyle: FontStyle.normal,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
+        title: Text(
+          'Create Invoice',
+          style: TextStyle(
+            color: AppColor().backgroundColor,
+            fontFamily: "DMSans",
+            fontStyle: FontStyle.normal,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
       backgroundColor: Colors.white,
@@ -826,7 +811,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     ),
                   )
             : Container(),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+        SizedBox(
+            height: _invoiceController.productList.length >= 2
+                ? 0
+                : MediaQuery.of(context).size.height * 0.02),
         (_invoiceController.productList.length >= 2)
             ? showAllItems()
             : Container(),
@@ -1638,7 +1626,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
 
   Widget showAllItems() {
     return Container(
-        margin: EdgeInsets.only(top: 20),
         width: MediaQuery.of(context).size.width,
         height: _invoiceController.productList.length * 100,
         child: ListView.builder(
