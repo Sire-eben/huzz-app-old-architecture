@@ -93,7 +93,7 @@ class AuthRepository extends GetxController {
   String get token => Mtoken.value;
 
   SqliteDb sqliteDb = SqliteDb();
-
+bool tokenExpired=false;
   @override
   void onInit() async {
     pref = SharePref();
@@ -103,8 +103,11 @@ class AuthRepository extends GetxController {
       _authStatus(AuthStatus.IsFirstTime);
     } else {
       print("Not my First Time Using this app");
-      if (pref!.getUser() != null) {
+      print("expired date token ${pref!.getDateTokenExpired()} token expired $tokenExpired");
+
+      if (pref!.getUser() != null&& !DateTime.now().isAfter(pref!.getDateTokenExpired())&&!tokenExpired) {
         user = pref!.getUser()!;
+       
         Mtoken(pref!.read());
 
         _authStatus(AuthStatus.Authenticated);
@@ -158,6 +161,7 @@ class AuthRepository extends GetxController {
 //checking pending job for insertion,deletion and updating
       Get.snackbar("Internet Status", "Device is online now");
       MonlineStatus(OnlineStatus.Onilne);
+
     } else {
       Get.snackbar("Internet Status", "Device is offline now");
       MonlineStatus(OnlineStatus.Offline);
@@ -318,7 +322,7 @@ class AuthRepository extends GetxController {
           this.user = user;
           pref!.setUser(user);
           DateTime date = DateTime.now();
-          DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
+          DateTime expireToken = DateTime(date.year, date.month+1 , date.day);
           pref!.setDateTokenExpired(expireToken);
           _authStatus(AuthStatus.Authenticated);
 
@@ -372,7 +376,7 @@ class AuthRepository extends GetxController {
           this.user = user;
           pref!.setUser(user);
           DateTime date = DateTime.now();
-          DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
+          DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
           pref!.setDateTokenExpired(expireToken);
           _authStatus(AuthStatus.Authenticated);
           Get.off(PinSuccesful());
@@ -416,7 +420,7 @@ class AuthRepository extends GetxController {
         Mtoken(token);
         this.user = user;
         DateTime date = DateTime.now();
-        DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
+        DateTime expireToken = DateTime(date.year, date.month+1, date.day);
         pref!.setDateTokenExpired(expireToken);
         _authStatus(AuthStatus.Authenticated);
         final _businessController = Get.find<BusinessRespository>();
@@ -486,4 +490,5 @@ class AuthRepository extends GetxController {
     sqliteDb.deleteAllProducts();
     sqliteDb.deleteAllCustomers();
   }
+
 }

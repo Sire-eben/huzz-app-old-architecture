@@ -12,7 +12,7 @@
 
 
    <application
-        android:label="huzz"
+        android:label="Huzz"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -10,7 +10,7 @@ class NetworkServiceImpl implements NetworkService {
     headers['Content-Type'] = 'application/json';
 
     if (!isNotAuthenticated!) {
-      String token = jsonDecode('token' ?? '');
+      String token = jsonDecode('token');
       headers['Authorization'] = 'Bearer $token';
     }
     return headers;

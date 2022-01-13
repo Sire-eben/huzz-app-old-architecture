@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
+import 'package:huzz/model/payment_history_request.dart';
 import 'package:huzz/model/payment_item.dart';
+import 'package:huzz/model/records_model.dart';
+import 'package:huzz/model/transaction_model.dart';
 
 class Invoice {
 
@@ -21,7 +24,10 @@ bool? deleted;
 bool? isPending;
 bool? isUpdatePending;
 List<PaymentItem>? paymentItemRequestList;
+// List<PaymentHistoryRequest>? paymentHistoryRequest;
 String? bankId;
+bool? isHistoryPending;
+TransactionModel? businessTransaction;
 
 
 Invoice({
@@ -43,7 +49,9 @@ this.deleted,
 this.isPending,
 this.isUpdatePending,
 this.paymentItemRequestList,
-this.bankId
+this.bankId,
+this.businessTransaction,
+this.isHistoryPending
 
 
 });
@@ -67,6 +75,8 @@ deleted: json['deleted']??false,
 isPending: json['isPending']??false,
 isUpdatePending: json['isUpdatingPending']??false,
 bankId: json['bankInfoId'],
+isHistoryPending: json['isHistoryPending']??false,
+businessTransaction: json['businessTransaction']==null?null:TransactionModel.fromJson(json['businessTransaction']),
  paymentItemRequestList:
           json['businessTransactionPaymentItemList']==null?[]:    List.from(json['businessTransactionPaymentItemList'])
                   .map((e) => PaymentItem.fromJson(
@@ -74,7 +84,7 @@ bankId: json['bankInfoId'],
                       "INCOME",
                       json['balance'] == null || json['balance'] == 0
                           ? true
-                          : false))
+                          : false,json['id']))
                   .toList()
 );
 
@@ -95,10 +105,12 @@ Map<String,dynamic> toJson()=>{
 "createdDateTime":createdDateTime!.toIso8601String(),
 "deleted":deleted,
   "businessTransactionPaymentItemList":
-            paymentItemRequestList!.map((e) => e.toJson()).toList(),
+            paymentItemRequestList!.map((e) => e.toJson(id!)).toList(),
 "isPending":isPending,
 "isUpdatingPending":isUpdatePending,
-"bankInfoId":bankId
+"bankInfoId":bankId,
+"isHistoryPending":isHistoryPending??false,
+"businessTransaction":businessTransaction==null?null: businessTransaction!.toJson()
             
 
 

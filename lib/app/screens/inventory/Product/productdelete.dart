@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/model/product.dart';
-import 'package:huzz/model/product_model.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../../../colors.dart';
 
 class BuildDeleteProduct extends StatefulWidget {
@@ -20,18 +18,40 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColor().backgroundColor,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: Text(
+          'Back',
+          style: TextStyle(
+            color: AppColor().backgroundColor,
+            fontFamily: "DMSans",
+            fontStyle: FontStyle.normal,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       backgroundColor: AppColor().whiteColor,
       body: Obx(() {
         return Stack(
           children: [
             Positioned(
-              top: 30,
               left: 20,
               right: 20,
               child: productCount(context),
             ),
             Positioned(
-              top: 210,
+              top: 180,
               left: 20,
               right: 20,
               child: Row(
@@ -79,7 +99,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               ),
             ),
             Positioned(
-              top: 140,
+              top: 110,
               left: 20,
               right: 20,
               child: Container(
@@ -139,7 +159,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
             ),
             //ProductList
             Positioned(
-              top: 250,
+              top: 230,
               bottom: 30,
               left: 20,
               right: 20,
@@ -208,6 +228,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -392,7 +413,7 @@ class _ListingProductState extends State<ListingProduct> {
                           width: 50,
                         ),
                         Text(
-                          'N${display(widget.item!.costPrice??0)}',
+                          'N${display(widget.item!.costPrice ?? 0)}',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',

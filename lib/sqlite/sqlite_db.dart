@@ -77,12 +77,18 @@ $invoiceId text primary key,
 $invoiceJson text not null,
 $businessId text not null)
 ''');
-        
+
+  await db.execute('''create table $debtorbusinessTable (
+$debtorId text primary key,
+$debtorJson text not null,
+$businessId text not null)
+''');
+       
 // await db.execute(''' create table $playtableName (
 // $courseId integer,
 // $coursevideoplayedid integer,
 // $positionLastWatched integer,
-// $watchedDurationWatched integer,
+// $watchedDurationWatched integer
 // $courseVideoTitle text not null,
 // $userId integer)
 
@@ -171,8 +177,13 @@ db.delete(businessTableName);
   }
 
   Future updateOfflineTransaction(TransactionModel transactionModel) async {
+       var value = jsonEncode(transactionModel.toJson());
     var result = await db.update(
-        transactionTableName, transactionModel.toJson(),
+        transactionTableName,{
+      transactionId: transactionModel.id,
+      businessId: transactionModel.businessId,
+      transactionJson: value
+    },
         where: '"$transactionId" = ?', whereArgs: [transactionModel.id]);
 
     print("updated $result");
@@ -252,7 +263,17 @@ Future insertProduct(Product product) async {
 
     print("updated $result");
   }
+  Future<int> deleteOfflineDebtor(
+    Debtor debtor) async {
+    var result = await db.delete(debtorbusinessTable,
+        where: '"$debtorId" = ?', whereArgs: [debtor.debtorId!]);
+    // print("transaction  with ${transactionModel.id} is deleted $result ");
+    return result;
+  }
 
+  Future deleteAllOfflineDebtors() async {
+    await db.delete(debtorbusinessTable);
+  }
   Future<Product?> getOfflineProduct(String id) async {
     var result = await db.query(productbusinessTable,
         where: '"$productId" = ?', whereArgs: [id]);

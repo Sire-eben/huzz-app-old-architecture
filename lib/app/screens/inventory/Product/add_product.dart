@@ -306,7 +306,7 @@ class _AddProductState extends State<AddProduct> {
                     ),
                     child: GestureDetector(
                       child: Icon(
-                        Icons.add,
+                        Icons.remove,
                         size: 18,
                         color: AppColor().whiteColor,
                       ),

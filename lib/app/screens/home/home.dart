@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(NotificationSettings());
+                        Get.to(Notifications());
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',
@@ -384,38 +384,40 @@ class _HomeState extends State<Home> {
           Expanded(
               child: Container(
             padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.height * 0.02,
-                right: MediaQuery.of(context).size.height * 0.02,
                 bottom: MediaQuery.of(context).size.height * 0.02),
             decoration: BoxDecoration(
               color: Color(0xffF5F5F5),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: ListView.separated(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  var item = _transactionController.allPaymentItem[index];
-                  return InkWell(
-                    onTap: () {
-                      Get.to(() => MoneySummary());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
+            child: Obx(() {
+              return ListView.separated(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    var item = _transactionController.allPaymentItem[index];
+                    return InkWell(
+                      onTap: () {
+                        print(
+                            "item payment transaction id is ${item.businessTransactionId}");
+                        Get.to(() => MoneySummary(
+                              item: item,
+                            ));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Image.asset(
                               (item.transactionType == "EXPENDITURE")
                                   ? "assets/images/arrow_up.png"
                                   : "assets/images/arrow_down.png",
                               width: 20,
                               height: 20,
                             ),
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.02),
-                            Column(
+                          ),
+                          Expanded(
+                            flex: 7,
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -432,29 +434,36 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'N ${display(item.totalAmount)}',
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              item.isFullyPaid! ? "Fully Paid" : "Partially",
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => Divider(),
-                itemCount: _transactionController.allPaymentItem.length),
+                          ),
+                          Spacer(),
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'N ${display(item.totalAmount)}',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    item.isFullyPaid!
+                                        ? "Fully Paid"
+                                        : "Partially",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ]),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: _transactionController.allPaymentItem.length);
+            }),
           ))
         ],
       ),
@@ -518,7 +527,7 @@ class _HomeState extends State<Home> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.to(NotificationSettings());
+                        Get.to(Notifications());
                       },
                       child: SvgPicture.asset(
                         'assets/images/bell.svg',

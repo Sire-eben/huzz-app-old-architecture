@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/api_link.dart';
+import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;
@@ -13,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 import 'auth_respository.dart';
+import 'customer_repository.dart';
 import 'file_upload_respository.dart';
 
 enum AddingDebtorStatus { Loading, Error, Success, Empty }
@@ -20,6 +22,7 @@ enum AddingDebtorStatus { Loading, Error, Success, Empty }
 class DebtorRepository extends GetxController
     with GetSingleTickerProviderStateMixin {
   final _userController = Get.find<AuthRepository>();
+    final _customerController = Get.find<CustomerRepository>();
   Rx<List<Debtor>> _onlineBusinessDebtor = Rx([]);
   Rx<List<Debtor>> _offlineBusinessDebtor = Rx([]);
   List<Debtor> get offlineBusinessDebtor => _offlineBusinessDebtor.value;
@@ -33,8 +36,8 @@ class DebtorRepository extends GetxController
   List<Debtor> get DebtorGoods => _DebtorGoods.value;
   Rx<File?> DebtorImage = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
-  final DebtorNameController = TextEditingController();
-  final DebtorCostPriceController = TextEditingController();
+  final totalAmountController = TextEditingController();
+  final amountController = TextEditingController();
   final DebtorSellingPriceController = TextEditingController();
   final DebtorQuantityController = TextEditingController();
   final DebtorUnitController = TextEditingController();
@@ -50,7 +53,13 @@ class DebtorRepository extends GetxController
   List<Debtor> pendingToUpdatedDebtorToServer = [];
   List<Debtor> pendingToBeAddedDebtorToServer = [];
   List<Debtor> pendingDeletedDebtorToServer = [];
+  Rx<List<Debtor>> _debtorsList=Rx([]);
+  Rx<List<Debtor>> _debtOwnedList=Rx([]);
+  List<Debtor> get debtorsList=> _debtorsList.value;
+  List<Debtor> get debtOwnedList=> _debtOwnedList.value;
   var uuid = Uuid();
+    Customer? selectedCustomer = null;
+     int customerType = 0;
   @override
   void onInit() async {
     // TODO: implement onInit
@@ -91,7 +100,7 @@ class DebtorRepository extends GetxController
     });
   }
 
-  Future addDebtorOnline(String type, String title) async {
+  Future addDebtorOnline(String type) async {
     try {
       _addingDebtorStatus(AddingDebtorStatus.Loading);
       String? fileId = null;
@@ -99,16 +108,25 @@ class DebtorRepository extends GetxController
         fileId =
             await _uploadFileController.uploadFile(DebtorImage.value!.path);
       }
+
+   var customerId;
+      if (customerType == 1) {
+        customerId = await _customerController
+            .addBusinessCustomerOfflineWithString(type);
+      } else {
+        if (selectedCustomer != null) customerId = selectedCustomer!.customerId;
+      }
+    
       var response = await http.post(Uri.parse(ApiLink.add_debtor),
           body: jsonEncode({
-            "name": DebtorNameController.text,
-            "costPrice": DebtorCostPriceController.text,
-            "sellingPrice": DebtorSellingPriceController.text,
-            "quantity": DebtorQuantityController.text,
+            "balance":int.parse(totalAmountController.text)-int.parse(amountController.text),
+            "totalAmount": totalAmountController.text,
+      
             "businessId":
                 _businessController.selectedBusiness.value!.businessId!,
-            "DebtorType": type,
-            "DebtorLogoFileStoreId": fileId
+            "businessTransactionType": type,
+            "customerId":customerId
+     
           }),
           headers: {
             "Content-Type": "application/json",
@@ -120,6 +138,7 @@ class DebtorRepository extends GetxController
         _addingDebtorStatus(AddingDebtorStatus.Success);
         getOnlineDebtor(
             _businessController.selectedBusiness.value!.businessId!);
+            getOfflineDebtor(  _businessController.selectedBusiness.value!.businessId!);
         clearValue();
         // Get.to(Confirmation(
         //   text: "Added",
@@ -137,17 +156,17 @@ class DebtorRepository extends GetxController
 
   Future addBudinessDebtor(String type, String title) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      addDebtorOnline(type, title);
+      addDebtorOnline(type);
     } else {
       addBusinessDebtorOffline(type, title);
     }
   }
 
-  Future UpdateBusinessDebtor(Debtor Debtor, String title) async {
+  Future UpdateBusinessDebtor(Debtor debtor,int amount) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      updateBusinessDebtorOnline(Debtor, title);
+      updateBusinessDebtorOnline(debtor,amount);
     } else {
-      updateBusinessDebtorOffline(Debtor, title);
+      updateBusinessDebtorOffline(debtor, amount);
     }
   }
 
@@ -169,6 +188,21 @@ class DebtorRepository extends GetxController
     Debtor debtor = Debtor();
 
     print("Debtor offline saving ${debtor.toJson()}");
+  var customerId;
+      if (customerType == 1) {
+        customerId = await _customerController
+            .addBusinessCustomerOfflineWithString(type);
+      } else {
+        if (selectedCustomer != null) customerId = selectedCustomer!.customerId;
+      }
+    debtor=Debtor(isPendingAdding: true,
+    debtorId: uuid.v1(),
+    businessId: _businessController.selectedBusiness.value!.businessId!,
+    createdTime: DateTime.now(),
+    businessTransactionType: type,
+    totalAmount: int.parse(totalAmountController.text),
+    balance: int.parse(totalAmountController.text)-int.parse(amountController.text)
+    );
     _businessController.sqliteDb.insertDebtor(debtor);
     clearValue();
     getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
@@ -178,34 +212,36 @@ class DebtorRepository extends GetxController
     // ));
   }
 
-  Future updateBusinessDebtorOffline(Debtor newDebtor, String title) async {
-    File? outFile;
-    // ignore: unnecessary_null_comparison
-    if (DebtorImage != null) {
-      var list = await getApplicationDocumentsDirectory();
+  Future updateBusinessDebtorOffline(Debtor debtor, int amount) async {
+    // File? outFile;
+    // // ignore: unnecessary_null_comparison
+    // if (DebtorImage != null) {
+    //   var list = await getApplicationDocumentsDirectory();
 
-      Directory appDocDir = list;
-      String appDocPath = appDocDir.path;
+    //   Directory appDocDir = list;
+    //   String appDocPath = appDocDir.path;
 
-      String basename = path.basename(DebtorImage.value!.path);
-      var newPath = appDocPath + basename;
-      // ignore: unnecessary_brace_in_string_interps
-      print("new file path is ${newPath}");
-      outFile = File(newPath);
-      DebtorImage.value!.copySync(outFile.path);
+    //   String basename = path.basename(DebtorImage.value!.path);
+    //   var newPath = appDocPath + basename;
+    //   // ignore: unnecessary_brace_in_string_interps
+    //   print("new file path is ${newPath}");
+    //   outFile = File(newPath);
+    //   DebtorImage.value!.copySync(outFile.path);
+    // }
+    
+
+    if(!debtor.isPendingUpdating! || !debtor.isPendingAdding!){
+     debtor.isPendingUpdating=true;
+       
+
+
     }
-    // Debtor debtor = Debtor(
-    //     isUpdatingPending: true,
-    //     DebtorName: DebtorNameController.text,
-    //     sellingPrice: int.parse(DebtorSellingPriceController.text),
-    //     costPrice: int.parse(DebtorCostPriceController.text),
-    //     quantity: int.parse(DebtorQuantityController.text),
-    //     DebtorLogoFileStoreId:
-    //         outFile == null ? newDebtor.DebtorLogoFileStoreId : outFile.path);
+    debtor.balance=debtor.balance!-amount;
 
-    // print("Debtor offline saving ${Debtor.toJson()}");
-    // _businessController.sqliteDb.updateOfflineProdcut(Debtor);
-    // clearValue();
+
+    print("Debtor offline saving ${debtor.toJson()}");
+    _businessController.sqliteDb.updateOfflineDebtor(debtor);
+    clearValue();
     // Get.to(Confirmation(
     //   text: "Updated",
     //   title: title,
@@ -214,33 +250,28 @@ class DebtorRepository extends GetxController
 
   void clearValue() {
     DebtorImage(null);
-    DebtorNameController.text = "";
+   amountController.text = "";
     DebtorQuantityController.text = "";
-    DebtorCostPriceController.text = "";
+    totalAmountController.text = "";
     DebtorSellingPriceController.text = "";
     DebtorUnitController.text = "";
     serviceDescription.text = "";
   }
 
-  Future updateBusinessDebtorOnline(Debtor Debtor, String title) async {
+  Future updateBusinessDebtorOnline(Debtor debtor, int amount) async {
     try {
       _addingDebtorStatus(AddingDebtorStatus.Loading);
       String? fileId = null;
 
-      if (DebtorImage.value != null) {
-        fileId =
-            await _uploadFileController.uploadFile(DebtorImage.value!.path);
-      }
+  
       var response =
-          await http.put(Uri.parse(ApiLink.add_debtor + "/" + Debtor.debtorId!),
+          await http.put(Uri.parse(ApiLink.add_debtor + "/" + debtor.debtorId!),
               body: jsonEncode({
-                "name": DebtorNameController.text,
-                "costPrice": DebtorCostPriceController.text,
-                "sellingPrice": DebtorSellingPriceController.text,
+                "balance": debtor.balance!-amount,
+         
 // "quantity":DebtorQuantityController.text,
-                "businessId": Debtor.businessId,
-                "DebtorType": tabController!.index == 0 ? "GOODS" : "SERVICES",
-                "DebtorLogoFileStoreId": fileId
+                "businessId": debtor.businessId,
+           
               }),
               headers: {
             "Content-Type": "application/json",
@@ -281,7 +312,49 @@ class DebtorRepository extends GetxController
         await _businessController.sqliteDb.getOfflineDebtors(businessId);
     _offlineBusinessDebtor(result);
     print("offline Debtor found ${result.length}");
+    classifiedDebt();
     // setDebtorDifferent();
+  }
+
+Future classifiedDebt()async{
+  List<Debtor> debtors=[];
+  List<Debtor> debtOwned=[];
+offlineBusinessDebtor.where((element) => !element.paid!).forEach((element) {
+  
+  if(element.businessTransactionType=="INCOME"){
+debtors.add(element);
+
+
+
+  }else{
+
+debtOwned.add(element);
+  }
+
+
+
+});
+_debtOwnedList(debtOwned);
+_debtorsList(debtors);
+
+
+}
+     Debtor? getDebtorByTransactionId(String id){
+    
+Debtor? result;
+offlineBusinessDebtor.forEach((element) {
+  // print("comparing with ${element.id} to $id");
+  if(element.businessTransactionId==id){
+result=element;
+print("search transaction is found");
+return;
+
+  }
+
+
+});
+return result;
+
   }
 
   Future getOnlineDebtor(String businessId) async {
@@ -411,22 +484,24 @@ class DebtorRepository extends GetxController
     // _businessController.sqliteDb.deleteDebtor(debtor);
   }
 
-  Future deleteBusinessDebtor(Debtor Debtor) async {
+  Future deleteBusinessDebtor(Debtor debtor) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      deleteDebtorOnline(Debtor);
+     await  deleteDebtorOnline(debtor);
     } else {
-      deleteBusinessDebtorOffline(Debtor);
+     await deleteBusinessDebtorOffline(debtor);
     }
+   await getOnlineDebtor(  _businessController.selectedBusiness.value!.businessId!);
+getOfflineDebtor(  _businessController.selectedBusiness.value!.businessId!);
   }
 
-  Future deleteBusinessDebtorOffline(Debtor Debtor) async {
-    Debtor.deleted = true;
+  Future deleteBusinessDebtorOffline(Debtor debtor) async {
+    debtor.deleted = true;
 
-    // if (!Debtor.isAddingPending!) {
-    //   _businessController.sqliteDb.updateOfflineProdcut(Debtor);
-    // } else {
-    //   _businessController.sqliteDb.deleteDebtor(Debtor);
-    // }
+    if (!debtor.isPendingAdding!) {
+      _businessController.sqliteDb.updateOfflineDebtor(debtor);
+    } else {
+      _businessController.sqliteDb.deleteOfflineDebtor(debtor);
+    }
     getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
   }
 
@@ -589,7 +664,7 @@ class DebtorRepository extends GetxController
           headers: {"Authorization": "Bearer ${_userController.token}"});
       print("delete response ${response.body}");
       if (response.statusCode == 200) {
-        // _businessController.sqliteDb.deleteDebtor(deletenext);
+        _businessController.sqliteDb.deleteOfflineDebtor(deletenext);
         getOfflineDebtor(
             _businessController.selectedBusiness.value!.businessId!);
       } else {}
@@ -599,5 +674,17 @@ class DebtorRepository extends GetxController
         deletePendingJobToServer();
       }
     });
+  }
+  Future deleteDebtorItem(Debtor debtor)async{
+
+_businessController.sqliteDb.deleteOfflineDebtor(debtor);
+        getOfflineDebtor(
+            _businessController.selectedBusiness.value!.businessId!);
+  }
+  Future updateDebtorItem(Debtor debtor)async{
+
+    _businessController.sqliteDb.updateOfflineDebtor(debtor);
+        getOfflineDebtor(
+            _businessController.selectedBusiness.value!.businessId!);
   }
 }

@@ -486,7 +486,7 @@ isCreatedFromInvoice: isinvoice
       }
     });
 
-    updatePendingJob();
+  addPendingJobToBeUpdateToServer();
   }
 
   Future checkPendingCustomerToBeDeletedOnServer() async {

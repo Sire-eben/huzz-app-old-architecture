@@ -570,80 +570,89 @@ class _InsightState extends State<Insight> {
                     children: [
                       Row(
                         children: [
-                          AnalyticsWidget(
+                          StatisticsWidget(
                             image: 'assets/images/income_transaction.svg',
                             color: AppColor().blueColor,
                             amount: 50,
                             name1: 'Income',
                             name2: 'Transaction',
+                            message:
+                                'Total number of\nincome transactions\nfor the selected period',
                           ),
                           SizedBox(width: 10),
-                          AnalyticsWidget(
+                          StatisticsWidget(
                             image: 'assets/images/expense_transaction.svg',
                             color: AppColor().orangeBorderColor,
                             amount: 50,
                             name1: 'Expense',
                             name2: 'Transaction',
+                            message: '',
                           ),
                         ],
                       ),
                       SizedBox(height: 10),
                       Row(
                         children: [
-                          AnalyticsWidget(
+                          StatisticsWidget(
                             image: 'assets/images/total_income.svg',
                             color: AppColor().backgroundColor,
                             amount: 50,
                             name1: 'Total',
                             name2: 'Income',
+                            message: '',
                           ),
                           SizedBox(width: 10),
-                          AnalyticsWidget(
+                          StatisticsWidget(
                             image: 'assets/images/total_expense.svg',
                             color: AppColor().blackColor,
                             amount: 50,
                             name1: 'Total',
                             name2: 'Expenses',
+                            message: '',
                           ),
                         ],
                       ),
                       SizedBox(height: 10),
                       Row(
                         children: [
-                          AnalyticsWidget(
+                          StatisticsWidget(
                             image: 'assets/images/average_income.svg',
                             color: AppColor().purpleColor,
                             amount: 50,
                             name1: 'Average income',
                             name2: 'per transaction',
+                            message: '',
                           ),
                           SizedBox(width: 10),
-                          AnalyticsWidget(
+                          StatisticsWidget(
                             image: 'assets/images/average_expenses.svg',
                             color: AppColor().wineColor,
                             amount: 500,
                             name1: 'Average expenses',
                             name2: 'per transaction',
+                            message: '',
                           ),
                         ],
                       ),
                       SizedBox(height: 10),
                       Row(
                         children: [
-                          AnalyticsWidget(
+                          StatisticsWidget(
                             image: 'assets/images/net_income.svg',
                             color: AppColor().lightblueColor,
                             amount: 50,
                             name1: 'Net income',
                             name2: '',
+                            message: '',
                           ),
                           SizedBox(width: 10),
-                          AnalyticsWidget(
+                          StatisticsWidget(
                             image: 'assets/images/h_income_transaction.svg',
                             color: AppColor().brownColor,
                             amount: 50,
                             name1: 'Highest income',
                             name2: 'transaction',
+                            message: '',
                           ),
                         ],
                       ),
@@ -757,13 +766,19 @@ class _InsightState extends State<Insight> {
       );
 }
 
-class AnalyticsWidget extends StatelessWidget {
-  final String? image, name1, name2;
+class StatisticsWidget extends StatelessWidget {
+  final String? image, name1, name2, message;
   final int? amount;
   final Color? color;
 
-  const AnalyticsWidget(
-      {Key? key, this.image, this.name1, this.name2, this.amount, this.color})
+  const StatisticsWidget(
+      {Key? key,
+      this.image,
+      this.name1,
+      this.name2,
+      this.message,
+      this.amount,
+      this.color})
       : super(key: key);
 
   @override
@@ -778,6 +793,8 @@ class AnalyticsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Tooltip(
+                waitDuration: Duration(microseconds: 0),
+                showDuration: Duration(microseconds: 0),
                 padding: EdgeInsets.all(6),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -791,8 +808,7 @@ class AnalyticsWidget extends StatelessWidget {
                     fontSize: 10,
                     color: Colors.black),
                 preferBelow: false,
-                message:
-                    'Your customers are the\npeople you sell products\nor services to',
+                message: message!,
                 child: Icon(
                   Icons.info_outline,
                   color: Colors.white,

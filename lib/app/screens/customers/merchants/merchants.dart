@@ -179,7 +179,7 @@ class _MerchantsState extends State<Merchants> {
                             children: [
                               SvgPicture.asset('assets/images/customers.svg'),
                               Text(
-                                'Customers',
+                                'Merchant',
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.black,
@@ -187,14 +187,14 @@ class _MerchantsState extends State<Merchants> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Your customers will show here. Click the',
+                                'Your merchants will show here. Click the',
                                 style: TextStyle(
                                     fontSize: 8,
                                     color: Colors.black,
                                     fontFamily: 'DMSans'),
                               ),
                               Text(
-                                'Add customer button to add your first customer',
+                                'Add merchant button to add your first merchant',
                                 style: TextStyle(
                                     fontSize: 8,
                                     color: Colors.black,

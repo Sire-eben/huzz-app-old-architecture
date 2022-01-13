@@ -103,57 +103,11 @@ class _AddServiceState extends State<AddService> {
               textEditingController:
                   _productController.productCostPriceController,
             ),
-            Container(
-              height: 50,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Service Description',
-                    style: TextStyle(color: Colors.black, fontSize: 12),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5),
-                    child: Text(
-                      "*",
-                      style: TextStyle(color: Colors.red, fontSize: 12),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: AppColor().whiteColor,
-                border: Border.all(
-                  width: 2,
-                  color: AppColor().backgroundColor,
-                ),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: TextFormField(
-                controller: _productController.serviceDescription,
-                textInputAction: TextInputAction.none,
-                decoration: InputDecoration(
-                  isDense: true,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                  ),
-                  hintText: 'Add a brief service description',
-                  hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                        fontFamily: 'DMSans',
-                        color: Colors.black26,
-                        fontSize: 14,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.normal,
-                      ),
-                ),
-              ),
+            CustomTextField(
+              label: "Service Description",
+              validatorText: "",
+              hint: 'Add a brief service description',
+              textEditingController: _productController.serviceDescription,
             ),
             Spacer(),
             InkWell(
@@ -315,7 +269,7 @@ class _AddServiceState extends State<AddService> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
-                      'Done',
+                      'Continue',
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
