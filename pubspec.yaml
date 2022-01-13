@@ -63,6 +63,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.4.40
   path: ^1.8.0
   syncfusion_flutter_datepicker: ^19.4.40
+  flutter_easyloading: ^3.0.3
 
 dev_dependencies:
   flutter_test:

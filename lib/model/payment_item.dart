@@ -30,10 +30,10 @@ class PaymentItem {
   });
 
   factory PaymentItem.fromJson(
-          Map<String, dynamic> json, String type, bool isFullyPaid) =>
+          Map<String, dynamic> json, String type, bool isFullyPaid,String transactionId) =>
       PaymentItem(
           id: json['id'],
-          businessTransactionId: json['businessTransactionId'],
+          businessTransactionId: transactionId,
           itemName: json['itemName'],
           productId: json['productId'],
           quality: json['quantity'],
@@ -47,9 +47,9 @@ class PaymentItem {
           transactionType: type,
           isFullyPaid: isFullyPaid);
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson(String transactionId) => {
         "id": id,
-        "businessTransactionId": businessTransactionId,
+        "businessTransactionId":transactionId,
         "itemName": itemName,
         "productId": productId,
         "quantity": quality,

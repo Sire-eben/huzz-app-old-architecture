@@ -8,10 +8,14 @@ import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
+import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/home/income_success.dart';
+import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/customer_model.dart';
+import 'package:huzz/model/payment_history.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
+import 'package:huzz/model/recordData.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;
@@ -78,9 +82,19 @@ class TransactionRespository extends GetxController {
   bool addCustomer = false;
   List<String> paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
   String? selectedPaymentSource;
+  Rx<List<TransactionModel>> _allTransactionList = Rx([]);
+  List<TransactionModel> get allTransactionList => _allTransactionList.value;
   List<String> paymentMode = ["FULLY_PAID", "DEPOSIT"];
   String? selectedPaymentMode;
   List<TransactionModel> pendingTransactionToBeAdded = [];
+  List<TransactionModel> pendingJobToBeUpdated = [];
+  List<TransactionModel> pendingJobToBeDelete = [];
+  List<TransactionModel> pendingUpdatedTransactionList = [];
+  Rx<List<RecordsData>> _allIncomeHoursData = Rx([]);
+  Rx<List<RecordsData>> _allExpenditureHoursData = Rx([]);
+  List<RecordsData> get allIncomeHoursData => _allIncomeHoursData.value;
+  List<RecordsData> get allExpenditureHoursData =>
+      _allExpenditureHoursData.value;
 
   @override
   void onInit() async {
@@ -119,6 +133,8 @@ class TransactionRespository extends GetxController {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           checkIfTransactionThatIsYetToBeAdded();
+          checkPendingTransactionbeUpdatedToServer();
+          checkPendingTransactionToBeDeletedOnServer();
           //update server with pending job
         });
       }
@@ -126,7 +142,11 @@ class TransactionRespository extends GetxController {
   }
 
   Future getAllPaymentItem() async {
-    if (todayTransaction.isEmpty) return;
+    if (todayTransaction.isEmpty) {
+      _allPaymentItem([]);
+      return;
+    }
+    ;
     List<PaymentItem> items = [];
     todayTransaction.forEach((element) {
       items.addAll(element.businessTransactionPaymentItemList!);
@@ -136,6 +156,7 @@ class TransactionRespository extends GetxController {
   }
 
   Future getOnlineTransaction(String businessId) async {
+    OnlineTransaction = [];
     var response = await http.get(
         Uri.parse(
             ApiLink.get_business_transaction + "?businessId=" + businessId),
@@ -150,16 +171,238 @@ class TransactionRespository extends GetxController {
       print("online transaction ${result.length}");
       // getTodayTransaction();
       getTransactionYetToBeSavedLocally();
+      checkIfUpdateAvailable();
+    } else if (response.statusCode == 401) {
+      if (json['error'] == "Unauthorized") {
+        _userController.tokenExpired = true;
+        Get.offAll(Signin());
+      }
     } else {}
+  }
+
+  Future checkIfUpdateAvailable() async {
+    OnlineTransaction.forEach((element) async {
+      var item = getTransactionById(element.id!);
+      if (item != null) {
+        print("item Transaction is found");
+        print("updated offline ${item.updatedTime!.toIso8601String()}");
+        print("updated online ${element.updatedTime!.toIso8601String()}");
+        if (!element.updatedTime!.isAtSameMomentAs(item.updatedTime!)) {
+          print("found Transaction to updated");
+          pendingUpdatedTransactionList.add(element);
+        }
+      }
+    });
+
+    updatePendingJob();
+  }
+
+  Future updatePendingJob() async {
+    if (pendingUpdatedTransactionList.isEmpty) {
+      return;
+    }
+    var updateNext = pendingUpdatedTransactionList[0];
+    _businessController.sqliteDb.updateOfflineTransaction(updateNext);
+    pendingUpdatedTransactionList.remove(updateNext);
+    if (pendingUpdatedTransactionList.isNotEmpty) {
+      updatePendingJob();
+    } else {
+      GetOfflineTransactions(
+          _businessController.selectedBusiness.value!.businessId!);
+    }
   }
 
   Future GetOfflineTransactions(String id) async {
     var results = await _businessController.sqliteDb.getOfflineTransactions(id);
     print("offline transaction ${results.length}");
 
-    _offlineTransactions(results);
+    _offlineTransactions(
+        results.where((element) => !element.deleted!).toList());
 
     getTodayTransaction();
+    //  getWeeklyRecordData();
+    getMonthlyRecord();
+    // splitCurrentTime();
+  }
+
+  Future splitCurrentTime() async {
+    TimeOfDay _timeday = TimeOfDay.now();
+    List<String> value = [];
+    for (int i = 0; i < 8; ++i) {
+      value.add((_timeday.hour - 2).toString());
+      var timeofday =
+          TimeOfDay(hour: _timeday.hour + 1, minute: _timeday.minute);
+      _timeday = timeofday;
+      print("splitting day hour " + _timeday.hour.toString() + ":00");
+    }
+    getSplitCurrentDate(value);
+   
+  }
+
+int daysInMonth(DateTime date) =>  DateTimeRange(
+  start:  DateTime(date.year, date.month,1),
+  end: DateTime(date.year, date.month + 1))
+  .duration
+  .inDays;
+
+
+  Future getMonthlyRecord()async{
+ var currentDate=DateTime.now();
+ int days=daysInMonth(currentDate);
+  List<DateTime> value = [];
+ for(int i=0;i<days;++i){
+
+ value.add(DateTime(currentDate.year, currentDate.month, i));
+      
+ }
+getSplitCurrentMonthly(value);
+
+
+  }
+
+Future getSplitCurrentMonthly(List<DateTime> days) async {
+    List<TransactionModel> _currentHoursIncome = [];
+    List<TransactionModel> _currentHoursExpenditure = [];
+    List<RecordsData> _hourIncomeData = [];
+    List<RecordsData> _hourExpenditureData = [];
+    days.forEach((element1) {
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
+      if (todayTransaction.isEmpty)
+        print(" transactonlist is empty");
+      else
+        print("today transaction is not empty");
+      offlineTransactions.forEach((element) {
+        print(
+            "monthly testing $element1 ${element.entryDateTime!.toIso8601String()}");
+
+        if (element.entryDateTime != null &&
+            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,
+                 )
+                .isAtSameMomentAs(
+                    DateTime(element1.year, element1.month))) {
+          print("today hour found");
+          if (element.transactionType!.contains("INCOME")) {
+            _currentHoursIncome.add(element);
+            print("income hour is  $element1 amount ${element.totalAmount}");
+            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+            print("income hour is  $element1 amount $incomeTotalAmount");
+          } else {
+            _currentHoursExpenditure.add(element);
+            expenditureTotalAmount =
+                expenditureTotalAmount + element.totalAmount ?? 0;
+            print(
+                "expenditure hour is  $element1 amount $expenditureTotalAmount");
+          }
+        }
+        _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "dd")!, incomeTotalAmount));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "dd")!, expenditureTotalAmount));
+      });
+    });
+    _allIncomeHoursData(_hourIncomeData);
+    _allExpenditureHoursData(_hourExpenditureData);
+  }
+
+  Future getSplitCurrentDate(List<String> hours) async {
+    var currentDate = DateTime.now();
+    List<TransactionModel> _currentHoursIncome = [];
+    List<TransactionModel> _currentHoursExpenditure = [];
+    List<RecordsData> _hourIncomeData = [];
+    List<RecordsData> _hourExpenditureData = [];
+    hours.forEach((element1) {
+      int incomeTotalAmount = 0;
+      int expenditureTotalAmount = 0;
+      if (todayTransaction.isEmpty)
+        print("today transactonlist is empty");
+      else
+        print("today transaction is not empty");
+      todayTransaction.forEach((element) {
+        print(
+            "hour testing $element1 ${element.createdTime!.toIso8601String()}");
+
+        if (element.createdTime!.isAfter(DateTime(currentDate.year,
+                currentDate.month, currentDate.day, int.parse(element1), 00)) &&
+            element.createdTime!.isBefore(DateTime(currentDate.year,
+                currentDate.month, currentDate.day, int.parse(element1), 59))) {
+          print("today hour found");
+          if (element.transactionType!.contains("INCOME")) {
+            _currentHoursIncome.add(element);
+            incomeTotalAmount =
+                incomeTotalAmount + int.parse(element.totalAmount.toString());
+            print("income hour is  $element1 amount $incomeTotalAmount");
+          } else {
+            _currentHoursExpenditure.add(element);
+            expenditureTotalAmount = expenditureTotalAmount +
+                int.parse(element.totalAmount.toString());
+            print(
+                "expenditure hour is  $element1 amount $expenditureTotalAmount");
+          }
+        }
+        _hourIncomeData.add(RecordsData(element1, incomeTotalAmount));
+        _hourExpenditureData.add(RecordsData(element1, expenditureTotalAmount));
+      });
+    });
+    _allIncomeHoursData(_hourIncomeData);
+    _allExpenditureHoursData(_hourExpenditureData);
+  }
+
+  Future getWeeklyRecordData() async {
+    DateTime currentDate = DateTime.now();
+    DateTime firstDay =
+        currentDate.subtract(Duration(days: currentDate.weekday));
+    List<DateTime> value = [];
+    for (int i = 0; i < 7; ++i) {
+      value.add(DateTime(firstDay.year, firstDay.month, firstDay.day));
+      firstDay = DateTime(firstDay.year, firstDay.month, firstDay.day + 1);
+    }
+    getSplitCurrentWeek(value);
+  }
+
+  Future getSplitCurrentWeek(List<DateTime> days) async {
+    List<TransactionModel> _currentHoursIncome = [];
+    List<TransactionModel> _currentHoursExpenditure = [];
+    List<RecordsData> _hourIncomeData = [];
+    List<RecordsData> _hourExpenditureData = [];
+    days.forEach((element1) {
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
+      if (todayTransaction.isEmpty)
+        print("today transactonlist is empty");
+      else
+        print("today transaction is not empty");
+      offlineTransactions.forEach((element) {
+        print(
+            "weekly testing $element1 ${element.entryDateTime!.toIso8601String()}");
+
+        if (element.entryDateTime != null &&
+            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,
+                    element.entryDateTime!.day)
+                .isAtSameMomentAs(
+                    DateTime(element1.year, element1.month, element1.day))) {
+          print("today hour found");
+          if (element.transactionType!.contains("INCOME")) {
+            _currentHoursIncome.add(element);
+            print("income hour is  $element1 amount ${element.totalAmount}");
+            incomeTotalAmount = incomeTotalAmount + element.totalAmount ?? 0;
+            print("income hour is  $element1 amount $incomeTotalAmount");
+          } else {
+            _currentHoursExpenditure.add(element);
+            expenditureTotalAmount =
+                expenditureTotalAmount + element.totalAmount ?? 0;
+            print(
+                "expenditure hour is  $element1 amount $expenditureTotalAmount");
+          }
+        }
+        _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "dd")!, incomeTotalAmount));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "dd")!, expenditureTotalAmount));
+      });
+    });
+    _allIncomeHoursData(_hourIncomeData);
+    _allExpenditureHoursData(_hourExpenditureData);
   }
 
   Future getTodayTransaction() async {
@@ -369,7 +612,7 @@ class TransactionRespository extends GetxController {
       }
 // String? timeday=date!.toIso8601String();
       String body = jsonEncode({
-        "paymentItemRequestList": productList.map((e) => e.toJson()).toList(),
+        "paymentItemRequestList": productList.map((e) => e.toJson("")).toList(),
         "transactionType": type,
         "paymentSource": selectedPaymentSource,
         "businessId": _businessController.selectedBusiness.value!.businessId,
@@ -413,6 +656,19 @@ class TransactionRespository extends GetxController {
     }
   }
 
+  TransactionModel? getTransactionById(String id) {
+    TransactionModel? result;
+    offlineTransactions.forEach((element) {
+      // print("comparing with ${element.id} to $id");
+      if (element.id == id) {
+        result = element;
+        print("search transaction is found");
+        return;
+      }
+    });
+    return result;
+  }
+
   Future createTransactionOffline(String type) async {
     String? fileid;
     String? customerId = null;
@@ -452,12 +708,15 @@ class TransactionRespository extends GetxController {
     productList.forEach((element) {
       totalamount = totalamount + (element.totalAmount!);
     });
-
+    print("payment mode is $selectedPaymentMode");
     value = TransactionModel(
       paymentMethod: selectedPaymentMode,
       paymentSource: selectedPaymentSource,
       id: uuid.v1(),
       totalAmount: totalamount,
+      balance: (selectedPaymentMode == "DEPOSIT")
+          ? totalamount - int.parse(amountPaidController.text)
+          : 0,
       createdTime: DateTime.now(),
       entryDateTime: date,
       transactionType: type,
@@ -467,6 +726,20 @@ class TransactionRespository extends GetxController {
       businessTransactionPaymentItemList: productList,
       isPending: true,
     );
+    List<PaymentHistory> transactionList = [];
+    transactionList.add(PaymentHistory(
+        id: uuid.v1(),
+        isPendingUpdating: true,
+        amountPaid: (selectedPaymentMode == "DEPOSIT")
+            ? int.parse(amountPaidController.text)
+            : totalamount,
+        paymentMode: selectedPaymentMode,
+        createdDateTime: DateTime.now(),
+        updateDateTime: DateTime.now(),
+        deleted: false,
+        businessTransactionId: value.id));
+
+    value.businessTransactionPaymentHistoryList = transactionList;
 
     print("offline saving to database ${value.toJson()}}");
     await _businessController.sqliteDb.insertTransaction(value);
@@ -530,10 +803,18 @@ class TransactionRespository extends GetxController {
         savenext.businessTransactionFileStoreId = image;
         _file.deleteSync();
       }
+      print("server payment mode ${savenext.paymentMethod}");
 
+      var firstItem = savenext.businessTransactionPaymentHistoryList![0];
+      print("server first payment is ${firstItem.toJson()} ");
+
+      savenext.businessTransactionPaymentHistoryList!.remove(firstItem);
+//       savenext.businessTransactionPaymentHistoryList!.forEach((element) {
+// print("server rest payment is ${element.toJson()} ");
+//       });
       String body = jsonEncode({
         "paymentItemRequestList": savenext.businessTransactionPaymentItemList!
-            .map((e) => e.toJson())
+            .map((e) => e.toJson(""))
             .toList(),
         "transactionType": savenext.transactionType,
         "paymentSource": savenext.paymentSource,
@@ -543,9 +824,16 @@ class TransactionRespository extends GetxController {
         "businessTransactionFileStoreId":
             savenext.businessTransactionFileStoreId,
         "entyDateTime": savenext.entryDateTime!.toIso8601String(),
-        "amountPaid": savenext.totalAmount,
+        "amountPaid": (savenext.paymentMethod == "DEPOSIT")
+            ? firstItem.amountPaid
+            : savenext.totalAmount,
+        // "businessTransactionPaymentHistoryList":
+
+        // savenext.businessTransactionPaymentHistoryList!.map((e) => e.toJson()).toList()
       });
-      print("transaction body $body");
+
+      print(" transaction body $body");
+
       final response =
           await http.post(Uri.parse(ApiLink.get_business_transaction),
               headers: {
@@ -555,10 +843,20 @@ class TransactionRespository extends GetxController {
               body: body);
 
       print({"sending to server transaction response ${response.body}"});
-      await deleteItem(savenext);
-      pendingTransactionToBeAdded.remove(savenext);
+
       if (response.statusCode == 200) {
         print("transaction response ${response.body}");
+        var json = jsonDecode(response.body);
+        if (savenext.businessTransactionPaymentHistoryList!.isNotEmpty) {
+          var response = TransactionModel.fromJson(json['data']);
+          response.businessTransactionPaymentHistoryList =
+              savenext.businessTransactionPaymentHistoryList!;
+          await updateTransactionHisotryList(response);
+//update Transaction
+
+        }
+        await deleteItem(savenext);
+        pendingTransactionToBeAdded.remove(savenext);
 // pendingTransaction.remove(savenext);
 
 // deletedItem.add(savenext);
@@ -630,10 +928,11 @@ class TransactionRespository extends GetxController {
         return;
       }
       if (element.transactionType == "INCOME") {
-        todayMoneyIn = todayMoneyIn + element.totalAmount!;
+        todayMoneyIn = todayMoneyIn + int.parse(element.totalAmount.toString());
       } else {
         print("total amount is ${element.totalAmount} ${element.toJson()}");
-        todayMoneyout = todayMoneyout + element.totalAmount!;
+        todayMoneyout =
+            todayMoneyout + int.parse(element.totalAmount.toString());
       }
     });
     todayBalance = todayMoneyIn - todayMoneyout;
@@ -708,6 +1007,274 @@ class TransactionRespository extends GetxController {
           .where((element) => element.productId == item.productId)
           .toList()
           .first;
+    }
+  }
+
+  Future updatePaymentHistoryOnline(
+      String transactionId, String businessId, int amount, String mode) async {
+    try {
+      print("business id is $businessId");
+      _addingTransactionStatus(AddingTransactionStatus.Loading);
+      var response = await http.put(
+          Uri.parse(ApiLink.get_business_transaction + "/" + transactionId),
+          body: jsonEncode({
+            "businessTransactionRequest": {
+              "businessId":
+                  _businessController.selectedBusiness.value!.businessId!
+            },
+            "paymentHistoryRequest": {"amountPaid": amount, "paymentMode": mode}
+          }),
+          headers: {
+            "Authorization": "Bearer ${_userController.token}",
+            "Content-Type": "application/json"
+          });
+      print(
+          "update payment history response status code is ${response.statusCode} ${response.body} ");
+      if (response.statusCode == 200) {
+//
+        var json = jsonDecode(response.body);
+        List<PaymentHistory> transactionReponseList =
+            List.from(json['data']['businessTransactionPaymentHistoryList'])
+                .map((e) => PaymentHistory.fromJson(e))
+                .toList();
+        var transaction = getTransactionById(transactionId);
+        transaction!.balance = json['data']['balance'];
+        transaction.updatedTime =
+            DateTime.parse(json['data']['updatedDateTime']);
+        transaction.businessTransactionPaymentHistoryList =
+            transactionReponseList;
+        updateTransaction(transaction);
+        return transaction;
+      } else {
+        Get.snackbar("Error", "Unable to Update Transaction");
+      }
+    } catch (ex) {
+      _addingTransactionStatus(AddingTransactionStatus.Empty);
+      print("error occurred ${ex.toString()}");
+    } finally {
+      _addingTransactionStatus(AddingTransactionStatus.Empty);
+      Get.back();
+    }
+  }
+
+  Future updatePaymentHistoryOffline(
+      String transactionId, String businessId, int amount, String mode) async {
+    try {
+      _addingTransactionStatus(AddingTransactionStatus.Loading);
+      var transaction = getTransactionById(transactionId);
+      var transactionList = transaction!.businessTransactionPaymentHistoryList;
+      transactionList!.add(PaymentHistory(
+          id: uuid.v1(),
+          isPendingUpdating: true,
+          amountPaid: amount,
+          paymentMode: mode,
+          createdDateTime: DateTime.now(),
+          updateDateTime: DateTime.now(),
+          deleted: false,
+          businessTransactionId: transactionId));
+
+      transaction.isHistoryPending = true;
+      transaction.balance = transaction.balance! - amount;
+      transaction.businessTransactionPaymentHistoryList = transactionList;
+      updateTransaction(transaction);
+      return transaction;
+    } catch (ex) {
+      _addingTransactionStatus(AddingTransactionStatus.Empty);
+    } finally {
+      _addingTransactionStatus(AddingTransactionStatus.Empty);
+      Get.back();
+    }
+  }
+
+  Future updateTransaction(TransactionModel transactionModel) async {
+    _businessController.sqliteDb.updateOfflineTransaction(transactionModel);
+    await GetOfflineTransactions(
+        _businessController.selectedBusiness.value!.businessId!);
+  }
+
+  Future<TransactionModel?> updateTransactionHistory(
+      String transactionId, String businessId, int amount, String mode) async {
+    var result;
+    if (_userController.onlineStatus == OnlineStatus.Onilne) {
+      result = await updatePaymentHistoryOnline(
+          transactionId, businessId, amount, mode);
+    } else {
+      result = await updatePaymentHistoryOffline(
+          transactionId, businessId, amount, mode);
+    }
+
+    return result;
+  }
+
+  Future checkPendingTransactionbeUpdatedToServer() async {
+    var list = await _businessController.sqliteDb.getOfflineTransactions(
+        _businessController.selectedBusiness.value!.businessId!);
+    list.forEach((element) {
+      if (element.isHistoryPending! && !element.isPending) {
+        pendingJobToBeUpdated.add(element);
+      }
+    });
+    pendingTransactionToBeUpdate();
+  }
+
+  Future pendingTransactionToBeUpdate() async {
+    if (pendingJobToBeUpdated.isEmpty) {
+      return;
+    }
+    var updatedNext = pendingJobToBeUpdated[0];
+    try {
+      updatedNext.businessTransactionPaymentHistoryList!
+          .forEach((element) async {
+        if (element.isPendingUpdating!) {
+          var response = await http.put(
+              Uri.parse(
+                  ApiLink.get_business_transaction + "/" + updatedNext.id!),
+              body: jsonEncode({
+                "businessTransactionRequest": {
+                  "businessId": updatedNext.businessId
+                },
+                "paymentHistoryRequest": {
+                  "amountPaid": element.amountPaid,
+                  "paymentMode": element.paymentMode
+                }
+              }),
+              headers: {
+                "Authorization": "Bearer ${_userController.token}",
+                "Content-Type": "application/json"
+              });
+          print("update history to server ${response.body}");
+        }
+      });
+    } catch (ex) {
+    } finally {
+      pendingJobToBeUpdated.remove(updatedNext);
+      if (pendingJobToBeUpdated.isNotEmpty) {
+        checkPendingTransactionbeUpdatedToServer();
+      }
+      getOnlineTransaction(
+          _businessController.selectedBusiness.value!.businessId!);
+    }
+  }
+
+  Future updateTransactionHisotryList(TransactionModel transactionModel) async {
+    var updatedNext = transactionModel;
+    try {
+      updatedNext.businessTransactionPaymentHistoryList!
+          .forEach((element) async {
+        var response = await http.put(
+            Uri.parse(ApiLink.get_business_transaction + "/" + updatedNext.id!),
+            body: jsonEncode({
+              "businessTransactionRequest": {
+                "businessId": updatedNext.businessId
+              },
+              "paymentHistoryRequest": {
+                "amountPaid": element.amountPaid,
+                "paymentMode": element.paymentMode
+              }
+            }),
+            headers: {
+              "Authorization": "Bearer ${_userController.token}",
+              "Content-Type": "application/json"
+            });
+        print("update history to server ${response.body}");
+      });
+    } catch (ex) {
+    } finally {
+      await getOnlineTransaction(
+          _businessController.selectedBusiness.value!.businessId!);
+    }
+  }
+
+  Future deleteTransactionOnline(TransactionModel transactionModel) async {
+    try {
+      print("deleting from online");
+      var response = await http.delete(
+          Uri.parse(
+              ApiLink.get_business_transaction + "/" + transactionModel.id!),
+          headers: {
+            "Authorization": "Bearer ${_userController.token}",
+            "Content-Type": "application/json"
+          });
+      print("transaction deletion detail response ${response.body}}");
+
+      if (response.statusCode == 200) {
+        await _businessController.sqliteDb
+            .deleteOfflineTransaction(transactionModel);
+
+        await GetOfflineTransactions(
+            _businessController.selectedBusiness.value!.businessId!);
+        Get.back();
+      } else if (response.statusCode == 404) {
+        await _businessController.sqliteDb
+            .deleteOfflineTransaction(transactionModel);
+
+        await GetOfflineTransactions(
+            _businessController.selectedBusiness.value!.businessId!);
+        Get.back();
+      }
+    } catch (ex) {
+      print("error from transaction deletion ${ex.toString()}");
+    }
+  }
+
+  Future deleteTransactionOffline(TransactionModel transactionModel) async {
+    transactionModel.deleted = true;
+    if (transactionModel.isPending) {
+      _businessController.sqliteDb.deleteOfflineTransaction(transactionModel);
+      await GetOfflineTransactions(
+          _businessController.selectedBusiness.value!.businessId!);
+    } else {
+      updateTransaction(transactionModel);
+    }
+    Get.back();
+  }
+
+  Future deleteTransaction(TransactionModel transactionModel) async {
+    if (_userController.onlineStatus == OnlineStatus.Onilne) {
+      deleteTransactionOnline(transactionModel);
+    } else {
+      deleteTransactionOffline(transactionModel);
+    }
+  }
+
+  Future checkPendingTransactionToBeDeletedOnServer() async {
+    print("checking transaction to be deleted");
+    var list = await _businessController.sqliteDb.getOfflineTransactions(
+        _businessController.selectedBusiness.value!.businessId!);
+    print("checking transaction to be deleted list ${list.length}");
+    list.forEach((element) {
+      if (element.deleted!) {
+        pendingJobToBeDelete.add(element);
+        print("Transaction to be deleted is found ");
+      }
+    });
+    print("Transaction to be deleted ${pendingJobToBeDelete.length}");
+    deletePendingJobToServer();
+  }
+
+  Future deletePendingJobToServer() async {
+    try {
+      if (pendingJobToBeDelete.isEmpty) return;
+
+      var deleteNext = pendingJobToBeDelete[0];
+      var response = await http.delete(
+          Uri.parse(ApiLink.get_business_transaction + "/" + deleteNext.id!),
+          headers: {
+            "Authorization": "Bearer ${_userController.token}",
+            "Content-Type": "application/json"
+          });
+      if (response.statusCode == 200) {
+        _businessController.sqliteDb.deleteOfflineTransaction(deleteNext);
+      }
+      pendingJobToBeDelete.remove(deleteNext);
+    } catch (ex) {
+    } finally {
+      if (pendingJobToBeDelete.isNotEmpty) {
+        deletePendingJobToServer();
+      } else {
+        await GetOfflineTransactions(
+            _businessController.selectedBusiness.value!.businessId!);
+      }
     }
   }
 }

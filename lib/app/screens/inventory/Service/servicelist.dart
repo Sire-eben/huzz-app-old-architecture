@@ -536,7 +536,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Text(
-                    'Save',
+                    'Continue',
                     style: TextStyle(
                       color: AppColor().whiteColor,
                       fontFamily: 'DMSans',

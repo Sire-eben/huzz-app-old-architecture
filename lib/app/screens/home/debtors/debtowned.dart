@@ -7,6 +7,7 @@ import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:huzz/model/debtors_model.dart';
 import 'package:number_display/number_display.dart';
+import 'package:random_color/random_color.dart';
 
 import '../../../../colors.dart';
 
@@ -22,6 +23,9 @@ class _DebtOwnedState extends State<DebtOwned> {
   TextEditingController quantityController = TextEditingController();
   TextEditingController mountController = TextEditingController();
   TextEditingController textEditingController = TextEditingController();
+  final _debtorRepository = Get.find<DebtorRepository>();
+  final _customerRepository = Get.find<CustomerRepository>();
+  RandomColor _randomColor = RandomColor();
 
   final debtStatus = ['Pending', 'Fully Paid'];
 
@@ -83,40 +87,163 @@ class _DebtOwnedState extends State<DebtOwned> {
                           color: Color(0xffF5F5F5),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset('assets/images/debtors.svg'),
-                              Text(
-                                'Add Debt Owed',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                'Your debts will show here. Click the ',
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans'),
-                              ),
-                              Text(
-                                'Add New Debt Owed button to add your first debtor',
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.black,
-                                    fontFamily: 'DMSans'),
-                              ),
-                            ],
-                          ),
-                        ),
+                        child: (_debtorRepository.debtOwnedList.isEmpty)
+                            ? Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                        'assets/images/debtors.svg'),
+                                    Text(
+                                      'Add Debt Owed',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                          fontFamily: 'DMSans',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Your debts will show here. Click the ',
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          color: Colors.black,
+                                          fontFamily: 'DMSans'),
+                                    ),
+                                    Text(
+                                      'Add New Debt Owed button to add your first debtor',
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          color: Colors.black,
+                                          fontFamily: 'DMSans'),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                separatorBuilder: (context, index) => Divider(),
+                                itemCount:
+                                    _debtorRepository.debtOwnedList.length,
+                                itemBuilder: (context, index) {
+                                  var item =
+                                      _debtorRepository.debtOwnedList[index];
+                                  var customer = _customerRepository
+                                      .checkifCustomerAvailableWithValue(
+                                          item.customerId!);
+                                  return Row(
+                                    children: [
+                                      Expanded(
+                                          child: Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: _randomColor
+                                                      .randomColor()),
+                                              child: Center(
+                                                  child: Text(
+                                                '${customer!.name![0]}',
+                                                style: TextStyle(
+                                                    fontSize: 30,
+                                                    color: Colors.white,
+                                                    fontFamily: 'DMSans',
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ))),
+                                        ),
+                                      )),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02),
+                                      Expanded(
+                                        flex: 5,
+                                        child: Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                customer.name!,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontFamily: 'DMSans',
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              Text(
+                                                customer.phone!,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontFamily: 'DMSans',
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Bal: ${item.balance!}",
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontFamily: 'DMSans',
+                                                    color: AppColor()
+                                                        .orangeBorderColor,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              Text(
+                                                "Paid: ${(item.totalAmount! - item.balance!)}",
+                                                style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontFamily: 'DMSans',
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                            onTap: () {
+                                              print(index);
+                                              showModalBottomSheet(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.vertical(
+                                                              top: Radius
+                                                                  .circular(
+                                                                      20))),
+                                                  context: context,
+                                                  isScrollControlled: true,
+                                                  builder: (context) =>
+                                                      buildUpdatePayment(
+                                                          debtOwnedList[
+                                                              index]));
+                                            },
+                                            child: SvgPicture.asset(
+                                                'assets/images/edit_pri.svg')),
+                                      ),
+                                    ],
+                                  );
+                                }),
                       ),
                     ),
                     SizedBox(
@@ -534,224 +661,224 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
 }
 
 // return Scaffold(
-    //   body: Container(
-    //     padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-    //     width: MediaQuery.of(context).size.width,
-    //     height: MediaQuery.of(context).size.height,
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.end,
-    //       children: [
-    //         Container(
-    //           padding: EdgeInsets.symmetric(horizontal: 12),
-    //           decoration: BoxDecoration(
-    //               borderRadius: BorderRadius.circular(16),
-    //               border:
-    //                   Border.all(width: 2, color: AppColor().backgroundColor)),
-    //           child: DropdownButtonHideUnderline(
-    //             child: DropdownButton<String>(
-    //               value: value,
-    //               icon: Icon(
-    //                 Icons.keyboard_arrow_down,
-    //                 size: 14,
-    //                 color: AppColor().backgroundColor,
-    //               ),
-    //               hint: Text(
-    //                 'Pending',
-    //                 style: TextStyle(
-    //                     fontFamily: 'DMSans',
-    //                     fontSize: 10,
-    //                     fontWeight: FontWeight.bold),
-    //               ),
-    //               isDense: true,
-    //               items: debtStatus.map(buildDropDown).toList(),
-    //               onChanged: (value) => setState(() => this.value = value),
-    //             ),
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 10,
-    //         ),
-    //         Expanded(
-    //           child: Container(
-    //             padding: EdgeInsets.only(
-    //                 left: MediaQuery.of(context).size.height * 0.02,
-    //                 right: MediaQuery.of(context).size.height * 0.02,
-    //                 bottom: MediaQuery.of(context).size.height * 0.02),
-    //             child: ListView.separated(
-    //               scrollDirection: Axis.vertical,
-    //               shrinkWrap: true,
-    //               separatorBuilder: (context, index) => Divider(),
-    //               itemCount: debtOwnedList.length,
-    //               itemBuilder: (context, index) {
-    //                 if (debtOwnedList.length == 0) {
-    //                   return Container(
-    //                     padding: EdgeInsets.only(
-    //                         left: MediaQuery.of(context).size.height * 0.02,
-    //                         right: MediaQuery.of(context).size.height * 0.02,
-    //                         bottom: MediaQuery.of(context).size.height * 0.02),
-    //                     decoration: BoxDecoration(
-    //                       color: Color(0xffF5F5F5),
-    //                       borderRadius: BorderRadius.circular(10),
-    //                     ),
-    //                     child: Center(
-    //                       child: Column(
-    //                         crossAxisAlignment: CrossAxisAlignment.center,
-    //                         mainAxisAlignment: MainAxisAlignment.center,
-    //                         children: [
-    //                           SvgPicture.asset('assets/images/debtors.svg'),
-    //                           Text(
-    //                             'Add Debtors',
-    //                             style: TextStyle(
-    //                                 fontSize: 14,
-    //                                 color: Colors.black,
-    //                                 fontFamily: 'DMSans',
-    //                                 fontWeight: FontWeight.bold),
-    //                           ),
-    //                           Text(
-    //                             'Your debtors will show here. Click the ',
-    //                             style: TextStyle(
-    //                                 fontSize: 8,
-    //                                 color: Colors.black,
-    //                                 fontFamily: 'DMSans'),
-    //                           ),
-    //                           Text(
-    //                             'New Debtors button to add your first debtor',
-    //                             style: TextStyle(
-    //                                 fontSize: 8,
-    //                                 color: Colors.black,
-    //                                 fontFamily: 'DMSans'),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                     ),
-    //                   );
-    //                 } else {
-    //                   return Row(
-    //                     children: [
-    //                       Image.asset(debtOwnedList[index].image!),
-    //                       SizedBox(
-    //                           width: MediaQuery.of(context).size.width * 0.02),
-    //                       Expanded(
-    //                         flex: 5,
-    //                         child: Container(
-    //                           child: Column(
-    //                             crossAxisAlignment: CrossAxisAlignment.start,
-    //                             children: [
-    //                               Text(
-    //                                 debtOwnedList[index].name!,
-    //                                 style: TextStyle(
-    //                                     fontSize: 12,
-    //                                     fontFamily: 'DMSans',
-    //                                     color: Colors.black,
-    //                                     fontWeight: FontWeight.w400),
-    //                               ),
-    //                               Text(
-    //                                 debtOwnedList[index].phone!,
-    //                                 style: TextStyle(
-    //                                     fontSize: 12,
-    //                                     fontFamily: 'DMSans',
-    //                                     color: Colors.grey),
-    //                               ),
-    //                             ],
-    //                           ),
-    //                         ),
-    //                       ),
-    //                       Expanded(
-    //                         flex: 3,
-    //                         child: Container(
-    //                           child: Column(
-    //                             crossAxisAlignment: CrossAxisAlignment.start,
-    //                             children: [
-    //                               Text(
-    //                                 "Bal: ${debtorsList[index].balance!}",
-    //                                 style: TextStyle(
-    //                                     fontSize: 13,
-    //                                     fontFamily: 'DMSans',
-    //                                     color: AppColor().orangeBorderColor,
-    //                                     fontWeight: FontWeight.w400),
-    //                               ),
-    //                               Text(
-    //                                 "Paid: ${debtorsList[index].paid!}",
-    //                                 style: TextStyle(
-    //                                     fontSize: 11,
-    //                                     fontFamily: 'DMSans',
-    //                                     color: Colors.grey),
-    //                               ),
-    //                             ],
-    //                           ),
-    //                         ),
-    //                       ),
-    //                       Expanded(
-    //                         child: InkWell(
-    //                             onTap: () {
-    //                               print(index);
-    //                               showModalBottomSheet(
-    //                                   shape: RoundedRectangleBorder(
-    //                                       borderRadius: BorderRadius.vertical(
-    //                                           top: Radius.circular(20))),
-    //                                   context: context,
-    //                                   isScrollControlled: true,
-    //                                   builder: (context) => buildUpdatePayment(
-    //                                       debtOwnedList[index]));
-    //                             },
-    //                             child: SvgPicture.asset(
-    //                                 'assets/images/edit_pri.svg')),
-    //                       ),
-    //                     ],
-    //                   );
-    //                 }
-    //               },
-    //             ),
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 10,
-    //         ),
-    //         InkWell(
-    //           onTap: () => showModalBottomSheet(
-    //               shape: RoundedRectangleBorder(
-    //                   borderRadius:
-    //                       BorderRadius.vertical(top: Radius.circular(20))),
-    //               context: context,
-    //               builder: (context) => buildUpdatePayment(DebtOwnedModel())),
-    //           child: Container(
-    //             height: 55,
-    //             margin: EdgeInsets.symmetric(
-    //               horizontal: 15,
-    //             ),
-    //             decoration: BoxDecoration(
-    //                 color: AppColor().backgroundColor,
-    //                 borderRadius: BorderRadius.circular(10)),
-    //             child: Row(
-    //               mainAxisAlignment: MainAxisAlignment.center,
-    //               children: [
-    //                 Icon(
-    //                   Icons.add,
-    //                   size: 22,
-    //                   color: AppColor().whiteColor,
-    //                 ),
-    //                 SizedBox(
-    //                   width: 5,
-    //                 ),
-    //                 Center(
-    //                   child: Text(
-    //                     'Add New Debt Owed',
-    //                     style: TextStyle(
-    //                       color: AppColor().whiteColor,
-    //                       fontFamily: 'DMSans',
-    //                       fontWeight: FontWeight.bold,
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //         SizedBox(
-    //           height: 10,
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
+//       body: Container(
+//         padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+//         width: MediaQuery.of(context).size.width,
+//         height: MediaQuery.of(context).size.height,
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.end,
+//           children: [
+//             Container(
+//               padding: EdgeInsets.symmetric(horizontal: 12),
+//               decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(16),
+//                   border:
+//                       Border.all(width: 2, color: AppColor().backgroundColor)),
+//               child: DropdownButtonHideUnderline(
+//                 child: DropdownButton<String>(
+//                   value: value,
+//                   icon: Icon(
+//                     Icons.keyboard_arrow_down,
+//                     size: 14,
+//                     color: AppColor().backgroundColor,
+//                   ),
+//                   hint: Text(
+//                     'Pending',
+//                     style: TextStyle(
+//                         fontFamily: 'DMSans',
+//                         fontSize: 10,
+//                         fontWeight: FontWeight.bold),
+//                   ),
+//                   isDense: true,
+//                   items: debtStatus.map(buildDropDown).toList(),
+//                   onChanged: (value) => setState(() => this.value = value),
+//                 ),
+//               ),
+//             ),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             Expanded(
+//               child: Container(
+//                 padding: EdgeInsets.only(
+//                     left: MediaQuery.of(context).size.height * 0.02,
+//                     right: MediaQuery.of(context).size.height * 0.02,
+//                     bottom: MediaQuery.of(context).size.height * 0.02),
+//                 child: ListView.separated(
+//                   scrollDirection: Axis.vertical,
+//                   shrinkWrap: true,
+//                   separatorBuilder: (context, index) => Divider(),
+//                   itemCount: debtOwnedList.length,
+//                   itemBuilder: (context, index) {
+//                     if (debtOwnedList.length == 0) {
+//                       return Container(
+//                         padding: EdgeInsets.only(
+//                             left: MediaQuery.of(context).size.height * 0.02,
+//                             right: MediaQuery.of(context).size.height * 0.02,
+//                             bottom: MediaQuery.of(context).size.height * 0.02),
+//                         decoration: BoxDecoration(
+//                           color: Color(0xffF5F5F5),
+//                           borderRadius: BorderRadius.circular(10),
+//                         ),
+//                         child: Center(
+//                           child: Column(
+//                             crossAxisAlignment: CrossAxisAlignment.center,
+//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             children: [
+//                               SvgPicture.asset('assets/images/debtors.svg'),
+//                               Text(
+//                                 'Add Debtors',
+//                                 style: TextStyle(
+//                                     fontSize: 14,
+//                                     color: Colors.black,
+//                                     fontFamily: 'DMSans',
+//                                     fontWeight: FontWeight.bold),
+//                               ),
+//                               Text(
+//                                 'Your debtors will show here. Click the ',
+//                                 style: TextStyle(
+//                                     fontSize: 8,
+//                                     color: Colors.black,
+//                                     fontFamily: 'DMSans'),
+//                               ),
+//                               Text(
+//                                 'New Debtors button to add your first debtor',
+//                                 style: TextStyle(
+//                                     fontSize: 8,
+//                                     color: Colors.black,
+//                                     fontFamily: 'DMSans'),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       );
+//                     } else {
+//                       return Row(
+//                         children: [
+//                           Image.asset(debtOwnedList[index].image!),
+//                           SizedBox(
+//                               width: MediaQuery.of(context).size.width * 0.02),
+//                           Expanded(
+//                             flex: 5,
+//                             child: Container(
+//                               child: Column(
+//                                 crossAxisAlignment: CrossAxisAlignment.start,
+//                                 children: [
+//                                   Text(
+//                                     debtOwnedList[index].name!,
+//                                     style: TextStyle(
+//                                         fontSize: 12,
+//                                         fontFamily: 'DMSans',
+//                                         color: Colors.black,
+//                                         fontWeight: FontWeight.w400),
+//                                   ),
+//                                   Text(
+//                                     debtOwnedList[index].phone!,
+//                                     style: TextStyle(
+//                                         fontSize: 12,
+//                                         fontFamily: 'DMSans',
+//                                         color: Colors.grey),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ),
+//                           Expanded(
+//                             flex: 3,
+//                             child: Container(
+//                               child: Column(
+//                                 crossAxisAlignment: CrossAxisAlignment.start,
+//                                 children: [
+//                                   Text(
+//                                     "Bal: ${debtorsList[index].balance!}",
+//                                     style: TextStyle(
+//                                         fontSize: 13,
+//                                         fontFamily: 'DMSans',
+//                                         color: AppColor().orangeBorderColor,
+//                                         fontWeight: FontWeight.w400),
+//                                   ),
+//                                   Text(
+//                                     "Paid: ${debtorsList[index].paid!}",
+//                                     style: TextStyle(
+//                                         fontSize: 11,
+//                                         fontFamily: 'DMSans',
+//                                         color: Colors.grey),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ),
+//                           Expanded(
+//                             child: InkWell(
+//                                 onTap: () {
+//                                   print(index);
+//                                   showModalBottomSheet(
+//                                       shape: RoundedRectangleBorder(
+//                                           borderRadius: BorderRadius.vertical(
+//                                               top: Radius.circular(20))),
+//                                       context: context,
+//                                       isScrollControlled: true,
+//                                       builder: (context) => buildUpdatePayment(
+//                                           debtOwnedList[index]));
+//                                 },
+//                                 child: SvgPicture.asset(
+//                                     'assets/images/edit_pri.svg')),
+//                           ),
+//                         ],
+//                       );
+//                     }
+//                   },
+//                 ),
+//               ),
+//             ),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             InkWell(
+//               onTap: () => showModalBottomSheet(
+//                   shape: RoundedRectangleBorder(
+//                       borderRadius:
+//                           BorderRadius.vertical(top: Radius.circular(20))),
+//                   context: context,
+//                   builder: (context) => buildUpdatePayment(DebtOwnedModel())),
+//               child: Container(
+//                 height: 55,
+//                 margin: EdgeInsets.symmetric(
+//                   horizontal: 15,
+//                 ),
+//                 decoration: BoxDecoration(
+//                     color: AppColor().backgroundColor,
+//                     borderRadius: BorderRadius.circular(10)),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     Icon(
+//                       Icons.add,
+//                       size: 22,
+//                       color: AppColor().whiteColor,
+//                     ),
+//                     SizedBox(
+//                       width: 5,
+//                     ),
+//                     Center(
+//                       child: Text(
+//                         'Add New Debt Owed',
+//                         style: TextStyle(
+//                           color: AppColor().whiteColor,
+//                           fontFamily: 'DMSans',
+//                           fontWeight: FontWeight.bold,
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//             SizedBox(
+//               height: 10,
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
     

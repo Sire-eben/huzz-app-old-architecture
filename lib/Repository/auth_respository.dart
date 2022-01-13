@@ -13,6 +13,7 @@ import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
+import 'package:huzz/app/screens/settings/settings.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
@@ -93,7 +94,7 @@ class AuthRepository extends GetxController {
   String get token => Mtoken.value;
 
   SqliteDb sqliteDb = SqliteDb();
-
+  bool tokenExpired = false;
   @override
   void onInit() async {
     pref = SharePref();
@@ -103,8 +104,14 @@ class AuthRepository extends GetxController {
       _authStatus(AuthStatus.IsFirstTime);
     } else {
       print("Not my First Time Using this app");
-      if (pref!.getUser() != null) {
+      print(
+          "expired date token ${pref!.getDateTokenExpired()} token expired $tokenExpired");
+
+      if (pref!.getUser() != null &&
+          !DateTime.now().isAfter(pref!.getDateTokenExpired()) &&
+          !tokenExpired) {
         user = pref!.getUser()!;
+
         Mtoken(pref!.read());
 
         _authStatus(AuthStatus.Authenticated);
@@ -318,7 +325,7 @@ class AuthRepository extends GetxController {
           this.user = user;
           pref!.setUser(user);
           DateTime date = DateTime.now();
-          DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
+          DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
           pref!.setDateTokenExpired(expireToken);
           _authStatus(AuthStatus.Authenticated);
 
@@ -327,6 +334,9 @@ class AuthRepository extends GetxController {
             "Success",
             "Personal Information Updated",
           );
+          Timer(Duration(milliseconds: 2000), () {
+            Get.offAll(Settings());
+          });
         } else {
           _updateProfileStatus(UpdateProfileStatus.Error);
           Get.snackbar(
@@ -372,7 +382,7 @@ class AuthRepository extends GetxController {
           this.user = user;
           pref!.setUser(user);
           DateTime date = DateTime.now();
-          DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
+          DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
           pref!.setDateTokenExpired(expireToken);
           _authStatus(AuthStatus.Authenticated);
           Get.off(PinSuccesful());
@@ -416,7 +426,7 @@ class AuthRepository extends GetxController {
         Mtoken(token);
         this.user = user;
         DateTime date = DateTime.now();
-        DateTime expireToken = DateTime(date.year, date.month + 30, date.day);
+        DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
         pref!.setDateTokenExpired(expireToken);
         _authStatus(AuthStatus.Authenticated);
         final _businessController = Get.find<BusinessRespository>();

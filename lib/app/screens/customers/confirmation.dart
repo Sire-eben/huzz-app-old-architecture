@@ -34,7 +34,7 @@ class ConfirmationCustomer extends StatelessWidget {
           ),
           Center(
             child: Text(
-              'Product Successfully ',
+              'Customer Successfully',
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: 'DMSans',
@@ -65,7 +65,9 @@ class ConfirmationCustomer extends StatelessWidget {
           Spacer(),
           InkWell(
             onTap: () {
-              Get.to(Dashboard(selectedIndex: 0,));
+              Get.to(Dashboard(
+                selectedIndex: 0,
+              ));
             },
             child: Container(
               height: 55,
@@ -77,7 +79,7 @@ class ConfirmationCustomer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               child: Center(
                 child: Text(
-                  'Save',
+                  'Continue',
                   style: TextStyle(
                     color: AppColor().whiteColor,
                     fontFamily: 'DMSans',
