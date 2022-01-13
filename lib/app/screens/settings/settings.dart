@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
+
 import 'notification.dart';
 import 'personalInfo.dart';
 
@@ -172,6 +173,7 @@ class _SettingsState extends State<Settings> {
                       GestureDetector(
                         onTap: () {
                           Get.to(PersonalInfo());
+                          // controller.;
                         },
                         child: SvgPicture.asset(
                           "assets/images/setting.svg",
