@@ -40,7 +40,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
         title: Row(
           children: [
             Text(
-              'Create Invoice',
+              'View Invoice',
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: "DMSans",

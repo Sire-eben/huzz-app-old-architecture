@@ -617,7 +617,8 @@ class _RecordsState extends State<Records> {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            Expanded(
+            Container(
+              height: MediaQuery.of(context).size.height / 3,
               child: ListView.separated(
                   separatorBuilder: (context, index) => Divider(),
                   itemCount: recordSummaryList.length,

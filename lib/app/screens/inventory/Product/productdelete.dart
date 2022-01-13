@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/model/product.dart';
-import 'package:huzz/model/product_model.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../../../colors.dart';
 
 class BuildDeleteProduct extends StatefulWidget {
@@ -31,7 +29,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               child: productCount(context),
             ),
             Positioned(
-              top: 210,
+              top: 260,
               left: 20,
               right: 20,
               child: Row(
@@ -79,7 +77,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               ),
             ),
             Positioned(
-              top: 140,
+              top: 190,
               left: 20,
               right: 20,
               child: Container(
@@ -139,7 +137,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
             ),
             //ProductList
             Positioned(
-              top: 250,
+              top: 280,
               bottom: 30,
               left: 20,
               right: 20,
@@ -199,104 +197,130 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
     );
   }
 
-  Widget productCount(BuildContext context) => Container(
-        height: 95,
-        decoration: BoxDecoration(
-          color: AppColor().backgroundColor,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15),
-          ),
-        ),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Text(
-                    "Product Count",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'DMSans',
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Text(
-                    "${_productControlller.productGoods.length}",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'DMSans',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              height: 95,
-              padding: EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                color: AppColor().secondbgColor,
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [
-                    0.1,
-                    0.6,
-                    0.8,
-                  ],
-                  colors: [
-                    Color(0xff0D8372),
-                    Color(0xff07A58E),
-                    AppColor().backgroundColor.withOpacity(0.5),
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
-                ),
+  Widget productCount(BuildContext context) => Column(
+        children: [
+          Row(children: [
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: AppColor().backgroundColor,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 37),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+            Text(
+              'Back',
+              style: TextStyle(
+                color: AppColor().backgroundColor,
+                fontFamily: "DMSans",
+                fontStyle: FontStyle.normal,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ]),
+          Container(
+            height: 95,
+            decoration: BoxDecoration(
+              color: AppColor().backgroundColor,
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
                       child: Text(
-                        "Total product value",
+                        "Product Count",
                         style: TextStyle(
-                          fontFamily: 'DMSans',
                           color: Colors.white,
+                          fontFamily: 'DMSans',
                           fontSize: 12,
                         ),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                    Center(
                       child: Text(
-                        "N0.00",
+                        "${_productControlller.productGoods.length}",
                         style: TextStyle(
+                          color: Colors.white,
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
-                          color: Colors.white,
                         ),
                       ),
                     ),
+                  ],
+                ),
+                Container(
+                  height: 95,
+                  padding: EdgeInsets.only(right: 8),
+                  decoration: BoxDecoration(
+                    color: AppColor().secondbgColor,
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [
+                        0.1,
+                        0.6,
+                        0.8,
+                      ],
+                      colors: [
+                        Color(0xff0D8372),
+                        Color(0xff07A58E),
+                        AppColor().backgroundColor.withOpacity(0.5),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                    ),
                   ),
-                ],
-              ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 37),
+                          child: Text(
+                            "Total product value",
+                            style: TextStyle(
+                              fontFamily: 'DMSans',
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Text(
+                            "N0.00",
+                            style: TextStyle(
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       );
 }
 
@@ -392,7 +416,7 @@ class _ListingProductState extends State<ListingProduct> {
                           width: 50,
                         ),
                         Text(
-                          'N${display(widget.item!.costPrice??0)}',
+                          'N${display(widget.item!.costPrice ?? 0)}',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
