@@ -47,7 +47,7 @@ class TransactionModel {
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) => TransactionModel(
       id: json['id'],
-      totalAmount: json['totalAmount'],
+      totalAmount: json['totalAmount']??0,
       createdTime: DateTime.parse(json['createdDateTime']),
       updatedTime: json['updatedDateTime'] == null
           ? DateTime.parse(json['createdDateTime'])
@@ -88,7 +88,7 @@ class TransactionModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "totalAmount": totalAmount,
+        "totalAmount": totalAmount==null?0:totalAmount,
         "createdDateTime": createdTime == null
             ? DateTime.now().toIso8601String()
             : createdTime!.toIso8601String(),
