@@ -24,7 +24,8 @@ class CustomerRepository extends GetxController {
   final phoneNumberController = TextEditingController();
   final emailController = TextEditingController();
   final amountController = TextEditingController();
-  final descriptionController = TextEditingController();
+  final totalAmountController = TextEditingController();
+  final balanceController = TextEditingController();
   final _businessController = Get.find<BusinessRespository>();
   final _userController = Get.find<AuthRepository>();
   final _addingCustomerStatus = AddingCustomerStatus.Empty.obs;
