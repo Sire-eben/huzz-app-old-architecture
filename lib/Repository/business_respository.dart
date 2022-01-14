@@ -1,5 +1,6 @@
 // ignore_for_file: must_call_super, non_constant_identifier_names
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 
@@ -16,6 +17,7 @@ import 'package:huzz/sqlite/sqlite_db.dart';
 import 'auth_respository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }
+enum UpdateBusinessStatus { Loading, Empty, Error, Success }
 
 class BusinessRespository extends GetxController {
   Rx<List<OfflineBusiness>> _offlineBusiness = Rx([]);
@@ -30,10 +32,13 @@ class BusinessRespository extends GetxController {
   final businessPhoneNumber = TextEditingController();
   final businessAddressController = TextEditingController();
   final _userController = Get.find<AuthRepository>();
+
+  final _updateBusinessStatus = UpdateBusinessStatus.Empty.obs;
   final _createBusinessStatus = CreateBusinessStatus.Empty.obs;
   Rx<Business?> selectedBusiness = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
   CreateBusinessStatus get createBusinessStatus => _createBusinessStatus.value;
+  UpdateBusinessStatus get updateBusinessStatus => _updateBusinessStatus.value;
 
   @override
   void onInit() async {
@@ -164,6 +169,62 @@ class BusinessRespository extends GetxController {
       }
     } catch (ex) {
       _createBusinessStatus(CreateBusinessStatus.Error);
+    }
+  }
+
+  Future updateBusiness() async {
+    print("token ${_userController.token}");
+    try {
+      _updateBusinessStatus(UpdateBusinessStatus.Loading);
+      final currency = CountryPickerUtils.getCountryByIsoCode(
+              _userController.countryCodeFLag)
+          .currencyCode
+          .toString();
+      final response = await http.put(
+          Uri.parse(ApiLink.update_business +
+              "${selectedBusiness.value!.businessId}"),
+          body: jsonEncode(
+            {
+              "name": businessName.text,
+              "address": businessAddressController.text,
+              "phoneNumber": businessPhoneNumber.text,
+              "email": businessEmail.text,
+              "currency": currency,
+              "buisnessLogoFileStoreId": null,
+            },
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+
+      print("Update business response ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+          OnlineBusiness();
+          var business = Business.fromJson(json['data']);
+          selectedBusiness(business);
+          _updateBusinessStatus(UpdateBusinessStatus.Success);
+          Get.snackbar(
+            "Success",
+            "Business Information Updated",
+          );
+          Timer(Duration(milliseconds: 2000), () {
+            Get.back();
+          });
+        } else {
+          _updateBusinessStatus(UpdateBusinessStatus.Empty);
+          Get.snackbar(
+            "Error",
+            "Failed to update Business Information",
+          );
+        }
+      } else {
+        _updateBusinessStatus(UpdateBusinessStatus.Error);
+      }
+    } catch (ex) {
+      _updateBusinessStatus(UpdateBusinessStatus.Error);
     }
   }
 }

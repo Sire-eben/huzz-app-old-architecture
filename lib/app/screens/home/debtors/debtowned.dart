@@ -551,7 +551,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      _debtorRepository.addBudinessDebtor("INCOME");
+                      _debtorRepository.addBudinessDebtor("EXPENDITURE");
                     });
                     Get.back();
                   },
