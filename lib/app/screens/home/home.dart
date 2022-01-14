@@ -27,8 +27,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final display = createDisplay(
-    length: 10,
+    length: 5,
     decimal: 0,
+    placeholder: 'N',
+    units: ['K','M','B','T']
   );
 
   final items = ['Huzz Technologies', 'Technologies'];

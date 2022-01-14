@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -96,6 +97,12 @@ class TransactionRespository extends GetxController {
   List<RecordsData> get allExpenditureHoursData =>
       _allExpenditureHoursData.value;
 
+Rx<dynamic> _recordBalance=Rx(0);
+Rx<dynamic> _recordMoneyIn=Rx(0);
+Rx<dynamic> _recordMoneyOut=Rx(0);
+dynamic get recordBalance =>_recordBalance.value;
+dynamic get recordMoneyIn => _recordMoneyIn.value;
+dynamic get recordMoneyOut => _recordMoneyOut.value;
   @override
   void onInit() async {
     // TODO: implement onInit
@@ -141,6 +148,16 @@ class TransactionRespository extends GetxController {
     });
   }
 
+
+List<PaymentItem> getAllPaymentItemForRecord(RecordsData record){
+List<PaymentItem> list=[];
+record.transactionList.forEach((element) {
+  list.addAll(element.businessTransactionPaymentItemList!);
+
+});
+return list;
+
+}
   Future getAllPaymentItem() async {
     if (todayTransaction.isEmpty) {
       _allPaymentItem([]);
@@ -221,15 +238,16 @@ class TransactionRespository extends GetxController {
 
     getTodayTransaction();
     //  getWeeklyRecordData();
-    getMonthlyRecord();
-    // splitCurrentTime();
+    // getMonthlyRecord();
+    splitCurrentTime();
+    // getYearRecord();
   }
 
   Future splitCurrentTime() async {
-    TimeOfDay _timeday = TimeOfDay.now();
+    TimeOfDay _timeday = TimeOfDay(hour: 0,minute: 0);
     List<String> value = [];
-    for (int i = 0; i < 8; ++i) {
-      value.add((_timeday.hour - 2).toString());
+    for (int i = 0; i < 24; ++i) {
+      value.add((_timeday.hour).toString());
       var timeofday =
           TimeOfDay(hour: _timeday.hour + 1, minute: _timeday.minute);
       _timeday = timeofday;
@@ -249,9 +267,10 @@ int daysInMonth(DateTime date) =>  DateTimeRange(
   Future getMonthlyRecord()async{
  var currentDate=DateTime.now();
  int days=daysInMonth(currentDate);
+ print("number of days in the months $days");
   List<DateTime> value = [];
- for(int i=0;i<days;++i){
-
+ for(int i=1;i<days;++i){
+print("days number is $i");
  value.add(DateTime(currentDate.year, currentDate.month, i));
       
  }
@@ -260,24 +279,102 @@ getSplitCurrentMonthly(value);
 
   }
 
-Future getSplitCurrentMonthly(List<DateTime> days) async {
+Future getAllTimeRecord()async{
+   var currentDate=DateTime.now();
+DateTime startingYear=DateTime(2018);
+DateTime endingYear=DateTime(currentDate.year);
+List<DateTime> value=[];
+for(int i=startingYear.year; i<endingYear.year+1;++i){
+print("year in list ${startingYear.year}");
+
+value.add(DateTime(startingYear.year));
+startingYear=DateTime(startingYear.year+1);
+}
+print("all year to be calculated ${value.length}");
+getSplitAllTime(value);
+}
+ Future getYearRecord()async{
+var currentDate=DateTime.now();
+List<DateTime> value = [];
+for(int i=1;i<12;++i){
+value.add(DateTime(currentDate.year, i));
+
+
+
+}
+
+getSplitCurrentYear(value);
+
+ } 
+
+ Future getSplitAllTime(List<DateTime> years) async {
     List<TransactionModel> _currentHoursIncome = [];
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
-    days.forEach((element1) {
+    years.forEach((element1) {
       dynamic incomeTotalAmount = 0;
       dynamic expenditureTotalAmount = 0;
+          List<TransactionModel> currentTran=[];
+      if (todayTransaction.isEmpty)
+        print("alltime is empty");
+      else
+        print("alltime transaction is not empty");
+      offlineTransactions.forEach((element) {
+        print(
+            "alltime testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
+
+        if (element.entryDateTime != null &&
+            DateTime(element.entryDateTime!.year
+                 )
+                .isAtSameMomentAs(
+                    DateTime(element1.year))) {
+          print("AllTime found");
+          if (element.transactionType!.contains("INCOME")) {
+            _currentHoursIncome.add(element);
+            print("AllTime is  $element1 amount ${element.totalAmount}");
+            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+            print("AllTime is  $element1 amount $incomeTotalAmount");
+          } else {
+            _currentHoursExpenditure.add(element);
+            expenditureTotalAmount =
+                expenditureTotalAmount + element.totalAmount ?? 0;
+            print(
+                "expenditure AllTime is  $element1 amount $expenditureTotalAmount");
+          }
+        
+    currentTran.add(element);
+                    }
+      });
+          _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "y")!, incomeTotalAmount,currentTran));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "y")!, expenditureTotalAmount,currentTran));
+    });
+    _allIncomeHoursData(_hourIncomeData);
+    _allExpenditureHoursData(_hourExpenditureData);
+    calculateRecordOverView();
+  }
+
+ Future getSplitCurrentYear(List<DateTime> months) async {
+    List<TransactionModel> _currentHoursIncome = [];
+    List<TransactionModel> _currentHoursExpenditure = [];
+    List<RecordsData> _hourIncomeData = [];
+    List<RecordsData> _hourExpenditureData = [];
+    months.forEach((element1) {
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
+          List<TransactionModel> currentTran=[];
       if (todayTransaction.isEmpty)
         print(" transactonlist is empty");
       else
         print("today transaction is not empty");
       offlineTransactions.forEach((element) {
         print(
-            "monthly testing $element1 ${element.entryDateTime!.toIso8601String()}");
+            "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
         if (element.entryDateTime != null &&
-            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,
+            DateTime(element.entryDateTime!.year, element.entryDateTime!.month
                  )
                 .isAtSameMomentAs(
                     DateTime(element1.year, element1.month))) {
@@ -294,15 +391,68 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
           }
-        }
-        _hourIncomeData.add(RecordsData(
-            element1.formatDate(pattern: "dd")!, incomeTotalAmount));
-        _hourExpenditureData.add(RecordsData(
-            element1.formatDate(pattern: "dd")!, expenditureTotalAmount));
+        currentTran.add(element);
+      
+                    }
       });
+        _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "MMM")!, incomeTotalAmount,currentTran));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "MMM")!, expenditureTotalAmount,currentTran));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
+  }
+
+
+Future getSplitCurrentMonthly(List<DateTime> days) async {
+    List<TransactionModel> _currentHoursIncome = [];
+    List<TransactionModel> _currentHoursExpenditure = [];
+    List<RecordsData> _hourIncomeData = [];
+    List<RecordsData> _hourExpenditureData = [];
+    days.forEach((element1) {
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
+      List<TransactionModel> currentTran=[];
+      if (todayTransaction.isEmpty)
+        print(" transactonlist is empty");
+      else
+        print("today transaction is not empty");
+      offlineTransactions.forEach((element) {
+        print(
+            "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
+
+        if (element.entryDateTime != null &&
+            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,element.entryDateTime!.day
+                 )
+                .isAtSameMomentAs(
+                    DateTime(element1.year, element1.month,element1.day))) {
+          print("today hour found");
+          if (element.transactionType!.contains("INCOME")) {
+            _currentHoursIncome.add(element);
+            print("income hour is  $element1 amount ${element.totalAmount}");
+            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+            print("income hour is  $element1 amount $incomeTotalAmount");
+          } else {
+            _currentHoursExpenditure.add(element);
+            expenditureTotalAmount =
+                expenditureTotalAmount + element.totalAmount ?? 0;
+            print(
+                "expenditure hour is  $element1 amount $expenditureTotalAmount");
+          }
+        currentTran.add(element);
+      
+                    }
+      });
+        _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "MMM,dd")!, incomeTotalAmount,currentTran));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "MMM,dd")!, expenditureTotalAmount,currentTran));
+    });
+    _allIncomeHoursData(_hourIncomeData);
+    _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
   }
 
   Future getSplitCurrentDate(List<String> hours) async {
@@ -311,9 +461,11 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
+   
     hours.forEach((element1) {
       int incomeTotalAmount = 0;
       int expenditureTotalAmount = 0;
+         List< TransactionModel> currentTran=[];
       if (todayTransaction.isEmpty)
         print("today transactonlist is empty");
       else
@@ -339,13 +491,16 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
           }
+    currentTran.add(element);
         }
-        _hourIncomeData.add(RecordsData(element1, incomeTotalAmount));
-        _hourExpenditureData.add(RecordsData(element1, expenditureTotalAmount));
+   
       });
+              _hourIncomeData.add(RecordsData(element1+":00", incomeTotalAmount,currentTran));
+        _hourExpenditureData.add(RecordsData(element1+":00", expenditureTotalAmount,currentTran));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
   }
 
   Future getWeeklyRecordData() async {
@@ -360,6 +515,68 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     getSplitCurrentWeek(value);
   }
 
+Future getDateRangeRecordData(DateTime startDate,DateTime endDate)async{
+int days=endDate.difference(startDate).inDays;
+print("days difference in range $days");
+List<DateTime> value = [];
+for(int i=1;i<days;++i){
+value.add(DateTime(startDate.year, startDate.month, startDate.day));
+startDate=DateTime(startDate.year, startDate.month, startDate.day+1);
+
+}
+
+getSplitDataRangeRecord(value);
+}
+
+Future getSplitDataRangeRecord(List<DateTime> days) async {
+    List<TransactionModel> _currentHoursIncome = [];
+    List<TransactionModel> _currentHoursExpenditure = [];
+    List<RecordsData> _hourIncomeData = [];
+    List<RecordsData> _hourExpenditureData = [];
+    days.forEach((element1) {
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
+         List< TransactionModel> currentTran=[];
+      if (todayTransaction.isEmpty)
+        print(" transactonlist is empty");
+      else
+        print("today transaction is not empty");
+      offlineTransactions.forEach((element) {
+        print(
+            "data range testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
+
+        if (element.entryDateTime != null &&
+            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,element.entryDateTime!.day
+                 )
+                .isAtSameMomentAs(
+                    DateTime(element1.year, element1.month,element1.day))) {
+          print("data range found");
+          if (element.transactionType!.contains("INCOME")) {
+            _currentHoursIncome.add(element);
+            print("income hour is  $element1 amount ${element.totalAmount}");
+            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+            print("income hour is  $element1 amount $incomeTotalAmount");
+          } else {
+            _currentHoursExpenditure.add(element);
+            expenditureTotalAmount =
+                expenditureTotalAmount + element.totalAmount ?? 0;
+            print(
+                "expenditure hour is  $element1 amount $expenditureTotalAmount");
+          }
+       currentTran.add(element);
+        }
+      
+      });
+        _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "yMMMd")!, incomeTotalAmount,currentTran));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "yMMMd")!, expenditureTotalAmount,currentTran));
+    });
+    _allIncomeHoursData(_hourIncomeData);
+    _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
+  }
+
   Future getSplitCurrentWeek(List<DateTime> days) async {
     List<TransactionModel> _currentHoursIncome = [];
     List<TransactionModel> _currentHoursExpenditure = [];
@@ -368,6 +585,7 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     days.forEach((element1) {
       dynamic incomeTotalAmount = 0;
       dynamic expenditureTotalAmount = 0;
+          List<TransactionModel> currentTran=[];
       if (todayTransaction.isEmpty)
         print("today transactonlist is empty");
       else
@@ -394,15 +612,18 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
           }
-        }
-        _hourIncomeData.add(RecordsData(
-            element1.formatDate(pattern: "dd")!, incomeTotalAmount));
-        _hourExpenditureData.add(RecordsData(
-            element1.formatDate(pattern: "dd")!, expenditureTotalAmount));
+        
+        currentTran.add(element);
+                    }
       });
+       _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "E")!, incomeTotalAmount,currentTran));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "E")!, expenditureTotalAmount,currentTran));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
   }
 
   Future getTodayTransaction() async {
@@ -918,6 +1139,31 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     productList = [];
   }
 
+Future calculateRecordOverView()async{
+
+
+dynamic Balance = 0;
+    dynamic MoneyIn = 0;
+    dynamic Moneyout = 0;
+    allExpenditureHoursData.forEach((element) {
+      Moneyout=Moneyout+element.value;
+
+    });
+
+allIncomeHoursData.forEach((element) {
+  
+MoneyIn=MoneyIn+element.value;
+});
+
+Balance=MoneyIn - Moneyout;
+_recordMoneyOut(Moneyout);
+_recordMoneyIn(MoneyIn);
+_recordBalance(Balance);
+print("record money in  $MoneyIn");
+print("record money out $recordMoneyOut");
+print("record balance $Balance");
+
+}
   Future calculateOverView() async {
     var todayBalance = 0;
     var todayMoneyIn = 0;
