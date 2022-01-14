@@ -31,8 +31,8 @@ class PdfInvoiceApi {
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(bank!),
-        SizedBox(height: 2 * PdfPageFormat.cm),
+        buildHeader(bank!, invoice),
+        SizedBox(height: 1 * PdfPageFormat.cm),
         buildInvoice(invoice),
         Divider(),
         buildSubTotal(invoice),
@@ -46,7 +46,7 @@ class PdfInvoiceApi {
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(Bank bank) => Container(
+  static Widget buildHeader(Bank bank, Invoice invoice) => Container(
       padding: EdgeInsets.all(20),
       color: PdfColors.blue,
       child: Column(
@@ -56,7 +56,7 @@ class PdfInvoiceApi {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               buildSupplierAddress(_businessController.selectedBusiness.value!),
-              buildBankDetails(bank),
+              buildBankDetails(bank, invoice),
             ],
           ),
         ],
@@ -103,7 +103,7 @@ class PdfInvoiceApi {
     );
   }
 
-  static Widget buildBankDetails(Bank bankDetails) => Column(
+  static Widget buildBankDetails(Bank bankDetails, Invoice invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
@@ -119,7 +119,13 @@ class PdfInvoiceApi {
                     color: PdfColors.white,
                     fontSize: 16)),
           ]),
-          Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
+          Text(
+              'Issued Date:' +
+                  DateFormat.yMMMd().format(DateTime.now()).toString(),
+              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+          Text(
+              'Due Date:' +
+                  DateFormat.yMMMd().format(invoice.dueDateTime!).toString(),
               style: TextStyle(color: PdfColors.white, fontSize: 10)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text('Mode of Payment',
@@ -197,6 +203,7 @@ class PdfInvoiceApi {
       child: Row(
         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
+          Container(),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             color: PdfColors.orange,
@@ -230,32 +237,22 @@ class PdfInvoiceApi {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          'Issue Date',
+          'COMMENTS',
           style: TextStyle(
             fontSize: 10,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          DateFormat.yMMMd().format(DateTime.now()).toString(),
+          '1. Payment should not exceed 30 days',
           style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
+            fontSize: 7,
           ),
         ),
-      ]),
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text('Due Date',
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-            )),
         Text(
-          DateFormat.yMMMd().format(invoice.dueDateTime!).toString(),
+          '2. Please note your invoice no in your payment',
           style: TextStyle(
-            color: PdfColors.orange,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
+            fontSize: 7,
           ),
         ),
       ]),
@@ -308,48 +305,116 @@ class PdfInvoiceApi {
     ]);
   }
 
-  static Widget buildFooter(Customer? customer) =>
-      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+  static Widget buildFooter(Customer? customer) => Column(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(
+              'ISSUED TO:',
+              style: TextStyle(
+                color: PdfColors.blue,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text("${customer!.name}"),
+            Text("${customer.phone}"),
+          ]),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 1, color: PdfColors.orange),
+                  color: PdfColors.orange50),
+              child: Text('Pending',
+                  style: TextStyle(color: PdfColors.orange, fontSize: 12)),
+            )
+          ]),
+          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Text(
+              'POWERED BY:',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              'HUZZ',
+              style: TextStyle(
+                color: PdfColors.blue,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ])
+        ]),
+        SizedBox(height: 1 * PdfPageFormat.cm),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            'ISSUED TO:',
+            'Date',
             style: TextStyle(
-              color: PdfColors.blue,
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text("${customer!.name}"),
-          Text("${customer.phone}"),
-        ]),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(width: 1, color: PdfColors.orange),
-                color: PdfColors.orange50),
-            child: Text('Pending',
-                style: TextStyle(color: PdfColors.orange, fontSize: 12)),
+          Text(
+            'Amount Paid',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'Mode of Payment',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
           )
         ]),
-        Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+        Divider(),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            'POWERED BY:',
+            'Jan 22, 2022',
             style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
+              fontSize: 10,
             ),
           ),
           Text(
-            'HUZZ',
+            'N20,000',
             style: TextStyle(
-              color: PdfColors.blue,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
+              fontSize: 10,
+              color: PdfColors.orange,
             ),
           ),
-        ])
+          Text(
+            'BANK TRANSFER',
+            style: TextStyle(
+              fontSize: 10,
+            ),
+          )
+        ]),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(
+            'Jan 22, 2022',
+            style: TextStyle(
+              fontSize: 10,
+            ),
+          ),
+          Text(
+            'N20,000',
+            style: TextStyle(
+              fontSize: 10,
+              color: PdfColors.orange,
+            ),
+          ),
+          Text(
+            'BANK TRANSFER',
+            style: TextStyle(
+              fontSize: 10,
+            ),
+          )
+        ]),
       ]);
 }
 
