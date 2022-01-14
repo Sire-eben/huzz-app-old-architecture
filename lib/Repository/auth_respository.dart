@@ -13,7 +13,6 @@ import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
-import 'package:huzz/app/screens/settings/settings.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/user.dart';
@@ -309,7 +308,7 @@ class AuthRepository extends GetxController {
             "Personal Information Updated",
           );
           Timer(Duration(milliseconds: 2000), () {
-            setState() => Get.offAll(Settings());
+            Get.back();
           });
         } else {
           _updateProfileStatus(UpdateProfileStatus.Error);
