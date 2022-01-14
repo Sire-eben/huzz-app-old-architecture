@@ -5,6 +5,7 @@ import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/recordData.dart';
 import 'package:huzz/model/records_model.dart';
+import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'transaction_history.dart';
@@ -27,6 +28,12 @@ class _InsightState extends State<Insight> {
     'All Time',
     'Custom date range'
   ];
+    final display = createDisplay(
+    length: 5,
+    decimal: 0,
+    placeholder: 'N',
+    units: ['K','M','B','T']
+  );
 
     Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
     final initialDateRange = DateTimeRange(
@@ -50,6 +57,8 @@ class _InsightState extends State<Insight> {
 return dateRange;
     
   }
+  List<RecordsData> item1=[];
+  List<RecordsData> item2=[];
   String? value;
   List<_SalesData> data = [
     _SalesData('Nov 1', 35),
@@ -92,12 +101,42 @@ return dateRange;
     _PieChartData('Sat', 15, AppColor().purpleColor),
     _PieChartData('Sun', 32, AppColor().brownColor)
   ];
+    List<RecordsData> removeDoubleItem(List<RecordsData> list){
+print("previous items lenght ${list.length}");
+ List<RecordsData> newList=[];
+list.forEach((element) {
+  
+
+if(element.value>0){
+
+  newList.add(element);
+}
+});
+
+
+
+
+
+
+print("new item list is ${newList.length}");
+return newList;
+
+}
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+transactionController.splitCurrentTime();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(
        () {
+         item1=removeDoubleItem(transactionController.allIncomeHoursData);
+         item2=removeDoubleItem(transactionController.allExpenditureHoursData);
           return Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -152,7 +191,7 @@ return dateRange;
                                   color: AppColor().backgroundColor,
                                 ),
                                 hint: Text(
-                                  'This month',
+                                  'Today',
                                   style: TextStyle(
                                       fontFamily: 'DMSans',
                                       fontSize: 10,
@@ -346,7 +385,7 @@ return dateRange;
                                   tooltipBehavior: TooltipBehavior(enable: true),
                                   series: <CircularSeries>[
                                     PieSeries<RecordsData, String>(
-                                        dataSource:transactionController.allIncomeHoursData,
+                                        dataSource:item1,
                                         pointColorMapper: (RecordsData data, _) =>
                                             data.color!,
                                         xValueMapper: (RecordsData data, _) =>
@@ -378,7 +417,7 @@ return dateRange;
                                   tooltipBehavior: TooltipBehavior(enable: true),
                                   series: <CircularSeries>[
                                     PieSeries<RecordsData, String>(
-                                        dataSource: transactionController.allExpenditureHoursData,
+                                        dataSource: item2,
                                         pointColorMapper: (RecordsData data, _) =>
                                             data.color!,
                                         xValueMapper: (RecordsData data, _) =>
@@ -394,36 +433,100 @@ return dateRange;
                       ),
                     ],
                   ),
+               
+                            SizedBox(height: 10,),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.03),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children:transactionController.allExpenditureHoursData.map((e)=>
-                        Row(
-                          children: [
-                            Container(
-                              height: 10,
-                              width: 10,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: e.color),
-                            ),
-                            SizedBox(width: 2),
-                            Text(
-                              '${e.label}',
+                    child: Column(
+                      children: [
+                           Text(
+                              'Income',
                               style: TextStyle(
                                 color: AppColor().blackColor,
                                 fontFamily: 'DMSans',
-                                fontSize: 9,
-                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                           SizedBox(width: 5,) 
-                          ],
-                        )).toList(),
-                        
-                      
+                            SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:item1.map((e)=>
+                            Row(
+                              children: [
+                                Container(
+                                  height: 10,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: e.color),
+                                ),
+                                SizedBox(width: 2),
+                                Text(
+                                  '${e.label}',
+                                  style: TextStyle(
+                                    color: AppColor().blackColor,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                               SizedBox(width: 5,) 
+                              ],
+                            )).toList(),
+                            
+                          
+                        ),
+                      ],
+                    ),
+                  ),
+     
+                            SizedBox(height: 10,),
+                   Padding( 
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Column(
+                      children: [
+                          Text(
+                              'Expenses',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:item2.map((e)=>
+                            Row(
+                              children: [
+                                Container(
+                                  height: 10,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: e.color),
+                                ),
+                                SizedBox(width: 2),
+                                Text(
+                                  '${e.label}',
+                                  style: TextStyle(
+                                    color: AppColor().blackColor,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                               SizedBox(width: 5,) 
+                              ],
+                            )).toList(),
+                            
+                          
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -518,7 +621,7 @@ return dateRange;
                               StatisticsWidget(
                                 image: 'assets/images/income_transaction.svg',
                                 color: AppColor().blueColor,
-                                amount: transactionController.allIncomeHoursData.length,
+                                amount: transactionController.allIncomeHoursData.length.toString(),
                                 name1: 'Income',
                                 name2: 'Transaction',
                                 message:
@@ -528,7 +631,7 @@ return dateRange;
                               StatisticsWidget(
                                 image: 'assets/images/expense_transaction.svg',
                                 color: AppColor().orangeBorderColor,
-                                amount: transactionController.allExpenditureHoursData.length,
+                                amount: transactionController.allExpenditureHoursData.length.toString(),
                                 name1: 'Expense',
                                 name2: 'Transaction',
                                 message: '',
@@ -541,7 +644,7 @@ return dateRange;
                               StatisticsWidget(
                                 image: 'assets/images/total_income.svg',
                                 color: AppColor().backgroundColor,
-                                amount: 0,
+                                amount: display(transactionController.recordMoneyIn),
                                 name1: 'Total',
                                 name2: 'Income',
                                 message: '',
@@ -550,7 +653,7 @@ return dateRange;
                               StatisticsWidget(
                                 image: 'assets/images/total_expense.svg',
                                 color: AppColor().blackColor,
-                                amount: 0,
+                                amount: display(transactionController.recordMoneyOut),
                                 name1: 'Total',
                                 name2: 'Expenses',
                                 message: '',
@@ -563,7 +666,7 @@ return dateRange;
                               StatisticsWidget(
                                 image: 'assets/images/average_income.svg',
                                 color: AppColor().purpleColor,
-                                amount:0,
+                                amount:display((transactionController.recordMoneyIn/item1.length)),
                                 name1: 'Average income',
                                 name2: 'per transaction',
                                 message: '',
@@ -572,7 +675,7 @@ return dateRange;
                               StatisticsWidget(
                                 image: 'assets/images/average_expenses.svg',
                                 color: AppColor().wineColor,
-                                amount:0,
+                                amount:display((transactionController.recordMoneyOut/item2.length)),
                                 name1: 'Average expenses',
                                 name2: 'per transaction',
                                 message: '',
@@ -580,27 +683,27 @@ return dateRange;
                             ],
                           ),
                           SizedBox(height: 10),
-                          Row(
-                            children: [
-                              StatisticsWidget(
-                                image: 'assets/images/net_income.svg',
-                                color: AppColor().lightblueColor,
-                                amount: 50,
-                                name1: 'Net income',
-                                name2: '',
-                                message: '',
-                              ),
-                              SizedBox(width: 10),
-                              StatisticsWidget(
-                                image: 'assets/images/h_income_transaction.svg',
-                                color: AppColor().brownColor,
-                                amount: 50,
-                                name1: 'Highest income',
-                                name2: 'transaction',
-                                message: '',
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     StatisticsWidget(
+                          //       image: 'assets/images/net_income.svg',
+                          //       color: AppColor().lightblueColor,
+                          //       amount: 50,
+                          //       name1: 'Net income',
+                          //       name2: '',
+                          //       message: '',
+                          //     ),
+                          //     SizedBox(width: 10),
+                          //     StatisticsWidget(
+                          //       image: 'assets/images/h_income_transaction.svg',
+                          //       color: AppColor().brownColor,
+                          //       amount: 50,
+                          //       name1: 'Highest income',
+                          //       name2: 'transaction',
+                          //       message: '',
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       )),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -715,7 +818,7 @@ return dateRange;
 
 class StatisticsWidget extends StatelessWidget {
   final String? image, name1, name2, message;
-  final int? amount;
+  final String? amount;
   final Color? color;
 
   const StatisticsWidget(
@@ -776,7 +879,7 @@ class StatisticsWidget extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        'N' + amount!.toString(),
+                        'N' + amount!,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: 'DMSans',
@@ -809,6 +912,9 @@ class StatisticsWidget extends StatelessWidget {
       ),
     );
   }
+
+
+
 }
 
 class _SalesData {

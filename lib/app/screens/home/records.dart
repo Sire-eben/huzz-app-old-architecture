@@ -87,6 +87,13 @@ return dateRange;
   }
   List<RecordsData> item1=[];
   List<RecordsData> item2=[];
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+transactionController.splitCurrentTime();
+
+  }
   @override
   Widget build(BuildContext context) {
     // transactionController.
@@ -290,7 +297,7 @@ return dateRange;
                               color: AppColor().backgroundColor,
                             ),
                             hint: Text(
-                              'This month',
+                              'Today',
                               style: TextStyle(
                                   fontFamily: 'DMSans',
                                   fontSize: 10,
