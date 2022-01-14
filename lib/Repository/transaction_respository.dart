@@ -21,6 +21,7 @@ import 'package:huzz/model/transaction_model.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 
 import 'auth_respository.dart';
@@ -103,6 +104,7 @@ Rx<dynamic> _recordMoneyOut=Rx(0);
 dynamic get recordBalance =>_recordBalance.value;
 dynamic get recordMoneyIn => _recordMoneyIn.value;
 dynamic get recordMoneyOut => _recordMoneyOut.value;
+ RandomColor _randomColor = RandomColor();
   @override
   void onInit() async {
     // TODO: implement onInit
@@ -347,9 +349,9 @@ getSplitCurrentYear(value);
                     }
       });
           _hourIncomeData.add(RecordsData(
-            element1.formatDate(pattern: "y")!, incomeTotalAmount,currentTran));
+            element1.formatDate(pattern: "y")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(
-            element1.formatDate(pattern: "y")!, expenditureTotalAmount,currentTran));
+            element1.formatDate(pattern: "y")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
@@ -396,9 +398,9 @@ getSplitCurrentYear(value);
                     }
       });
         _hourIncomeData.add(RecordsData(
-            element1.formatDate(pattern: "MMM")!, incomeTotalAmount,currentTran));
+            element1.formatDate(pattern: "MMM")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(
-            element1.formatDate(pattern: "MMM")!, expenditureTotalAmount,currentTran));
+            element1.formatDate(pattern: "MMM")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
@@ -446,9 +448,9 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
                     }
       });
         _hourIncomeData.add(RecordsData(
-            element1.formatDate(pattern: "MMM,dd")!, incomeTotalAmount,currentTran));
+            element1.formatDate(pattern: "MMM,dd")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(
-            element1.formatDate(pattern: "MMM,dd")!, expenditureTotalAmount,currentTran));
+            element1.formatDate(pattern: "MMM,dd")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
@@ -495,8 +497,8 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
         }
    
       });
-              _hourIncomeData.add(RecordsData(element1+":00", incomeTotalAmount,currentTran));
-        _hourExpenditureData.add(RecordsData(element1+":00", expenditureTotalAmount,currentTran));
+              _hourIncomeData.add(RecordsData(element1+":00", incomeTotalAmount,currentTran,_randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(element1+":00", expenditureTotalAmount,currentTran,_randomColor.randomColor()));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
@@ -568,9 +570,9 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
       
       });
         _hourIncomeData.add(RecordsData(
-            element1.formatDate(pattern: "yMMMd")!, incomeTotalAmount,currentTran));
+            element1.formatDate(pattern: "yMMMd")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(
-            element1.formatDate(pattern: "yMMMd")!, expenditureTotalAmount,currentTran));
+            element1.formatDate(pattern: "yMMMd")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
@@ -617,9 +619,9 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
                     }
       });
        _hourIncomeData.add(RecordsData(
-            element1.formatDate(pattern: "E")!, incomeTotalAmount,currentTran));
+            element1.formatDate(pattern: "E")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(
-            element1.formatDate(pattern: "E")!, expenditureTotalAmount,currentTran));
+            element1.formatDate(pattern: "E")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);

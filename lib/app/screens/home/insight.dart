@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/model/recordData.dart';
 import 'package:huzz/model/records_model.dart';
+import 'package:random_color/random_color.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'transaction_history.dart';
 
@@ -12,15 +15,41 @@ class Insight extends StatefulWidget {
 }
 
 class _InsightState extends State<Insight> {
+  DateTimeRange? dateRange;
+ final transactionController = Get.find<TransactionRespository>();
+  
+ 
   final recordFilter = [
     'Today',
-    'This Year',
     'This Week',
-    'All Time',
     'This month',
+    'This Year',
+    'All Time',
     'Custom date range'
   ];
 
+    Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
+    final initialDateRange = DateTimeRange(
+      start: DateTime.now(),
+      end: DateTime.now().add(Duration(hours: 24 * 3)),
+    );
+    final newDateRange = await showDateRangePicker(
+      initialEntryMode: DatePickerEntryMode.input,
+      context: context,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime(DateTime.now().year + 5),
+      initialDateRange: dateRange ?? initialDateRange,
+    );
+
+
+    if (newDateRange == null) return null;
+
+    setState(() { 
+      dateRange = newDateRange;
+      print(dateRange);    });
+return dateRange;
+    
+  }
   String? value;
   List<_SalesData> data = [
     _SalesData('Nov 1', 35),
@@ -67,601 +96,519 @@ class _InsightState extends State<Insight> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.04,
-                    left: MediaQuery.of(context).size.height * 0.005,
-                    right: MediaQuery.of(context).size.height * 0.005),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+      body: Obx(
+       () {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.04,
+                        left: MediaQuery.of(context).size.height * 0.005,
+                        right: MediaQuery.of(context).size.height * 0.005),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: AppColor().backgroundColor,
-                          ),
-                          onPressed: () {
-                            Get.back();
-                          },
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: AppColor().backgroundColor,
+                              ),
+                              onPressed: () {
+                                Get.back();
+                              },
+                            ),
+                            SizedBox(width: 20),
+                            Text(
+                              'Insight',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                         Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                    width: 2, color: AppColor().backgroundColor)),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: value,
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  size: 14,
+                                  color: AppColor().backgroundColor,
+                                ),
+                                hint: Text(
+                                  'This month',
+                                  style: TextStyle(
+                                      fontFamily: 'DMSans',
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                isDense: true,
+                                items: recordFilter.map(buildDropDown).toList(),
+                                onChanged: (value){                            
+                                  setState(() => this.value = value);
+                                if(value!.contains("This Year")){
+                              transactionController.getYearRecord();
+          
+                                }else if(value.contains("Today")){
+                                transactionController.splitCurrentTime();
+          
+                                }else if(value.contains("This Week")){
+                                transactionController.getWeeklyRecordData();
+          
+                                }else if(value.contains("This month")){
+                                transactionController.getMonthlyRecord();
+          
+                                }else if(value.contains("This Month")){
+          
+                               transactionController.getMonthlyRecord();
+          
+                                }else if(value.contains("All Time")){
+          
+                                  transactionController.getAllTimeRecord();
+                                }
+          
+                                },
+                                onTap: () {
+                                  // showModalBottomSheet(
+                                  //     shape: RoundedRectangleBorder(
+                                  //         borderRadius: BorderRadius.vertical(
+                                  //             top: Radius.circular(20))),
+                                  //     context: context,
+                                  //     builder: (context) => buildCustomDate());
+                                },
+                              ),
+                            ),
+                          ), 
+                           value.toString() == 'Custom date range' ? IconButton(onPressed: ()async{
+                           DateTimeRange? val=await pickDateRanges(context);
+                           if(val!=null){
+                          transactionController.getDateRangeRecordData(val.start, val.end);
+          
+                           }
+                          }, icon: Icon(Icons.date_range, color: AppColor().backgroundColor,)) : Container() 
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColor().orangeBorderColor),
+                            ),
+                            SizedBox(width: 2),
+                            Text(
+                              'Money Out (₦)',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 9,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(width: 20),
-                        Text(
-                          'Insight',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                              width: 2, color: AppColor().backgroundColor)),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: value,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            size: 14,
-                            color: AppColor().backgroundColor,
-                          ),
-                          hint: Text(
-                            'This month',
-                            style: TextStyle(
+                        Row(
+                          children: [
+                            Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColor().blueColor),
+                            ),
+                            SizedBox(width: 2),
+                            Text(
+                              'Money in (₦)',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
                                 fontFamily: 'DMSans',
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          isDense: true,
-                          items: recordFilter.map(buildDropDown).toList(),
-                          onChanged: (value) =>
-                              setState(() => this.value = value),
-                          onTap: () {
-                            // showModalBottomSheet(
-                            //     shape: RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.vertical(
-                            //             top: Radius.circular(20))),
-                            //     context: context,
-                            //     builder: (context) => buildCustomDate());
-                          },
+                                fontSize: 9,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
                         ),
+                        Spacer(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Container(
+                        height: 200,
+                        child: Obx(() {
+                          // item1=removeDoubleItem(transactionController.allIncomeHoursData);
+                          // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
+                          return SfCartesianChart(
+                              primaryXAxis: CategoryAxis(),
+          
+                              // Chart title
+                              // title: ChartTitle(text: 'Half yearly sales analysis'),
+                              // Enable legend
+                              legend: Legend(isVisible: false),
+                              // Enable tooltip
+                              tooltipBehavior: TooltipBehavior(enable: true),
+                              series: <ChartSeries<RecordsData, String>>[
+                                SplineSeries<RecordsData, String>(
+                                    dataSource:
+                                        transactionController.allIncomeHoursData.toList(),
+                                    color: AppColor().blueColor,
+                                    xValueMapper: (RecordsData value, _) => value.label,
+                                    yValueMapper: (RecordsData value, _) => value.value,
+                                    name: 'Sales',
+                                    splineType: SplineType.cardinal,
+                                    cardinalSplineTension: 0.9,
+                                    // Enable data label
+                                    dataLabelSettings:
+                                        DataLabelSettings(isVisible: false)),
+                                SplineSeries<RecordsData, String>(
+                                    dataSource:
+                                        transactionController.allExpenditureHoursData.toList(),
+                                    color: AppColor().orangeBorderColor,
+                                    xValueMapper: (RecordsData value, _) => value.label,
+                                    yValueMapper: (RecordsData value, _) => value.value,
+                                    name: 'Value',
+                                    splineType: SplineType.cardinal,
+                                    cardinalSplineTension: 0.9,
+                                    // Enable data label
+                                    dataLabelSettings:
+                                        DataLabelSettings(isVisible: false)),
+                              ]);
+                        }),
+                      ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Divider(),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Text(
+                      'Transaction Distribution',
+                      style: TextStyle(
+                        color: AppColor().backgroundColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Row(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().orangeBorderColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Money Out (₦)',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().blueColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Money in (₦)',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Container(
-                  height: 200,
-                  child: SfCartesianChart(
-                      primaryXAxis: CategoryAxis(),
-                      legend: Legend(isVisible: false),
-                      tooltipBehavior: TooltipBehavior(enable: true),
-                      series: <ChartSeries<_SalesData, String>>[
-                        SplineSeries<_SalesData, String>(
-                            dataSource: data,
-                            color: AppColor().blueColor,
-                            xValueMapper: (_SalesData sales, _) => sales.year,
-                            yValueMapper: (_SalesData sales, _) => sales.sales,
-                            splineType: SplineType.cardinal,
-                            cardinalSplineTension: 1,
-                            dataLabelSettings:
-                                DataLabelSettings(isVisible: false)),
-                        SplineSeries<_SalesData, String>(
-                            dataSource: data2,
-                            color: AppColor().orangeBorderColor,
-                            xValueMapper: (_SalesData sales, _) => sales.year,
-                            yValueMapper: (_SalesData sales, _) => sales.sales,
-                            splineType: SplineType.cardinal,
-                            cardinalSplineTension: 1,
-                            dataLabelSettings:
-                                DataLabelSettings(isVisible: false)),
-                      ]),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Divider(),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Text(
-                  'Transaction Distribution',
-                  style: TextStyle(
-                    color: AppColor().backgroundColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
                   ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Income',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Container(
-                          height: 200,
-                          child: SfCircularChart(
-                              tooltipBehavior: TooltipBehavior(enable: true),
-                              series: <CircularSeries>[
-                                PieSeries<_PieChartData, String>(
-                                    dataSource: pieMoneyIn,
-                                    pointColorMapper: (_PieChartData data, _) =>
-                                        data.color!,
-                                    xValueMapper: (_PieChartData sales, _) =>
-                                        sales.year,
-                                    yValueMapper: (_PieChartData sales, _) =>
-                                        sales.sales,
-                                    dataLabelSettings:
-                                        DataLabelSettings(isVisible: true)),
-                              ]),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Expenses',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Container(
-                          height: 200,
-                          child: SfCircularChart(
-                              tooltipBehavior: TooltipBehavior(enable: true),
-                              series: <CircularSeries>[
-                                PieSeries<_PieChartData, String>(
-                                    dataSource: pieMoneyOut,
-                                    pointColorMapper: (_PieChartData data, _) =>
-                                        data.color!,
-                                    xValueMapper: (_PieChartData sales, _) =>
-                                        sales.year,
-                                    yValueMapper: (_PieChartData sales, _) =>
-                                        sales.sales,
-                                    dataLabelSettings:
-                                        DataLabelSettings(isVisible: true)),
-                              ]),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().orangeBorderColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Mon',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().wineColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Tue',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().backgroundColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Wed',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().blueColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Thur',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().lightblueColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Fri',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().purpleColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Sat',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().brownColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Sun',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Divider(),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Text(
-                  'Popular Items',
-                  style: TextStyle(
-                    color: AppColor().backgroundColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          'Income',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Image.asset(
-                          'assets/images/Group 3804.png',
-                          height: 100,
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          'Expenses',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Image.asset(
-                          'assets/images/Group 3805.png',
-                          height: 100,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Divider(),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Text(
-                  'Statistics',
-                  style: TextStyle(
-                    color: AppColor().backgroundColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Column(
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          StatisticsWidget(
-                            image: 'assets/images/income_transaction.svg',
-                            color: AppColor().blueColor,
-                            amount: 50,
-                            name1: 'Income',
-                            name2: 'Transaction',
-                            message:
-                                'Total number of\nincome transactions\nfor the selected period',
-                          ),
-                          SizedBox(width: 10),
-                          StatisticsWidget(
-                            image: 'assets/images/expense_transaction.svg',
-                            color: AppColor().orangeBorderColor,
-                            amount: 50,
-                            name1: 'Expense',
-                            name2: 'Transaction',
-                            message: '',
-                          ),
-                        ],
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              'Income',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Container(
+                              height: 200,
+                              child: SfCircularChart(
+                                  tooltipBehavior: TooltipBehavior(enable: true),
+                                  series: <CircularSeries>[
+                                    PieSeries<RecordsData, String>(
+                                        dataSource:transactionController.allIncomeHoursData,
+                                        pointColorMapper: (RecordsData data, _) =>
+                                            data.color!,
+                                        xValueMapper: (RecordsData data, _) =>
+                                            data.label,
+                                        yValueMapper: (RecordsData data, _) =>
+                                            data.value,
+                                        dataLabelSettings:
+                                            DataLabelSettings(isVisible: true)),
+                                  ]),
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          StatisticsWidget(
-                            image: 'assets/images/total_income.svg',
-                            color: AppColor().backgroundColor,
-                            amount: 50,
-                            name1: 'Total',
-                            name2: 'Income',
-                            message: '',
-                          ),
-                          SizedBox(width: 10),
-                          StatisticsWidget(
-                            image: 'assets/images/total_expense.svg',
-                            color: AppColor().blackColor,
-                            amount: 50,
-                            name1: 'Total',
-                            name2: 'Expenses',
-                            message: '',
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          StatisticsWidget(
-                            image: 'assets/images/average_income.svg',
-                            color: AppColor().purpleColor,
-                            amount: 50,
-                            name1: 'Average income',
-                            name2: 'per transaction',
-                            message: '',
-                          ),
-                          SizedBox(width: 10),
-                          StatisticsWidget(
-                            image: 'assets/images/average_expenses.svg',
-                            color: AppColor().wineColor,
-                            amount: 500,
-                            name1: 'Average expenses',
-                            name2: 'per transaction',
-                            message: '',
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          StatisticsWidget(
-                            image: 'assets/images/net_income.svg',
-                            color: AppColor().lightblueColor,
-                            amount: 50,
-                            name1: 'Net income',
-                            name2: '',
-                            message: '',
-                          ),
-                          SizedBox(width: 10),
-                          StatisticsWidget(
-                            image: 'assets/images/h_income_transaction.svg',
-                            color: AppColor().brownColor,
-                            amount: 50,
-                            name1: 'Highest income',
-                            name2: 'transaction',
-                            message: '',
-                          ),
-                        ],
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              'Expenses',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Container(
+                              height: 200,
+                              child: SfCircularChart(
+                                  tooltipBehavior: TooltipBehavior(enable: true),
+                                  series: <CircularSeries>[
+                                    PieSeries<RecordsData, String>(
+                                        dataSource: transactionController.allExpenditureHoursData,
+                                        pointColorMapper: (RecordsData data, _) =>
+                                            data.color!,
+                                        xValueMapper: (RecordsData data, _) =>
+                                            data.label,
+                                        yValueMapper: (RecordsData data, _) =>
+                                            data.value,
+                                        dataLabelSettings:
+                                            DataLabelSettings(isVisible: true)),
+                                  ]),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-                  )),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            ],
-          ),
-        ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children:transactionController.allExpenditureHoursData.map((e)=>
+                        Row(
+                          children: [
+                            Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: e.color),
+                            ),
+                            SizedBox(width: 2),
+                            Text(
+                              '${e.label}',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 9,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                           SizedBox(width: 5,) 
+                          ],
+                        )).toList(),
+                        
+                      
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Divider(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Text(
+                      'Popular Items',
+                      style: TextStyle(
+                        color: AppColor().backgroundColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'Income',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Image.asset(
+                              'assets/images/Group 3804.png',
+                              height: 100,
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Expenses',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Image.asset(
+                              'assets/images/Group 3805.png',
+                              height: 100,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Divider(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Text(
+                      'Statistics',
+                      style: TextStyle(
+                        color: AppColor().backgroundColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.height * 0.03),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              StatisticsWidget(
+                                image: 'assets/images/income_transaction.svg',
+                                color: AppColor().blueColor,
+                                amount: transactionController.allIncomeHoursData.length,
+                                name1: 'Income',
+                                name2: 'Transaction',
+                                message:
+                                    'Total number of\nincome transactions\nfor the selected period',
+                              ),
+                              SizedBox(width: 10),
+                              StatisticsWidget(
+                                image: 'assets/images/expense_transaction.svg',
+                                color: AppColor().orangeBorderColor,
+                                amount: transactionController.allExpenditureHoursData.length,
+                                name1: 'Expense',
+                                name2: 'Transaction',
+                                message: '',
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              StatisticsWidget(
+                                image: 'assets/images/total_income.svg',
+                                color: AppColor().backgroundColor,
+                                amount: 0,
+                                name1: 'Total',
+                                name2: 'Income',
+                                message: '',
+                              ),
+                              SizedBox(width: 10),
+                              StatisticsWidget(
+                                image: 'assets/images/total_expense.svg',
+                                color: AppColor().blackColor,
+                                amount: 0,
+                                name1: 'Total',
+                                name2: 'Expenses',
+                                message: '',
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              StatisticsWidget(
+                                image: 'assets/images/average_income.svg',
+                                color: AppColor().purpleColor,
+                                amount:0,
+                                name1: 'Average income',
+                                name2: 'per transaction',
+                                message: '',
+                              ),
+                              SizedBox(width: 10),
+                              StatisticsWidget(
+                                image: 'assets/images/average_expenses.svg',
+                                color: AppColor().wineColor,
+                                amount:0,
+                                name1: 'Average expenses',
+                                name2: 'per transaction',
+                                message: '',
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              StatisticsWidget(
+                                image: 'assets/images/net_income.svg',
+                                color: AppColor().lightblueColor,
+                                amount: 50,
+                                name1: 'Net income',
+                                name2: '',
+                                message: '',
+                              ),
+                              SizedBox(width: 10),
+                              StatisticsWidget(
+                                image: 'assets/images/h_income_transaction.svg',
+                                color: AppColor().brownColor,
+                                amount: 50,
+                                name1: 'Highest income',
+                                name2: 'transaction',
+                                message: '',
+                              ),
+                            ],
+                          ),
+                        ],
+                      )),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                ],
+              ),
+            ),
+          );
+        }
       ),
     );
   }
