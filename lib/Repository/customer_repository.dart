@@ -170,6 +170,7 @@ class CustomerRepository extends GetxController {
 
   Future<String?> addBusinessCustomerWithString(String transactionType) async {
     try {
+      print("adding customer phone ${phoneNumberController.text} name ${nameController.text}");
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
           body: jsonEncode({
             "email": emailController.text,
@@ -183,7 +184,7 @@ class CustomerRepository extends GetxController {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-
+print("adding customer response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
