@@ -413,6 +413,7 @@ class _MoneyInState extends State<MoneyIn> {
                                         hint: '4',
                                         keyType: TextInputType.phone,
                                         validatorText: "Quantity is needed",
+                                        
                                         onChanged: (value) {
                                           print("value is $value");
                                           setState(() {});

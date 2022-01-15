@@ -167,10 +167,10 @@ class _DebtorsState extends State<Debtors> {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   separatorBuilder: (context, index) => Divider(),
-                  itemCount:_debtorController.debtOwnedList.length,
+                  itemCount:_debtorController.debtorsList.length,
                   itemBuilder: (context, index) {
                    
-                      var item=_debtorController.debtOwnedList[index];
+                      var item=_debtorController.debtorsList[index];
                       var customer=_customerController.checkifCustomerAvailableWithValue(item.customerId!);
                       return DebtorListing(item: item,);
                     }
@@ -799,7 +799,8 @@ class _DebtorListingState extends State<DebtorListing> {
   @override
   Widget build(BuildContext context) {
         var customer=_customerController.checkifCustomerAvailableWithValue(widget.item!.customerId!);
-    return Row(
+    return
+    customer==null?Container(): Row(
       children: [
         // Image.asset(debtorsList[index].image!),
        Expanded(
@@ -814,7 +815,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                           color: _randomColor.randomColor()),
                                       child: Center(
                                           child: Text(
-                                        '${customer!.name![0]}',
+                                     customer!.name==null ||customer!.name!.isEmpty  ?"":  '${customer!.name![0]}',
                                         style: TextStyle(
                                             fontSize: 30,
                                             color: Colors.white,

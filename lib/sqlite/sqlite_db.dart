@@ -265,9 +265,11 @@ Future insertProduct(Product product) async {
   }
   Future<int> deleteOfflineDebtor(
     Debtor debtor) async {
+      print("trying to delete debtors ${debtor.debtorId}");
     var result = await db.delete(debtorbusinessTable,
-        where: '"$debtorId" = ?', whereArgs: [debtor.debtorId!]);
+        where: '"$debtorId" = ?', whereArgs: [debtor.debtorId]);
     // print("transaction  with ${transactionModel.id} is deleted $result ");
+    print("result of deleted debtors $result");
     return result;
   }
 

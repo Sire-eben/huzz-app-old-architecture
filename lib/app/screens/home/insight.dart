@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
+import 'package:huzz/app/screens/home/wordclass.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/recordData.dart';
 import 'package:huzz/model/records_model.dart';
@@ -135,8 +136,12 @@ transactionController.splitCurrentTime();
       backgroundColor: Colors.white,
       body: Obx(
        () {
-         item1=removeDoubleItem(transactionController.allIncomeHoursData);
+
+                  item1=removeDoubleItem(transactionController.allIncomeHoursData);
          item2=removeDoubleItem(transactionController.allExpenditureHoursData);
+             var paymentList1=transactionController .getAllPaymentItemListForIncomeRecord();
+             var paymentList2=transactionController.getAllPaymentItemListForExpenditure();
+
           return Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -555,39 +560,40 @@ transactionController.splitCurrentTime();
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Income',
-                              style: TextStyle(
-                                color: AppColor().blackColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
+                                'Income',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Image.asset(
-                              'assets/images/Group 3804.png',
-                              height: 100,
-                            )
-                          ],
+                              SizedBox(height: 10,),
+                             Container(child: WordCloud(paymentList1))
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              'Expenses',
-                              style: TextStyle(
-                                color: AppColor().blackColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                        SizedBox(width: 20,),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text(
+                                'Expenses',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Image.asset(
-                              'assets/images/Group 3805.png',
-                              height: 100,
-                            )
-                          ],
+                              SizedBox(height: 10,),
+                              WordCloud(paymentList2)
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -621,7 +627,7 @@ transactionController.splitCurrentTime();
                               StatisticsWidget(
                                 image: 'assets/images/income_transaction.svg',
                                 color: AppColor().blueColor,
-                                amount: transactionController.allIncomeHoursData.length.toString(),
+                                amount: item1.length.toString(),
                                 name1: 'Income',
                                 name2: 'Transaction',
                                 message:
@@ -631,7 +637,7 @@ transactionController.splitCurrentTime();
                               StatisticsWidget(
                                 image: 'assets/images/expense_transaction.svg',
                                 color: AppColor().orangeBorderColor,
-                                amount: transactionController.allExpenditureHoursData.length.toString(),
+                                amount:item2.length.toString(),
                                 name1: 'Expense',
                                 name2: 'Transaction',
                                 message: '',
@@ -644,7 +650,7 @@ transactionController.splitCurrentTime();
                               StatisticsWidget(
                                 image: 'assets/images/total_income.svg',
                                 color: AppColor().backgroundColor,
-                                amount: display(transactionController.recordMoneyIn),
+                                amount: '₦'+display(transactionController.recordMoneyIn),
                                 name1: 'Total',
                                 name2: 'Income',
                                 message: '',
@@ -653,7 +659,7 @@ transactionController.splitCurrentTime();
                               StatisticsWidget(
                                 image: 'assets/images/total_expense.svg',
                                 color: AppColor().blackColor,
-                                amount: display(transactionController.recordMoneyOut),
+                                amount: '₦'+display(transactionController.recordMoneyOut),
                                 name1: 'Total',
                                 name2: 'Expenses',
                                 message: '',
@@ -666,7 +672,7 @@ transactionController.splitCurrentTime();
                               StatisticsWidget(
                                 image: 'assets/images/average_income.svg',
                                 color: AppColor().purpleColor,
-                                amount:display((transactionController.recordMoneyIn/item1.length)),
+                                amount:'₦'+display((transactionController.recordMoneyIn/item1.length)),
                                 name1: 'Average income',
                                 name2: 'per transaction',
                                 message: '',
@@ -675,7 +681,7 @@ transactionController.splitCurrentTime();
                               StatisticsWidget(
                                 image: 'assets/images/average_expenses.svg',
                                 color: AppColor().wineColor,
-                                amount:display((transactionController.recordMoneyOut/item2.length)),
+                                amount:'₦'+display((transactionController.recordMoneyOut/item2.length)),
                                 name1: 'Average expenses',
                                 name2: 'per transaction',
                                 message: '',
@@ -879,7 +885,7 @@ class StatisticsWidget extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        'N' + amount!,
+                        amount!,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: 'DMSans',

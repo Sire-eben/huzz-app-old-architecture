@@ -6,13 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/debtors_repository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/Utils/constants.dart';
+import 'package:huzz/app/screens/home/debtors/debtors.dart';
 import 'package:huzz/app/screens/home/income_success.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/customer_model.dart';
+import 'package:huzz/model/debtor.dart';
 import 'package:huzz/model/payment_history.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
@@ -35,6 +38,7 @@ class TransactionRespository extends GetxController {
   final _uploadImageController = Get.find<FileUploadRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
+  final _debtorController=Get.find<DebtorRepository>();
   List<TransactionModel> OnlineTransaction = [];
   List<TransactionModel> pendingTransaction = [];
   Rx<List<PaymentItem>> _allPaymentItem = Rx([]);
@@ -158,6 +162,54 @@ record.transactionList.forEach((element) {
 
 });
 return list;
+
+}
+List<PaymentItem> getAllPaymentItemForRecordIncome(RecordsData record){
+List<PaymentItem> list=[];
+record.transactionList.forEach((element) {
+  if(element.transactionType=="INCOME")
+  list.addAll(element.businessTransactionPaymentItemList!);
+
+});
+return list;
+
+}
+List<PaymentItem> getAllPaymentItemForRecordExpenditure(RecordsData record){
+List<PaymentItem> list=[];
+record.transactionList.forEach((element) {
+  if(element.transactionType=="EXPENDITURE")
+  list.addAll(element.businessTransactionPaymentItemList!);
+
+});
+return list;
+
+}
+List<PaymentItem> getAllPaymentItemListForIncomeRecord(){
+List<PaymentItem> list=[];
+allIncomeHoursData.forEach((element) {
+  if(element.value>0){
+
+    list.addAll(getAllPaymentItemForRecordIncome(element));
+  }
+
+});
+print("get record income list ${list.length}");
+return list;
+
+}
+
+List<PaymentItem> getAllPaymentItemListForExpenditure(){
+List<PaymentItem> list1=[];
+
+allExpenditureHoursData.forEach((element) {
+  if(element.value>0 ){
+
+    list1.addAll(getAllPaymentItemForRecordExpenditure(element));
+  }
+
+});
+print("get record expenditure list ${list1.length}");
+return list1;
 
 }
   Future getAllPaymentItem() async {
@@ -863,11 +915,13 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
               transactionModel: result,
               title: "transaction",
             ));
+            
         getOnlineTransaction(
             _businessController.selectedBusiness.value!.businessId!);
 
         GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
+            _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         clearValue();
       } else {
@@ -965,6 +1019,24 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
     value.businessTransactionPaymentHistoryList = transactionList;
 
     print("offline saving to database ${value.toJson()}}");
+    if(customerId!=null)
+    if(selectedPaymentMode=="DEPOSIT"){
+
+      Debtor debtor=Debtor(
+        
+       businessTransactionId: value.id,
+       customerId: customerId,
+       businessId: value.businessId,
+       totalAmount: value.totalAmount,
+       balance: value.balance,
+       businessTransactionType: value.transactionType,
+       createdTime: DateTime.now(),
+       debtorId: uuid.v1()
+
+      );
+      _businessController.sqliteDb.insertDebtor(debtor);
+      _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
+    }
     await _businessController.sqliteDb.insertTransaction(value);
     GetOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
@@ -1079,6 +1151,12 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
 
         }
         await deleteItem(savenext);
+        var debtor=_debtorController.getDebtorByTransactionId(savenext.id!);
+        if(debtor!=null){
+
+         _businessController.sqliteDb.deleteOfflineDebtor(debtor);
+         _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
+        }
         pendingTransactionToBeAdded.remove(savenext);
 // pendingTransaction.remove(savenext);
 
@@ -1098,6 +1176,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
               _businessController.selectedBusiness.value!.businessId!);
           getOnlineTransaction(
               _businessController.selectedBusiness.value!.businessId!);
+              _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
         }
         isBusyAdding = false;
       } else {
@@ -1190,6 +1269,7 @@ print("record balance $Balance");
   }
 
   void addMoreProduct() {
+    print("qunatity text is ${quantityController.text}");
     if (selectedValue == 0) {
       if (selectedProduct != null)
         productList.add(PaymentItem(
@@ -1325,6 +1405,19 @@ print("record balance $Balance");
       transaction.balance = transaction.balance! - amount;
       transaction.businessTransactionPaymentHistoryList = transactionList;
       updateTransaction(transaction);
+
+      var debtor=_debtorController.getDebtorByTransactionId(transactionId);
+    if(debtor!=null){
+    if(transaction.balance==0){
+
+      _debtorController.deleteBusinessDebtor(debtor);
+    }else{
+
+      // debtor.balance=transaction.balance;
+      _debtorController.updateBusinessDebtorOffline(debtor, amount);
+    }
+    }
+     _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
       return transaction;
     } catch (ex) {
       _addingTransactionStatus(AddingTransactionStatus.Empty);
@@ -1430,6 +1523,11 @@ print("record balance $Balance");
     } finally {
       await getOnlineTransaction(
           _businessController.selectedBusiness.value!.businessId!);
+          _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
+   
+ 
+     _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
+   
     }
   }
 
@@ -1448,7 +1546,10 @@ print("record balance $Balance");
       if (response.statusCode == 200) {
         await _businessController.sqliteDb
             .deleteOfflineTransaction(transactionModel);
-
+var debtor=_debtorController.getDebtorByTransactionId(transactionModel.id!);
+    if(debtor!=null)
+    _debtorController.deleteBusinessDebtor(debtor);
+     _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
         await GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
         Get.back();
@@ -1458,6 +1559,7 @@ print("record balance $Balance");
 
         await GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
+             _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
         Get.back();
       }
     } catch (ex) {
@@ -1473,6 +1575,12 @@ print("record balance $Balance");
           _businessController.selectedBusiness.value!.businessId!);
     } else {
       updateTransaction(transactionModel);
+    }
+    var debtor=_debtorController.getDebtorByTransactionId(transactionModel.id!);
+    if(debtor!=null){
+      print("debtor foundsss ${debtor.toJson()}");
+  _businessController.sqliteDb.deleteOfflineDebtor(debtor);
+     _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
     }
     Get.back();
   }

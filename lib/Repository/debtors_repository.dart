@@ -57,6 +57,8 @@ class DebtorRepository extends GetxController
   Rx<List<Debtor>> _debtOwnedList=Rx([]);
   List<Debtor> get debtorsList=> _debtorsList.value;
   List<Debtor> get debtOwnedList=> _debtOwnedList.value;
+  Rx<dynamic> _debotorAmount=Rx(0);
+  dynamic get debtorAmount=>_debotorAmount.value;
   var uuid = Uuid();
     Customer? selectedCustomer = null;
      int customerType = 0;
@@ -211,6 +213,17 @@ class DebtorRepository extends GetxController
     //   title: title,
     // ));
   }
+  Future calculateDebtors()async{
+    dynamic totalDebotors=0;
+debtorsList.forEach((element) {
+  
+  totalDebotors=totalDebotors+element.totalAmount!;
+
+});
+
+_debotorAmount(totalDebotors);
+
+  }
 
   Future updateBusinessDebtorOffline(Debtor debtor, int amount) async {
     // File? outFile;
@@ -313,6 +326,8 @@ class DebtorRepository extends GetxController
     _offlineBusinessDebtor(result);
     print("offline Debtor found ${result.length}");
     classifiedDebt();
+    calculateDebtors();
+
     // setDebtorDifferent();
   }
 
@@ -320,7 +335,7 @@ Future classifiedDebt()async{
   List<Debtor> debtors=[];
   List<Debtor> debtOwned=[];
 offlineBusinessDebtor.where((element) => !element.paid!).forEach((element) {
-  
+  print("Debtor transaction type ${element.businessTransactionType}");
   if(element.businessTransactionType=="INCOME"){
 debtors.add(element);
 
@@ -337,7 +352,7 @@ debtOwned.add(element);
 _debtOwnedList(debtOwned);
 _debtorsList(debtors);
 
-
+calculateDebtors();
 }
      Debtor? getDebtorByTransactionId(String id){
     
@@ -501,6 +516,7 @@ getOfflineDebtor(  _businessController.selectedBusiness.value!.businessId!);
       _businessController.sqliteDb.updateOfflineDebtor(debtor);
     } else {
       _businessController.sqliteDb.deleteOfflineDebtor(debtor);
+      print("debtors deleted");
     }
     getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
   }

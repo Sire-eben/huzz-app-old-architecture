@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/debtors_repository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/create_business.dart';
@@ -37,6 +38,7 @@ class _HomeState extends State<Home> {
   String? value;
   final _transactionController = Get.find<TransactionRespository>();
   final _businessController = Get.find<BusinessRespository>();
+  final _debtorController=Get.find<DebtorRepository>();
   int selectedValue = 0;
   final transactionList = [];
   RandomColor _randomColor = RandomColor();
@@ -356,9 +358,8 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           // ignore: unnecessary_null_comparison
-                          display(_transactionController.debtors.value) == null
-                              ? 'No debtors yet'
-                              : 'N${display(_transactionController.debtors.value)}',
+                         "N ${display(_debtorController.debtorAmount)}",
+                             
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),

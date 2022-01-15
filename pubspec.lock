@@ -244,6 +244,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
+  flutter_scatter:
+    dependency: "direct main"
+    description:
+      name: flutter_scatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   flutter_spinkit:
     dependency: transitive
     description:
