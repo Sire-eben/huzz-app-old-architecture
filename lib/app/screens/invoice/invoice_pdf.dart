@@ -5,12 +5,15 @@ import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
+import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/widget/util.dart';
 import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice.dart';
+import 'package:huzz/model/payment_history.dart';
 import 'package:intl/intl.dart';
+import 'package:number_display/number_display.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -22,6 +25,13 @@ class PdfInvoiceApi {
   static final _businessController = Get.find<BusinessRespository>();
   static final _customerController = Get.find<CustomerRepository>();
   static final _bankController = Get.find<BankAccountRepository>();
+    static  final display = createDisplay(
+    length: 5,
+    decimal: 0,
+    placeholder: 'N',
+    units: ['K','M','B','T']
+  );
+
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
     var customer = _customerController
@@ -31,22 +41,22 @@ class PdfInvoiceApi {
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(bank!),
-        SizedBox(height: 2 * PdfPageFormat.cm),
+        buildHeader(bank!, invoice),
+        SizedBox(height: 1 * PdfPageFormat.cm),
         buildInvoice(invoice),
         Divider(),
         buildSubTotal(invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
         buildTotal(invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
-        buildFooter(customer)
+        buildFooter(customer,invoice)
       ],
     ));
 
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(Bank bank) => Container(
+  static Widget buildHeader(Bank bank, Invoice invoice) => Container(
       padding: EdgeInsets.all(20),
       color: PdfColors.blue,
       child: Column(
@@ -56,7 +66,7 @@ class PdfInvoiceApi {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               buildSupplierAddress(_businessController.selectedBusiness.value!),
-              buildBankDetails(bank),
+              buildBankDetails(bank, invoice),
             ],
           ),
         ],
@@ -103,7 +113,7 @@ class PdfInvoiceApi {
     );
   }
 
-  static Widget buildBankDetails(Bank bankDetails) => Column(
+  static Widget buildBankDetails(Bank bankDetails, Invoice invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
@@ -113,13 +123,19 @@ class PdfInvoiceApi {
                     color: PdfColors.white,
                     fontSize: 16)),
             SizedBox(width: 1 * PdfPageFormat.mm),
-            Text('#61144',
+            Text('#${invoice.id!.substring(1,6)}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: PdfColors.white,
                     fontSize: 16)),
           ]),
-          Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
+          Text(
+              'Issued Date:' +
+                  DateFormat.yMMMd().format(DateTime.now()).toString(),
+              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+          Text(
+              'Due Date:' +
+                  DateFormat.yMMMd().format(invoice.dueDateTime!).toString(),
               style: TextStyle(color: PdfColors.white, fontSize: 10)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text('Mode of Payment',
@@ -161,7 +177,7 @@ class PdfInvoiceApi {
       return [
         '${item.itemName}',
         '${item.quality}',
-        '\NGN${item.totalAmount}',
+        '\NGN${display(item.totalAmount)}',
       ];
     }).toList();
 
@@ -197,6 +213,7 @@ class PdfInvoiceApi {
       child: Row(
         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
+          Container(),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             color: PdfColors.orange,
@@ -210,7 +227,7 @@ class PdfInvoiceApi {
             ),
           ),
           Text(
-            Utils.formatPrice(invoice.totalAmount!),
+            "NGN ${display(invoice.totalAmount)}",
             style: TextStyle(
               color: PdfColors.blue,
               fontSize: 16,
@@ -230,32 +247,22 @@ class PdfInvoiceApi {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          'Issue Date',
+          'COMMENTS',
           style: TextStyle(
             fontSize: 10,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          DateFormat.yMMMd().format(DateTime.now()).toString(),
+          '1. Payment should not exceed 30 days',
           style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
+            fontSize: 7,
           ),
         ),
-      ]),
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text('Due Date',
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-            )),
         Text(
-          DateFormat.yMMMd().format(invoice.dueDateTime!).toString(),
+          '2. Please note your invoice no in your payment',
           style: TextStyle(
-            color: PdfColors.orange,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
+            fontSize: 7,
           ),
         ),
       ]),
@@ -308,49 +315,104 @@ class PdfInvoiceApi {
     ]);
   }
 
-  static Widget buildFooter(Customer? customer) =>
-      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+  static Widget buildFooter(Customer? customer,Invoice invoice){
+    List<PaymentHistory> lists=      invoice.businessTransaction==null || invoice.businessTransaction!.businessTransactionPaymentHistoryList!.isEmpty?[]:  invoice.businessTransaction!.businessTransactionPaymentHistoryList!;
+    return Column(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(
+              'ISSUED TO:',
+              style: TextStyle(
+                color: PdfColors.blue,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text("${customer!.name}"),
+            Text("${customer.phone}"),
+          ]),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 1, color: PdfColors.orange),
+                  color: PdfColors.orange50),
+              child: Text('Pending',
+                  style: TextStyle(color: PdfColors.orange, fontSize: 12)),
+            )
+          ]),
+          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Text(
+              'POWERED BY:',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              'HUZZ',
+              style: TextStyle(
+                color: PdfColors.blue,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ])
+        ]),
+        SizedBox(height: 1 * PdfPageFormat.cm),
+      lists.isEmpty?pw.Container():  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            'ISSUED TO:',
+            'Date',
             style: TextStyle(
-              color: PdfColors.blue,
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text("${customer!.name}"),
-          Text("${customer.phone}"),
-        ]),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(width: 1, color: PdfColors.orange),
-                color: PdfColors.orange50),
-            child: Text('Pending',
-                style: TextStyle(color: PdfColors.orange, fontSize: 12)),
+          Text(
+            'Amount Paid',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'Mode of Payment',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
           )
         ]),
-        Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+        Divider(),
+
+      ...lists.map<pw.Widget>((e)=>
+      pw.Container(
+        child:
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            'POWERED BY:',
+           e.createdDateTime!.formatDate()!,
             style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
+              fontSize: 10,
             ),
           ),
           Text(
-            'HUZZ',
+            'N ${display(e.amountPaid)}',
             style: TextStyle(
-              color: PdfColors.blue,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
+              fontSize: 10,
+              color: PdfColors.orange,
             ),
           ),
-        ])
+          Text(
+           e.paymentSource!,
+            style: TextStyle(
+              fontSize: 10,
+            ),
+          )
+        ]))).toList(),
+      
       ]);
+  }
 }
 
 class PdfApi {

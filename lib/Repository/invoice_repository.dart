@@ -641,7 +641,7 @@ checkPendingTransactionbeUpdatedToServer();
             .getOfflineCustomer(savenext.customerId!);
         if (customervalue != null && customervalue.isCreatedFromInvoice!) {
           String? customerId =
-              await _customerController.addBusinessCustomerWithString("INCOME");
+              await _customerController.addBusinessCustomerWithStringWithValue(customervalue);
           savenext.customerId = customerId;
           _businessController.sqliteDb.deleteCustomer(customervalue);
         } else {

@@ -630,7 +630,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                     ],
                   ),
                   InkWell(
-                    onTap: () {
+                    onTap: ()async {
         
                      if(_invoiceController.addingInvoiceStatus!=AddingInvoiceStatus.Loading){
                       
@@ -645,8 +645,8 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
         
                         source="TRANSFER";
                       }
-                   _invoiceController.updateTransactionHistory(widget.invoice!.id!, widget.invoice!.businessId!, (paymentType==0)?int.parse(_amountController.text):0, (paymentType==0)?"DEPOSIT":"FULLY_PAID", source!);
-                      
+                  await _invoiceController.updateTransactionHistory(widget.invoice!.id!, widget.invoice!.businessId!, (paymentType==0)?int.parse(_amountController.text):0, (paymentType==0)?"DEPOSIT":"FULLY_PAID", source!);
+                      Get.back();
                      }else{
         
         

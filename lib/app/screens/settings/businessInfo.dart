@@ -8,9 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/bank_account_repository.dart';
+import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/app/screens/settings/itemCard.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/bank.dart';
+import 'package:huzz/model/business.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../colors.dart';
@@ -25,10 +27,15 @@ class BusinessInfo extends StatefulWidget {
 class _BusinessInfoState extends State<BusinessInfo> {
   final controller = Get.find<AuthRepository>();
   final TextEditingController textEditingController = TextEditingController();
+  final businessController = Get.find<BusinessRespository>();
   final bankInfoController = Get.find<BankAccountRepository>();
   String countryFlag = "NG";
   String countryCode = "234";
   final addAccountKey = GlobalKey<FormState>();
+
+  // final currency =
+  //     CountryPickerUtils.getCountryByIsoCode(controller.countryCodeFLag)
+  //         .currencyCode;
 
   final items = [
     'Box',
@@ -38,11 +45,26 @@ class _BusinessInfoState extends State<BusinessInfo> {
   ];
 
   String? value;
+  late String? businessImage;
+  late String? businessName;
+  late String? businessEmail;
+  late String? businessAddress;
+  late String? businessCurrency;
+  late String? businessPhoneNumber;
+
+  final business = Rx(Business());
+  Business? get businessData => business.value;
 
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    // businessImage = bankInfoController.BankImage as String?;
+    businessName = controller.business?.businessName;
+    businessEmail = controller.business?.businessEmail;
+    businessAddress = controller.business?.businessAddress;
+    businessCurrency = controller.business?.businessCurrency;
+    businessPhoneNumber = controller.business?.businessPhoneNumber;
     super.initState();
   }
 
@@ -89,9 +111,14 @@ class _BusinessInfoState extends State<BusinessInfo> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+// ignore: unnecessary_null_comparison
+                  // bankInfoController.BankImage == null
+                  //     ?
                   Image.asset(
                     'assets/images/Group 3647.png',
-                  ),
+                  )
+                  // : Image.network(businessController
+                  //     .selectedBusiness.value!.businessImage),
                 ],
               ),
               SizedBox(
@@ -111,6 +138,10 @@ class _BusinessInfoState extends State<BusinessInfo> {
               CustomTextField(
                 label: "Business Name",
                 validatorText: "Business Name required",
+                // hint: businessName,
+                hint:
+                    "${businessController.selectedBusiness.value!.businessName}",
+                textEditingController: businessController.businessName,
               ),
               SizedBox(
                 height: 10,
@@ -193,9 +224,11 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        controller: businessController.businessPhoneNumber,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "9034678966",
+                            hintText:
+                                "${businessController.selectedBusiness.value!.businessPhoneNumber}",
                             hintStyle: TextStyle(
                                 color: Colors.black.withOpacity(0.5),
                                 fontSize: 14,
@@ -217,10 +250,17 @@ class _BusinessInfoState extends State<BusinessInfo> {
               CustomTextField(
                 label: "Email",
                 validatorText: "Email required",
+                hint:
+                    "${businessController.selectedBusiness.value!.businessEmail}",
+                textEditingController: businessController.businessEmail,
               ),
               CustomTextField(
                 label: "Address",
                 validatorText: "Address is needed",
+                hint:
+                    "${businessController.selectedBusiness.value!.businessAddress}",
+                textEditingController:
+                    businessController.businessAddressController,
               ),
               SizedBox(
                 height: 10,
@@ -382,30 +422,69 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 height: 10,
               ),
 
-              InkWell(
-                onTap: () {
-                  // Get.to(Confirmation());
-                },
-                child: Container(
-                  height: 55,
-                  // margin: EdgeInsets.symmetric(
-                  //   horizontal: 15,
-                  // ),
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'Save',
-                      style: TextStyle(
-                        color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              // InkWell(
+              //   onTap: () {
+              //     // Get.to(Confirmation());
+              //
+              //   },
+              //   child: Container(
+              //     height: 55,
+              //     // margin: EdgeInsets.symmetric(
+              //     //   horizontal: 15,
+              //     // ),
+              //     decoration: BoxDecoration(
+              //         color: AppColor().backgroundColor,
+              //         borderRadius: BorderRadius.circular(10)),
+              //     child: Center(
+              //       child: Text(
+              //         'Save',
+              //         style: TextStyle(
+              //           color: AppColor().whiteColor,
+              //           fontFamily: 'DMSans',
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              Obx(() {
+                return InkWell(
+                  onTap: () {
+                    if (businessController.updateBusinessStatus !=
+                        UpdateBusinessStatus.Loading)
+                      businessController.updateBusiness();
+                  },
+                  child: Container(
+                    height: 50,
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: (businessController.updateBusinessStatus ==
+                            UpdateBusinessStatus.Loading)
+                        ? Center(
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Save',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                            ],
+                          ),
                   ),
-                ),
-              ),
+                );
+              }),
               SizedBox(
                 height: 40,
               ),
@@ -637,6 +716,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
           ),
         ),
       );
+  // ignore: unused_element
   _displayDialog(BuildContext context) async {
     return showDialog(
         context: context,

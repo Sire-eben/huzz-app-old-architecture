@@ -6,6 +6,7 @@ class Customer {
   bool? isUpdatingPending;
   bool? isCreatedFromTransaction;
   bool? isCreatedFromInvoice;
+  bool? isCreatedFromDebtors;
   bool? deleted;
   Customer(
       {this.image,
@@ -21,7 +22,8 @@ class Customer {
       this.isAddingPending,
       this.isUpdatingPending,
       this.isCreatedFromTransaction,
-      this.isCreatedFromInvoice});
+      this.isCreatedFromInvoice,
+      this.isCreatedFromDebtors});
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
       name: json['name'],
@@ -38,7 +40,9 @@ class Customer {
       isAddingPending: json['isAddingPending'] ?? false,
       isUpdatingPending: json['isAddingPending'] ?? false,
       isCreatedFromTransaction: json['isCreatedFromTransaction'] ?? false,
-      isCreatedFromInvoice: json['isCreatedFromInvoice'] ?? false);
+      isCreatedFromInvoice: json['isCreatedFromInvoice'] ?? false,
+      isCreatedFromDebtors: json['isCreatedFromDebtors']??false);
+      
 
   Map<String, dynamic> toJson() => {
         "name": this.name,
@@ -57,7 +61,8 @@ class Customer {
         "isAddingPending": isAddingPending,
         "isUpdatingPending": isUpdatingPending,
         "isCreatedFromTransaction": isCreatedFromTransaction,
-        "sCreatedFromInvoice": isCreatedFromInvoice
+        "isCreatedFromInvoice": isCreatedFromInvoice,
+        "isCreatedFromDebtors":isCreatedFromDebtors
       };
 }
 

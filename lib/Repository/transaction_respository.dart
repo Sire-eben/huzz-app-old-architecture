@@ -1,17 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/debtors_repository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/Utils/constants.dart';
+import 'package:huzz/app/screens/home/debtors/debtors.dart';
 import 'package:huzz/app/screens/home/income_success.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/customer_model.dart';
+import 'package:huzz/model/debtor.dart';
 import 'package:huzz/model/payment_history.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
@@ -20,6 +24,7 @@ import 'package:huzz/model/transaction_model.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 
 import 'auth_respository.dart';
@@ -33,6 +38,7 @@ class TransactionRespository extends GetxController {
   final _uploadImageController = Get.find<FileUploadRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
+  final _debtorController=Get.find<DebtorRepository>();
   List<TransactionModel> OnlineTransaction = [];
   List<TransactionModel> pendingTransaction = [];
   Rx<List<PaymentItem>> _allPaymentItem = Rx([]);
@@ -96,6 +102,13 @@ class TransactionRespository extends GetxController {
   List<RecordsData> get allExpenditureHoursData =>
       _allExpenditureHoursData.value;
 
+Rx<dynamic> _recordBalance=Rx(0);
+Rx<dynamic> _recordMoneyIn=Rx(0);
+Rx<dynamic> _recordMoneyOut=Rx(0);
+dynamic get recordBalance =>_recordBalance.value;
+dynamic get recordMoneyIn => _recordMoneyIn.value;
+dynamic get recordMoneyOut => _recordMoneyOut.value;
+ RandomColor _randomColor = RandomColor();
   @override
   void onInit() async {
     // TODO: implement onInit
@@ -141,6 +154,64 @@ class TransactionRespository extends GetxController {
     });
   }
 
+
+List<PaymentItem> getAllPaymentItemForRecord(RecordsData record){
+List<PaymentItem> list=[];
+record.transactionList.forEach((element) {
+  list.addAll(element.businessTransactionPaymentItemList!);
+
+});
+return list;
+
+}
+List<PaymentItem> getAllPaymentItemForRecordIncome(RecordsData record){
+List<PaymentItem> list=[];
+record.transactionList.forEach((element) {
+  if(element.transactionType=="INCOME")
+  list.addAll(element.businessTransactionPaymentItemList!);
+
+});
+return list;
+
+}
+List<PaymentItem> getAllPaymentItemForRecordExpenditure(RecordsData record){
+List<PaymentItem> list=[];
+record.transactionList.forEach((element) {
+  if(element.transactionType=="EXPENDITURE")
+  list.addAll(element.businessTransactionPaymentItemList!);
+
+});
+return list;
+
+}
+List<PaymentItem> getAllPaymentItemListForIncomeRecord(){
+List<PaymentItem> list=[];
+allIncomeHoursData.forEach((element) {
+  if(element.value>0){
+
+    list.addAll(getAllPaymentItemForRecordIncome(element));
+  }
+
+});
+print("get record income list ${list.length}");
+return list;
+
+}
+
+List<PaymentItem> getAllPaymentItemListForExpenditure(){
+List<PaymentItem> list1=[];
+
+allExpenditureHoursData.forEach((element) {
+  if(element.value>0 ){
+
+    list1.addAll(getAllPaymentItemForRecordExpenditure(element));
+  }
+
+});
+print("get record expenditure list ${list1.length}");
+return list1;
+
+}
   Future getAllPaymentItem() async {
     if (todayTransaction.isEmpty) {
       _allPaymentItem([]);
@@ -221,15 +292,16 @@ class TransactionRespository extends GetxController {
 
     getTodayTransaction();
     //  getWeeklyRecordData();
-    getMonthlyRecord();
-    // splitCurrentTime();
+    // getMonthlyRecord();
+    splitCurrentTime();
+    // getYearRecord();
   }
 
   Future splitCurrentTime() async {
-    TimeOfDay _timeday = TimeOfDay.now();
+    TimeOfDay _timeday = TimeOfDay(hour: 0,minute: 0);
     List<String> value = [];
-    for (int i = 0; i < 8; ++i) {
-      value.add((_timeday.hour - 2).toString());
+    for (int i = 0; i < 24; ++i) {
+      value.add((_timeday.hour).toString());
       var timeofday =
           TimeOfDay(hour: _timeday.hour + 1, minute: _timeday.minute);
       _timeday = timeofday;
@@ -249,9 +321,10 @@ int daysInMonth(DateTime date) =>  DateTimeRange(
   Future getMonthlyRecord()async{
  var currentDate=DateTime.now();
  int days=daysInMonth(currentDate);
+ print("number of days in the months $days");
   List<DateTime> value = [];
- for(int i=0;i<days;++i){
-
+ for(int i=1;i<days;++i){
+print("days number is $i");
  value.add(DateTime(currentDate.year, currentDate.month, i));
       
  }
@@ -260,24 +333,102 @@ getSplitCurrentMonthly(value);
 
   }
 
-Future getSplitCurrentMonthly(List<DateTime> days) async {
+Future getAllTimeRecord()async{
+   var currentDate=DateTime.now();
+DateTime startingYear=DateTime(2018);
+DateTime endingYear=DateTime(currentDate.year);
+List<DateTime> value=[];
+for(int i=startingYear.year; i<endingYear.year+1;++i){
+print("year in list ${startingYear.year}");
+
+value.add(DateTime(startingYear.year));
+startingYear=DateTime(startingYear.year+1);
+}
+print("all year to be calculated ${value.length}");
+getSplitAllTime(value);
+}
+ Future getYearRecord()async{
+var currentDate=DateTime.now();
+List<DateTime> value = [];
+for(int i=1;i<12;++i){
+value.add(DateTime(currentDate.year, i));
+
+
+
+}
+
+getSplitCurrentYear(value);
+
+ } 
+
+ Future getSplitAllTime(List<DateTime> years) async {
     List<TransactionModel> _currentHoursIncome = [];
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
-    days.forEach((element1) {
+    years.forEach((element1) {
       dynamic incomeTotalAmount = 0;
       dynamic expenditureTotalAmount = 0;
+          List<TransactionModel> currentTran=[];
+      if (todayTransaction.isEmpty)
+        print("alltime is empty");
+      else
+        print("alltime transaction is not empty");
+      offlineTransactions.forEach((element) {
+        print(
+            "alltime testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
+
+        if (element.entryDateTime != null &&
+            DateTime(element.entryDateTime!.year
+                 )
+                .isAtSameMomentAs(
+                    DateTime(element1.year))) {
+          print("AllTime found");
+          if (element.transactionType!.contains("INCOME")) {
+            _currentHoursIncome.add(element);
+            print("AllTime is  $element1 amount ${element.totalAmount}");
+            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+            print("AllTime is  $element1 amount $incomeTotalAmount");
+          } else {
+            _currentHoursExpenditure.add(element);
+            expenditureTotalAmount =
+                expenditureTotalAmount + element.totalAmount ?? 0;
+            print(
+                "expenditure AllTime is  $element1 amount $expenditureTotalAmount");
+          }
+        
+    currentTran.add(element);
+                    }
+      });
+          _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "y")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "y")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
+    });
+    _allIncomeHoursData(_hourIncomeData);
+    _allExpenditureHoursData(_hourExpenditureData);
+    calculateRecordOverView();
+  }
+
+ Future getSplitCurrentYear(List<DateTime> months) async {
+    List<TransactionModel> _currentHoursIncome = [];
+    List<TransactionModel> _currentHoursExpenditure = [];
+    List<RecordsData> _hourIncomeData = [];
+    List<RecordsData> _hourExpenditureData = [];
+    months.forEach((element1) {
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
+          List<TransactionModel> currentTran=[];
       if (todayTransaction.isEmpty)
         print(" transactonlist is empty");
       else
         print("today transaction is not empty");
       offlineTransactions.forEach((element) {
         print(
-            "monthly testing $element1 ${element.entryDateTime!.toIso8601String()}");
+            "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
         if (element.entryDateTime != null &&
-            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,
+            DateTime(element.entryDateTime!.year, element.entryDateTime!.month
                  )
                 .isAtSameMomentAs(
                     DateTime(element1.year, element1.month))) {
@@ -294,15 +445,68 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
           }
-        }
-        _hourIncomeData.add(RecordsData(
-            element1.formatDate(pattern: "dd")!, incomeTotalAmount));
-        _hourExpenditureData.add(RecordsData(
-            element1.formatDate(pattern: "dd")!, expenditureTotalAmount));
+        currentTran.add(element);
+      
+                    }
       });
+        _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "MMM")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "MMM")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
+  }
+
+
+Future getSplitCurrentMonthly(List<DateTime> days) async {
+    List<TransactionModel> _currentHoursIncome = [];
+    List<TransactionModel> _currentHoursExpenditure = [];
+    List<RecordsData> _hourIncomeData = [];
+    List<RecordsData> _hourExpenditureData = [];
+    days.forEach((element1) {
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
+      List<TransactionModel> currentTran=[];
+      if (todayTransaction.isEmpty)
+        print(" transactonlist is empty");
+      else
+        print("today transaction is not empty");
+      offlineTransactions.forEach((element) {
+        print(
+            "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
+
+        if (element.entryDateTime != null &&
+            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,element.entryDateTime!.day
+                 )
+                .isAtSameMomentAs(
+                    DateTime(element1.year, element1.month,element1.day))) {
+          print("today hour found");
+          if (element.transactionType!.contains("INCOME")) {
+            _currentHoursIncome.add(element);
+            print("income hour is  $element1 amount ${element.totalAmount}");
+            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+            print("income hour is  $element1 amount $incomeTotalAmount");
+          } else {
+            _currentHoursExpenditure.add(element);
+            expenditureTotalAmount =
+                expenditureTotalAmount + element.totalAmount ?? 0;
+            print(
+                "expenditure hour is  $element1 amount $expenditureTotalAmount");
+          }
+        currentTran.add(element);
+      
+                    }
+      });
+        _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "MMM,dd")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "MMM,dd")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
+    });
+    _allIncomeHoursData(_hourIncomeData);
+    _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
   }
 
   Future getSplitCurrentDate(List<String> hours) async {
@@ -311,9 +515,11 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
+   
     hours.forEach((element1) {
       int incomeTotalAmount = 0;
       int expenditureTotalAmount = 0;
+         List< TransactionModel> currentTran=[];
       if (todayTransaction.isEmpty)
         print("today transactonlist is empty");
       else
@@ -339,13 +545,16 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
           }
+    currentTran.add(element);
         }
-        _hourIncomeData.add(RecordsData(element1, incomeTotalAmount));
-        _hourExpenditureData.add(RecordsData(element1, expenditureTotalAmount));
+   
       });
+              _hourIncomeData.add(RecordsData(element1+":00", incomeTotalAmount,currentTran,_randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(element1+":00", expenditureTotalAmount,currentTran,_randomColor.randomColor()));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
   }
 
   Future getWeeklyRecordData() async {
@@ -360,6 +569,68 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     getSplitCurrentWeek(value);
   }
 
+Future getDateRangeRecordData(DateTime startDate,DateTime endDate)async{
+int days=endDate.difference(startDate).inDays;
+print("days difference in range $days");
+List<DateTime> value = [];
+for(int i=1;i<days;++i){
+value.add(DateTime(startDate.year, startDate.month, startDate.day));
+startDate=DateTime(startDate.year, startDate.month, startDate.day+1);
+
+}
+
+getSplitDataRangeRecord(value);
+}
+
+Future getSplitDataRangeRecord(List<DateTime> days) async {
+    List<TransactionModel> _currentHoursIncome = [];
+    List<TransactionModel> _currentHoursExpenditure = [];
+    List<RecordsData> _hourIncomeData = [];
+    List<RecordsData> _hourExpenditureData = [];
+    days.forEach((element1) {
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
+         List< TransactionModel> currentTran=[];
+      if (todayTransaction.isEmpty)
+        print(" transactonlist is empty");
+      else
+        print("today transaction is not empty");
+      offlineTransactions.forEach((element) {
+        print(
+            "data range testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
+
+        if (element.entryDateTime != null &&
+            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,element.entryDateTime!.day
+                 )
+                .isAtSameMomentAs(
+                    DateTime(element1.year, element1.month,element1.day))) {
+          print("data range found");
+          if (element.transactionType!.contains("INCOME")) {
+            _currentHoursIncome.add(element);
+            print("income hour is  $element1 amount ${element.totalAmount}");
+            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+            print("income hour is  $element1 amount $incomeTotalAmount");
+          } else {
+            _currentHoursExpenditure.add(element);
+            expenditureTotalAmount =
+                expenditureTotalAmount + element.totalAmount ?? 0;
+            print(
+                "expenditure hour is  $element1 amount $expenditureTotalAmount");
+          }
+       currentTran.add(element);
+        }
+      
+      });
+        _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "yMMMd")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "yMMMd")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
+    });
+    _allIncomeHoursData(_hourIncomeData);
+    _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
+  }
+
   Future getSplitCurrentWeek(List<DateTime> days) async {
     List<TransactionModel> _currentHoursIncome = [];
     List<TransactionModel> _currentHoursExpenditure = [];
@@ -368,6 +639,7 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     days.forEach((element1) {
       dynamic incomeTotalAmount = 0;
       dynamic expenditureTotalAmount = 0;
+          List<TransactionModel> currentTran=[];
       if (todayTransaction.isEmpty)
         print("today transactonlist is empty");
       else
@@ -394,15 +666,18 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
           }
-        }
-        _hourIncomeData.add(RecordsData(
-            element1.formatDate(pattern: "dd")!, incomeTotalAmount));
-        _hourExpenditureData.add(RecordsData(
-            element1.formatDate(pattern: "dd")!, expenditureTotalAmount));
+        
+        currentTran.add(element);
+                    }
       });
+       _hourIncomeData.add(RecordsData(
+            element1.formatDate(pattern: "E")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "E")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+        calculateRecordOverView();
   }
 
   Future getTodayTransaction() async {
@@ -640,11 +915,13 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
               transactionModel: result,
               title: "transaction",
             ));
+            
         getOnlineTransaction(
             _businessController.selectedBusiness.value!.businessId!);
 
         GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
+            _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         clearValue();
       } else {
@@ -742,6 +1019,24 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     value.businessTransactionPaymentHistoryList = transactionList;
 
     print("offline saving to database ${value.toJson()}}");
+    if(customerId!=null)
+    if(selectedPaymentMode=="DEPOSIT"){
+
+      Debtor debtor=Debtor(
+        
+       businessTransactionId: value.id,
+       customerId: customerId,
+       businessId: value.businessId,
+       totalAmount: value.totalAmount,
+       balance: value.balance,
+       businessTransactionType: value.transactionType,
+       createdTime: DateTime.now(),
+       debtorId: uuid.v1()
+
+      );
+      _businessController.sqliteDb.insertDebtor(debtor);
+      _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
+    }
     await _businessController.sqliteDb.insertTransaction(value);
     GetOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
@@ -787,7 +1082,7 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
             .getOfflineCustomer(savenext.customerId!);
         if (customervalue != null && customervalue.isCreatedFromTransaction!) {
           String? customerId = await _customerController
-              .addBusinessCustomerWithString(savenext.transactionType!);
+              .addBusinessCustomerWithStringWithValue(customervalue);
           savenext.customerId = customerId;
           _businessController.sqliteDb.deleteCustomer(customervalue);
         } else {
@@ -856,6 +1151,12 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
 
         }
         await deleteItem(savenext);
+        var debtor=_debtorController.getDebtorByTransactionId(savenext.id!);
+        if(debtor!=null){
+
+         _businessController.sqliteDb.deleteOfflineDebtor(debtor);
+         _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
+        }
         pendingTransactionToBeAdded.remove(savenext);
 // pendingTransaction.remove(savenext);
 
@@ -875,6 +1176,7 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
               _businessController.selectedBusiness.value!.businessId!);
           getOnlineTransaction(
               _businessController.selectedBusiness.value!.businessId!);
+              _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
         }
         isBusyAdding = false;
       } else {
@@ -918,6 +1220,31 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     productList = [];
   }
 
+Future calculateRecordOverView()async{
+
+
+dynamic Balance = 0;
+    dynamic MoneyIn = 0;
+    dynamic Moneyout = 0;
+    allExpenditureHoursData.forEach((element) {
+      Moneyout=Moneyout+element.value;
+
+    });
+
+allIncomeHoursData.forEach((element) {
+  
+MoneyIn=MoneyIn+element.value;
+});
+
+Balance=MoneyIn - Moneyout;
+_recordMoneyOut(Moneyout);
+_recordMoneyIn(MoneyIn);
+_recordBalance(Balance);
+print("record money in  $MoneyIn");
+print("record money out $recordMoneyOut");
+print("record balance $Balance");
+
+}
   Future calculateOverView() async {
     var todayBalance = 0;
     var todayMoneyIn = 0;
@@ -942,6 +1269,7 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
   }
 
   void addMoreProduct() {
+    print("qunatity text is ${quantityController.text}");
     if (selectedValue == 0) {
       if (selectedProduct != null)
         productList.add(PaymentItem(
@@ -1077,6 +1405,19 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
       transaction.balance = transaction.balance! - amount;
       transaction.businessTransactionPaymentHistoryList = transactionList;
       updateTransaction(transaction);
+
+      var debtor=_debtorController.getDebtorByTransactionId(transactionId);
+    if(debtor!=null){
+    if(transaction.balance==0){
+
+      _debtorController.deleteBusinessDebtor(debtor);
+    }else{
+
+      // debtor.balance=transaction.balance;
+      _debtorController.updateBusinessDebtorOffline(debtor, amount);
+    }
+    }
+     _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
       return transaction;
     } catch (ex) {
       _addingTransactionStatus(AddingTransactionStatus.Empty);
@@ -1182,6 +1523,11 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     } finally {
       await getOnlineTransaction(
           _businessController.selectedBusiness.value!.businessId!);
+          _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
+   
+ 
+     _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
+   
     }
   }
 
@@ -1200,7 +1546,10 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
       if (response.statusCode == 200) {
         await _businessController.sqliteDb
             .deleteOfflineTransaction(transactionModel);
-
+var debtor=_debtorController.getDebtorByTransactionId(transactionModel.id!);
+    if(debtor!=null)
+    _debtorController.deleteBusinessDebtor(debtor);
+     _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
         await GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
         Get.back();
@@ -1210,6 +1559,7 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
 
         await GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
+             _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
         Get.back();
       }
     } catch (ex) {
@@ -1225,6 +1575,12 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
           _businessController.selectedBusiness.value!.businessId!);
     } else {
       updateTransaction(transactionModel);
+    }
+    var debtor=_debtorController.getDebtorByTransactionId(transactionModel.id!);
+    if(debtor!=null){
+      print("debtor foundsss ${debtor.toJson()}");
+  _businessController.sqliteDb.deleteOfflineDebtor(debtor);
+     _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
     }
     Get.back();
   }

@@ -13,8 +13,8 @@ import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
-import 'package:huzz/app/screens/settings/settings.dart';
 import 'package:huzz/app/screens/sign_in.dart';
+import 'package:huzz/model/business.dart';
 import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
@@ -88,6 +88,7 @@ class AuthRepository extends GetxController {
   OnlineStatus get onlineStatus => MonlineStatus.value;
 
   User? user;
+  Business? business;
   SharePref? pref;
 
   final Mtoken = "".obs;
@@ -129,34 +130,6 @@ class AuthRepository extends GetxController {
       print("result is $result");
     });
   }
-
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  //   phoneNumberController.dispose();
-  //   otpController.dispose();
-  //   firstNameController.dispose();
-  //   lastNameController.dispose();
-  //   emailController.dispose();
-  //   pinController.dispose();
-  //   forgetpinController.dispose();
-  //   verifypinController.dispose();
-  //   confirmPinController.dispose();
-  // }
-
-  // @override
-  // void dispose() {
-  //   phoneNumberController.dispose();
-  //   otpController.dispose();
-  //   firstNameController.dispose();
-  //   lastNameController.dispose();
-  //   emailController.dispose();
-  //   pinController.dispose();
-  //   forgetpinController.dispose();
-  //   verifypinController.dispose();
-  //   confirmPinController.dispose();
-  //   super.dispose();
-  // }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     _connectionStatus(result);
@@ -335,7 +308,7 @@ class AuthRepository extends GetxController {
             "Personal Information Updated",
           );
           Timer(Duration(milliseconds: 2000), () {
-            Get.offAll(Settings());
+            Get.back();
           });
         } else {
           _updateProfileStatus(UpdateProfileStatus.Error);
