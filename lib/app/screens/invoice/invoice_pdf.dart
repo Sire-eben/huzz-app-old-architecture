@@ -5,12 +5,15 @@ import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
+import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/widget/util.dart';
 import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice.dart';
+import 'package:huzz/model/payment_history.dart';
 import 'package:intl/intl.dart';
+import 'package:number_display/number_display.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -22,6 +25,13 @@ class PdfInvoiceApi {
   static final _businessController = Get.find<BusinessRespository>();
   static final _customerController = Get.find<CustomerRepository>();
   static final _bankController = Get.find<BankAccountRepository>();
+    static  final display = createDisplay(
+    length: 5,
+    decimal: 0,
+    placeholder: 'N',
+    units: ['K','M','B','T']
+  );
+
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
     var customer = _customerController
@@ -39,7 +49,7 @@ class PdfInvoiceApi {
         SizedBox(height: 1 * PdfPageFormat.cm),
         buildTotal(invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
-        buildFooter(customer)
+        buildFooter(customer,invoice)
       ],
     ));
 
@@ -113,7 +123,7 @@ class PdfInvoiceApi {
                     color: PdfColors.white,
                     fontSize: 16)),
             SizedBox(width: 1 * PdfPageFormat.mm),
-            Text('#61144',
+            Text('#${invoice.id!.substring(1,6)}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: PdfColors.white,
@@ -167,7 +177,7 @@ class PdfInvoiceApi {
       return [
         '${item.itemName}',
         '${item.quality}',
-        '\NGN${item.totalAmount}',
+        '\NGN${display(item.totalAmount)}',
       ];
     }).toList();
 
@@ -217,7 +227,7 @@ class PdfInvoiceApi {
             ),
           ),
           Text(
-            Utils.formatPrice(invoice.totalAmount!),
+            "NGN ${display(invoice.totalAmount)}",
             style: TextStyle(
               color: PdfColors.blue,
               fontSize: 16,
@@ -305,7 +315,9 @@ class PdfInvoiceApi {
     ]);
   }
 
-  static Widget buildFooter(Customer? customer) => Column(children: [
+  static Widget buildFooter(Customer? customer,Invoice invoice){
+    List<PaymentHistory> lists=      invoice.businessTransaction==null || invoice.businessTransaction!.businessTransactionPaymentHistoryList!.isEmpty?[]:  invoice.businessTransaction!.businessTransactionPaymentHistoryList!;
+    return Column(children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
@@ -349,7 +361,7 @@ class PdfInvoiceApi {
           ])
         ]),
         SizedBox(height: 1 * PdfPageFormat.cm),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      lists.isEmpty?pw.Container():  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             'Date',
             style: TextStyle(
@@ -373,49 +385,34 @@ class PdfInvoiceApi {
           )
         ]),
         Divider(),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+
+      ...lists.map<pw.Widget>((e)=>
+      pw.Container(
+        child:
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            'Jan 22, 2022',
+           e.createdDateTime!.formatDate()!,
             style: TextStyle(
               fontSize: 10,
             ),
           ),
           Text(
-            'N20,000',
+            'N ${display(e.amountPaid)}',
             style: TextStyle(
               fontSize: 10,
               color: PdfColors.orange,
             ),
           ),
           Text(
-            'BANK TRANSFER',
+           e.paymentSource!,
             style: TextStyle(
               fontSize: 10,
             ),
           )
-        ]),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(
-            'Jan 22, 2022',
-            style: TextStyle(
-              fontSize: 10,
-            ),
-          ),
-          Text(
-            'N20,000',
-            style: TextStyle(
-              fontSize: 10,
-              color: PdfColors.orange,
-            ),
-          ),
-          Text(
-            'BANK TRANSFER',
-            style: TextStyle(
-              fontSize: 10,
-            ),
-          )
-        ]),
+        ]))).toList(),
+      
       ]);
+  }
 }
 
 class PdfApi {

@@ -211,7 +211,7 @@ class DebtorRepository extends GetxController
     var customerId;
     if (customerType == 1) {
       customerId =
-          await _customerController.addBusinessCustomerOfflineWithString(type);
+          await _customerController.addBusinessCustomerOfflineWithString(type,isdebtor: true);
     } else {
       if (selectedCustomer != null) customerId = selectedCustomer!.customerId;
     }
@@ -604,6 +604,20 @@ _debotorAmount(totalDebotors);
 
     pendingToBeAddedDebtorToServer.forEach((element) async {
       var savenext = element;
+  if (savenext.customerId != null && savenext.customerId != " ") {
+        print("saved yet customer is not null");
+
+        var customervalue = await _businessController.sqliteDb
+            .getOfflineCustomer(savenext.customerId!);
+        if (customervalue != null && customervalue.isCreatedFromDebtors!) {
+          String? customerId = await _customerController
+              .addBusinessCustomerWithStringWithValue(customervalue);
+          savenext.customerId = customerId;
+          _businessController.sqliteDb.deleteCustomer(customervalue);
+        }
+        } else {
+          print("saved yet customer is null");
+        }
 
       // if (savenext.debtorLogoFileStoreId != null &&
       //     savenext.DebtorLogoFileStoreId != '') {

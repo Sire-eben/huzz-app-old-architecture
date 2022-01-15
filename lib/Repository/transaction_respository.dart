@@ -1082,7 +1082,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
             .getOfflineCustomer(savenext.customerId!);
         if (customervalue != null && customervalue.isCreatedFromTransaction!) {
           String? customerId = await _customerController
-              .addBusinessCustomerWithString(savenext.transactionType!);
+              .addBusinessCustomerWithStringWithValue(customervalue);
           savenext.customerId = customerId;
           _businessController.sqliteDb.deleteCustomer(customervalue);
         } else {

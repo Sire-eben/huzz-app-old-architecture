@@ -231,6 +231,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 if (_invoiceController.paymentValue == 1) {
                   if (_bankKey.currentState!.validate()) {
                     if (_invoiceController.productList.isEmpty)
+                     
                       _invoiceController.addMoreProduct();
                     _invoiceController.createBusinessInvoice();
                     setState(() {});

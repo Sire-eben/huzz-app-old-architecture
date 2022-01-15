@@ -204,8 +204,38 @@ print("adding customer response ${response.body}");
     }
   }
 
+   Future<String?> addBusinessCustomerWithStringWithValue(Customer customer) async {
+    try {
+      print("adding customer phone ${phoneNumberController.text} name ${nameController.text}");
+      var response = await http.post(Uri.parse(ApiLink.addCustomer),
+          body: jsonEncode(
+            customer.toJson()),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+print("adding customer response ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+          getOnlineCustomer(
+              _businessController.selectedBusiness.value!.businessId!);
+          // clearValue();
+
+          return json['data']['id'];
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    } catch (ex) {
+      return null;
+    }
+  }
+
   Future<String?> addBusinessCustomerOfflineWithString(String transactionType,
-      {bool isinvoice = false, bool istransaction = false}) async {
+      {bool isinvoice = false, bool istransaction = false,bool isdebtor=false}) async {
     var customer = Customer(
         name: nameController.text,
         phone: phoneNumberController.text,
@@ -214,7 +244,8 @@ print("adding customer response ${response.body}");
         businessTransactionType: transactionType,
         customerId: uuid.v1(),
         isCreatedFromTransaction: istransaction,
-        isCreatedFromInvoice: isinvoice);
+        isCreatedFromInvoice: isinvoice,
+        isCreatedFromDebtors: isdebtor);
 
     await _businessController.sqliteDb.insertCustomer(customer);
     getOfflineCustomer(customer.businessId!);
