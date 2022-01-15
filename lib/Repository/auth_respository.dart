@@ -14,6 +14,7 @@ import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/app/screens/sign_in.dart';
+import 'package:huzz/model/business.dart';
 import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
@@ -87,13 +88,14 @@ class AuthRepository extends GetxController {
   OnlineStatus get onlineStatus => MonlineStatus.value;
 
   User? user;
+  Business? business;
   SharePref? pref;
 
   final Mtoken = "".obs;
   String get token => Mtoken.value;
 
   SqliteDb sqliteDb = SqliteDb();
-bool tokenExpired=false;
+  bool tokenExpired = false;
   @override
   void onInit() async {
     pref = SharePref();
@@ -103,11 +105,14 @@ bool tokenExpired=false;
       _authStatus(AuthStatus.IsFirstTime);
     } else {
       print("Not my First Time Using this app");
-      print("expired date token ${pref!.getDateTokenExpired()} token expired $tokenExpired");
+      print(
+          "expired date token ${pref!.getDateTokenExpired()} token expired $tokenExpired");
 
-      if (pref!.getUser() != null&& !DateTime.now().isAfter(pref!.getDateTokenExpired())&&!tokenExpired) {
+      if (pref!.getUser() != null &&
+          !DateTime.now().isAfter(pref!.getDateTokenExpired()) &&
+          !tokenExpired) {
         user = pref!.getUser()!;
-       
+
         Mtoken(pref!.read());
 
         _authStatus(AuthStatus.Authenticated);
@@ -126,34 +131,6 @@ bool tokenExpired=false;
     });
   }
 
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  //   phoneNumberController.dispose();
-  //   otpController.dispose();
-  //   firstNameController.dispose();
-  //   lastNameController.dispose();
-  //   emailController.dispose();
-  //   pinController.dispose();
-  //   forgetpinController.dispose();
-  //   verifypinController.dispose();
-  //   confirmPinController.dispose();
-  // }
-
-  // @override
-  // void dispose() {
-  //   phoneNumberController.dispose();
-  //   otpController.dispose();
-  //   firstNameController.dispose();
-  //   lastNameController.dispose();
-  //   emailController.dispose();
-  //   pinController.dispose();
-  //   forgetpinController.dispose();
-  //   verifypinController.dispose();
-  //   confirmPinController.dispose();
-  //   super.dispose();
-  // }
-
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     _connectionStatus(result);
     if (result == ConnectivityResult.mobile ||
@@ -161,7 +138,6 @@ bool tokenExpired=false;
 //checking pending job for insertion,deletion and updating
       Get.snackbar("Internet Status", "Device is online now");
       MonlineStatus(OnlineStatus.Onilne);
-
     } else {
       Get.snackbar("Internet Status", "Device is offline now");
       MonlineStatus(OnlineStatus.Offline);
@@ -322,7 +298,7 @@ bool tokenExpired=false;
           this.user = user;
           pref!.setUser(user);
           DateTime date = DateTime.now();
-          DateTime expireToken = DateTime(date.year, date.month+1 , date.day);
+          DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
           pref!.setDateTokenExpired(expireToken);
           _authStatus(AuthStatus.Authenticated);
 
@@ -331,6 +307,9 @@ bool tokenExpired=false;
             "Success",
             "Personal Information Updated",
           );
+          Timer(Duration(milliseconds: 2000), () {
+            Get.back();
+          });
         } else {
           _updateProfileStatus(UpdateProfileStatus.Error);
           Get.snackbar(
@@ -420,7 +399,7 @@ bool tokenExpired=false;
         Mtoken(token);
         this.user = user;
         DateTime date = DateTime.now();
-        DateTime expireToken = DateTime(date.year, date.month+1, date.day);
+        DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
         pref!.setDateTokenExpired(expireToken);
         _authStatus(AuthStatus.Authenticated);
         final _businessController = Get.find<BusinessRespository>();
@@ -490,5 +469,4 @@ bool tokenExpired=false;
     sqliteDb.deleteAllProducts();
     sqliteDb.deleteAllCustomers();
   }
-
 }

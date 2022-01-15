@@ -893,6 +893,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
     ));
   }
 
+//
   // ignore: non_constant_identifier_names
   Container CustomerInfo() {
     return Container(
@@ -901,57 +902,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           key: _customerKey,
           child: Column(
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     InkWell(
-              //       onTap: () => setState(() => customerValue = 1),
-              //       child: Row(
-              //         children: [
-              //           Radio<int>(
-              //               value: 1,
-              //               activeColor: AppColor().backgroundColor,
-              //               groupValue: customerValue,
-              //               onChanged: (value) =>
-              //                   setState(() => customerValue = 1)),
-              //           Text(
-              //             'New Customer',
-              //             style: TextStyle(
-              //               color: AppColor().backgroundColor,
-              //               fontFamily: "DMSans",
-              //               fontStyle: FontStyle.normal,
-              //               fontSize: 12,
-              //               fontWeight: FontWeight.w400,
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     InkWell(
-              //       onTap: () => setState(() => customerValue = 0),
-              //       child: Row(
-              //         children: [
-              //           Radio<int>(
-              //               value: 0,
-              //               activeColor: AppColor().backgroundColor,
-              //               groupValue:_,
-              //               onChanged: (value) =>
-              //                   setState(() => customerValue = 0)),
-              //           Text(
-              //             'Existing Customer',
-              //             style: TextStyle(
-              //               color: AppColor().backgroundColor,
-              //               fontFamily: "DMSans",
-              //               fontStyle: FontStyle.normal,
-              //               fontSize: 12,
-              //               fontWeight: FontWeight.w400,
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     )
-              //   ],
-              // ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.00),
               Padding(
                 padding: EdgeInsets.symmetric(

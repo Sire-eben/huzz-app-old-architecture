@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/model/user.dart';
+
 import 'notification.dart';
 import 'personalInfo.dart';
 
@@ -16,6 +18,20 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   final controller = Get.find<AuthRepository>();
+
+  late String email;
+  late String phone;
+  late String? lastName;
+  late String firstName;
+
+  final users = Rx(User());
+  User? get usersData => users.value;
+
+  void initState() {
+    firstName = controller.user!.firstName!;
+    lastName = controller.user!.lastName!;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +109,10 @@ class _SettingsState extends State<Settings> {
                   children: [
                     Container(
                       child: Text(
+                        // ignore: unnecessary_null_comparison
                         controller.user!.firstName == null
                             ? 'First Name'
-                            : controller.user!.firstName!,
+                            : firstName,
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',
@@ -111,7 +128,7 @@ class _SettingsState extends State<Settings> {
                       child: Text(
                         controller.user!.lastName == null
                             ? 'Last Name'
-                            : controller.user!.lastName!,
+                            : lastName!,
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',
@@ -172,6 +189,7 @@ class _SettingsState extends State<Settings> {
                       GestureDetector(
                         onTap: () {
                           Get.to(PersonalInfo());
+                          // controller.;
                         },
                         child: SvgPicture.asset(
                           "assets/images/setting.svg",
