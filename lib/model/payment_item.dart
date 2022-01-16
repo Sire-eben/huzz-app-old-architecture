@@ -6,9 +6,9 @@ class PaymentItem {
   String? itemName;
   String? productId;
   int? quality;
-  int? amount;
+  dynamic amount;
   bool? isFullyPaid;
-  int? totalAmount;
+  dynamic? totalAmount;
   DateTime? createdTime;
   DateTime? updatedTime;
   bool? deleted;

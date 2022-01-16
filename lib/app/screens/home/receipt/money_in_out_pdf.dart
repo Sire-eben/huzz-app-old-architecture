@@ -149,7 +149,7 @@ class PdfMoneyInOutApi {
   }
 
   static Widget buildTotal(List<PaymentItem> items) {
-    var netTotal = 0;
+    dynamic netTotal = 0;
     // items
     //     .map((item) => item.amount! * item.quality!)
     //     .reduce((item1, item2) => item1 + item2);

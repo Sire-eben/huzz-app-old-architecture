@@ -981,7 +981,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
 
     TransactionModel? value;
 
-    var totalamount = 0;
+    dynamic totalamount = 0;
     productList.forEach((element) {
       totalamount = totalamount + (element.totalAmount!);
     });
