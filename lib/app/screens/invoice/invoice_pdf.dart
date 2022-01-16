@@ -240,7 +240,7 @@ class PdfInvoiceApi {
   }
 
   static Widget buildSubTotal(Invoice invoice) {
-    int totalAmount = 0;
+    dynamic totalAmount = 0;
     invoice.paymentItemRequestList!.forEach((element) {
       totalAmount = totalAmount + element.totalAmount!;
     });

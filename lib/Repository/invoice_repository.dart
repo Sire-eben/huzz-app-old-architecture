@@ -449,7 +449,7 @@ checkPendingTransactionbeUpdatedToServer();
         print("date Time to string ${date!.toIso8601String()}");
       }
       double tax = 0;
-      int totalAmount = 0;
+      dynamic totalAmount = 0;
       productList.forEach((element) {
         totalAmount = totalAmount + element.totalAmount!;
       });
@@ -533,7 +533,7 @@ checkPendingTransactionbeUpdatedToServer();
       if (selectedCustomer != null) customerId = selectedCustomer!.customerId;
     }
     double tax = 0;
-    int totalAmount = 0;
+    dynamic totalAmount = 0;
     productList.forEach((element) {
       totalAmount = totalAmount + element.totalAmount!;
     });
