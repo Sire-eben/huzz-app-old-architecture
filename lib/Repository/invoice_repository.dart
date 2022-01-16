@@ -492,20 +492,21 @@ checkPendingTransactionbeUpdatedToServer();
 
       print({"creatng Invoice response ${response.body}"});
       if (response.statusCode == 200) {
-        _addingInvoiceStatus(AddingInvoiceStatus.Success);
+ 
         var json = jsonDecode(response.body);
         var result = Invoice.fromJson(json['data']);
         result.paymentItemRequestList = productList;
         print("second result is ${result.toJson()}");
         final invoiceReceipt = await PdfInvoiceApi.generate(result);
-        Get.to(() => PreviewInvoice(file: invoiceReceipt));
+       
         //  Get.to(() => IncomeSuccess(Invoice: result,title: "Invoice",));
-        getOnlineInvoice(
+      await  getOnlineInvoice(
             _businessController.selectedBusiness.value!.businessId!);
 
         GetOfflineInvoices(
             _businessController.selectedBusiness.value!.businessId!);
-
+       _addingInvoiceStatus(AddingInvoiceStatus.Success);
+        Get.to(() => PreviewInvoice(file: invoiceReceipt));
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         clearValue();
       } else {

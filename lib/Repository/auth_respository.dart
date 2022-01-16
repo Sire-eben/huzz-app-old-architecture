@@ -468,5 +468,7 @@ class AuthRepository extends GetxController {
     sqliteDb.deleteAllOfflineTransaction();
     sqliteDb.deleteAllProducts();
     sqliteDb.deleteAllCustomers();
+    sqliteDb.deleteAllOfflineDebtors();
+    sqliteDb.deleteAllInvoice();
   }
 }

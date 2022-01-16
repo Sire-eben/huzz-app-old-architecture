@@ -1,5 +1,5 @@
 class PaymentHistory{
-int? amountPaid;
+dynamic? amountPaid;
 String? paymentMode;
 DateTime? createdDateTime;
 DateTime? updateDateTime;
