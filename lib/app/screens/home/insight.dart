@@ -132,15 +132,16 @@ transactionController.splitCurrentTime();
   }
   @override
   Widget build(BuildContext context) {
+    
+                  item1=removeDoubleItem(transactionController.allIncomeHoursData);
+         item2=removeDoubleItem(transactionController.allExpenditureHoursData);
+             var paymentList1=transactionController .getAllPaymentItemListForIncomeRecord();
+             var paymentList2=transactionController.getAllPaymentItemListForExpenditure();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(
        () {
 
-                  item1=removeDoubleItem(transactionController.allIncomeHoursData);
-         item2=removeDoubleItem(transactionController.allExpenditureHoursData);
-             var paymentList1=transactionController .getAllPaymentItemListForIncomeRecord();
-             var paymentList2=transactionController.getAllPaymentItemListForExpenditure();
 
           return Container(
             width: MediaQuery.of(context).size.width,
@@ -573,7 +574,10 @@ transactionController.splitCurrentTime();
                                 ),
                               ),
                               SizedBox(height: 10,),
-                             Container(child: WordCloud(paymentList1))
+                             Container(
+                               height: 200,
+                               width: MediaQuery.of(context).size.width*0.4,
+                               child: WordCloud(paymentList1))
                             ],
                           ),
                         ),
@@ -591,7 +595,10 @@ transactionController.splitCurrentTime();
                                 ),
                               ),
                               SizedBox(height: 10,),
-                              WordCloud(paymentList2)
+                              Container(
+                                 height: 200,
+                               width: MediaQuery.of(context).size.width*0.4,
+                                child: WordCloud(paymentList2))
                             ],
                           ),
                         ),

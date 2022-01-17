@@ -449,7 +449,7 @@ checkPendingTransactionbeUpdatedToServer();
         print("date Time to string ${date!.toIso8601String()}");
       }
       double tax = 0;
-      int totalAmount = 0;
+      dynamic totalAmount = 0;
       productList.forEach((element) {
         totalAmount = totalAmount + element.totalAmount!;
       });
@@ -492,20 +492,21 @@ checkPendingTransactionbeUpdatedToServer();
 
       print({"creatng Invoice response ${response.body}"});
       if (response.statusCode == 200) {
-        _addingInvoiceStatus(AddingInvoiceStatus.Success);
+ 
         var json = jsonDecode(response.body);
         var result = Invoice.fromJson(json['data']);
         result.paymentItemRequestList = productList;
         print("second result is ${result.toJson()}");
         final invoiceReceipt = await PdfInvoiceApi.generate(result);
-        Get.to(() => PreviewInvoice(file: invoiceReceipt));
+       
         //  Get.to(() => IncomeSuccess(Invoice: result,title: "Invoice",));
-        getOnlineInvoice(
+      await  getOnlineInvoice(
             _businessController.selectedBusiness.value!.businessId!);
 
         GetOfflineInvoices(
             _businessController.selectedBusiness.value!.businessId!);
-
+       _addingInvoiceStatus(AddingInvoiceStatus.Success);
+        Get.to(() => PreviewInvoice(file: invoiceReceipt));
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         clearValue();
       } else {
@@ -532,7 +533,7 @@ checkPendingTransactionbeUpdatedToServer();
       if (selectedCustomer != null) customerId = selectedCustomer!.customerId;
     }
     double tax = 0;
-    int totalAmount = 0;
+    dynamic totalAmount = 0;
     productList.forEach((element) {
       totalAmount = totalAmount + element.totalAmount!;
     });

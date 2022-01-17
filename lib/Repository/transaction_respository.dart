@@ -114,28 +114,33 @@ dynamic get recordMoneyOut => _recordMoneyOut.value;
     // TODO: implement onInit
     print("getting transaction repo");
 
-    _userController.Mtoken.listen((p0) {
+    _userController.Mtoken.listen((p0)async {
       print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null) {
+
+       await   GetOfflineTransactions(value.businessId!);
           getOnlineTransaction(value.businessId!);
 
           // getSpending(value.businessId!);
 
-          GetOfflineTransactions(value.businessId!);
         } else {
           print("current business is null");
         }
-        _businessController.selectedBusiness.listen((p0) {
+        _businessController.selectedBusiness.listen((p0)async {
           if (p0 != null) {
             print("business id ${p0.businessId}");
             _offlineTransactions([]);
             _allPaymentItem([]);
             OnlineTransaction = [];
+            todayTransaction=[];
+            _allIncomeHoursData([]);
+            _allExpenditureHoursData([]);
+          await  GetOfflineTransactions(p0.businessId!);
             getOnlineTransaction(p0.businessId!);
 
-            GetOfflineTransactions(p0.businessId!);
+            
             // getSpending(p0.businessId!);
 
           }
@@ -293,7 +298,7 @@ return list1;
     getTodayTransaction();
     //  getWeeklyRecordData();
     // getMonthlyRecord();
-    splitCurrentTime();
+    // splitCurrentTime();
     // getYearRecord();
   }
 
@@ -684,17 +689,17 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
     List<TransactionModel> _todayTransaction = [];
     final date = DateTime.now();
     offlineTransactions.forEach((element) {
-      print("element test date ${element.createdTime!.toIso8601String()}");
+      // print("element test date ${element.createdTime!.toIso8601String()}");
       final d = DateTime(element.createdTime!.year, element.createdTime!.month,
           element.createdTime!.day);
       if (d.isAtSameMomentAs(DateTime(date.year, date.month, date.day))) {
         _todayTransaction.add(element);
 
-        print("found date for today");
+        // print("found date for today");
       }
     });
     todayTransaction = _todayTransaction;
-    getAllPaymentItem();
+   await getAllPaymentItem();
     calculateOverView();
   }
 
@@ -922,6 +927,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
         GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
             _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
+              _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         clearValue();
       } else {
@@ -981,11 +987,11 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
 
     TransactionModel? value;
 
-    var totalamount = 0;
+    dynamic totalamount = 0;
     productList.forEach((element) {
       totalamount = totalamount + (element.totalAmount!);
     });
-    print("payment mode is $selectedPaymentMode");
+    // print("payment mode is $selectedPaymentMode");
     value = TransactionModel(
       paymentMethod: selectedPaymentMode,
       paymentSource: selectedPaymentSource,
