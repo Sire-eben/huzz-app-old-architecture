@@ -551,8 +551,7 @@ class _HomeState extends State<Home> {
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-          Obx(() {
-            return Container(
+          Container(
               padding: EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -582,7 +581,7 @@ class _HomeState extends State<Home> {
                         height: 10,
                       ),
                       Text(
-                        "N${display(_transactionController.totalbalance.value)}",
+                        "N0",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -666,7 +665,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Text(
-                        "N${display(_transactionController.income.value)}",
+                        "N0",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -709,7 +708,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Text(
-                        "N${display(_transactionController.expenses.value)}",
+                        "N0",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -730,8 +729,7 @@ class _HomeState extends State<Home> {
                   fit: BoxFit.fill,
                 ),
               ),
-            );
-          }),
+          ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           InkWell(
             onTap: () {
@@ -771,12 +769,14 @@ class _HomeState extends State<Home> {
                     ),
                     Row(
                       children: [
-                        Text(
-                          'N${display(_transactionController.debtors.value)}',
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Color(0xffF58D40),
-                              fontWeight: FontWeight.bold),
+                       Text(
+                              'N${display(_debtorController.debtorAmount)}',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Color(0xffF58D40),
+                                  fontWeight: FontWeight.bold),
+                            
+                        
                         ),
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
@@ -999,7 +999,13 @@ class _HomeState extends State<Home> {
                       var item = _businessController.offlineBusiness[index];
                       return GestureDetector(
                         onTap: () {
+                          _debtorController.dispose();
+                          _transactionController.dispose();
+                          
+                          // Get.delete(tag: "Debtors");
+                          // Get.put(DebtorRepository,permanent: true);
                           _businessController.selectedBusiness(item.business);
+
                           Navigator.pop(context);
                         },
                         child: Row(
