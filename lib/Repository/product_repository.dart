@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
@@ -35,8 +36,8 @@ class ProductRepository extends GetxController
   Rx<File?> productImage = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
   final productNameController = TextEditingController();
-  final productCostPriceController = TextEditingController();
-  final productSellingPriceController = TextEditingController();
+  final productCostPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final productSellingPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
   final productQuantityController = TextEditingController();
   final productUnitController = TextEditingController();
   final serviceDescription = TextEditingController();

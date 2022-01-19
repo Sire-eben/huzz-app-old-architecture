@@ -65,6 +65,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^19.4.40
   flutter_easyloading: ^3.0.3
   flutter_scatter: ^0.2.0
+  flutter_masked_text2: ^0.9.1
 
 dev_dependencies:
   flutter_test:

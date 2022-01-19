@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
@@ -45,11 +46,11 @@ class TransactionRespository extends GetxController {
   List<PaymentItem> get allPaymentItem => _allPaymentItem.value;
   final _userController = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
-  final expenses = 0.obs;
-  final income = 0.obs;
+  dynamic expenses = 0.0.obs;
+  dynamic income = 0.0.obs;
   final numberofincome = 0.obs;
   final numberofexpenses = 0.obs;
-  final totalbalance = 0.obs;
+  dynamic totalbalance = 0.0.obs;
   bool isBusyAdding = false;
   bool isBusyUpdating = false;
   bool isbusyDeleting = false;
@@ -58,14 +59,15 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> todayTransaction = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
-  final amountController = TextEditingController();
+  final amountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
   final quantityController = TextEditingController();
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
-  final amountPaidController = TextEditingController();
+  final amountPaidController = new MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController timeController = TextEditingController();
   final TextEditingController contactName = TextEditingController();
@@ -900,7 +902,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
         "customerId": customerId,
         "businessTransactionFileStoreId": fileid,
         "entyDateTime": (date == null) ? null : date!.toIso8601String(),
-        "amountPaid": amountPaidController.text
+        "amountPaid": amountPaidController.numberValue
       });
       print("transaction body $body");
       final response =
@@ -998,7 +1000,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
       id: uuid.v1(),
       totalAmount: totalamount,
       balance: (selectedPaymentMode == "DEPOSIT")
-          ? totalamount - int.parse(amountPaidController.text)
+          ? totalamount - amountPaidController.numberValue
           : 0,
       createdTime: DateTime.now(),
       entryDateTime: date,
@@ -1014,7 +1016,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
         id: uuid.v1(),
         isPendingUpdating: true,
         amountPaid: (selectedPaymentMode == "DEPOSIT")
-            ? int.parse(amountPaidController.text)
+            ?amountPaidController.numberValue
             : totalamount,
         paymentMode: selectedPaymentMode,
         createdDateTime: DateTime.now(),
@@ -1209,14 +1211,14 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
   clearValue() {
     print("clearing value");
     itemNameController.text = "";
-    amountController.text = "";
+    amountController.clear();
     quantityController.text = "";
     dateController.text = "";
     timeController.text = "";
     paymentController.text = "";
     paymentSourceController.text = "";
     receiptFileController.text = "";
-    amountPaidController.text = "";
+    amountPaidController.clear();
     date = null;
     image = null;
     selectedPaymentMode = null;
@@ -1252,30 +1254,30 @@ print("record balance $Balance");
 
 }
   Future calculateOverView() async {
-    var todayBalance = 0;
-    var todayMoneyIn = 0;
-    var todayMoneyout = 0;
+    dynamic todayBalance = 0;
+    dynamic todayMoneyIn = 0;
+    dynamic todayMoneyout = 0;
 
     todayTransaction.forEach((element) {
       if (element.totalAmount == null) {
         return;
       }
       if (element.transactionType == "INCOME") {
-        todayMoneyIn = todayMoneyIn + int.parse(element.totalAmount.toString());
+        todayMoneyIn = todayMoneyIn + element.totalAmount;
       } else {
         print("total amount is ${element.totalAmount} ${element.toJson()}");
         todayMoneyout =
-            todayMoneyout + int.parse(element.totalAmount.toString());
+            todayMoneyout + element.totalAmount;
       }
     });
     todayBalance = todayMoneyIn - todayMoneyout;
-    income(todayMoneyIn);
-    expenses(todayMoneyout);
-    totalbalance(todayBalance);
+    income(todayMoneyIn*1.0);
+    expenses(todayMoneyout*1.0);
+    totalbalance(todayBalance*1.0);
   }
 
   void addMoreProduct() {
-    print("qunatity text is ${quantityController.text}");
+    print("qunatity text is ${amountController.numberValue}");
     if (selectedValue == 0) {
       if (selectedProduct != null)
         productList.add(PaymentItem(
@@ -1283,13 +1285,13 @@ print("record balance $Balance");
             itemName: selectedProduct!.productName,
             amount: (amountController.text.isEmpty)
                 ? selectedProduct!.sellingPrice
-                : int.parse(amountController.text),
+                : amountController.numberValue,
             totalAmount: (amountController.text.isEmpty)
                 ? (selectedProduct!.sellingPrice! *
                     (quantityController.text.isEmpty
                         ? 1
                         : int.parse(quantityController.text)))
-                : int.parse(amountController.text) *
+                : amountController.numberValue *
                     (quantityController.text.isEmpty
                         ? 1
                         : int.parse(quantityController.text)),
@@ -1302,14 +1304,14 @@ print("record balance $Balance");
         productList.add(PaymentItem(
             itemName: itemNameController.text,
             quality: int.parse(quantityController.text),
-            amount: int.parse(amountController.text),
-            totalAmount: int.parse(amountController.text) *
+            amount: int.parse(amountController.numberValue.toString()),
+            totalAmount: int.parse(amountController.numberValue.toString()) *
                 int.parse(quantityController.text)));
     }
 
     selectedProduct = null;
     quantityController.text = "1";
-    amountController.text = "";
+    amountController.clear();
     itemNameController.text = "";
   }
 
@@ -1322,10 +1324,10 @@ print("record balance $Balance");
   Future updatePaymetItem(PaymentItem item, int index) async {
     item.itemName = itemNameController.text;
     item.quality = int.parse(quantityController.text);
-    item.amount = int.parse(amountController.text);
+    item.amount = amountController.numberValue;
     productList[index] = item;
     quantityController.text = "1";
-    amountController.text = "";
+    amountController.clear();
     itemNameController.text = "";
   }
 
