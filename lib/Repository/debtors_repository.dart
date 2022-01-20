@@ -247,7 +247,7 @@ debtorsList.forEach((element) {
   if(element.businessId!=_currentBusinessId){
         _debotorAmount(0);
   }
-  totalDebotors=totalDebotors+element.totalAmount!;
+  totalDebotors=totalDebotors+element.balance!;
 
 });
 print("calculated debtors is $totalDebotors");

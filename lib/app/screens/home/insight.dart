@@ -60,7 +60,7 @@ return dateRange;
   }
   List<RecordsData> item1=[];
   List<RecordsData> item2=[];
-  String? value;
+
   List<_SalesData> data = [
     _SalesData('Nov 1', 35),
     _SalesData('Nov 2', 28),
@@ -127,7 +127,7 @@ return newList;
   void initState() {
     // TODO: implement initState
     super.initState();
-transactionController.splitCurrentTime();
+// transactionController.splitCurrentTime();
 
   }
   @override
@@ -190,7 +190,7 @@ transactionController.splitCurrentTime();
                                     width: 2, color: AppColor().backgroundColor)),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
-                                value: value,
+                                value: transactionController.value.value,
                                 icon: Icon(
                                   Icons.keyboard_arrow_down,
                                   size: 14,
@@ -205,28 +205,28 @@ transactionController.splitCurrentTime();
                                 ),
                                 isDense: true,
                                 items: recordFilter.map(buildDropDown).toList(),
-                                onChanged: (value){                            
-                                  setState(() => this.value = value);
-                                if(value!.contains("This Year")){
+                                onChanged: (value)async{                            
+                                transactionController.value(value);
+                            if (transactionController.value.value.contains("This Year")) {
                               transactionController.getYearRecord();
-          
-                                }else if(value.contains("Today")){
-                                transactionController.splitCurrentTime();
-          
-                                }else if(value.contains("This Week")){
-                                transactionController.getWeeklyRecordData();
-          
-                                }else if(value.contains("This month")){
-                                transactionController.getMonthlyRecord();
-          
-                                }else if(value.contains("This Month")){
-          
-                               transactionController.getMonthlyRecord();
-          
-                                }else if(value.contains("All Time")){
-          
-                                  transactionController.getAllTimeRecord();
-                                }
+                            } else if (transactionController.value.value.contains("Today")) {
+                              transactionController.splitCurrentTime();
+                            } else if (transactionController.value.value.contains("This Week")) {
+                              transactionController.getWeeklyRecordData();
+                            } else if (transactionController.value.value.contains("This month")) {
+                              transactionController.getMonthlyRecord();
+                            } else if (transactionController.value.value.contains("This Month")) {
+                              transactionController.getMonthlyRecord();
+                            } else if (transactionController.value.value.contains("All Time")) {
+                              transactionController.getAllTimeRecord();
+                            }else if(transactionController.value.value.contains("Custom date range")){
+                                 DateTimeRange? val =
+                                  await pickDateRanges(context);
+                              if (val != null) {
+                                transactionController.getDateRangeRecordData(
+                                    val.start, val.end);
+                              }
+                            }
           
                                 },
                                 onTap: () {
@@ -240,13 +240,7 @@ transactionController.splitCurrentTime();
                               ),
                             ),
                           ), 
-                           value.toString() == 'Custom date range' ? IconButton(onPressed: ()async{
-                           DateTimeRange? val=await pickDateRanges(context);
-                           if(val!=null){
-                          transactionController.getDateRangeRecordData(val.start, val.end);
-          
-                           }
-                          }, icon: Icon(Icons.date_range, color: AppColor().backgroundColor,)) : Container() 
+                          
                       ],
                     ),
                   ),

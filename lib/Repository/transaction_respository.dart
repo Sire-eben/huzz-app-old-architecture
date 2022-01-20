@@ -100,6 +100,7 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> pendingUpdatedTransactionList = [];
   Rx<List<RecordsData>> _allIncomeHoursData = Rx([]);
   Rx<List<RecordsData>> _allExpenditureHoursData = Rx([]);
+  Rx<String> value="Today".obs;
   List<RecordsData> get allIncomeHoursData => _allIncomeHoursData.value;
   List<RecordsData> get allExpenditureHoursData =>
       _allExpenditureHoursData.value;
@@ -140,7 +141,8 @@ dynamic get recordMoneyOut => _recordMoneyOut.value;
             _allIncomeHoursData([]);
             _allExpenditureHoursData([]);
           await  GetOfflineTransactions(p0.businessId!);
-            getOnlineTransaction(p0.businessId!);
+           await getOnlineTransaction(p0.businessId!);
+           splitCurrentTime();
 
             
             // getSpending(p0.businessId!);
@@ -580,7 +582,7 @@ Future getDateRangeRecordData(DateTime startDate,DateTime endDate)async{
 int days=endDate.difference(startDate).inDays;
 print("days difference in range $days");
 List<DateTime> value = [];
-for(int i=1;i<days;++i){
+for(int i=0;i<=days;++i){
 value.add(DateTime(startDate.year, startDate.month, startDate.day));
 startDate=DateTime(startDate.year, startDate.month, startDate.day+1);
 
@@ -902,7 +904,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
         "customerId": customerId,
         "businessTransactionFileStoreId": fileid,
         "entyDateTime": (date == null) ? null : date!.toIso8601String(),
-        "amountPaid": amountPaidController.numberValue
+        "amountPaid": selectedPaymentMode=="DEPOSIT"? amountPaidController.numberValue:0
       });
       print("transaction body $body");
       final response =
@@ -936,7 +938,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
         _addingTransactionStatus(AddingTransactionStatus.Error);
       }
     } catch (ex) {
-      print("error occurred ${ex.toString()}");
+      print("error occurred here ${ex.toString()}");
       _addingTransactionStatus(AddingTransactionStatus.Error);
     }
   }
@@ -1300,12 +1302,12 @@ print("record balance $Balance");
                 : int.parse(quantityController.text)));
     } else {
       if (itemNameController.text.isNotEmpty &&
-          amountController.text.isNotEmpty)
+          amountController.numberValue>0)
         productList.add(PaymentItem(
             itemName: itemNameController.text,
             quality: int.parse(quantityController.text),
-            amount: int.parse(amountController.numberValue.toString()),
-            totalAmount: int.parse(amountController.numberValue.toString()) *
+            amount: amountController.numberValue,
+            totalAmount:amountController.numberValue*
                 int.parse(quantityController.text)));
     }
 

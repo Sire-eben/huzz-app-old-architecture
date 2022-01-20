@@ -9,8 +9,9 @@ WordCloud(this.itemList);
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = <Widget>[];
-    for (var i = 0; i < itemList.length; i++) {
-      widgets.add(ScatterItem(itemList[i], i));
+    List<String> values=itemList.map((e) => e.itemName!).toSet().toList();
+    for (var i = 0; i < values.length; i++) {
+      widgets.add(ScatterItem(values[i], i));
     }
 
     final screenSize = MediaQuery.of(context).size;
@@ -30,7 +31,7 @@ WordCloud(this.itemList);
 
 class ScatterItem extends StatelessWidget {
   ScatterItem(this.item, this.index);
-  final PaymentItem item;
+  final String item;
   final int index;
    RandomColor _randomColor = RandomColor();
   @override
@@ -42,7 +43,7 @@ class ScatterItem extends StatelessWidget {
     return RotatedBox(
       quarterTurns:  0,
       child: Text(
-       item.itemName!,
+       item,
         style: style,
       ),
     );
