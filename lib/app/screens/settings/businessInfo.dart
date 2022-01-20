@@ -485,9 +485,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ),
                 );
               }),
-              SizedBox(
-                height: 40,
-              ),
+              SizedBox(height: 25),
             ],
           ),
         );

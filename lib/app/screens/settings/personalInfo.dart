@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
@@ -131,30 +130,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           ),
                         ],
                       ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     _displayDialog(context);
-                      //   },
-                      //   child: Row(
-                      //     children: [
-                      //       Container(
-                      //         child: Image.asset(
-                      //           'assets/images/pen.png',
-                      //           scale: 1.2,
-                      //         ),
-                      //       ),
-                      //       SizedBox(
-                      //         width: 5,
-                      //       ),
-                      //       Text(
-                      //         'Change',
-                      //         style: TextStyle(
-                      //             color: AppColor().backgroundColor,
-                      //             fontSize: 12),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                   SizedBox(
@@ -250,12 +225,12 @@ class _PersonalInfoState extends State<PersonalInfo> {
             SizedBox(
               height: 25,
             ),
-            Center(
-              child: SvgPicture.asset(
-                'assets/images/image-signature.svg',
-                // height: 50,
-              ),
-            ),
+            // Center(
+            //   child: SvgPicture.asset(
+            //     'assets/images/image-signature.svg',
+            //     // height: 50,
+            //   ),
+            // ),
             Spacer(),
             Obx(() {
               return InkWell(

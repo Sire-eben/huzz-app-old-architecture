@@ -189,7 +189,6 @@ class _SettingsState extends State<Settings> {
                       GestureDetector(
                         onTap: () {
                           Get.to(PersonalInfo());
-                          // controller.;
                         },
                         child: SvgPicture.asset(
                           "assets/images/setting.svg",
@@ -202,10 +201,10 @@ class _SettingsState extends State<Settings> {
                       ),
                       InkWell(
                         onTap: () {
-                          _displayDialog(
-                              context,
-                              "are you sure want to delete your account",
-                              () {});
+                          _displayDialog(context,
+                              "are you sure want to delete your account", () {
+                            controller.deleteUsersAccounts();
+                          });
                         },
                         child: SvgPicture.asset(
                           "assets/images/delete.svg",

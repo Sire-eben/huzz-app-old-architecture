@@ -29,7 +29,7 @@ class CustomDropDownField extends StatelessWidget {
         height: 104,
         child: Column(children: [
           Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+              margin: EdgeInsets.only(right: 20, top: 9, bottom: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -51,7 +51,7 @@ class CustomDropDownField extends StatelessWidget {
                 ],
               )),
           Container(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+            // margin: EdgeInsets.only(left: 20, right: 20, top: 10),
             child: FormField<String>(
               builder: (FormFieldState<String> state) {
                 return InputDecorator(
