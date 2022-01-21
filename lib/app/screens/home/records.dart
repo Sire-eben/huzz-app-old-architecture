@@ -355,8 +355,14 @@ class _RecordsState extends State<Records> {
                     // item1=removeDoubleItem(transactionController.allIncomeHoursData);
                     // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                     return SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-
+                        primaryYAxis: NumericAxis(
+                          // labelFormat: "N"
+                          axisLabelFormatter: (s)=>ChartAxisLabel("N${display(s.value)}",TextStyle(fontSize: 10)),
+                        ),
+                       primaryXAxis: CategoryAxis(),
+                        onTooltipRender: (s){
+                                  var list=s.text!.split(":");
+                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
                         // Chart title
                         // title: ChartTitle(text: 'Half yearly sales analysis'),
                         // Enable legend

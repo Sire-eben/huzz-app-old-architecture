@@ -191,7 +191,7 @@ checkPendingTransactionbeUpdatedToServer();
     var results = await _businessController.sqliteDb.getOfflineInvovoices(id);
     print("offline Invoice ${results.length}");
 
-    _offlineInvoices(results);
+    _offlineInvoices(results.reversed.toList());
     categorizedInvoice();
   }
 
@@ -466,6 +466,7 @@ checkPendingTransactionbeUpdatedToServer();
       String? bankselectedId;
       if (paymentValue == 1) {
         bankselectedId = await _bankController.addBusinessBankWithString();
+        print("addied bank id is $bankselectedId");
       } else {
         bankselectedId = selectedBank!.id;
       }
@@ -824,13 +825,13 @@ await updateInvoiceHisotryList(response);
             itemName: selectedProduct!.productName,
             amount: (amountController.text.isEmpty)
                 ? selectedProduct!.sellingPrice
-                : int.parse(amountController.text),
+                : amountController.numberValue,
             totalAmount: (amountController.text.isEmpty)
                 ? (selectedProduct!.sellingPrice! *
                     (quantityController.text.isEmpty
                         ? 1
                         : int.parse(quantityController.text)))
-                : int.parse(amountController.text) *
+                : amountController.numberValue *
                     (quantityController.text.isEmpty
                         ? 1
                         : int.parse(quantityController.text)),
@@ -843,14 +844,14 @@ await updateInvoiceHisotryList(response);
         productList.add(PaymentItem(
             itemName: itemNameController.text,
             quality: int.parse(quantityController.text),
-            amount: int.parse(amountController.text),
-            totalAmount: int.parse(amountController.text) *
+            amount: amountController.numberValue,
+            totalAmount: amountController.numberValue *
                 int.parse(quantityController.text)));
     }
 
     selectedProduct = null;
     quantityController.text = "1";
-    amountController.text = "";
+    amountController.clear();
     itemNameController.text = "";
   }
 

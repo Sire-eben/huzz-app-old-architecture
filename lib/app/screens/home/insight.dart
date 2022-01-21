@@ -208,26 +208,28 @@ return newList;
                                 onChanged: (value)async{                            
                                 transactionController.value(value);
                             if (transactionController.value.value.contains("This Year")) {
-                              transactionController.getYearRecord();
+                            await  transactionController.getYearRecord();
                             } else if (transactionController.value.value.contains("Today")) {
-                              transactionController.splitCurrentTime();
+                             await transactionController.splitCurrentTime();
                             } else if (transactionController.value.value.contains("This Week")) {
-                              transactionController.getWeeklyRecordData();
+                             await transactionController.getWeeklyRecordData();
                             } else if (transactionController.value.value.contains("This month")) {
-                              transactionController.getMonthlyRecord();
+                             await transactionController.getMonthlyRecord();
                             } else if (transactionController.value.value.contains("This Month")) {
-                              transactionController.getMonthlyRecord();
+                             await transactionController.getMonthlyRecord();
                             } else if (transactionController.value.value.contains("All Time")) {
-                              transactionController.getAllTimeRecord();
+                             await transactionController.getAllTimeRecord();
                             }else if(transactionController.value.value.contains("Custom date range")){
                                  DateTimeRange? val =
                                   await pickDateRanges(context);
                               if (val != null) {
-                                transactionController.getDateRangeRecordData(
+                             await   transactionController.getDateRangeRecordData(
                                     val.start, val.end);
                               }
                             }
-          
+          setState(() {
+            
+          });
                                 },
                                 onTap: () {
                                   // showModalBottomSheet(
@@ -307,11 +309,18 @@ return newList;
                           // item1=removeDoubleItem(transactionController.allIncomeHoursData);
                           // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                           return SfCartesianChart(
-                              primaryXAxis: CategoryAxis(),
+                    primaryYAxis: NumericAxis(
+                          // labelFormat: "N"
+                          axisLabelFormatter: (s)=>ChartAxisLabel("N${display(s.value)}",TextStyle(fontSize: 10)),
+                        ),
+                       primaryXAxis: CategoryAxis(),
           
                               // Chart title
                               // title: ChartTitle(text: 'Half yearly sales analysis'),
                               // Enable legend
+                               onTooltipRender: (s){
+                                  var list=s.text!.split(":");
+                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
                               legend: Legend(isVisible: false),
                               // Enable tooltip
                               tooltipBehavior: TooltipBehavior(enable: true),
@@ -334,7 +343,7 @@ return newList;
                                     color: AppColor().orangeBorderColor,
                                     xValueMapper: (RecordsData value, _) => value.label,
                                     yValueMapper: (RecordsData value, _) => value.value,
-                                    name: 'Value',
+                                  
                                     splineType: SplineType.cardinal,
                                     cardinalSplineTension: 0.9,
                                     // Enable data label
@@ -382,12 +391,16 @@ return newList;
                             Container(
                               height: 200,
                               child: SfCircularChart(
+                                 onTooltipRender: (s){
+                                  var list=s.text!.split(":");
+                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
+                                 onDataLabelRender: (s)=>s.text="${display(double.parse(s.text))}",
                                   tooltipBehavior: TooltipBehavior(enable: true),
                                   series: <CircularSeries>[
                                     PieSeries<RecordsData, String>(
                                         dataSource:item1,
                                         pointColorMapper: (RecordsData data, _) =>
-                                            data.color!,
+                                            data.color,
                                         xValueMapper: (RecordsData data, _) =>
                                             data.label,
                                         yValueMapper: (RecordsData data, _) =>
@@ -414,12 +427,16 @@ return newList;
                             Container(
                               height: 200,
                               child: SfCircularChart(
+                                onTooltipRender: (s){
+                                  var list=s.text!.split(":");
+                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
+                        onDataLabelRender: (s)=>s.text="${display(double.parse(s.text))}",
                                   tooltipBehavior: TooltipBehavior(enable: true),
                                   series: <CircularSeries>[
                                     PieSeries<RecordsData, String>(
                                         dataSource: item2,
                                         pointColorMapper: (RecordsData data, _) =>
-                                            data.color!,
+                                            data.color,
                                         xValueMapper: (RecordsData data, _) =>
                                             data.label,
                                         yValueMapper: (RecordsData data, _) =>

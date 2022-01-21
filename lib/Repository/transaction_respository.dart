@@ -231,8 +231,8 @@ return list1;
     todayTransaction.forEach((element) {
       items.addAll(element.businessTransactionPaymentItemList!);
     });
-
-    _allPaymentItem(items);
+// items.reversed.toList
+    _allPaymentItem(items.reversed.toList());
   }
 
   Future getOnlineTransaction(String businessId) async {
