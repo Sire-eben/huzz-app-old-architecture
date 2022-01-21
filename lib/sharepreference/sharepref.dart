@@ -7,6 +7,7 @@ class SharePref {
   static String isLogin = "App is Login";
   static String firstTimeAppOpen = " First Time  app open";
   static String dateTokenExpired=" Time when token expired";
+  static String selectedLastBusiness="Selected Last Business";
   SharedPreferences? _preferences;
   SharePref() {
     //print("sharepref init");
@@ -62,6 +63,15 @@ class SharePref {
   void setDateTokenExpired(DateTime time){
 
     _preferences!.setString(dateTokenExpired, time.toIso8601String());
+  }
+
+  void setLastSelectedBusiness(String id){
+
+_preferences!.setString(selectedLastBusiness, id);
+  }
+String getLastSelectedBusiness(){
+var value=_preferences!.getString(selectedLastBusiness);
+return value==null?"":value;
   }
   DateTime getDateTokenExpired(){
   var expireTime=_preferences!.getString(dateTokenExpired);

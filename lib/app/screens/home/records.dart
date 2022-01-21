@@ -31,7 +31,7 @@ class _RecordsState extends State<Records> {
     'Custom date range'
   ];
 
-  String? value;
+  // String? value;
   List<_SalesData> data = [
     _SalesData('1pm', 35),
     _SalesData('2pm', 28),
@@ -83,7 +83,7 @@ class _RecordsState extends State<Records> {
   void initState() {
     // TODO: implement initState
     super.initState();
-transactionController.splitCurrentTime();
+
 
   }
   @override
@@ -283,7 +283,7 @@ transactionController.splitCurrentTime();
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: value,
+                          value: transactionController.value.value,
                           icon: Icon(
                             Icons.keyboard_arrow_down,
                             size: 14,
@@ -298,20 +298,27 @@ transactionController.splitCurrentTime();
                           ),
                           isDense: true,
                           items: recordFilter.map(buildDropDown).toList(),
-                          onChanged: (value) {
-                            setState(() => this.value = value);
-                            if (value!.contains("This Year")) {
+                          onChanged: (value)async {
+                         transactionController.value(value);
+                            if (transactionController.value.value.contains("This Year")) {
                               transactionController.getYearRecord();
-                            } else if (value.contains("Today")) {
+                            } else if (transactionController.value.value.contains("Today")) {
                               transactionController.splitCurrentTime();
-                            } else if (value.contains("This Week")) {
+                            } else if (transactionController.value.value.contains("This Week")) {
                               transactionController.getWeeklyRecordData();
-                            } else if (value.contains("This month")) {
+                            } else if (transactionController.value.value.contains("This month")) {
                               transactionController.getMonthlyRecord();
-                            } else if (value.contains("This Month")) {
+                            } else if (transactionController.value.value.contains("This Month")) {
                               transactionController.getMonthlyRecord();
-                            } else if (value.contains("All Time")) {
+                            } else if (transactionController.value.value.contains("All Time")) {
                               transactionController.getAllTimeRecord();
+                            }else if(transactionController.value.value.contains("Custom date range")){
+                                 DateTimeRange? val =
+                                  await pickDateRanges(context);
+                              if (val != null) {
+                                transactionController.getDateRangeRecordData(
+                                    val.start, val.end);
+                              }
                             }
                           },
                           onTap: () {
@@ -325,21 +332,16 @@ transactionController.splitCurrentTime();
                         ),
                       ),
                     ),
-                    value.toString() == 'Custom date range'
-                        ? IconButton(
-                            onPressed: () async {
-                              DateTimeRange? val =
-                                  await pickDateRanges(context);
-                              if (val != null) {
-                                transactionController.getDateRangeRecordData(
-                                    val.start, val.end);
-                              }
-                            },
-                            icon: Icon(
-                              Icons.date_range,
-                              color: AppColor().backgroundColor,
-                            ))
-                        : Container()
+                    // transactionController.value.toString() == 'Custom date range'
+                    //     ? IconButton(
+                    //         onPressed: () async {
+                           
+                    //         },
+                    //         icon: Icon(
+                    //           Icons.date_range,
+                    //           color: AppColor().backgroundColor,
+                    //         ))
+                    //     : Container()
                   ],
                 ),
               ),
@@ -353,8 +355,14 @@ transactionController.splitCurrentTime();
                     // item1=removeDoubleItem(transactionController.allIncomeHoursData);
                     // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                     return SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-
+                        primaryYAxis: NumericAxis(
+                          // labelFormat: "N"
+                          axisLabelFormatter: (s)=>ChartAxisLabel("N${display(s.value)}",TextStyle(fontSize: 10)),
+                        ),
+                       primaryXAxis: CategoryAxis(),
+                        onTooltipRender: (s){
+                                  var list=s.text!.split(":");
+                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
                         // Chart title
                         // title: ChartTitle(text: 'Half yearly sales analysis'),
                         // Enable legend
@@ -387,11 +395,16 @@ transactionController.splitCurrentTime();
                               yValueMapper: (RecordsData value, _) =>
                                   value.value,
                               name: 'Value',
+                              xAxisName: "Date",
+                              yAxisName: "Amount",
+                             
                               splineType: SplineType.cardinal,
                               cardinalSplineTension: 0.9,
                               // Enable data label
                               dataLabelSettings:
-                                  DataLabelSettings(isVisible: false)),
+                                  DataLabelSettings(isVisible: false,
+                                  builder: (data, point, series, pointIndex, seriesIndex) =>Text("bb") ,)
+                                  ),
                         ]);
                   }),
                 ),
@@ -415,7 +428,7 @@ transactionController.splitCurrentTime();
                         ),
                         SizedBox(width: 5),
                         Text(
-                          '${value}',
+                          '${transactionController.value.value}',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
