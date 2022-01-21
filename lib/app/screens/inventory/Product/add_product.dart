@@ -12,6 +12,7 @@ import '../../../../colors.dart';
 // ignore: must_be_immutable
 class AddProduct extends StatefulWidget {
   Product? item;
+
   AddProduct({Key? key, this.item}) : super(key: key);
 
   @override
@@ -19,6 +20,12 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // _productController.MproductImage(File(""));
+  }
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
 
@@ -72,9 +79,9 @@ class _AddProductState extends State<AddProduct> {
                   context: context,
                   builder: (context) => buildAddImage()),
               child: Center(
-                child: (_productController.productImage.value != null)
+                child: (_productController.productImage != null&&_productController.productImage!=Null)
                     ? Image.file(
-                        _productController.productImage.value!,
+                        _productController.productImage!,
                         height: 150,
                         width: 150,
                       )
@@ -527,15 +534,15 @@ class _AddProductState extends State<AddProduct> {
                   // Pick an image
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
-                  _productController.productImage(File(image!.path));
+                  _productController.MproductImage(File(image!.path));
                   print("image path ${image.path}");
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    (_productController.productImage.value != null)
+                    (_productController.productImage != null&&_productController.productImage!=Null)
                         ? Image.file(
-                            _productController.productImage.value!,
+                            _productController.productImage!,
                             height: 150,
                             width: 150,
                           )

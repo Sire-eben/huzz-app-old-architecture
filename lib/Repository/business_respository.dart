@@ -12,6 +12,7 @@ import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/offline_business.dart';
+import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 
 import 'auth_respository.dart';
@@ -37,11 +38,14 @@ class BusinessRespository extends GetxController {
   final _createBusinessStatus = CreateBusinessStatus.Empty.obs;
   Rx<Business?> selectedBusiness = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
+   SharePref? pref;
   CreateBusinessStatus get createBusinessStatus => _createBusinessStatus.value;
   UpdateBusinessStatus get updateBusinessStatus => _updateBusinessStatus.value;
 
   @override
   void onInit() async {
+     pref = SharePref();
+    await pref!.init();
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         OnlineBusiness();
@@ -52,7 +56,10 @@ class BusinessRespository extends GetxController {
       GetOfflineBusiness();
     });
   }
+void setLastBusiness(Business business){
 
+  pref!.setLastSelectedBusiness(business.businessId!);
+}
   Future OnlineBusiness() async {
     var response = await http.get(Uri.parse(ApiLink.get_user_business),
         headers: {"Authorization": "Bearer ${_userController.token}"});
@@ -120,7 +127,13 @@ class BusinessRespository extends GetxController {
     print("offline business ${results.length}");
 
     _offlineBusiness(results);
-    if (results.isNotEmpty) selectedBusiness(results.first.business);
+    if (results.isNotEmpty) {
+    var business=results.firstWhereOrNull((e)=>e.businessId==pref!.getLastSelectedBusiness());
+    if(business==null)
+    selectedBusiness(results.first.business);
+    else
+    selectedBusiness(business.business);
+    }
   }
 
   Future createBusiness() async {

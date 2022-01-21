@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
@@ -47,13 +48,13 @@ class DebtorRepository extends GetxController
   Rx<File?> DebtorImage = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
 
-  final totalAmountController = TextEditingController();
-  final amountController = TextEditingController();
+  final totalAmountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final amountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final serviceDescription = TextEditingController();
 
-  final DebtorSellingPriceController = TextEditingController();
+  final DebtorSellingPriceController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
   final DebtorQuantityController = TextEditingController();
   final DebtorUnitController = TextEditingController();
 

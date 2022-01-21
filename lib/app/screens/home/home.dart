@@ -1055,6 +1055,7 @@ class _HomeState extends State<Home> {
                                       .selectedBusiness.value,
                                   onChanged: (value) {
                                     _businessController.selectedBusiness(value);
+                                    _businessController.setLastBusiness(value!);
                                     Navigator.pop(context);
                                   }),
                             )),

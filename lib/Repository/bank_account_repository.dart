@@ -183,7 +183,8 @@ class BankAccountRepository extends GetxController {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
-          getOnlineBank(
+         
+        await  getOnlineBank(
               _businessController.selectedBusiness.value!.businessId!);
           clearValue();
 

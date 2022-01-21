@@ -61,9 +61,9 @@ class _AddServiceState extends State<AddService> {
                   context: context,
                   builder: (context) => buildAddImage()),
               child: Center(
-                child: (_productController.productImage.value != null)
+                child: (_productController.productImage != null)
                     ? Image.file(
-                        _productController.productImage.value!,
+                        _productController.productImage!,
                         height: 150,
                         width: 150,
                       )
@@ -222,15 +222,15 @@ class _AddServiceState extends State<AddService> {
                   // Pick an image
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
-                  _productController.productImage(File(image!.path));
+                  _productController.MproductImage(File(image!.path));
                   print("image path ${image.path}");
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    (_productController.productImage.value != null)
+                    (_productController.productImage != null)
                         ? Image.file(
-                            _productController.productImage.value!,
+                            _productController.productImage!,
                             height: 150,
                             width: 150,
                           )
