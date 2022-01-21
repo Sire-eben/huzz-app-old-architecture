@@ -21,6 +21,7 @@ class _ServicesState extends State<Services> {
         ? ServiceListing()
         : Stack(
             children: [
+              //Service Count
               Positioned(
                 top: 30,
                 left: 20,
@@ -87,6 +88,8 @@ class _ServicesState extends State<Services> {
                   ),
                 ),
               ),
+
+              //Add Products
               Positioned(
                 bottom: 10,
                 right: 30,

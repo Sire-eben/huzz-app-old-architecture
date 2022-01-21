@@ -294,12 +294,19 @@ class _AllState extends State<All> {
                                         height: 30,
                                         width: 30,
                                         decoration: BoxDecoration(
-                                          color: visible
-                                              ? AppColor().orangeBorderColor
-                                              : AppColor().whiteColor,
+                                          color: (_invoiceController
+                                                  .checkifSelectedForDeleted(
+                                                      item.id!))
+                                              ? AppColor().whiteColor
+                                              : AppColor().orangeBorderColor,
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: Color(0xffEF6500),
+                                            color: (_invoiceController
+                                                    .checkifSelectedForDeleted(
+                                                        item.id!))
+                                                ? Color(0xffEF6500)
+                                                : Colors.transparent,
+                                            width: 2,
                                           ),
                                         ),
                                         child: Visibility(
@@ -307,11 +314,7 @@ class _AllState extends State<All> {
                                           child: Icon(
                                             Icons.check,
                                             size: 15,
-                                            color: (_invoiceController
-                                                    .checkifSelectedForDeleted(
-                                                        item.id!))
-                                                ? AppColor().whiteColor
-                                                : AppColor().orangeBorderColor,
+                                            color: AppColor().whiteColor,
                                           ),
                                         ),
                                       ),

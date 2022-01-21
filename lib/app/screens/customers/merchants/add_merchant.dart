@@ -1,10 +1,6 @@
 import 'dart:io';
-
-import 'package:country_picker/country_picker.dart';
-import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';

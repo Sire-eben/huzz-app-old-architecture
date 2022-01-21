@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/productdelete.dart';
+import 'package:huzz/app/screens/inventory/Service/add_service.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/product_model.dart';
 import 'package:huzz/model/service_model.dart';
@@ -23,85 +24,34 @@ class _ServiceListingState extends State<ServiceListing> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor().whiteColor,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Get.to(AddService());
+        },
+        icon: Icon(Icons.add),
+        backgroundColor: AppColor().backgroundColor,
+        label: Text(
+          'New Service',
+          style: TextStyle(
+              fontFamily: 'DMSans',
+              fontSize: 10,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Obx(() {
         return Stack(
           children: [
             //Service Count
             Positioned(
-              top: 30,
+              top: 15,
               left: 20,
               right: 20,
               child: productCount(context),
             ),
-            //Add & Delete Button
-            Positioned(
-              top: 210,
-              left: 20,
-              right: 20,
-              child: Row(
-                children: [
-                  Text(
-                    'Services (${_productController.productServices.length})',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  Spacer(),
-                  // InkWell(
-                  //   onTap: () => showModalBottomSheet(
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.vertical(
-                  //         top: Radius.circular(20),
-                  //       ),
-                  //     ),
-                  //     context: context,
-                  //     builder: (context) => buildAddProduct(),
-                  //   ),
-                  //   child: Container(
-                  //     height: 30,
-                  //     width: 30,
-                  //     decoration: BoxDecoration(
-                  //       color: AppColor().lightbackgroundColor,
-                  //       shape: BoxShape.circle,
-                  //     ),
-                  //     child: Icon(
-                  //       Icons.add,
-                  //       size: 20,
-                  //       color: AppColor().backgroundColor,
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(
-                    width: 5,
-                    height: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.to(BuildDeleteProduct());
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: AppColor().lightbackgroundColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.delete_outline_outlined,
-                        size: 20,
-                        color: AppColor().backgroundColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             //Search
             Positioned(
-              top: 140,
+              top: 125,
               left: 20,
               right: 20,
               child: Container(
@@ -159,9 +109,82 @@ class _ServiceListingState extends State<ServiceListing> {
                 ),
               ),
             ),
+            //Add & Delete Button
+            Positioned(
+              top: 190,
+              left: 30,
+              right: 30,
+              child: Row(
+                children: [
+                  Text(
+                    'Services (${_productController.productServices.length})',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Spacer(),
+                  InkWell(
+                    onTap: () {
+                      Get.to(AddService());
+                    }
+
+                    //  => showModalBottomSheet(
+                    //   shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.vertical(
+                    //       top: Radius.circular(20),
+                    //     ),
+                    //   ),
+                    //   context: context,
+                    //   builder: (context) => buildAddProduct(),
+                    // )
+
+                    ,
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: AppColor().lightbackgroundColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.add,
+                        size: 20,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                    height: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.to(BuildDeleteProduct());
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: AppColor().lightbackgroundColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.delete_outline_outlined,
+                        size: 20,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             //ServiceList
             Positioned(
-              top: 270,
+              top: 240,
               bottom: 30,
               left: 20,
               right: 20,

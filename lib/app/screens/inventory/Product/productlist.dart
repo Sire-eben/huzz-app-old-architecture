@@ -24,83 +24,34 @@ class _ProductListingState extends State<ProductListing> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor().whiteColor,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Get.to(AddProduct());
+        },
+        icon: Icon(Icons.add),
+        backgroundColor: AppColor().backgroundColor,
+        label: Text(
+          'New Product',
+          style: TextStyle(
+              fontFamily: 'DMSans',
+              fontSize: 10,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Stack(
         children: [
           // Product Count
           Positioned(
-            top: 30,
+            top: 15,
             left: 20,
             right: 20,
             child: productCount(context),
           ),
 
-          // Add &  Delete Button
+          //Search
           Positioned(
-            top: 210,
-            left: 20,
-            right: 20,
-            child: Row(
-              children: [
-                Text(
-                  'Product (${_productController.productGoods.length})',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                Spacer(),
-                // InkWell(
-                //   onTap: () => showModalBottomSheet(
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.vertical(
-                //         top: Radius.circular(20),
-                //       ),
-                //     ),
-                //     context: context,
-                //     builder: (context) => buildAddProduct(),
-                //   ),
-                //   child: Container(
-                //     height: 30,
-                //     width: 30,
-                //     decoration: BoxDecoration(
-                //       color: AppColor().lightbackgroundColor,
-                //       shape: BoxShape.circle,
-                //     ),
-                //     child: Icon(
-                //       Icons.add,
-                //       size: 20,
-                //       color: AppColor().backgroundColor,
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(
-                //   width: 5,
-                // ),
-                InkWell(
-                  onTap: () {
-                    Get.to(BuildDeleteProduct());
-                  },
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.delete_outline_outlined,
-                      size: 20,
-                      color: AppColor().backgroundColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 140,
+            top: 125,
             left: 20,
             right: 20,
             child: Container(
@@ -158,9 +109,81 @@ class _ProductListingState extends State<ProductListing> {
               ),
             ),
           ),
+
+          // Add &  Delete Button
+          Positioned(
+            top: 190,
+            left: 30,
+            right: 30,
+            child: Row(
+              children: [
+                Text(
+                  'Product (${_productController.productGoods.length})',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: 'DMSans',
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Spacer(),
+                InkWell(
+                  onTap: () {
+                    Get.to(AddProduct());
+                  }
+
+                  // => showModalBottomSheet(
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.vertical(
+                  //       top: Radius.circular(20),
+                  //     ),
+                  //   ),
+                  //   context: context,
+                  //   builder: (context) => buildAddProduct(),
+                  // )
+                  ,
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColor().lightbackgroundColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.add,
+                      size: 20,
+                      color: AppColor().backgroundColor,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.to(BuildDeleteProduct());
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColor().lightbackgroundColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.delete_outline_outlined,
+                      size: 20,
+                      color: AppColor().backgroundColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           //ProductList
           Positioned(
-            top: 250,
+            top: 240,
             bottom: 30,
             left: 20,
             right: 20,
@@ -174,46 +197,6 @@ class _ProductListingState extends State<ProductListing> {
                     item: item,
                   );
                 }),
-          ),
-          Positioned(
-            bottom: 10,
-            right: 30,
-            child: GestureDetector(
-              onTap: () {
-                Get.to(AddProduct());
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 15,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColor().backgroundColor,
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.add,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'New Product',
-                      style: TextStyle(
-                        color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ),
         ],
       ),
