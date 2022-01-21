@@ -221,6 +221,7 @@ $businessId text not null)
 
   Future insertDebtor(Debtor debtor) async {
     var value = jsonEncode(debtor.toJson());
+    print("debtor value $value");
     var result = db.insert(debtorbusinessTable, {
       debtorId: debtor.debtorId,
       businessId: debtor.businessId,

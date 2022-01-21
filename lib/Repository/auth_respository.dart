@@ -46,7 +46,7 @@ class AuthRepository extends GetxController {
   final _homeController = Get.find<HomeRespository>();
 
   late final otpController = TextEditingController();
-  late final pinController = TextEditingController();
+var pinController = TextEditingController();
   late final emailController = TextEditingController();
   late final lastNameController = TextEditingController();
   late final firstNameController = TextEditingController();
@@ -54,7 +54,7 @@ class AuthRepository extends GetxController {
   late final forgetpinController = TextEditingController();
   late final verifypinController = TextEditingController();
   late final confirmPinController = TextEditingController();
-  late final phoneNumberController = TextEditingController();
+  var phoneNumberController = TextEditingController();
   late final updatePhoneNumberController = TextEditingController();
   late final forgotPhoneNumberController = TextEditingController();
 
@@ -459,16 +459,16 @@ class AuthRepository extends GetxController {
     pref!.saveToken("0");
     clearDatabase();
     pref!.logout();
-    Get.off(Signin());
+    Get.offAll(Signin());
   }
 
   void clearDatabase() async {
     await sqliteDb.openDatabae();
-    sqliteDb.deleteAllOfflineBusiness();
-    sqliteDb.deleteAllOfflineTransaction();
-    sqliteDb.deleteAllProducts();
-    sqliteDb.deleteAllCustomers();
-    sqliteDb.deleteAllOfflineDebtors();
-    sqliteDb.deleteAllInvoice();
+  await  sqliteDb.deleteAllOfflineBusiness();
+  await  sqliteDb.deleteAllOfflineTransaction();
+   await sqliteDb.deleteAllProducts();
+   await sqliteDb.deleteAllCustomers();
+   await sqliteDb.deleteAllOfflineDebtors();
+   await sqliteDb.deleteAllInvoice();
   }
 }

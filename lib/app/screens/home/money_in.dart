@@ -35,7 +35,9 @@ class _MoneyInState extends State<MoneyIn> {
     _transactionController.clearValue();
     _transactionController.dateController.text =
         DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
-
+        _transactionController.time=TimeOfDay.now();
+_transactionController.timeController.text =
+          '${_transactionController.time!.hour.toString().padLeft(2, '0')}:${_transactionController.time!.minute.toString().padLeft(2, '0')} ${_transactionController.time!.period.index == 0 ? am : pm}';
     // timeController.text =
     // '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
     super.initState();
@@ -1228,6 +1230,46 @@ class _MoneyInState extends State<MoneyIn> {
                             ),
                           ),
                         ),
+                         SizedBox(
+                          height: 8,
+                        ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: CustomTextField(
+                                    label: "Amount",
+                                    hint: 'N 0.00',
+                                    onChanged: (value) {
+                                      print("value is $value");
+                                      setState(() {});
+                                    },
+                                    validatorText: "Amount is needed",
+                                    textEditingController:
+                                        _transactionController
+                                            .amountController,
+                                    keyType: TextInputType.phone,
+                                  ),
+                                ),
+                                SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.height *
+                                            0.03),
+                                Expanded(
+                                  child: CustomTextField(
+                                      label: "Quantity",
+                                      hint: '4',
+                                      onChanged: (value) {
+                                        print("value is $value");
+                                        setState(() {});
+                                      },
+                                      keyType: TextInputType.phone,
+                                      validatorText: "Quantity is needed",
+                                      textEditingController:
+                                          _transactionController
+                                              .quantityController),
+                                ),
+                              ],
+                            ),
                       ],
                     ),
               _transactionController.selectedValue == 1

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
@@ -45,11 +46,11 @@ class TransactionRespository extends GetxController {
   List<PaymentItem> get allPaymentItem => _allPaymentItem.value;
   final _userController = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
-  final expenses = 0.obs;
-  final income = 0.obs;
+  dynamic expenses = 0.0.obs;
+  dynamic income = 0.0.obs;
   final numberofincome = 0.obs;
   final numberofexpenses = 0.obs;
-  final totalbalance = 0.obs;
+  dynamic totalbalance = 0.0.obs;
   bool isBusyAdding = false;
   bool isBusyUpdating = false;
   bool isbusyDeleting = false;
@@ -58,14 +59,15 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> todayTransaction = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
-  final amountController = TextEditingController();
+  final amountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
   final quantityController = TextEditingController();
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
-  final amountPaidController = TextEditingController();
+  final amountPaidController = new MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController timeController = TextEditingController();
   final TextEditingController contactName = TextEditingController();
@@ -98,6 +100,7 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> pendingUpdatedTransactionList = [];
   Rx<List<RecordsData>> _allIncomeHoursData = Rx([]);
   Rx<List<RecordsData>> _allExpenditureHoursData = Rx([]);
+  Rx<String> value="Today".obs;
   List<RecordsData> get allIncomeHoursData => _allIncomeHoursData.value;
   List<RecordsData> get allExpenditureHoursData =>
       _allExpenditureHoursData.value;
@@ -114,28 +117,34 @@ dynamic get recordMoneyOut => _recordMoneyOut.value;
     // TODO: implement onInit
     print("getting transaction repo");
 
-    _userController.Mtoken.listen((p0) {
+    _userController.Mtoken.listen((p0)async {
       print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null) {
+
+       await   GetOfflineTransactions(value.businessId!);
           getOnlineTransaction(value.businessId!);
 
           // getSpending(value.businessId!);
 
-          GetOfflineTransactions(value.businessId!);
         } else {
           print("current business is null");
         }
-        _businessController.selectedBusiness.listen((p0) {
+        _businessController.selectedBusiness.listen((p0)async {
           if (p0 != null) {
             print("business id ${p0.businessId}");
             _offlineTransactions([]);
             _allPaymentItem([]);
             OnlineTransaction = [];
-            getOnlineTransaction(p0.businessId!);
+            todayTransaction=[];
+            _allIncomeHoursData([]);
+            _allExpenditureHoursData([]);
+          await  GetOfflineTransactions(p0.businessId!);
+           await getOnlineTransaction(p0.businessId!);
+           splitCurrentTime();
 
-            GetOfflineTransactions(p0.businessId!);
+            
             // getSpending(p0.businessId!);
 
           }
@@ -222,8 +231,8 @@ return list1;
     todayTransaction.forEach((element) {
       items.addAll(element.businessTransactionPaymentItemList!);
     });
-
-    _allPaymentItem(items);
+// items.reversed.toList
+    _allPaymentItem(items.reversed.toList());
   }
 
   Future getOnlineTransaction(String businessId) async {
@@ -293,7 +302,7 @@ return list1;
     getTodayTransaction();
     //  getWeeklyRecordData();
     // getMonthlyRecord();
-    splitCurrentTime();
+    // splitCurrentTime();
     // getYearRecord();
   }
 
@@ -573,7 +582,7 @@ Future getDateRangeRecordData(DateTime startDate,DateTime endDate)async{
 int days=endDate.difference(startDate).inDays;
 print("days difference in range $days");
 List<DateTime> value = [];
-for(int i=1;i<days;++i){
+for(int i=0;i<=days;++i){
 value.add(DateTime(startDate.year, startDate.month, startDate.day));
 startDate=DateTime(startDate.year, startDate.month, startDate.day+1);
 
@@ -684,17 +693,17 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
     List<TransactionModel> _todayTransaction = [];
     final date = DateTime.now();
     offlineTransactions.forEach((element) {
-      print("element test date ${element.createdTime!.toIso8601String()}");
+      // print("element test date ${element.createdTime!.toIso8601String()}");
       final d = DateTime(element.createdTime!.year, element.createdTime!.month,
           element.createdTime!.day);
       if (d.isAtSameMomentAs(DateTime(date.year, date.month, date.day))) {
         _todayTransaction.add(element);
 
-        print("found date for today");
+        // print("found date for today");
       }
     });
     todayTransaction = _todayTransaction;
-    getAllPaymentItem();
+   await getAllPaymentItem();
     calculateOverView();
   }
 
@@ -895,7 +904,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
         "customerId": customerId,
         "businessTransactionFileStoreId": fileid,
         "entyDateTime": (date == null) ? null : date!.toIso8601String(),
-        "amountPaid": amountPaidController.text
+        "amountPaid": selectedPaymentMode=="DEPOSIT"? amountPaidController.numberValue:0
       });
       print("transaction body $body");
       final response =
@@ -922,13 +931,14 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
         GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
             _debtorController.getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
+              _debtorController.getOnlineDebtor(_businessController.selectedBusiness.value!.businessId!);
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         clearValue();
       } else {
         _addingTransactionStatus(AddingTransactionStatus.Error);
       }
     } catch (ex) {
-      print("error occurred ${ex.toString()}");
+      print("error occurred here ${ex.toString()}");
       _addingTransactionStatus(AddingTransactionStatus.Error);
     }
   }
@@ -985,14 +995,14 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
     productList.forEach((element) {
       totalamount = totalamount + (element.totalAmount!);
     });
-    print("payment mode is $selectedPaymentMode");
+    // print("payment mode is $selectedPaymentMode");
     value = TransactionModel(
       paymentMethod: selectedPaymentMode,
       paymentSource: selectedPaymentSource,
       id: uuid.v1(),
       totalAmount: totalamount,
       balance: (selectedPaymentMode == "DEPOSIT")
-          ? totalamount - int.parse(amountPaidController.text)
+          ? totalamount - amountPaidController.numberValue
           : 0,
       createdTime: DateTime.now(),
       entryDateTime: date,
@@ -1008,7 +1018,7 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
         id: uuid.v1(),
         isPendingUpdating: true,
         amountPaid: (selectedPaymentMode == "DEPOSIT")
-            ? int.parse(amountPaidController.text)
+            ?amountPaidController.numberValue
             : totalamount,
         paymentMode: selectedPaymentMode,
         createdDateTime: DateTime.now(),
@@ -1203,14 +1213,14 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
   clearValue() {
     print("clearing value");
     itemNameController.text = "";
-    amountController.text = "";
+    amountController.clear();
     quantityController.text = "";
     dateController.text = "";
     timeController.text = "";
     paymentController.text = "";
     paymentSourceController.text = "";
     receiptFileController.text = "";
-    amountPaidController.text = "";
+    amountPaidController.clear();
     date = null;
     image = null;
     selectedPaymentMode = null;
@@ -1246,30 +1256,30 @@ print("record balance $Balance");
 
 }
   Future calculateOverView() async {
-    var todayBalance = 0;
-    var todayMoneyIn = 0;
-    var todayMoneyout = 0;
+    dynamic todayBalance = 0;
+    dynamic todayMoneyIn = 0;
+    dynamic todayMoneyout = 0;
 
     todayTransaction.forEach((element) {
       if (element.totalAmount == null) {
         return;
       }
       if (element.transactionType == "INCOME") {
-        todayMoneyIn = todayMoneyIn + int.parse(element.totalAmount.toString());
+        todayMoneyIn = todayMoneyIn + element.totalAmount;
       } else {
         print("total amount is ${element.totalAmount} ${element.toJson()}");
         todayMoneyout =
-            todayMoneyout + int.parse(element.totalAmount.toString());
+            todayMoneyout + element.totalAmount;
       }
     });
     todayBalance = todayMoneyIn - todayMoneyout;
-    income(todayMoneyIn);
-    expenses(todayMoneyout);
-    totalbalance(todayBalance);
+    income(todayMoneyIn*1.0);
+    expenses(todayMoneyout*1.0);
+    totalbalance(todayBalance*1.0);
   }
 
   void addMoreProduct() {
-    print("qunatity text is ${quantityController.text}");
+    print("qunatity text is ${amountController.numberValue}");
     if (selectedValue == 0) {
       if (selectedProduct != null)
         productList.add(PaymentItem(
@@ -1277,13 +1287,13 @@ print("record balance $Balance");
             itemName: selectedProduct!.productName,
             amount: (amountController.text.isEmpty)
                 ? selectedProduct!.sellingPrice
-                : int.parse(amountController.text),
+                : amountController.numberValue,
             totalAmount: (amountController.text.isEmpty)
                 ? (selectedProduct!.sellingPrice! *
                     (quantityController.text.isEmpty
                         ? 1
                         : int.parse(quantityController.text)))
-                : int.parse(amountController.text) *
+                : amountController.numberValue *
                     (quantityController.text.isEmpty
                         ? 1
                         : int.parse(quantityController.text)),
@@ -1292,18 +1302,18 @@ print("record balance $Balance");
                 : int.parse(quantityController.text)));
     } else {
       if (itemNameController.text.isNotEmpty &&
-          amountController.text.isNotEmpty)
+          amountController.numberValue>0)
         productList.add(PaymentItem(
             itemName: itemNameController.text,
             quality: int.parse(quantityController.text),
-            amount: int.parse(amountController.text),
-            totalAmount: int.parse(amountController.text) *
+            amount: amountController.numberValue,
+            totalAmount:amountController.numberValue*
                 int.parse(quantityController.text)));
     }
 
     selectedProduct = null;
     quantityController.text = "1";
-    amountController.text = "";
+    amountController.clear();
     itemNameController.text = "";
   }
 
@@ -1316,10 +1326,10 @@ print("record balance $Balance");
   Future updatePaymetItem(PaymentItem item, int index) async {
     item.itemName = itemNameController.text;
     item.quality = int.parse(quantityController.text);
-    item.amount = int.parse(amountController.text);
+    item.amount = amountController.numberValue;
     productList[index] = item;
     quantityController.text = "1";
-    amountController.text = "";
+    amountController.clear();
     itemNameController.text = "";
   }
 

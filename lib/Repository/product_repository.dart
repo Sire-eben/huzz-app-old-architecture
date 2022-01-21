@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
@@ -32,11 +33,12 @@ class ProductRepository extends GetxController
   final isProductService = false.obs;
   List<Product> get productServices => _productService.value;
   List<Product> get productGoods => _productGoods.value;
-  Rx<File?> productImage = Rx(null);
+  Rx<dynamic> MproductImage = Rx(null);
+  dynamic get productImage=>MproductImage.value;
   SqliteDb sqliteDb = SqliteDb();
   final productNameController = TextEditingController();
-  final productCostPriceController = TextEditingController();
-  final productSellingPriceController = TextEditingController();
+  final productCostPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final productSellingPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
   final productQuantityController = TextEditingController();
   final productUnitController = TextEditingController();
   final serviceDescription = TextEditingController();
@@ -98,15 +100,16 @@ class ProductRepository extends GetxController
       _addingProductStatus(AddingProductStatus.Loading);
       // ignore: avoid_init_to_null
       String? fileId = null;
-      if (productImage.value != null) {
+      if (productImage != null&&productImage!=Null) {
         fileId =
-            await _uploadFileController.uploadFile(productImage.value!.path);
+            await _uploadFileController.uploadFile(productImage!.path);
       }
+      print("image link is $fileId");
       var response = await http.post(Uri.parse(ApiLink.add_product),
           body: jsonEncode({
             "name": productNameController.text,
-            "costPrice": productCostPriceController.text,
-            "sellingPrice": productSellingPriceController.text,
+            "costPrice": productCostPriceController.numberValue,
+            "sellingPrice": productSellingPriceController.numberValue,
             "quantity": productQuantityController.text,
             "businessId":
                 _businessController.selectedBusiness.value!.businessId!,
@@ -157,18 +160,18 @@ class ProductRepository extends GetxController
 
   Future addBusinessProductOffline(String type, String title) async {
     File? outFile;
-    if (productImage.value != null) {
+    if (productImage!= null&& productImage!=Null) {
       var list = await getApplicationDocumentsDirectory();
 
       Directory appDocDir = list;
       String appDocPath = appDocDir.path;
 
-      String basename = path.basename(productImage.value!.path);
+      String basename = path.basename(productImage!.path);
       var newPath = appDocPath + basename;
       // ignore: unnecessary_brace_in_string_interps
       print("new file path is ${newPath}");
       outFile = File(newPath);
-      productImage.value!.copySync(outFile.path);
+      productImage!.copySync(outFile.path);
     }
 
     Product product = Product(
@@ -176,8 +179,8 @@ class ProductRepository extends GetxController
         productId: uuid.v1(),
         businessId: _businessController.selectedBusiness.value!.businessId!,
         productName: productNameController.text,
-        sellingPrice: int.parse(productSellingPriceController.text),
-        costPrice: int.parse(productCostPriceController.text),
+        sellingPrice:productSellingPriceController.numberValue,
+        costPrice: productCostPriceController.numberValue,
         quantity: int.parse(productQuantityController.text),
         productType: type,
         productLogoFileStoreId: outFile == null ? null : outFile.path);
@@ -195,18 +198,18 @@ class ProductRepository extends GetxController
   Future updateBusinessProductOffline(Product newproduct, String title) async {
     File? outFile;
     // ignore: unnecessary_null_comparison
-    if (productImage != null) {
+    if (productImage != null&&productImage!=Null) {
       var list = await getApplicationDocumentsDirectory();
 
       Directory appDocDir = list;
       String appDocPath = appDocDir.path;
 
-      String basename = path.basename(productImage.value!.path);
+      String basename = path.basename(productImage!.path);
       var newPath = appDocPath + basename;
       // ignore: unnecessary_brace_in_string_interps
       print("new file path is ${newPath}");
       outFile = File(newPath);
-      productImage.value!.copySync(outFile.path);
+      productImage!.copySync(outFile.path);
     }
     Product product = Product(
         isUpdatingPending: true,
@@ -227,11 +230,11 @@ class ProductRepository extends GetxController
   }
 
   void clearValue() {
-    productImage(null);
+    MproductImage(Null);
     productNameController.text = "";
     productQuantityController.text = "";
-    productCostPriceController.text = "";
-    productSellingPriceController.text = "";
+    productCostPriceController.clear();
+    productSellingPriceController.clear();
     productUnitController.text = "";
     serviceDescription.text = "";
   }
@@ -242,16 +245,16 @@ class ProductRepository extends GetxController
       // ignore: avoid_init_to_null
       String? fileId = null;
 
-      if (productImage.value != null) {
+      if (productImage != null) {
         fileId =
-            await _uploadFileController.uploadFile(productImage.value!.path);
+            await _uploadFileController.uploadFile(productImage!.path);
       }
       var response = await http
           .put(Uri.parse(ApiLink.add_product + "/" + product.productId!),
               body: jsonEncode({
                 "name": productNameController.text,
-                "costPrice": productCostPriceController.text,
-                "sellingPrice": productSellingPriceController.text,
+                "costPrice": productCostPriceController.numberValue,
+                "sellingPrice": productSellingPriceController.numberValue,
 // "quantity":productQuantityController.text,
                 "businessId": product.businessId,
                 "productType": tabController!.index == 0 ? "GOODS" : "SERVICES",

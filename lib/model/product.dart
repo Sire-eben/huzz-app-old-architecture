@@ -2,8 +2,8 @@ class Product {
   String? productId;
   String? businessId;
   String? productName;
-  int? costPrice;
-  int? sellingPrice;
+  dynamic costPrice;
+  dynamic sellingPrice;
   int? quantity;
   int? quantitySold;
   int? quantityLeft;

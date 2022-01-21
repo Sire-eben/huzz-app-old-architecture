@@ -21,7 +21,7 @@ class AppBinding extends Bindings {
     Get.put(ProductRepository(), permanent: true);
   
     Get.put(CustomerRepository(), permanent: true);
-    Get.put(DebtorRepository(), permanent: true);
+    Get.put(DebtorRepository(), permanent: true,);
     Get.put(TransactionRespository(), permanent: true);
     Get.put(BankAccountRepository(),permanent: true);
     Get.put(InvoiceRespository(),permanent: true);
