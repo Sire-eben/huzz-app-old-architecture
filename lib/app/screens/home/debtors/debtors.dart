@@ -72,160 +72,166 @@ class _DebtorsState extends State<Debtors> {
   int currentStep = 0;
   int customerValue = 0;
   int itemValue = 0;
-final _createKey=GlobalKey<FormState>();
+  final _createKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-     () {
-        return (true)
-            ? Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 20,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                  width: 2, color: AppColor().backgroundColor)),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              value: value,
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                size: 14,
-                                color: AppColor().backgroundColor,
-                              ),
-                              hint: Text(
-                                'Pending',
-                                style: TextStyle(
-                                    fontFamily: 'DMSans',
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              isDense: true,
-                              items: debtStatus.map(buildDropDown).toList(),
-                              onChanged: (value) =>
-                                  setState(() => this.value = value),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xffF5F5F5),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child:(_debtorController.debtorsList.isEmpty)? Center(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset('assets/images/debtors.svg'),
-                                  Text(
-                                    'Add Debtors',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        fontFamily: 'DMSans',
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    'Your debtors will show here. Click the ',
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.black,
-                                        fontFamily: 'DMSans'),
-                                  ),
-                                  Text(
-                                    'Add New Debtors button to add your first debtor',
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.black,
-                                        fontFamily: 'DMSans'),
-                                  ),
-                                ],
-                              ),
-                            ):ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) => Divider(),
-                      itemCount:_debtorController.debtorsList.length,
-                      itemBuilder: (context, index) {
-                       
-                          var item=_debtorController.debtorsList[index];
-                          var customer=_customerController.checkifCustomerAvailableWithValue(item.customerId!);
-                          return DebtorListing(item: item,);
-                        }
-                      
-                    ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        InkWell(
-                          onTap: () => showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => buildAddDebtor()),
-                          child: Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                                color: AppColor().backgroundColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  size: 22,
-                                  color: AppColor().whiteColor,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Center(
-                                  child: Text(
-                                    'Add New Debtor',
-                                    style: TextStyle(
-                                      color: AppColor().whiteColor,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
+    return Obx(() {
+      return (true)
+          ? Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 20,
                   ),
-                ],
-              )
-            // ignore: dead_code
-            : DebtorListing();
-      }
-    );
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                                width: 2, color: AppColor().backgroundColor)),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            value: value,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              size: 14,
+                              color: AppColor().backgroundColor,
+                            ),
+                            hint: Text(
+                              'Pending',
+                              style: TextStyle(
+                                  fontFamily: 'DMSans',
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            isDense: true,
+                            items: debtStatus.map(buildDropDown).toList(),
+                            onChanged: (value) =>
+                                setState(() => this.value = value),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xffF5F5F5),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: (_debtorController.debtorsList.isEmpty)
+                              ? Center(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                          'assets/images/debtors.svg'),
+                                      Text(
+                                        'Add Debtors',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                            fontFamily: 'DMSans',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        'Your debtors will show here. Click the ',
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            color: Colors.black,
+                                            fontFamily: 'DMSans'),
+                                      ),
+                                      Text(
+                                        'Add New Debtors button to add your first debtor',
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            color: Colors.black,
+                                            fontFamily: 'DMSans'),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : ListView.separated(
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  separatorBuilder: (context, index) =>
+                                      Divider(),
+                                  itemCount:
+                                      _debtorController.debtorsList.length,
+                                  itemBuilder: (context, index) {
+                                    var item =
+                                        _debtorController.debtorsList[index];
+                                    var customer = _customerController
+                                        .checkifCustomerAvailableWithValue(
+                                            item.customerId!);
+                                    return DebtorListing(
+                                      item: item,
+                                    );
+                                  }),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      InkWell(
+                        onTap: () => showModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20))),
+                            context: context,
+                            builder: (context) => buildAddDebtor()),
+                        child: Container(
+                          height: 55,
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add,
+                                size: 22,
+                                color: AppColor().whiteColor,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Center(
+                                child: Text(
+                                  'Add New Debtor',
+                                  style: TextStyle(
+                                    color: AppColor().whiteColor,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          // ignore: dead_code
+          : DebtorListing();
+    });
   }
 
   DropdownMenuItem<String> buildDropDown(String item) => DropdownMenuItem(
@@ -263,7 +269,6 @@ final _createKey=GlobalKey<FormState>();
                 ),
                 SizedBox(height: 15),
                 InkWell(
-            
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
@@ -287,16 +292,15 @@ final _createKey=GlobalKey<FormState>();
                 ),
                 Obx(() {
                   return InkWell(
-                    onTap: ()async {
-                   if(_customerKey.currentState!.validate()){
-                     if(_debtorController.addingDebtorStatus!=AddingDebtorStatus.Loading){
-                     await   _debtorController.addBudinessDebtor("INCOME");
-                   setState(() {
-                     
-                   });
-                   Get.back();
-                     }
-                   }
+                    onTap: () async {
+                      if (_customerKey.currentState!.validate()) {
+                        if (_debtorController.addingDebtorStatus !=
+                            AddingDebtorStatus.Loading) {
+                          await _debtorController.addBudinessDebtor("INCOME");
+                          setState(() {});
+                          Get.back();
+                        }
+                      }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -426,30 +430,29 @@ final _createKey=GlobalKey<FormState>();
                                     keyType: TextInputType.name,
                                     textEditingController:
                                         _customerController.nameController,
-                                        validatorText: "Name is needed",
+                                    validatorText: "Name is needed",
                                   ),
                                   CustomTextFieldInvoiceOptional(
                                     label: 'Phone Number',
                                     keyType: TextInputType.name,
-                                    textEditingController:
-                                        _customerController.phoneNumberController,
-                                        validatorText: "Phone number is needed",
+                                    textEditingController: _customerController
+                                        .phoneNumberController,
+                                    validatorText: "Phone number is needed",
                                   ),
-                            
+
                                   CustomTextFieldInvoiceOptional(
                                     label: 'Balance',
                                     keyType: TextInputType.number,
                                     textEditingController:
                                         _debtorController.amountController,
-                                        validatorText: "Balance is needed",
+                                    validatorText: "Balance is needed",
                                   ),
                                   CustomTextFieldInvoiceOptional(
                                     label: 'Total Amount',
                                     keyType: TextInputType.number,
                                     textEditingController:
                                         _debtorController.totalAmountController,
-                                                     validatorText: "Total Amount is needed",
-                                       
+                                    validatorText: "Total Amount is needed",
                                   ),
                                   // Container(
                                   //   margin: EdgeInsets.only(
@@ -683,10 +686,7 @@ final _createKey=GlobalKey<FormState>();
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
-                onTap: () {
-
-
-                },
+                onTap: () {},
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.symmetric(
@@ -724,123 +724,125 @@ class DebtorListing extends StatefulWidget {
 class _DebtorListingState extends State<DebtorListing> {
   final _customerController = Get.find<CustomerRepository>();
   int statusType = 0;
-    final _debtorController = Get.find<DebtorRepository>();
+  final _debtorController = Get.find<DebtorRepository>();
 
   RandomColor _randomColor = RandomColor();
-final _key=GlobalKey<FormState>();
+  final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-        var customer=_customerController.checkifCustomerAvailableWithValue(widget.item!.customerId!);
-    return
-    customer==null?Container(): Row(
-      children: [
-        // Image.asset(debtorsList[index].image!),
-       Expanded(
-                                  child: Container(
-                                margin: EdgeInsets.only(bottom: 10),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Container(
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: _randomColor.randomColor()),
-                                      child: Center(
-                                          child: Text(
-                                     customer!.name==null ||customer!.name!.isEmpty  ?"":  '${customer!.name![0]}',
-                                        style: TextStyle(
-                                            fontSize: 30,
-                                            color: Colors.white,
-                                            fontFamily: 'DMSans',
-                                            fontWeight: FontWeight.bold),
-                                      ))),
-                                ),
-                              )),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.02),
-                          Expanded(
-                            flex: 5,
-                            child: Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    customer!.name!,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans',
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  Text(
-                                   customer.phone!,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans',
-                                        color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Bal: ${widget.item!.balance!}",
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontFamily: 'DMSans',
-                                        color: AppColor().orangeBorderColor,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  Text(
-                                    "Paid: ${(widget.item!.totalAmount!-widget.item!.balance!)}",
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        fontFamily: 'DMSans',
-                                        color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-        Expanded(
-          child: GestureDetector(
-            onTap: (){
-
-              showModalBottomSheet(
+    var customer = _customerController
+        .checkifCustomerAvailableWithValue(widget.item!.customerId!);
+    return customer == null
+        ? Container()
+        : Row(
+            children: [
+              // Image.asset(debtorsList[index].image!),
+              Expanded(
+                  child: Container(
+                margin: EdgeInsets.only(bottom: 10),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _randomColor.randomColor()),
+                      child: Center(
+                          child: Text(
+                        customer!.name == null || customer!.name!.isEmpty
+                            ? ""
+                            : '${customer!.name![0]}',
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold),
+                      ))),
+                ),
+              )),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+              Expanded(
+                flex: 5,
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        customer!.name!,
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'DMSans',
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      Text(
+                        customer.phone!,
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'DMSans',
+                            color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Bal: ${widget.item!.balance!}",
+                        style: TextStyle(
+                            fontSize: 13,
+                            fontFamily: 'DMSans',
+                            color: AppColor().orangeBorderColor,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      Text(
+                        "Paid: ${(widget.item!.totalAmount! - widget.item!.balance!)}",
+                        style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'DMSans',
+                            color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20))),
                           context: context,
                           builder: (context) =>
                               buildUpdatePayment(widget.item!));
-            },
-            child: SvgPicture.asset('assets/images/edit_pri.svg')),
-        ),
-        Expanded(
-          child: GestureDetector(
-            onTap: () => showModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(20))),
-                context: context,
-                builder: (context) => buildDebtorNotification()),
-            child: SvgPicture.asset(
-              'assets/images/bell.svg',
-              height: 20,
-              width: 20,
-            ),
-          ),
-        ),
-      ],
-    );
+                    },
+                    child: SvgPicture.asset('assets/images/edit_pri.svg')),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20))),
+                      context: context,
+                      builder: (context) => buildDebtorNotification()),
+                  child: SvgPicture.asset(
+                    'assets/images/bell.svg',
+                    height: 20,
+                    width: 20,
+                  ),
+                ),
+              ),
+            ],
+          );
   }
 
   Widget buildDebtorNotification() => Container(
@@ -1002,15 +1004,15 @@ final _key=GlobalKey<FormState>();
   StatefulBuilder buildUpdatePayment(Debtor debtor) =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         ScrollController? controller;
-        return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
-          child: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            controller: controller,
+        return SingleChildScrollView(
+          physics: ScrollPhysics(),
+          controller: controller,
+          child: Container(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.04,
+                right: MediaQuery.of(context).size.width * 0.04,
+                bottom: MediaQuery.of(context).size.width * 0.04,
+                top: MediaQuery.of(context).size.width * 0.02),
             child: Form(
               key: _key,
               child: Column(
@@ -1118,10 +1120,12 @@ final _key=GlobalKey<FormState>();
                           ? Container(
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         'Amount',
@@ -1150,7 +1154,7 @@ final _key=GlobalKey<FormState>();
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        'Bal: '+ debtor.balance.toString(),
+                                        'Bal: ' + debtor.balance.toString(),
                                         style: TextStyle(
                                           fontFamily: "DMSans",
                                           color: AppColor().orangeBorderColor,
@@ -1175,70 +1179,80 @@ final _key=GlobalKey<FormState>();
                                 ],
                               ),
                             )
-                          : Container(
-                            
-                            ),
+                          : Container(),
                       SizedBox(
                         height: 5,
                       ),
-                    (statusType==0)?  Container(
-                        child: TextFormField(
-                          controller: textEditingController,
-                          keyboardType: TextInputType.number,
-                          validator: (value){
-                            if(value==null||value.isEmpty){
-                              return "Amount is needed";
-                            }else if(int.parse(value)>debtor.balance){
+                      (statusType == 0)
+                          ? Container(
+                              child: TextFormField(
+                                controller: textEditingController,
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Amount is needed";
+                                  } else if (int.parse(value) >
+                                      debtor.balance) {
+                                    return "Amount must be between the range of balance";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  isDense: true,
 
-                              return "Amount must be between the range of balance";
-                            }
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColor().backgroundColor,
+                                          width: 2),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColor().backgroundColor,
+                                          width: 2),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColor().backgroundColor,
+                                          width: 2),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  // labelText: label,
+                                  hintText: 'N 0.00',
 
-                          },
-                          decoration: InputDecoration(
-                            isDense: true,
-                            
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            // labelText: label,
-                            hintText: 'N 0.00',
-                            
-                            hintStyle:
-                                Theme.of(context).textTheme.headline4!.copyWith(
-                                      fontFamily: 'DMSans',
-                                      color: Colors.black26,
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.normal,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                          ),
-                        ),
-                      ):Container()
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                        fontFamily: 'DMSans',
+                                        color: Colors.black26,
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.normal,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ),
+                            )
+                          : Container()
                     ],
                   ),
-               (statusType==0)?   SizedBox(height: MediaQuery.of(context).size.height * 0.05):Container(),
+                  (statusType == 0)
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.05)
+                      : Container(),
                   InkWell(
-                    onTap: ()async {
-                      
-                      if( _debtorController.addingDebtorStatus!=AddingDebtorStatus.Loading){
-                        if(_key.currentState!.validate()){
-                   await _debtorController.UpdateBusinessDebtor(debtor, statusType==1?0:int.parse(textEditingController.text));
-                                        Get.back();
+                    onTap: () async {
+                      if (_debtorController.addingDebtorStatus !=
+                          AddingDebtorStatus.Loading) {
+                        if (_key.currentState!.validate()) {
+                          await _debtorController.UpdateBusinessDebtor(
+                              debtor,
+                              statusType == 1
+                                  ? 0
+                                  : int.parse(textEditingController.text));
+                          Get.back();
                         }
                       }
-  
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -1247,21 +1261,22 @@ final _key=GlobalKey<FormState>();
                           color: AppColor().backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
-                        child:(_debtorController.addingDebtorStatus ==
-                            AddingDebtorStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          ) :Text(
-                          'Save',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'DMSans'),
-                        ),
+                        child: (_debtorController.addingDebtorStatus ==
+                                AddingDebtorStatus.Loading)
+                            ? Container(
+                                width: 30,
+                                height: 30,
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                        color: Colors.white)),
+                              )
+                            : Text(
+                                'Save',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'DMSans'),
+                              ),
                       ),
                     ),
                   ),

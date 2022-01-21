@@ -6,7 +6,6 @@ import 'package:huzz/Repository/debtors_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
-import 'package:huzz/model/debtors_model.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 
@@ -36,7 +35,7 @@ class _DebtOwnedState extends State<DebtOwned> {
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
   final amountPaidController = TextEditingController();
-  final _customerKey=GlobalKey<FormState>();
+  final _customerKey = GlobalKey<FormState>();
 
   final debtStatus = ['Pending', 'Fully Paid'];
 
@@ -47,7 +46,7 @@ class _DebtOwnedState extends State<DebtOwned> {
     length: 8,
     decimal: 0,
   );
-  final _key=GlobalKey<FormState>();
+  final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -148,7 +147,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   var customer = _customerRepository
                                       .checkifCustomerAvailableWithValue(
                                           item.customerId!);
-                                          
+
                                   return Row(
                                     children: [
                                       Expanded(
@@ -264,11 +263,11 @@ class _DebtOwnedState extends State<DebtOwned> {
                     ),
                     InkWell(
                       onTap: () => showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => buildAddDebtor()),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          context: context,
+                          builder: (context) => buildAddDebtor()),
                       child: Container(
                         height: 55,
                         decoration: BoxDecoration(
@@ -431,10 +430,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                           ? Container(
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         'Amount',
@@ -463,7 +464,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        'Bal: '+ debtor.balance.toString(),
+                                        'Bal: ' + debtor.balance.toString(),
                                         style: TextStyle(
                                           fontFamily: "DMSans",
                                           color: AppColor().orangeBorderColor,
@@ -488,70 +489,80 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 ],
                               ),
                             )
-                          : Container(
-                            
-                            ),
+                          : Container(),
                       SizedBox(
                         height: 5,
                       ),
-                    (statusType==0)?  Container(
-                        child: TextFormField(
-                          controller: textEditingController,
-                          keyboardType: TextInputType.number,
-                          validator: (value){
-                            if(value==null||value.isEmpty){
-                              return "Amount is needed";
-                            }else if(int.parse(value)>debtor.balance){
+                      (statusType == 0)
+                          ? Container(
+                              child: TextFormField(
+                                controller: textEditingController,
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Amount is needed";
+                                  } else if (int.parse(value) >
+                                      debtor.balance) {
+                                    return "Amount must be between the range of balance";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  isDense: true,
 
-                              return "Amount must be between the range of balance";
-                            }
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColor().backgroundColor,
+                                          width: 2),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColor().backgroundColor,
+                                          width: 2),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColor().backgroundColor,
+                                          width: 2),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  // labelText: label,
+                                  hintText: 'N 0.00',
 
-                          },
-                          decoration: InputDecoration(
-                            isDense: true,
-                            
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            // labelText: label,
-                            hintText: 'N 0.00',
-                            
-                            hintStyle:
-                                Theme.of(context).textTheme.headline4!.copyWith(
-                                      fontFamily: 'DMSans',
-                                      color: Colors.black26,
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.normal,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                          ),
-                        ),
-                      ):Container()
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                        fontFamily: 'DMSans',
+                                        color: Colors.black26,
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.normal,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ),
+                            )
+                          : Container()
                     ],
                   ),
-               (statusType==0)?   SizedBox(height: MediaQuery.of(context).size.height * 0.05):Container(),
+                  (statusType == 0)
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.05)
+                      : Container(),
                   InkWell(
-                    onTap: ()async {
-                      
-                      if( _debtorRepository.addingDebtorStatus!=AddingDebtorStatus.Loading){
-                        if(_key.currentState!.validate()){
-                   await _debtorRepository.UpdateBusinessDebtor(debtor, statusType==1?0:int.parse(textEditingController.text));
-                                        Get.back();
+                    onTap: () async {
+                      if (_debtorRepository.addingDebtorStatus !=
+                          AddingDebtorStatus.Loading) {
+                        if (_key.currentState!.validate()) {
+                          await _debtorRepository.UpdateBusinessDebtor(
+                              debtor,
+                              statusType == 1
+                                  ? 0
+                                  : int.parse(textEditingController.text));
+                          Get.back();
                         }
                       }
-  
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -560,21 +571,22 @@ class _DebtOwnedState extends State<DebtOwned> {
                           color: AppColor().backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
-                        child:(_debtorRepository.addingDebtorStatus ==
-                            AddingDebtorStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          ) :Text(
-                          'Save',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'DMSans'),
-                        ),
+                        child: (_debtorRepository.addingDebtorStatus ==
+                                AddingDebtorStatus.Loading)
+                            ? Container(
+                                width: 30,
+                                height: 30,
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                        color: Colors.white)),
+                              )
+                            : Text(
+                                'Save',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'DMSans'),
+                              ),
                       ),
                     ),
                   ),
@@ -613,11 +625,10 @@ class _DebtOwnedState extends State<DebtOwned> {
                 ),
                 SizedBox(height: 15),
                 InkWell(
-                
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      'Add Debtor',
+                      'Add Debt Owned',
                       style: TextStyle(
                         color: AppColor().blackColor,
                         fontFamily: 'DMSans',
@@ -637,16 +648,16 @@ class _DebtOwnedState extends State<DebtOwned> {
                 ),
                 Obx(() {
                   return InkWell(
-                    onTap: ()async {
-                   if(_customerKey.currentState!.validate()){
-                     if(_debtorRepository.addingDebtorStatus!=AddingDebtorStatus.Loading){
-                     await   _debtorRepository.addBudinessDebtor("EXPENDITURE");
-                   setState(() {
-                     
-                   });
-                   Get.back();
-                     }
-                   }
+                    onTap: () async {
+                      if (_customerKey.currentState!.validate()) {
+                        if (_debtorRepository.addingDebtorStatus !=
+                            AddingDebtorStatus.Loading) {
+                          await _debtorRepository
+                              .addBudinessDebtor("EXPENDITURE");
+                          setState(() {});
+                          Get.back();
+                        }
+                      }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -697,237 +708,234 @@ class _DebtOwnedState extends State<DebtOwned> {
           ),
         );
       });
-StatefulBuilder newCustomersInfo() =>
+  StatefulBuilder newCustomersInfo() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
-        return Container(
-          child: SingleChildScrollView(
-            child: Form(
-              key: _customerKey,
-              child: Column(
-                children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.00),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.01),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () => myState(
-                                  () =>  _debtorRepository.customerType = 1),
-                              child: Row(
-                                children: [
-                                  Radio<int>(
-                                      value: 1,
-                                      activeColor: AppColor().backgroundColor,
-                                      groupValue:
-                                          _debtorRepository.customerType,
-                                      onChanged: (value) => myState(() =>
-                                          _debtorRepository.customerType = 1)),
-                                  Text(
-                                    'New Merchant',
-                                    style: TextStyle(
-                                      color: AppColor().backgroundColor,
-                                      fontFamily: "DMSans",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+        ScrollController? controller;
+        return SingleChildScrollView(
+          physics: ScrollPhysics(),
+          controller: controller,
+          child: Form(
+            key: _customerKey,
+            child: Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.00),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.01),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () => myState(
+                                () => _debtorRepository.customerType = 1),
+                            child: Row(
+                              children: [
+                                Radio<int>(
+                                    value: 1,
+                                    activeColor: AppColor().backgroundColor,
+                                    groupValue: _debtorRepository.customerType,
+                                    onChanged: (value) => myState(() =>
+                                        _debtorRepository.customerType = 1)),
+                                Text(
+                                  'New Customer',
+                                  style: TextStyle(
+                                    color: AppColor().backgroundColor,
+                                    fontFamily: "DMSans",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            InkWell(
-                              onTap: () => myState(
-                                  () => _debtorRepository.customerType = 0),
-                              child: Row(
-                                children: [
-                                  Radio<int>(
-                                      value: 0,
-                                      activeColor: AppColor().backgroundColor,
-                                      groupValue:
-                                       _debtorRepository.customerType,
-                                      onChanged: (value) => myState(() =>
-                                          _debtorRepository.customerType = 0)),
-                                  Text(
-                                    'Existing Merchants',
-                                    style: TextStyle(
-                                      color: AppColor().backgroundColor,
-                                      fontFamily: "DMSans",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                          ),
+                          InkWell(
+                            onTap: () => myState(
+                                () => _debtorRepository.customerType = 0),
+                            child: Row(
+                              children: [
+                                Radio<int>(
+                                    value: 0,
+                                    activeColor: AppColor().backgroundColor,
+                                    groupValue: _debtorRepository.customerType,
+                                    onChanged: (value) => myState(() =>
+                                        _debtorRepository.customerType = 0)),
+                                Text(
+                                  'Existing Customers',
+                                  style: TextStyle(
+                                    color: AppColor().backgroundColor,
+                                    fontFamily: "DMSans",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                       _debtorRepository.customerType == 1
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CustomTextFieldInvoiceOptional(
-                                    label: 'Name',
-                                    keyType: TextInputType.name,
-                                    textEditingController:
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      _debtorRepository.customerType == 1
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomTextFieldInvoiceOptional(
+                                  label: 'Name',
+                                  keyType: TextInputType.name,
+                                  textEditingController:
                                       _customerRepository.nameController,
-                                        validatorText: "Name is needed",
-                                  ),
-                                  CustomTextFieldInvoiceOptional(
-                                    label: 'Phone Number',
-                                    keyType: TextInputType.name,
-                                    textEditingController:
-                                       _customerRepository.phoneNumberController,
-                                        validatorText: "Phone number is needed",
-                                  ),
-                            
-                                  CustomTextFieldInvoiceOptional(
-                                    label: 'Balance',
-                                    keyType: TextInputType.number,
-                                    textEditingController:
-                                         _debtorRepository.amountController,
-                                        validatorText: "Balance is needed",
-                                  ),
-                                  CustomTextFieldInvoiceOptional(
-                                    label: 'Total Amount',
-                                    keyType: TextInputType.number,
-                                    textEditingController:
-                                        _debtorRepository.totalAmountController,
-                                                     validatorText: "Total Amount is needed",
-                                       
-                                  ),
-                                  // Container(
-                                  //   margin: EdgeInsets.only(
-                                  //     top: 10,
-                                  //     right: 20,
-                                  //     bottom: 10,
-                                  //   ),
-                                  //   child: Text(
-                                  //     'Brief Description',
-                                  //     style: TextStyle(
-                                  //         color: Colors.black, fontSize: 12),
-                                  //   ),
-                                  // ),
-                                  // Container(
-                                  //   height: MediaQuery.of(context).size.height *
-                                  //       0.2,
-                                  //   width: MediaQuery.of(context).size.width,
-                                  //   decoration: BoxDecoration(
-                                  //     color: AppColor().whiteColor,
-                                  //     border: Border.all(
-                                  //       width: 2,
-                                  //       color: AppColor().backgroundColor,
-                                  //     ),
-                                  //     borderRadius: BorderRadius.circular(12),
-                                  //   ),
-                                  //   child: TextFormField(
-                                  //     controller: _customerController
-                                  //         .descriptionController,
-                                  //     textInputAction: TextInputAction.none,
-                                  //     decoration: InputDecoration(
-                                  //       isDense: true,
-                                  //       enabledBorder: OutlineInputBorder(
-                                  //         borderSide: BorderSide.none,
-                                  //       ),
-                                  //       hintText: 'Delivered some drugs',
-                                  //       hintStyle: Theme.of(context)
-                                  //           .textTheme
-                                  //           .headline4!
-                                  //           .copyWith(
-                                  //             fontFamily: 'DMSans',
-                                  //             color: Colors.black26,
-                                  //             fontSize: 14,
-                                  //             fontStyle: FontStyle.normal,
-                                  //             fontWeight: FontWeight.normal,
-                                  //           ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                ],
-                              )
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Select Customer',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 12,
-                                            fontFamily: 'DMSans'),
+                                  validatorText: "Name is needed",
+                                ),
+                                CustomTextFieldInvoiceOptional(
+                                  label: 'Phone Number',
+                                  keyType: TextInputType.name,
+                                  textEditingController:
+                                      _customerRepository.phoneNumberController,
+                                  validatorText: "Phone number is needed",
+                                ),
+
+                                CustomTextFieldInvoiceOptional(
+                                  label: 'Balance',
+                                  keyType: TextInputType.number,
+                                  textEditingController:
+                                      _debtorRepository.amountController,
+                                  validatorText: "Balance is needed",
+                                ),
+                                CustomTextFieldInvoiceOptional(
+                                  label: 'Total Amount',
+                                  keyType: TextInputType.number,
+                                  textEditingController:
+                                      _debtorRepository.totalAmountController,
+                                  validatorText: "Total Amount is needed",
+                                ),
+                                // Container(
+                                //   margin: EdgeInsets.only(
+                                //     top: 10,
+                                //     right: 20,
+                                //     bottom: 10,
+                                //   ),
+                                //   child: Text(
+                                //     'Brief Description',
+                                //     style: TextStyle(
+                                //         color: Colors.black, fontSize: 12),
+                                //   ),
+                                // ),
+                                // Container(
+                                //   height: MediaQuery.of(context).size.height *
+                                //       0.2,
+                                //   width: MediaQuery.of(context).size.width,
+                                //   decoration: BoxDecoration(
+                                //     color: AppColor().whiteColor,
+                                //     border: Border.all(
+                                //       width: 2,
+                                //       color: AppColor().backgroundColor,
+                                //     ),
+                                //     borderRadius: BorderRadius.circular(12),
+                                //   ),
+                                //   child: TextFormField(
+                                //     controller: _customerController
+                                //         .descriptionController,
+                                //     textInputAction: TextInputAction.none,
+                                //     decoration: InputDecoration(
+                                //       isDense: true,
+                                //       enabledBorder: OutlineInputBorder(
+                                //         borderSide: BorderSide.none,
+                                //       ),
+                                //       hintText: 'Delivered some drugs',
+                                //       hintStyle: Theme.of(context)
+                                //           .textTheme
+                                //           .headline4!
+                                //           .copyWith(
+                                //             fontFamily: 'DMSans',
+                                //             color: Colors.black26,
+                                //             fontSize: 14,
+                                //             fontStyle: FontStyle.normal,
+                                //             fontWeight: FontWeight.normal,
+                                //           ),
+                                //     ),
+                                //   ),
+                                // ),
+                              ],
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Select Customer',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontFamily: 'DMSans'),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "*",
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                          fontFamily: 'DMSans'),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 4),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          width: 2,
+                                          color: AppColor().backgroundColor)),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<Customer>(
+                                      value: _debtorRepository.selectedCustomer,
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        color: AppColor().backgroundColor,
                                       ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        "*",
-                                        style: TextStyle(
-                                            color: Colors.red,
-                                            fontSize: 12,
-                                            fontFamily: 'DMSans'),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 4),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            width: 2,
-                                            color: AppColor().backgroundColor)),
-                                    child: DropdownButtonHideUnderline(
-                                      child: DropdownButton<Customer>(
-                                        value:
-                                         _debtorRepository.selectedCustomer,
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down,
-                                          color: AppColor().backgroundColor,
-                                        ),
-                                        iconSize: 30,
-                                        items: _customerRepository
-                                            .customerCustomer
-                                            .map((value) {
-                                          return DropdownMenuItem<Customer>(
-                                            value: value,
-                                            child: Text(value.name!),
-                                          );
-                                        }).toList(),
-                                        onChanged: (value) => myState(
-                                          () =>  _debtorRepository
-                                              .selectedCustomer = value,
-                                        ),
+                                      iconSize: 30,
+                                      items: _customerRepository
+                                          .customerCustomer
+                                          .map((value) {
+                                        return DropdownMenuItem<Customer>(
+                                          value: value,
+                                          child: Text(value.name!),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) => myState(
+                                        () => _debtorRepository
+                                            .selectedCustomer = value,
                                       ),
                                     ),
                                   ),
-                                  CustomTextFieldInvoiceOptional(
-                                    label: 'Balance',
-                                    keyType: TextInputType.number,
-                                    textEditingController:
-                                       _customerRepository.amountController,
-                                  ),
-                                  CustomTextFieldInvoiceOptional(
-                                    label: 'Total Amount',
-                                    keyType: TextInputType.number,
-                                    textEditingController:
+                                ),
+                                CustomTextFieldInvoiceOptional(
+                                  label: 'Balance',
+                                  keyType: TextInputType.number,
+                                  textEditingController:
+                                      _customerRepository.amountController,
+                                ),
+                                CustomTextFieldInvoiceOptional(
+                                  label: 'Total Amount',
+                                  keyType: TextInputType.number,
+                                  textEditingController:
                                       _debtorRepository.totalAmountController,
-                                  ),
-                                ],
-                              ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                                ),
+                              ],
+                            ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         );
@@ -1032,10 +1040,7 @@ StatefulBuilder newCustomersInfo() =>
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
-                onTap: () {
-
-
-                },
+                onTap: () {},
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   margin: EdgeInsets.symmetric(
@@ -1345,7 +1350,7 @@ StatefulBuilder newCustomersInfo() =>
 // ignore: must_be_immutable
 class DebtorOwnedListing extends StatefulWidget {
   Debtor? item;
-  DebtorOwnedListing({Key? key,this.item}) : super(key: key);
+  DebtorOwnedListing({Key? key, this.item}) : super(key: key);
 
   @override
   _DebtorOwnedListingState createState() => _DebtorOwnedListingState();
@@ -1353,10 +1358,10 @@ class DebtorOwnedListing extends StatefulWidget {
 
 class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
   int statusType = 0;
-    final _debtorController = Get.find<DebtorRepository>();
+  final _debtorController = Get.find<DebtorRepository>();
 
   RandomColor _randomColor = RandomColor();
-final _key=GlobalKey<FormState>();
+  final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -1414,20 +1419,20 @@ final _key=GlobalKey<FormState>();
         ),
         Expanded(
           child: GestureDetector(
-            onTap: (){
- showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20))),
-                          context: context,
-                          builder: (context) =>
-                              buildUpdatePayments(widget.item!));
-            },
-            child: SvgPicture.asset('assets/images/edit_pri.svg')),
+              onTap: () {
+                showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20))),
+                    context: context,
+                    builder: (context) => buildUpdatePayments(widget.item!));
+              },
+              child: SvgPicture.asset('assets/images/edit_pri.svg')),
         ),
       ],
     );
   }
+
   StatefulBuilder buildUpdatePayments(Debtor debtor) =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         ScrollController? controller;
@@ -1547,10 +1552,12 @@ final _key=GlobalKey<FormState>();
                           ? Container(
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         'Amount',
@@ -1579,7 +1586,7 @@ final _key=GlobalKey<FormState>();
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        'Bal: '+ debtor.balance.toString(),
+                                        'Bal: ' + debtor.balance.toString(),
                                         style: TextStyle(
                                           fontFamily: "DMSans",
                                           color: AppColor().orangeBorderColor,
@@ -1604,70 +1611,80 @@ final _key=GlobalKey<FormState>();
                                 ],
                               ),
                             )
-                          : Container(
-                            
-                            ),
+                          : Container(),
                       SizedBox(
                         height: 5,
                       ),
-                    (statusType==0)?  Container(
-                        child: TextFormField(
-                          controller: textEditingController,
-                          keyboardType: TextInputType.number,
-                          validator: (value){
-                            if(value==null||value.isEmpty){
-                              return "Amount is needed";
-                            }else if(int.parse(value)>debtor.balance){
+                      (statusType == 0)
+                          ? Container(
+                              child: TextFormField(
+                                controller: textEditingController,
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Amount is needed";
+                                  } else if (int.parse(value) >
+                                      debtor.balance) {
+                                    return "Amount must be between the range of balance";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  isDense: true,
 
-                              return "Amount must be between the range of balance";
-                            }
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColor().backgroundColor,
+                                          width: 2),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColor().backgroundColor,
+                                          width: 2),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColor().backgroundColor,
+                                          width: 2),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  // labelText: label,
+                                  hintText: 'N 0.00',
 
-                          },
-                          decoration: InputDecoration(
-                            isDense: true,
-                            
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            // labelText: label,
-                            hintText: 'N 0.00',
-                            
-                            hintStyle:
-                                Theme.of(context).textTheme.headline4!.copyWith(
-                                      fontFamily: 'DMSans',
-                                      color: Colors.black26,
-                                      fontSize: 14,
-                                      fontStyle: FontStyle.normal,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                          ),
-                        ),
-                      ):Container()
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                        fontFamily: 'DMSans',
+                                        color: Colors.black26,
+                                        fontSize: 14,
+                                        fontStyle: FontStyle.normal,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ),
+                            )
+                          : Container()
                     ],
                   ),
-               (statusType==0)?   SizedBox(height: MediaQuery.of(context).size.height * 0.05):Container(),
+                  (statusType == 0)
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.05)
+                      : Container(),
                   InkWell(
-                    onTap: ()async {
-                      
-                      if( _debtorController.addingDebtorStatus!=AddingDebtorStatus.Loading){
-                        if(_key.currentState!.validate()){
-                   await _debtorController.UpdateBusinessDebtor(debtor, statusType==1?0:int.parse(textEditingController.text));
-                                        Get.back();
+                    onTap: () async {
+                      if (_debtorController.addingDebtorStatus !=
+                          AddingDebtorStatus.Loading) {
+                        if (_key.currentState!.validate()) {
+                          await _debtorController.UpdateBusinessDebtor(
+                              debtor,
+                              statusType == 1
+                                  ? 0
+                                  : int.parse(textEditingController.text));
+                          Get.back();
                         }
                       }
-  
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -1676,21 +1693,22 @@ final _key=GlobalKey<FormState>();
                           color: AppColor().backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
-                        child:(_debtorController.addingDebtorStatus ==
-                            AddingDebtorStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          ) :Text(
-                          'Save',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'DMSans'),
-                        ),
+                        child: (_debtorController.addingDebtorStatus ==
+                                AddingDebtorStatus.Loading)
+                            ? Container(
+                                width: 30,
+                                height: 30,
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                        color: Colors.white)),
+                              )
+                            : Text(
+                                'Save',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'DMSans'),
+                              ),
                       ),
                     ),
                   ),
