@@ -28,17 +28,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final display = createDisplay(
-    length: 5,
-    decimal: 0,
-    placeholder: 'N',
-    units: ['K','M','B','T']
-  );
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
 
   final items = ['Huzz Technologies', 'Technologies'];
   String? value;
   final _transactionController = Get.find<TransactionRespository>();
   final _businessController = Get.find<BusinessRespository>();
-  final _debtorController=Get.find<DebtorRepository>();
+  final _debtorController = Get.find<DebtorRepository>();
   int selectedValue = 0;
   final transactionList = [];
   RandomColor _randomColor = RandomColor();
@@ -242,7 +238,15 @@ class _HomeState extends State<Home> {
                         ),
                         child: Row(
                           children: [
-                            SvgPicture.asset("assets/images/money_in.png"),
+                            Container(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white),
+                                child: SvgPicture.asset(
+                                  "assets/images/money_in.svg",
+                                  height: 12,
+                                )),
                             SizedBox(
                               width: 5,
                             ),
@@ -277,7 +281,15 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SvgPicture.asset("assets/images/money_out.png"),
+                            Container(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white),
+                                child: SvgPicture.asset(
+                                  "assets/images/money_out.svg",
+                                  height: 12,
+                                )),
                             SizedBox(
                               width: 5,
                             ),
@@ -358,8 +370,8 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           // ignore: unnecessary_null_comparison
-                         "N ${display(_debtorController.debtorAmount)}",
-                             
+                          "N${display(_debtorController.debtorAmount)}",
+
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),
@@ -552,183 +564,178 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           Container(
-              padding: EdgeInsets.all(12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
+            padding: EdgeInsets.all(12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: AppColor().whiteColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        "Today’s BALANCE",
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "N0",
+                      style: TextStyle(
+                        color: AppColor().whiteColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => Records());
+                      },
+                      child: Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                         decoration: BoxDecoration(
-                          color: AppColor().whiteColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          "Today’s BALANCE",
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "N0",
-                        style: TextStyle(
-                          color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Spacer(),
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => Records());
-                        },
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: Color(0xff056B5C),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "See all your Records",
-                                style: TextStyle(
-                                  color: AppColor().whiteColor,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Icon(
-                                Icons.arrow_forward_outlined,
-                                color: AppColor().whiteColor,
-                                size: 18,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff016BCC),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                                padding: EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white),
-                                child: SvgPicture.asset(
-                                  "assets/images/money_in.svg",
-                                  height: 12,
-                                )),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "Today’s Money IN",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        "N0",
-                        style: TextStyle(
-                          color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Color(0xffDD8F48),
+                          color: Color(0xff056B5C),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                                padding: EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white),
-                                child: SvgPicture.asset(
-                                  "assets/images/money_out.svg",
-                                  height: 12,
-                                )),
-                            SizedBox(
-                              width: 5,
-                            ),
                             Text(
-                              "Today’s Money Out",
+                              "See all your Records",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
-                                fontSize: 10,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Icon(
+                              Icons.arrow_forward_outlined,
+                              color: AppColor().whiteColor,
+                              size: 18,
                             ),
                           ],
                         ),
                       ),
-                      Text(
-                        "N0",
-                        style: TextStyle(
-                          color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              height: 140,
-              decoration: BoxDecoration(
-                color: AppColor().backgroundColor,
-                borderRadius: BorderRadius.circular(12),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/home_rectangle.png"),
-                  fit: BoxFit.fill,
+                    ),
+                  ],
                 ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Color(0xff016BCC),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.white),
+                              child: SvgPicture.asset(
+                                "assets/images/money_in.svg",
+                                height: 12,
+                              )),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Today’s Money IN",
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      "N0",
+                      style: TextStyle(
+                        color: AppColor().whiteColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Color(0xffDD8F48),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.white),
+                              child: SvgPicture.asset(
+                                "assets/images/money_out.svg",
+                                height: 12,
+                              )),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "Today’s Money Out",
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'DMSans',
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      "N0",
+                      style: TextStyle(
+                        color: AppColor().whiteColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            height: 140,
+            decoration: BoxDecoration(
+              color: AppColor().backgroundColor,
+              borderRadius: BorderRadius.circular(12),
+              image: DecorationImage(
+                image: AssetImage("assets/images/home_rectangle.png"),
+                fit: BoxFit.fill,
               ),
+            ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           InkWell(
@@ -769,14 +776,12 @@ class _HomeState extends State<Home> {
                     ),
                     Row(
                       children: [
-                       Text(
-                              'N${display(_debtorController.debtorAmount)}',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xffF58D40),
-                                  fontWeight: FontWeight.bold),
-                            
-                        
+                        Text(
+                          'N${display(_debtorController.debtorAmount)}',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xffF58D40),
+                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
@@ -1001,7 +1006,7 @@ class _HomeState extends State<Home> {
                         onTap: () {
                           _debtorController.dispose();
                           _transactionController.dispose();
-                          
+
                           // Get.delete(tag: "Debtors");
                           // Get.put(DebtorRepository,permanent: true);
                           _businessController.selectedBusiness(item.business);

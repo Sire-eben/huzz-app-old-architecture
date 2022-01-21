@@ -18,7 +18,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
     with SingleTickerProviderStateMixin {
   ScrollController? _scrollController;
   TabController? _tabController;
-final _invoiceRepository=Get.find<InvoiceRespository>();
+  final _invoiceRepository = Get.find<InvoiceRespository>();
   bool? fixedScroll;
 
   @override
@@ -64,14 +64,14 @@ final _invoiceRepository=Get.find<InvoiceRespository>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Obx(()
-        {
-          return Scaffold(
+      child: Obx(() {
+        return SafeArea(
+          child: Scaffold(
             backgroundColor: Colors.white,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(270),
+              preferredSize: Size.fromHeight(210),
               child: Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,16 +86,27 @@ final _invoiceRepository=Get.find<InvoiceRespository>();
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Row(
                       children: [
-                        DashboardDetails(name: 'Pending', no: _invoiceRepository.InvoicePendingList.length),
-                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                        DashboardDetails(name: 'Overdue', no: _invoiceRepository.InvoiceDueList.length),
-                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                        DashboardDetails(name: 'Deposit', no: _invoiceRepository.InvoiceDepositList.length),
-                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                        DashboardDetails(name: 'Paid', no:_invoiceRepository.paidInvoiceList.length)
+                        DashboardDetails(
+                            name: 'Pending',
+                            no: _invoiceRepository.InvoicePendingList.length),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.02),
+                        DashboardDetails(
+                            name: 'Overdue',
+                            no: _invoiceRepository.InvoiceDueList.length),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.02),
+                        DashboardDetails(
+                            name: 'Deposit',
+                            no: _invoiceRepository.InvoiceDepositList.length),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.02),
+                        DashboardDetails(
+                            name: 'Paid',
+                            no: _invoiceRepository.paidInvoiceList.length)
                       ],
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Text(
                       "Invoices",
                       style: TextStyle(
@@ -109,20 +120,22 @@ final _invoiceRepository=Get.find<InvoiceRespository>();
             ),
             body: NestedScrollView(
               controller: _scrollController,
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
                 return [
                   SliverToBoxAdapter(
                     child: TabBar(
                       controller: _tabController,
                       labelColor: AppColor().backgroundColor,
                       unselectedLabelColor: Colors.grey,
-                      labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontFamily: "DMSans",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      labelStyle:
+                          Theme.of(context).textTheme.headline2!.copyWith(
+                                color: Colors.black,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
                       unselectedLabelStyle:
                           Theme.of(context).textTheme.headline2!.copyWith(
                                 color: AppColor().backgroundColor,
@@ -148,9 +161,9 @@ final _invoiceRepository=Get.find<InvoiceRespository>();
                 children: <Widget>[All(), Pending(), Paid(), Overdue()],
               ),
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }),
     );
   }
 }
