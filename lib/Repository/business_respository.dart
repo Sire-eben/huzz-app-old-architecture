@@ -127,6 +127,7 @@ void setLastBusiness(Business business){
     print("offline business ${results.length}");
 
     _offlineBusiness(results);
+    if(selectedBusiness.value==null)
     if (results.isNotEmpty) {
     var business=results.firstWhereOrNull((e)=>e.businessId==pref!.getLastSelectedBusiness());
     if(business==null)
@@ -170,9 +171,11 @@ void setLastBusiness(Business business){
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
-          OnlineBusiness();
           var business = Business.fromJson(json['data']);
-          selectedBusiness(business);
+                    selectedBusiness(business);
+      OnlineBusiness();
+  
+
           _createBusinessStatus(CreateBusinessStatus.Success);
 
           Get.off(() => Dashboard());

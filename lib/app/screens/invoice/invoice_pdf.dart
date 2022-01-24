@@ -338,7 +338,7 @@ class PdfInvoiceApi {
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(width: 1, color: PdfColors.orange),
                   color: PdfColors.orange50),
-              child: Text('Pending',
+              child: Text(('${invoice.businessInvoiceStatus}'),
                   style: TextStyle(color: PdfColors.orange, fontSize: 12)),
             )
           ]),

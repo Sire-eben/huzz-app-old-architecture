@@ -18,8 +18,34 @@ class ProductListing extends StatefulWidget {
 }
 
 class _ProductListingState extends State<ProductListing> {
+    final display = createDisplay(
+    length: 5,
+    decimal: 0,
+    placeholder: 'N',
+    units: ['K','M','B','T']
+  );
   final TextEditingController textEditingController = TextEditingController();
+  List<Product> searchResult=[];
+  var searchtext='';
+  bool isDelete=false;
   final _productController = Get.find<ProductRepository>();
+  void searchItem(String val){
+    searchtext=val;
+searchResult.clear();
+setState(() {
+  
+});
+_productController.productGoods.forEach((element) {
+  if (element.productName!.toLowerCase().contains(val.toLowerCase())){
+
+searchResult.add(element);
+  }
+
+});
+setState(() {
+  
+});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +106,10 @@ class _ProductListingState extends State<ProductListing> {
                 // ),
                 InkWell(
                   onTap: () {
-                    Get.to(BuildDeleteProduct());
+                    // Get.to(BuildDeleteProduct());
+                    setState(() {
+                      isDelete=!isDelete;
+                    });
                   },
                   child: Container(
                     height: 30,
@@ -126,7 +155,8 @@ class _ProductListingState extends State<ProductListing> {
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: TextFormField(
                       controller: textEditingController,
-                      textInputAction: TextInputAction.none,
+                      onChanged: searchItem,
+                      // textInputAction: TextInputAction.none,
                       decoration: InputDecoration(
                         isDense: true,
                         focusedBorder: OutlineInputBorder(
@@ -164,22 +194,30 @@ class _ProductListingState extends State<ProductListing> {
             bottom: 30,
             left: 20,
             right: 20,
-            child: ListView.builder(
+            child:(searchtext.isEmpty||searchResult.isNotEmpty)? ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: _productController.productGoods.length,
+                itemCount:(searchResult.isEmpty)? _productController.productGoods.length:searchResult.length,
                 itemBuilder: (BuildContext context, int index) {
-                  var item = _productController.productGoods[index];
+                  var item =(searchResult.isEmpty)? _productController.productGoods[index]:searchResult[index];
                   print("product item ${item.toJson()}");
-                  return ListingProduct(
+                  return (isDelete)?ListingProductDelete(item: item,): ListingProduct(
                     item: item,
                   );
-                }),
+                }):Container(
+                    child: Center(
+
+                      child: Text("No Product Found"),
+                    ),
+                  ),
           ),
           Positioned(
             bottom: 10,
             right: 30,
             child: GestureDetector(
               onTap: () {
+                if(isDelete)
+                _productController.deleteSelectedItem();
+                else
                 Get.to(AddProduct());
               },
               child: Container(
@@ -202,7 +240,7 @@ class _ProductListingState extends State<ProductListing> {
                       width: 10,
                     ),
                     Text(
-                      'New Product',
+                    (isDelete)?"Delete Product(s)":  'New Product',
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
@@ -304,7 +342,7 @@ class _ProductListingState extends State<ProductListing> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "N0.00",
+                        "N${display(_productController.totalProduct)}",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
@@ -747,5 +785,161 @@ class _ListingProductState extends State<ListingProduct> {
         )
       ],
     );
+  }
+}
+
+class ListingProductDelete extends StatefulWidget {
+  Product? item;
+  ListingProductDelete({
+    this.item,
+  });
+
+  @override
+  _ListingProductDeleteState createState() => _ListingProductDeleteState();
+}
+
+class _ListingProductDeleteState extends State<ListingProductDelete> {
+  final _productController = Get.find<ProductRepository>();
+  final display = createDisplay(
+    length: 8,
+    decimal: 0,
+  );
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 10,
+            ),
+            height: 80,
+            decoration: BoxDecoration(
+              color: Color(0xffF5F5F5),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Color(0xffC3C3C3),
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                true
+                    ? Image.asset(
+                        "assets/images/Rectangle 1015.png",
+                        height: 50,
+                      )
+                    : Image.network(
+                        widget.item!.productLogoFileStoreId!,
+                        height: 50,
+                      ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.item!.productName!,
+                      style: TextStyle(
+                        color: AppColor().blackColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'left: ',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 11,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        Text(
+                          "${widget.item!.quantityLeft}",
+                          style: TextStyle(
+                            color: AppColor().orangeBorderColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Text(
+                          'N${display(widget.item!.costPrice ?? 0)}',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 11,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: SizedBox(),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (_productController
+                        .checkifSelectedForDelted(widget.item!.productId!)) {
+                      _productController.removeFromDeleteList(widget.item!);
+                    } else {
+                      _productController.addToDeleteList(widget.item!);
+                    }
+                    setState(() {});
+                  },
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: _productController
+                              .checkifSelectedForDelted(widget.item!.productId!)
+                          ? AppColor().orangeBorderColor
+                          : AppColor().whiteColor,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Color(0xffEF6500),
+                      ),
+                    ),
+                    child: Visibility(
+                      visible: _productController
+                          .checkifSelectedForDelted(widget.item!.productId!),
+                      child: Icon(
+                        Icons.check,
+                        size: 15,
+                        color: _productController.checkifSelectedForDelted(
+                                widget.item!.productId!)
+                            ? AppColor().whiteColor
+                            : AppColor().orangeBorderColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          )
+        ],
+      );
+    });
   }
 }

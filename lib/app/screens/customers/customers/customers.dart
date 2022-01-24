@@ -17,6 +17,27 @@ class Customers extends StatefulWidget {
 class _CustomersState extends State<Customers> {
   final _searchcontroller = TextEditingController();
   final _customerController=Get.find<CustomerRepository>();
+    String searchtext="";
+  List<Customer> searchResult=[];
+    void searchItem(String val){
+      print("search text $val");
+      searchtext=val;
+      setState(() {
+        
+      });
+      
+searchResult.clear();
+_customerController.customerCustomer.forEach((element) {
+  if (element.name!.toLowerCase().contains(val.toLowerCase())){
+
+searchResult.add(element);
+  }
+
+});
+setState(() {
+  
+});
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +54,7 @@ class _CustomersState extends State<Customers> {
                   color: AppColor().backgroundColor,
                   fontFamily: 'DMSans'),
               controller: _searchcontroller,
+              onChanged: searchItem,
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
@@ -77,11 +99,11 @@ class _CustomersState extends State<Customers> {
                   left: MediaQuery.of(context).size.height * 0.02,
                   right: MediaQuery.of(context).size.height * 0.02,
                   bottom: MediaQuery.of(context).size.height * 0.02),
-              child: ListView.separated(
+              child:(searchtext.isEmpty||searchResult.isNotEmpty)? ListView.separated(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => Divider(),
-                itemCount: customerList.length,
+                itemCount: (searchResult.isEmpty)? _customerController.customerCustomer.length:searchResult.length,
                 itemBuilder: (context, index) {
                   if (customerList.length == 0) {
                     return Container(
@@ -126,6 +148,7 @@ class _CustomersState extends State<Customers> {
                       ),
                     );
                   } else {
+                    var item=(searchResult.isEmpty)? _customerController.customerCustomer[index]:searchResult[index];
                     return Row(
                       children: [
                         Image.asset(customerList[index].image!),
@@ -138,7 +161,7 @@ class _CustomersState extends State<Customers> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  customerList[index].name!,
+                                  item.name!,
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: 'DMSans',
@@ -146,7 +169,7 @@ class _CustomersState extends State<Customers> {
                                       fontWeight: FontWeight.w400),
                                 ),
                                 Text(
-                                  customerList[index].phone!,
+                                  item.phone!,
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: 'DMSans',
@@ -166,7 +189,12 @@ class _CustomersState extends State<Customers> {
                     );
                   }
                 },
-              ),
+              ):Container(
+                    child: Center(
+
+                      child: Text("No Customer Found"),
+                    ),
+                  ),
             ))
           ],
         ),
