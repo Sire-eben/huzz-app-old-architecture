@@ -37,8 +37,8 @@ class ProductRepository extends GetxController
   dynamic get productImage=>MproductImage.value;
   SqliteDb sqliteDb = SqliteDb();
   final productNameController = TextEditingController();
-  final productCostPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
-  final productSellingPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final productCostPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',',precision: 1);
+  final productSellingPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',',precision: 1);
   final productQuantityController = TextEditingController();
   final productUnitController = TextEditingController();
   final serviceDescription = TextEditingController();
@@ -53,6 +53,10 @@ class ProductRepository extends GetxController
   List<Product> pendingToUpdatedProductToServer = [];
   List<Product> pendingToBeAddedProductToServer = [];
   List<Product> pendingDeletedProductToServer = [];
+  Rx<dynamic> _totalProduct=0.0.obs;
+  Rx<dynamic> _totalService=0.0.obs;
+  dynamic get totalProduct=> _totalProduct.value;
+  dynamic get totalService => _totalService.value;
   var uuid = Uuid();
   @override
   void onInit() async {
@@ -355,15 +359,23 @@ class ProductRepository extends GetxController
   Future setProductDifferent() async {
     List<Product> goods = [];
     List<Product> services = [];
+    dynamic totalproduct=0.0;
+    dynamic totalservice=0.0;
     offlineBusinessProduct.forEach((element) {
       if (element.productType == "SERVICES") {
         services.add(element);
+        totalservice=totalservice+element.costPrice;
       } else {
+        totalproduct=totalproduct+element.costPrice;
         goods.add(element);
       }
     });
     _productGoods(goods);
     _productService(services);
+    _totalService(totalservice);
+    _totalProduct(totalproduct);
+    print("product price $totalproduct");
+    print("service price $totalservice");
   }
 
   Future updatePendingJob() async {
@@ -535,6 +547,7 @@ class ProductRepository extends GetxController
 
       if (savenext.productLogoFileStoreId != null &&
           savenext.productLogoFileStoreId != '') {
+            if(File(savenext.productLogoFileStoreId!).existsSync()){
         String image = await _uploadImageController
             .uploadFile(savenext.productLogoFileStoreId!);
 
@@ -542,7 +555,7 @@ class ProductRepository extends GetxController
         savenext.productLogoFileStoreId = image;
         _file.deleteSync();
       }
-
+    }
       var response = await http.post(Uri.parse(ApiLink.add_product),
           body: jsonEncode(savenext.toJson()),
           headers: {

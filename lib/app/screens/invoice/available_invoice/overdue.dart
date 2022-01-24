@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
+import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/model/invoice.dart';
 
 import '../../../../colors.dart';
@@ -307,21 +308,21 @@ class _OverdueState extends State<Overdue> {
             ],
           ),
         ),
-        // floatingActionButton: FloatingActionButton.extended(
-        //   onPressed: () {
-        //     deleteItem ? Get.to(() => CreateInvoice()) : _displayDialog(context);
-        //   },
-        //   icon: Icon(Icons.add),
-        //   backgroundColor: AppColor().backgroundColor,
-        //   label: Text(
-        //     deleteItem ? 'New Invoice' : 'Delete Item',
-        //     style: TextStyle(
-        //         fontFamily: 'DMSans',
-        //         fontSize: 10,
-        //         color: Colors.white,
-        //         fontWeight: FontWeight.bold),
-        //   ),
-        // ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            deleteItem ? Get.to(() => CreateInvoice()) : _displayDialog(context);
+          },
+          icon: Icon(Icons.add),
+          backgroundColor: AppColor().backgroundColor,
+          label: Text(
+            deleteItem ? 'New Invoice' : 'Delete Item',
+            style: TextStyle(
+                fontFamily: 'DMSans',
+                fontSize: 10,
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
       );
     });
   }
@@ -368,6 +369,7 @@ class _OverdueState extends State<Overdue> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
+                           _invoiceController.deleteItems();
                           Get.back();
                         },
                         child: Container(

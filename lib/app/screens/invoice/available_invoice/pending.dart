@@ -7,6 +7,7 @@ import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/model/invoice.dart';
 
 import '../../../../colors.dart';
+import '../create_invoice.dart';
 
 class Pending extends StatefulWidget {
   const Pending({Key? key}) : super(key: key);
@@ -302,21 +303,21 @@ final _productController = Get.find<ProductRepository>();
               ],
             ),
           ),
-          // floatingActionButton: FloatingActionButton.extended(
-          //   onPressed: () {
-          //     deleteItem ? Get.to(() => CreateInvoice()) : _displayDialog(context);
-          //   },
-          //   icon: Icon(Icons.add),
-          //   backgroundColor: AppColor().backgroundColor,
-          //   label: Text(
-          //     deleteItem ? 'New Invoice' : 'Delete Item',
-          //     style: TextStyle(
-          //         fontFamily: 'DMSans',
-          //         fontSize: 10,
-          //         color: Colors.white,
-          //         fontWeight: FontWeight.bold),
-          //   ),
-          // ),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              deleteItem ? Get.to(() => CreateInvoice()) : _displayDialog(context);
+            },
+            icon: Icon(Icons.add),
+            backgroundColor: AppColor().backgroundColor,
+            label: Text(
+              deleteItem ? 'New Invoice' : 'Delete Item',
+              style: TextStyle(
+                  fontFamily: 'DMSans',
+                  fontSize: 10,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
         );
       }
     );
@@ -364,6 +365,7 @@ final _productController = Get.find<ProductRepository>();
                     Expanded(
                       child: InkWell(
                         onTap: () {
+                           _invoiceController.deleteItems();
                           Get.back();
                         },
                         child: Container(
