@@ -19,6 +19,27 @@ class _CustomersState extends State<Customers> {
   final _searchcontroller = TextEditingController();
   RandomColor _randomColor = RandomColor();
   final _customerController = Get.find<CustomerRepository>();
+  String searchtext="";
+  List<Customer> searchResult=[];
+    void searchItem(String val){
+      print("search text $val");
+      searchtext=val;
+      setState(() {
+        
+      });
+      
+searchResult.clear();
+_customerController.customerCustomer.forEach((element) {
+  if (element.name!.toLowerCase().contains(val.toLowerCase())){
+
+searchResult.add(element);
+  }
+
+});
+setState(() {
+  
+});
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +59,7 @@ class _CustomersState extends State<Customers> {
                 controller: _searchcontroller,
                 cursorColor: Colors.white,
                 autofocus: false,
+                onChanged: searchItem,
                 decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.search,
@@ -80,15 +102,15 @@ class _CustomersState extends State<Customers> {
                     left: MediaQuery.of(context).size.height * 0.02,
                     right: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.02),
-                child: (_customerController.customerCustomer.isNotEmpty)
+                child: (searchtext.isEmpty||searchResult.isNotEmpty)?(_customerController.customerCustomer.isNotEmpty)
                     ? ListView.separated(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         separatorBuilder: (context, index) => Divider(),
-                        itemCount: _customerController.customerCustomer.length,
+                        itemCount:(searchResult.isEmpty)? _customerController.customerCustomer.length:searchResult.length,
                         itemBuilder: (context, index) {
                           var item =
-                              _customerController.customerCustomer[index];
+                             (searchResult.isEmpty)? _customerController.customerCustomer[index]:searchResult[index];
                           return Row(
                             children: [
                               Expanded(
@@ -206,7 +228,12 @@ class _CustomersState extends State<Customers> {
                             ],
                           ),
                         ),
-                      ),
+                      ):Container(
+                    child: Center(
+
+                      child: Text("No Customer Found"),
+                    ),
+                  ),
               ))
             ],
           ),

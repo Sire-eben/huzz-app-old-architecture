@@ -59,14 +59,14 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> todayTransaction = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
-  final amountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final amountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',',precision: 1);
   final quantityController = TextEditingController();
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
-  final amountPaidController = new MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final amountPaidController = new MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',',precision: 1);
 
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController timeController = TextEditingController();
@@ -526,8 +526,8 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     List<RecordsData> _hourExpenditureData = [];
    
     hours.forEach((element1) {
-      int incomeTotalAmount = 0;
-      int expenditureTotalAmount = 0;
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
          List< TransactionModel> currentTran=[];
       if (todayTransaction.isEmpty)
         print("today transactonlist is empty");
@@ -545,12 +545,12 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
           if (element.transactionType!.contains("INCOME")) {
             _currentHoursIncome.add(element);
             incomeTotalAmount =
-                incomeTotalAmount + int.parse(element.totalAmount.toString());
+                incomeTotalAmount + element.totalAmount;
             print("income hour is  $element1 amount $incomeTotalAmount");
           } else {
             _currentHoursExpenditure.add(element);
             expenditureTotalAmount = expenditureTotalAmount +
-                int.parse(element.totalAmount.toString());
+               element.totalAmount;
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
           }

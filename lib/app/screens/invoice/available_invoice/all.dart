@@ -389,6 +389,7 @@ class _AllState extends State<All> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
+                          _invoiceController.deleteItems();
                           Get.back();
                         },
                         child: Container(

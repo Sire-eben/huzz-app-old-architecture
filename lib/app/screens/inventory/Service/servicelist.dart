@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/productdelete.dart';
+import 'package:huzz/app/screens/inventory/Product/productlist.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/product_model.dart';
 import 'package:huzz/model/service_model.dart';
@@ -19,6 +20,34 @@ class ServiceListing extends StatefulWidget {
 class _ServiceListingState extends State<ServiceListing> {
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
+      final display = createDisplay(
+    length: 5,
+    decimal: 0,
+    placeholder: 'N',
+    units: ['K','M','B','T']
+  );
+   bool isDelete=false;
+  String searchtext="";
+  List<Product> searchResult=[];
+    void searchItem(String val){
+      print("search text $val");
+      searchtext=val;
+      setState(() {
+        
+      });
+      
+searchResult.clear();
+_productController.productServices.forEach((element) {
+  if (element.productName!.toLowerCase().contains(val.toLowerCase())){
+
+searchResult.add(element);
+  }
+
+});
+setState(() {
+  
+});
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,7 +156,8 @@ class _ServiceListingState extends State<ServiceListing> {
                       width: MediaQuery.of(context).size.width * 0.7,
                       child: TextFormField(
                         controller: textEditingController,
-                        textInputAction: TextInputAction.none,
+                        // textInputAction: TextInputAction.none,
+                        onChanged: searchItem,
                         decoration: InputDecoration(
                           isDense: true,
                           focusedBorder: OutlineInputBorder(
@@ -165,15 +195,22 @@ class _ServiceListingState extends State<ServiceListing> {
               bottom: 30,
               left: 20,
               right: 20,
-              child: ListView.builder(
+              child:(searchtext.isEmpty||searchResult.isNotEmpty)? ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: _productController.productServices.length,
+                  itemCount:( searchtext.isEmpty)? _productController.productServices.length:searchResult.length,
                   itemBuilder: (BuildContext context, int index) {
-                    var item = _productController.productServices[index];
-                    return ListingServices(
+                    var item = searchtext.isEmpty? _productController.productServices[index]:searchResult[index];
+                    return (isDelete)?ListingProductDelete(
+                      item: item,
+                    ) :ListingServices(
                       item: item,
                     );
-                  }),
+                  }):Container(
+                    child: Center(
+
+                      child: Text("No Service Found"),
+                    ),
+                  ),
             ),
           ],
         );
@@ -266,7 +303,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "N0.00",
+                        "N${display(_productController.totalService)}",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
@@ -658,6 +695,155 @@ class _ListingServicesState extends State<ListingServices> {
                     Icons.keyboard_arrow_down,
                     size: 20,
                     color: AppColor().backgroundColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          )
+        ],
+      ),
+    );
+  }
+}
+class ListingServicesDelete extends StatefulWidget {
+  Product? item;
+  ListingServicesDelete({
+    this.item,
+  });
+
+  @override
+  _ListingServicesDeleteState createState() => _ListingServicesDeleteState();
+}
+
+class _ListingServicesDeleteState extends State<ListingServices> {
+  ProductModels? products;
+  final display = createDisplay(
+    length: 8,
+    decimal: 0,
+  );
+  final _productController = Get.find<ProductRepository>();
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 10,
+            ),
+            height: MediaQuery.of(context).size.height * 0.12,
+            decoration: BoxDecoration(
+              color: Color(0xffF5F5F5),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Color(0xffC3C3C3),
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Image.asset(
+                    "assets/images/Rectangle 1015.png",
+                    height: 70,
+                    width: 70,
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            widget.item!.productName!,
+                            style: TextStyle(
+                              color: AppColor().blackColor,
+                              fontFamily: 'DMSans',
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'N${display(widget.item!.costPrice!)}',
+                            style: TextStyle(
+                              color: AppColor().blackColor,
+                              fontFamily: 'DMSans',
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Expanded(
+                        child: Text(
+                          "description",
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 9,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (_productController
+                        .checkifSelectedForDelted(widget.item!.productId!)) {
+                      _productController.removeFromDeleteList(widget.item!);
+                    } else {
+                      _productController.addToDeleteList(widget.item!);
+                    }
+                    setState(() {});
+                  },
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: _productController
+                              .checkifSelectedForDelted(widget.item!.productId!)
+                          ? AppColor().orangeBorderColor
+                          : AppColor().whiteColor,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Color(0xffEF6500),
+                      ),
+                    ),
+                    child: Visibility(
+                      visible: _productController
+                          .checkifSelectedForDelted(widget.item!.productId!),
+                      child: Icon(
+                        Icons.check,
+                        size: 15,
+                        color: _productController.checkifSelectedForDelted(
+                                widget.item!.productId!)
+                            ? AppColor().whiteColor
+                            : AppColor().orangeBorderColor,
+                      ),
+                    ),
                   ),
                 ),
               ],
