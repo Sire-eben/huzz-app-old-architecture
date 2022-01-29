@@ -398,7 +398,7 @@ return newList;
                                   tooltipBehavior: TooltipBehavior(enable: true),
                                   series: <CircularSeries>[
                                     PieSeries<RecordsData, String>(
-                                        dataSource:item1,
+                                        dataSource:(transactionController.value.value.contains("Today"))? item1: transactionController.pieIncomeValue,
                                         pointColorMapper: (RecordsData data, _) =>
                                             data.color,
                                         xValueMapper: (RecordsData data, _) =>
@@ -434,7 +434,7 @@ return newList;
                                   tooltipBehavior: TooltipBehavior(enable: true),
                                   series: <CircularSeries>[
                                     PieSeries<RecordsData, String>(
-                                        dataSource: item2,
+                                        dataSource:(transactionController.value.value.contains("Today"))? item2: transactionController.pieExpenditure,
                                         pointColorMapper: (RecordsData data, _) =>
                                             data.color,
                                         xValueMapper: (RecordsData data, _) =>
@@ -469,7 +469,29 @@ return newList;
                             SizedBox(height: 10,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:item1.map((e)=>
+                          children:(transactionController.value.value.contains("Today"))? item1.map((e)=>
+                            Row(
+                              children: [
+                                Container(
+                                  height: 10,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: e.color),
+                                ),
+                                SizedBox(width: 2),
+                                Text(
+                                  '${e.label}',
+                                  style: TextStyle(
+                                    color: AppColor().blackColor,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                               SizedBox(width: 5,) 
+                              ],
+                            )).toList(): transactionController.pieIncomeValue.map((e)=>
                             Row(
                               children: [
                                 Container(
@@ -517,7 +539,29 @@ return newList;
                             SizedBox(height: 10,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:item2.map((e)=>
+                          children:(transactionController.value.value.contains("Today"))? item2.map((e)=>
+                            Row(
+                              children: [
+                                Container(
+                                  height: 10,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: e.color),
+                                ),
+                                SizedBox(width: 2),
+                                Text(
+                                  '${e.label}',
+                                  style: TextStyle(
+                                    color: AppColor().blackColor,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                               SizedBox(width: 5,) 
+                              ],
+                            )).toList(): transactionController.pieExpenditure.map((e)=>
                             Row(
                               children: [
                                 Container(

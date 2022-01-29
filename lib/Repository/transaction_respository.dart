@@ -59,14 +59,14 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> todayTransaction = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
-  final amountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final amountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',',precision: 1);
   final quantityController = TextEditingController();
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
-  final amountPaidController = new MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final amountPaidController = new MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',',precision: 1);
 
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController timeController = TextEditingController();
@@ -100,6 +100,10 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> pendingUpdatedTransactionList = [];
   Rx<List<RecordsData>> _allIncomeHoursData = Rx([]);
   Rx<List<RecordsData>> _allExpenditureHoursData = Rx([]);
+  Rx<List<RecordsData>> _pieIncomeValue=Rx([]);
+  Rx<List<RecordsData>> _pieExpenditureValue=Rx([]);
+  List<RecordsData> get pieIncomeValue=>_pieIncomeValue.value;
+  List<RecordsData> get pieExpenditure=> _pieExpenditureValue.value;
   Rx<String> value="Today".obs;
   List<RecordsData> get allIncomeHoursData => _allIncomeHoursData.value;
   List<RecordsData> get allExpenditureHoursData =>
@@ -255,7 +259,7 @@ return list1;
     } else if (response.statusCode == 401) {
       if (json['error'] == "Unauthorized") {
         _userController.tokenExpired = true;
-        Get.offAll(Signin());
+        // Get.offAll(Signin());
       }
     } else {}
   }
@@ -375,6 +379,23 @@ getSplitCurrentYear(value);
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
+            dynamic sundayTotalIncome=0;
+dynamic mondayTotalIncome=0;
+dynamic tuesdayTotalIncome=0;
+dynamic wednesdayTotalIncome=0;
+dynamic thursdayTotalIncome=0;
+dynamic fridayTotalIncome=0;
+dynamic saturdayTotalIncome=0;
+
+dynamic sundayTotalExpenditure=0;
+dynamic mondayTotalExpenditure=0;
+dynamic tuesdayTotalExpenditure=0;
+dynamic wednesdayTotalExpenditure=0;
+dynamic thursdayTotalExpenditure=0;
+dynamic fridayTotalExpenditure=0;
+dynamic saturdayTotalExpenditure=0;
+List<RecordsData> _pieIncome=[];
+List<RecordsData> _pieExpenditure=[];
     years.forEach((element1) {
       dynamic incomeTotalAmount = 0;
       dynamic expenditureTotalAmount = 0;
@@ -398,12 +419,63 @@ getSplitCurrentYear(value);
             print("AllTime is  $element1 amount ${element.totalAmount}");
             incomeTotalAmount = incomeTotalAmount + element.totalAmount;
             print("AllTime is  $element1 amount $incomeTotalAmount");
+         
+          switch(element.entryDateTime!.weekday){
+
+           case 7:
+           sundayTotalIncome=sundayTotalIncome+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalIncome=mondayTotalIncome+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalIncome=tuesdayTotalIncome+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalIncome=wednesdayTotalIncome+element.totalAmount!;
+           break;
+           case 4:
+           thursdayTotalIncome=thursdayTotalIncome+element.totalAmount!;
+           break;
+           case 5:
+           fridayTotalIncome=fridayTotalIncome+element.totalAmount!;
+           break;
+           case 6:
+           saturdayTotalIncome=saturdayTotalIncome+element.totalAmount!;
+         }
+         
           } else {
             _currentHoursExpenditure.add(element);
             expenditureTotalAmount =
                 expenditureTotalAmount + element.totalAmount ?? 0;
             print(
                 "expenditure AllTime is  $element1 amount $expenditureTotalAmount");
+         switch(element.entryDateTime!.weekday){
+           case 7:
+           sundayTotalExpenditure=sundayTotalExpenditure+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalExpenditure=mondayTotalExpenditure+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalExpenditure=tuesdayTotalExpenditure+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalExpenditure=wednesdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 4:
+           thursdayTotalExpenditure=thursdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 5:
+           fridayTotalExpenditure=fridayTotalExpenditure+element.totalAmount!;
+           break;
+           case 6:
+           saturdayTotalExpenditure=saturdayTotalExpenditure+element.totalAmount!;
+         
+          }
+         
+       
+       
           }
         
     currentTran.add(element);
@@ -416,6 +488,25 @@ getSplitCurrentYear(value);
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+     _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Saturday",saturdayTotalIncome,[],_randomColor.randomColor()));
+
+
+                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+
+                      _pieIncomeValue(_pieIncome);
+                      _pieExpenditureValue(_pieExpenditure);
     calculateRecordOverView();
   }
 
@@ -424,6 +515,23 @@ getSplitCurrentYear(value);
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
+        dynamic sundayTotalIncome=0;
+dynamic mondayTotalIncome=0;
+dynamic tuesdayTotalIncome=0;
+dynamic wednesdayTotalIncome=0;
+dynamic thursdayTotalIncome=0;
+dynamic fridayTotalIncome=0;
+dynamic saturdayTotalIncome=0;
+
+dynamic sundayTotalExpenditure=0;
+dynamic mondayTotalExpenditure=0;
+dynamic tuesdayTotalExpenditure=0;
+dynamic wednesdayTotalExpenditure=0;
+dynamic thursdayTotalExpenditure=0;
+dynamic fridayTotalExpenditure=0;
+dynamic saturdayTotalExpenditure=0;
+List<RecordsData> _pieIncome=[];
+List<RecordsData> _pieExpenditure=[];
     months.forEach((element1) {
       dynamic incomeTotalAmount = 0;
       dynamic expenditureTotalAmount = 0;
@@ -447,12 +555,61 @@ getSplitCurrentYear(value);
             print("income hour is  $element1 amount ${element.totalAmount}");
             incomeTotalAmount = incomeTotalAmount + element.totalAmount;
             print("income hour is  $element1 amount $incomeTotalAmount");
+          
+           switch(element.entryDateTime!.weekday){
+
+           case 7:
+           sundayTotalIncome=sundayTotalIncome+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalIncome=mondayTotalIncome+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalIncome=tuesdayTotalIncome+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalIncome=wednesdayTotalIncome+element.totalAmount!;
+           break;
+           case 4:
+           thursdayTotalIncome=thursdayTotalIncome+element.totalAmount!;
+           break;
+           case 5:
+           fridayTotalIncome=fridayTotalIncome+element.totalAmount!;
+           break;
+           case 6:
+           saturdayTotalIncome=saturdayTotalIncome+element.totalAmount!;
+         }
+          
           } else {
             _currentHoursExpenditure.add(element);
             expenditureTotalAmount =
                 expenditureTotalAmount + element.totalAmount ?? 0;
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
+            switch(element.entryDateTime!.weekday){
+           case 7:
+           sundayTotalExpenditure=sundayTotalExpenditure+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalExpenditure=mondayTotalExpenditure+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalExpenditure=tuesdayTotalExpenditure+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalExpenditure=wednesdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 4:
+           thursdayTotalExpenditure=thursdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 5:
+           fridayTotalExpenditure=fridayTotalExpenditure+element.totalAmount!;
+           break;
+           case 6:
+           saturdayTotalExpenditure=saturdayTotalExpenditure+element.totalAmount!;
+         
+          }
+          
           }
         currentTran.add(element);
       
@@ -465,6 +622,25 @@ getSplitCurrentYear(value);
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+    _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Saturday",saturdayTotalIncome,[],_randomColor.randomColor()));
+
+
+                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+
+                      _pieIncomeValue(_pieIncome);
+                      _pieExpenditureValue(_pieExpenditure);
         calculateRecordOverView();
   }
 
@@ -474,6 +650,23 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
+    dynamic sundayTotalIncome=0;
+dynamic mondayTotalIncome=0;
+dynamic tuesdayTotalIncome=0;
+dynamic wednesdayTotalIncome=0;
+dynamic thursdayTotalIncome=0;
+dynamic fridayTotalIncome=0;
+dynamic saturdayTotalIncome=0;
+
+dynamic sundayTotalExpenditure=0;
+dynamic mondayTotalExpenditure=0;
+dynamic tuesdayTotalExpenditure=0;
+dynamic wednesdayTotalExpenditure=0;
+dynamic thursdayTotalExpenditure=0;
+dynamic fridayTotalExpenditure=0;
+dynamic saturdayTotalExpenditure=0;
+List<RecordsData> _pieIncome=[];
+List<RecordsData> _pieExpenditure=[];
     days.forEach((element1) {
       dynamic incomeTotalAmount = 0;
       dynamic expenditureTotalAmount = 0;
@@ -497,12 +690,62 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
             print("income hour is  $element1 amount ${element.totalAmount}");
             incomeTotalAmount = incomeTotalAmount + element.totalAmount;
             print("income hour is  $element1 amount $incomeTotalAmount");
+        
+         switch(element.entryDateTime!.weekday){
+
+           case 7:
+           sundayTotalIncome=sundayTotalIncome+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalIncome=mondayTotalIncome+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalIncome=tuesdayTotalIncome+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalIncome=wednesdayTotalIncome+element.totalAmount;
+           break;
+           case 4:
+           thursdayTotalIncome=thursdayTotalIncome+element.totalAmount;
+           break;
+           case 5:
+           fridayTotalIncome=fridayTotalIncome+element.totalAmount;
+           break;
+           case 6:
+           saturdayTotalIncome=saturdayTotalIncome+element.totalAmount;
+         }
+        
           } else {
             _currentHoursExpenditure.add(element);
             expenditureTotalAmount =
                 expenditureTotalAmount + element.totalAmount ?? 0;
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
+            switch(element.entryDateTime!.weekday){
+           case 7:
+           sundayTotalExpenditure=sundayTotalExpenditure+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalExpenditure=mondayTotalExpenditure+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalExpenditure=tuesdayTotalExpenditure+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalExpenditure=wednesdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 4:
+           thursdayTotalExpenditure=thursdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 5:
+           fridayTotalExpenditure=fridayTotalExpenditure+element.totalAmount!;
+           break;
+           case 6:
+           saturdayTotalExpenditure=saturdayTotalExpenditure+element.totalAmount!;
+         
+          }
+         
+         
           }
         currentTran.add(element);
       
@@ -515,6 +758,26 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+
+     _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+
+
+                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+
+                      _pieIncomeValue(_pieIncome);
+                      _pieExpenditureValue(_pieExpenditure);
         calculateRecordOverView();
   }
 
@@ -526,8 +789,8 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
     List<RecordsData> _hourExpenditureData = [];
    
     hours.forEach((element1) {
-      int incomeTotalAmount = 0;
-      int expenditureTotalAmount = 0;
+      dynamic incomeTotalAmount = 0;
+      dynamic expenditureTotalAmount = 0;
          List< TransactionModel> currentTran=[];
       if (todayTransaction.isEmpty)
         print("today transactonlist is empty");
@@ -545,12 +808,12 @@ Future getSplitCurrentMonthly(List<DateTime> days) async {
           if (element.transactionType!.contains("INCOME")) {
             _currentHoursIncome.add(element);
             incomeTotalAmount =
-                incomeTotalAmount + int.parse(element.totalAmount.toString());
+                incomeTotalAmount + element.totalAmount;
             print("income hour is  $element1 amount $incomeTotalAmount");
           } else {
             _currentHoursExpenditure.add(element);
             expenditureTotalAmount = expenditureTotalAmount +
-                int.parse(element.totalAmount.toString());
+               element.totalAmount;
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
           }
@@ -591,11 +854,57 @@ startDate=DateTime(startDate.year, startDate.month, startDate.day+1);
 getSplitDataRangeRecord(value);
 }
 
+Future getPieDataRangeData(List<RecordsData> list)async{
+List<String> data=['Sunday','Monday','Tuesday', 'Wednesday','Thursday','Friday','Sunday'];
+dynamic sundayTotalIncome=0;
+dynamic mondayTotalIncome=0;
+dynamic tuesdayTotalIncome=0;
+dynamic wednesdayTotalIncome=0;
+dynamic thursdayTotalIncome=0;
+dynamic fridayTotalIncome=0;
+dynamic saturdayTotalIncome=0;
+
+dynamic sundayTotalExpenditure=0;
+dynamic mondayTotalExpenditure=0;
+dynamic tuesdayTotalExpenditure=0;
+dynamic wednesdayTotalExpenditure=0;
+dynamic thursdayTotalExpenditure=0;
+dynamic fridayTotalExpenditure=0;
+dynamic saturdayTotalExpenditure=0;
+List<RecordsData> allWeekDays=[];
+
+
+
+
+
+
+}
+
+
 Future getSplitDataRangeRecord(List<DateTime> days) async {
     List<TransactionModel> _currentHoursIncome = [];
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
+    List<String> data=['Sunday','Monday','Tuesday', 'Wednesday','Thursday','Friday','Sunday'];
+dynamic sundayTotalIncome=0;
+dynamic mondayTotalIncome=0;
+dynamic tuesdayTotalIncome=0;
+dynamic wednesdayTotalIncome=0;
+dynamic thursdayTotalIncome=0;
+dynamic fridayTotalIncome=0;
+dynamic saturdayTotalIncome=0;
+
+dynamic sundayTotalExpenditure=0;
+dynamic mondayTotalExpenditure=0;
+dynamic tuesdayTotalExpenditure=0;
+dynamic wednesdayTotalExpenditure=0;
+dynamic thursdayTotalExpenditure=0;
+dynamic fridayTotalExpenditure=0;
+dynamic saturdayTotalExpenditure=0;
+List<RecordsData> _pieIncome=[];
+List<RecordsData> _pieExpenditure=[];
+
     days.forEach((element1) {
       dynamic incomeTotalAmount = 0;
       dynamic expenditureTotalAmount = 0;
@@ -619,12 +928,58 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
             print("income hour is  $element1 amount ${element.totalAmount}");
             incomeTotalAmount = incomeTotalAmount + element.totalAmount;
             print("income hour is  $element1 amount $incomeTotalAmount");
+         switch(element.entryDateTime!.weekday){
+
+           case 7:
+           sundayTotalIncome=sundayTotalIncome+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalIncome=mondayTotalIncome+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalIncome=tuesdayTotalIncome+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalIncome=wednesdayTotalIncome+element.totalAmount!;
+           break;
+           case 4:
+           thursdayTotalIncome=thursdayTotalIncome+element.totalAmount!;
+           break;
+           case 5:
+           fridayTotalIncome=fridayTotalIncome+element.totalAmount!;
+           break;
+           case 6:
+           saturdayTotalIncome=saturdayTotalIncome+element.totalAmount!;
+         }
           } else {
             _currentHoursExpenditure.add(element);
             expenditureTotalAmount =
                 expenditureTotalAmount + element.totalAmount ?? 0;
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
+               switch(element.entryDateTime!.weekday){
+           case 7:
+           sundayTotalExpenditure=sundayTotalExpenditure+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalExpenditure=mondayTotalExpenditure+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalExpenditure=tuesdayTotalExpenditure+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalExpenditure=wednesdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 4:
+           thursdayTotalExpenditure=thursdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 5:
+           fridayTotalExpenditure=fridayTotalExpenditure+element.totalAmount!;
+           break;
+           case 6:
+           saturdayTotalExpenditure=saturdayTotalExpenditure+element.totalAmount!;
+         
+          }
           }
        currentTran.add(element);
         }
@@ -634,9 +989,31 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
             element1.formatDate(pattern: "yMMMd")!, incomeTotalAmount,currentTran,_randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(
             element1.formatDate(pattern: "yMMMd")!, expenditureTotalAmount,currentTran,_randomColor.randomColor()));
+           
+
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+     _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Saturday",saturdayTotalIncome,[],_randomColor.randomColor()));
+
+
+                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+                      
+
+                      _pieIncomeValue(_pieIncome);
+                      _pieExpenditureValue(_pieExpenditure);
         calculateRecordOverView();
   }
 
@@ -645,6 +1022,23 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
+    dynamic sundayTotalIncome=0;
+dynamic mondayTotalIncome=0;
+dynamic tuesdayTotalIncome=0;
+dynamic wednesdayTotalIncome=0;
+dynamic thursdayTotalIncome=0;
+dynamic fridayTotalIncome=0;
+dynamic saturdayTotalIncome=0;
+
+dynamic sundayTotalExpenditure=0;
+dynamic mondayTotalExpenditure=0;
+dynamic tuesdayTotalExpenditure=0;
+dynamic wednesdayTotalExpenditure=0;
+dynamic thursdayTotalExpenditure=0;
+dynamic fridayTotalExpenditure=0;
+dynamic saturdayTotalExpenditure=0;
+List<RecordsData> _pieIncome=[];
+List<RecordsData> _pieExpenditure=[];
     days.forEach((element1) {
       dynamic incomeTotalAmount = 0;
       dynamic expenditureTotalAmount = 0;
@@ -668,12 +1062,62 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
             print("income hour is  $element1 amount ${element.totalAmount}");
             incomeTotalAmount = incomeTotalAmount + element.totalAmount ?? 0;
             print("income hour is  $element1 amount $incomeTotalAmount");
+                switch(element.entryDateTime!.weekday){
+             case 7:
+           sundayTotalIncome=sundayTotalIncome+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalIncome=mondayTotalIncome+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalIncome=tuesdayTotalIncome+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalIncome=wednesdayTotalIncome+element.totalAmount!;
+           break;
+           case 4:
+           thursdayTotalIncome=thursdayTotalIncome+element.totalAmount!;
+           break;
+           case 5:
+           fridayTotalIncome=fridayTotalIncome+element.totalAmount!;
+           break;
+           case 6:
+           saturdayTotalIncome=saturdayTotalIncome+element.totalAmount!;
+         }
+          
+          
+          
           } else {
             _currentHoursExpenditure.add(element);
             expenditureTotalAmount =
                 expenditureTotalAmount + element.totalAmount ?? 0;
             print(
                 "expenditure hour is  $element1 amount $expenditureTotalAmount");
+            switch(element.entryDateTime!.weekday){
+           case 7:
+           sundayTotalExpenditure=sundayTotalExpenditure+element.totalAmount!;
+           break;
+           case 1:
+           mondayTotalExpenditure=mondayTotalExpenditure+element.totalAmount;
+           break;
+           case 2:
+           tuesdayTotalExpenditure=tuesdayTotalExpenditure+element.totalAmount;
+           break;
+           case 3:
+           wednesdayTotalExpenditure=wednesdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 4:
+           thursdayTotalExpenditure=thursdayTotalExpenditure+element.totalAmount!;
+           break;
+           case 5:
+           fridayTotalExpenditure=fridayTotalExpenditure+element.totalAmount!;
+           break;
+           case 6:
+           saturdayTotalExpenditure=saturdayTotalExpenditure+element.totalAmount!;
+         
+          }
+          
+          
           }
         
         currentTran.add(element);
@@ -686,6 +1130,25 @@ Future getSplitDataRangeRecord(List<DateTime> days) async {
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+     _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Saturday",saturdayTotalIncome,[],_randomColor.randomColor()));
+
+
+                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+
+                      _pieIncomeValue(_pieIncome);
+                      _pieExpenditureValue(_pieExpenditure);
         calculateRecordOverView();
   }
 

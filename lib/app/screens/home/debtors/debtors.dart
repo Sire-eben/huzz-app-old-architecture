@@ -1004,15 +1004,15 @@ class _DebtorListingState extends State<DebtorListing> {
   StatefulBuilder buildUpdatePayment(Debtor debtor) =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         ScrollController? controller;
-        return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
-          child: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            controller: controller,
+        return SingleChildScrollView(
+          physics: ScrollPhysics(),
+          controller: controller,
+          child: Container(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.04,
+                right: MediaQuery.of(context).size.width * 0.04,
+                bottom: MediaQuery.of(context).size.width * 0.04,
+                top: MediaQuery.of(context).size.width * 0.02),
             child: Form(
               key: _key,
               child: Column(
