@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
@@ -108,7 +106,8 @@ class _AddCustomerState extends State<AddCustomer> {
                     if (_customerController.addingCustomerStatus !=
                         AddingCustomerStatus.Loading) {
                       if (widget.item == null)
-                        _customerController.addBusinnessCustomer("INCOME");
+                        _customerController.addBusinnessCustomer(
+                            "INCOME", 'Customer');
                       else
                         _customerController
                             .updateBusinesscustomer(widget.item!);

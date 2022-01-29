@@ -38,46 +38,46 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                       setState(() => this.controller = controller),
                 ),
               ),
-              Padding(
-                padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-                child: Row(
-                  children: [
-                    Container(
-                      child: Checkbox(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        activeColor: AppColor().backgroundColor,
-                        value: receiptTheme,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            receiptTheme = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    Container(
-                      child: Checkbox(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        activeColor: Color(0xff0065D3),
-                        value: !receiptTheme,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            receiptTheme = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    Text(
-                      'Change receipt theme',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'DMSans'),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding:
+              //       EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+              //   child: Row(
+              //     children: [
+              //       Container(
+              //         child: Checkbox(
+              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //           activeColor: AppColor().backgroundColor,
+              //           value: receiptTheme,
+              //           onChanged: (bool? value) {
+              //             setState(() {
+              //               receiptTheme = value!;
+              //             });
+              //           },
+              //         ),
+              //       ),
+              //       Container(
+              //         child: Checkbox(
+              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //           activeColor: Color(0xff0065D3),
+              //           value: !receiptTheme,
+              //           onChanged: (bool? value) {
+              //             setState(() {
+              //               receiptTheme = value!;
+              //             });
+              //           },
+              //         ),
+              //       ),
+              //       Text(
+              //         'Change receipt theme',
+              //         style: TextStyle(
+              //             color: Colors.black,
+              //             fontSize: 10,
+              //             fontWeight: FontWeight.w400,
+              //             fontFamily: 'DMSans'),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.02),

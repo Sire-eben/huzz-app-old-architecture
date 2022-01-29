@@ -51,6 +51,7 @@ class _AddProductState extends State<AddProduct> {
   ];
 
   String? value;
+  int qty = 1;
 
   @override
   Widget build(BuildContext context) {

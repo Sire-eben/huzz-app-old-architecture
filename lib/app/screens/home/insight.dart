@@ -864,8 +864,7 @@ class StatisticsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Tooltip(
-                waitDuration: Duration(microseconds: 0),
-                showDuration: Duration(microseconds: 0),
+                triggerMode: TooltipTriggerMode.tap,
                 padding: EdgeInsets.all(6),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
