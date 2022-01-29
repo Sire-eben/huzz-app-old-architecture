@@ -26,6 +26,7 @@ class _AddProductState extends State<AddProduct> {
     super.initState();
     // _productController.MproductImage(File(""));
   }
+
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
 
@@ -79,7 +80,8 @@ class _AddProductState extends State<AddProduct> {
                   context: context,
                   builder: (context) => buildAddImage()),
               child: Center(
-                child: (_productController.productImage != null&&_productController.productImage!=Null)
+                child: (_productController.productImage != null &&
+                        _productController.productImage != Null)
                     ? Image.file(
                         _productController.productImage!,
                         height: 150,
@@ -345,7 +347,7 @@ class _AddProductState extends State<AddProduct> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         // labelText: label,
-                        hintText: 'N 0.00',
+                        hintText: 'e.g. 2',
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
                                   fontFamily: 'DMSans',
@@ -540,7 +542,8 @@ class _AddProductState extends State<AddProduct> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    (_productController.productImage != null&&_productController.productImage!=Null)
+                    (_productController.productImage != null &&
+                            _productController.productImage != Null)
                         ? Image.file(
                             _productController.productImage!,
                             height: 150,

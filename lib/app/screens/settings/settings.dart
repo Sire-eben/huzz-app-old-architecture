@@ -7,6 +7,7 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/user.dart';
 
 import 'notification.dart';
+import 'notification_settings.dart';
 import 'personalInfo.dart';
 
 class Settings extends StatefulWidget {
@@ -342,7 +343,7 @@ class _SettingsState extends State<Settings> {
                       Spacer(),
                       GestureDetector(
                         onTap: () {
-                          Get.to(Notifications());
+                          Get.to(NotificationSettings());
                         },
                         child: SvgPicture.asset(
                           "assets/images/setting.svg",
