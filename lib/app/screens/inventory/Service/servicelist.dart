@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/productdelete.dart';
 import 'package:huzz/app/screens/inventory/Product/productlist.dart';
+import 'package:huzz/app/screens/inventory/Service/add_service.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/product_model.dart';
 import 'package:huzz/model/service_model.dart';
@@ -109,7 +110,9 @@ setState(() {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(BuildDeleteProduct());
+                  setState(() {
+                    isDelete=!isDelete;
+                  });
                     },
                     child: Container(
                       height: 30,
@@ -212,6 +215,49 @@ setState(() {
                     ),
                   ),
             ),
+             Positioned(
+            bottom: 10,
+            right: 30,
+            child: GestureDetector(
+              onTap: () {
+                if(isDelete)
+                _productController.deleteSelectedItem();
+                else
+                Get.to(AddService());
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 15,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColor().backgroundColor,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.add,
+                      size: 18,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                    (isDelete)?"Delete Service(s)":  'New Service',
+                      style: TextStyle(
+                        color: AppColor().whiteColor,
+                        fontFamily: 'DMSans',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           ],
         );
       }),
