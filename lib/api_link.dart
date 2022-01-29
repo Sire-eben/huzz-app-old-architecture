@@ -7,8 +7,6 @@ class ApiLink {
 // ignore: non_constant_identifier_names
   static String verify_otp = baseurl + "otp/verify";
 // ignore: non_constant_identifier_names
-  static String forgot_pin = baseurl + "user/forgot-pin";
-// ignore: non_constant_identifier_names
   static String signup_user = baseurl + "auth/signup";
 // ignore: non_constant_identifier_names
   static String signin_user = baseurl + "auth/login";
@@ -43,4 +41,8 @@ class ApiLink {
   static String forget_pin = baseurl + "user/forgot-pin";
 // ignore: non_constant_identifier_names
   static String invoice_link = baseurl + "business/invoice";
+  // ignore: non_constant_identifier_names
+  static String delete_user = baseurl + "user/delete";
+  // ignore: non_constant_identifier_names
+  static String delete_business = baseurl + "business/";
 }

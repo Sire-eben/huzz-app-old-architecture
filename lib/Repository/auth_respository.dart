@@ -14,10 +14,12 @@ import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/app/screens/sign_in.dart';
+import 'package:huzz/app/screens/sign_up.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'fingerprint_repository.dart';
 import 'home_respository.dart';
@@ -46,7 +48,7 @@ class AuthRepository extends GetxController {
   final _homeController = Get.find<HomeRespository>();
 
   late final otpController = TextEditingController();
-var pinController = TextEditingController();
+  var pinController = TextEditingController();
   late final emailController = TextEditingController();
   late final lastNameController = TextEditingController();
   late final firstNameController = TextEditingController();
@@ -329,8 +331,6 @@ var pinController = TextEditingController();
   }
 
   Future signUp() async {
-// emailController.text="olu5000@gmail.com";
-// phoneNumberController.text="814217939618";
     try {
       _signupStatus(SignupStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.signup_user),
@@ -454,6 +454,65 @@ var pinController = TextEditingController();
     }
   }
 
+  void deleteUsersAccounts() async {
+    _authStatus(AuthStatus.Loading);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final key = 'token';
+      final value = prefs.get(key) ?? 0;
+
+      String myUrl = ApiLink.delete_user;
+      var response = await http.delete(Uri.parse(myUrl), headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $value'
+      });
+
+      // ignore: unnecessary_null_comparison
+      if (response.statusCode != null) {
+        // ignore: unnecessary_null_comparison
+        if (response != null) {
+          _authStatus(AuthStatus.Authenticated);
+
+          Get.offAll(() => Signup());
+        }
+      } else {
+        _authStatus(AuthStatus.Empty);
+      }
+    } catch (error) {
+      _authStatus(AuthStatus.Error);
+    }
+  }
+
+  void deleteBusinessAccounts() async {
+    _authStatus(AuthStatus.Loading);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final key = 'token';
+      final value = prefs.get(key) ?? 0;
+      String? id;
+
+      String myUrl = ApiLink.delete_business + '$id';
+      var response = await http.delete(Uri.parse(myUrl), headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $value'
+      });
+
+      // ignore: unnecessary_null_comparison
+      if (response.statusCode != null) {
+        // ignore: unnecessary_null_comparison
+        if (response != null) {
+          _authStatus(AuthStatus.Authenticated);
+
+          Get.offAll(() => Signup());
+        }
+      } else {
+        _authStatus(AuthStatus.Empty);
+      }
+    } catch (error) {
+      _authStatus(AuthStatus.Error);
+    }
+  }
+
   void logout() {
     _authStatus(AuthStatus.UnAuthenticated);
     pref!.saveToken("0");
@@ -464,11 +523,11 @@ var pinController = TextEditingController();
 
   void clearDatabase() async {
     await sqliteDb.openDatabae();
-  await  sqliteDb.deleteAllOfflineBusiness();
-  await  sqliteDb.deleteAllOfflineTransaction();
-   await sqliteDb.deleteAllProducts();
-   await sqliteDb.deleteAllCustomers();
-   await sqliteDb.deleteAllOfflineDebtors();
-   await sqliteDb.deleteAllInvoice();
+    await sqliteDb.deleteAllOfflineBusiness();
+    await sqliteDb.deleteAllOfflineTransaction();
+    await sqliteDb.deleteAllProducts();
+    await sqliteDb.deleteAllCustomers();
+    await sqliteDb.deleteAllOfflineDebtors();
+    await sqliteDb.deleteAllInvoice();
   }
 }

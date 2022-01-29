@@ -20,11 +20,24 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
+  int _counter = 0;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // _productController.MproductImage(File(""));
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      // ignore: unnecessary_statements
+      _counter--;
+    });
   }
 
   final TextEditingController textEditingController = TextEditingController();
@@ -229,11 +242,8 @@ class _AddProductState extends State<AddProduct> {
                       Container(
                         margin: EdgeInsets.only(left: 20, right: 20, top: 10),
                         child: TextFormField(
-                          // onChanged: this.onChanged,
-                          // maxLength: 6,
                           controller:
                               _productController.productSellingPriceController,
-
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             isDense: true,
@@ -255,7 +265,6 @@ class _AddProductState extends State<AddProduct> {
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            // labelText: label,
                             hintText: 'N 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
@@ -308,24 +317,14 @@ class _AddProductState extends State<AddProduct> {
                     ),
                   ),
                   Spacer(),
-                  Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (qty < 2) {
-                            qty = 1;
-                          } else {
-                            --qty;
-                          }
-                          _productController.productQuantityController.text =
-                              qty.toString();
-                        });
-                      },
+                  GestureDetector(
+                    onTap: _decrementCounter,
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        shape: BoxShape.circle,
+                      ),
                       child: Icon(
                         Icons.remove,
                         size: 18,
@@ -338,67 +337,43 @@ class _AddProductState extends State<AddProduct> {
                   ),
                   Container(
                     width: 120,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColor().backgroundColor, width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Center(
-                        child: Text(
-                      qty.toString(),
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                            fontFamily: 'DMSans',
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.normal,
-                          ),
-                    )),
-
-                    // child: TextFormField(
-                    //   controller: _productController.productQuantityController,
-                    //   keyboardType: TextInputType.number,
-                    //   decoration: InputDecoration(
-                    //     isDense: true,
-                    //     focusedBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(
-                    //             color: AppColor().backgroundColor, width: 2),
-                    //         borderRadius:
-                    //             BorderRadius.all(Radius.circular(10))),
-                    //     enabledBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(
-                    //             color: AppColor().backgroundColor, width: 2),
-                    //         borderRadius:
-                    //             BorderRadius.all(Radius.circular(10))),
-                    //     border: OutlineInputBorder(
-                    //         borderSide: BorderSide(
-                    //             color: AppColor().backgroundColor, width: 2),
-                    //         borderRadius:
-                    //             BorderRadius.all(Radius.circular(10))),
-                    //     // labelText: label,
-                    //     hintText: 'e.g. 2',
-                    //     hintStyle:
-                    //         Theme.of(context).textTheme.headline4!.copyWith(
-                    //               fontFamily: 'DMSans',
-                    //               color: Colors.black26,
-                    //               fontSize: 14,
-                    //               fontStyle: FontStyle.normal,
-                    //               fontWeight: FontWeight.normal,
-                    //             ),
-                    //   ),
-                    // ),
+                    child: TextFormField(
+                      controller: _productController.productQuantityController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor().backgroundColor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor().backgroundColor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor().backgroundColor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        hintText: '$_counter',
+                        hintStyle:
+                            Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontFamily: 'DMSans',
+                                  color: Colors.black26,
+                                  fontSize: 14,
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: 10,
                   ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        qty++;
-                        _productController.productQuantityController.text =
-                            qty.toString();
-                      });
-                    },
+                  GestureDetector(
+                    onTap: _incrementCounter,
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(

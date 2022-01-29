@@ -47,7 +47,6 @@ class DebtorRepository extends GetxController
 
   Rx<File?> DebtorImage = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
-  String? _currentBusinessId;
 
   final totalAmountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
   final amountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
@@ -87,28 +86,23 @@ class DebtorRepository extends GetxController
     tabController = TabController(length: 2, vsync: this);
 
     //  await sqliteDb.openDatabae();
-    _userController.Mtoken.listen((p0)async {
+    _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null) {
-           await  getOfflineDebtor(value.businessId!);
           getOnlineDebtor(value.businessId!);
-       
+          getOfflineDebtor(value.businessId!);
         }
-        _businessController.selectedBusiness.listen((p0)async {
+        _businessController.selectedBusiness.listen((p0) {
           if (p0 != null) {
             print("business id ${p0.businessId}");
-            _currentBusinessId=p0.businessId;
             _offlineBusinessDebtor([]);
 
             _onlineBusinessDebtor([]);
             _DebtorService([]);
             _DebtorGoods([]);
-            _debotorAmount(0);
-            // Future.delayed(Duration(seconds: 20));
-             await getOfflineDebtor(p0.businessId!);
             getOnlineDebtor(p0.businessId!);
-          
+            getOfflineDebtor(p0.businessId!);
           }
         });
       }
@@ -247,19 +241,12 @@ class DebtorRepository extends GetxController
     //   title: title,
     // ));
   }
-  Future calculateDebtors()async{
-    print("calculating debtor for business id  $_currentBusinessId");
-    dynamic totalDebotors=0;
-         _debotorAmount(0);
-debtorsList.forEach((element) {
-  if(element.businessId!=_currentBusinessId){
-        _debotorAmount(0);
-  }
-  totalDebotors=totalDebotors+element.balance!;
 
-});
-print("calculated debtors is $totalDebotors");
-_debotorAmount(totalDebotors);
+  Future calculateDebtors() async {
+    dynamic totalDebotors = 0;
+    debtorsList.forEach((element) {
+      totalDebotors = totalDebotors + element.totalAmount!;
+    });
 
     _debotorAmount(totalDebotors);
   }
@@ -354,12 +341,11 @@ _debotorAmount(totalDebotors);
   }
 
   Future getOfflineDebtor(String businessId) async {
-         _debotorAmount(0);
     var result =
         await _businessController.sqliteDb.getOfflineDebtors(businessId);
     _offlineBusinessDebtor(result);
     print("offline Debtor found ${result.length}");
-   classifiedDebt();
+    classifiedDebt();
     calculateDebtors();
 
     // setDebtorDifferent();
@@ -430,8 +416,9 @@ _debotorAmount(totalDebotors);
       var item = checkifDebtorAvailableWithValue(element.debtorId!);
       if (item != null) {
         print("item Debtor is found");
-        print("updated debtors offline ${item.updatedTime!.toIso8601String()}");
-        print("updated  debtors online ${element.updatedTime!.toIso8601String()}");
+        print("updated offline debtors${item.updatedTime!.toIso8601String()}");
+        print(
+            "updated online debtors ${element.updatedTime!.toIso8601String()}");
         if (!element.updatedTime!.isAtSameMomentAs(item.updatedTime!)) {
           print("found Debtor to updated ${element.toJson()}");
 
@@ -491,7 +478,6 @@ _debotorAmount(totalDebotors);
       if (element.debtorId == id) {
         print("Debtor   found");
         result = true;
-        
       }
     });
     return result;
@@ -599,11 +585,11 @@ _debotorAmount(totalDebotors);
   }
 
   Future checkPendingCustomerTobeUpdatedToServer() async {
-    offlineBusinessDebtor.forEach((element) {
-      if (element.isPendingUpdating! && !element.isPendingAdding!) {
-        pendingToUpdatedDebtorToServer.add(element);
-      }
-    });
+    // offlineBusinessDebtor.forEach((element) {
+    //   if (element.isUpdatingPending! && !element.isAddingPending!) {
+    //     pendingToUpdatedDebtorToServer.add(element);
+    //   }
+    // });
 
     updatePendingJob();
   }

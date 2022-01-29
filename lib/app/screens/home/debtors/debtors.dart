@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/debtors_repository.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
+import 'package:huzz/model/user.dart';
 import 'package:random_color/random_color.dart';
 
 import '../../../../colors.dart';
@@ -73,6 +77,7 @@ class _DebtorsState extends State<Debtors> {
   int customerValue = 0;
   int itemValue = 0;
   final _createKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -439,7 +444,6 @@ class _DebtorsState extends State<Debtors> {
                                         .phoneNumberController,
                                     validatorText: "Phone number is needed",
                                   ),
-
                                   CustomTextFieldInvoiceOptional(
                                     label: 'Balance',
                                     keyType: TextInputType.number,
@@ -448,59 +452,12 @@ class _DebtorsState extends State<Debtors> {
                                     validatorText: "Balance is needed",
                                   ),
                                   CustomTextFieldInvoiceOptional(
-                                    label: 'Total Amount',
+                                    label: 'Amount Paid',
                                     keyType: TextInputType.number,
                                     textEditingController:
                                         _debtorController.totalAmountController,
-                                    validatorText: "Total Amount is needed",
+                                    validatorText: "Amount Paid is needed",
                                   ),
-                                  // Container(
-                                  //   margin: EdgeInsets.only(
-                                  //     top: 10,
-                                  //     right: 20,
-                                  //     bottom: 10,
-                                  //   ),
-                                  //   child: Text(
-                                  //     'Brief Description',
-                                  //     style: TextStyle(
-                                  //         color: Colors.black, fontSize: 12),
-                                  //   ),
-                                  // ),
-                                  // Container(
-                                  //   height: MediaQuery.of(context).size.height *
-                                  //       0.2,
-                                  //   width: MediaQuery.of(context).size.width,
-                                  //   decoration: BoxDecoration(
-                                  //     color: AppColor().whiteColor,
-                                  //     border: Border.all(
-                                  //       width: 2,
-                                  //       color: AppColor().backgroundColor,
-                                  //     ),
-                                  //     borderRadius: BorderRadius.circular(12),
-                                  //   ),
-                                  //   child: TextFormField(
-                                  //     controller: _customerController
-                                  //         .descriptionController,
-                                  //     textInputAction: TextInputAction.none,
-                                  //     decoration: InputDecoration(
-                                  //       isDense: true,
-                                  //       enabledBorder: OutlineInputBorder(
-                                  //         borderSide: BorderSide.none,
-                                  //       ),
-                                  //       hintText: 'Delivered some drugs',
-                                  //       hintStyle: Theme.of(context)
-                                  //           .textTheme
-                                  //           .headline4!
-                                  //           .copyWith(
-                                  //             fontFamily: 'DMSans',
-                                  //             color: Colors.black26,
-                                  //             fontSize: 14,
-                                  //             fontStyle: FontStyle.normal,
-                                  //             fontWeight: FontWeight.normal,
-                                  //           ),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ],
                               )
                             : Column(
@@ -722,13 +679,39 @@ class DebtorListing extends StatefulWidget {
 }
 
 class _DebtorListingState extends State<DebtorListing> {
+  final _userController = Get.find<AuthRepository>();
+  final _productController = Get.find<ProductRepository>();
   final _customerController = Get.find<CustomerRepository>();
+  final _businessController = Get.find<BusinessRespository>();
+
   int statusType = 0;
   final _debtorController = Get.find<DebtorRepository>();
 
   RandomColor _randomColor = RandomColor();
   final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
+
+  bool _isEditingText = false;
+
+  late String? phone;
+  late String? product;
+  late String? firstName;
+  late String? businessName;
+
+  final users = Rx(User());
+  User? get usersData => users.value;
+
+  void initState() {
+    firstName = _userController.user!.firstName!;
+    // product = _productController.productGoods.first as String;
+    phone = _businessController.selectedBusiness.value!.businessPhoneNumber;
+    businessName = _businessController.selectedBusiness.value!.businessName;
+    super.initState();
+  }
+
+  String? initialText =
+      // "Dear $firstName, you have an outstanding payment of N500 for your purchase of $product at $businessName, $phone. \n \n Kindly pay as soon as possible.Thanks for your patronage. \n Powered by Huzz.";
+      "Dear Tunde, you have an outstanding payment of N500 for your purchase of Melon seeds at Huzz technologies  (08133150074). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
   @override
   Widget build(BuildContext context) {
@@ -845,162 +828,179 @@ class _DebtorListingState extends State<DebtorListing> {
           );
   }
 
-  Widget buildDebtorNotification() => Container(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.04,
-            right: MediaQuery.of(context).size.width * 0.04,
-            bottom: MediaQuery.of(context).size.width * 0.04,
-            top: MediaQuery.of(context).size.width * 0.02),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                height: 3,
-                width: 70,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(4),
+  Widget buildDebtorNotification() => SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  height: 3,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Send Reminder to debtor',
-                style: TextStyle(
-                  color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  'Send Reminder to debtor',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: 'DMSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              height: 50,
-              margin: EdgeInsets.only(
-                left: 20,
-                right: 20,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Message',
-                    style: TextStyle(color: Colors.black, fontSize: 12),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5),
-                    child: Text(
-                      "*",
-                      style: TextStyle(color: Colors.red, fontSize: 12),
+              SizedBox(height: 10),
+              Container(
+                height: 50,
+                margin: EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Message',
+                      style: TextStyle(color: Colors.black, fontSize: 12),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: AppColor().whiteColor,
-                  border: Border.all(
-                    width: 2,
-                    color: AppColor().backgroundColor,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: TextFormField(
-                  controller: textEditingController,
-                  textInputAction: TextInputAction.none,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
+                    SizedBox(
+                      width: 5,
                     ),
-                    hintText: 'Type Message',
-                    hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontFamily: 'DMSans',
-                          color: Colors.black26,
-                          fontSize: 14,
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.normal,
-                        ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: Text(
-                      "Send Options",
-                      style: TextStyle(
-                        color: AppColor().blackColor,
-                        fontSize: 14,
+                    Container(
+                      margin: EdgeInsets.only(top: 5),
+                      child: Text(
+                        "*",
+                        style: TextStyle(color: Colors.red, fontSize: 12),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Image.asset('assets/images/message.png'),
-                  ),
-                  Expanded(
-                    child: Image.asset('assets/images/chat.png'),
-                  ),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        _displayDialog(context);
-                      },
-                      child: Image.asset('assets/images/share.png'),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            // Spacer(),
-            // InkWell(
-            //   onTap: () {
-            //     Get.to(ServiceListing());
-            //   },
-            //   child: Container(
-            //     height: 55,
-            //     margin: EdgeInsets.symmetric(
-            //       horizontal: 15,
-            //     ),
-            //     decoration: BoxDecoration(
-            //         color: AppColor().backgroundColor,
-            //         borderRadius: BorderRadius.circular(10)),
-            //     child: Center(
-            //       child: Text(
-            //         'Save',
-            //         style: TextStyle(
-            //           color: AppColor().whiteColor,
-            //           fontFamily: 'DMSans',
-            //           fontWeight: FontWeight.bold,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  padding: EdgeInsets.only(left: 10, top: 5, bottom: 2),
+                  // height: MediaQuery.of(context).size.height * 0.2,
+                  // width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: AppColor().whiteColor,
+                    border: Border.all(
+                      width: 2,
+                      color: AppColor().backgroundColor,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: _editTitleTextField(),
+                  //
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Text(
+                        "Send Options",
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Image.asset('assets/images/message.png'),
+                    ),
+                    Expanded(
+                      child: Image.asset('assets/images/chat.png'),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          _displayDialog(context);
+                        },
+                        child: Image.asset('assets/images/share.png'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
+
+  // _editTitleTextField() {
+  //   if (_isEditingText)
+  //     return Center(
+  //       child: TextFormField(
+  //         controller: textEditingController,
+  //         textInputAction: TextInputAction.none,
+  //         decoration: InputDecoration(
+  //           isDense: true,
+  //           enabledBorder: OutlineInputBorder(
+  //             borderSide: BorderSide.none,
+  //           ),
+  //           hintText: 'Type Message',
+  //           hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+  //                 fontFamily: 'DMSans',
+  //                 color: Colors.black26,
+  //                 fontSize: 14,
+  //                 fontStyle: FontStyle.normal,
+  //                 fontWeight: FontWeight.normal,
+  //               ),
+  //         ),
+  //       ),
+  //     );
+  // }
+
+  _editTitleTextField() {
+    if (_isEditingText)
+      return Center(
+        child: TextField(
+          onSubmitted: (newValue) {
+            setState(() {
+              initialText = newValue;
+              _isEditingText = true;
+            });
+          },
+          autofocus: true,
+          controller: textEditingController,
+        ),
+      );
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _isEditingText = true;
+        });
+      },
+      child: Text(
+        initialText!,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+        ),
+      ),
+    );
+  }
+
   StatefulBuilder buildUpdatePayment(Debtor debtor) =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         ScrollController? controller;
@@ -1289,6 +1289,7 @@ class _DebtorListingState extends State<DebtorListing> {
           ),
         );
       });
+
   _displayDialog(BuildContext context) async {
     return showDialog(
         context: context,

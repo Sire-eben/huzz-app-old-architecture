@@ -4,7 +4,6 @@ import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/add_product.dart';
 import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
 import 'package:huzz/model/product.dart';
-import 'package:huzz/model/product_model.dart';
 import 'package:number_display/number_display.dart';
 
 import '../../../../colors.dart';
@@ -765,6 +764,7 @@ class _ListingProductState extends State<ListingProduct> {
   }
 }
 
+// ignore: must_be_immutable
 class ListingProductDelete extends StatefulWidget {
   Product? item;
   ListingProductDelete({

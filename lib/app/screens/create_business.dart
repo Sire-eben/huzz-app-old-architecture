@@ -39,126 +39,123 @@ class CreateBusiness extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  child: CustomTextField(
-                      label: "Business Name",
-                      validatorText: "Business name is required",
-                      textEditingController: _businessController.businessName)),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  child: CustomTextField(
-                    label: "Address (Optional)",
-                    textEditingController:
-                        _businessController.businessAddressController,
-                  )),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  child: CustomTextField(
-                    label: "Phone Number",
-                    validatorText: "Phone Number is needed",
-                    textEditingController:
-                        _businessController.businessPhoneNumber,
-                  )),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
+                    child: CustomTextField(
+                        label: "Business Name",
+                        validatorText: "Business name is required",
+                        textEditingController:
+                            _businessController.businessName)),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
+                    child: CustomTextField(
+                      label: "Address (Optional)",
+                      textEditingController:
+                          _businessController.businessAddressController,
+                    )),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
+                    child: CustomTextField(
+                      label: "Phone Number",
+                      validatorText: "Phone Number is needed",
+                      textEditingController:
+                          _businessController.businessPhoneNumber,
+                    )),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
                   width: MediaQuery.of(context).size.width,
                   height: 100,
                   child: CustomTextField(
                     label: "Email",
                     validatorText: "Email is required",
                     textEditingController: _businessController.businessEmail,
-                  )),
-
-              SizedBox(
-                height: 5,
-              ),
-              SizedBox(
-                height: 5,
-              ),
-
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 104,
-                  child: CustomDropDownField(
-                    label: "Business Category",
-                    validatorText: "Business Category is required",
-                    hintText: "Select business category",
-                    values: _businessController.businessCategory,
-                    currentSelectedValue: _businessController.selectedCategory,
-                  )),
-              // Expanded(flex: 2, child: SizedBox()),
-              SizedBox(
-                height: 100,
-              ),
-              GestureDetector(
-                onTap: () {
-                  // Get.to(Signin());
-                  if (_businessController.createBusinessStatus !=
-                      CreateBusinessStatus.Loading)
-                    _businessController.createBusiness();
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: (_businessController.createBusinessStatus ==
-                          CreateBusinessStatus.Loading)
-                      ? Container(
-                          width: 30,
-                          height: 30,
-                          child: Center(
-                              child: CircularProgressIndicator(
-                                  color: Colors.white)),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(3),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50))),
-                              child: Icon(
-                                Icons.add,
-                                color: AppColor().backgroundColor,
-                                size: 16,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Continue',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                            ),
-                          ],
-                        ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-            ],
+                SizedBox(
+                  height: 5,
+                ),
+                CustomDropDownField(
+                  label: "Business Category",
+                  validatorText: "Business Category is required",
+                  hintText: "Select business category",
+                  values: _businessController.businessCategory,
+                  currentSelectedValue: _businessController.selectedCategory,
+                ),
+                // Expanded(flex: 2, child: SizedBox()),
+                SizedBox(
+                  height: 100,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // Get.to(Signin());
+                    if (_businessController.createBusinessStatus !=
+                        CreateBusinessStatus.Loading)
+                      _businessController.createBusiness();
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    // margin: EdgeInsets.symmetric(horizontal: 20),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: (_businessController.createBusinessStatus ==
+                            CreateBusinessStatus.Loading)
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            child: Center(
+                                child: CircularProgressIndicator(
+                                    color: Colors.white)),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50))),
+                                child: Icon(
+                                  Icons.add,
+                                  color: AppColor().backgroundColor,
+                                  size: 16,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Continue',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                            ],
+                          ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+              ],
+            ),
           ),
         ),
       );

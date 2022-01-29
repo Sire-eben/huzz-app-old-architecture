@@ -52,7 +52,7 @@ class _InsightState extends State<Insight> {
 
   List<RecordsData> item1 = [];
   List<RecordsData> item2 = [];
-
+  String? value;
   List<_SalesData> data = [
     _SalesData('Nov 1', 35),
     _SalesData('Nov 2', 28),
@@ -111,7 +111,7 @@ class _InsightState extends State<Insight> {
   void initState() {
     // TODO: implement initState
     super.initState();
-// transactionController.splitCurrentTime();
+    transactionController.splitCurrentTime();
   }
 
   @override
@@ -136,7 +136,7 @@ class _InsightState extends State<Insight> {
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.04,
                       left: MediaQuery.of(context).size.height * 0.005,
-                      right: MediaQuery.of(context).size.height * 0.02),
+                      right: MediaQuery.of(context).size.height * 0.005),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -172,7 +172,7 @@ class _InsightState extends State<Insight> {
                                 width: 2, color: AppColor().backgroundColor)),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
-                            value: transactionController.value.value,
+                            value: value,
                             icon: Icon(
                               Icons.keyboard_arrow_down,
                               size: 14,
@@ -187,38 +187,21 @@ class _InsightState extends State<Insight> {
                             ),
                             isDense: true,
                             items: recordFilter.map(buildDropDown).toList(),
-                            onChanged: (value) async {
-                              transactionController.value(value);
-                              if (transactionController.value.value
-                                  .contains("This Year")) {
-                                await transactionController.getYearRecord();
-                              } else if (transactionController.value.value
-                                  .contains("Today")) {
-                                await transactionController.splitCurrentTime();
-                              } else if (transactionController.value.value
-                                  .contains("This Week")) {
-                                await transactionController
-                                    .getWeeklyRecordData();
-                              } else if (transactionController.value.value
-                                  .contains("This month")) {
-                                await transactionController.getMonthlyRecord();
-                              } else if (transactionController.value.value
-                                  .contains("This Month")) {
-                                await transactionController.getMonthlyRecord();
-                              } else if (transactionController.value.value
-                                  .contains("All Time")) {
-                                await transactionController.getAllTimeRecord();
-                              } else if (transactionController.value.value
-                                  .contains("Custom date range")) {
-                                DateTimeRange? val =
-                                    await pickDateRanges(context);
-                                if (val != null) {
-                                  await transactionController
-                                      .getDateRangeRecordData(
-                                          val.start, val.end);
-                                }
+                            onChanged: (value) {
+                              setState(() => this.value = value);
+                              if (value!.contains("This Year")) {
+                                transactionController.getYearRecord();
+                              } else if (value.contains("Today")) {
+                                transactionController.splitCurrentTime();
+                              } else if (value.contains("This Week")) {
+                                transactionController.getWeeklyRecordData();
+                              } else if (value.contains("This month")) {
+                                transactionController.getMonthlyRecord();
+                              } else if (value.contains("This Month")) {
+                                transactionController.getMonthlyRecord();
+                              } else if (value.contains("All Time")) {
+                                transactionController.getAllTimeRecord();
                               }
-                              setState(() {});
                             },
                             onTap: () {
                               // showModalBottomSheet(
@@ -231,6 +214,21 @@ class _InsightState extends State<Insight> {
                           ),
                         ),
                       ),
+                      value.toString() == 'Custom date range'
+                          ? IconButton(
+                              onPressed: () async {
+                                DateTimeRange? val =
+                                    await pickDateRanges(context);
+                                if (val != null) {
+                                  transactionController.getDateRangeRecordData(
+                                      val.start, val.end);
+                                }
+                              },
+                              icon: Icon(
+                                Icons.date_range,
+                                color: AppColor().backgroundColor,
+                              ))
+                          : Container()
                     ],
                   ),
                 ),
@@ -251,7 +249,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money Out (N)',
+                            'Money Out (₦)',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -273,7 +271,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money in (N)',
+                            'Money in (₦)',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -297,22 +295,11 @@ class _InsightState extends State<Insight> {
                       // item1=removeDoubleItem(transactionController.allIncomeHoursData);
                       // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                       return SfCartesianChart(
-                          primaryYAxis: NumericAxis(
-                            // labelFormat: "N"
-                            axisLabelFormatter: (s) => ChartAxisLabel(
-                                "N${display(s.value)}",
-                                TextStyle(fontSize: 10)),
-                          ),
                           primaryXAxis: CategoryAxis(),
 
                           // Chart title
                           // title: ChartTitle(text: 'Half yearly sales analysis'),
                           // Enable legend
-                          onTooltipRender: (s) {
-                            var list = s.text!.split(":");
-                            s.text =
-                                "${list[0]} ${display(double.parse(list[1]))}";
-                          },
                           legend: Legend(isVisible: false),
                           // Enable tooltip
                           tooltipBehavior: TooltipBehavior(enable: true),
@@ -341,6 +328,7 @@ class _InsightState extends State<Insight> {
                                     value.label,
                                 yValueMapper: (RecordsData value, _) =>
                                     value.value,
+                                name: 'Value',
                                 splineType: SplineType.cardinal,
                                 cardinalSplineTension: 0.9,
                                 // Enable data label
@@ -388,22 +376,10 @@ class _InsightState extends State<Insight> {
                           Container(
                             height: 200,
                             child: SfCircularChart(
-                                onTooltipRender: (s) {
-                                  var list = s.text!.split(":");
-                                  s.text =
-                                      "${list[0]} ${display(double.parse(list[1]))}";
-                                },
-                                onDataLabelRender: (s) =>
-                                    s.text = "${display(double.parse(s.text))}",
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <CircularSeries>[
                                   PieSeries<RecordsData, String>(
-                                      dataSource: (transactionController
-                                              .value.value
-                                              .contains("Today"))
-                                          ? item1
-                                          : transactionController
-                                              .pieIncomeValue,
+                                      dataSource: item1,
                                       pointColorMapper: (RecordsData data, _) =>
                                           data.color,
                                       xValueMapper: (RecordsData data, _) =>
@@ -432,22 +408,10 @@ class _InsightState extends State<Insight> {
                           Container(
                             height: 200,
                             child: SfCircularChart(
-                                onTooltipRender: (s) {
-                                  var list = s.text!.split(":");
-                                  s.text =
-                                      "${list[0]} ${display(double.parse(list[1]))}";
-                                },
-                                onDataLabelRender: (s) =>
-                                    s.text = "${display(double.parse(s.text))}",
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <CircularSeries>[
                                   PieSeries<RecordsData, String>(
-                                      dataSource: (transactionController
-                                              .value.value
-                                              .contains("Today"))
-                                          ? item2
-                                          : transactionController
-                                              .pieExpenditure,
+                                      dataSource: item2,
                                       pointColorMapper: (RecordsData data, _) =>
                                           data.color,
                                       xValueMapper: (RecordsData data, _) =>
@@ -485,60 +449,32 @@ class _InsightState extends State<Insight> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: (transactionController.value.value
-                                .contains("Today"))
-                            ? item1
-                                .map((e) => Row(
-                                      children: [
-                                        Container(
-                                          height: 10,
-                                          width: 10,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: e.color),
-                                        ),
-                                        SizedBox(width: 2),
-                                        Text(
-                                          '${e.label}',
-                                          style: TextStyle(
-                                            color: AppColor().blackColor,
-                                            fontFamily: 'DMSans',
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        )
-                                      ],
-                                    ))
-                                .toList()
-                            : transactionController.pieIncomeValue
-                                .map((e) => Row(
-                                      children: [
-                                        Container(
-                                          height: 10,
-                                          width: 10,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: e.color),
-                                        ),
-                                        SizedBox(width: 2),
-                                        Text(
-                                          '${e.label}',
-                                          style: TextStyle(
-                                            color: AppColor().blackColor,
-                                            fontFamily: 'DMSans',
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        )
-                                      ],
-                                    ))
-                                .toList(),
+                        children: item1
+                            .map((e) => Row(
+                                  children: [
+                                    Container(
+                                      height: 10,
+                                      width: 10,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: e.color),
+                                    ),
+                                    SizedBox(width: 2),
+                                    Text(
+                                      '${e.label}',
+                                      style: TextStyle(
+                                        color: AppColor().blackColor,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    )
+                                  ],
+                                ))
+                            .toList(),
                       ),
                     ],
                   ),
@@ -565,60 +501,32 @@ class _InsightState extends State<Insight> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: (transactionController.value.value
-                                .contains("Today"))
-                            ? item2
-                                .map((e) => Row(
-                                      children: [
-                                        Container(
-                                          height: 10,
-                                          width: 10,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: e.color),
-                                        ),
-                                        SizedBox(width: 2),
-                                        Text(
-                                          '${e.label}',
-                                          style: TextStyle(
-                                            color: AppColor().blackColor,
-                                            fontFamily: 'DMSans',
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        )
-                                      ],
-                                    ))
-                                .toList()
-                            : transactionController.pieExpenditure
-                                .map((e) => Row(
-                                      children: [
-                                        Container(
-                                          height: 10,
-                                          width: 10,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: e.color),
-                                        ),
-                                        SizedBox(width: 2),
-                                        Text(
-                                          '${e.label}',
-                                          style: TextStyle(
-                                            color: AppColor().blackColor,
-                                            fontFamily: 'DMSans',
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        )
-                                      ],
-                                    ))
-                                .toList(),
+                        children: item2
+                            .map((e) => Row(
+                                  children: [
+                                    Container(
+                                      height: 10,
+                                      width: 10,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: e.color),
+                                    ),
+                                    SizedBox(width: 2),
+                                    Text(
+                                      '${e.label}',
+                                      style: TextStyle(
+                                        color: AppColor().blackColor,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    )
+                                  ],
+                                ))
+                            .toList(),
                       ),
                     ],
                   ),
@@ -741,8 +649,7 @@ class _InsightState extends State<Insight> {
                               amount: item2.length.toString(),
                               name1: 'Expense',
                               name2: 'Transaction',
-                              message:
-                                  'Total number of\nexpense transactions\nfor the selected period',
+                              message: '',
                             ),
                           ],
                         ),
@@ -752,23 +659,21 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/total_income.svg',
                               color: AppColor().backgroundColor,
-                              amount: 'N' +
+                              amount: '₦' +
                                   display(transactionController.recordMoneyIn),
                               name1: 'Total',
                               name2: 'Income',
-                              message:
-                                  'Total income of for\nthe selected period',
+                              message: '',
                             ),
                             SizedBox(width: 10),
                             StatisticsWidget(
                               image: 'assets/images/total_expense.svg',
                               color: AppColor().blackColor,
-                              amount: 'N' +
+                              amount: '₦' +
                                   display(transactionController.recordMoneyOut),
                               name1: 'Total',
                               name2: 'Expenses',
-                              message:
-                                  'Total expense of for\nthe selected period',
+                              message: '',
                             ),
                           ],
                         ),
@@ -778,26 +683,24 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/average_income.svg',
                               color: AppColor().purpleColor,
-                              amount: 'N' +
+                              amount: '₦' +
                                   display((transactionController.recordMoneyIn /
                                       item1.length)),
                               name1: 'Average income',
                               name2: 'per transaction',
-                              message:
-                                  'Average income\nper transactions\nfor the selected period',
+                              message: '',
                             ),
                             SizedBox(width: 10),
                             StatisticsWidget(
                               image: 'assets/images/average_expenses.svg',
                               color: AppColor().wineColor,
-                              amount: 'N' +
+                              amount: '₦' +
                                   display(
                                       (transactionController.recordMoneyOut /
                                           item2.length)),
                               name1: 'Average expenses',
                               name2: 'per transaction',
-                              message:
-                                  'Average expense\nper transactions\nfor the selected period',
+                              message: '',
                             ),
                           ],
                         ),

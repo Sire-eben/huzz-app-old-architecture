@@ -38,10 +38,10 @@ class _BusinessInfoState extends State<BusinessInfo> {
   //         .currencyCode;
 
   final items = [
-    'Box',
-    'feet',
-    'kilogram',
-    'meters',
+    'NGN',
+    'USD',
+    'EUR',
+    'POUNDS',
   ];
 
   String? value;
@@ -112,13 +112,16 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 // ignore: unnecessary_null_comparison
-                  // bankInfoController.BankImage == null
-                  //     ?
-                  Image.asset(
-                    'assets/images/Group 3647.png',
-                  )
-                  // : Image.network(businessController
-                  //     .selectedBusiness.value!.businessImage),
+                  businessController.selectedBusiness.value!
+                                  .buisnessLogoFileStoreId ==
+                              null ||
+                          businessController.selectedBusiness.value!
+                              .buisnessLogoFileStoreId!.isEmpty
+                      ? Image.asset(
+                          'assets/images/Group 3647.png',
+                        )
+                      : Image.network(businessController
+                          .selectedBusiness.value!.buisnessLogoFileStoreId!),
                 ],
               ),
               SizedBox(
@@ -138,7 +141,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
               CustomTextField(
                 label: "Business Name",
                 validatorText: "Business Name required",
-                // hint: businessName,
+                colors: AppColor().blackColor,
                 hint:
                     "${businessController.selectedBusiness.value!.businessName}",
                 textEditingController: businessController.businessName,
@@ -174,9 +177,6 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 height: 10,
               ),
               Container(
-                // margin: EdgeInsets.symmetric(
-                //   horizontal: 10,
-                // ),
                 width: MediaQuery.of(context).size.width,
                 height: 50,
                 decoration: BoxDecoration(
@@ -230,7 +230,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             hintText:
                                 "${businessController.selectedBusiness.value!.businessPhoneNumber}",
                             hintStyle: TextStyle(
-                                color: Colors.black.withOpacity(0.5),
+                                color: Colors.black,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500),
                             prefixText: "+$countryCode ",
@@ -246,17 +246,59 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ],
                 ),
               ),
-
-              CustomTextField(
-                label: "Email",
-                validatorText: "Email required",
-                hint:
-                    "${businessController.selectedBusiness.value!.businessEmail}",
-                textEditingController: businessController.businessEmail,
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 30,
+                margin: EdgeInsets.only(
+                  right: 20,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Email',
+                      style: TextStyle(color: Colors.black, fontSize: 12),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                  ],
+                ),
+              ),
+              TextFormField(
+                controller: businessController.businessEmail,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  isDense: true,
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColor().backgroundColor, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColor().backgroundColor, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppColor().backgroundColor, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  hintText:
+                      "${businessController.selectedBusiness.value!.businessEmail}",
+                  hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                        fontFamily: 'DMSans',
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontStyle: FontStyle.normal,
+                        fontWeight: FontWeight.normal,
+                      ),
+                ),
               ),
               CustomTextField(
                 label: "Address",
                 validatorText: "Address is needed",
+                colors: AppColor().blackColor,
                 hint:
                     "${businessController.selectedBusiness.value!.businessAddress}",
                 textEditingController:
@@ -285,35 +327,11 @@ class _BusinessInfoState extends State<BusinessInfo> {
               SizedBox(
                 height: 10,
               ),
-              // Container(
-              //   width: MediaQuery.of(context).size.width * 1,
-              //   padding: EdgeInsets.symmetric(
-              //     horizontal: 10,
-              //   ),
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(10),
-              //     border: Border.all(width: 2, color: AppColor().backgroundColor),
-              //   ),
-              //   child: DropdownButtonHideUnderline(
-              //     child: DropdownButton<String>(
-              //       value: value,
-              //       focusColor: AppColor().whiteColor,
-              //       icon: Icon(
-              //         Icons.keyboard_arrow_down,
-              //         color: AppColor().backgroundColor,
-              //       ),
-              //     ),
-              //     SizedBox(
-              //       height: 10,
-              //     ),
               Container(
                 width: MediaQuery.of(context).size.width * 1,
                 padding: EdgeInsets.symmetric(
                   horizontal: 10,
                 ),
-                // margin: EdgeInsets.symmetric(
-                //   horizontal: 20,
-                // ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border:
@@ -421,32 +439,6 @@ class _BusinessInfoState extends State<BusinessInfo> {
               SizedBox(
                 height: 10,
               ),
-
-              // InkWell(
-              //   onTap: () {
-              //     // Get.to(Confirmation());
-              //
-              //   },
-              //   child: Container(
-              //     height: 55,
-              //     // margin: EdgeInsets.symmetric(
-              //     //   horizontal: 15,
-              //     // ),
-              //     decoration: BoxDecoration(
-              //         color: AppColor().backgroundColor,
-              //         borderRadius: BorderRadius.circular(10)),
-              //     child: Center(
-              //       child: Text(
-              //         'Save',
-              //         style: TextStyle(
-              //           color: AppColor().whiteColor,
-              //           fontFamily: 'DMSans',
-              //           fontWeight: FontWeight.bold,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Obx(() {
                 return InkWell(
                   onTap: () {
@@ -485,9 +477,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ),
                 );
               }),
-              SizedBox(
-                height: 40,
-              ),
+              SizedBox(height: 25),
             ],
           ),
         );
@@ -1157,12 +1147,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Color(0xffCFD1D2),
-            ),
             borderRadius: BorderRadius.circular(10),
-            color: Color(0xffDCF2EF),
           ),
           child: Center(
             child: Text(
