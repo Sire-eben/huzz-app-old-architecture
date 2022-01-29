@@ -54,9 +54,7 @@ class _NotificationsState extends State<Notifications> {
                     SvgPicture.asset(
                       "assets/images/notification_bell.svg",
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     Text(
                       'Messages',
                       style: TextStyle(
