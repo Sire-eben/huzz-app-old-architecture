@@ -53,6 +53,7 @@ class _CustomerTabViewState extends State<CustomerTabView> {
 
                 //Tool tip
                 Tooltip(
+                  triggerMode: TooltipTriggerMode.tap,
                   padding: EdgeInsets.all(6),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
