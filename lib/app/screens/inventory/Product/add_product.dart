@@ -20,12 +20,26 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
+  int _counter = 0;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // _productController.MproductImage(File(""));
   }
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      // ignore: unnecessary_statements
+      _counter--;
+    });
+  }
+
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
 
@@ -79,7 +93,8 @@ class _AddProductState extends State<AddProduct> {
                   context: context,
                   builder: (context) => buildAddImage()),
               child: Center(
-                child: (_productController.productImage != null&&_productController.productImage!=Null)
+                child: (_productController.productImage != null &&
+                        _productController.productImage != Null)
                     ? Image.file(
                         _productController.productImage!,
                         height: 150,
@@ -226,11 +241,8 @@ class _AddProductState extends State<AddProduct> {
                       Container(
                         margin: EdgeInsets.only(left: 20, right: 20, top: 10),
                         child: TextFormField(
-                          // onChanged: this.onChanged,
-                          // maxLength: 6,
                           controller:
                               _productController.productSellingPriceController,
-
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             isDense: true,
@@ -252,7 +264,6 @@ class _AddProductState extends State<AddProduct> {
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            // labelText: label,
                             hintText: 'N 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
@@ -305,13 +316,14 @@ class _AddProductState extends State<AddProduct> {
                     ),
                   ),
                   Spacer(),
-                  Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: GestureDetector(
+                  GestureDetector(
+                    onTap: _decrementCounter,
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        shape: BoxShape.circle,
+                      ),
                       child: Icon(
                         Icons.remove,
                         size: 18,
@@ -344,8 +356,7 @@ class _AddProductState extends State<AddProduct> {
                                 color: AppColor().backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        // labelText: label,
-                        hintText: 'N 0.00',
+                        hintText: '$_counter',
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
                                   fontFamily: 'DMSans',
@@ -360,16 +371,19 @@ class _AddProductState extends State<AddProduct> {
                   SizedBox(
                     width: 10,
                   ),
-                  Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: 18,
-                      color: AppColor().whiteColor,
+                  GestureDetector(
+                    onTap: _incrementCounter,
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.add,
+                        size: 18,
+                        color: AppColor().whiteColor,
+                      ),
                     ),
                   ),
                 ],
@@ -540,7 +554,8 @@ class _AddProductState extends State<AddProduct> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    (_productController.productImage != null&&_productController.productImage!=Null)
+                    (_productController.productImage != null &&
+                            _productController.productImage != Null)
                         ? Image.file(
                             _productController.productImage!,
                             height: 150,
