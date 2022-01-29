@@ -225,12 +225,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
             SizedBox(
               height: 25,
             ),
-            // Center(
-            //   child: SvgPicture.asset(
-            //     'assets/images/image-signature.svg',
-            //     // height: 50,
-            //   ),
-            // ),
             Spacer(),
             Obx(() {
               return InkWell(

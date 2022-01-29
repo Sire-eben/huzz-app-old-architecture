@@ -483,6 +483,36 @@ class AuthRepository extends GetxController {
     }
   }
 
+  void deleteBusinessAccounts() async {
+    _authStatus(AuthStatus.Loading);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final key = 'token';
+      final value = prefs.get(key) ?? 0;
+      String? id;
+
+      String myUrl = ApiLink.delete_business + '$id';
+      var response = await http.delete(Uri.parse(myUrl), headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $value'
+      });
+
+      // ignore: unnecessary_null_comparison
+      if (response.statusCode != null) {
+        // ignore: unnecessary_null_comparison
+        if (response != null) {
+          _authStatus(AuthStatus.Authenticated);
+
+          Get.offAll(() => Signup());
+        }
+      } else {
+        _authStatus(AuthStatus.Empty);
+      }
+    } catch (error) {
+      _authStatus(AuthStatus.Error);
+    }
+  }
+
   void logout() {
     _authStatus(AuthStatus.UnAuthenticated);
     pref!.saveToken("0");

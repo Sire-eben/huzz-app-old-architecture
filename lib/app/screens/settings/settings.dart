@@ -230,10 +230,10 @@ class _SettingsState extends State<Settings> {
                         ),
                         InkWell(
                           onTap: () {
-                            _displayDialog(context,
-                                "are you sure want to delete your account", () {
-                              controller.deleteUsersAccounts();
-                            });
+                            _displayDialog(
+                                context,
+                                "are you sure want to delete your account",
+                                () {});
                           },
                           child: SvgPicture.asset(
                             "assets/images/delete.svg",
@@ -634,6 +634,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     InkWell(
                       onTap: () {
+                        controller.deleteUsersAccounts();
                         onContinue();
                       },
                       child: Container(
@@ -739,6 +740,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     InkWell(
                       onTap: () {
+                        controller.deleteBusinessAccounts();
                         onContinue();
                       },
                       child: Container(

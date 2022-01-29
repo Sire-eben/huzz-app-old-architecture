@@ -38,10 +38,10 @@ class _BusinessInfoState extends State<BusinessInfo> {
   //         .currencyCode;
 
   final items = [
-    'Box',
-    'feet',
-    'kilogram',
-    'meters',
+    'NGN',
+    'USD',
+    'EUR',
+    'POUNDS',
   ];
 
   String? value;
@@ -112,13 +112,16 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
 // ignore: unnecessary_null_comparison
-                  // bankInfoController.BankImage == null
-                  //     ?
-                  Image.asset(
-                    'assets/images/Group 3647.png',
-                  )
-                  // : Image.network(businessController
-                  //     .selectedBusiness.value!.businessImage),
+                  businessController.selectedBusiness.value!
+                                  .buisnessLogoFileStoreId ==
+                              null ||
+                          businessController.selectedBusiness.value!
+                              .buisnessLogoFileStoreId!.isEmpty
+                      ? Image.asset(
+                          'assets/images/Group 3647.png',
+                        )
+                      : Image.network(businessController
+                          .selectedBusiness.value!.buisnessLogoFileStoreId!),
                 ],
               ),
               SizedBox(
@@ -138,6 +141,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
               CustomTextField(
                 label: "Business Name",
                 validatorText: "Business Name required",
+                colors: AppColor().blackColor,
                 hint:
                     "${businessController.selectedBusiness.value!.businessName}",
                 textEditingController: businessController.businessName,
@@ -173,9 +177,6 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 height: 10,
               ),
               Container(
-                // margin: EdgeInsets.symmetric(
-                //   horizontal: 10,
-                // ),
                 width: MediaQuery.of(context).size.width,
                 height: 50,
                 decoration: BoxDecoration(
@@ -229,7 +230,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             hintText:
                                 "${businessController.selectedBusiness.value!.businessPhoneNumber}",
                             hintStyle: TextStyle(
-                                color: Colors.black.withOpacity(0.5),
+                                color: Colors.black,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500),
                             prefixText: "+$countryCode ",
@@ -287,7 +288,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       "${businessController.selectedBusiness.value!.businessEmail}",
                   hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
                         fontFamily: 'DMSans',
-                        color: Colors.black26,
+                        color: Colors.black,
                         fontSize: 14,
                         fontStyle: FontStyle.normal,
                         fontWeight: FontWeight.normal,
@@ -297,6 +298,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
               CustomTextField(
                 label: "Address",
                 validatorText: "Address is needed",
+                colors: AppColor().blackColor,
                 hint:
                     "${businessController.selectedBusiness.value!.businessAddress}",
                 textEditingController:
@@ -1145,12 +1147,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: Color(0xffCFD1D2),
-            ),
             borderRadius: BorderRadius.circular(10),
-            color: Color(0xffDCF2EF),
           ),
           child: Center(
             child: Text(

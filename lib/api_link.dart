@@ -43,4 +43,6 @@ class ApiLink {
   static String invoice_link = baseurl + "business/invoice";
   // ignore: non_constant_identifier_names
   static String delete_user = baseurl + "user/delete";
+  // ignore: non_constant_identifier_names
+  static String delete_business = baseurl + "business/";
 }
