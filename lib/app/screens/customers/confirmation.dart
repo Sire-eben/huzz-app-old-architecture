@@ -34,7 +34,7 @@ class ConfirmationCustomer extends StatelessWidget {
           ),
           Center(
             child: Text(
-              'Customer Successfully',
+              text + ' Successfully',
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: 'DMSans',
@@ -45,7 +45,7 @@ class ConfirmationCustomer extends StatelessWidget {
           ),
           Center(
             child: Text(
-              text,
+              'Added',
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: 'DMSans',

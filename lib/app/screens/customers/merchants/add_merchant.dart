@@ -106,7 +106,8 @@ class _AddMerchantState extends State<AddMerchant> {
                     if (_customerController.addingCustomerStatus !=
                         AddingCustomerStatus.Loading) {
                       if (widget.item == null)
-                        _customerController.addBusinnessCustomer("EXPENDITURE");
+                        _customerController.addBusinnessCustomer(
+                            "EXPENDITURE", 'Merchant');
                       else
                         _customerController
                             .updateBusinesscustomer(widget.item!);

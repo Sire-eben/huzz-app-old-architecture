@@ -102,11 +102,11 @@ class CustomerRepository extends GetxController {
     }
   }
 
-  Future addBusinnessCustomer(String type) async {
+  Future addBusinnessCustomer(String type, String name) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      addBusinessCustomerOnline(type);
+      addBusinessCustomerOnline(type, name);
     } else {
-      addBusinessCustomerOffline(type);
+      addBusinessCustomerOffline(type, name);
     }
   }
 
@@ -126,7 +126,7 @@ class CustomerRepository extends GetxController {
     }
   }
 
-  Future addBusinessCustomerOnline(String transactionType) async {
+  Future addBusinessCustomerOnline(String transactionType, String name) async {
     try {
       _addingCustomerStatus(AddingCustomerStatus.Loading);
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
@@ -151,7 +151,7 @@ class CustomerRepository extends GetxController {
               _businessController.selectedBusiness.value!.businessId!);
           clearValue();
           Get.to(ConfirmationCustomer(
-            text: "Added",
+            text: name,
           ));
           return json['data']['id'];
         } else {
@@ -170,7 +170,8 @@ class CustomerRepository extends GetxController {
 
   Future<String?> addBusinessCustomerWithString(String transactionType) async {
     try {
-      print("adding customer phone ${phoneNumberController.text} name ${nameController.text}");
+      print(
+          "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
           body: jsonEncode({
             "email": emailController.text,
@@ -184,7 +185,7 @@ class CustomerRepository extends GetxController {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-print("adding customer response ${response.body}");
+      print("adding customer response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -204,17 +205,18 @@ print("adding customer response ${response.body}");
     }
   }
 
-   Future<String?> addBusinessCustomerWithStringWithValue(Customer customer) async {
+  Future<String?> addBusinessCustomerWithStringWithValue(
+      Customer customer) async {
     try {
-      print("adding customer phone ${phoneNumberController.text} name ${nameController.text}");
+      print(
+          "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
-          body: jsonEncode(
-            customer.toJson()),
+          body: jsonEncode(customer.toJson()),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-print("adding customer response ${response.body}");
+      print("adding customer response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -235,7 +237,9 @@ print("adding customer response ${response.body}");
   }
 
   Future<String?> addBusinessCustomerOfflineWithString(String transactionType,
-      {bool isinvoice = false, bool istransaction = false,bool isdebtor=false}) async {
+      {bool isinvoice = false,
+      bool istransaction = false,
+      bool isdebtor = false}) async {
     var customer = Customer(
         name: nameController.text,
         phone: phoneNumberController.text,
@@ -253,7 +257,7 @@ print("adding customer response ${response.body}");
     return customer.customerId!;
   }
 
-  Future addBusinessCustomerOffline(String transactionType) async {
+  Future addBusinessCustomerOffline(String transactionType, String name) async {
     var customer = Customer(
         name: nameController.text,
         phone: phoneNumberController.text,
@@ -267,7 +271,7 @@ print("adding customer response ${response.body}");
     getOfflineCustomer(customer.businessId!);
     clearValue();
     Get.to(ConfirmationCustomer(
-      text: "Added",
+      text: name,
     ));
   }
 
