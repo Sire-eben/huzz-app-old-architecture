@@ -121,7 +121,7 @@ class _DebtorsState extends State<Debtors> {
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xffF5F5F5),
+                            // color: Color(0xffF5F5F5),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: (_debtorController.debtorsList.isEmpty)
@@ -758,13 +758,13 @@ class _DebtorListingState extends State<DebtorListing> {
                             fontSize: 30,
                             color: Colors.white,
                             fontFamily: 'DMSans',
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.normal),
                       ))),
                 ),
               )),
               SizedBox(width: MediaQuery.of(context).size.width * 0.02),
               Expanded(
-                flex: 5,
+                flex: 4,
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -799,8 +799,8 @@ class _DebtorListingState extends State<DebtorListing> {
                         style: TextStyle(
                             fontSize: 13,
                             fontFamily: 'DMSans',
-                            color: AppColor().orangeBorderColor,
-                            fontWeight: FontWeight.w400),
+                            color: AppColor().backgroundColor,
+                            fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "Paid: ${(widget.item!.totalAmount! - widget.item!.balance!)}",

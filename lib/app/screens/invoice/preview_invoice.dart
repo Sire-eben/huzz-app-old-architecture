@@ -79,46 +79,46 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                       setState(() => this.controller = controller),
                 ),
               ),
-              Padding(
-                padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-                child: Row(
-                  children: [
-                    Container(
-                      child: Checkbox(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        activeColor: AppColor().backgroundColor,
-                        value: previewTheme,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            previewTheme = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    Container(
-                      child: Checkbox(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        activeColor: Color(0xff0065D3),
-                        value: !previewTheme,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            previewTheme = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    Text(
-                      'Change receipt theme',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'DMSans'),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding:
+              //       EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+              //   child: Row(
+              //     children: [
+              //       Container(
+              //         child: Checkbox(
+              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //           activeColor: AppColor().backgroundColor,
+              //           value: previewTheme,
+              //           onChanged: (bool? value) {
+              //             setState(() {
+              //               previewTheme = value!;
+              //             });
+              //           },
+              //         ),
+              //       ),
+              //       Container(
+              //         child: Checkbox(
+              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //           activeColor: Color(0xff0065D3),
+              //           value: !previewTheme,
+              //           onChanged: (bool? value) {
+              //             setState(() {
+              //               previewTheme = value!;
+              //             });
+              //           },
+              //         ),
+              //       ),
+              //       Text(
+              //         'Change receipt theme',
+              //         style: TextStyle(
+              //             color: Colors.black,
+              //             fontSize: 10,
+              //             fontWeight: FontWeight.w400,
+              //             fontFamily: 'DMSans'),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.02),
