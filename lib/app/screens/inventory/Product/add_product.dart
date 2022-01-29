@@ -38,6 +38,7 @@ class _AddProductState extends State<AddProduct> {
   ];
 
   String? value;
+  int qty = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -314,6 +315,17 @@ class _AddProductState extends State<AddProduct> {
                       shape: BoxShape.circle,
                     ),
                     child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (qty < 2) {
+                            qty = 1;
+                          } else {
+                            --qty;
+                          }
+                          _productController.productQuantityController.text =
+                              qty.toString();
+                        });
+                      },
                       child: Icon(
                         Icons.remove,
                         size: 18,
@@ -326,52 +338,78 @@ class _AddProductState extends State<AddProduct> {
                   ),
                   Container(
                     width: 120,
-                    child: TextFormField(
-                      controller: _productController.productQuantityController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        // labelText: label,
-                        hintText: 'e.g. 2',
-                        hintStyle:
-                            Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontFamily: 'DMSans',
-                                  color: Colors.black26,
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                      ),
-                    ),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: AppColor().backgroundColor, width: 2),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Center(
+                        child: Text(
+                      qty.toString(),
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                            fontFamily: 'DMSans',
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.normal,
+                          ),
+                    )),
+
+                    // child: TextFormField(
+                    //   controller: _productController.productQuantityController,
+                    //   keyboardType: TextInputType.number,
+                    //   decoration: InputDecoration(
+                    //     isDense: true,
+                    //     focusedBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //             color: AppColor().backgroundColor, width: 2),
+                    //         borderRadius:
+                    //             BorderRadius.all(Radius.circular(10))),
+                    //     enabledBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //             color: AppColor().backgroundColor, width: 2),
+                    //         borderRadius:
+                    //             BorderRadius.all(Radius.circular(10))),
+                    //     border: OutlineInputBorder(
+                    //         borderSide: BorderSide(
+                    //             color: AppColor().backgroundColor, width: 2),
+                    //         borderRadius:
+                    //             BorderRadius.all(Radius.circular(10))),
+                    //     // labelText: label,
+                    //     hintText: 'e.g. 2',
+                    //     hintStyle:
+                    //         Theme.of(context).textTheme.headline4!.copyWith(
+                    //               fontFamily: 'DMSans',
+                    //               color: Colors.black26,
+                    //               fontSize: 14,
+                    //               fontStyle: FontStyle.normal,
+                    //               fontWeight: FontWeight.normal,
+                    //             ),
+                    //   ),
+                    // ),
                   ),
                   SizedBox(
                     width: 10,
                   ),
-                  Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: 18,
-                      color: AppColor().whiteColor,
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        qty++;
+                        _productController.productQuantityController.text =
+                            qty.toString();
+                      });
+                    },
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.add,
+                        size: 18,
+                        color: AppColor().whiteColor,
+                      ),
                     ),
                   ),
                 ],
