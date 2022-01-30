@@ -4,7 +4,6 @@ import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/add_product.dart';
 import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
 import 'package:huzz/model/product.dart';
-import 'package:huzz/model/product_model.dart';
 import 'package:number_display/number_display.dart';
 
 import '../../../../colors.dart';
@@ -18,118 +17,57 @@ class ProductListing extends StatefulWidget {
 }
 
 class _ProductListingState extends State<ProductListing> {
-    final display = createDisplay(
-    length: 5,
-    decimal: 0,
-    placeholder: 'N',
-    units: ['K','M','B','T']
-  );
+  final display = createDisplay(
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   final TextEditingController textEditingController = TextEditingController();
-  List<Product> searchResult=[];
-  var searchtext='';
-  bool isDelete=false;
+  List<Product> searchResult = [];
+  var searchtext = '';
+  bool isDelete = false;
   final _productController = Get.find<ProductRepository>();
-  void searchItem(String val){
-    searchtext=val;
-searchResult.clear();
-setState(() {
-  
-});
-_productController.productGoods.forEach((element) {
-  if (element.productName!.toLowerCase().contains(val.toLowerCase())){
-
-searchResult.add(element);
+  void searchItem(String val) {
+    searchtext = val;
+    searchResult.clear();
+    setState(() {});
+    _productController.productGoods.forEach((element) {
+      if (element.productName!.toLowerCase().contains(val.toLowerCase())) {
+        searchResult.add(element);
+      }
+    });
+    setState(() {});
   }
 
-});
-setState(() {
-  
-});
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor().whiteColor,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Get.to(AddProduct());
+        },
+        icon: Icon(Icons.add),
+        backgroundColor: AppColor().backgroundColor,
+        label: Text(
+          'New Product',
+          style: TextStyle(
+              fontFamily: 'DMSans',
+              fontSize: 10,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Stack(
         children: [
           // Product Count
           Positioned(
-            top: 30,
+            top: 15,
             left: 20,
             right: 20,
             child: productCount(context),
           ),
 
-          // Add &  Delete Button
+          //Search
           Positioned(
-            top: 210,
-            left: 20,
-            right: 20,
-            child: Row(
-              children: [
-                Text(
-                  'Product (${_productController.productGoods.length})',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-                Spacer(),
-                // InkWell(
-                //   onTap: () => showModalBottomSheet(
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.vertical(
-                //         top: Radius.circular(20),
-                //       ),
-                //     ),
-                //     context: context,
-                //     builder: (context) => buildAddProduct(),
-                //   ),
-                //   child: Container(
-                //     height: 30,
-                //     width: 30,
-                //     decoration: BoxDecoration(
-                //       color: AppColor().lightbackgroundColor,
-                //       shape: BoxShape.circle,
-                //     ),
-                //     child: Icon(
-                //       Icons.add,
-                //       size: 20,
-                //       color: AppColor().backgroundColor,
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(
-                //   width: 5,
-                // ),
-                InkWell(
-                  onTap: () {
-                    // Get.to(BuildDeleteProduct());
-                    setState(() {
-                      isDelete=!isDelete;
-                    });
-                  },
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.delete_outline_outlined,
-                      size: 20,
-                      color: AppColor().backgroundColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 140,
+            top: 125,
             left: 20,
             right: 20,
             child: Container(
@@ -188,70 +126,108 @@ setState(() {
               ),
             ),
           ),
+
+          // Add &  Delete Button
+          Positioned(
+            top: 190,
+            left: 30,
+            right: 30,
+            child: Row(
+              children: [
+                Text(
+                  'Product (${_productController.productGoods.length})',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: 'DMSans',
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Spacer(),
+                InkWell(
+                  onTap: () {
+                    Get.to(AddProduct());
+                  }
+
+                  // => showModalBottomSheet(
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.vertical(
+                  //       top: Radius.circular(20),
+                  //     ),
+                  //   ),
+                  //   context: context,
+                  //   builder: (context) => buildAddProduct(),
+                  // )
+                  ,
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColor().lightbackgroundColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.add,
+                      size: 20,
+                      color: AppColor().backgroundColor,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.to(BuildDeleteProduct());
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: AppColor().lightbackgroundColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.delete_outline_outlined,
+                      size: 20,
+                      color: AppColor().backgroundColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           //ProductList
           Positioned(
-            top: 250,
+            top: 240,
             bottom: 30,
             left: 20,
             right: 20,
-            child:(searchtext.isEmpty||searchResult.isNotEmpty)? ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount:(searchResult.isEmpty)? _productController.productGoods.length:searchResult.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var item =(searchResult.isEmpty)? _productController.productGoods[index]:searchResult[index];
-                  print("product item ${item.toJson()}");
-                  return (isDelete)?ListingProductDelete(item: item,): ListingProduct(
-                    item: item,
-                  );
-                }):Container(
+            child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                ? ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: (searchResult.isEmpty)
+                        ? _productController.productGoods.length
+                        : searchResult.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var item = (searchResult.isEmpty)
+                          ? _productController.productGoods[index]
+                          : searchResult[index];
+                      print("product item ${item.toJson()}");
+                      return (isDelete)
+                          ? ListingProductDelete(
+                              item: item,
+                            )
+                          : ListingProduct(
+                              item: item,
+                            );
+                    })
+                : Container(
                     child: Center(
-
                       child: Text("No Product Found"),
                     ),
                   ),
-          ),
-          Positioned(
-            bottom: 10,
-            right: 30,
-            child: GestureDetector(
-              onTap: () {
-                if(isDelete)
-                _productController.deleteSelectedItem();
-                else
-                Get.to(AddProduct());
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 15,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColor().backgroundColor,
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.add,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                    (isDelete)?"Delete Product(s)":  'New Product',
-                      style: TextStyle(
-                        color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ),
         ],
       ),
@@ -788,6 +764,7 @@ class _ListingProductState extends State<ListingProduct> {
   }
 }
 
+// ignore: must_be_immutable
 class ListingProductDelete extends StatefulWidget {
   Product? item;
   ListingProductDelete({

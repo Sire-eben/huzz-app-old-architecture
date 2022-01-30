@@ -77,15 +77,15 @@ class _RecordsState extends State<Records> {
     });
     return dateRange;
   }
-  List<RecordsData> item1=[];
-  List<RecordsData> item2=[];
-   @override
+
+  List<RecordsData> item1 = [];
+  List<RecordsData> item2 = [];
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-
   }
+
   @override
   Widget build(BuildContext context) {
     // transactionController.
@@ -242,7 +242,7 @@ class _RecordsState extends State<Records> {
                         ),
                         SizedBox(width: 2),
                         Text(
-                          'Money Out (₦)',
+                          'Money Out (N)',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
@@ -264,7 +264,7 @@ class _RecordsState extends State<Records> {
                         ),
                         SizedBox(width: 2),
                         Text(
-                          'Money in (₦)',
+                          'Money in (N)',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
@@ -298,22 +298,29 @@ class _RecordsState extends State<Records> {
                           ),
                           isDense: true,
                           items: recordFilter.map(buildDropDown).toList(),
-                          onChanged: (value)async {
-                         transactionController.value(value);
-                            if (transactionController.value.value.contains("This Year")) {
+                          onChanged: (value) async {
+                            transactionController.value(value);
+                            if (transactionController.value.value
+                                .contains("This Year")) {
                               transactionController.getYearRecord();
-                            } else if (transactionController.value.value.contains("Today")) {
+                            } else if (transactionController.value.value
+                                .contains("Today")) {
                               transactionController.splitCurrentTime();
-                            } else if (transactionController.value.value.contains("This Week")) {
+                            } else if (transactionController.value.value
+                                .contains("This Week")) {
                               transactionController.getWeeklyRecordData();
-                            } else if (transactionController.value.value.contains("This month")) {
+                            } else if (transactionController.value.value
+                                .contains("This month")) {
                               transactionController.getMonthlyRecord();
-                            } else if (transactionController.value.value.contains("This Month")) {
+                            } else if (transactionController.value.value
+                                .contains("This Month")) {
                               transactionController.getMonthlyRecord();
-                            } else if (transactionController.value.value.contains("All Time")) {
+                            } else if (transactionController.value.value
+                                .contains("All Time")) {
                               transactionController.getAllTimeRecord();
-                            }else if(transactionController.value.value.contains("Custom date range")){
-                                 DateTimeRange? val =
+                            } else if (transactionController.value.value
+                                .contains("Custom date range")) {
+                              DateTimeRange? val =
                                   await pickDateRanges(context);
                               if (val != null) {
                                 transactionController.getDateRangeRecordData(
@@ -335,7 +342,7 @@ class _RecordsState extends State<Records> {
                     // transactionController.value.toString() == 'Custom date range'
                     //     ? IconButton(
                     //         onPressed: () async {
-                           
+
                     //         },
                     //         icon: Icon(
                     //           Icons.date_range,
@@ -357,12 +364,15 @@ class _RecordsState extends State<Records> {
                     return SfCartesianChart(
                         primaryYAxis: NumericAxis(
                           // labelFormat: "N"
-                          axisLabelFormatter: (s)=>ChartAxisLabel("N${display(s.value)}",TextStyle(fontSize: 10)),
+                          axisLabelFormatter: (s) => ChartAxisLabel(
+                              "N${display(s.value)}", TextStyle(fontSize: 10)),
                         ),
-                       primaryXAxis: CategoryAxis(),
-                        onTooltipRender: (s){
-                                  var list=s.text!.split(":");
-                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
+                        primaryXAxis: CategoryAxis(),
+                        onTooltipRender: (s) {
+                          var list = s.text!.split(":");
+                          s.text =
+                              "${list[0]} ${display(double.parse(list[1]))}";
+                        },
                         // Chart title
                         // title: ChartTitle(text: 'Half yearly sales analysis'),
                         // Enable legend
@@ -397,14 +407,15 @@ class _RecordsState extends State<Records> {
                               name: 'Value',
                               xAxisName: "Date",
                               yAxisName: "Amount",
-                             
                               splineType: SplineType.cardinal,
                               cardinalSplineTension: 0.9,
                               // Enable data label
-                              dataLabelSettings:
-                                  DataLabelSettings(isVisible: false,
-                                  builder: (data, point, series, pointIndex, seriesIndex) =>Text("bb") ,)
-                                  ),
+                              dataLabelSettings: DataLabelSettings(
+                                isVisible: false,
+                                builder: (data, point, series, pointIndex,
+                                        seriesIndex) =>
+                                    Text("bb"),
+                              )),
                         ]);
                   }),
                 ),

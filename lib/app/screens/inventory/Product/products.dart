@@ -16,12 +16,8 @@ class Products extends StatefulWidget {
 
 class _ProductsState extends State<Products> {
   final _productController = Get.find<ProductRepository>();
-    final display = createDisplay(
-    length: 5,
-    decimal: 0,
-    placeholder: 'N',
-    units: ['K','M','B','T']
-  );
+  final display = createDisplay(
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   @override
   Widget build(BuildContext context) {
     return (_productController.productGoods.isEmpty)
@@ -120,7 +116,7 @@ class _ProductsState extends State<Products> {
                           width: 10,
                         ),
                         Text(
-                          'New Services',
+                          'New Products',
                           style: TextStyle(
                             color: AppColor().whiteColor,
                             fontFamily: 'DMSans',
