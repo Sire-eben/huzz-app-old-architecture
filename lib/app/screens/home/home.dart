@@ -509,7 +509,7 @@ class _HomeState extends State<Home> {
                         width: 10,
                       ),
                       buildMenuItem(_businessController
-                                  .selectedBusiness.value!.businessName ==
+                                  .selectedBusiness.value==
                               null
                           ? "No Business"
                           : "${_businessController.selectedBusiness.value!.businessName}"),

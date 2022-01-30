@@ -111,9 +111,11 @@ var pinController = TextEditingController();
       if (pref!.getUser() != null &&
           !DateTime.now().isAfter(pref!.getDateTokenExpired()) &&
           !tokenExpired) {
+            print("gotten here is value");
         user = pref!.getUser()!;
 
         Mtoken(pref!.read());
+        print("result of token is ${Mtoken.value}");
 
         _authStatus(AuthStatus.Authenticated);
         if (Mtoken.value == "0") {
