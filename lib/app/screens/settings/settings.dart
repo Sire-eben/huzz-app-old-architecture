@@ -65,53 +65,14 @@ class _SettingsState extends State<Settings> {
           ),
         ),
       ),
-      body:
-          // Obx(
-          //   () =>
-          Stack(
-        children: [
-          Positioned(
-            top: 20,
-            left: 100,
-            right: 100,
-            child: Container(
-                decoration: BoxDecoration(
-                  color: AppColor().whiteColor,
-                  border: Border.all(
-                    width: 2,
-                    color: AppColor().backgroundColor,
-                  ),
-                  shape: BoxShape.circle,
-                ),
-                // child: Center(
-                //   child: (controller.profileImage == null ||
-                //           controller.user!.profileImageFileStoreId!.isEmpty)
-                //       ?
-                child: Image.asset(
-                  "assets/images/profileImg.png",
-                )
-                //       : Image.file(
-                //           controller.profileImage!,
-                //           height: 100,
-                //           width: 100,
-                //         ),
-                // ),
-                ),
-          ),
-          Positioned(
-            top: 70,
-            left: 200,
-            right: 150,
-            child: GestureDetector(
-              onTap: () => showModalBottomSheet(
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(20))),
-                  context: context,
-                  builder: (context) => buildAddImage()),
+      body: Obx(
+        () => Stack(
+          children: [
+            Positioned(
+              top: 20,
+              left: 100,
+              right: 100,
               child: Container(
-                height: 30,
-                width: 30,
                 decoration: BoxDecoration(
                   color: AppColor().whiteColor,
                   border: Border.all(
@@ -121,301 +82,131 @@ class _SettingsState extends State<Settings> {
                   shape: BoxShape.circle,
                 ),
                 child: Center(
-                  child: SvgPicture.asset(
-                    "assets/images/addcamera.svg",
-                    height: 15,
-                    width: 15,
+                  child: (controller.profileImage == null ||
+                          controller.user!.profileImageFileStoreId!.isEmpty)
+                      ? Image.asset(
+                          "assets/images/profileImg.png",
+                        )
+                      : Image.file(
+                          controller.profileImage!,
+                          height: 100,
+                          width: 100,
+                        ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 70,
+              left: 200,
+              right: 150,
+              child: GestureDetector(
+                onTap: () => showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20))),
+                    context: context,
+                    builder: (context) => buildAddImage()),
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: AppColor().whiteColor,
+                    border: Border.all(
+                      width: 2,
+                      color: AppColor().backgroundColor,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      "assets/images/addcamera.svg",
+                      height: 15,
+                      width: 15,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: Text(
-                        // ignore: unnecessary_null_comparison
-                        controller.user!.firstName == null
-                            ? 'First Name'
-                            : firstName,
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      child: Text(
-                        controller.user!.lastName == null
-                            ? 'Last Name'
-                            : lastName!,
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 60,
-                ),
-                // Personal Account
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  height: 55,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Color(0xffE6F4F2),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: AppColor().whiteColor,
-                          border: Border.all(
-                            width: 2,
-                            color: AppColor().whiteColor,
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/images/user.svg",
-                            height: 20,
-                            width: 20,
+                        child: Text(
+                          // ignore: unnecessary_null_comparison
+                          controller.user!.firstName == null
+                              ? 'First Name'
+                              : firstName,
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
                           ),
                         ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        'Personal Account',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(PersonalInfo());
-                        },
-                        child: SvgPicture.asset(
-                          "assets/images/setting.svg",
-                          height: 20,
-                          width: 20,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          _displayDialog(
-                              context,
-                              "are you sure want to delete your account",
-                              () {});
-                        },
-                        child: SvgPicture.asset(
-                          "assets/images/delete.svg",
-                          height: 20,
-                          width: 20,
+                      Container(
+                        child: Text(
+                          controller.user!.lastName == null
+                              ? 'Last Name'
+                              : lastName!,
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                // Business Account
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  height: 55,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Color(0xffE6F4F2),
-                    borderRadius: BorderRadius.circular(15),
+                  SizedBox(
+                    height: 60,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: AppColor().whiteColor,
-                          border: Border.all(
-                            width: 2,
-                            color: AppColor().whiteColor,
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/images/business.svg",
-                            height: 15,
-                            width: 15,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Business Account',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(BusinessInfo());
-                        },
-                        child: SvgPicture.asset(
-                          "assets/images/setting.svg",
-                          height: 20,
-                          width: 20,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          _displayBusinessDialog(
-                            context,
-                            'You are about to delete your Huzz account and all associated data. This is an irreversible action. Are you sure you want to continue?',
-                            () {},
-                          );
-                        },
-                        child: SvgPicture.asset(
-                          "assets/images/delete.svg",
-                          height: 20,
-                          width: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                // Notification
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  height: 55,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Color(0xffE6F4F2),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: AppColor().whiteColor,
-                          border: Border.all(
-                            width: 2,
-                            color: AppColor().whiteColor,
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "assets/images/bell.svg",
-                            height: 20,
-                            width: 20,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Notification Settings',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(Notifications());
-                        },
-                        child: SvgPicture.asset(
-                          "assets/images/setting.svg",
-                          height: 20,
-                          width: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                // LogOut
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  height: 55,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Color(0xffE6F4F2),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      _displayDialog(
-                          context, "Are you sure you want to log out", () {
-                        controller.logout();
-                      });
-                    },
+                  // Personal Account
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    height: 55,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE6F4F2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.asset(
-                          "assets/images/logout.svg",
+                        Container(
                           height: 30,
                           width: 30,
+                          decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().whiteColor,
+                            ),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/user.svg",
+                              height: 20,
+                              width: 20,
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
-                          'Logout',
+                          'Personal Account',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
@@ -424,16 +215,222 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(PersonalInfo());
+                          },
+                          child: SvgPicture.asset(
+                            "assets/images/setting.svg",
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            _displayDialog(
+                                context,
+                                "are you sure want to delete your account",
+                                () {});
+                          },
+                          child: SvgPicture.asset(
+                            "assets/images/delete.svg",
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // Business Account
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    height: 55,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE6F4F2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().whiteColor,
+                            ),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/business.svg",
+                              height: 15,
+                              width: 15,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Business Account',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(BusinessInfo());
+                          },
+                          child: SvgPicture.asset(
+                            "assets/images/setting.svg",
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            _displayBusinessDialog(
+                              context,
+                              'You are about to delete your Huzz account and all associated data. This is an irreversible action. Are you sure you want to continue?',
+                              () {},
+                            );
+                          },
+                          child: SvgPicture.asset(
+                            "assets/images/delete.svg",
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // Notification
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    height: 55,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE6F4F2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().whiteColor,
+                            ),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              "assets/images/bell.svg",
+                              height: 20,
+                              width: 20,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Notification Settings',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(Notifications());
+                          },
+                          child: SvgPicture.asset(
+                            "assets/images/setting.svg",
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // LogOut
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    height: 55,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE6F4F2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        _displayDialog(
+                            context, "Are you sure you want to log out", () {
+                          controller.logout();
+                        });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/images/logout.svg",
+                            height: 30,
+                            width: 30,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Logout',
+                            style: TextStyle(
+                              color: AppColor().blackColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Spacer(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-      // ),
     );
   }
 
