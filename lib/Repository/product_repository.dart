@@ -431,14 +431,17 @@ class ProductRepository extends GetxController
   }
 
   Future deleteProductOnline(Product product) async {
+    print("trying to delete online");
     var response = await http.delete(
         Uri.parse(ApiLink.add_product +
             "/${product.productId}?businessId=${product.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     print("delete response ${response.body}");
     if (response.statusCode == 200) {
+  
     } else {}
     _businessController.sqliteDb.deleteProduct(product);
+    await getOfflineProduct(product.businessId!);
   }
 
   Future deleteBusinessProduct(Product product) async {
@@ -457,6 +460,7 @@ class ProductRepository extends GetxController
     } else {
       _businessController.sqliteDb.deleteProduct(product);
     }
+   
     getOfflineProduct(_businessController.selectedBusiness.value!.businessId!);
   }
 
@@ -473,6 +477,7 @@ class ProductRepository extends GetxController
   }
 
   Future deleteSelectedItem() async {
+    print("selected for deletion is ${deleteProductList.length}");
     if (deleteProductList.isEmpty) {
       return;
     }
@@ -485,7 +490,8 @@ class ProductRepository extends GetxController
     if (deleteProductList.isNotEmpty) {
       deleteSelectedItem();
     }
-    getOfflineProduct(deletenext.businessId!);
+
+   await getOfflineProduct(deletenext.businessId!);
   }
 
   void addToDeleteList(Product product) {

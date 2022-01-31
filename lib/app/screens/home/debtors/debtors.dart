@@ -12,6 +12,7 @@ import 'package:huzz/model/debtor.dart';
 import 'package:huzz/model/user.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../colors.dart';
 import 'debtorreminder.dart';
@@ -944,7 +945,8 @@ final display = createDisplay(
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          _displayDialog(context);
+                          Share.share("$initialText", subject: 'Send Message');
+                          // _displayDialog(context);
                         },
                         child: Image.asset('assets/images/share.png'),
                       ),

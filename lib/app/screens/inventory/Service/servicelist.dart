@@ -147,43 +147,17 @@ class _ServiceListingState extends State<ServiceListing> {
                     ),
                   ),
                   Spacer(),
-                  InkWell(
-                    onTap: () {
-                      Get.to(AddService());
-                    }
-
-                    //  => showModalBottomSheet(
-                    //   shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.vertical(
-                    //       top: Radius.circular(20),
-                    //     ),
-                    //   ),
-                    //   context: context,
-                    //   builder: (context) => buildAddProduct(),
-                    // )
-
-                    ,
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: AppColor().lightbackgroundColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.add,
-                        size: 20,
-                        color: AppColor().backgroundColor,
-                      ),
-                    ),
-                  ),
+                  
                   SizedBox(
                     width: 5,
                     height: 10,
                   ),
                   InkWell(
                     onTap: () {
-                      Get.to(BuildDeleteProduct());
+                    setState(() {
+                      
+                      isDelete=!isDelete;
+                    });
                     },
                     child: Container(
                       height: 30,
