@@ -168,29 +168,34 @@ class _RecordsState extends State<Records> {
                           ],
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Balance",
-                            style: TextStyle(
-                              color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.015),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Balance",
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          Text(
-                            "N${display(transactionController.recordBalance)}",
-                            style: TextStyle(
-                              color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              "N${display(transactionController.recordBalance)}",
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
