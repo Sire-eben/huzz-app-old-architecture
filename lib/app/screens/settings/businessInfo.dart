@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
@@ -9,10 +10,12 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/settings/itemCard.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/business.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../colors.dart';
@@ -26,16 +29,15 @@ class BusinessInfo extends StatefulWidget {
 
 class _BusinessInfoState extends State<BusinessInfo> {
   final controller = Get.find<AuthRepository>();
-  final TextEditingController textEditingController = TextEditingController();
+  final _productController = Get.find<ProductRepository>();
   final businessController = Get.find<BusinessRespository>();
   final bankInfoController = Get.find<BankAccountRepository>();
+
+  final TextEditingController textEditingController = TextEditingController();
+
   String countryFlag = "NG";
   String countryCode = "234";
   final addAccountKey = GlobalKey<FormState>();
-
-  // final currency =
-  //     CountryPickerUtils.getCountryByIsoCode(controller.countryCodeFLag)
-  //         .currencyCode;
 
   final items = [
     'NGN',
@@ -108,21 +110,29 @@ class _BusinessInfoState extends State<BusinessInfo> {
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-// ignore: unnecessary_null_comparison
-                  businessController.selectedBusiness.value!
-                                  .buisnessLogoFileStoreId ==
-                              null ||
-                          businessController.selectedBusiness.value!
-                              .buisnessLogoFileStoreId!.isEmpty
-                      ? Image.asset(
-                          'assets/images/Group 3647.png',
-                        )
-                      : Image.network(businessController
-                          .selectedBusiness.value!.buisnessLogoFileStoreId!),
-                ],
+              GestureDetector(
+                onTap: () => showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20))),
+                    context: context,
+                    builder: (context) => buildAddImage()),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // ignore: unnecessary_null_comparison
+                      businessController.businessImage == null ||
+                              businessController.selectedBusiness.value!
+                                  .buisnessLogoFileStoreId!.isEmpty
+                          ? Image.asset(
+                              'assets/images/Group 3647.png',
+                            )
+                          : Image.network(businessController.selectedBusiness
+                              .value!.buisnessLogoFileStoreId!),
+                    ],
+                  ),
+                ),
               ),
               SizedBox(
                 height: 10,
@@ -484,6 +494,130 @@ class _BusinessInfoState extends State<BusinessInfo> {
       }),
     );
   }
+
+  Widget buildAddImage() => Obx(() {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  height: 3,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE6F4F2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        Icons.close,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Upload Image',
+                style: TextStyle(
+                  color: AppColor().blackColor,
+                  fontFamily: 'DMSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              SizedBox(height: 100),
+              GestureDetector(
+                onTap: () async {
+                  final ImagePicker _picker = ImagePicker();
+                  // Pick an image
+                  final XFile? image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  _productController.MproductImage(File(image!.path));
+                  print("image path ${image.path}");
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    (businessController.businessImage != null &&
+                            businessController.businessImage != Null)
+                        ? Image.file(
+                            businessController.businessImage!,
+                            height: 150,
+                            width: 150,
+                          )
+                        : Image.asset(
+                            'assets/images/camera.png',
+                          ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Center(
+                child: Text(
+                  'Select from Device',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: 'DMSans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  height: 55,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 15,
+                  ),
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                        color: AppColor().whiteColor,
+                        fontFamily: 'DMSans',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      });
 
   Widget addBusiness() => Container(
         padding: EdgeInsets.only(

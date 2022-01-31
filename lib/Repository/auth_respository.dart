@@ -290,7 +290,7 @@ class AuthRepository extends GetxController {
             "firstName": firstNameController.text,
             "lastName": lastNameController.text,
             "email": emailController.text,
-            "buisnessLogoFileStoreId": imageId,
+            "profileImageFileStoreId": imageId,
             "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
           headers: {

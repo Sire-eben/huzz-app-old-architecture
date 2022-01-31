@@ -5,7 +5,6 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/debtors_repository.dart';
-import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
@@ -70,13 +69,13 @@ class _DebtorsState extends State<Debtors> {
     'Mr Ojo Dada',
   ];
 
-  int quantityValue = 0;
   String countryFlag = "NG";
   String countryCode = "234";
+
+  int itemValue = 0;
   int currentStep = 0;
   int customerValue = 0;
-  int itemValue = 0;
-  final _createKey = GlobalKey<FormState>();
+  int quantityValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +175,7 @@ class _DebtorsState extends State<Debtors> {
                                   itemBuilder: (context, index) {
                                     var item =
                                         _debtorController.debtorsList[index];
+                                    // ignore: unused_local_variable
                                     var customer = _customerController
                                         .checkifCustomerAvailableWithValue(
                                             item.customerId!);
@@ -680,7 +680,6 @@ class DebtorListing extends StatefulWidget {
 
 class _DebtorListingState extends State<DebtorListing> {
   final _userController = Get.find<AuthRepository>();
-  final _productController = Get.find<ProductRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _businessController = Get.find<BusinessRespository>();
 
@@ -734,9 +733,9 @@ class _DebtorListingState extends State<DebtorListing> {
                           color: _randomColor.randomColor()),
                       child: Center(
                           child: Text(
-                        customer!.name == null || customer!.name!.isEmpty
+                        customer.name == null || customer.name!.isEmpty
                             ? ""
-                            : '${customer!.name![0]}',
+                            : '${customer.name![0]}',
                         style: TextStyle(
                             fontSize: 30,
                             color: Colors.white,
@@ -753,7 +752,7 @@ class _DebtorListingState extends State<DebtorListing> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        customer!.name!,
+                        customer.name!,
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: 'DMSans',
