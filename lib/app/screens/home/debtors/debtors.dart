@@ -10,6 +10,7 @@ import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:huzz/model/user.dart';
+import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 
 import '../../../../colors.dart';
@@ -60,7 +61,7 @@ class _DebtorsState extends State<Debtors> {
     'Panadol',
   ];
 
-  String? value;
+  String? value="Pending";
   String? values;
 
   final customers = [
@@ -117,6 +118,8 @@ class _DebtorsState extends State<Debtors> {
                             items: debtStatus.map(buildDropDown).toList(),
                             onChanged: (value) =>
                                 setState(() => this.value = value),
+                        
+                        
                           ),
                         ),
                       ),
@@ -129,7 +132,7 @@ class _DebtorsState extends State<Debtors> {
                             // color: Color(0xffF5F5F5),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: (_debtorController.debtorsList.isEmpty)
+                          child: ((value=="Pending") ?(_debtorController.debtorsList.isEmpty):(_debtorController.fullyPaidDebt.isEmpty))
                               ? Center(
                                   child: Column(
                                     crossAxisAlignment:
@@ -172,10 +175,12 @@ class _DebtorsState extends State<Debtors> {
                                   separatorBuilder: (context, index) =>
                                       Divider(),
                                   itemCount:
-                                      _debtorController.debtorsList.length,
+                                      ((value=="Pending") ?(_debtorController.debtorsList.length):(_debtorController.fullyPaidDebt.length)),
                                   itemBuilder: (context, index) {
+                                
+                                    
                                     var item =
-                                        _debtorController.debtorsList[index];
+                                    ((value=="Pending") ?(_debtorController.debtorsList):(_debtorController.fullyPaidDebt))[index];    
                                     var customer = _customerController
                                         .checkifCustomerAvailableWithValue(
                                             item.customerId!);
@@ -697,7 +702,8 @@ class _DebtorListingState extends State<DebtorListing> {
   late String? product;
   late String? firstName;
   late String? businessName;
-
+final display = createDisplay(
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   final users = Rx(User());
   User? get usersData => users.value;
 
@@ -717,6 +723,10 @@ class _DebtorListingState extends State<DebtorListing> {
   Widget build(BuildContext context) {
     var customer = _customerController
         .checkifCustomerAvailableWithValue(widget.item!.customerId!);
+        if(customer==null){
+          return Container();
+        }
+        initialText="Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase of $businessName at Huzz technologies  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
     return customer == null
         ? Container()
         : Row(
@@ -778,7 +788,7 @@ class _DebtorListingState extends State<DebtorListing> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Bal: ${widget.item!.balance!}",
+                        "Bal: ${display(widget.item!.balance!)}",
                         style: TextStyle(
                             fontSize: 13,
                             fontFamily: 'DMSans',
@@ -786,7 +796,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Paid: ${(widget.item!.totalAmount! - widget.item!.balance!)}",
+                        "Paid: ${display((widget.item!.totalAmount! - widget.item!.balance!))}",
                         style: TextStyle(
                             fontSize: 11,
                             fontFamily: 'DMSans',
@@ -972,6 +982,7 @@ class _DebtorListingState extends State<DebtorListing> {
   // }
 
   _editTitleTextField() {
+
     if (_isEditingText)
       return Center(
         child: TextField(
@@ -1248,36 +1259,40 @@ class _DebtorListingState extends State<DebtorListing> {
                           await _debtorController.UpdateBusinessDebtor(
                               debtor,
                               statusType == 1
-                                  ? 0
+                                  ? debtor.balance
                                   : int.parse(textEditingController.text));
                           Get.back();
                         }
                       }
                     },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Center(
-                        child: (_debtorController.addingDebtorStatus ==
-                                AddingDebtorStatus.Loading)
-                            ? Container(
-                                width: 30,
-                                height: 30,
-                                child: Center(
-                                    child: CircularProgressIndicator(
-                                        color: Colors.white)),
-                              )
-                            : Text(
-                                'Save',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: 'DMSans'),
-                              ),
-                      ),
+                    child: Obx(
+                    (){
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.all(Radius.circular(10))),
+                          child: Center(
+                            child: (_debtorController.addingDebtorStatus ==
+                                    AddingDebtorStatus.Loading)
+                                ? Container(
+                                    width: 30,
+                                    height: 30,
+                                    child: Center(
+                                        child: CircularProgressIndicator(
+                                            color: Colors.white)),
+                                  )
+                                : Text(
+                                    'Save',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontFamily: 'DMSans'),
+                                  ),
+                          ),
+                        );
+                      }
                     ),
                   ),
                   SizedBox(

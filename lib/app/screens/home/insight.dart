@@ -172,7 +172,7 @@ class _InsightState extends State<Insight> {
                                 width: 2, color: AppColor().backgroundColor)),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
-                            value: value,
+                            value: transactionController.value.value,
                             icon: Icon(
                               Icons.keyboard_arrow_down,
                               size: 14,
@@ -188,7 +188,7 @@ class _InsightState extends State<Insight> {
                             isDense: true,
                             items: recordFilter.map(buildDropDown).toList(),
                             onChanged: (value) {
-                              setState(() => this.value = value);
+                              setState(() => transactionController.value( value));
                               if (value!.contains("This Year")) {
                                 transactionController.getYearRecord();
                               } else if (value.contains("Today")) {
@@ -202,6 +202,7 @@ class _InsightState extends State<Insight> {
                               } else if (value.contains("All Time")) {
                                 transactionController.getAllTimeRecord();
                               }
+
                             },
                             onTap: () {
                               // showModalBottomSheet(
@@ -295,14 +296,30 @@ class _InsightState extends State<Insight> {
                       // item1=removeDoubleItem(transactionController.allIncomeHoursData);
                       // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                       return SfCartesianChart(
-                          primaryXAxis: CategoryAxis(),
+           
 
                           // Chart title
                           // title: ChartTitle(text: 'Half yearly sales analysis'),
                           // Enable legend
                           legend: Legend(isVisible: false),
+                           primaryXAxis: CategoryAxis(),
+                    primaryYAxis: NumericAxis(
+                          // labelFormat: "N"
+                          axisLabelFormatter: (s)=>ChartAxisLabel("N${display(s.value)}",TextStyle(fontSize: 10)),
+                        ),
+                    
+
+                              // Chart title
+                              // title: ChartTitle(text: 'Half yearly sales analysis'),
+                              // Enable legend
+                               onTooltipRender: (s){
+                                  var list=s.text!.split(":");
+                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
+
+                              // Enable tooltip
+                              tooltipBehavior: TooltipBehavior(enable: true),
                           // Enable tooltip
-                          tooltipBehavior: TooltipBehavior(enable: true),
+                        
                           series: <ChartSeries<RecordsData, String>>[
                             SplineSeries<RecordsData, String>(
                                 dataSource: transactionController
@@ -376,10 +393,14 @@ class _InsightState extends State<Insight> {
                           Container(
                             height: 200,
                             child: SfCircularChart(
+                              onTooltipRender: (s){
+                                  var list=s.text!.split(":");
+                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
+                                 onDataLabelRender: (s)=>s.text="${display(double.parse(s.text))}",
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <CircularSeries>[
                                   PieSeries<RecordsData, String>(
-                                      dataSource: item1,
+                                      dataSource: transactionController.value.value.contains("Today")?item2:transactionController.pieIncomeValue,
                                       pointColorMapper: (RecordsData data, _) =>
                                           data.color,
                                       xValueMapper: (RecordsData data, _) =>
@@ -408,10 +429,14 @@ class _InsightState extends State<Insight> {
                           Container(
                             height: 200,
                             child: SfCircularChart(
+                              onTooltipRender: (s){
+                                  var list=s.text!.split(":");
+                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
+                                 onDataLabelRender: (s)=>s.text="${display(double.parse(s.text))}",
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <CircularSeries>[
                                   PieSeries<RecordsData, String>(
-                                      dataSource: item2,
+                                      dataSource:transactionController.value.value.contains("Today")?item2:transactionController.pieExpenditure,
                                       pointColorMapper: (RecordsData data, _) =>
                                           data.color,
                                       xValueMapper: (RecordsData data, _) =>
@@ -449,7 +474,7 @@ class _InsightState extends State<Insight> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: item1
+                        children:transactionController.value.value.contains("Today")?item1
                             .map((e) => Row(
                                   children: [
                                     Container(
@@ -474,7 +499,30 @@ class _InsightState extends State<Insight> {
                                     )
                                   ],
                                 ))
-                            .toList(),
+                            .toList():transactionController.pieIncomeValue.map((e) => Row(
+                                  children: [
+                                    Container(
+                                      height: 10,
+                                      width: 10,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: e.color),
+                                    ),
+                                    SizedBox(width: 2),
+                                    Text(
+                                      '${e.label}',
+                                      style: TextStyle(
+                                        color: AppColor().blackColor,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    )
+                                  ],
+                                )).toList(),
                       ),
                     ],
                   ),
@@ -501,7 +549,7 @@ class _InsightState extends State<Insight> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: item2
+                        children:transactionController.value.value.contains("Today")? item2
                             .map((e) => Row(
                                   children: [
                                     Container(
@@ -526,8 +574,31 @@ class _InsightState extends State<Insight> {
                                     )
                                   ],
                                 ))
-                            .toList(),
-                      ),
+                            .toList():transactionController.pieExpenditure.map((e) => Row(
+                                  children: [
+                                    Container(
+                                      height: 10,
+                                      width: 10,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: e.color),
+                                    ),
+                                    SizedBox(width: 2),
+                                    Text(
+                                      '${e.label}',
+                                      style: TextStyle(
+                                        color: AppColor().blackColor,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    )
+                                  ],
+                                )).toList()),
+                    
                     ],
                   ),
                 ),
@@ -556,9 +627,11 @@ class _InsightState extends State<Insight> {
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               'Income',
@@ -573,7 +646,8 @@ class _InsightState extends State<Insight> {
                               height: 10,
                             ),
                             Container(
-                                height: 200,
+                              color: Colors.black,
+                                height:paymentList1.length<5 ?paymentList1.length*15: paymentList1.length<10?40: 70,
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: WordCloud(paymentList1))
                           ],
@@ -598,7 +672,8 @@ class _InsightState extends State<Insight> {
                               height: 10,
                             ),
                             Container(
-                                height: 200,
+                              color: Colors.black,
+                                height:paymentList2.length<10?paymentList2.length*15: paymentList2.length<10?40: 70,
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: WordCloud(paymentList2))
                           ],

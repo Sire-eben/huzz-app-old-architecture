@@ -11,6 +11,7 @@ import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/invoice.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PreviewSingleInvoice extends StatefulWidget {
   final File? file;
@@ -223,30 +224,36 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                       ],
                     ),
                     SizedBox(width: MediaQuery.of(context).size.height * 0.1),
-                    Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(
-                              MediaQuery.of(context).size.height * 0.015),
-                          width: MediaQuery.of(context).size.height * 0.06,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color:
-                                  AppColor().backgroundColor.withOpacity(0.2)),
-                          child: SvgPicture.asset('assets/images/share.svg'),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Text(
-                          'Share',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'DMSans'),
-                        ),
-                      ],
+                    GestureDetector(
+                      onTap: (){
+Share.shareFiles([widget.file!.path], text: 'Share Invoice');
+
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(
+                                MediaQuery.of(context).size.height * 0.015),
+                            width: MediaQuery.of(context).size.height * 0.06,
+                            height: MediaQuery.of(context).size.height * 0.06,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color:
+                                    AppColor().backgroundColor.withOpacity(0.2)),
+                            child: SvgPicture.asset('assets/images/share.svg'),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01),
+                          Text(
+                            'Share',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'DMSans'),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),

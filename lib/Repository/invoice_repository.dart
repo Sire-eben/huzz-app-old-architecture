@@ -217,6 +217,11 @@ checkPendingTransactionbeUpdatedToServer();
         print("found deposit");
         _deposit.add(element);
       }
+      if(element.dueDateTime!.isBefore(DateTime.now())){
+
+_overDue.add(element);
+
+      }
 //    if(element.businessInvoiceStatus=="OVERDUE" || element.dueDateTime!.isAfter(DateTime.now())){
 //     print("found overdue");
 // _overDue.add(element);
