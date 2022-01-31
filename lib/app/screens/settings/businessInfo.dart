@@ -444,7 +444,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   onTap: () {
                     if (businessController.updateBusinessStatus !=
                         UpdateBusinessStatus.Loading)
-                      businessController.updateBusiness();
+                      businessController.updateBusiness(value!);
                   },
                   child: Container(
                     height: 50,
