@@ -744,9 +744,9 @@ final display = createDisplay(
                           color: _randomColor.randomColor()),
                       child: Center(
                           child: Text(
-                        customer!.name == null || customer!.name!.isEmpty
+                        customer.name == null || customer.name!.isEmpty
                             ? ""
-                            : '${customer!.name![0]}',
+                            : '${customer.name![0]}',
                         style: TextStyle(
                             fontSize: 30,
                             color: Colors.white,
@@ -763,7 +763,7 @@ final display = createDisplay(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        customer!.name!,
+                        customer.name!,
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: 'DMSans',
