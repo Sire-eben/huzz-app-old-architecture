@@ -75,7 +75,7 @@ print("transaction result ${transactionModel!.toJson()}");
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  transactionModel!.createdTime!
+                  transactionModel!.entryDateTime!
                       .formatDate(pattern: "dd, MMM y")!,
                   style: TextStyle(
                     color: AppColor().blackColor,
@@ -86,7 +86,7 @@ print("transaction result ${transactionModel!.toJson()}");
                   ),
                 ),
                 Text(
-                  transactionModel!.createdTime!
+                  transactionModel!.entryDateTime!
                       .formatDate(pattern: "hh:mm a")!,
                   style: TextStyle(
                     color: AppColor().blackColor,

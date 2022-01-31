@@ -66,6 +66,7 @@ dependencies:
   flutter_easyloading: ^3.0.3
   flutter_scatter: ^0.2.0
   flutter_masked_text2: ^0.9.1
+  share_plus: ^3.0.4
 
 dev_dependencies:
   flutter_test:

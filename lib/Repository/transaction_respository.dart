@@ -798,11 +798,11 @@ List<RecordsData> _pieExpenditure=[];
         print("today transaction is not empty");
       todayTransaction.forEach((element) {
         print(
-            "hour testing $element1 ${element.createdTime!.toIso8601String()}");
+            "hour testing $element1 ${element.entryDateTime!.toIso8601String()}");
 
-        if (element.createdTime!.isAfter(DateTime(currentDate.year,
+        if (element.entryDateTime!.isAfter(DateTime(currentDate.year,
                 currentDate.month, currentDate.day, int.parse(element1), 00)) &&
-            element.createdTime!.isBefore(DateTime(currentDate.year,
+            element.entryDateTime!.isBefore(DateTime(currentDate.year,
                 currentDate.month, currentDate.day, int.parse(element1), 59))) {
           print("today hour found");
           if (element.transactionType!.contains("INCOME")) {
@@ -831,8 +831,15 @@ List<RecordsData> _pieExpenditure=[];
 
   Future getWeeklyRecordData() async {
     DateTime currentDate = DateTime.now();
+    print("today weekday is ${currentDate.weekday}");
+  
     DateTime firstDay =
         currentDate.subtract(Duration(days: currentDate.weekday));
+        print("first day of the week is ${firstDay.toString()}");
+          if(currentDate.weekday==7){
+
+     firstDay=DateTime.now();
+         }
     List<DateTime> value = [];
     for (int i = 0; i < 7; ++i) {
       value.add(DateTime(firstDay.year, firstDay.month, firstDay.day));
@@ -1157,8 +1164,8 @@ List<RecordsData> _pieExpenditure=[];
     final date = DateTime.now();
     offlineTransactions.forEach((element) {
       // print("element test date ${element.createdTime!.toIso8601String()}");
-      final d = DateTime(element.createdTime!.year, element.createdTime!.month,
-          element.createdTime!.day);
+      final d = DateTime(element.entryDateTime!.year, element.entryDateTime!.month,
+          element.entryDateTime!.day);
       if (d.isAtSameMomentAs(DateTime(date.year, date.month, date.day))) {
         _todayTransaction.add(element);
 
@@ -1366,7 +1373,7 @@ List<RecordsData> _pieExpenditure=[];
         "paymentMode": selectedPaymentMode,
         "customerId": customerId,
         "businessTransactionFileStoreId": fileid,
-        "entyDateTime": (date == null) ? null : date!.toIso8601String(),
+        "entryDateTime": (date == null) ? null : date!.toIso8601String().split("T")[0]+" "+"${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')}",
         "amountPaid": selectedPaymentMode=="DEPOSIT"? amountPaidController.numberValue:0
       });
       print("transaction body $body");
@@ -1468,7 +1475,7 @@ List<RecordsData> _pieExpenditure=[];
           ? totalamount - amountPaidController.numberValue
           : 0,
       createdTime: DateTime.now(),
-      entryDateTime: date,
+      entryDateTime: DateTime(date!.year,date!.month,date!.day,time!.hour,time!.minute),
       transactionType: type,
       businessTransactionFileStoreId: (image == null) ? null : image!.path,
       customerId: customerId,
@@ -1591,7 +1598,7 @@ List<RecordsData> _pieExpenditure=[];
         "customerId": savenext.customerId,
         "businessTransactionFileStoreId":
             savenext.businessTransactionFileStoreId,
-        "entyDateTime": savenext.entryDateTime!.toIso8601String(),
+        "entryDateTime": savenext.entryDateTime!.toIso8601String(),
         "amountPaid": (savenext.paymentMethod == "DEPOSIT")
             ? firstItem.amountPaid
             : savenext.totalAmount,

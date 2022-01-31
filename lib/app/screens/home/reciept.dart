@@ -4,6 +4,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../colors.dart';
 import 'receipt/money_in_out_pdf.dart';
 
@@ -117,34 +118,40 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                       ],
                     ),
                     SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                    Column(
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            width: MediaQuery.of(context).size.height * 0.06,
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppColor()
-                                    .backgroundColor
-                                    .withOpacity(0.2)),
-                            child: SvgPicture.asset('assets/images/share.svg'),
+                    GestureDetector(
+                      onTap: (){
+
+                        Share.shareFiles([widget.file!.path], text: 'Share Receipt');
+                      },
+                      child: Column(
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.015),
+                              width: MediaQuery.of(context).size.height * 0.06,
+                              height: MediaQuery.of(context).size.height * 0.06,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: AppColor()
+                                      .backgroundColor
+                                      .withOpacity(0.2)),
+                              child: SvgPicture.asset('assets/images/share.svg'),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Text(
-                          'Share',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'DMSans'),
-                        ),
-                      ],
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.01),
+                          Text(
+                            'Share',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'DMSans'),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),

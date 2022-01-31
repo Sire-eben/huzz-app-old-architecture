@@ -32,6 +32,7 @@ class _MoneyOutState extends State<MoneyOut> {
   @override
   void initState() {
     _transactionController.clearValue();
+    _transactionController.date=DateTime.now();
     _transactionController.dateController.text =
         DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
   _transactionController.time=TimeOfDay.now();
