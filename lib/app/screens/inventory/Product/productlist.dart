@@ -6,6 +6,7 @@ import 'package:huzz/app/screens/inventory/Product/add_product.dart';
 import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
 import 'package:huzz/model/product.dart';
 import 'package:number_display/number_display.dart';
+
 import '../../../../colors.dart';
 
 class ProductListing extends StatefulWidget {
@@ -218,7 +219,7 @@ class _ProductListingState extends State<ProductListing> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 200,
+              vertical: 300,
             ),
             title: Row(
               children: [

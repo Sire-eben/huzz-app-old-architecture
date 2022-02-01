@@ -490,6 +490,7 @@ class _AddProductState extends State<AddProduct> {
 
   Widget buildAddImage() => Obx(() {
         return Container(
+          height: 300,
           padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.04,
               right: MediaQuery.of(context).size.width * 0.04,
@@ -542,7 +543,7 @@ class _AddProductState extends State<AddProduct> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(height: 100),
+              SizedBox(height: 30),
               GestureDetector(
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();

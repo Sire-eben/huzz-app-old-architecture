@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, unused_element
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -707,9 +709,6 @@ class _DebtorListingState extends State<DebtorListing> {
   }
 
   String? initialText;
-
-  // String? initialText =
-  //     "Dear Tunde, you have an outstanding payment of N500 for your purchase of Melon seeds at Huzz technologies  (08133150074). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
   @override
   Widget build(BuildContext context) {

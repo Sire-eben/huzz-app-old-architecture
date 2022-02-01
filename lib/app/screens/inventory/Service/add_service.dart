@@ -8,6 +8,7 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 
+// ignore: must_be_immutable
 class AddService extends StatefulWidget {
   Product? item;
   AddService({Key? key, this.item}) : super(key: key);
