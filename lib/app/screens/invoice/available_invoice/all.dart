@@ -357,7 +357,7 @@ class _AllState extends State<All> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 100,
+              vertical: 200,
             ),
             title: Row(
               children: [

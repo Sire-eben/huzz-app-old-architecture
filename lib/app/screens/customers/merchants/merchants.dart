@@ -264,13 +264,13 @@ class _MerchantsState extends State<Merchants> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 100,
+              vertical: 200,
             ),
             title: Row(
               children: [
                 Expanded(
                   child: Text(
-                    'You are about to delete a customer, Are you sure you want to continue?',
+                    'You are about to delete a merchant, Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
                       fontFamily: 'DMSans',
