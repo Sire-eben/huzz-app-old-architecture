@@ -556,7 +556,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   // Pick an image
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
-                  _productController.MproductImage(File(image!.path));
+                  businessController.businessImage=File(image!.path);
                   print("image path ${image.path}");
                 },
                 child: Row(

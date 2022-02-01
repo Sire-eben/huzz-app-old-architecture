@@ -495,7 +495,7 @@ class _SettingsState extends State<Settings> {
                   // Pick an image
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
-                  _productController.MproductImage(File(image!.path));
+                  controller.profileImage=(File(image!.path));
                   print("image path ${image.path}");
                 },
                 child: Row(

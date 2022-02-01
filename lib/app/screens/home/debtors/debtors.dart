@@ -257,11 +257,7 @@ class _DebtorsState extends State<Debtors> {
   StatefulBuilder buildAddDebtor() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -608,11 +604,7 @@ class _DebtorsState extends State<Debtors> {
   Widget buildAddItem() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -841,11 +833,7 @@ class _DebtorListingState extends State<DebtorListing> {
 
   Widget buildDebtorNotification() => SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -994,11 +982,7 @@ class _DebtorListingState extends State<DebtorListing> {
           physics: ScrollPhysics(),
           controller: controller,
           child: Container(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.04,
-                right: MediaQuery.of(context).size.width * 0.04,
-                bottom: MediaQuery.of(context).size.width * 0.04,
-                top: MediaQuery.of(context).size.width * 0.02),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             child: Form(
               key: _key,
               child: Column(

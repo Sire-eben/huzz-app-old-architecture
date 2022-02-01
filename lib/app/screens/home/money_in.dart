@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
-import 'package:huzz/app/screens/home/income_success.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/customer_model.dart';
@@ -33,12 +33,12 @@ class _MoneyInState extends State<MoneyIn> {
   @override
   void initState() {
     _transactionController.clearValue();
-    _transactionController.date=DateTime.now();
+    _transactionController.date = DateTime.now();
     _transactionController.dateController.text =
         DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
-        _transactionController.time=TimeOfDay.now();
-_transactionController.timeController.text =
-          '${_transactionController.time!.hour.toString().padLeft(2, '0')}:${_transactionController.time!.minute.toString().padLeft(2, '0')} ${_transactionController.time!.period.index == 0 ? am : pm}';
+    _transactionController.time = TimeOfDay.now();
+    _transactionController.timeController.text =
+        '${_transactionController.time!.hour.toString().padLeft(2, '0')}:${_transactionController.time!.minute.toString().padLeft(2, '0')} ${_transactionController.time!.period.index == 0 ? am : pm}';
     // timeController.text =
     // '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
     super.initState();
@@ -48,6 +48,7 @@ _transactionController.timeController.text =
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
+  
 
   String? value;
 
@@ -321,9 +322,8 @@ _transactionController.timeController.text =
                               ),
                             ),
                             SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.02),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.02),
                           ],
                         )
                       : Padding(
@@ -387,8 +387,11 @@ _transactionController.timeController.text =
                                           value;
                                       _transactionController
                                           .selectedProduct!.quantity = 1;
-                                              _transactionController.amountController.text=value!.sellingPrice!.toString();
-                                            _transactionController.quantityController.text=1.toString();
+                                      _transactionController
+                                              .amountController.text =
+                                          value!.sellingPrice!.toString();
+                                      _transactionController.quantityController
+                                          .text = 1.toString();
                                     }),
                                   ),
                                 ),
@@ -416,7 +419,6 @@ _transactionController.timeController.text =
                                         hint: '4',
                                         keyType: TextInputType.phone,
                                         validatorText: "Quantity is needed",
-                                        
                                         onChanged: (value) {
                                           print("value is $value");
                                           setState(() {});
@@ -738,71 +740,80 @@ _transactionController.timeController.text =
                       ),
                     ));
                   },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
+                  child: DottedBorder(
+                    borderType: BorderType.RRect,
+                    radius: Radius.circular(10),
+                    color: AppColor().backgroundColor,
+                    strokeWidth: _transactionController.image != null ? 0 : 2,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      width: MediaQuery.of(context).size.width,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      decoration: BoxDecoration(
                         color: _transactionController.image != null
                             ? AppColor().backgroundColor.withOpacity(0.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: _transactionController.image != null
-                            ? null
-                            : Border.all(
-                                width: 2, color: AppColor().backgroundColor)),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              child: Image.asset(
-                                'assets/images/image.png',
-                                height: 40,
+                        // border: _transactionController.image != null
+                        //     ? null
+                        //     : Border.all(
+                        //         width: 2, color: AppColor().backgroundColor)
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                child: Image.asset(
+                                  'assets/images/image.png',
+                                  height: 40,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: AutoSizeText(
-                            _transactionController.image != null
-                                ? _transactionController.image!.path.toString()
-                                : 'Add any supporting image (Optional)',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: _transactionController.image != null
-                                    ? Colors.black
-                                    : Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'DMSans'),
+                          Expanded(
+                            flex: 6,
+                            child: AutoSizeText(
+                              _transactionController.image != null
+                                  ? _transactionController.image!.path
+                                      .toString()
+                                  : 'Add any supporting image (Optional)',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: _transactionController.image != null
+                                      ? Colors.black
+                                      : Colors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'DMSans'),
+                            ),
                           ),
-                        ),
-                        _transactionController.image != null
-                            ? Expanded(
-                                child: SvgPicture.asset(
-                                  'assets/images/edit.svg',
-                                ),
-                              )
-                            : Container(),
-                        _transactionController.image != null
-                            ? Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      _transactionController.image = null;
-                                    });
-                                  },
+                          _transactionController.image != null
+                              ? Expanded(
                                   child: SvgPicture.asset(
-                                    'assets/images/delete.svg',
+                                    'assets/images/edit.svg',
                                   ),
-                                ),
-                              )
-                            : Container(),
-                      ],
+                                )
+                              : Container(),
+                          _transactionController.image != null
+                              ? Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _transactionController.image = null;
+                                      });
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/images/delete.svg',
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -981,42 +992,41 @@ _transactionController.timeController.text =
                 return InkWell(
                   onTap: () {
                     if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading){
-                               if(  _transactionController.productList.isEmpty){
-                      _transactionController.addMoreProduct();
+                        AddingTransactionStatus.Loading) {
+                      if (_transactionController.productList.isEmpty) {
+                        _transactionController.addMoreProduct();
+                      }
+                      if (_transactionController.productList.isNotEmpty) {
+                        if (_transactionController.selectedPaymentMode !=
+                                null &&
+                            _transactionController.selectedPaymentSource !=
+                                null) {
+                          if (_transactionController.addCustomer) {
+                            if (_transactionController.selectedCustomer !=
+                                    null ||
+                                _customerController
+                                        .nameController.text.isNotEmpty &&
+                                    _customerController.phoneNumberController
+                                        .text.isNotEmpty) {
+                            } else {
+                              Get.snackbar(
+                                  "Error", "Fill up your contact details");
+                              return;
+                            }
+                          }
+
+                          //  _transactionController.createTransaction("INCOME");
+                          _transactionController
+                              .createBusinessTransaction("INCOME");
+                        } else {
+                          Get.snackbar(
+                              "Error", "Fill up important information");
+                        }
+                      } else {
+                        Get.snackbar("Error",
+                            "You need to have at least one product to proceed");
+                      }
                     }
-                    if(_transactionController.productList.isNotEmpty){
-                          if(_transactionController.selectedPaymentMode!=null && _transactionController.selectedPaymentSource!=null
-                          
-                          ){
-                        
-                        if(_transactionController.addCustomer){
-                        if( _transactionController.selectedCustomer!=null ||
-                        
-                        _customerController.nameController.text.isNotEmpty && _customerController.phoneNumberController.text.isNotEmpty){
-                       
-                        
-                        }else{
-                         Get.snackbar("Error", "Fill up your contact details");
-                         return;
-                        }
-                        }
-
-                       
-                      //  _transactionController.createTransaction("INCOME");
-                      _transactionController
-                          .createBusinessTransaction("INCOME");
-                        }else
-                        {
-                          Get.snackbar("Error", "Fill up important information");
-                        }
-                        }else{
-                       
-
-                          Get.snackbar("Error", "You need to have at least one product to proceed");
-                      
-                        }
-                        }
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -1225,52 +1235,51 @@ _transactionController.timeController.text =
                                 _transactionController.selectedProduct = value;
                                 _transactionController
                                     .selectedProduct!.quantity = 1;
-                                        _transactionController.amountController.text=value!.sellingPrice!.toString();
-                                            _transactionController.quantityController.text=1.toString();
+                                _transactionController.amountController.text =
+                                    value!.sellingPrice!.toString();
+                                _transactionController.quantityController.text =
+                                    1.toString();
                               }),
                             ),
                           ),
                         ),
-                         SizedBox(
+                        SizedBox(
                           height: 8,
                         ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CustomTextField(
-                                    label: "Amount",
-                                    hint: 'N 0.00',
-                                    onChanged: (value) {
-                                      print("value is $value");
-                                      setState(() {});
-                                    },
-                                    validatorText: "Amount is needed",
-                                    textEditingController:
-                                        _transactionController
-                                            .amountController,
-                                    keyType: TextInputType.phone,
-                                  ),
-                                ),
-                                SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.height *
-                                            0.03),
-                                Expanded(
-                                  child: CustomTextField(
-                                      label: "Quantity",
-                                      hint: '4',
-                                      onChanged: (value) {
-                                        print("value is $value");
-                                        setState(() {});
-                                      },
-                                      keyType: TextInputType.phone,
-                                      validatorText: "Quantity is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .quantityController),
-                                ),
-                              ],
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomTextField(
+                                label: "Amount",
+                                hint: 'N 0.00',
+                                onChanged: (value) {
+                                  print("value is $value");
+                                  setState(() {});
+                                },
+                                validatorText: "Amount is needed",
+                                textEditingController:
+                                    _transactionController.amountController,
+                                keyType: TextInputType.phone,
+                              ),
                             ),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.height * 0.03),
+                            Expanded(
+                              child: CustomTextField(
+                                  label: "Quantity",
+                                  hint: '4',
+                                  onChanged: (value) {
+                                    print("value is $value");
+                                    setState(() {});
+                                  },
+                                  keyType: TextInputType.phone,
+                                  validatorText: "Quantity is needed",
+                                  textEditingController: _transactionController
+                                      .quantityController),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
               _transactionController.selectedValue == 1
