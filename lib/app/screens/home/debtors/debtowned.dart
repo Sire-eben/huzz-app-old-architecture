@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, unused_field
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -21,7 +23,6 @@ class DebtOwned extends StatefulWidget {
 }
 
 class _DebtOwnedState extends State<DebtOwned> {
-  // ignore: unused_field
   final _debtorRepository = Get.find<DebtorRepository>();
   final _customerRepository = Get.find<CustomerRepository>();
 
@@ -826,7 +827,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       _customerRepository.phoneNumberController,
                                   validatorText: "Phone number is needed",
                                 ),
-
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Balance',
                                   keyType: TextInputType.number,
@@ -841,53 +841,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       _debtorRepository.totalAmountController,
                                   validatorText: "Total Amount is needed",
                                 ),
-                                // Container(
-                                //   margin: EdgeInsets.only(
-                                //     top: 10,
-                                //     right: 20,
-                                //     bottom: 10,
-                                //   ),
-                                //   child: Text(
-                                //     'Brief Description',
-                                //     style: TextStyle(
-                                //         color: Colors.black, fontSize: 12),
-                                //   ),
-                                // ),
-                                // Container(
-                                //   height: MediaQuery.of(context).size.height *
-                                //       0.2,
-                                //   width: MediaQuery.of(context).size.width,
-                                //   decoration: BoxDecoration(
-                                //     color: AppColor().whiteColor,
-                                //     border: Border.all(
-                                //       width: 2,
-                                //       color: AppColor().backgroundColor,
-                                //     ),
-                                //     borderRadius: BorderRadius.circular(12),
-                                //   ),
-                                //   child: TextFormField(
-                                //     controller: _customerController
-                                //         .descriptionController,
-                                //     textInputAction: TextInputAction.none,
-                                //     decoration: InputDecoration(
-                                //       isDense: true,
-                                //       enabledBorder: OutlineInputBorder(
-                                //         borderSide: BorderSide.none,
-                                //       ),
-                                //       hintText: 'Delivered some drugs',
-                                //       hintStyle: Theme.of(context)
-                                //           .textTheme
-                                //           .headline4!
-                                //           .copyWith(
-                                //             fontFamily: 'DMSans',
-                                //             color: Colors.black26,
-                                //             fontSize: 14,
-                                //             fontStyle: FontStyle.normal,
-                                //             fontWeight: FontWeight.normal,
-                                //           ),
-                                //     ),
-                                //   ),
-                                // ),
                               ],
                             )
                           : Column(
@@ -1091,278 +1044,6 @@ class _DebtOwnedState extends State<DebtOwned> {
           ),
         );
       });
-  // StatefulBuilder buildUpdatePayment(DebtOwnedModel debtOwnedModel) =>
-  //     StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
-  //       ScrollController? controller;
-  //       return Container(
-  //         padding: EdgeInsets.only(
-  //             left: MediaQuery.of(context).size.width * 0.04,
-  //             right: MediaQuery.of(context).size.width * 0.04,
-  //             bottom: MediaQuery.of(context).size.width * 0.04,
-  //             top: MediaQuery.of(context).size.width * 0.02),
-  //         child: SingleChildScrollView(
-  //           physics: ScrollPhysics(),
-  //           controller: controller,
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               InkWell(
-  //                 onTap: () {
-  //                   Get.back();
-  //                 },
-  //                 child: Center(
-  //                   child: Container(
-  //                     height: 6,
-  //                     width: 80,
-  //                     decoration: BoxDecoration(
-  //                         color: Colors.black,
-  //                         borderRadius: BorderRadius.circular(10)),
-  //                   ),
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 height: 20,
-  //               ),
-  //               Text(
-  //                 'Update Payment',
-  //                 style: TextStyle(
-  //                   color: AppColor().blackColor,
-  //                   fontFamily: 'DMSans',
-  //                   fontSize: 20,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //               Padding(
-  //                 padding: EdgeInsets.symmetric(horizontal: 10),
-  //                 child: Row(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: [
-  //                     InkWell(
-  //                       onTap: () {
-  //                         myState(() {
-  //                           statusType = 1;
-  //                         });
-  //                       },
-  //                       child: Row(
-  //                         children: [
-  //                           Radio<int>(
-  //                             value: 1,
-  //                             activeColor: AppColor().backgroundColor,
-  //                             groupValue: statusType,
-  //                             onChanged: (value) {
-  //                               myState(() {
-  //                                 statusType = 1;
-  //                               });
-  //                             },
-  //                           ),
-  //                           Text(
-  //                             'Paying Fully',
-  //                             style: TextStyle(
-  //                               fontFamily: "DMSans",
-  //                               fontStyle: FontStyle.normal,
-  //                               fontSize: 12,
-  //                               fontWeight: FontWeight.w400,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     InkWell(
-  //                       onTap: () {
-  //                         myState(() {
-  //                           statusType = 0;
-  //                         });
-  //                       },
-  //                       child: Row(
-  //                         children: [
-  //                           Radio<int>(
-  //                               value: 0,
-  //                               activeColor: AppColor().backgroundColor,
-  //                               groupValue: statusType,
-  //                               onChanged: (value) {
-  //                                 myState(() {
-  //                                   value = 0;
-  //                                   statusType = 0;
-  //                                 });
-  //                               }),
-  //                           Text(
-  //                             'Paying Partly',
-  //                             style: TextStyle(
-  //                               fontFamily: "DMSans",
-  //                               fontStyle: FontStyle.normal,
-  //                               fontSize: 12,
-  //                               fontWeight: FontWeight.w400,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     )
-  //                   ],
-  //                 ),
-  //               ),
-  //               Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.end,
-  //                 children: [
-  //                   statusType == 0
-  //                       ? Container(
-  //                           child: Row(
-  //                             crossAxisAlignment: CrossAxisAlignment.center,
-  //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                             children: [
-  //                               Row(
-  //                                 crossAxisAlignment: CrossAxisAlignment.center,
-  //                                 children: [
-  //                                   Text(
-  //                                     'Amount',
-  //                                     style: TextStyle(
-  //                                       color: Colors.black,
-  //                                       fontSize: 16,
-  //                                       fontFamily: 'DMSans',
-  //                                       fontStyle: FontStyle.normal,
-  //                                       fontWeight: FontWeight.normal,
-  //                                     ),
-  //                                   ),
-  //                                   SizedBox(
-  //                                     width: 5,
-  //                                   ),
-  //                                   Container(
-  //                                     margin: EdgeInsets.only(top: 5),
-  //                                     child: Text(
-  //                                       "*",
-  //                                       style: TextStyle(
-  //                                           color: Colors.red, fontSize: 12),
-  //                                     ),
-  //                                   ),
-  //                                 ],
-  //                               ),
-  //                               Row(
-  //                                 mainAxisAlignment: MainAxisAlignment.end,
-  //                                 children: [
-  //                                   Text(
-  //                                     'Bal: ',
-  //                                     style: TextStyle(
-  //                                       fontFamily: "DMSans",
-  //                                       color: AppColor().orangeBorderColor,
-  //                                       fontStyle: FontStyle.normal,
-  //                                       fontSize: 14,
-  //                                       fontWeight: FontWeight.bold,
-  //                                     ),
-  //                                   ),
-  //                                   Text(
-  //                                     '',
-  //                                     style: TextStyle(
-  //                                       fontFamily: "DMSans",
-  //                                       color: AppColor().orangeBorderColor,
-  //                                       fontStyle: FontStyle.normal,
-  //                                       fontSize: 14,
-  //                                       fontWeight: FontWeight.bold,
-  //                                     ),
-  //                                   ),
-  //                                 ],
-  //                               ),
-  //                             ],
-  //                           ),
-  //                         )
-  //                       : Container(
-  //                           child: Row(
-  //                             crossAxisAlignment: CrossAxisAlignment.center,
-  //                             children: [
-  //                               Text(
-  //                                 'Amount',
-  //                                 style: TextStyle(
-  //                                   color: Colors.black,
-  //                                   fontSize: 16,
-  //                                   fontFamily: 'DMSans',
-  //                                   fontStyle: FontStyle.normal,
-  //                                   fontWeight: FontWeight.normal,
-  //                                 ),
-  //                               ),
-  //                               SizedBox(
-  //                                 width: 5,
-  //                               ),
-  //                               Container(
-  //                                 margin: EdgeInsets.only(top: 5),
-  //                                 child: Text(
-  //                                   "*",
-  //                                   style: TextStyle(
-  //                                       color: Colors.red, fontSize: 12),
-  //                                 ),
-  //                               ),
-  //                             ],
-  //                           ),
-  //                         ),
-  //                   SizedBox(
-  //                     height: 5,
-  //                   ),
-  //                   Container(
-  //                     child: TextFormField(
-  //                       controller: _debtorRepository.amountController,
-  //                       keyboardType: TextInputType.number,
-  //                       decoration: InputDecoration(
-  //                         isDense: true,
-  //                         focusedBorder: OutlineInputBorder(
-  //                             borderSide: BorderSide(
-  //                                 color: AppColor().backgroundColor, width: 2),
-  //                             borderRadius:
-  //                                 BorderRadius.all(Radius.circular(10))),
-  //                         enabledBorder: OutlineInputBorder(
-  //                             borderSide: BorderSide(
-  //                                 color: AppColor().backgroundColor, width: 2),
-  //                             borderRadius:
-  //                                 BorderRadius.all(Radius.circular(10))),
-  //                         border: OutlineInputBorder(
-  //                             borderSide: BorderSide(
-  //                                 color: AppColor().backgroundColor, width: 2),
-  //                             borderRadius:
-  //                                 BorderRadius.all(Radius.circular(10))),
-  //                         hintText: 'N 0.00',
-  //                         hintStyle:
-  //                             Theme.of(context).textTheme.headline4!.copyWith(
-  //                                   fontFamily: 'DMSans',
-  //                                   color: Colors.black26,
-  //                                   fontSize: 14,
-  //                                   fontStyle: FontStyle.normal,
-  //                                   fontWeight: FontWeight.normal,
-  //                                 ),
-  //                       ),
-  //                     ),
-  //                   )
-  //                 ],
-  //               ),
-  //               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-  //               InkWell(
-  //                 onTap: () {
-  //                   setState(() {
-  //                     _debtorRepository.addBudinessDebtor("EXPENDITURE");
-  //                   });
-  //                   Get.back();
-  //                 },
-  //                 child: Container(
-  //                   width: MediaQuery.of(context).size.width,
-  //                   height: 50,
-  //                   decoration: BoxDecoration(
-  //                       color: AppColor().backgroundColor,
-  //                       borderRadius: BorderRadius.all(Radius.circular(10))),
-  //                   child: Center(
-  //                     child: Text(
-  //                       'Save',
-  //                       style: TextStyle(
-  //                           color: Colors.white,
-  //                           fontSize: 18,
-  //                           fontFamily: 'DMSans'),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 height: 40,
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  //     });
 
   DropdownMenuItem<String> buildDropDown(String item) => DropdownMenuItem(
         value: item,
@@ -1394,7 +1075,6 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Image.asset(debtorsList[index].image!),
         SizedBox(width: MediaQuery.of(context).size.width * 0.02),
         Expanded(
           flex: 5,
@@ -1403,7 +1083,6 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  // debtorsList[index].name!,
                   'name',
                   style: TextStyle(
                       fontSize: 12,
@@ -1412,7 +1091,6 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  // debtorsList[index].phone!,
                   'phone',
                   style: TextStyle(
                       fontSize: 12, fontFamily: 'DMSans', color: Colors.grey),

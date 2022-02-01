@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, unused_field
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -82,7 +84,7 @@ class _SettingsState extends State<Settings> {
                   shape: BoxShape.circle,
                 ),
                 child: Center(
-                  child: (controller.profileImage == null ||
+                  child: (controller.profileImage != null ||
                           controller.user!.profileImageFileStoreId!.isEmpty)
                       ? Image.asset(
                           "assets/images/profileImg.png",
@@ -138,7 +140,6 @@ class _SettingsState extends State<Settings> {
                     children: [
                       Container(
                         child: Text(
-                          // ignore: unnecessary_null_comparison
                           controller.user!.firstName == null
                               ? 'First Name'
                               : firstName,
