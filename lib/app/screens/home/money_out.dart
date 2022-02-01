@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +16,6 @@ import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../../colors.dart';
-import 'income_success.dart';
 import 'itemCard.dart';
 
 class MoneyOut extends StatefulWidget {
@@ -32,12 +32,12 @@ class _MoneyOutState extends State<MoneyOut> {
   @override
   void initState() {
     _transactionController.clearValue();
-    _transactionController.date=DateTime.now();
+    _transactionController.date = DateTime.now();
     _transactionController.dateController.text =
         DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
-  _transactionController.time=TimeOfDay.now();
-_transactionController.timeController.text =
-          '${_transactionController.time!.hour.toString().padLeft(2, '0')}:${_transactionController.time!.minute.toString().padLeft(2, '0')} ${_transactionController.time!.period.index == 0 ? am : pm}';
+    _transactionController.time = TimeOfDay.now();
+    _transactionController.timeController.text =
+        '${_transactionController.time!.hour.toString().padLeft(2, '0')}:${_transactionController.time!.minute.toString().padLeft(2, '0')} ${_transactionController.time!.period.index == 0 ? am : pm}';
     // timeController.text =
     // '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')} ${time!.period.index == 0 ? am : pm}';
     super.initState();
@@ -737,71 +737,80 @@ _transactionController.timeController.text =
                       ),
                     ));
                   },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
+                  child: DottedBorder(
+                    borderType: BorderType.RRect,
+                    radius: Radius.circular(10),
+                    color: AppColor().backgroundColor,
+                    strokeWidth: _transactionController.image != null ? 0 : 2,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      width: MediaQuery.of(context).size.width,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      decoration: BoxDecoration(
                         color: _transactionController.image != null
                             ? AppColor().backgroundColor.withOpacity(0.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: _transactionController.image != null
-                            ? null
-                            : Border.all(
-                                width: 2, color: AppColor().backgroundColor)),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              child: Image.asset(
-                                'assets/images/image.png',
-                                height: 40,
+                        // border: _transactionController.image != null
+                        //     ? null
+                        //     : Border.all(
+                        //         width: 2, color: AppColor().backgroundColor)
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                child: Image.asset(
+                                  'assets/images/image.png',
+                                  height: 40,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: AutoSizeText(
-                            _transactionController.image != null
-                                ? _transactionController.image!.path.toString()
-                                : 'Add any supporting image (Optional)',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: _transactionController.image != null
-                                    ? Colors.black
-                                    : Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'DMSans'),
+                          Expanded(
+                            flex: 6,
+                            child: AutoSizeText(
+                              _transactionController.image != null
+                                  ? _transactionController.image!.path
+                                      .toString()
+                                  : 'Add any supporting image (Optional)',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: _transactionController.image != null
+                                      ? Colors.black
+                                      : Colors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'DMSans'),
+                            ),
                           ),
-                        ),
-                        _transactionController.image != null
-                            ? Expanded(
-                                child: SvgPicture.asset(
-                                  'assets/images/edit.svg',
-                                ),
-                              )
-                            : Container(),
-                        _transactionController.image != null
-                            ? Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      _transactionController.image = null;
-                                    });
-                                  },
+                          _transactionController.image != null
+                              ? Expanded(
                                   child: SvgPicture.asset(
-                                    'assets/images/delete.svg',
+                                    'assets/images/edit.svg',
                                   ),
-                                ),
-                              )
-                            : Container(),
-                      ],
+                                )
+                              : Container(),
+                          _transactionController.image != null
+                              ? Expanded(
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _transactionController.image = null;
+                                      });
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/images/delete.svg',
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -1231,46 +1240,43 @@ _transactionController.timeController.text =
                             ),
                           ),
                         ),
-                       SizedBox(
+                        SizedBox(
                           height: 8,
                         ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CustomTextField(
-                                    label: "Amount",
-                                    hint: 'N 0.00',
-                                    onChanged: (value) {
-                                      print("value is $value");
-                                      setState(() {});
-                                    },
-                                    validatorText: "Amount is needed",
-                                    textEditingController:
-                                        _transactionController
-                                            .amountController,
-                                    keyType: TextInputType.phone,
-                                  ),
-                                ),
-                                SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.height *
-                                            0.03),
-                                Expanded(
-                                  child: CustomTextField(
-                                      label: "Quantity",
-                                      hint: '4',
-                                      onChanged: (value) {
-                                        print("value is $value");
-                                        setState(() {});
-                                      },
-                                      keyType: TextInputType.phone,
-                                      validatorText: "Quantity is needed",
-                                      textEditingController:
-                                          _transactionController
-                                              .quantityController),
-                                ),
-                              ],
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CustomTextField(
+                                label: "Amount",
+                                hint: 'N 0.00',
+                                onChanged: (value) {
+                                  print("value is $value");
+                                  setState(() {});
+                                },
+                                validatorText: "Amount is needed",
+                                textEditingController:
+                                    _transactionController.amountController,
+                                keyType: TextInputType.phone,
+                              ),
                             ),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.height * 0.03),
+                            Expanded(
+                              child: CustomTextField(
+                                  label: "Quantity",
+                                  hint: '4',
+                                  onChanged: (value) {
+                                    print("value is $value");
+                                    setState(() {});
+                                  },
+                                  keyType: TextInputType.phone,
+                                  validatorText: "Quantity is needed",
+                                  textEditingController: _transactionController
+                                      .quantityController),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
               _transactionController.selectedValue == 1

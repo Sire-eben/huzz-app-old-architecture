@@ -27,7 +27,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+    roundingType: RoundingType.floor,
+    length: 15,
+    decimal: 5,
+  );
 
   final items = ['Huzz Technologies', 'Technologies'];
   String? value;
@@ -193,10 +196,10 @@ class _HomeState extends State<Home> {
                         },
                         child: Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                              EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                           decoration: BoxDecoration(
                             color: Color(0xff056B5C),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(4),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -230,21 +233,21 @@ class _HomeState extends State<Home> {
                     children: [
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                            EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                         decoration: BoxDecoration(
                           color: Color(0xff016BCC),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(4),
                         ),
                         child: Row(
                           children: [
                             Container(
-                                padding: EdgeInsets.all(4),
+                                padding: EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Colors.white),
                                 child: SvgPicture.asset(
                                   "assets/images/money_in.svg",
-                                  height: 12,
+                                  height: 8,
                                 )),
                             SizedBox(
                               width: 5,
@@ -254,40 +257,42 @@ class _HomeState extends State<Home> {
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
-                                fontSize: 10,
+                                fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
                         ),
                       ),
+                      Spacer(),
                       Text(
                         "N${display(_transactionController.income.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Spacer(),
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                            EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                         decoration: BoxDecoration(
                           color: Color(0xffDD8F48),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(4),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                                padding: EdgeInsets.all(4),
+                                padding: EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Colors.white),
                                 child: SvgPicture.asset(
                                   "assets/images/money_out.svg",
-                                  height: 12,
+                                  height: 8,
                                 )),
                             SizedBox(
                               width: 5,
@@ -297,19 +302,20 @@ class _HomeState extends State<Home> {
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
-                                fontSize: 10,
+                                fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
                         ),
                       ),
+                      Spacer(),
                       Text(
                         "N${display(_transactionController.expenses.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -317,7 +323,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              height: 140,
+              height: 130,
               decoration: BoxDecoration(
                 color: AppColor().backgroundColor,
                 borderRadius: BorderRadius.circular(12),
@@ -520,7 +526,7 @@ class _HomeState extends State<Home> {
                         width: 10,
                       ),
                       buildMenuItem(_businessController
-                                  .selectedBusiness.value==
+                                  .selectedBusiness.value ==
                               null
                           ? "No Business"
                           : "${_businessController.selectedBusiness.value!.businessName}"),
@@ -606,10 +612,10 @@ class _HomeState extends State<Home> {
                       },
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                         decoration: BoxDecoration(
                           color: Color(0xff056B5C),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(4),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -642,20 +648,20 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                       decoration: BoxDecoration(
                         color: Color(0xff016BCC),
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(4),
                       ),
                       child: Row(
                         children: [
                           Container(
-                              padding: EdgeInsets.all(4),
+                              padding: EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                               child: SvgPicture.asset(
                                 "assets/images/money_in.svg",
-                                height: 12,
+                                height: 8,
                               )),
                           SizedBox(
                             width: 5,
@@ -665,38 +671,40 @@ class _HomeState extends State<Home> {
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'DMSans',
-                              fontSize: 10,
+                              fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
                       ),
                     ),
+                    Spacer(),
                     Text(
                       "N0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    Spacer(),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                       decoration: BoxDecoration(
                         color: Color(0xffDD8F48),
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(4),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                              padding: EdgeInsets.all(4),
+                              padding: EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                               child: SvgPicture.asset(
                                 "assets/images/money_out.svg",
-                                height: 12,
+                                height: 8,
                               )),
                           SizedBox(
                             width: 5,
@@ -706,19 +714,20 @@ class _HomeState extends State<Home> {
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'DMSans',
-                              fontSize: 10,
+                              fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
                       ),
                     ),
+                    Spacer(),
                     Text(
                       "N0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -726,7 +735,7 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            height: 140,
+            height: 130,
             decoration: BoxDecoration(
               color: AppColor().backgroundColor,
               borderRadius: BorderRadius.circular(12),

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/add_product.dart';
 import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
 import 'package:huzz/model/product.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../../../colors.dart';
-import 'productdelete.dart';
 
 class ProductListing extends StatefulWidget {
   const ProductListing({Key? key}) : super(key: key);
@@ -42,12 +41,15 @@ class _ProductListingState extends State<ProductListing> {
       backgroundColor: AppColor().whiteColor,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.to(AddProduct());
+          if (isDelete)
+            _displayDialog(context);
+          else
+            Get.to(AddProduct());
         },
         icon: Icon(Icons.add),
         backgroundColor: AppColor().backgroundColor,
         label: Text(
-          'New Product',
+          (isDelete) ? "Delete Product(s)" : 'New Product',
           style: TextStyle(
               fontFamily: 'DMSans',
               fontSize: 10,
@@ -144,41 +146,14 @@ class _ProductListingState extends State<ProductListing> {
                   ),
                 ),
                 Spacer(),
-                InkWell(
-                  onTap: () {
-                    Get.to(AddProduct());
-                  }
-
-                  // => showModalBottomSheet(
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.vertical(
-                  //       top: Radius.circular(20),
-                  //     ),
-                  //   ),
-                  //   context: context,
-                  //   builder: (context) => buildAddProduct(),
-                  // )
-                  ,
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: 20,
-                      color: AppColor().backgroundColor,
-                    ),
-                  ),
-                ),
                 SizedBox(
                   width: 5,
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(BuildDeleteProduct());
+                    setState(() {
+                      isDelete = !isDelete;
+                    });
                   },
                   child: Container(
                     height: 30,
@@ -205,24 +180,26 @@ class _ProductListingState extends State<ProductListing> {
             left: 20,
             right: 20,
             child: (searchtext.isEmpty || searchResult.isNotEmpty)
-                ? ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: (searchResult.isEmpty)
-                        ? _productController.productGoods.length
-                        : searchResult.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = (searchResult.isEmpty)
-                          ? _productController.productGoods[index]
-                          : searchResult[index];
-                      print("product item ${item.toJson()}");
-                      return (isDelete)
-                          ? ListingProductDelete(
-                              item: item,
-                            )
-                          : ListingProduct(
-                              item: item,
-                            );
-                    })
+                ? Obx(() {
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: (searchResult.isEmpty)
+                            ? _productController.productGoods.length
+                            : searchResult.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var item = (searchResult.isEmpty)
+                              ? _productController.productGoods[index]
+                              : searchResult[index];
+                          print("product item ${item.toJson()}");
+                          return (isDelete)
+                              ? ListingProductDelete(
+                                  item: item,
+                                )
+                              : ListingProduct(
+                                  item: item,
+                                );
+                        });
+                  })
                 : Container(
                     child: Center(
                       child: Text("No Product Found"),
@@ -232,6 +209,113 @@ class _ProductListingState extends State<ProductListing> {
         ],
       ),
     );
+  }
+
+  _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 50,
+              vertical: 200,
+            ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'You are about to delete a product, Are you sure you want to continue?',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Center(
+              child: SvgPicture.asset(
+                'assets/images/delete_alert.svg',
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().whiteColor,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColor().backgroundColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          _productController.deleteSelectedItem();
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   Widget productCount(BuildContext context) => Container(
@@ -804,13 +888,14 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                true
+                widget.item!.productLogoFileStoreId == null ||
+                        widget.item!.productLogoFileStoreId!.isEmpty
                     ? Image.asset(
                         "assets/images/Rectangle 1015.png",
                         height: 50,
                       )
-                    : Image.network(
-                        widget.item!.productLogoFileStoreId!,
+                    : Image.asset(
+                        "assets/images/Rectangle 1015.png",
                         height: 50,
                       ),
                 SizedBox(
