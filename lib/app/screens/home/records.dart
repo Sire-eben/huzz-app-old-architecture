@@ -461,7 +461,11 @@ class _RecordsState extends State<Records> {
                         },
                         child: SvgPicture.asset('assets/images/graph.svg')),
                     SizedBox(width: 5),
-                    SvgPicture.asset('assets/images/download.svg')
+                    InkWell(
+                        onTap: () {
+                          Get.to(() => Insight());
+                        },
+                        child: SvgPicture.asset('assets/images/download.svg'))
                   ],
                 ),
               ),
