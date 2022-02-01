@@ -27,7 +27,7 @@ print("uploaded file output $result");
 if(streamResponse.statusCode==200){
 var json=jsonDecode(result);
   // Get.snackbar("Success", "Profile Image Updated Successfully");
-return json['data']['id'];
+return json['data']['url'];
 }else{
 // Get.snackbar("Error", "Unable to Update Profile Image");
 return "";

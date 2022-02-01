@@ -23,6 +23,7 @@ class TransactionModel {
   PaymentHistory? currentBusinessTransactionPaymentHistory;
   List<PaymentItem>? businessTransactionPaymentItemList;
   bool isPending;
+  
   bool? isHistoryPending;
   TransactionModel(
       {this.id,
@@ -43,7 +44,8 @@ class TransactionModel {
       this.currentBusinessTransactionPaymentHistory,
       this.businessTransactionPaymentItemList,
       required this.isPending,
-      this.isHistoryPending});
+      this.isHistoryPending,
+     });
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) => TransactionModel(
       id: json['id'],
@@ -65,6 +67,7 @@ class TransactionModel {
       paymentMethod: json['paymentMode'],
       balance: json['balance'] ?? 0,
       isPending: json['isPending'] ?? false,
+   
       isHistoryPending: json['isHistoryPending'] ?? false,
       businessTransactionPaymentHistoryList:
           json['businessTransactionPaymentHistoryList'] == null

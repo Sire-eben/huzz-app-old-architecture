@@ -118,7 +118,7 @@ class ProductRepository extends GetxController
             "businessId":
                 _businessController.selectedBusiness.value!.businessId!,
             "productType": type,
-            "productLogoFileStoreId": fileId
+            "productLogoFileStoreUrl": fileId
           }),
           headers: {
             "Content-Type": "application/json",
@@ -262,7 +262,7 @@ class ProductRepository extends GetxController
 // "quantity":productQuantityController.text,
                 "businessId": product.businessId,
                 "productType": tabController!.index == 0 ? "GOODS" : "SERVICES",
-                "productLogoFileStoreId": fileId
+                "productLogoFileStoreUrl": fileId
               }),
               headers: {
             "Content-Type": "application/json",

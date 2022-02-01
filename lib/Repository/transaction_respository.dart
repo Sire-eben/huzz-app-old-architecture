@@ -90,6 +90,7 @@ class TransactionRespository extends GetxController {
   bool addCustomer = false;
   List<String> paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
   String? selectedPaymentSource;
+  String? selectedCategoryExpenses;
   Rx<List<TransactionModel>> _allTransactionList = Rx([]);
   List<TransactionModel> get allTransactionList => _allTransactionList.value;
   List<String> paymentMode = ["FULLY_PAID", "DEPOSIT"];
@@ -108,6 +109,9 @@ class TransactionRespository extends GetxController {
   List<RecordsData> get allIncomeHoursData => _allIncomeHoursData.value;
   List<RecordsData> get allExpenditureHoursData =>
       _allExpenditureHoursData.value;
+       final expenseCategories=[ "FINANCE",
+            "GROCERY",
+            "OTHERS"];
 
 Rx<dynamic> _recordBalance=Rx(0);
 Rx<dynamic> _recordMoneyIn=Rx(0);
@@ -1373,6 +1377,7 @@ List<RecordsData> _pieExpenditure=[];
         "paymentMode": selectedPaymentMode,
         "customerId": customerId,
         "businessTransactionFileStoreId": fileid,
+        "expenseCategory":selectedCategoryExpenses,
         "entryDateTime": (date == null) ? null : date!.toIso8601String().split("T")[0]+" "+"${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')}",
         "amountPaid": selectedPaymentMode=="DEPOSIT"? amountPaidController.numberValue:0
       });
@@ -1467,6 +1472,7 @@ List<RecordsData> _pieExpenditure=[];
     });
     // print("payment mode is $selectedPaymentMode");
     value = TransactionModel(
+      expenseCategory: selectedCategoryExpenses,
       paymentMethod: selectedPaymentMode,
       paymentSource: selectedPaymentSource,
       id: uuid.v1(),
@@ -1596,12 +1602,14 @@ List<RecordsData> _pieExpenditure=[];
         "businessId": savenext.businessId,
         "paymentMode": savenext.paymentMethod,
         "customerId": savenext.customerId,
+        "expenseCategory":savenext.expenseCategory,
         "businessTransactionFileStoreId":
             savenext.businessTransactionFileStoreId,
         "entryDateTime": savenext.entryDateTime!.toIso8601String(),
         "amountPaid": (savenext.paymentMethod == "DEPOSIT")
             ? firstItem.amountPaid
             : savenext.totalAmount,
+            
         // "businessTransactionPaymentHistoryList":
 
         // savenext.businessTransactionPaymentHistoryList!.map((e) => e.toJson()).toList()
@@ -1698,6 +1706,7 @@ List<RecordsData> _pieExpenditure=[];
     selectedPaymentSource = null;
     selectedProduct = null;
     productList = [];
+    selectedCategoryExpenses=null;
   }
 
 Future calculateRecordOverView()async{

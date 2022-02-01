@@ -3,11 +3,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
+import 'dart:io';
 
 import 'package:country_currency_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/model/business.dart';
@@ -38,14 +40,14 @@ class BusinessRespository extends GetxController {
   final _createBusinessStatus = CreateBusinessStatus.Empty.obs;
   Rx<Business?> selectedBusiness = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
-   SharePref? pref;
+  SharePref? pref;
+  Rx<File?> businessImage=Rx(null);
   CreateBusinessStatus get createBusinessStatus => _createBusinessStatus.value;
   UpdateBusinessStatus get updateBusinessStatus => _updateBusinessStatus.value;
 
   @override
   void onInit() async {
-    print("business is onInit");
-     pref = SharePref();
+    pref = SharePref();
     await pref!.init();
     _userController.Mtoken.listen((p0) {
       print("available token is $p0");
@@ -54,15 +56,16 @@ class BusinessRespository extends GetxController {
         OnlineBusiness();
       }
     });
-  OnlineBusiness();
+    OnlineBusiness();
     sqliteDb.openDatabae().then((value) {
       GetOfflineBusiness();
     });
   }
-void setLastBusiness(Business business){
 
-  pref!.setLastSelectedBusiness(business.businessId!);
-}
+  void setLastBusiness(Business business) {
+    pref!.setLastSelectedBusiness(business.businessId!);
+  }
+
   Future OnlineBusiness() async {
     print("get online business is");
     var response = await http.get(Uri.parse(ApiLink.get_user_business),
@@ -131,13 +134,13 @@ void setLastBusiness(Business business){
     print("offline business ${results.length}");
 
     _offlineBusiness(results);
-    if(selectedBusiness.value==null)
-    if (results.isNotEmpty) {
-    var business=results.firstWhereOrNull((e)=>e.businessId==pref!.getLastSelectedBusiness());
-    if(business==null)
-    selectedBusiness(results.first.business);
-    else
-    selectedBusiness(business.business);
+    if (selectedBusiness.value == null) if (results.isNotEmpty) {
+      var business = results.firstWhereOrNull(
+          (e) => e.businessId == pref!.getLastSelectedBusiness());
+      if (business == null)
+        selectedBusiness(results.first.business);
+      else
+        selectedBusiness(business.business);
     }
   }
 
@@ -176,9 +179,8 @@ void setLastBusiness(Business business){
         var json = jsonDecode(response.body);
         if (json['success']) {
           var business = Business.fromJson(json['data']);
-                    selectedBusiness(business);
-      OnlineBusiness();
-  
+          selectedBusiness(business);
+          OnlineBusiness();
 
           _createBusinessStatus(CreateBusinessStatus.Success);
 
@@ -192,11 +194,16 @@ void setLastBusiness(Business business){
     }
   }
 
-  Future updateBusiness() async {
+  Future updateBusiness(String selectedCurrency) async {
     print("token ${_userController.token}");
+    String? imageId;
+    var uploadController = Get.find<FileUploadRespository>();
+    if (businessImage.value != null) {
+      imageId = await uploadController.uploadFile(businessImage.value!.path);
+    }
     try {
       _updateBusinessStatus(UpdateBusinessStatus.Loading);
-      final currency = CountryPickerUtils.getCountryByIsoCode(
+      final selectedCurrency = CountryPickerUtils.getCountryByIsoCode(
               _userController.countryCodeFLag)
           .currencyCode
           .toString();
@@ -209,8 +216,8 @@ void setLastBusiness(Business business){
               "address": businessAddressController.text,
               "phoneNumber": businessPhoneNumber.text,
               "email": businessEmail.text,
-              "currency": currency,
-              "buisnessLogoFileStoreId": null,
+              "buisnessLogoFileStoreId": imageId,
+              "currency": selectedCurrency,
             },
           ),
           headers: {
