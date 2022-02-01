@@ -209,7 +209,7 @@ class _CustomersState extends State<Customers> {
                                   Text(
                                     'Customer',
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 13,
                                         color: Colors.black,
                                         fontFamily: 'DMSans',
                                         fontWeight: FontWeight.bold),
@@ -217,14 +217,14 @@ class _CustomersState extends State<Customers> {
                                   Text(
                                     'Your customers will show here. Click the',
                                     style: TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 10,
                                         color: Colors.black,
                                         fontFamily: 'DMSans'),
                                   ),
                                   Text(
                                     'Add customers button to add your first customer',
                                     style: TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 10,
                                         color: Colors.black,
                                         fontFamily: 'DMSans'),
                                   ),
@@ -267,7 +267,7 @@ class _CustomersState extends State<Customers> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 200,
+              vertical: 300,
             ),
             title: Row(
               children: [

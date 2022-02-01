@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/debtors_repository.dart';
 
 import '../../../../colors.dart';
 import 'debtors.dart';
@@ -14,7 +13,6 @@ class DebtorsTab extends StatefulWidget {
 }
 
 class _DebtorsTabState extends State<DebtorsTab> {
-  
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

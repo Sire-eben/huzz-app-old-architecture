@@ -264,7 +264,7 @@ class _MerchantsState extends State<Merchants> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 200,
+              vertical: 300,
             ),
             title: Row(
               children: [

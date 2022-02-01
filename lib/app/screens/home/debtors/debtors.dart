@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, unused_element
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -5,7 +7,6 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/debtors_repository.dart';
-import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
@@ -72,13 +73,13 @@ class _DebtorsState extends State<Debtors> {
     'Mr Ojo Dada',
   ];
 
-  int quantityValue = 0;
   String countryFlag = "NG";
   String countryCode = "234";
+
+  int itemValue = 0;
   int currentStep = 0;
   int customerValue = 0;
-  int itemValue = 0;
-  final _createKey = GlobalKey<FormState>();
+  int quantityValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -180,10 +181,9 @@ class _DebtorsState extends State<Debtors> {
                                       : (_debtorController
                                           .fullyPaidDebt.length)),
                                   itemBuilder: (context, index) {
-                                    var item = ((value == "Pending")
-                                        ? (_debtorController.debtorsList)
-                                        : (_debtorController
-                                            .fullyPaidDebt))[index];
+                                    var item =
+                                        _debtorController.debtorsList[index];
+                                    // ignore: unused_local_variable
                                     var customer = _customerController
                                         .checkifCustomerAvailableWithValue(
                                             item.customerId!);
@@ -680,7 +680,6 @@ class DebtorListing extends StatefulWidget {
 
 class _DebtorListingState extends State<DebtorListing> {
   final _userController = Get.find<AuthRepository>();
-  final _productController = Get.find<ProductRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _businessController = Get.find<BusinessRespository>();
 
@@ -704,25 +703,29 @@ class _DebtorListingState extends State<DebtorListing> {
 
   void initState() {
     firstName = _userController.user!.firstName!;
-    // product = _productController.productGoods.first as String;
     phone = _businessController.selectedBusiness.value!.businessPhoneNumber;
     businessName = _businessController.selectedBusiness.value!.businessName;
     super.initState();
   }
 
-  String? initialText =
-      // "Dear $firstName, you have an outstanding payment of N500 for your purchase of $product at $businessName, $phone. \n \n Kindly pay as soon as possible.Thanks for your patronage. \n Powered by Huzz.";
-      "Dear Tunde, you have an outstanding payment of N500 for your purchase of Melon seeds at Huzz technologies  (08133150074). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+  String? initialText;
 
   @override
   Widget build(BuildContext context) {
     var customer = _customerController
         .checkifCustomerAvailableWithValue(widget.item!.customerId!);
+
+        if(customer==null){
+          return Container();
+        }
+        initialText="Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  $businessName  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+
     if (customer == null) {
       return Container();
     }
     initialText =
         "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase of $businessName at Huzz technologies  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+
     return customer == null
         ? Container()
         : Row(
@@ -895,8 +898,6 @@ class _DebtorListingState extends State<DebtorListing> {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   padding: EdgeInsets.only(left: 10, top: 5, bottom: 2),
-                  // height: MediaQuery.of(context).size.height * 0.2,
-                  // width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: AppColor().whiteColor,
                     border: Border.all(
@@ -927,12 +928,12 @@ class _DebtorListingState extends State<DebtorListing> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Image.asset('assets/images/message.png'),
-                    ),
-                    Expanded(
-                      child: Image.asset('assets/images/chat.png'),
-                    ),
+                    // Expanded(
+                    //   child: Image.asset('assets/images/message.png'),
+                    // ),
+                    // Expanded(
+                    //   child: Image.asset('assets/images/chat.png'),
+                    // ),
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
@@ -949,30 +950,6 @@ class _DebtorListingState extends State<DebtorListing> {
           ),
         ),
       );
-
-  // _editTitleTextField() {
-  //   if (_isEditingText)
-  //     return Center(
-  //       child: TextFormField(
-  //         controller: textEditingController,
-  //         textInputAction: TextInputAction.none,
-  //         decoration: InputDecoration(
-  //           isDense: true,
-  //           enabledBorder: OutlineInputBorder(
-  //             borderSide: BorderSide.none,
-  //           ),
-  //           hintText: 'Type Message',
-  //           hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-  //                 fontFamily: 'DMSans',
-  //                 color: Colors.black26,
-  //                 fontSize: 14,
-  //                 fontStyle: FontStyle.normal,
-  //                 fontWeight: FontWeight.normal,
-  //               ),
-  //         ),
-  //       ),
-  //     );
-  // }
 
   _editTitleTextField() {
     if (_isEditingText)

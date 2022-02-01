@@ -2,7 +2,6 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huzz/app/screens/customers/customer_tabView.dart';
-import 'package:huzz/app/screens/more.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
@@ -10,12 +9,14 @@ import 'customers/customer_tabView.dart';
 import 'home/home.dart';
 import 'inventory/manage_inventory.dart';
 import 'invoice/available_invoice.dart';
-import 'more.dart';
 
 // ignore: must_be_immutable
 class Dashboard extends StatefulWidget {
   int? selectedIndex;
-  Dashboard({Key? key, this.selectedIndex = 2}) : super(key: key);
+  Dashboard({
+    Key? key,
+    this.selectedIndex = 0,
+  }) : super(key: key);
 
   @override
   _DashboardState createState() =>
@@ -23,7 +24,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  int selectedIndex = 2;
+  int selectedIndex = 0;
   _DashboardState({required this.selectedIndex});
   // ignore: unused_element
   void _selectPage(int index) {
@@ -42,6 +43,14 @@ class _DashboardState extends State<Dashboard> {
         selectedIndex: selectedIndex,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
+              icon: Icon(Icons.home),
+              title: Text(
+                'Home',
+                style: AppThemes.style12PriBold,
+              ),
+              activeColor: AppColor().backgroundColor,
+              inactiveColor: inactiveColor),
+          BottomNavyBarItem(
               icon: Icon(
                 CupertinoIcons.person_3_fill,
                 size: 32,
@@ -56,14 +65,6 @@ class _DashboardState extends State<Dashboard> {
               icon: Icon(Icons.inventory),
               title: Text(
                 'Inventory',
-                style: AppThemes.style12PriBold,
-              ),
-              activeColor: AppColor().backgroundColor,
-              inactiveColor: inactiveColor),
-          BottomNavyBarItem(
-              icon: Icon(Icons.home),
-              title: Text(
-                'Home',
                 style: AppThemes.style12PriBold,
               ),
               activeColor: AppColor().backgroundColor,
@@ -85,12 +86,11 @@ class _DashboardState extends State<Dashboard> {
   Widget buildPages() {
     switch (selectedIndex) {
       case 0:
-        return CustomerTabView();
-      case 1:
-        return ManageInventory();
-      case 2:
         return Home();
-
+      case 1:
+        return CustomerTabView();
+      case 2:
+        return ManageInventory();
       case 3:
       default:
         return AvailableInvoice();

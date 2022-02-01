@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/app/screens/inventory/Product/productdelete.dart';
 import 'package:huzz/app/screens/inventory/Product/productlist.dart';
 import 'package:huzz/app/screens/inventory/Service/add_service.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/product_model.dart';
-import 'package:huzz/model/service_model.dart';
 import 'package:number_display/number_display.dart';
 
 import '../../../../colors.dart';
@@ -47,12 +45,15 @@ class _ServiceListingState extends State<ServiceListing> {
       backgroundColor: AppColor().whiteColor,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.to(AddService());
+          if (isDelete)
+            _displayDialog(context);
+          else
+            Get.to(AddService());
         },
         icon: Icon(Icons.add),
         backgroundColor: AppColor().backgroundColor,
         label: Text(
-          'New Service',
+          (isDelete) ? "Delete Service(s)" : 'New Service',
           style: TextStyle(
               fontFamily: 'DMSans',
               fontSize: 10,
@@ -206,49 +207,49 @@ class _ServiceListingState extends State<ServiceListing> {
                       ),
                     ),
             ),
-            Positioned(
-              bottom: 10,
-              right: 30,
-              child: GestureDetector(
-                onTap: () {
-                  if (isDelete)
-                    _displayDialog(context);
-                  else
-                    Get.to(AddService());
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 15,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.add,
-                        size: 18,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        (isDelete) ? "Delete Service(s)" : 'New Service',
-                        style: TextStyle(
-                          color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   bottom: 10,
+            //   right: 30,
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       if (isDelete)
+            //         _displayDialog(context);
+            //       else
+            //         Get.to(AddService());
+            //     },
+            //     child: Container(
+            //       padding: EdgeInsets.symmetric(
+            //         horizontal: 20,
+            //         vertical: 15,
+            //       ),
+            //       decoration: BoxDecoration(
+            //         color: AppColor().backgroundColor,
+            //         borderRadius: BorderRadius.circular(25),
+            //       ),
+            //       child: Row(
+            //         children: [
+            //           Icon(
+            //             Icons.add,
+            //             size: 18,
+            //             color: Colors.white,
+            //           ),
+            //           SizedBox(
+            //             width: 10,
+            //           ),
+            //           Text(
+            //             (isDelete) ? "Delete Service(s)" : 'New Service',
+            //             style: TextStyle(
+            //               color: AppColor().whiteColor,
+            //               fontFamily: 'DMSans',
+            //               fontWeight: FontWeight.bold,
+            //               fontSize: 14,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         );
       }),
@@ -262,7 +263,7 @@ class _ServiceListingState extends State<ServiceListing> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 200,
+              vertical: 300,
             ),
             title: Row(
               children: [
@@ -379,7 +380,7 @@ class _ServiceListingState extends State<ServiceListing> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 38),
+                  padding: const EdgeInsets.symmetric(horizontal: 37),
                   child: Text(
                     "Services Count",
                     style: TextStyle(
@@ -749,6 +750,7 @@ class _ListingServicesState extends State<ListingServices> {
     length: 8,
     decimal: 0,
   );
+  // ignore: unused_field
   final _productController = Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
@@ -785,7 +787,7 @@ class _ListingServicesState extends State<ListingServices> {
                   ),
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 15,
                 ),
                 Expanded(
                   flex: 5,
@@ -801,7 +803,7 @@ class _ListingServicesState extends State<ListingServices> {
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
-                              fontSize: 13,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -810,7 +812,7 @@ class _ListingServicesState extends State<ListingServices> {
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
-                              fontSize: 11,
+                              fontSize: 10,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -821,7 +823,7 @@ class _ListingServicesState extends State<ListingServices> {
                       ),
                       Expanded(
                         child: Text(
-                          "description",
+                          "Description",
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
@@ -853,6 +855,7 @@ class _ListingServicesState extends State<ListingServices> {
   }
 }
 
+// ignore: must_be_immutable
 class ListingServicesDelete extends StatefulWidget {
   Product? item;
   ListingServicesDelete({

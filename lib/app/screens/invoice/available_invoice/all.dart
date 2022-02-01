@@ -10,7 +10,6 @@ import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:number_display/number_display.dart';
 
 import '../invoice_pdf.dart';
-import 'single_invoice_pdf.dart';
 import 'single_invoice_preview.dart';
 
 class All extends StatefulWidget {
@@ -357,13 +356,13 @@ class _AllState extends State<All> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 200,
+              vertical: 300,
             ),
             title: Row(
               children: [
                 Expanded(
                   child: Text(
-                    'You are about to delete you want to delete invoice(s) Are you sure you want to continue?',
+                    'You are about to delete invoice(s) Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
                       fontFamily: 'DMSans',

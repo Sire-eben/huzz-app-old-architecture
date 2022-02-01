@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/app/screens/inventory/Service/add_service.dart';
 import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
 
 import '../../../../colors.dart';
@@ -90,46 +89,46 @@ class _ServicesState extends State<Services> {
               ),
 
               //Add Products
-              Positioned(
-                bottom: 10,
-                right: 30,
-                child: InkWell(
-                  onTap: () {
-                    Get.to(AddService());
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 15,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.add,
-                          size: 18,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'New Service',
-                          style: TextStyle(
-                            color: AppColor().whiteColor,
-                            fontFamily: 'DMSans',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              // Positioned(
+              //   bottom: 10,
+              //   right: 30,
+              //   child: InkWell(
+              //     onTap: () {
+              //       Get.to(AddService());
+              //     },
+              //     child: Container(
+              //       padding: EdgeInsets.symmetric(
+              //         horizontal: 20,
+              //         vertical: 15,
+              //       ),
+              //       decoration: BoxDecoration(
+              //         color: AppColor().backgroundColor,
+              //         borderRadius: BorderRadius.circular(25),
+              //       ),
+              //       child: Row(
+              //         children: [
+              //           Icon(
+              //             Icons.add,
+              //             size: 18,
+              //             color: Colors.white,
+              //           ),
+              //           SizedBox(
+              //             width: 10,
+              //           ),
+              //           Text(
+              //             'New Service',
+              //             style: TextStyle(
+              //               color: AppColor().whiteColor,
+              //               fontFamily: 'DMSans',
+              //               fontWeight: FontWeight.bold,
+              //               fontSize: 14,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           );
   }
