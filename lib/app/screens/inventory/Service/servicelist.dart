@@ -43,21 +43,24 @@ class _ServiceListingState extends State<ServiceListing> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor().whiteColor,
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {
-      //     Get.to(AddService());
-      //   },
-      //   icon: Icon(Icons.add),
-      //   backgroundColor: AppColor().backgroundColor,
-      //   label: Text(
-      //     'New Service',
-      //     style: TextStyle(
-      //         fontFamily: 'DMSans',
-      //         fontSize: 10,
-      //         color: Colors.white,
-      //         fontWeight: FontWeight.bold),
-      //   ),
-      // ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          if (isDelete)
+            _displayDialog(context);
+          else
+            Get.to(AddService());
+        },
+        icon: Icon(Icons.add),
+        backgroundColor: AppColor().backgroundColor,
+        label: Text(
+          (isDelete) ? "Delete Service(s)" : 'New Service',
+          style: TextStyle(
+              fontFamily: 'DMSans',
+              fontSize: 10,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Obx(() {
         return Stack(
           children: [
@@ -204,49 +207,49 @@ class _ServiceListingState extends State<ServiceListing> {
                       ),
                     ),
             ),
-            Positioned(
-              bottom: 10,
-              right: 30,
-              child: GestureDetector(
-                onTap: () {
-                  if (isDelete)
-                    _displayDialog(context);
-                  else
-                    Get.to(AddService());
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 15,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.add,
-                        size: 18,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        (isDelete) ? "Delete Service(s)" : 'New Service',
-                        style: TextStyle(
-                          color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   bottom: 10,
+            //   right: 30,
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       if (isDelete)
+            //         _displayDialog(context);
+            //       else
+            //         Get.to(AddService());
+            //     },
+            //     child: Container(
+            //       padding: EdgeInsets.symmetric(
+            //         horizontal: 20,
+            //         vertical: 15,
+            //       ),
+            //       decoration: BoxDecoration(
+            //         color: AppColor().backgroundColor,
+            //         borderRadius: BorderRadius.circular(25),
+            //       ),
+            //       child: Row(
+            //         children: [
+            //           Icon(
+            //             Icons.add,
+            //             size: 18,
+            //             color: Colors.white,
+            //           ),
+            //           SizedBox(
+            //             width: 10,
+            //           ),
+            //           Text(
+            //             (isDelete) ? "Delete Service(s)" : 'New Service',
+            //             style: TextStyle(
+            //               color: AppColor().whiteColor,
+            //               fontFamily: 'DMSans',
+            //               fontWeight: FontWeight.bold,
+            //               fontSize: 14,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         );
       }),
