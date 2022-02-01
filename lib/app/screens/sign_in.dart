@@ -9,7 +9,6 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import 'fingerprint.dart';
 import 'forget_pass/forgot_pin.dart';
 import 'reg_home.dart';
 
@@ -237,34 +236,34 @@ class _SiginState extends State<Signin> {
                 ),
               ),
             ),
-            SizedBox(height: 40),
-            GestureDetector(
-              onTap: () {
-                Get.to(FingerPrint());
-              },
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.fingerprint,
-                      color: AppColor().backgroundColor,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "SIGN IN WITH YOUR FINGERPRINT",
-                      style: TextStyle(
-                        color: AppColor().backgroundColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+            // SizedBox(height: 40),
+            // GestureDetector(
+            //   onTap: () {
+            //     Get.to(FingerPrint());
+            //   },
+            //   child: Container(
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         Icon(
+            //           Icons.fingerprint,
+            //           color: AppColor().backgroundColor,
+            //         ),
+            //         SizedBox(
+            //           width: 10,
+            //         ),
+            //         Text(
+            //           "SIGN IN WITH YOUR FINGERPRINT",
+            //           style: TextStyle(
+            //             color: AppColor().backgroundColor,
+            //             fontSize: 12,
+            //             fontWeight: FontWeight.w700,
+            //           ),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 20,
             ),
