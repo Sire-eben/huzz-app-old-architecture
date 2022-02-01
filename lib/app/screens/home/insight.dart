@@ -188,7 +188,8 @@ class _InsightState extends State<Insight> {
                             isDense: true,
                             items: recordFilter.map(buildDropDown).toList(),
                             onChanged: (value) {
-                              setState(() => transactionController.value( value));
+                              setState(
+                                  () => transactionController.value(value));
                               if (value!.contains("This Year")) {
                                 transactionController.getYearRecord();
                               } else if (value.contains("Today")) {
@@ -202,7 +203,6 @@ class _InsightState extends State<Insight> {
                               } else if (value.contains("All Time")) {
                                 transactionController.getAllTimeRecord();
                               }
-
                             },
                             onTap: () {
                               // showModalBottomSheet(
@@ -296,30 +296,32 @@ class _InsightState extends State<Insight> {
                       // item1=removeDoubleItem(transactionController.allIncomeHoursData);
                       // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                       return SfCartesianChart(
-           
 
                           // Chart title
                           // title: ChartTitle(text: 'Half yearly sales analysis'),
                           // Enable legend
                           legend: Legend(isVisible: false),
-                           primaryXAxis: CategoryAxis(),
-                    primaryYAxis: NumericAxis(
-                          // labelFormat: "N"
-                          axisLabelFormatter: (s)=>ChartAxisLabel("N${display(s.value)}",TextStyle(fontSize: 10)),
-                        ),
-                    
+                          primaryXAxis: CategoryAxis(),
+                          primaryYAxis: NumericAxis(
+                            // labelFormat: "N"
+                            axisLabelFormatter: (s) => ChartAxisLabel(
+                                "N${display(s.value)}",
+                                TextStyle(fontSize: 10)),
+                          ),
 
-                              // Chart title
-                              // title: ChartTitle(text: 'Half yearly sales analysis'),
-                              // Enable legend
-                               onTooltipRender: (s){
-                                  var list=s.text!.split(":");
-                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
+                          // Chart title
+                          // title: ChartTitle(text: 'Half yearly sales analysis'),
+                          // Enable legend
+                          onTooltipRender: (s) {
+                            var list = s.text!.split(":");
+                            s.text =
+                                "${list[0]} ${display(double.parse(list[1]))}";
+                          },
 
-                              // Enable tooltip
-                              tooltipBehavior: TooltipBehavior(enable: true),
                           // Enable tooltip
-                        
+                          tooltipBehavior: TooltipBehavior(enable: true),
+                          // Enable tooltip
+
                           series: <ChartSeries<RecordsData, String>>[
                             SplineSeries<RecordsData, String>(
                                 dataSource: transactionController
@@ -393,14 +395,22 @@ class _InsightState extends State<Insight> {
                           Container(
                             height: 200,
                             child: SfCircularChart(
-                              onTooltipRender: (s){
-                                  var list=s.text!.split(":");
-                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
-                                 onDataLabelRender: (s)=>s.text="${display(double.parse(s.text))}",
+                                onTooltipRender: (s) {
+                                  var list = s.text!.split(":");
+                                  s.text =
+                                      "${list[0]} ${display(double.parse(list[1]))}";
+                                },
+                                onDataLabelRender: (s) =>
+                                    s.text = "${display(double.parse(s.text))}",
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <CircularSeries>[
                                   PieSeries<RecordsData, String>(
-                                      dataSource: transactionController.value.value.contains("Today")?item2:transactionController.pieIncomeValue,
+                                      dataSource: transactionController
+                                              .value.value
+                                              .contains("Today")
+                                          ? item2
+                                          : transactionController
+                                              .pieIncomeValue,
                                       pointColorMapper: (RecordsData data, _) =>
                                           data.color,
                                       xValueMapper: (RecordsData data, _) =>
@@ -429,14 +439,22 @@ class _InsightState extends State<Insight> {
                           Container(
                             height: 200,
                             child: SfCircularChart(
-                              onTooltipRender: (s){
-                                  var list=s.text!.split(":");
-                                  s.text="${list[0]} ${display(double.parse(list[1]))}";},
-                                 onDataLabelRender: (s)=>s.text="${display(double.parse(s.text))}",
+                                onTooltipRender: (s) {
+                                  var list = s.text!.split(":");
+                                  s.text =
+                                      "${list[0]} ${display(double.parse(list[1]))}";
+                                },
+                                onDataLabelRender: (s) =>
+                                    s.text = "${display(double.parse(s.text))}",
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <CircularSeries>[
                                   PieSeries<RecordsData, String>(
-                                      dataSource:transactionController.value.value.contains("Today")?item2:transactionController.pieExpenditure,
+                                      dataSource: transactionController
+                                              .value.value
+                                              .contains("Today")
+                                          ? item2
+                                          : transactionController
+                                              .pieExpenditure,
                                       pointColorMapper: (RecordsData data, _) =>
                                           data.color,
                                       xValueMapper: (RecordsData data, _) =>
@@ -474,55 +492,60 @@ class _InsightState extends State<Insight> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:transactionController.value.value.contains("Today")?item1
-                            .map((e) => Row(
-                                  children: [
-                                    Container(
-                                      height: 10,
-                                      width: 10,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: e.color),
-                                    ),
-                                    SizedBox(width: 2),
-                                    Text(
-                                      '${e.label}',
-                                      style: TextStyle(
-                                        color: AppColor().blackColor,
-                                        fontFamily: 'DMSans',
-                                        fontSize: 9,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    )
-                                  ],
-                                ))
-                            .toList():transactionController.pieIncomeValue.map((e) => Row(
-                                  children: [
-                                    Container(
-                                      height: 10,
-                                      width: 10,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: e.color),
-                                    ),
-                                    SizedBox(width: 2),
-                                    Text(
-                                      '${e.label}',
-                                      style: TextStyle(
-                                        color: AppColor().blackColor,
-                                        fontFamily: 'DMSans',
-                                        fontSize: 9,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    )
-                                  ],
-                                )).toList(),
+                        children:
+                            transactionController.value.value.contains("Today")
+                                ? item1
+                                    .map((e) => Row(
+                                          children: [
+                                            Container(
+                                              height: 10,
+                                              width: 10,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: e.color),
+                                            ),
+                                            SizedBox(width: 2),
+                                            Text(
+                                              '${e.label}',
+                                              style: TextStyle(
+                                                color: AppColor().blackColor,
+                                                fontFamily: 'DMSans',
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            )
+                                          ],
+                                        ))
+                                    .toList()
+                                : transactionController.pieIncomeValue
+                                    .map((e) => Row(
+                                          children: [
+                                            Container(
+                                              height: 10,
+                                              width: 10,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: e.color),
+                                            ),
+                                            SizedBox(width: 2),
+                                            Text(
+                                              '${e.label}',
+                                              style: TextStyle(
+                                                color: AppColor().blackColor,
+                                                fontFamily: 'DMSans',
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            )
+                                          ],
+                                        ))
+                                    .toList(),
                       ),
                     ],
                   ),
@@ -548,57 +571,61 @@ class _InsightState extends State<Insight> {
                         height: 10,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children:transactionController.value.value.contains("Today")? item2
-                            .map((e) => Row(
-                                  children: [
-                                    Container(
-                                      height: 10,
-                                      width: 10,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: e.color),
-                                    ),
-                                    SizedBox(width: 2),
-                                    Text(
-                                      '${e.label}',
-                                      style: TextStyle(
-                                        color: AppColor().blackColor,
-                                        fontFamily: 'DMSans',
-                                        fontSize: 9,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    )
-                                  ],
-                                ))
-                            .toList():transactionController.pieExpenditure.map((e) => Row(
-                                  children: [
-                                    Container(
-                                      height: 10,
-                                      width: 10,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: e.color),
-                                    ),
-                                    SizedBox(width: 2),
-                                    Text(
-                                      '${e.label}',
-                                      style: TextStyle(
-                                        color: AppColor().blackColor,
-                                        fontFamily: 'DMSans',
-                                        fontSize: 9,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    )
-                                  ],
-                                )).toList()),
-                    
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: transactionController.value.value
+                                  .contains("Today")
+                              ? item2
+                                  .map((e) => Row(
+                                        children: [
+                                          Container(
+                                            height: 10,
+                                            width: 10,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: e.color),
+                                          ),
+                                          SizedBox(width: 2),
+                                          Text(
+                                            '${e.label}',
+                                            style: TextStyle(
+                                              color: AppColor().blackColor,
+                                              fontFamily: 'DMSans',
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          )
+                                        ],
+                                      ))
+                                  .toList()
+                              : transactionController.pieExpenditure
+                                  .map((e) => Row(
+                                        children: [
+                                          Container(
+                                            height: 10,
+                                            width: 10,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: e.color),
+                                          ),
+                                          SizedBox(width: 2),
+                                          Text(
+                                            '${e.label}',
+                                            style: TextStyle(
+                                              color: AppColor().blackColor,
+                                              fontFamily: 'DMSans',
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          )
+                                        ],
+                                      ))
+                                  .toList()),
                     ],
                   ),
                 ),
@@ -646,8 +673,12 @@ class _InsightState extends State<Insight> {
                               height: 10,
                             ),
                             Container(
-                              color: Colors.black,
-                                height:paymentList1.length<5 ?paymentList1.length*15: paymentList1.length<10?40: 70,
+                                color: Colors.black,
+                                height: paymentList1.length < 5
+                                    ? paymentList1.length * 15
+                                    : paymentList1.length < 10
+                                        ? 40
+                                        : 70,
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: WordCloud(paymentList1))
                           ],
@@ -672,8 +703,12 @@ class _InsightState extends State<Insight> {
                               height: 10,
                             ),
                             Container(
-                              color: Colors.black,
-                                height:paymentList2.length<10?paymentList2.length*15: paymentList2.length<10?40: 70,
+                                color: Colors.black,
+                                height: paymentList2.length < 10
+                                    ? paymentList2.length * 15
+                                    : paymentList2.length < 10
+                                        ? 40
+                                        : 70,
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: WordCloud(paymentList2))
                           ],
@@ -734,7 +769,7 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/total_income.svg',
                               color: AppColor().backgroundColor,
-                              amount: '₦' +
+                              amount:
                                   display(transactionController.recordMoneyIn),
                               name1: 'Total',
                               name2: 'Income',
@@ -744,7 +779,7 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/total_expense.svg',
                               color: AppColor().blackColor,
-                              amount: '₦' +
+                              amount:
                                   display(transactionController.recordMoneyOut),
                               name1: 'Total',
                               name2: 'Expenses',
@@ -758,8 +793,8 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/average_income.svg',
                               color: AppColor().purpleColor,
-                              amount: '₦' +
-                                  display((transactionController.recordMoneyIn /
+                              amount: display(
+                                  (transactionController.recordMoneyIn /
                                       item1.length)),
                               name1: 'Average income',
                               name2: 'per transaction',
@@ -769,10 +804,9 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/average_expenses.svg',
                               color: AppColor().wineColor,
-                              amount: '₦' +
-                                  display(
-                                      (transactionController.recordMoneyOut /
-                                          item2.length)),
+                              amount: display(
+                                  (transactionController.recordMoneyOut /
+                                      item2.length)),
                               name1: 'Average expenses',
                               name2: 'per transaction',
                               message: '',
