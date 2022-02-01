@@ -65,8 +65,8 @@ class _SettingsState extends State<Settings> {
           ),
         ),
       ),
-      body: Obx(() {
-        return Stack(
+      body: Obx(
+        () => Stack(
           children: [
             Positioned(
               top: 20,
@@ -82,15 +82,15 @@ class _SettingsState extends State<Settings> {
                   shape: BoxShape.circle,
                 ),
                 child: Center(
-                  child: (_productController.productImage != null &&
-                          _productController.productImage != Null)
-                      ? Image.file(
-                          _productController.productImage!,
+                  child: (controller.profileImage == null ||
+                          controller.user!.profileImageFileStoreId!.isEmpty)
+                      ? Image.asset(
+                          "assets/images/profileImg.png",
+                        )
+                      : Image.file(
+                          controller.profileImage!,
                           height: 100,
                           width: 100,
-                        )
-                      : Image.asset(
-                          "assets/images/profileImg.png",
                         ),
                 ),
               ),
@@ -429,8 +429,8 @@ class _SettingsState extends State<Settings> {
               ),
             ),
           ],
-        );
-      }),
+        ),
+      ),
     );
   }
 
@@ -501,10 +501,10 @@ class _SettingsState extends State<Settings> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    (_productController.productImage != null &&
-                            _productController.productImage != Null)
+                    (controller.profileImage != null &&
+                            controller.profileImage != null)
                         ? Image.file(
-                            _productController.productImage!,
+                            controller.profileImage!,
                             height: 150,
                             width: 150,
                           )

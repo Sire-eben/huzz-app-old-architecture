@@ -2,12 +2,14 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
@@ -98,6 +100,7 @@ class AuthRepository extends GetxController {
 
   SqliteDb sqliteDb = SqliteDb();
   bool tokenExpired = false;
+  File? profileImage;
   @override
   void onInit() async {
     pref = SharePref();
@@ -279,11 +282,17 @@ class AuthRepository extends GetxController {
     try {
       _updateProfileStatus(UpdateProfileStatus.Loading);
       print("otp value ${otpController.text}");
+      final uploadController = Get.find<FileUploadRespository>();
+      String? imageId;
+      if (profileImage != null) {
+        imageId = await uploadController.uploadFile(profileImage!.path);
+      }
       final resposne = await http.put(Uri.parse(ApiLink.update_profile),
           body: jsonEncode({
             "firstName": firstNameController.text,
             "lastName": lastNameController.text,
             "email": emailController.text,
+            "profileImageFileStoreId": imageId,
             "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
           headers: {
