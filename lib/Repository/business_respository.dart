@@ -41,7 +41,7 @@ class BusinessRespository extends GetxController {
   Rx<Business?> selectedBusiness = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
   SharePref? pref;
-  File? businessImage;
+  Rx<File?> businessImage=Rx(null);
   CreateBusinessStatus get createBusinessStatus => _createBusinessStatus.value;
   UpdateBusinessStatus get updateBusinessStatus => _updateBusinessStatus.value;
 
@@ -198,8 +198,8 @@ class BusinessRespository extends GetxController {
     print("token ${_userController.token}");
     String? imageId;
     var uploadController = Get.find<FileUploadRespository>();
-    if (businessImage != null) {
-      imageId = await uploadController.uploadFile(businessImage!.path);
+    if (businessImage.value != null) {
+      imageId = await uploadController.uploadFile(businessImage.value!.path);
     }
     try {
       _updateBusinessStatus(UpdateBusinessStatus.Loading);

@@ -556,7 +556,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   // Pick an image
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
-                  businessController.businessImage=File(image!.path);
+                  businessController.businessImage(File(image!.path));
                   print("image path ${image.path}");
                 },
                 child: Row(
@@ -565,7 +565,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     (businessController.businessImage != null &&
                             businessController.businessImage != Null)
                         ? Image.file(
-                            businessController.businessImage!,
+                            businessController.businessImage.value!,
                             height: 150,
                             width: 150,
                           )
