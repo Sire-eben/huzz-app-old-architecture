@@ -759,7 +759,8 @@ class _InsightState extends State<Insight> {
                               amount: item2.length.toString(),
                               name1: 'Expense',
                               name2: 'Transaction',
-                              message: '',
+                              message:
+                                  'Total number of\nexpenses transactions\nfor the selected period',
                             ),
                           ],
                         ),
@@ -773,7 +774,7 @@ class _InsightState extends State<Insight> {
                                   display(transactionController.recordMoneyIn),
                               name1: 'Total',
                               name2: 'Income',
-                              message: '',
+                              message: 'Total income for\nthe selected period',
                             ),
                             SizedBox(width: 10),
                             StatisticsWidget(
@@ -783,7 +784,8 @@ class _InsightState extends State<Insight> {
                                   display(transactionController.recordMoneyOut),
                               name1: 'Total',
                               name2: 'Expenses',
-                              message: '',
+                              message:
+                                  'Total expenses for\nthe selected period',
                             ),
                           ],
                         ),
@@ -798,7 +800,8 @@ class _InsightState extends State<Insight> {
                                       item1.length)),
                               name1: 'Average income',
                               name2: 'per transaction',
-                              message: '',
+                              message:
+                                  'Average income\nper transaction\nfor the selected period',
                             ),
                             SizedBox(width: 10),
                             StatisticsWidget(
@@ -809,7 +812,8 @@ class _InsightState extends State<Insight> {
                                       item2.length)),
                               name1: 'Average expenses',
                               name2: 'per transaction',
-                              message: '',
+                              message:
+                                  'Average expenses\nper transaction\nfor the selected period',
                             ),
                           ],
                         ),
