@@ -100,7 +100,7 @@ class AuthRepository extends GetxController {
 
   SqliteDb sqliteDb = SqliteDb();
   bool tokenExpired = false;
-  File? profileImage;
+  Rx<File?> profileImage=Rx(null);
   @override
   void onInit() async {
     pref = SharePref();
@@ -284,8 +284,8 @@ class AuthRepository extends GetxController {
       print("otp value ${otpController.text}");
       final uploadController = Get.find<FileUploadRespository>();
       String? imageId;
-      if (profileImage != null) {
-        imageId = await uploadController.uploadFile(profileImage!.path);
+      if (profileImage.value != null) {
+        imageId = await uploadController.uploadFile(profileImage.value!.path);
       }
       final resposne = await http.put(Uri.parse(ApiLink.update_profile),
           body: jsonEncode({
