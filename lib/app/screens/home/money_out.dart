@@ -47,6 +47,7 @@ class _MoneyOutState extends State<MoneyOut> {
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
+ 
   String? value;
 
   String countryFlag = "NG";
@@ -560,6 +561,65 @@ class _MoneyOutState extends State<MoneyOut> {
                   ],
                 ),
               ),
+               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Expense Category',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'DMSans'),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "*",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                              fontFamily: 'DMSans'),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              width: 2, color: AppColor().backgroundColor)),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: _transactionController.selectedCategoryExpenses,
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColor().backgroundColor,
+                          ),
+                          iconSize: 30,
+                          items: _transactionController.expenseCategories
+                              .map(buildPaymentItem)
+                              .toList(),
+                          onChanged: (value) => setState(() =>
+                              _transactionController.selectedCategoryExpenses =
+                                  value),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -993,11 +1053,12 @@ class _MoneyOutState extends State<MoneyOut> {
                       if (_transactionController.productList.isEmpty) {
                         _transactionController.addMoreProduct();
                       }
+                      
                       if (_transactionController.productList.isNotEmpty) {
                         if (_transactionController.selectedPaymentMode !=
                                 null &&
                             _transactionController.selectedPaymentSource !=
-                                null) {
+                                null&& _transactionController.selectedCategoryExpenses!=null) {
                           if (_transactionController.addCustomer) {
                             if (_transactionController.selectedCustomer !=
                                     null ||
