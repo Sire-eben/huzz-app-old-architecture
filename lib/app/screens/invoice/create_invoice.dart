@@ -65,9 +65,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   @override
   void initState() {
     quantityController.text = quantityValue.toString();
-    var date=DateTime.now();
-    var newDate=DateTime(date.year,date.month,date.day+7);
-    _invoiceController.date=newDate;
+    var date = DateTime.now();
+    var newDate = DateTime(date.year, date.month, date.day + 7);
+    _invoiceController.date = newDate;
     _invoiceController.dateController.text =
         DateFormat("yyyy-MM-dd").format(newDate).toString();
     super.initState();
@@ -133,7 +133,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             controlsBuilder:
                 (BuildContext context, ControlsDetails controlsDetails) {
               return Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 40),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -234,7 +234,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 if (_invoiceController.paymentValue == 1) {
                   if (_bankKey.currentState!.validate()) {
                     if (_invoiceController.productList.isEmpty)
-                     
                       _invoiceController.addMoreProduct();
                     _invoiceController.createBusinessInvoice();
                     setState(() {});

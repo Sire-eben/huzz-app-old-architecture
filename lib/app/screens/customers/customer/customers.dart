@@ -267,7 +267,7 @@ class _CustomersState extends State<Customers> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 100,
+              vertical: 200,
             ),
             title: Row(
               children: [
