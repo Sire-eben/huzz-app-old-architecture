@@ -120,25 +120,31 @@ class _CustomersState extends State<Customers> {
                                 children: [
                                   SvgPicture.asset(
                                       'assets/images/customers.svg'),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   Text(
                                     'Customers',
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 13,
                                         color: Colors.black,
                                         fontFamily: 'DMSans',
                                         fontWeight: FontWeight.bold),
                                   ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   Text(
                                     'Your customers will show here. Click the',
                                     style: TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 10,
                                         color: Colors.black,
                                         fontFamily: 'DMSans'),
                                   ),
                                   Text(
                                     'Add customer button to add your first customer',
                                     style: TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 10,
                                         color: Colors.black,
                                         fontFamily: 'DMSans'),
                                   ),

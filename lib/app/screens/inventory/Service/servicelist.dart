@@ -260,7 +260,7 @@ class _ServiceListingState extends State<ServiceListing> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 200,
+              vertical: 300,
             ),
             title: Row(
               children: [
