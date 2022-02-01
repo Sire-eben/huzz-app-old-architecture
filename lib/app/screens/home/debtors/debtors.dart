@@ -9,7 +9,9 @@ import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:huzz/model/user.dart';
+import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../colors.dart';
 import 'debtorreminder.dart';
@@ -59,7 +61,7 @@ class _DebtorsState extends State<Debtors> {
     'Panadol',
   ];
 
-  String? value;
+  String? value = "Pending";
   String? values;
 
   final customers = [
@@ -128,7 +130,9 @@ class _DebtorsState extends State<Debtors> {
                             // color: Color(0xffF5F5F5),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: (_debtorController.debtorsList.isEmpty)
+                          child: ((value == "Pending")
+                                  ? (_debtorController.debtorsList.isEmpty)
+                                  : (_debtorController.fullyPaidDebt.isEmpty))
                               ? Center(
                                   child: Column(
                                     crossAxisAlignment:
@@ -170,8 +174,10 @@ class _DebtorsState extends State<Debtors> {
                                   shrinkWrap: true,
                                   separatorBuilder: (context, index) =>
                                       Divider(),
-                                  itemCount:
-                                      _debtorController.debtorsList.length,
+                                  itemCount: ((value == "Pending")
+                                      ? (_debtorController.debtorsList.length)
+                                      : (_debtorController
+                                          .fullyPaidDebt.length)),
                                   itemBuilder: (context, index) {
                                     var item =
                                         _debtorController.debtorsList[index];
@@ -696,26 +702,32 @@ class _DebtorListingState extends State<DebtorListing> {
   late String? product;
   late String? firstName;
   late String? businessName;
-
+  final display = createDisplay(
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   final users = Rx(User());
   User? get usersData => users.value;
 
   void initState() {
     firstName = _userController.user!.firstName!;
-    // product = _productController.productGoods.first as String;
     phone = _businessController.selectedBusiness.value!.businessPhoneNumber;
     businessName = _businessController.selectedBusiness.value!.businessName;
     super.initState();
   }
 
-  String? initialText =
-      // "Dear $firstName, you have an outstanding payment of N500 for your purchase of $product at $businessName, $phone. \n \n Kindly pay as soon as possible.Thanks for your patronage. \n Powered by Huzz.";
-      "Dear Tunde, you have an outstanding payment of N500 for your purchase of Melon seeds at Huzz technologies  (08133150074). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+  String? initialText;
+
+  // String? initialText =
+  //     "Dear Tunde, you have an outstanding payment of N500 for your purchase of Melon seeds at Huzz technologies  (08133150074). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
   @override
   Widget build(BuildContext context) {
     var customer = _customerController
         .checkifCustomerAvailableWithValue(widget.item!.customerId!);
+    if (customer == null) {
+      return Container();
+    }
+    initialText =
+        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase of $businessName at Huzz technologies  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
     return customer == null
         ? Container()
         : Row(
@@ -777,7 +789,7 @@ class _DebtorListingState extends State<DebtorListing> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Bal: ${widget.item!.balance!}",
+                        "Bal: ${display(widget.item!.balance!)}",
                         style: TextStyle(
                             fontSize: 13,
                             fontFamily: 'DMSans',
@@ -785,7 +797,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Paid: ${(widget.item!.totalAmount! - widget.item!.balance!)}",
+                        "Paid: ${display((widget.item!.totalAmount! - widget.item!.balance!))}",
                         style: TextStyle(
                             fontSize: 11,
                             fontFamily: 'DMSans',
@@ -892,8 +904,6 @@ class _DebtorListingState extends State<DebtorListing> {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   padding: EdgeInsets.only(left: 10, top: 5, bottom: 2),
-                  // height: MediaQuery.of(context).size.height * 0.2,
-                  // width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: AppColor().whiteColor,
                     border: Border.all(
@@ -924,16 +934,17 @@ class _DebtorListingState extends State<DebtorListing> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Image.asset('assets/images/message.png'),
-                    ),
-                    Expanded(
-                      child: Image.asset('assets/images/chat.png'),
-                    ),
+                    // Expanded(
+                    //   child: Image.asset('assets/images/message.png'),
+                    // ),
+                    // Expanded(
+                    //   child: Image.asset('assets/images/chat.png'),
+                    // ),
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          _displayDialog(context);
+                          Share.share("$initialText", subject: 'Send Message');
+                          // _displayDialog(context);
                         },
                         child: Image.asset('assets/images/share.png'),
                       ),
@@ -945,30 +956,6 @@ class _DebtorListingState extends State<DebtorListing> {
           ),
         ),
       );
-
-  // _editTitleTextField() {
-  //   if (_isEditingText)
-  //     return Center(
-  //       child: TextFormField(
-  //         controller: textEditingController,
-  //         textInputAction: TextInputAction.none,
-  //         decoration: InputDecoration(
-  //           isDense: true,
-  //           enabledBorder: OutlineInputBorder(
-  //             borderSide: BorderSide.none,
-  //           ),
-  //           hintText: 'Type Message',
-  //           hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-  //                 fontFamily: 'DMSans',
-  //                 color: Colors.black26,
-  //                 fontSize: 14,
-  //                 fontStyle: FontStyle.normal,
-  //                 fontWeight: FontWeight.normal,
-  //               ),
-  //         ),
-  //       ),
-  //     );
-  // }
 
   _editTitleTextField() {
     if (_isEditingText)
@@ -1247,37 +1234,40 @@ class _DebtorListingState extends State<DebtorListing> {
                           await _debtorController.UpdateBusinessDebtor(
                               debtor,
                               statusType == 1
-                                  ? 0
+                                  ? debtor.balance
                                   : int.parse(textEditingController.text));
                           Get.back();
                         }
                       }
                     },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Center(
-                        child: (_debtorController.addingDebtorStatus ==
-                                AddingDebtorStatus.Loading)
-                            ? Container(
-                                width: 30,
-                                height: 30,
-                                child: Center(
-                                    child: CircularProgressIndicator(
-                                        color: Colors.white)),
-                              )
-                            : Text(
-                                'Save',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: 'DMSans'),
-                              ),
-                      ),
-                    ),
+                    child: Obx(() {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: AppColor().backgroundColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: Center(
+                          child: (_debtorController.addingDebtorStatus ==
+                                  AddingDebtorStatus.Loading)
+                              ? Container(
+                                  width: 30,
+                                  height: 30,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                          color: Colors.white)),
+                                )
+                              : Text(
+                                  'Save',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: 'DMSans'),
+                                ),
+                        ),
+                      );
+                    }),
                   ),
                   SizedBox(
                     height: 40,

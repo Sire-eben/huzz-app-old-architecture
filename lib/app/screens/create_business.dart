@@ -71,6 +71,8 @@ class CreateBusiness extends StatelessWidget {
                     child: CustomTextField(
                       label: "Phone Number",
                       validatorText: "Phone Number is needed",
+                      keyType: TextInputType.phone,
+                      maxLength: 11,
                       textEditingController:
                           _businessController.businessPhoneNumber,
                     )),

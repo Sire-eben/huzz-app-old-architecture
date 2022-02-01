@@ -27,7 +27,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+    roundingType: RoundingType.floor,
+      length: 15, decimal: 5, );
 
   final items = ['Huzz Technologies', 'Technologies'];
   String? value;
@@ -520,7 +521,7 @@ class _HomeState extends State<Home> {
                         width: 10,
                       ),
                       buildMenuItem(_businessController
-                                  .selectedBusiness.value!.businessName ==
+                                  .selectedBusiness.value==
                               null
                           ? "No Business"
                           : "${_businessController.selectedBusiness.value!.businessName}"),

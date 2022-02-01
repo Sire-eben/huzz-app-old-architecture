@@ -65,8 +65,11 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   @override
   void initState() {
     quantityController.text = quantityValue.toString();
+    var date=DateTime.now();
+    var newDate=DateTime(date.year,date.month,date.day+7);
+    _invoiceController.date=newDate;
     _invoiceController.dateController.text =
-        DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
+        DateFormat("yyyy-MM-dd").format(newDate).toString();
     super.initState();
   }
 

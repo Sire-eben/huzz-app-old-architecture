@@ -244,28 +244,29 @@ class PdfInvoiceApi {
     invoice.paymentItemRequestList!.forEach((element) {
       totalAmount = totalAmount + element.totalAmount!;
     });
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          'COMMENTS',
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          '1. Payment should not exceed 30 days',
-          style: TextStyle(
-            fontSize: 7,
-          ),
-        ),
-        Text(
-          '2. Please note your invoice no in your payment',
-          style: TextStyle(
-            fontSize: 7,
-          ),
-        ),
-      ]),
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      // Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      //   Text(
+      //     'COMMENTS',
+      //     style: TextStyle(
+      //       fontSize: 10,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      //   Text(
+      //     '1. Payment should not exceed 30 days',
+      //     style: TextStyle(
+      //       fontSize: 7,
+      //     ),
+      //   ),
+      //   Text(
+      //     '2. Please note your invoice no in your payment',
+      //     style: TextStyle(
+      //       fontSize: 7,
+      //     ),
+      //   ),
+      // ]),
+
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
           'Sub-total',
@@ -289,6 +290,7 @@ class PdfInvoiceApi {
           ),
         ),
       ]),
+      SizedBox(width: Get.width*0.20),
       Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
         Text(
           'N $totalAmount',

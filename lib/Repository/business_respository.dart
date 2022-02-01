@@ -50,11 +50,13 @@ class BusinessRespository extends GetxController {
     pref = SharePref();
     await pref!.init();
     _userController.Mtoken.listen((p0) {
+      print("available token is $p0");
       if (p0.isNotEmpty || p0 != "0") {
+        print("trying to get online business since is the token is valid");
         OnlineBusiness();
       }
     });
-
+    OnlineBusiness();
     sqliteDb.openDatabae().then((value) {
       GetOfflineBusiness();
     });
@@ -65,6 +67,7 @@ class BusinessRespository extends GetxController {
   }
 
   Future OnlineBusiness() async {
+    print("get online business is");
     var response = await http.get(Uri.parse(ApiLink.get_user_business),
         headers: {"Authorization": "Bearer ${_userController.token}"});
 

@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
+import 'package:huzz/app/screens/home/receipt/money_in_out_pdf.dart';
+import 'package:huzz/app/screens/home/reciept.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/payment_item.dart';
@@ -75,7 +77,7 @@ print("transaction result ${transactionModel!.toJson()}");
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  transactionModel!.createdTime!
+                  transactionModel!.entryDateTime!
                       .formatDate(pattern: "dd, MMM y")!,
                   style: TextStyle(
                     color: AppColor().blackColor,
@@ -86,7 +88,7 @@ print("transaction result ${transactionModel!.toJson()}");
                   ),
                 ),
                 Text(
-                  transactionModel!.createdTime!
+                  transactionModel!.entryDateTime!
                       .formatDate(pattern: "hh:mm a")!,
                   style: TextStyle(
                     color: AppColor().blackColor,
@@ -552,28 +554,35 @@ print("transaction result ${transactionModel!.toJson()}");
                                     color: AppColor().blackColor),
                               ),
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  'View Receipt',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().backgroundColor),
-                                ),
-                                SizedBox(width: 4),
-                                Container(
-                                    padding: EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
+                            GestureDetector(
+                              onTap: ()async{
+                                               final moneyInOutReceipt =
+                          await PdfMoneyInOutApi.generate(transactionModel!);
+                      Get.to(() => IncomeReceipt(file: moneyInOutReceipt));
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'View Receipt',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
                                         color: AppColor().backgroundColor),
-                                    child: Icon(
-                                      Icons.arrow_forward,
-                                      color: AppColor().whiteColor,
-                                      size: 15,
-                                    ))
-                              ],
+                                  ),
+                                  SizedBox(width: 4),
+                                  Container(
+                                      padding: EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColor().backgroundColor),
+                                      child: Icon(
+                                        Icons.arrow_forward,
+                                        color: AppColor().whiteColor,
+                                        size: 15,
+                                      ))
+                                ],
+                              ),
                             ),
                           ],
                         ),

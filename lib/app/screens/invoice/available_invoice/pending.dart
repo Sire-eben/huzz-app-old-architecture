@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
+import 'package:huzz/app/screens/invoice/available_invoice/single_invoice_preview.dart';
+import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/model/invoice.dart';
 
 import '../../../../colors.dart';
@@ -85,79 +87,87 @@ final _productController = Get.find<ProductRepository>();
                           itemCount: _invoiceController.InvoicePendingList.length,
                           itemBuilder: (BuildContext context, int index) {
                             var item = _invoiceController.InvoicePendingList[index];
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  bottom: MediaQuery.of(context).size.width * 0.02),
-                              child: Container(
-                                padding: EdgeInsets.all(
-                                    MediaQuery.of(context).size.height * 0.02),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.withOpacity(0.1),
-                                    border: Border.all(
-                                        width: 2,
-                                        color: Colors.grey.withOpacity(0.1))),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                        //   Text(
-                                        //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
-                                        //     style: TextStyle(
-                                        //         fontWeight: FontWeight.bold,
-                                        //         fontFamily: 'DMSans',
-                                        //         fontSize: 14,
-                                        //         color: Colors.black),
-                                        //   ),
-                                          SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.02),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "N ${item.totalAmount}",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
-                                                    fontSize: 14,
-                                                    color: Color(0xffEF6500)),
-                                              ),
-                                              Text(
-                                                "",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
-                                                    fontSize: 14,
-                                                    color: Colors.black),
-                                              ),
-                                              Text(
-                                                item.createdDateTime!.formatDate()!,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
-                                                    fontSize: 14,
-                                                    color: Colors.black),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                            return GestureDetector(
+                              onTap: ()async{
+                                     final singleInvoiceReceipt =
+                                  await PdfInvoiceApi.generate(item);
+                              Get.to(() => PreviewSingleInvoice(
+                                  invoice: item, file: singleInvoiceReceipt));
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context).size.width * 0.02),
+                                child: Container(
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.height * 0.02),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.grey.withOpacity(0.1),
+                                      border: Border.all(
+                                          width: 2,
+                                          color: Colors.grey.withOpacity(0.1))),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                          //   Text(
+                                          //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
+                                          //     style: TextStyle(
+                                          //         fontWeight: FontWeight.bold,
+                                          //         fontFamily: 'DMSans',
+                                          //         fontSize: 14,
+                                          //         color: Colors.black),
+                                          //   ),
+                                            SizedBox(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.02),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "N ${item.totalAmount}",
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontFamily: 'DMSans',
+                                                      fontSize: 14,
+                                                      color: Color(0xffEF6500)),
+                                                ),
+                                                Text(
+                                                  "",
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontFamily: 'DMSans',
+                                                      fontSize: 14,
+                                                      color: Colors.black),
+                                                ),
+                                                Text(
+                                                  item.createdDateTime!.formatDate()!,
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontFamily: 'DMSans',
+                                                      fontSize: 14,
+                                                      color: Colors.black),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.05),
-                                    Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: AppColor().backgroundColor,
-                                    ),
-                                  ],
+                                      SizedBox(
+                                          width: MediaQuery.of(context).size.width *
+                                              0.05),
+                                      Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: AppColor().backgroundColor,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

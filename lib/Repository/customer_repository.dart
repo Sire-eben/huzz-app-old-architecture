@@ -788,7 +788,7 @@ class CustomerRepository extends GetxController {
                                     color: _randomColor.randomColor()),
                                 child: Center(
                                     child: Text(
-                                  '${item.displayName[0]}',
+                               item.displayName.isEmpty? "": '${item.displayName[0]}',
                                   style: TextStyle(
                                       fontSize: 30,
                                       color: Colors.white,

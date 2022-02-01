@@ -42,12 +42,15 @@ class _ProductListingState extends State<ProductListing> {
       backgroundColor: AppColor().whiteColor,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          if(isDelete)
+          _productController.deleteSelectedItem();
+          else
           Get.to(AddProduct());
         },
         icon: Icon(Icons.add),
         backgroundColor: AppColor().backgroundColor,
         label: Text(
-          'New Product',
+        (isDelete)? "Delete Product(s)":  'New Product',
           style: TextStyle(
               fontFamily: 'DMSans',
               fontSize: 10,
@@ -144,41 +147,15 @@ class _ProductListingState extends State<ProductListing> {
                   ),
                 ),
                 Spacer(),
-                InkWell(
-                  onTap: () {
-                    Get.to(AddProduct());
-                  }
-
-                  // => showModalBottomSheet(
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.vertical(
-                  //       top: Radius.circular(20),
-                  //     ),
-                  //   ),
-                  //   context: context,
-                  //   builder: (context) => buildAddProduct(),
-                  // )
-                  ,
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: 20,
-                      color: AppColor().backgroundColor,
-                    ),
-                  ),
-                ),
+               
                 SizedBox(
                   width: 5,
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(BuildDeleteProduct());
+                   setState(() {
+                     isDelete=!isDelete;
+                   });
                   },
                   child: Container(
                     height: 30,
@@ -205,24 +182,28 @@ class _ProductListingState extends State<ProductListing> {
             left: 20,
             right: 20,
             child: (searchtext.isEmpty || searchResult.isNotEmpty)
-                ? ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: (searchResult.isEmpty)
-                        ? _productController.productGoods.length
-                        : searchResult.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = (searchResult.isEmpty)
-                          ? _productController.productGoods[index]
-                          : searchResult[index];
-                      print("product item ${item.toJson()}");
-                      return (isDelete)
-                          ? ListingProductDelete(
-                              item: item,
-                            )
-                          : ListingProduct(
-                              item: item,
-                            );
-                    })
+                ? Obx(
+               (){
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: (searchResult.isEmpty)
+                            ? _productController.productGoods.length
+                            : searchResult.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var item = (searchResult.isEmpty)
+                              ? _productController.productGoods[index]
+                              : searchResult[index];
+                          print("product item ${item.toJson()}");
+                          return (isDelete)
+                              ? ListingProductDelete(
+                                  item: item,
+                                )
+                              : ListingProduct(
+                                  item: item,
+                                );
+                        });
+                  }
+                )
                 : Container(
                     child: Center(
                       child: Text("No Product Found"),
@@ -804,13 +785,14 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                true
+                        widget.item!.productLogoFileStoreId == null ||
+                      widget.item!.productLogoFileStoreId!.isEmpty
                     ? Image.asset(
                         "assets/images/Rectangle 1015.png",
                         height: 50,
                       )
-                    : Image.network(
-                        widget.item!.productLogoFileStoreId!,
+                    : Image.asset(
+                      "assets/images/Rectangle 1015.png",
                         height: 50,
                       ),
                 SizedBox(
