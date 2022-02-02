@@ -50,7 +50,7 @@ class Product {
       dateExpiration: json['productExpiration'] == null
           ? null
           : DateTime.parse(json['productExpiration']),
-      productLogoFileStoreId: json['productLogoFileStoreId'],
+      productLogoFileStoreId: json['productLogoFileStoreUrl'],
       deleted: json['deleted']??false,
       isAddingPending: json['isAddingPending'] ?? false,
       isUpdatingPending: json['isUpdatingPending'] ?? false);
@@ -72,7 +72,7 @@ class Product {
         "productType": productType,
         "productExpiration":
             dateExpiration == null ? null : dateExpiration!.toIso8601String(),
-        "productLogoFileStoreId": productLogoFileStoreId,
+        "productLogoFileStoreUrl": productLogoFileStoreId,
         "deleted": deleted,
         "isAddingPending": isAddingPending ?? false,
         "isUpdatePendig": isUpdatingPending ?? false

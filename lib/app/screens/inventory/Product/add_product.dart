@@ -24,6 +24,10 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   void initState() {
+    if(widget.item!=null){
+
+      print("Product json is ${widget.item!.toJson()}");
+    }
     super.initState();
   }
 
