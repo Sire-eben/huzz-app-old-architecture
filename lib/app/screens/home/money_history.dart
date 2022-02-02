@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -33,7 +35,6 @@ class _MoneySummaryState extends State<MoneySummary> {
   final _amountController = TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     transactionModel = _transactionController
         .getTransactionById(widget.item!.businessTransactionId!);

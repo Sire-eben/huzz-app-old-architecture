@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison, unused_element
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -14,7 +12,6 @@ import 'package:huzz/model/user.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../../../../colors.dart';
 import 'debtorreminder.dart';
 
@@ -127,15 +124,15 @@ class _DebtorsState extends State<Debtors> {
                         height: 20,
                       ),
                       Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            // color: Color(0xffF5F5F5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: ((value == "Pending")
-                                  ? (_debtorController.debtorsList.isEmpty)
-                                  : (_debtorController.fullyPaidDebt.isEmpty))
-                              ? Center(
+                        child: ((value == "Pending")
+                                ? (_debtorController.debtorsList.isEmpty)
+                                : (_debtorController.fullyPaidDebt.isEmpty))
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xffF5F5F5),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -170,28 +167,26 @@ class _DebtorsState extends State<Debtors> {
                                       ),
                                     ],
                                   ),
-                                )
-                              : ListView.separated(
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  separatorBuilder: (context, index) =>
-                                      Divider(),
-                                  itemCount: ((value == "Pending")
-                                      ? (_debtorController.debtorsList.length)
-                                      : (_debtorController
-                                          .fullyPaidDebt.length)),
-                                  itemBuilder: (context, index) {
-                                    var item =
-                                        _debtorController.debtorsList[index];
-                                    // ignore: unused_local_variable
-                                    var customer = _customerController
-                                        .checkifCustomerAvailableWithValue(
-                                            item.customerId!);
-                                    return DebtorListing(
-                                      item: item,
-                                    );
-                                  }),
-                        ),
+                                ),
+                              )
+                            : ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                separatorBuilder: (context, index) => Divider(),
+                                itemCount: ((value == "Pending")
+                                    ? (_debtorController.debtorsList.length)
+                                    : (_debtorController.fullyPaidDebt.length)),
+                                itemBuilder: (context, index) {
+                                  var item =
+                                      _debtorController.debtorsList[index];
+                                  // ignore: unused_local_variable
+                                  var customer = _customerController
+                                      .checkifCustomerAvailableWithValue(
+                                          item.customerId!);
+                                  return DebtorListing(
+                                    item: item,
+                                  );
+                                }),
                       ),
                       SizedBox(
                         height: 20,
@@ -715,10 +710,11 @@ class _DebtorListingState extends State<DebtorListing> {
     var customer = _customerController
         .checkifCustomerAvailableWithValue(widget.item!.customerId!);
 
-        if(customer==null){
-          return Container();
-        }
-        initialText="Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  $businessName  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+    if (customer == null) {
+      return Container();
+    }
+    initialText =
+        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  $businessName  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
     if (customer == null) {
       return Container();

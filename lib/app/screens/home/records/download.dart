@@ -4,20 +4,20 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
+import 'package:huzz/colors.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../../colors.dart';
-import 'receipt/money_in_out_pdf.dart';
+import 'records_pdf.dart';
 
-class IncomeReceipt extends StatefulWidget {
+class DownloadReceipt extends StatefulWidget {
   final File? file;
 
-  const IncomeReceipt({Key? key, @required this.file}) : super(key: key);
+  const DownloadReceipt({Key? key, @required this.file}) : super(key: key);
 
   @override
-  _IncomeReceiptState createState() => _IncomeReceiptState();
+  _DownloadReceiptState createState() => _DownloadReceiptState();
 }
 
-class _IncomeReceiptState extends State<IncomeReceipt> {
+class _DownloadReceiptState extends State<DownloadReceipt> {
   PDFViewController? controller;
   bool receiptTheme = true;
   @override
@@ -89,7 +89,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                       children: [
                         InkWell(
                           onTap: () {
-                            PdfApi.openFile(widget.file!);
+                            PdfRecordApi.openFile(widget.file!);
                             Get.back();
                           },
                           child: Container(

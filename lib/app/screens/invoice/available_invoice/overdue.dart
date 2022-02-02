@@ -10,7 +10,6 @@ import 'package:huzz/app/screens/invoice/available_invoice/single_invoice_previe
 import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/model/invoice.dart';
-
 import '../../../../colors.dart';
 
 class Overdue extends StatefulWidget {
@@ -89,9 +88,8 @@ class _OverdueState extends State<Overdue> {
                         itemBuilder: (BuildContext context, int index) {
                           var item = _invoiceController.InvoiceDueList[index];
                           return GestureDetector(
-                            onTap: ()async{
-
-  final singleInvoiceReceipt =
+                            onTap: () async {
+                              final singleInvoiceReceipt =
                                   await PdfInvoiceApi.generate(item);
                               Get.to(() => PreviewSingleInvoice(
                                   invoice: item, file: singleInvoiceReceipt));
@@ -134,7 +132,7 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N ${item.totalAmount}",
+                                                "N${item.totalAmount}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -164,8 +162,9 @@ class _OverdueState extends State<Overdue> {
                                       ),
                                     ),
                                     SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.05),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.05),
                                     Icon(
                                       Icons.arrow_forward_ios,
                                       color: AppColor().backgroundColor,
@@ -182,21 +181,21 @@ class _OverdueState extends State<Overdue> {
                           var item = _invoiceController.InvoiceDueList[index];
                           final _isSelected = _selectedIndex.contains(index);
                           return InkWell(
-                            onTap: ()async {
+                            onTap: () async {
                               print("overdue clicked");
-                                   final singleInvoiceReceipt =
+                              final singleInvoiceReceipt =
                                   await PdfInvoiceApi.generate(item);
                               Get.to(() => PreviewSingleInvoice(
                                   invoice: item, file: singleInvoiceReceipt));
                               setState(() {
-                               if (_items.contains(index)) {
+                                if (_items.contains(index)) {
                                   _selectedIndex.add(index);
                                 } else {
                                   _selectedIndex.remove(index);
                                 }
                               });
                               print('selected');
-                              print(_items.toString()); 
+                              print(_items.toString());
                             },
                             child: Padding(
                               padding: EdgeInsets.only(
@@ -236,7 +235,7 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "${item.totalAmount}",
+                                                "N${item.totalAmount}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -289,15 +288,22 @@ class _OverdueState extends State<Overdue> {
                                       },
                                       child: AnimatedContainer(
                                         duration: Duration(milliseconds: 200),
-                                        height: 30,
-                                        width: 30,
+                                        height: 25,
+                                        width: 25,
                                         decoration: BoxDecoration(
-                                          color: visible
-                                              ? AppColor().orangeBorderColor
-                                              : AppColor().whiteColor,
+                                          color: (_invoiceController
+                                                  .checkifSelectedForDeleted(
+                                                      item.id!))
+                                              ? AppColor().whiteColor
+                                              : AppColor().orangeBorderColor,
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: Color(0xffEF6500),
+                                            color: (_invoiceController
+                                                    .checkifSelectedForDeleted(
+                                                        item.id!))
+                                                ? Color(0xffEF6500)
+                                                : Colors.transparent,
+                                            width: 2,
                                           ),
                                         ),
                                         child: Visibility(
@@ -305,11 +311,7 @@ class _OverdueState extends State<Overdue> {
                                           child: Icon(
                                             Icons.check,
                                             size: 15,
-                                            color: (_invoiceController
-                                                    .checkifSelectedForDeleted(
-                                                        item.id!))
-                                                ? AppColor().whiteColor
-                                                : AppColor().orangeBorderColor,
+                                            color: AppColor().whiteColor,
                                           ),
                                         ),
                                       ),
@@ -326,7 +328,9 @@ class _OverdueState extends State<Overdue> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            deleteItem ? Get.to(() => CreateInvoice()) : _displayDialog(context);
+            deleteItem
+                ? Get.to(() => CreateInvoice())
+                : _displayDialog(context);
           },
           icon: Icon(Icons.add),
           backgroundColor: AppColor().backgroundColor,
@@ -385,7 +389,7 @@ class _OverdueState extends State<Overdue> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                           _invoiceController.deleteItems();
+                          _invoiceController.deleteItems();
                           Get.back();
                         },
                         child: Container(
