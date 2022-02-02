@@ -745,7 +745,7 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/income_transaction.svg',
                               color: AppColor().blueColor,
-                              amount: item1.length.toString(),
+                              amount: transactionController.allIncomeHoursData.length.toString(),
                               name1: 'Income',
                               name2: 'Transaction',
                               message:
@@ -755,7 +755,7 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/expense_transaction.svg',
                               color: AppColor().orangeBorderColor,
-                              amount: item2.length.toString(),
+                              amount:transactionController.allExpenditureHoursData.length.toString(),
                               name1: 'Expense',
                               name2: 'Transaction',
                               message:

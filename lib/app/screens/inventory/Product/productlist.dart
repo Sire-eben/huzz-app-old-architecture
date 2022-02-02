@@ -734,8 +734,8 @@ class _ListingProductState extends State<ListingProduct> {
                       "assets/images/Rectangle 1015.png",
                       height: 50,
                     )
-                  : Image.asset(
-                      "assets/images/Rectangle 1015.png",
+                  : Image.network(
+                     widget.item!.productLogoFileStoreId!,
                       height: 50,
                     ),
               SizedBox(

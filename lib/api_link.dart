@@ -13,7 +13,7 @@ class ApiLink {
 // ignore: non_constant_identifier_names
   static String create_business = baseurl + "business";
   // ignore: non_constant_identifier_names
-  static String update_business = baseurl + "business";
+  static String update_business = baseurl + "business/";
 // ignore: non_constant_identifier_names
   static String get_user_business = baseurl + "business";
 // ignore: non_constant_identifier_names
