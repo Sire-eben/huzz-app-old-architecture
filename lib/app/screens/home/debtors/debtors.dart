@@ -719,13 +719,13 @@ class _DebtorListingState extends State<DebtorListing> {
         if(customer==null){
           return Container();
         }
-        initialText="Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  $businessName  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+        initialText="Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
     if (customer == null) {
       return Container();
     }
     initialText =
-        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase of $businessName at Huzz technologies  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
     return customer == null
         ? Container()
