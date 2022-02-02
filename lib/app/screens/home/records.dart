@@ -4,13 +4,15 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/home/insight.dart';
+import 'package:huzz/app/screens/home/records/records_pdf.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:huzz/model/recordData.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
 import 'money_history.dart';
+import 'records/download.dart';
 
 class Records extends StatefulWidget {
   @override
@@ -461,7 +463,60 @@ class _RecordsState extends State<Records> {
                         },
                         child: SvgPicture.asset('assets/images/graph.svg')),
                     SizedBox(width: 5),
-                    SvgPicture.asset('assets/images/download.svg')
+                    InkWell(
+                        onTap: () async {
+                          final date = DateTime.now();
+                          final dueDate = date.add(Duration(days: 7));
+
+                          final record = Invoice(
+                            supplier: Supplier(
+                              name: 'Business Name',
+                              mail: 'tunmisehassan@gmail.com',
+                              phone: '+234 8123 456 789',
+                            ),
+                            bankDetails: BankDetails(
+                                name: 'First Bank of Nigeria',
+                                no: '0123456789',
+                                mode: 'BANK TRANSFER'),
+                            customer: InvoiceCustomer(
+                              name: 'Joshua Olatunde',
+                              phone: '+234 903 872 6495',
+                            ),
+                            info: InvoiceInfo(
+                              date: date,
+                              dueDate: dueDate,
+                              description: 'My description...',
+                              number: '${DateTime.now().year}-9999',
+                            ),
+                            items: [
+                              InvoiceItem(
+                                item: 'MacBook',
+                                quantity: 3,
+                                amount: 500000,
+                              ),
+                              InvoiceItem(
+                                item: 'MacBook',
+                                quantity: 3,
+                                amount: 500000,
+                              ),
+                              InvoiceItem(
+                                item: 'MacBook',
+                                quantity: 3,
+                                amount: 500000,
+                              ),
+                              InvoiceItem(
+                                item: 'MacBook',
+                                quantity: 3,
+                                amount: 500000,
+                              ),
+                            ],
+                          );
+
+                          // final recordsData =
+                          //     await RecordPdfApi.generate(record);
+                          // Get.to(() => DownloadReceipt(file: recordsData,));
+                        },
+                        child: SvgPicture.asset('assets/images/download.svg'))
                   ],
                 ),
               ),

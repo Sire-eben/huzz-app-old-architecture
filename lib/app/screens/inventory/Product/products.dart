@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/productlist.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../../../colors.dart';
 import 'add_product.dart';
 
@@ -21,115 +20,133 @@ class _ProductsState extends State<Products> {
   @override
   Widget build(BuildContext context) {
     return (_productController.productGoods.isEmpty)
-        ? Stack(
-            children: [
-              Positioned(
-                top: 30,
-                left: 20,
-                right: 20,
-                child: productCount(context),
+        ? Scaffold(
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () {
+                Get.to(AddProduct());
+              },
+              icon: Icon(Icons.add),
+              backgroundColor: AppColor().backgroundColor,
+              label: Text(
+                'New Product',
+                style: TextStyle(
+                    fontFamily: 'DMSans',
+                    fontSize: 10,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
               ),
-              Positioned(
-                bottom: 30,
-                top: 150,
-                left: 20,
-                right: 20,
-                child: Container(
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Color(0xffF5F5F5),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Color(0xffC3C3C3),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/Group 3625.png',
-                        height: 50,
-                        color: AppColor().backgroundColor,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'Add Product',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Your products will show here. Click the",
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
-                          fontSize: 11,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      Text(
-                        "New Product button to add your first product",
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
-                          fontSize: 11,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
+            ),
+            body: Stack(
+              children: [
+                Positioned(
+                  top: 30,
+                  left: 20,
+                  right: 20,
+                  child: productCount(context),
                 ),
-              ),
-              Positioned(
-                bottom: 10,
-                right: 30,
-                child: InkWell(
-                  onTap: () {
-                    Get.to(AddProduct());
-                  },
+                Positioned(
+                  bottom: 30,
+                  top: 150,
+                  left: 20,
+                  right: 20,
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 15,
-                    ),
+                    padding: EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.circular(25),
+                      color: Color(0xffF5F5F5),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        width: 2,
+                        color: Colors.grey.withOpacity(0.2),
+                      ),
                     ),
-                    child: Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.add,
-                          size: 18,
-                          color: Colors.white,
+                        Image.asset(
+                          'assets/images/Group 3625.png',
+                          height: 50,
+                          color: AppColor().backgroundColor,
                         ),
                         SizedBox(
-                          width: 10,
+                          height: 10,
                         ),
                         Text(
-                          'New Products',
+                          'Add Product',
                           style: TextStyle(
-                            color: AppColor().whiteColor,
+                            color: AppColor().blackColor,
                             fontFamily: 'DMSans',
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Your products will show here. Click the",
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 11,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        Text(
+                          "New Product button to add your first product",
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 11,
+                            fontWeight: FontWeight.normal,
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-              ),
-            ],
+                // Positioned(
+                //   bottom: 10,
+                //   right: 30,
+                //   child: InkWell(
+                //     onTap: () {
+                //       Get.to(AddProduct());
+                //     },
+                //     child: Container(
+                //       padding: EdgeInsets.symmetric(
+                //         horizontal: 20,
+                //         vertical: 15,
+                //       ),
+                //       decoration: BoxDecoration(
+                //         color: AppColor().backgroundColor,
+                //         borderRadius: BorderRadius.circular(25),
+                //       ),
+                //       child: Row(
+                //         children: [
+                //           Icon(
+                //             Icons.add,
+                //             size: 18,
+                //             color: Colors.white,
+                //           ),
+                //           SizedBox(
+                //             width: 10,
+                //           ),
+                //           Text(
+                //             'New Products',
+                //             style: TextStyle(
+                //               color: AppColor().whiteColor,
+                //               fontFamily: 'DMSans',
+                //               fontWeight: FontWeight.bold,
+                //               fontSize: 14,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+              ],
+            ),
           )
         : ProductListing();
   }

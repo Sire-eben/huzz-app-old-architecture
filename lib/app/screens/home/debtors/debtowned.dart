@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison, unused_field
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -10,7 +8,6 @@ import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
-
 import '../../../../colors.dart';
 
 // ignore: must_be_immutable
@@ -93,17 +90,16 @@ class _DebtOwnedState extends State<DebtOwned> {
                         height: 20,
                       ),
                       Expanded(
-                        child: Container(
-                          // height: MediaQuery.of(context).size.height * 0.5,
-                          decoration: BoxDecoration(
-                            color: Color(0xffF5F5F5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: ((value == "Pending")
-                                  ? (_debtorRepository.debtOwnedList.isEmpty)
-                                  : (_debtorRepository
-                                      .fullyPaidDebtOwned.isEmpty))
-                              ? Center(
+                        child: ((value == "Pending")
+                                ? (_debtorRepository.debtOwnedList.isEmpty)
+                                : (_debtorRepository
+                                    .fullyPaidDebtOwned.isEmpty))
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xffF5F5F5),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -138,157 +134,144 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       ),
                                     ],
                                   ),
-                                )
-                              : ListView.separated(
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  separatorBuilder: (context, index) =>
-                                      Divider(),
-                                  itemCount: ((value == "Pending")
-                                      ? (_debtorRepository.debtOwnedList.length)
+                                ),
+                              )
+                            : ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                separatorBuilder: (context, index) => Divider(),
+                                itemCount: ((value == "Pending")
+                                    ? (_debtorRepository.debtOwnedList.length)
+                                    : (_debtorRepository
+                                        .fullyPaidDebtOwned.length)),
+                                itemBuilder: (context, index) {
+                                  var item = ((value == "Pending")
+                                      ? (_debtorRepository.debtOwnedList)
                                       : (_debtorRepository
-                                          .fullyPaidDebtOwned.length)),
-                                  itemBuilder: (context, index) {
-                                    var item = ((value == "Pending")
-                                        ? (_debtorRepository.debtOwnedList)
-                                        : (_debtorRepository
-                                            .fullyPaidDebtOwned))[index];
-                                    var customer = _customerRepository
-                                        .checkifCustomerAvailableWithValue(
-                                            item.customerId!);
+                                          .fullyPaidDebtOwned))[index];
+                                  var customer = _customerRepository
+                                      .checkifCustomerAvailableWithValue(
+                                          item.customerId!);
 
-                                    return (customer == null)
-                                        ? Container()
-                                        : Row(
-                                            children: [
-                                              Expanded(
-                                                  child: Container(
-                                                margin:
-                                                    EdgeInsets.only(bottom: 10),
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Container(
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          color: _randomColor
-                                                              .randomColor()),
-                                                      child: Center(
-                                                          child: Text(
-                                                        customer != null &&
-                                                                customer.name !=
-                                                                    null &&
-                                                                customer.name!
-                                                                        .length >
-                                                                    0
-                                                            ? '${customer.name![0]}'
-                                                            : "",
-                                                        style: TextStyle(
-                                                            fontSize: 30,
-                                                            color: Colors.white,
-                                                            fontFamily:
-                                                                'DMSans',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ))),
-                                                ),
-                                              )),
-                                              SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.02),
-                                              Expanded(
-                                                flex: 5,
+                                  return (customer == null)
+                                      ? Container()
+                                      : Row(
+                                          children: [
+                                            Expanded(
                                                 child: Container(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        customer.name!,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'DMSans',
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                      ),
-                                                      Text(
-                                                        customer.phone!,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'DMSans',
-                                                            color: Colors.grey),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 3,
+                                              margin:
+                                                  EdgeInsets.only(bottom: 10),
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
                                                 child: Container(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        "Bal: ${display(item.balance!)}",
-                                                        style: TextStyle(
-                                                            fontSize: 13,
-                                                            fontFamily:
-                                                                'DMSans',
-                                                            color: AppColor()
-                                                                .orangeBorderColor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                      ),
-                                                      Text(
-                                                        "Paid: ${display((item.totalAmount! - item.balance!))}",
-                                                        style: TextStyle(
-                                                            fontSize: 11,
-                                                            fontFamily:
-                                                                'DMSans',
-                                                            color: Colors.grey),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                    height: 50,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: _randomColor
+                                                            .randomColor()),
+                                                    child: Center(
+                                                        child: Text(
+                                                      customer != null &&
+                                                              customer.name !=
+                                                                  null &&
+                                                              customer.name!
+                                                                      .length >
+                                                                  0
+                                                          ? '${customer.name![0]}'
+                                                          : "",
+                                                      style: TextStyle(
+                                                          fontSize: 30,
+                                                          color: Colors.white,
+                                                          fontFamily: 'DMSans',
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ))),
+                                              ),
+                                            )),
+                                            SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.02),
+                                            Expanded(
+                                              flex: 5,
+                                              child: Container(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      customer.name!,
+                                                      style: TextStyle(
+                                                          fontSize: 12,
+                                                          fontFamily: 'DMSans',
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ),
+                                                    Text(
+                                                      customer.phone!,
+                                                      style: TextStyle(
+                                                          fontSize: 12,
+                                                          fontFamily: 'DMSans',
+                                                          color: Colors.grey),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              Expanded(
-                                                child: InkWell(
-                                                    onTap: () {
-                                                      print(index);
-                                                      showModalBottomSheet(
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius.vertical(
-                                                                      top: Radius
-                                                                          .circular(
-                                                                              20))),
-                                                          context: context,
-                                                          isScrollControlled:
-                                                              true,
-                                                          builder: (context) =>
-                                                              buildUpdatePayments(
-                                                                  item));
-                                                    },
-                                                    child: SvgPicture.asset(
-                                                        'assets/images/edit_pri.svg')),
+                                            ),
+                                            Expanded(
+                                              flex: 3,
+                                              child: Container(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "Bal: ${display(item.balance!)}",
+                                                      style: TextStyle(
+                                                          fontSize: 13,
+                                                          fontFamily: 'DMSans',
+                                                          color: AppColor()
+                                                              .orangeBorderColor,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ),
+                                                    Text(
+                                                      "Paid: ${display((item.totalAmount! - item.balance!))}",
+                                                      style: TextStyle(
+                                                          fontSize: 11,
+                                                          fontFamily: 'DMSans',
+                                                          color: Colors.grey),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ],
-                                          );
-                                  }),
-                        ),
+                                            ),
+                                            Expanded(
+                                              child: InkWell(
+                                                  onTap: () {
+                                                    print(index);
+                                                    showModalBottomSheet(
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius.vertical(
+                                                                    top: Radius
+                                                                        .circular(
+                                                                            20))),
+                                                        context: context,
+                                                        isScrollControlled:
+                                                            true,
+                                                        builder: (context) =>
+                                                            buildUpdatePayments(
+                                                                item));
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                      'assets/images/edit_pri.svg')),
+                                            ),
+                                          ],
+                                        );
+                                }),
                       ),
                       SizedBox(
                         height: 20,

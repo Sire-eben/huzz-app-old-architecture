@@ -94,8 +94,8 @@ class _MerchantsState extends State<Merchants> {
               Expanded(
                   child: Container(
                 padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.height * 0.02,
-                    right: MediaQuery.of(context).size.height * 0.02,
+                    // left: MediaQuery.of(context).size.height * 0.02,
+                    // right: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.02),
                 child: (searchtext.isEmpty || searchResult.isNotEmpty)
                     ? (_customerController.customerMerchant.isNotEmpty)
@@ -195,6 +195,9 @@ class _MerchantsState extends State<Merchants> {
                             decoration: BoxDecoration(
                               color: Color(0xffF5F5F5),
                               borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  width: 2,
+                                  color: Colors.grey.withOpacity(0.2)),
                             ),
                             child: Center(
                               child: Column(

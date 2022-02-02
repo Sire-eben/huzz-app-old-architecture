@@ -1,7 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, unused_field
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -11,7 +8,6 @@ import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/user.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'notification.dart';
 import 'personalInfo.dart';
 
@@ -43,6 +39,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -67,14 +64,49 @@ class _SettingsState extends State<Settings> {
           ),
         ),
       ),
-      body: Obx(
-        () => Stack(
-          children: [
-            Positioned(
-              top: 20,
-              left: 100,
-              right: 100,
+      body: Stack(
+        children: [
+          Positioned(
+            top: 20,
+            left: 100,
+            right: 100,
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColor().whiteColor,
+                border: Border.all(
+                  width: 2,
+                  color: AppColor().backgroundColor,
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: (controller.profileImage != null ||
+                        controller.user!.profileImageFileStoreId!.isEmpty)
+                    ? Image.asset(
+                        "assets/images/profileImg.png",
+                      )
+                    : Image.file(
+                        controller.profileImage.value!,
+                        height: 100,
+                        width: 100,
+                      ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 70,
+            left: 200,
+            right: 150,
+            child: GestureDetector(
+              onTap: () => showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20))),
+                  context: context,
+                  builder: (context) => buildAddImage()),
               child: Container(
+                height: 30,
+                width: 30,
                 decoration: BoxDecoration(
                   color: AppColor().whiteColor,
                   border: Border.all(
@@ -84,52 +116,20 @@ class _SettingsState extends State<Settings> {
                   shape: BoxShape.circle,
                 ),
                 child: Center(
-                  child: (controller.profileImage != null ||
-                          controller.user!.profileImageFileStoreId!.isEmpty)
-                      ? Image.asset(
-                          "assets/images/profileImg.png",
-                        )
-                      : Image.file(
-                          controller.profileImage.value!,
-                          height: 100,
-                          width: 100,
-                        ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 70,
-              left: 200,
-              right: 150,
-              child: GestureDetector(
-                onTap: () => showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20))),
-                    context: context,
-                    builder: (context) => buildAddImage()),
-                child: Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    color: AppColor().whiteColor,
-                    border: Border.all(
-                      width: 2,
-                      color: AppColor().backgroundColor,
-                    ),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      "assets/images/addcamera.svg",
-                      height: 15,
-                      width: 15,
-                    ),
+                  child: SvgPicture.asset(
+                    "assets/images/addcamera.svg",
+                    height: 15,
+                    width: 15,
                   ),
                 ),
               ),
             ),
-            Padding(
+          ),
+          Positioned(
+            top: 150,
+            left: 10,
+            right: 10,
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -138,39 +138,35 @@ class _SettingsState extends State<Settings> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Text(
-                          controller.user!.firstName == null
-                              ? 'First Name'
-                              : firstName,
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
+                      Text(
+                        controller.user!.firstName == null
+                            ? 'First Name'
+                            : firstName,
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
                       SizedBox(
-                        width: 10,
+                        width: 2,
                       ),
-                      Container(
-                        child: Text(
-                          controller.user!.lastName == null
-                              ? 'Last Name'
-                              : lastName!,
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
+                      Text(
+                        controller.user!.lastName == null
+                            ? 'Last Name'
+                            : lastName!,
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: 'DMSans',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 60,
+                    height: 20,
                   ),
                   // Personal Account
                   Container(
@@ -429,8 +425,8 @@ class _SettingsState extends State<Settings> {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
