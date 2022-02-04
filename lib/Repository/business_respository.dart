@@ -28,7 +28,7 @@ class BusinessRespository extends GetxController {
   List<OfflineBusiness> pendingJob = [];
   List<Business> businessListFromServer = [];
   List<String> businessCategory = ["PERSONAL", "FINANCE", "TRADE"];
-
+  List<OfflineBusiness> pendingUpdatedBusinessList = [];
   final selectedCategory = "".obs;
   final businessName = TextEditingController();
   final businessEmail = TextEditingController();
@@ -79,6 +79,7 @@ class BusinessRespository extends GetxController {
         businessListFromServer.addAll(result);
         print("online data business lenght ${result.length}");
         getBusinessYetToBeSavedLocally();
+     checkIfUpdateAvailable();
       }
     } else {}
   }
@@ -92,6 +93,49 @@ class BusinessRespository extends GetxController {
       }
     });
     return result;
+  }
+
+Business? checkifBusinessAvailableWithValue(String id) {
+   Business? item;
+
+   offlineBusiness.forEach((element) {
+      print("checking transaction whether exist");
+      if (element.businessId == id) {
+        print("Customer   found");
+        item = element.business;
+      }
+    });
+    return item;
+  }
+
+    Future checkIfUpdateAvailable() async {
+    businessListFromServer.forEach((element) async {
+      var item = checkifBusinessAvailableWithValue(element.businessId!);
+      if (item != null) {
+        print("item Customer is found");
+        print("updated offline ${item.updatedTime!.toIso8601String()}");
+        print("updated online ${element.updatedTime!.toIso8601String()}");
+        if (!element.updatedTime!.isAtSameMomentAs(item.updatedTime!)) {
+          print("found Customer to updated");
+          pendingUpdatedBusinessList.add(OfflineBusiness(business: element,businessId: element.businessId));
+        }
+      }
+    });
+
+    updatePendingJob();
+  }
+
+    Future updatePendingJob() async {
+    if (pendingUpdatedBusinessList.isEmpty) {
+      return;
+    }
+    var updatednext = pendingUpdatedBusinessList.first;
+    await sqliteDb.updateOfflineBusiness(updatednext);
+    pendingUpdatedBusinessList.remove(updatednext);
+    if (pendingUpdatedBusinessList.isNotEmpty) {
+      updatePendingJob();
+    }
+      GetOfflineBusiness();
   }
 
   Future setBusinessList(List<Business> list) async {
@@ -196,20 +240,21 @@ class BusinessRespository extends GetxController {
 
   Future updateBusiness(String selectedCurrency) async {
     print("token ${_userController.token}");
-    String? imageId;
+   
+    try {
+      _updateBusinessStatus(UpdateBusinessStatus.Loading);
+       String? imageId;
     var uploadController = Get.find<FileUploadRespository>();
     if (businessImage.value != null) {
       imageId = await uploadController.uploadFile(businessImage.value!.path);
     }
-    try {
-      _updateBusinessStatus(UpdateBusinessStatus.Loading);
       final selectedCurrency = CountryPickerUtils.getCountryByIsoCode(
               _userController.countryCodeFLag)
           .currencyCode
           .toString();
       final response = await http.put(
           Uri.parse(ApiLink.update_business +
-              "${selectedBusiness.value!.businessId}"),
+              "/${selectedBusiness.value!.businessId}"),
           body: jsonEncode(
             {
               "name": businessName.text,

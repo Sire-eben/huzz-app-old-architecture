@@ -573,73 +573,77 @@ class _RecordsState extends State<Records> {
                           transactionController.allExpenditureHoursData[index];
                       var item2 =
                           transactionController.allIncomeHoursData[index];
-
-                      return InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) =>
-                                  buildRecordSummary(item1, item2));
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).size.width * 0.02,
-                              left: MediaQuery.of(context).size.height * 0.03,
-                              right: MediaQuery.of(context).size.height * 0.03),
-                          child: Container(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.grey.withOpacity(0.1),
-                                border: Border.all(
-                                    width: 2,
-                                    color: Colors.grey.withOpacity(0.1))),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      item1.label,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().blackColor),
-                                    ),
-                                    Text(
-                                      "N ${display(item1.value)}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().orangeBorderColor),
-                                    ),
-                                    Text(
-                                      "N ${display(item2.value)}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().blueColor),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  'View',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().backgroundColor),
-                                ),
-                              ],
+                  
+                      return Visibility(
+                        visible: (item1.value!=0 ||item2.value!=0),
+                        
+                        child: InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                context: context,
+                                builder: (context) =>
+                                    buildRecordSummary(item1, item2));
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.width * 0.02,
+                                left: MediaQuery.of(context).size.height * 0.03,
+                                right: MediaQuery.of(context).size.height * 0.03),
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.015),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey.withOpacity(0.1),
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Colors.grey.withOpacity(0.1))),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        item1.label,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'DMSans',
+                                            fontSize: 10,
+                                            color: AppColor().blackColor),
+                                      ),
+                                      Text(
+                                        "N ${display(item1.value)}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'DMSans',
+                                            fontSize: 10,
+                                            color: AppColor().orangeBorderColor),
+                                      ),
+                                      Text(
+                                        "N ${display(item2.value)}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'DMSans',
+                                            fontSize: 10,
+                                            color: AppColor().blueColor),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    'View',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().backgroundColor),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -710,6 +714,7 @@ class _RecordsState extends State<Records> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).size.width * 0.02),
             child: Container(
+              width: MediaQuery.of(context).size.width,
               padding:
                   EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
               decoration: BoxDecoration(
@@ -765,8 +770,8 @@ class _RecordsState extends State<Records> {
                       ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
+                 Container(
+                    // alignment: Alignment.centerRight,
                     child: Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -99,6 +99,7 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> pendingJobToBeUpdated = [];
   List<TransactionModel> pendingJobToBeDelete = [];
   List<TransactionModel> pendingUpdatedTransactionList = [];
+
   Rx<List<RecordsData>> _allIncomeHoursData = Rx([]);
   Rx<List<RecordsData>> _allExpenditureHoursData = Rx([]);
   Rx<List<RecordsData>> _pieIncomeValue=Rx([]);
@@ -106,6 +107,10 @@ class TransactionRespository extends GetxController {
   List<RecordsData> get pieIncomeValue=>_pieIncomeValue.value;
   List<RecordsData> get pieExpenditure=> _pieExpenditureValue.value;
   Rx<String> value="Today".obs;
+  Rx<List<TransactionModel>> _allIncomeTransaction=Rx([]);
+  Rx<List<TransactionModel>> _allExpenditureTransaction=Rx([]);
+  List<TransactionModel> get allIncomeTransaction=>_allIncomeTransaction.value;
+  List<TransactionModel> get allExpenditureTransaction=>_allExpenditureTransaction.value;
   List<RecordsData> get allIncomeHoursData => _allIncomeHoursData.value;
   List<RecordsData> get allExpenditureHoursData =>
       _allExpenditureHoursData.value;
@@ -492,25 +497,27 @@ List<RecordsData> _pieExpenditure=[];
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
-     _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
-              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
-                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
-                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
-                      _pieIncome.add(RecordsData("Saturday",saturdayTotalIncome,[],_randomColor.randomColor()));
+     _pieIncome.add(RecordsData("Sun",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Mon",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tue",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wed",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thur",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Fri",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Sat",saturdayTotalIncome,[],_randomColor.randomColor()));
 
 
-                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
-              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
-                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
-                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
-                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+                       _pieExpenditure.add(RecordsData("Sun",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Mon",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tue",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wed",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thur",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Fri",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Sat",saturdayTotalExpenditure,[],_randomColor.randomColor()));
 
                       _pieIncomeValue(_pieIncome);
                       _pieExpenditureValue(_pieExpenditure);
+                      _allIncomeTransaction(_currentHoursIncome);
+                      _allExpenditureTransaction(_currentHoursExpenditure);
     calculateRecordOverView();
   }
 
@@ -626,25 +633,27 @@ List<RecordsData> _pieExpenditure=[];
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
-    _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
-              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
-                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
-                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
-                      _pieIncome.add(RecordsData("Saturday",saturdayTotalIncome,[],_randomColor.randomColor()));
+    _pieIncome.add(RecordsData("Sun",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Mon",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tue",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wed",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thur",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Fri",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Sat",saturdayTotalIncome,[],_randomColor.randomColor()));
 
 
-                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
-              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
-                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
-                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
-                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+                       _pieExpenditure.add(RecordsData("Sun",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Mon",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tue",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wed",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thur",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Fri",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Sat",saturdayTotalExpenditure,[],_randomColor.randomColor()));
 
                       _pieIncomeValue(_pieIncome);
                       _pieExpenditureValue(_pieExpenditure);
+                      _allIncomeTransaction(_currentHoursIncome);
+                      _allExpenditureTransaction(_currentHoursExpenditure);
         calculateRecordOverView();
   }
 
@@ -763,25 +772,27 @@ List<RecordsData> _pieExpenditure=[];
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
 
-     _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
-              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
-                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
-                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
-                      _pieIncome.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+    _pieIncome.add(RecordsData("Sun",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Mon",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tue",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wed",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thur",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Fri",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Sat",saturdayTotalIncome,[],_randomColor.randomColor()));
 
 
-                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
-              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
-                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
-                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
-                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+                       _pieExpenditure.add(RecordsData("Sun",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Mon",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tue",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wed",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thur",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Fri",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Sat",saturdayTotalExpenditure,[],_randomColor.randomColor()));
 
                       _pieIncomeValue(_pieIncome);
                       _pieExpenditureValue(_pieExpenditure);
+                      _allIncomeTransaction(_currentHoursIncome);
+                      _allExpenditureTransaction(_currentHoursExpenditure);
         calculateRecordOverView();
   }
 
@@ -830,6 +841,8 @@ List<RecordsData> _pieExpenditure=[];
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
+     _allIncomeTransaction(_currentHoursIncome);
+                      _allExpenditureTransaction(_currentHoursExpenditure);
         calculateRecordOverView();
   }
 
@@ -1005,26 +1018,26 @@ List<RecordsData> _pieExpenditure=[];
     });
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
-     _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
-              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
-                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
-                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
-                      _pieIncome.add(RecordsData("Saturday",saturdayTotalIncome,[],_randomColor.randomColor()));
+     _pieIncome.add(RecordsData("Sun",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Mon",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tue",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wed",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thur",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Fri",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Sat",saturdayTotalIncome,[],_randomColor.randomColor()));
 
 
-                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
-              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
-                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
-                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
-                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
-                      
-
+                       _pieExpenditure.add(RecordsData("Sun",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Mon",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tue",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wed",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thur",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Fri",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Sat",saturdayTotalExpenditure,[],_randomColor.randomColor()));
                       _pieIncomeValue(_pieIncome);
                       _pieExpenditureValue(_pieExpenditure);
+                      _allIncomeTransaction(_currentHoursIncome);
+                      _allExpenditureTransaction(_currentHoursExpenditure);
         calculateRecordOverView();
   }
 
@@ -1069,6 +1082,7 @@ List<RecordsData> _pieExpenditure=[];
                     DateTime(element1.year, element1.month, element1.day))) {
           print("today hour found");
           if (element.transactionType!.contains("INCOME")) {
+            
             _currentHoursIncome.add(element);
             print("income hour is  $element1 amount ${element.totalAmount}");
             incomeTotalAmount = incomeTotalAmount + element.totalAmount ?? 0;
@@ -1142,24 +1156,27 @@ List<RecordsData> _pieExpenditure=[];
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
      _pieIncome.add(RecordsData("Sunday",sundayTotalIncome,[],_randomColor.randomColor()));
-              _pieIncome.add(RecordsData("Monday",mondayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Tuesday",tuesdayTotalIncome,[],_randomColor.randomColor()));
-                _pieIncome.add(RecordsData("Wednesday",wednesdayTotalIncome,[],_randomColor.randomColor()));  
-                  _pieIncome.add(RecordsData("Thursday",thursdayTotalIncome,[],_randomColor.randomColor()));
-                    _pieIncome.add(RecordsData("Friday",fridayTotalIncome,[],_randomColor.randomColor()));
-                      _pieIncome.add(RecordsData("Saturday",saturdayTotalIncome,[],_randomColor.randomColor()));
+           _pieIncome.add(RecordsData("Sun",sundayTotalIncome,[],_randomColor.randomColor()));
+              _pieIncome.add(RecordsData("Mon",mondayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Tue",tuesdayTotalIncome,[],_randomColor.randomColor()));
+                _pieIncome.add(RecordsData("Wed",wednesdayTotalIncome,[],_randomColor.randomColor()));  
+                  _pieIncome.add(RecordsData("Thur",thursdayTotalIncome,[],_randomColor.randomColor()));
+                    _pieIncome.add(RecordsData("Fri",fridayTotalIncome,[],_randomColor.randomColor()));
+                      _pieIncome.add(RecordsData("Sat",saturdayTotalIncome,[],_randomColor.randomColor()));
 
 
-                       _pieExpenditure.add(RecordsData("Sunday",sundayTotalExpenditure,[],_randomColor.randomColor()));
-              _pieExpenditure.add(RecordsData("Monday",mondayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Tuesday",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
-                _pieExpenditure.add(RecordsData("Wednesday",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
-                  _pieExpenditure.add(RecordsData("Thursday",thursdayTotalExpenditure,[],_randomColor.randomColor()));
-                    _pieExpenditure.add(RecordsData("Friday",fridayTotalExpenditure,[],_randomColor.randomColor()));
-                      _pieExpenditure.add(RecordsData("Saturday",saturdayTotalExpenditure,[],_randomColor.randomColor()));
+                       _pieExpenditure.add(RecordsData("Sun",sundayTotalExpenditure,[],_randomColor.randomColor()));
+              _pieExpenditure.add(RecordsData("Mon",mondayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Tue",tuesdayTotalExpenditure,[],_randomColor.randomColor()));
+                _pieExpenditure.add(RecordsData("Wed",wednesdayTotalExpenditure,[],_randomColor.randomColor()));  
+                  _pieExpenditure.add(RecordsData("Thur",thursdayTotalExpenditure,[],_randomColor.randomColor()));
+                    _pieExpenditure.add(RecordsData("Fri",fridayTotalExpenditure,[],_randomColor.randomColor()));
+                      _pieExpenditure.add(RecordsData("Sat",saturdayTotalExpenditure,[],_randomColor.randomColor()));
 
                       _pieIncomeValue(_pieIncome);
                       _pieExpenditureValue(_pieExpenditure);
+                      _allIncomeTransaction(_currentHoursIncome);
+                      _allExpenditureTransaction(_currentHoursExpenditure);
         calculateRecordOverView();
   }
 
