@@ -27,6 +27,7 @@ class ProductRepository extends GetxController
   List<Product> get offlineBusinessProduct => _offlineBusinessProduct.value;
   List<Product> get onlineBusinessProduct => _onlineBusinessProduct.value;
   List<Product> pendingBusinessProduct = [];
+  Product? selectedProduct;
   final _uploadImageController = Get.find<FileUploadRespository>();
   Rx<List<Product>> _productService = Rx([]);
   Rx<List<Product>> _productGoods = Rx([]);
@@ -111,7 +112,7 @@ class ProductRepository extends GetxController
       print("image link is $fileId");
       var response = await http.post(Uri.parse(ApiLink.add_product),
           body: jsonEncode({
-            "name": productNameController.text,
+         "name": productNameController.text,
             "costPrice": productCostPriceController.numberValue,
             "sellingPrice": productSellingPriceController.numberValue,
             "quantity": productQuantityController.text,
@@ -216,6 +217,7 @@ class ProductRepository extends GetxController
       productImage!.copySync(outFile.path);
     }
     Product product = Product(
+      productNameChanged: (selectedProduct!.productName!.contains(productNameController.text)),
         isUpdatingPending: true,
         productName: productNameController.text,
         sellingPrice: int.parse(productSellingPriceController.text),
@@ -248,15 +250,15 @@ class ProductRepository extends GetxController
       _addingProductStatus(AddingProductStatus.Loading);
       // ignore: avoid_init_to_null
       String? fileId = null;
-
-      if (productImage != null) {
+print("selling Product Price ${productSellingPriceController.numberValue}");
+      if (productImage != null&& productImage!=Null) {
         fileId =
             await _uploadFileController.uploadFile(productImage!.path);
       }
       var response = await http
           .put(Uri.parse(ApiLink.add_product + "/" + product.productId!),
               body: jsonEncode({
-                "name": productNameController.text,
+                if(!selectedProduct!.productName!.contains(productNameController.text))  "name": productNameController.text,
                 "costPrice": productCostPriceController.numberValue,
                 "sellingPrice": productSellingPriceController.numberValue,
 // "quantity":productQuantityController.text,
@@ -286,6 +288,7 @@ class ProductRepository extends GetxController
       }
     } catch (ex) {
       _addingProductStatus(AddingProductStatus.Error);
+      print("an error has occurred ${ex.toString()}");
     }
   }
 
@@ -296,6 +299,7 @@ class ProductRepository extends GetxController
     productSellingPriceController.text = product.sellingPrice.toString();
     productUnitController.text = "";
     serviceDescription.text = "";
+    selectedProduct=product;
   }
 
   Future getOfflineProduct(String businessId) async {
@@ -595,10 +599,25 @@ class ProductRepository extends GetxController
     }
     pendingToUpdatedProductToServer.forEach((element) async {
       var updatenext = element;
+ String? fileId;
+ if(updatenext.productLogoFileStoreId!=null && !updatenext.productLogoFileStoreId!.contains("https://")){
+
+
+ }
 
       var response = await http.put(
           Uri.parse(ApiLink.add_product + "/" + updatenext.productId!),
-          body: jsonEncode(updatenext.toJson()),
+          body: jsonEncode({
+
+  if(!updatenext.productNameChanged!)  "name": productNameController.text,
+                "costPrice":updatenext.costPrice,
+                "sellingPrice": updatenext.sellingPrice,
+// "quantity":productQuantityController.text,
+                "businessId":updatenext.businessId,
+                "productType": updatenext.productType,
+                "productLogoFileStoreUrl": fileId??updatenext.productLogoFileStoreId
+
+          }),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"

@@ -714,6 +714,7 @@ class _RecordsState extends State<Records> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).size.width * 0.02),
             child: Container(
+              width: MediaQuery.of(context).size.width,
               padding:
                   EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
               decoration: BoxDecoration(
@@ -769,8 +770,8 @@ class _RecordsState extends State<Records> {
                       ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
+                 Container(
+                    // alignment: Alignment.centerRight,
                     child: Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

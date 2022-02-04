@@ -15,7 +15,7 @@ class Product {
   bool? deleted;
   bool? isAddingPending;
   bool? isUpdatingPending;
-
+  bool? productNameChanged;
   Product(
       {this.productId,
       this.businessId,
@@ -32,7 +32,8 @@ class Product {
       this.productLogoFileStoreId,
       this.deleted,
       this.isAddingPending,
-      this.isUpdatingPending});
+      this.isUpdatingPending,
+      this.productNameChanged});
   factory Product.fromJson(Map<String, dynamic> json) => Product(
       productId: json['id'],
       businessId: json['businessId'],
@@ -52,6 +53,7 @@ class Product {
           : DateTime.parse(json['productExpiration']),
       productLogoFileStoreId: json['productLogoFileStoreUrl'],
       deleted: json['deleted']??false,
+      productNameChanged: json['productNameChanged']??false,
       isAddingPending: json['isAddingPending'] ?? false,
       isUpdatingPending: json['isUpdatingPending'] ?? false);
   Map<String, dynamic> toJson() => {
@@ -75,6 +77,7 @@ class Product {
         "productLogoFileStoreUrl": productLogoFileStoreId,
         "deleted": deleted,
         "isAddingPending": isAddingPending ?? false,
-        "isUpdatePendig": isUpdatingPending ?? false
+        "isUpdatePendig": isUpdatingPending ?? false,
+        "productNameChanged":productNameChanged??false
       };
 }

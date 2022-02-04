@@ -693,148 +693,189 @@ class CustomerRepository extends GetxController {
 
   Future showContactPicker(BuildContext context) async {
     print("contact picker is selected");
+    _searchtext("");
+_searchResult([]);
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         context: context,
         builder: (context) => buildSelectContact(context));
   }
+  Rx<List<Contact>> _searchResult = Rx([]);
+Rx<String> _searchtext = Rx('');
+List<Contact> get searchResult=>_searchResult.value;
+String get searchtext=> _searchtext.value;
 
-  Widget buildSelectContact(BuildContext context) => Container(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.04,
-            right: MediaQuery.of(context).size.width * 0.04,
-            bottom: MediaQuery.of(context).size.width * 0.04,
-            top: MediaQuery.of(context).size.width * 0.02),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 6,
-              width: 100,
-              decoration: BoxDecoration(
-                  color: Colors.black, borderRadius: BorderRadius.circular(4)),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
-            TextField(
-              style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: AppColor().backgroundColor,
-                  fontFamily: 'DMSans'),
-              // controller: _searchcontroller,
-              cursorColor: Colors.white,
-              autofocus: false,
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: AppColor().backgroundColor,
+ void searchItem(String val) {
+    _searchtext( val);
+    
+    _searchResult([]);
+ List<Contact> list=[];
+  contactList.forEach((element) {
+      if (element.displayName.isNotEmpty&&element.displayName.toLowerCase().contains(val.toLowerCase())) {
+       print("contact found");
+  list.add(element);
+      }
+    });
+
+_searchResult(list);
+  }
+  Widget buildSelectContact(BuildContext context){
+   
+
+    return Obx(
+() {
+        return Container(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.04,
+                right: MediaQuery.of(context).size.width * 0.04,
+                bottom: MediaQuery.of(context).size.width * 0.04,
+                top: MediaQuery.of(context).size.width * 0.02),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 6,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      color: Colors.black, borderRadius: BorderRadius.circular(4)),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(color: Colors.black12),
-                ),
-                fillColor: Colors.white,
-                filled: true,
-                hintText: 'Search Customers',
-                hintStyle: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                    fontFamily: 'DMSans'),
-                contentPadding:
-                    EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: AppColor().backgroundColor,
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+    
+                TextField(
+                  onChanged: searchItem,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: AppColor().backgroundColor,
+                      fontFamily: 'DMSans'),
+                  // controller: _searchcontroller,
+                  cursorColor: Colors.white,
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: AppColor().backgroundColor,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0),
+                      borderSide: BorderSide(color: Colors.black12),
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Search Customers',
+                    hintStyle: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey,
+                        fontFamily: 'DMSans'),
+                    contentPadding:
+                        EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ),
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: AppColor().backgroundColor,
-                  ),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 20),
-            Expanded(
-              // width: MediaQuery.of(context).size.width,
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  var item = contactList[index];
-                  return GestureDetector(
-                    onTap: () {
-                      nameController.text = item.displayName;
-                      phoneNumberController.text = item.phones.first.number;
-                      emailController.text = item.emails.first.address;
-                      Get.back();
-                    },
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: _randomColor.randomColor()),
-                                child: Center(
-                                    child: Text(
-                               item.displayName.isEmpty? "": '${item.displayName[0]}',
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                      fontFamily: 'DMSans',
-                                      fontWeight: FontWeight.bold),
-                                ))),
-                          ),
-                        )),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${item.displayName}",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'DMSans',
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400),
+    
+                SizedBox(height: 20),
+                Expanded(
+                  // width: MediaQuery.of(context).size.width,
+                  child:(searchtext.isEmpty || searchResult.isNotEmpty)? ListView.builder(
+                    itemBuilder: (context, index) {
+                      var item = (searchResult.isEmpty)
+                                  ? contactList[index]
+                                  : searchResult[index];
+                      return Visibility(
+                        visible: item.phones.isNotEmpty,
+                        child: GestureDetector(
+                          onTap: () {
+                            nameController.text = item.displayName;
+                            phoneNumberController.text = item.phones.first.number;
+                            emailController.text = item.emails.first.address;
+                            Get.back();
+                          },
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: Container(
+                                margin: EdgeInsets.only(bottom: 10),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: _randomColor.randomColor()),
+                                      child: Center(
+                                          child: Text(
+                                     item.displayName.isEmpty? "": '${item.displayName[0]}',
+                                        style: TextStyle(
+                                            fontSize: 30,
+                                            color: Colors.white,
+                                            fontFamily: 'DMSans',
+                                            fontWeight: FontWeight.bold),
+                                      ))),
                                 ),
-                                Text(
-                                  "${item.phones.first.number}",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'DMSans',
-                                      color: Colors.grey),
+                              )),
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.02),
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${item.displayName}",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: 'DMSans',
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Text(
+                                   (item.phones.isNotEmpty)?     "${item.phones.first.number}":"No Phone Number",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: 'DMSans',
+                                            color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                },
-                itemCount: contactList.length,
-              ),
+                      );
+                    },
+                    itemCount:  (searchResult.isEmpty)
+                                ?contactList.length
+                                : searchResult.length,
+                  ):Container(
+                        child: Center(
+                          child: Text("No Contact(s) Found"),
+                        ),
+                      ),
+                ),
+                // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+    
+                // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              ],
             ),
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          ],
-        ),
-      );
+          );
+      }
+    );
+  }
 }
