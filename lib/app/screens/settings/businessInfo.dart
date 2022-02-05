@@ -64,11 +64,15 @@ class _BusinessInfoState extends State<BusinessInfo> {
     // businessImage = bankInfoController.BankImage as String?;
     businessName = businessController.selectedBusiness.value!.businessName;
     businessEmail = businessController.selectedBusiness.value!.businessEmail;
-    businessAddress =businessController.selectedBusiness.value!.businessAddress;
-    businessCurrency =businessController.selectedBusiness.value!.businessCurrency;
-    businessPhoneNumber = businessController.selectedBusiness.value!.businessPhoneNumber;
-    value=businessController.selectedBusiness.value!.businessCurrency;
-    print("current business json ${businessController.selectedBusiness.value!.toJson()}");
+    businessAddress =
+        businessController.selectedBusiness.value!.businessAddress;
+    businessCurrency =
+        businessController.selectedBusiness.value!.businessCurrency;
+    businessPhoneNumber =
+        businessController.selectedBusiness.value!.businessPhoneNumber;
+    value = businessController.selectedBusiness.value!.businessCurrency;
+    print(
+        "current business json ${businessController.selectedBusiness.value!.toJson()}");
     super.initState();
   }
 
@@ -124,16 +128,24 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // ignore: unnecessary_null_comparison
-                  (businessController.businessImage.value != null ) ?Image.file(businessController.businessImage.value!,width: 100,height: 100,)
-                  :   
-                              businessController.selectedBusiness.value!
-                                  .buisnessLogoFileStoreId==null
-                          ? Image.asset(
-                              'assets/images/Group 3647.png',
+                      (businessController.businessImage.value != null)
+                          ? Image.file(
+                              businessController.businessImage.value!,
+                              width: 100,
+                              height: 100,
                             )
-                          
-                          :Image.network(businessController.selectedBusiness
-                              .value!.buisnessLogoFileStoreId!,width: 100,height: 100,),
+                          : businessController.selectedBusiness.value!
+                                      .buisnessLogoFileStoreId ==
+                                  null
+                              ? Image.asset(
+                                  'assets/images/Group 3647.png',
+                                )
+                              : Image.network(
+                                  businessController.selectedBusiness.value!
+                                      .buisnessLogoFileStoreId!,
+                                  width: 100,
+                                  height: 100,
+                                ),
                     ],
                   ),
                 ),
@@ -566,7 +578,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    (businessController.businessImage.value != null )
+                    (businessController.businessImage.value != null)
                         ? Image.file(
                             businessController.businessImage.value!,
                             height: 150,

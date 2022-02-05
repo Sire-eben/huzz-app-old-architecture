@@ -379,7 +379,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               children: [
                 Expanded(
                   child: Text(
-                    'You are about to delete you want to delete invoice(s) Are you sure you want to continue?',
+                    'You are about to delete you want to delete this transaction. Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
                       fontFamily: 'DMSans',
