@@ -1,6 +1,7 @@
 // ignore_for_file: close_sinks
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/user.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:timer_button/timer_button.dart';
 
@@ -79,198 +81,375 @@ class _PersonalInfoState extends State<PersonalInfo> {
         ),
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomTextField(
-              label: "First Name",
-              validatorText: "First name is needed",
-              hint: firstName,
-              colors: AppColor().blackColor,
-              keyType: TextInputType.name,
-              textEditingController: _controller.firstNameController,
-            ),
-            CustomTextField(
-              label: "Last Name",
-              validatorText: "Last name is needed",
-              hint: lastName,
-              colors: AppColor().blackColor,
-              keyType: TextInputType.name,
-              textEditingController: _controller.lastNameController,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Obx(() {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () => showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20))),
+                    context: context,
+                    builder: (context) => buildAddImage()),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Phone Number',
-                            style: TextStyle(color: Colors.black, fontSize: 12),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5),
-                            child: Text(
-                              "*",
-                              style: TextStyle(color: Colors.red, fontSize: 12),
-                            ),
-                          ),
-                        ],
-                      ),
+                      // ignore: unnecessary_null_comparison
+                      (_controller.profileImage != null)
+                          ? Image.file(
+                              _controller.profileImage.value!,
+                              width: 100,
+                              height: 100,
+                            )
+                          : _controller.user?.profileImageFileStoreId == null
+                              ? Image.asset(
+                                  'assets/images/Group 3647.png',
+                                )
+                              : Image.network(
+                                  _controller.user!.profileImageFileStoreId!,
+                                  width: 100,
+                                  height: 100,
+                                ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          color: AppColor().backgroundColor, width: 2.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            showCountryCode(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  right: BorderSide(
-                                      color: AppColor().backgroundColor,
-                                      width: 2)),
-                            ),
-                            height: 50,
-                            width: 80,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(width: 10),
-                                Flag.fromString(countryFlag,
-                                    height: 30, width: 30),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(
-                                  Icons.arrow_drop_down,
-                                  size: 24,
-                                  color: AppColor()
-                                      .backgroundColor
-                                      .withOpacity(0.5),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            controller: _controller.updatePhoneNumberController,
-                            keyboardType: TextInputType.phone,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: phone,
-                                hintStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
-                                prefixText: "+$countryCode ",
-                                prefixStyle: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black)),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            CustomTextField(
-              label: "Email",
-              validatorText: "Email required",
-              hint: email,
-              colors: AppColor().blackColor,
-              keyType: TextInputType.emailAddress,
-              textEditingController: _controller.emailController,
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Spacer(),
-            Obx(() {
-              return InkWell(
-                onTap: () {
-                  if (_controller.updateProfileStatus !=
-                      UpdateProfileStatus.Loading) _controller.updateProfile();
-                },
-                child: Container(
-                  height: 50,
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: (_controller.updateProfileStatus ==
-                          UpdateProfileStatus.Loading)
-                      ? Center(
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          ),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                  child: Text(
+                "Profile Picture",
+                style: TextStyle(
+                  color: AppColor().blackColor,
+                  fontSize: 12,
+                ),
+              )),
+              SizedBox(
+                height: 10,
+              ),
+              CustomTextField(
+                label: "First Name",
+                validatorText: "First name is needed",
+                hint: firstName,
+                colors: AppColor().blackColor,
+                keyType: TextInputType.name,
+                textEditingController: _controller.firstNameController,
+              ),
+              CustomTextField(
+                label: "Last Name",
+                validatorText: "Last name is needed",
+                hint: lastName,
+                colors: AppColor().blackColor,
+                keyType: TextInputType.name,
+                textEditingController: _controller.lastNameController,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
                             Text(
-                              'Save',
+                              'Phone Number',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                                  TextStyle(color: Colors.black, fontSize: 12),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text(
+                                "*",
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 12),
+                              ),
                             ),
                           ],
                         ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                            color: AppColor().backgroundColor, width: 2.0),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              showCountryCode(context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                    right: BorderSide(
+                                        color: AppColor().backgroundColor,
+                                        width: 2)),
+                              ),
+                              height: 50,
+                              width: 80,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(width: 10),
+                                  Flag.fromString(countryFlag,
+                                      height: 30, width: 30),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    size: 24,
+                                    color: AppColor()
+                                        .backgroundColor
+                                        .withOpacity(0.5),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                              controller:
+                                  _controller.updatePhoneNumberController,
+                              keyboardType: TextInputType.phone,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: phone,
+                                  hintStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                  prefixText: "+$countryCode ",
+                                  prefixStyle: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black)),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              );
-            }),
-            SizedBox(
-              height: 40,
-            ),
-          ],
-        ),
-      ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CustomTextField(
+                label: "Email",
+                validatorText: "Email required",
+                hint: email,
+                colors: AppColor().blackColor,
+                keyType: TextInputType.emailAddress,
+                textEditingController: _controller.emailController,
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Spacer(),
+              Obx(() {
+                return InkWell(
+                  onTap: () {
+                    if (_controller.updateProfileStatus !=
+                        UpdateProfileStatus.Loading)
+                      _controller.updateProfile();
+                  },
+                  child: Container(
+                    height: 50,
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: (_controller.updateProfileStatus ==
+                            UpdateProfileStatus.Loading)
+                        ? Center(
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                            ),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Save',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                            ],
+                          ),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: 40,
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
+
+  Widget buildAddImage() => Obx(() {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  height: 3,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE6F4F2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        Icons.close,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Upload Image',
+                style: TextStyle(
+                  color: AppColor().blackColor,
+                  fontFamily: 'DMSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              SizedBox(height: 100),
+              GestureDetector(
+                onTap: () async {
+                  final ImagePicker _picker = ImagePicker();
+                  // Pick an image
+                  final XFile? image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  _controller.profileImage(File(image!.path));
+                  print("image path ${image.path}");
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    (_controller.profileImage.value != null)
+                        ? Image.file(
+                            _controller.profileImage.value!,
+                            height: 150,
+                            width: 150,
+                          )
+                        : Image.asset(
+                            'assets/images/camera.png',
+                          ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Center(
+                child: Text(
+                  'Select from Device',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: 'DMSans',
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  height: 55,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 15,
+                  ),
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                        color: AppColor().whiteColor,
+                        fontFamily: 'DMSans',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      });
 
   Future showCountryCode(BuildContext context) async {
     showCountryPicker(
