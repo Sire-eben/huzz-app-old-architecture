@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -723,15 +725,6 @@ class _DebtorListingState extends State<DebtorListing> {
     initialText =
         "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
-        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  $businessName  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
-
-    // ignore: unnecessary_null_comparison
-    if (customer == null) {
-      return Container();
-    }
-
-
-    // ignore: unnecessary_null_comparison
     return customer == null
         ? Container()
         : Row(

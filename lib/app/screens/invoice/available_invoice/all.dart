@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
-import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:number_display/number_display.dart';
+
 import '../invoice_pdf.dart';
 import 'single_invoice_preview.dart';
 
@@ -19,7 +19,6 @@ class All extends StatefulWidget {
 }
 
 class _AllState extends State<All> {
-  final _productController = Get.find<ProductRepository>();
   final _invoiceController = Get.find<InvoiceRespository>();
   bool deleteItem = true;
   bool visible = true;
@@ -93,6 +92,7 @@ class _AllState extends State<All> {
                           return GestureDetector(
                             onTap: () async {
                               final date = DateTime.now();
+                              // ignore: unused_local_variable
                               final dueDate = date.add(Duration(days: 7));
 
                               final singleInvoiceReceipt =
@@ -120,19 +120,6 @@ class _AllState extends State<All> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          //   Text(
-                                          //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
-                                          //     style: TextStyle(
-                                          //         fontWeight: FontWeight.bold,
-                                          //         fontFamily: 'DMSans',
-                                          //         fontSize: 14,
-                                          //         color: Colors.black),
-                                          //   ),
-                                          // SizedBox(
-                                          //     height: MediaQuery.of(context)
-                                          //             .size
-                                          //             .width *
-                                          //         0.02),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -185,6 +172,7 @@ class _AllState extends State<All> {
                         itemCount: _invoiceController.offlineInvoices.length,
                         itemBuilder: (BuildContext context, int index) {
                           var item = _invoiceController.offlineInvoices[index];
+                          // ignore: unused_local_variable
                           final _isSelected = _selectedIndex.contains(index);
                           return InkWell(
                             onTap: () {
@@ -218,19 +206,6 @@ class _AllState extends State<All> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          // Text(
-                                          // item.paymentItemRequestList!.first.itemName!,
-                                          //   style: TextStyle(
-                                          //       fontWeight: FontWeight.bold,
-                                          //       fontFamily: 'DMSans',
-                                          //       fontSize: 14,
-                                          //       color: Colors.black),
-                                          // ),
-                                          // SizedBox(
-                                          //     height: MediaQuery.of(context)
-                                          //             .size
-                                          //             .width *
-                                          //         0.02),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -266,14 +241,10 @@ class _AllState extends State<All> {
                                       ),
                                     ),
                                     SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.height *
-                                                0.05),
-                                    // _isSelected
-                                    //     ? SvgPicture.asset(
-                                    //         'assets/images/circle.svg')
-                                    //     : SvgPicture.asset(
-                                    //         'assets/images/selectedItem.svg')
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
+                                    ),
                                     GestureDetector(
                                       onTap: () {
                                         if (_invoiceController
