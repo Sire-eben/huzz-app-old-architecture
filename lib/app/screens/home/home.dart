@@ -406,9 +406,10 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).size.height * 0.02),
             decoration: BoxDecoration(
-              color: Color(0xffF5F5F5),
-              borderRadius: BorderRadius.circular(10),
-            ),
+                color: Color(0xffF5F5F5),
+                borderRadius: BorderRadius.circular(10),
+                border:
+                    Border.all(width: 2, color: Colors.grey.withOpacity(0.2))),
             child: Obx(() {
               return ListView.separated(
                   scrollDirection: Axis.vertical,

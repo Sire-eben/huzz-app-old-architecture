@@ -94,8 +94,8 @@ class _CustomersState extends State<Customers> {
               Expanded(
                   child: Container(
                 padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.height * 0.02,
-                    right: MediaQuery.of(context).size.height * 0.02,
+                    // left: MediaQuery.of(context).size.height * 0.02,
+                    // right: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.02),
                 child: (searchtext.isEmpty || searchResult.isNotEmpty)
                     ? (_customerController.customerCustomer.isNotEmpty)
@@ -198,6 +198,9 @@ class _CustomersState extends State<Customers> {
                             decoration: BoxDecoration(
                               color: Color(0xffF5F5F5),
                               borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                  width: 2,
+                                  color: Colors.grey.withOpacity(0.2)),
                             ),
                             child: Center(
                               child: Column(
@@ -209,7 +212,7 @@ class _CustomersState extends State<Customers> {
                                   Text(
                                     'Customer',
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 13,
                                         color: Colors.black,
                                         fontFamily: 'DMSans',
                                         fontWeight: FontWeight.bold),
@@ -217,14 +220,14 @@ class _CustomersState extends State<Customers> {
                                   Text(
                                     'Your customers will show here. Click the',
                                     style: TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 10,
                                         color: Colors.black,
                                         fontFamily: 'DMSans'),
                                   ),
                                   Text(
                                     'Add customers button to add your first customer',
                                     style: TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 10,
                                         color: Colors.black,
                                         fontFamily: 'DMSans'),
                                   ),
@@ -267,7 +270,7 @@ class _CustomersState extends State<Customers> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 200,
+              vertical: 300,
             ),
             title: Row(
               children: [

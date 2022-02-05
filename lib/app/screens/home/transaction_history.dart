@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/records_model.dart';
+import 'package:huzz/model/transaction_model.dart';
 
 class TransactionHistory extends StatefulWidget {
   final RecordSummary? recordSummary;
@@ -14,8 +16,10 @@ class TransactionHistory extends StatefulWidget {
 }
 
 class _TransactionHistoryState extends State<TransactionHistory> {
+  final _transactionController = Get.find<TransactionRespository>();
   final recordFilter = ['This month', 'Last month'];
 
+  TransactionModel? transactionModel;
   String? value;
 
   @override
@@ -74,7 +78,11 @@ class _TransactionHistoryState extends State<TransactionHistory> {
           ],
         ),
         actions: [
-          SvgPicture.asset('assets/images/delete.svg'),
+          GestureDetector(
+              onTap: () {
+                _displayDialog(context);
+              },
+              child: SvgPicture.asset('assets/images/delete.svg')),
           SizedBox(
             width: MediaQuery.of(context).size.height * 0.02,
           )
@@ -356,6 +364,114 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         ),
       ),
     );
+  }
+
+  _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 50,
+              vertical: 300,
+            ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'You are about to delete you want to delete this transaction. Are you sure you want to continue?',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Center(
+              child: SvgPicture.asset(
+                'assets/images/delete_alert.svg',
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().whiteColor,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColor().backgroundColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          _transactionController
+                              .deleteTransaction(transactionModel!);
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   Widget buildRecordSummary(RecordModel recordModel) =>

@@ -8,9 +8,7 @@ import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:number_display/number_display.dart';
-
 import '../invoice_pdf.dart';
-import 'single_invoice_pdf.dart';
 import 'single_invoice_preview.dart';
 
 class All extends StatefulWidget {
@@ -130,11 +128,11 @@ class _AllState extends State<All> {
                                           //         fontSize: 14,
                                           //         color: Colors.black),
                                           //   ),
-                                          SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.02),
+                                          // SizedBox(
+                                          //     height: MediaQuery.of(context)
+                                          //             .size
+                                          //             .width *
+                                          //         0.02),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -291,8 +289,8 @@ class _AllState extends State<All> {
                                       },
                                       child: AnimatedContainer(
                                         duration: Duration(milliseconds: 200),
-                                        height: 30,
-                                        width: 30,
+                                        height: 25,
+                                        width: 25,
                                         decoration: BoxDecoration(
                                           color: (_invoiceController
                                                   .checkifSelectedForDeleted(
@@ -357,7 +355,7 @@ class _AllState extends State<All> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
-              vertical: 200,
+              vertical: 300,
             ),
             title: Row(
               children: [

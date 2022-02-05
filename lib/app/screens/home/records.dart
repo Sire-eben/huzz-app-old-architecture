@@ -5,6 +5,7 @@ import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/home/insight.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:huzz/model/recordData.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
@@ -461,7 +462,60 @@ class _RecordsState extends State<Records> {
                         },
                         child: SvgPicture.asset('assets/images/graph.svg')),
                     SizedBox(width: 5),
-                    SvgPicture.asset('assets/images/download.svg')
+                    InkWell(
+                        onTap: () async {
+                          final date = DateTime.now();
+                          final dueDate = date.add(Duration(days: 7));
+
+                          final record = Invoice(
+                            supplier: Supplier(
+                              name: 'Business Name',
+                              mail: 'tunmisehassan@gmail.com',
+                              phone: '+234 8123 456 789',
+                            ),
+                            bankDetails: BankDetails(
+                                name: 'First Bank of Nigeria',
+                                no: '0123456789',
+                                mode: 'BANK TRANSFER'),
+                            customer: InvoiceCustomer(
+                              name: 'Joshua Olatunde',
+                              phone: '+234 903 872 6495',
+                            ),
+                            info: InvoiceInfo(
+                              date: date,
+                              dueDate: dueDate,
+                              description: 'My description...',
+                              number: '${DateTime.now().year}-9999',
+                            ),
+                            items: [
+                              InvoiceItem(
+                                item: 'MacBook',
+                                quantity: 3,
+                                amount: 500000,
+                              ),
+                              InvoiceItem(
+                                item: 'MacBook',
+                                quantity: 3,
+                                amount: 500000,
+                              ),
+                              InvoiceItem(
+                                item: 'MacBook',
+                                quantity: 3,
+                                amount: 500000,
+                              ),
+                              InvoiceItem(
+                                item: 'MacBook',
+                                quantity: 3,
+                                amount: 500000,
+                              ),
+                            ],
+                          );
+
+                          // final recordsData =
+                          //     await RecordPdfApi.generate(record);
+                          // Get.to(() => DownloadReceipt(file: recordsData,));
+                        },
+                        child: SvgPicture.asset('assets/images/download.svg'))
                   ],
                 ),
               ),
@@ -519,72 +573,78 @@ class _RecordsState extends State<Records> {
                       var item2 =
                           transactionController.allIncomeHoursData[index];
 
-                      return InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) =>
-                                  buildRecordSummary(item1, item2));
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).size.width * 0.02,
-                              left: MediaQuery.of(context).size.height * 0.03,
-                              right: MediaQuery.of(context).size.height * 0.03),
-                          child: Container(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.grey.withOpacity(0.1),
-                                border: Border.all(
-                                    width: 2,
-                                    color: Colors.grey.withOpacity(0.1))),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      item1.label,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().blackColor),
-                                    ),
-                                    Text(
-                                      "N ${display(item1.value)}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().orangeBorderColor),
-                                    ),
-                                    Text(
-                                      "N ${display(item2.value)}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().blueColor),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  'View',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().backgroundColor),
-                                ),
-                              ],
+                      return Visibility(
+                        visible: (item1.value != 0 || item2.value != 0),
+                        child: InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                context: context,
+                                builder: (context) =>
+                                    buildRecordSummary(item1, item2));
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).size.width * 0.02,
+                                left: MediaQuery.of(context).size.height * 0.03,
+                                right:
+                                    MediaQuery.of(context).size.height * 0.03),
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.015),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey.withOpacity(0.1),
+                                  border: Border.all(
+                                      width: 2,
+                                      color: Colors.grey.withOpacity(0.1))),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        item1.label,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'DMSans',
+                                            fontSize: 10,
+                                            color: AppColor().blackColor),
+                                      ),
+                                      Text(
+                                        "N ${display(item1.value)}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'DMSans',
+                                            fontSize: 10,
+                                            color:
+                                                AppColor().orangeBorderColor),
+                                      ),
+                                      Text(
+                                        "N ${display(item2.value)}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'DMSans',
+                                            fontSize: 10,
+                                            color: AppColor().blueColor),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    'View',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().backgroundColor),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -655,6 +715,7 @@ class _RecordsState extends State<Records> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).size.width * 0.02),
             child: Container(
+              width: MediaQuery.of(context).size.width,
               padding:
                   EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
               decoration: BoxDecoration(
@@ -710,8 +771,8 @@ class _RecordsState extends State<Records> {
                       ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
+                  Container(
+                    // alignment: Alignment.centerRight,
                     child: Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

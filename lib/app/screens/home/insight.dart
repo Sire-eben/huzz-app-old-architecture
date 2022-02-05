@@ -109,7 +109,6 @@ class _InsightState extends State<Insight> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     transactionController.splitCurrentTime();
   }
@@ -136,7 +135,7 @@ class _InsightState extends State<Insight> {
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.04,
                       left: MediaQuery.of(context).size.height * 0.005,
-                      right: MediaQuery.of(context).size.height * 0.005),
+                      right: MediaQuery.of(context).size.height * 0.007),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -215,25 +214,25 @@ class _InsightState extends State<Insight> {
                           ),
                         ),
                       ),
-                      value.toString() == 'Custom date range'
-                          ? IconButton(
-                              onPressed: () async {
-                                DateTimeRange? val =
-                                    await pickDateRanges(context);
-                                if (val != null) {
-                                  transactionController.getDateRangeRecordData(
-                                      val.start, val.end);
-                                }
-                              },
-                              icon: Icon(
-                                Icons.date_range,
-                                color: AppColor().backgroundColor,
-                              ))
-                          : Container()
+                      // value.toString() == 'Custom date range'
+                      //     ? IconButton(
+                      //         onPressed: () async {
+                      //           DateTimeRange? val =
+                      //               await pickDateRanges(context);
+                      //           if (val != null) {
+                      //             transactionController.getDateRangeRecordData(
+                      //                 val.start, val.end);
+                      //           }
+                      //         },
+                      //         icon: Icon(
+                      //           Icons.date_range,
+                      //           color: AppColor().backgroundColor,
+                      //         ))
+                      //     : Container()
                     ],
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
@@ -250,7 +249,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money Out (₦)',
+                            'Money Out(N)',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -272,7 +271,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money in (₦)',
+                            'Money in(N)',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -746,7 +745,7 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/income_transaction.svg',
                               color: AppColor().blueColor,
-                              amount: item1.length.toString(),
+                              amount: transactionController.allIncomeTransaction.length.toString(),
                               name1: 'Income',
                               name2: 'Transaction',
                               message:
@@ -756,7 +755,7 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/expense_transaction.svg',
                               color: AppColor().orangeBorderColor,
-                              amount: item2.length.toString(),
+                              amount:transactionController.allExpenditureTransaction.length.toString(),
                               name1: 'Expense',
                               name2: 'Transaction',
                               message:
@@ -797,7 +796,7 @@ class _InsightState extends State<Insight> {
                               color: AppColor().purpleColor,
                               amount: display(
                                   (transactionController.recordMoneyIn /
-                                      item1.length)),
+                                     transactionController.allIncomeTransaction.length)),
                               name1: 'Average income',
                               name2: 'per transaction',
                               message:
@@ -809,7 +808,7 @@ class _InsightState extends State<Insight> {
                               color: AppColor().wineColor,
                               amount: display(
                                   (transactionController.recordMoneyOut /
-                                      item2.length)),
+                                      transactionController.allExpenditureTransaction.length)),
                               name1: 'Average expenses',
                               name2: 'per transaction',
                               message:

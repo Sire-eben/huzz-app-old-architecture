@@ -125,15 +125,15 @@ class _DebtorsState extends State<Debtors> {
                         height: 20,
                       ),
                       Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            // color: Color(0xffF5F5F5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: ((value == "Pending")
-                                  ? (_debtorController.debtorsList.isEmpty)
-                                  : (_debtorController.fullyPaidDebt.isEmpty))
-                              ? Center(
+                        child: ((value == "Pending")
+                                ? (_debtorController.debtorsList.isEmpty)
+                                : (_debtorController.fullyPaidDebt.isEmpty))
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xffF5F5F5),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -168,28 +168,26 @@ class _DebtorsState extends State<Debtors> {
                                       ),
                                     ],
                                   ),
-                                )
-                              : ListView.separated(
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  separatorBuilder: (context, index) =>
-                                      Divider(),
-                                  itemCount: ((value == "Pending")
-                                      ? (_debtorController.debtorsList.length)
-                                      : (_debtorController
-                                          .fullyPaidDebt.length)),
-                                  itemBuilder: (context, index) {
-                                    var item =
-                                        _debtorController.debtorsList[index];
-                                    // ignore: unused_local_variable
-                                    var customer = _customerController
-                                        .checkifCustomerAvailableWithValue(
-                                            item.customerId!);
-                                    return DebtorListing(
-                                      item: item,
-                                    );
-                                  }),
-                        ),
+                                ),
+                              )
+                            : ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                separatorBuilder: (context, index) => Divider(),
+                                itemCount: ((value == "Pending")
+                                    ? (_debtorController.debtorsList.length)
+                                    : (_debtorController.fullyPaidDebt.length)),
+                                itemBuilder: (context, index) {
+                                  var item =
+                                      _debtorController.debtorsList[index];
+                                  // ignore: unused_local_variable
+                                  var customer = _customerController
+                                      .checkifCustomerAvailableWithValue(
+                                          item.customerId!);
+                                  return DebtorListing(
+                                    item: item,
+                                  );
+                                }),
                       ),
                       SizedBox(
                         height: 20,
@@ -389,7 +387,7 @@ class _DebtorsState extends State<Debtors> {
                                       onChanged: (value) => myState(() =>
                                           _debtorController.customerType = 1)),
                                   Text(
-                                    'New Merchant',
+                                    'New Customer',
                                     style: TextStyle(
                                       color: AppColor().backgroundColor,
                                       fontFamily: "DMSans",
@@ -414,7 +412,7 @@ class _DebtorsState extends State<Debtors> {
                                       onChanged: (value) => myState(() =>
                                           _debtorController.customerType = 0)),
                                   Text(
-                                    'Existing Merchants',
+                                    'Existing Customers',
                                     style: TextStyle(
                                       color: AppColor().backgroundColor,
                                       fontFamily: "DMSans",
@@ -708,13 +706,11 @@ class _DebtorListingState extends State<DebtorListing> {
 
   String? initialText;
 
-  // String? initialText =
-  //     "Dear Tunde, you have an outstanding payment of N500 for your purchase of Melon seeds at Huzz technologies  (08133150074). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
-
   @override
   Widget build(BuildContext context) {
     var customer = _customerController
         .checkifCustomerAvailableWithValue(widget.item!.customerId!);
+
 
         if(customer==null){
           return Container();
@@ -727,6 +723,15 @@ class _DebtorListingState extends State<DebtorListing> {
     initialText =
         "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
+        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  $businessName  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+
+    // ignore: unnecessary_null_comparison
+    if (customer == null) {
+      return Container();
+    }
+
+
+    // ignore: unnecessary_null_comparison
     return customer == null
         ? Container()
         : Row(
@@ -939,7 +944,6 @@ class _DebtorListingState extends State<DebtorListing> {
                       child: GestureDetector(
                         onTap: () {
                           Share.share("$initialText", subject: 'Send Message');
-                          // _displayDialog(context);
                         },
                         child: Image.asset('assets/images/share.png'),
                       ),

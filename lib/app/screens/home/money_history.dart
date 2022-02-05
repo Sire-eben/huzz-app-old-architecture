@@ -1,4 +1,5 @@
-import 'package:auto_size_text/auto_size_text.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -34,11 +35,11 @@ class _MoneySummaryState extends State<MoneySummary> {
   final _amountController = TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    transactionModel=_transactionController.getTransactionById(widget.item!.businessTransactionId!);
-    if(transactionModel!=null){
-print("transaction result ${transactionModel!.toJson()}");
+    transactionModel = _transactionController
+        .getTransactionById(widget.item!.businessTransactionId!);
+    if (transactionModel != null) {
+      print("transaction result ${transactionModel!.toJson()}");
       print("transaction is not null");
     } else {
       print("transaction is null");
@@ -105,7 +106,7 @@ print("transaction result ${transactionModel!.toJson()}");
         actions: [
           GestureDetector(
               onTap: () {
-                _transactionController.deleteTransaction(transactionModel!);
+                _displayDialog(context);
               },
               child: SvgPicture.asset('assets/images/delete.svg')),
           SizedBox(
@@ -232,7 +233,6 @@ print("transaction result ${transactionModel!.toJson()}");
                   )
                 : Container(),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-
             (transactionModel!.balance != 0)
                 ? GestureDetector(
                     onTap: () {
@@ -264,63 +264,6 @@ print("transaction result ${transactionModel!.toJson()}");
                     ),
                   )
                 : Container(),
-//           (transactionModel!.balance==0) ?  Text(
-//               'N ${display(transactionModel!.totalAmount??0)}',
-//               style: TextStyle(
-//                 color: AppColor().backgroundColor,
-//                 fontFamily: "DMSans",
-//                 fontStyle: FontStyle.normal,
-//                 fontSize: 18,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ):Container(),
-//           (transactionModel!.balance!=0) ?   Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceAround,
-//               children: [
-// Column(
-//   children: [
-//     Text(
-// 'Total Amount',
-//               style: TextStyle(
-//                 color: AppColor().blackColor,
-//                 fontFamily: "DMSans",
-//                 fontStyle: FontStyle.normal,
-//                 fontSize: 10,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),
-//             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-//             Container(
-//               width: MediaQuery.of(context).size.width * 0.8,
-//               padding: EdgeInsets.symmetric(vertical: 12),
-//               decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(16),
-//                   color: AppColor().backgroundColor.withOpacity(0.2)),
-//               child: Center(
-//                 child: Text(
-//                   'Update payment',
-//                   style: TextStyle(
-//                     color: AppColor().blackColor,
-//                     fontFamily: "DMSans",
-//                     fontStyle: FontStyle.normal,
-//                     fontSize: 12,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//               ),
-//             ),]),
-//             Column(
-//   children: [
-//     Text(
-// 'Bal',
-//               style: TextStyle(
-//                 color: AppColor().blackColor,
-//                 fontFamily: "DMSans",
-//                 fontStyle: FontStyle.normal,
-//                 fontSize: 10,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//             ),]),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Align(
               alignment: Alignment.centerLeft,
@@ -555,10 +498,12 @@ print("transaction result ${transactionModel!.toJson()}");
                               ),
                             ),
                             GestureDetector(
-                              onTap: ()async{
-                                               final moneyInOutReceipt =
-                          await PdfMoneyInOutApi.generate(transactionModel!);
-                      Get.to(() => IncomeReceipt(file: moneyInOutReceipt));
+                              onTap: () async {
+                                final moneyInOutReceipt =
+                                    await PdfMoneyInOutApi.generate(
+                                        transactionModel!);
+                                Get.to(() =>
+                                    IncomeReceipt(file: moneyInOutReceipt));
                               },
                               child: Row(
                                 children: [
@@ -594,6 +539,114 @@ print("transaction result ${transactionModel!.toJson()}");
         ),
       ),
     );
+  }
+
+  _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 50,
+              vertical: 300,
+            ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'You are about to delete you want to delete invoice(s) Are you sure you want to continue?',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Center(
+              child: SvgPicture.asset(
+                'assets/images/delete_alert.svg',
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().whiteColor,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColor().backgroundColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          _transactionController
+                              .deleteTransaction(transactionModel!);
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   Widget buildRecordSummary(RecordModel recordModel) =>
@@ -1071,41 +1124,42 @@ print("transaction result ${transactionModel!.toJson()}");
               //     )
               //   ],
               // ),
-              Obx(()
-              {
-                  return InkWell(
-                    onTap: () async{
-                      
-if(_transactionController.addingTransactionStatus !=
-                            AddingTransactionStatus.Loading){
+              Obx(() {
+                return InkWell(
+                  onTap: () async {
+                    if (_transactionController.addingTransactionStatus !=
+                        AddingTransactionStatus.Loading) {
+                      var result =
+                          await _transactionController.updateTransactionHistory(
+                              transactionModel!.id!,
+                              transactionModel!.businessId!,
+                              (paymentType == 0)
+                                  ? int.parse(_amountController.text)
+                                  : (transactionModel!.balance ?? 0),
+                              (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
 
-var result=await _transactionController.updateTransactionHistory(transactionModel!.id!, transactionModel!.businessId!, (paymentType==0)?int.parse(_amountController.text):(transactionModel!.balance??0), (paymentType==0)?"DEPOSIT":"FULLY_PAID");
-
-if(result!=null){
-print("result is not null");
-  transactionModel=result;
-  setState(() {
-    
-  });
-}else{
-
-  print("result is null");
-}
-  transactionModel=_transactionController.getTransactionById(widget.item!.businessTransactionId!);
-  setState(() {
-    
-  });
-                            }
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.height * 0.01),
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_transactionController.addingTransactionStatus ==
+                      if (result != null) {
+                        print("result is not null");
+                        transactionModel = result;
+                        setState(() {});
+                      } else {
+                        print("result is null");
+                      }
+                      transactionModel =
+                          _transactionController.getTransactionById(
+                              widget.item!.businessTransactionId!);
+                      setState(() {});
+                    }
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.01),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: (_transactionController.addingTransactionStatus ==
                             AddingTransactionStatus.Loading)
                         ? Container(
                             width: 30,
