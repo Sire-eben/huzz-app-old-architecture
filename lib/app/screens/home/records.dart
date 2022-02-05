@@ -4,15 +4,14 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/home/insight.dart';
-import 'package:huzz/app/screens/home/records/records_pdf.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:huzz/model/recordData.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
 import 'money_history.dart';
-import 'records/download.dart';
 
 class Records extends StatefulWidget {
   @override
@@ -573,10 +572,9 @@ class _RecordsState extends State<Records> {
                           transactionController.allExpenditureHoursData[index];
                       var item2 =
                           transactionController.allIncomeHoursData[index];
-                  
+
                       return Visibility(
-                        visible: (item1.value!=0 ||item2.value!=0),
-                        
+                        visible: (item1.value != 0 || item2.value != 0),
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(
@@ -589,9 +587,11 @@ class _RecordsState extends State<Records> {
                           },
                           child: Padding(
                             padding: EdgeInsets.only(
-                                bottom: MediaQuery.of(context).size.width * 0.02,
+                                bottom:
+                                    MediaQuery.of(context).size.width * 0.02,
                                 left: MediaQuery.of(context).size.height * 0.03,
-                                right: MediaQuery.of(context).size.height * 0.03),
+                                right:
+                                    MediaQuery.of(context).size.height * 0.03),
                             child: Container(
                               padding: EdgeInsets.all(
                                   MediaQuery.of(context).size.height * 0.015),
@@ -622,7 +622,8 @@ class _RecordsState extends State<Records> {
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'DMSans',
                                             fontSize: 10,
-                                            color: AppColor().orangeBorderColor),
+                                            color:
+                                                AppColor().orangeBorderColor),
                                       ),
                                       Text(
                                         "N ${display(item2.value)}",
@@ -770,7 +771,7 @@ class _RecordsState extends State<Records> {
                       ],
                     ),
                   ),
-                 Container(
+                  Container(
                     // alignment: Alignment.centerRight,
                     child: Expanded(
                       child: Column(

@@ -8,6 +8,7 @@ import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
+
 import '../../../../colors.dart';
 
 // ignore: must_be_immutable
@@ -108,7 +109,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       SvgPicture.asset(
                                           'assets/images/debtors.svg'),
                                       Text(
-                                        'Add Debt Owned',
+                                        'Add Debt Owed',
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.black,
@@ -126,7 +127,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                             fontFamily: 'DMSans'),
                                       ),
                                       Text(
-                                        'Add New Debt Owed button to add your first debtor',
+                                        'Add New Debt Owed button to add your first debt',
                                         style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.black,
@@ -643,7 +644,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      'Add Debt Owned',
+                      'Add Debt Owed',
                       style: TextStyle(
                         color: AppColor().blackColor,
                         fontFamily: 'DMSans',
@@ -754,7 +755,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     onChanged: (value) => myState(() =>
                                         _debtorRepository.customerType = 1)),
                                 Text(
-                                  'New Customer',
+                                  'New Merchants',
                                   style: TextStyle(
                                     color: AppColor().backgroundColor,
                                     fontFamily: "DMSans",
@@ -778,7 +779,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     onChanged: (value) => myState(() =>
                                         _debtorRepository.customerType = 0)),
                                 Text(
-                                  'Existing Customers',
+                                  'Existing Merchants',
                                   style: TextStyle(
                                     color: AppColor().backgroundColor,
                                     fontFamily: "DMSans",

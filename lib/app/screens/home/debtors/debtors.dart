@@ -12,6 +12,7 @@ import 'package:huzz/model/user.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import 'package:share_plus/share_plus.dart';
+
 import '../../../../colors.dart';
 import 'debtorreminder.dart';
 
@@ -386,7 +387,7 @@ class _DebtorsState extends State<Debtors> {
                                       onChanged: (value) => myState(() =>
                                           _debtorController.customerType = 1)),
                                   Text(
-                                    'New Merchant',
+                                    'New Customer',
                                     style: TextStyle(
                                       color: AppColor().backgroundColor,
                                       fontFamily: "DMSans",
@@ -411,7 +412,7 @@ class _DebtorsState extends State<Debtors> {
                                       onChanged: (value) => myState(() =>
                                           _debtorController.customerType = 0)),
                                   Text(
-                                    'Existing Merchants',
+                                    'Existing Customers',
                                     style: TextStyle(
                                       color: AppColor().backgroundColor,
                                       fontFamily: "DMSans",
@@ -716,12 +717,12 @@ class _DebtorListingState extends State<DebtorListing> {
     initialText =
         "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  $businessName  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
+    // ignore: unnecessary_null_comparison
     if (customer == null) {
       return Container();
     }
-    initialText =
-        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase of $businessName at Huzz technologies  ($phone). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
+    // ignore: unnecessary_null_comparison
     return customer == null
         ? Container()
         : Row(
@@ -934,7 +935,6 @@ class _DebtorListingState extends State<DebtorListing> {
                       child: GestureDetector(
                         onTap: () {
                           Share.share("$initialText", subject: 'Send Message');
-                          // _displayDialog(context);
                         },
                         child: Image.asset('assets/images/share.png'),
                       ),

@@ -24,8 +24,7 @@ class _AddProductState extends State<AddProduct> {
 
   @override
   void initState() {
-    if(widget.item!=null){
-
+    if (widget.item != null) {
       print("Product json is ${widget.item!.toJson()}");
     }
     super.initState();
@@ -105,11 +104,17 @@ class _AddProductState extends State<AddProduct> {
                         height: 150,
                         width: 150,
                       )
-                    :(widget.item!.productLogoFileStoreId!=null && widget.item!.productLogoFileStoreId!.isEmpty) ?Image.network(widget.item!.productLogoFileStoreId!,height: 50,):Image.asset(
-                        'assets/images/Group 3647.png',
-                        height: 50,
-                        color: AppColor().backgroundColor,
-                      ),
+                    : (widget.item!.productLogoFileStoreId != null &&
+                            widget.item!.productLogoFileStoreId!.isEmpty)
+                        ? Image.network(
+                            widget.item!.productLogoFileStoreId!,
+                            height: 50,
+                          )
+                        : Image.asset(
+                            'assets/images/Group 3647.png',
+                            height: 50,
+                            color: AppColor().backgroundColor,
+                          ),
               ),
             ),
             SizedBox(
