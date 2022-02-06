@@ -8,7 +8,6 @@ import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
-
 import '../../../../colors.dart';
 
 // ignore: must_be_immutable
@@ -481,7 +480,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        'Bal: ' + debtor.balance.toString(),
+                                        'Bal: ' + display(debtor.balance),
                                         style: TextStyle(
                                           fontFamily: "DMSans",
                                           color: AppColor().orangeBorderColor,

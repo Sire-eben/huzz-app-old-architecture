@@ -24,6 +24,17 @@ businessList: json['businessList']!=null? List.from(json['businessList']).map((e
 
  );  
 
+ factory  User.fromJsonSettngs(Map<String,dynamic> json)=> User(
+firstName: json['firstName'],
+lastName: json['lastName'],
+phoneNumber:json['phoneNumber'],
+email: json['email'],
+signatureImageFileStoreId: json['signatureImageFileStoreId']==null?"":json['signatureImageFileStoreId'],
+profileImageFileStoreId: json['profileImageFileStoreId']==null?"":json['profileImageFileStoreId'],
+// businessList: json['businessList']!=null? List.from(json['businessList']).map((e) => Business.fromJson(e)).toList():[]
+
+ ); 
+
 Map<String,dynamic> toJson()=>{
  'user':{ "firstName":firstName,
   "lastName":lastName,

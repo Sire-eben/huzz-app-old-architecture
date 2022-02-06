@@ -110,7 +110,7 @@ class _InsightState extends State<Insight> {
   @override
   void initState() {
     super.initState();
-    transactionController.splitCurrentTime();
+    // transactionController.splitCurrentTime();
   }
 
   @override

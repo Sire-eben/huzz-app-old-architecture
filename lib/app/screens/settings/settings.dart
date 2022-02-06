@@ -82,13 +82,14 @@ class _SettingsState extends State<Settings> {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: (controller.profileImage != null ||
+                child: (controller.profileImage.value != null ) ?Image.file(controller.profileImage.value!,width: 100,height: 100,):
+                 (
                         controller.user!.profileImageFileStoreId!.isEmpty)
                     ? Image.asset(
                         "assets/images/profileImg.png",
                       )
-                    : Image.file(
-                        controller.profileImage.value!,
+                    : Image.network(
+                        controller.user!.profileImageFileStoreId!,
                         height: 100,
                         width: 100,
                       ),
@@ -434,126 +435,134 @@ class _SettingsState extends State<Settings> {
   }
 
   Widget buildAddImage() => Obx(() {
-        return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  height: 3,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+        return Obx(
+  () {
+            return Container(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.04,
+                  right: MediaQuery.of(context).size.width * 0.04,
+                  bottom: MediaQuery.of(context).size.width * 0.04,
+                  top: MediaQuery.of(context).size.width * 0.02),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: Color(0xffE6F4F2),
-                      shape: BoxShape.circle,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Icon(
-                        Icons.close,
-                        color: AppColor().backgroundColor,
+                  Center(
+                    child: Container(
+                      height: 3,
+                      width: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(4),
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: Color(0xffE6F4F2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Icon(
+                            Icons.close,
+                            color: AppColor().backgroundColor,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Upload Image',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  SizedBox(height: 100),
+                  GestureDetector(
+                    onTap: () async {
+                      final ImagePicker _picker = ImagePicker();
+                      // Pick an image
+                      final XFile? image =
+                          await _picker.pickImage(source: ImageSource.gallery);
+                      controller.profileImage(File(image!.path));
+                      print("image path ${image.path}");
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        (controller.profileImage.value!=null 
+                      )
+                            ? Image.file(
+                                controller.profileImage.value!,
+                                height: 150,
+                                width: 150,
+                              )
+                            : Image.asset(
+                                'assets/images/camera.png',
+                              ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Center(
+                    child: Text(
+                      'Select from Device',
+                      style: TextStyle(
+                        color: AppColor().blackColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: ()async {
+                  await    controller.updateProfileImage();
+                      Get.back();
+                      setState(() {
+                        
+                      });
+                    },
+                    child: Container(
+                      height: 55,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 15,
+                      ),
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          'Done',
+                          style: TextStyle(
+                            color: AppColor().whiteColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              SizedBox(height: 5),
-              Text(
-                'Upload Image',
-                style: TextStyle(
-                  color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              SizedBox(height: 100),
-              GestureDetector(
-                onTap: () async {
-                  final ImagePicker _picker = ImagePicker();
-                  // Pick an image
-                  final XFile? image =
-                      await _picker.pickImage(source: ImageSource.gallery);
-                  controller.profileImage(File(image!.path));
-                  print("image path ${image.path}");
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    (controller.profileImage != null &&
-                            controller.profileImage != null)
-                        ? Image.file(
-                            controller.profileImage.value!,
-                            height: 150,
-                            width: 150,
-                          )
-                        : Image.asset(
-                            'assets/images/camera.png',
-                          ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Center(
-                child: Text(
-                  'Select from Device',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              Spacer(),
-              GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: Container(
-                  height: 55,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 15,
-                  ),
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'Done',
-                      style: TextStyle(
-                        color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            );
+          }
         );
       });
 
