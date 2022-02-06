@@ -171,6 +171,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                             .randomColor()),
                                                     child: Center(
                                                         child: Text(
+                                                      // ignore: unnecessary_null_comparison
                                                       customer != null &&
                                                               customer.name !=
                                                                   null &&
@@ -1051,7 +1052,6 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
   int statusType = 0;
   final _debtorController = Get.find<DebtorRepository>();
 
-  RandomColor _randomColor = RandomColor();
   final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
   @override

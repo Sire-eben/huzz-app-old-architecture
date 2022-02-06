@@ -85,7 +85,6 @@ class _RecordsState extends State<Records> {
   List<RecordsData> item2 = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -467,6 +466,7 @@ class _RecordsState extends State<Records> {
                     InkWell(
                         onTap: () async {
                           final date = DateTime.now();
+                          // ignore: unused_local_variable
                           final dueDate = date.add(Duration(days: 7));
                           if (transactionController.value.value
                               .contains("Today")) {
@@ -1075,7 +1075,7 @@ class _RecordsState extends State<Records> {
       );
 
   List<RecordsData> removeDoubleItem(List<RecordsData> list) {
-    print("previous items lenght ${list.length}");
+    print("previous items length ${list.length}");
     List<RecordsData> newList = [];
     list.forEach((element) {
       if (newList
