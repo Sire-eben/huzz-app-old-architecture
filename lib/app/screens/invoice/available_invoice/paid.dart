@@ -18,6 +18,7 @@ class Paid extends StatefulWidget {
 }
 
 class _PaidState extends State<Paid> {
+  // ignore: unused_field
   final _productController = Get.find<ProductRepository>();
   final _invoiceController = Get.find<InvoiceRespository>();
   bool deleteItem = true;

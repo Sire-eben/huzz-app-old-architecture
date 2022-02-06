@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/payment_item.dart';
-import 'package:huzz/model/product.dart';
 
+// ignore: must_be_immutable
 class ItemCard extends StatelessWidget {
   PaymentItem item;
   final VoidCallback? onDelete;

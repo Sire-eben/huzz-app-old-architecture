@@ -8,6 +8,7 @@ import 'package:huzz/model/money_reciept_model.dart';
 import 'package:huzz/model/transaction_model.dart';
 import '../../../colors.dart';
 
+// ignore: must_be_immutable
 class IncomeSuccess extends StatelessWidget {
   TransactionModel transactionModel;
   String title;
@@ -100,6 +101,7 @@ class IncomeSuccess extends StatelessWidget {
                       final date = DateTime.now();
                       final dueDate = date.add(Duration(days: 7));
 
+                      // ignore: unused_local_variable
                       final moneyInvoice = MoneyInOutInvoice(
                         supplier: Supplier(
                           name: 'Business Name',

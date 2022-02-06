@@ -15,6 +15,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
 class PdfMoneyInOutApi {
+  // ignore: avoid_init_to_null
   static Customer? customer = null;
   static final _businessController = Get.find<BusinessRespository>();
   static final _customerController = Get.find<CustomerRepository>();
@@ -118,6 +119,7 @@ class PdfMoneyInOutApi {
       'Amount',
     ];
     final data = items.map((item) {
+      // ignore: unused_local_variable
       final total = item.totalAmount;
 
       return [

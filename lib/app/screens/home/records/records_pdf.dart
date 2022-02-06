@@ -43,6 +43,7 @@ class RecordPdfApi {
       'MONEY OUT',
     ];
     final data = recordInvoice.items.map((item) {
+      // ignore: unused_local_variable
       final total = item.moneyOut * item.moneyIn;
 
       return [
@@ -245,6 +246,7 @@ class DailyRecordPdfApi {
       // 'Customer Name',
     ];
     final data = recordInvoice.items.map((item) {
+      // ignore: unused_local_variable
       final total = item.amount * item.quantity;
 
       return [
