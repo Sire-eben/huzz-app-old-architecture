@@ -104,8 +104,9 @@ class _AddProductState extends State<AddProduct> {
                         height: 150,
                         width: 150,
                       )
-                    : (widget.item!.productLogoFileStoreId != null &&
-                            widget.item!.productLogoFileStoreId!.isEmpty)
+                    : (widget.item != null &&
+                            widget.item!.productLogoFileStoreId != null &&
+                            widget.item!.productLogoFileStoreId!.isNotEmpty)
                         ? Image.network(
                             widget.item!.productLogoFileStoreId!,
                             height: 50,

@@ -278,6 +278,72 @@ class AuthRepository extends GetxController {
     }
   }
 
+   Future updateProfileImage()async{
+try{
+     _updateProfileStatus(UpdateProfileStatus.Loading);
+      print("otp value ${otpController.text}");
+      final uploadController = Get.find<FileUploadRespository>();
+      String? imageId;
+      if (profileImage.value != null) {
+        imageId = await uploadController.uploadFile(profileImage.value!.path);
+      }
+      final resposne = await http.put(Uri.parse(ApiLink.update_profile),
+          body: jsonEncode({
+        
+            "profileImageFileStoreId": imageId,
+            // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${token}"
+          });
+
+      print("response of update personal profile info ${resposne.body}");
+      if (resposne.statusCode == 200) {
+        var json = jsonDecode(resposne.body);
+         print("user detail ${json}");
+          var user = User.fromJsonSettngs(json);
+       user.businessList=this.user!.businessList;
+          this.user = user;
+          pref!.setUser(user);
+   
+
+          _updateProfileStatus(UpdateProfileStatus.Success);
+          Get.snackbar(
+            "Success",
+            "Personal Profile Image",
+          );
+          Timer(Duration(milliseconds: 2000), () {
+            Get.back();
+          });
+        // } else {
+          
+        //   Get.snackbar(
+        //     "Error",
+        //     "Failed to update Personal Information",
+        //   );
+        // }
+      }else{
+        _updateProfileStatus(UpdateProfileStatus.Error);
+var json=jsonDecode(resposne.body);
+Get.snackbar("${json['error']}", "${json['message']}");
+
+      }
+    } catch (ex) {
+      _updateProfileStatus(UpdateProfileStatus.Error);
+      print("error from updating personal information ${ex.toString()}");
+      Get.snackbar(
+        "Error",
+        "Failed to update Personal Profile Image",
+      );
+      _updateProfileStatus(UpdateProfileStatus.Error);
+    }
+
+
+
+   }
+
+
   Future updateProfile() async {
     try {
       _updateProfileStatus(UpdateProfileStatus.Loading);
@@ -292,8 +358,8 @@ class AuthRepository extends GetxController {
             "firstName": firstNameController.text,
             "lastName": lastNameController.text,
             "email": emailController.text,
-            "profileImageFileStoreId": imageId,
-            "phoneNumber": countryText + updatePhoneNumberController.text.trim()
+            // "profileImageFileStoreId": imageId,
+            // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
           headers: {
             "Content-Type": "application/json",
@@ -303,17 +369,12 @@ class AuthRepository extends GetxController {
       print("response of update personal info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
-        if (json['success']) {
-          var token = json['data']['accessToken'];
-          var user = User.fromJson(json['data']);
-          Mtoken(token);
-          pref!.saveToken(token);
+         print("user detail ${json}");
+          var user = User.fromJsonSettngs(json);
+       user.businessList=this.user!.businessList;
           this.user = user;
           pref!.setUser(user);
-          DateTime date = DateTime.now();
-          DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
-          pref!.setDateTokenExpired(expireToken);
-          _authStatus(AuthStatus.Authenticated);
+   
 
           _updateProfileStatus(UpdateProfileStatus.Success);
           Get.snackbar(
@@ -323,15 +384,21 @@ class AuthRepository extends GetxController {
           Timer(Duration(milliseconds: 2000), () {
             Get.back();
           });
-        } else {
-          _updateProfileStatus(UpdateProfileStatus.Error);
-          Get.snackbar(
-            "Error",
-            "Failed to update Personal Information",
-          );
-        }
+        // } else {
+          
+        //   Get.snackbar(
+        //     "Error",
+        //     "Failed to update Personal Information",
+        //   );
+        // }
+      }else{
+        _updateProfileStatus(UpdateProfileStatus.Error);
+var json=jsonDecode(resposne.body);
+Get.snackbar("${json['error']}", "${json['message']}");
+
       }
     } catch (ex) {
+      _updateProfileStatus(UpdateProfileStatus.Error);
       print("error from updating personal information ${ex.toString()}");
       Get.snackbar(
         "Error",

@@ -695,7 +695,7 @@ class CustomerRepository extends GetxController {
     print("contact picker is selected");
     _searchtext("");
 _searchResult([]);
-    showModalBottomSheet(
+ await   showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         context: context,
@@ -800,10 +800,12 @@ _searchResult(list);
                         visible: item.phones.isNotEmpty,
                         child: GestureDetector(
                           onTap: () {
+                                    Get.back();
                             nameController.text = item.displayName;
                             phoneNumberController.text = item.phones.first.number;
                             emailController.text = item.emails.first.address;
-                            Get.back();
+                          //  Navigator.pop(context);
+                   
                           },
                           child: Row(
                             children: [
