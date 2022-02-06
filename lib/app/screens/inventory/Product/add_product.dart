@@ -36,8 +36,13 @@ class _AddProductState extends State<AddProduct> {
 
   void _decrementCounter() {
     setState(() {
-      // ignore: unnecessary_statements
-      _counter--;
+      if (_counter < 1) {
+        setState(() {
+          _counter = 0;
+        });
+      } else {
+        _counter--;
+      }
     });
   }
 
@@ -369,7 +374,7 @@ class _AddProductState extends State<AddProduct> {
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
                                   fontFamily: 'DMSans',
-                                  color: Colors.black26,
+                                  color: Colors.black,
                                   fontSize: 14,
                                   fontStyle: FontStyle.normal,
                                   fontWeight: FontWeight.normal,
