@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../../colors.dart';
 
 // ignore: must_be_immutable
@@ -38,8 +36,13 @@ class _AddProductState extends State<AddProduct> {
 
   void _decrementCounter() {
     setState(() {
-      // ignore: unnecessary_statements
-      _counter--;
+      if (_counter < 1) {
+        setState(() {
+          _counter = 0;
+        });
+      } else {
+        _counter--;
+      }
     });
   }
 
@@ -104,8 +107,9 @@ class _AddProductState extends State<AddProduct> {
                         height: 150,
                         width: 150,
                       )
-                    : (widget.item!.productLogoFileStoreId != null &&
-                            widget.item!.productLogoFileStoreId!.isEmpty)
+                    : (widget.item != null &&
+                            widget.item!.productLogoFileStoreId != null &&
+                            widget.item!.productLogoFileStoreId!.isNotEmpty)
                         ? Image.network(
                             widget.item!.productLogoFileStoreId!,
                             height: 50,
@@ -370,7 +374,7 @@ class _AddProductState extends State<AddProduct> {
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
                                   fontFamily: 'DMSans',
-                                  color: Colors.black26,
+                                  color: Colors.black,
                                   fontSize: 14,
                                   fontStyle: FontStyle.normal,
                                   fontWeight: FontWeight.normal,

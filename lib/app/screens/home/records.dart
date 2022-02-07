@@ -5,13 +5,15 @@ import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/home/insight.dart';
 import 'package:huzz/colors.dart';
-import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:huzz/model/recordData.dart';
+import 'package:huzz/model/record_receipt.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'money_history.dart';
+import 'records/download_records.dart';
+import 'records/records_pdf.dart';
 
 class Records extends StatefulWidget {
   @override
@@ -83,7 +85,6 @@ class _RecordsState extends State<Records> {
   List<RecordsData> item2 = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -465,55 +466,93 @@ class _RecordsState extends State<Records> {
                     InkWell(
                         onTap: () async {
                           final date = DateTime.now();
+                          // ignore: unused_local_variable
                           final dueDate = date.add(Duration(days: 7));
+                          if (transactionController.value.value
+                              .contains("Today")) {
+                            final records = DailyRecordInvoice(
+                              items: [
+                                DailyRecordItem(
+                                  date: 'Sept. 21,2021',
+                                  time: '10:00PM',
+                                  type: 'INCOME',
+                                  itemName: 'Clothes',
+                                  quantity: 7,
+                                  mode: 'PART',
+                                  customerName: 'JOSHUA OLAYEMI',
+                                  amount: 10000,
+                                ),
+                                DailyRecordItem(
+                                  date: 'Sept. 21,2021',
+                                  time: '10:00PM',
+                                  type: 'INCOME',
+                                  itemName: 'Clothes',
+                                  quantity: 8,
+                                  mode: 'PART',
+                                  customerName: 'JOSHUA OLAYEMI',
+                                  amount: 10000,
+                                ),
+                                DailyRecordItem(
+                                  date: 'Sept. 21,2021',
+                                  time: '10:00PM',
+                                  type: 'INCOME',
+                                  itemName: 'Clothes',
+                                  quantity: 7,
+                                  mode: 'PART',
+                                  customerName: 'JOSHUA OLAYEMI',
+                                  amount: 10000,
+                                ),
+                                DailyRecordItem(
+                                  date: 'Sept. 21,2021',
+                                  time: '10:00PM',
+                                  type: 'INCOME',
+                                  itemName: 'Clothes',
+                                  quantity: 6,
+                                  mode: 'PART',
+                                  customerName: 'JOSHUA OLAYEMI',
+                                  amount: 10000,
+                                ),
+                              ],
+                            );
 
-                          final record = Invoice(
-                            supplier: Supplier(
-                              name: 'Business Name',
-                              mail: 'tunmisehassan@gmail.com',
-                              phone: '+234 8123 456 789',
-                            ),
-                            bankDetails: BankDetails(
-                                name: 'First Bank of Nigeria',
-                                no: '0123456789',
-                                mode: 'BANK TRANSFER'),
-                            customer: InvoiceCustomer(
-                              name: 'Joshua Olatunde',
-                              phone: '+234 903 872 6495',
-                            ),
-                            info: InvoiceInfo(
-                              date: date,
-                              dueDate: dueDate,
-                              description: 'My description...',
-                              number: '${DateTime.now().year}-9999',
-                            ),
-                            items: [
-                              InvoiceItem(
-                                item: 'MacBook',
-                                quantity: 3,
-                                amount: 500000,
-                              ),
-                              InvoiceItem(
-                                item: 'MacBook',
-                                quantity: 3,
-                                amount: 500000,
-                              ),
-                              InvoiceItem(
-                                item: 'MacBook',
-                                quantity: 3,
-                                amount: 500000,
-                              ),
-                              InvoiceItem(
-                                item: 'MacBook',
-                                quantity: 3,
-                                amount: 500000,
-                              ),
-                            ],
-                          );
+                            final recordsData =
+                                await DailyRecordPdfApi.generate(records);
+                            Get.to(() => DownloadRecordReceipt(
+                                  file: recordsData,
+                                ));
+                          } else if (transactionController.value.value
+                              .contains("This month")) {
+                            final records = RecordInvoice(
+                              items: [
+                                RecordItem(
+                                  date: 'Sept. 21,2021',
+                                  moneyIn: 10000,
+                                  moneyOut: 50000,
+                                ),
+                                RecordItem(
+                                  date: 'Sept. 21,2021',
+                                  moneyIn: 10000,
+                                  moneyOut: 50000,
+                                ),
+                                RecordItem(
+                                  date: 'Sept. 21,2021',
+                                  moneyIn: 10000,
+                                  moneyOut: 50000,
+                                ),
+                                RecordItem(
+                                  date: 'Sept. 21,2021',
+                                  moneyIn: 10000,
+                                  moneyOut: 50000,
+                                ),
+                              ],
+                            );
 
-                          // final recordsData =
-                          //     await RecordPdfApi.generate(record);
-                          // Get.to(() => DownloadReceipt(file: recordsData,));
+                            final recordsData =
+                                await RecordPdfApi.generate(records);
+                            Get.to(() => DownloadRecordReceipt(
+                                  file: recordsData,
+                                ));
+                          }
                         },
                         child: SvgPicture.asset('assets/images/download.svg'))
                   ],
@@ -563,94 +602,133 @@ class _RecordsState extends State<Records> {
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Expanded(
-                child: ListView.builder(
-                    itemCount:
-                        transactionController.allExpenditureHoursData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item1 =
-                          transactionController.allExpenditureHoursData[index];
-                      var item2 =
-                          transactionController.allIncomeHoursData[index];
-
-                      return Visibility(
-                        visible: (item1.value != 0 || item2.value != 0),
-                        child: InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))),
-                                context: context,
-                                builder: (context) =>
-                                    buildRecordSummary(item1, item2));
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                bottom:
-                                    MediaQuery.of(context).size.width * 0.02,
-                                left: MediaQuery.of(context).size.height * 0.03,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.03),
-                            child: Container(
-                              padding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.height * 0.015),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.grey.withOpacity(0.1),
-                                  border: Border.all(
-                                      width: 2,
-                                      color: Colors.grey.withOpacity(0.1))),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        item1.label,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'DMSans',
-                                            fontSize: 10,
-                                            color: AppColor().blackColor),
-                                      ),
-                                      Text(
-                                        "N ${display(item1.value)}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'DMSans',
-                                            fontSize: 10,
-                                            color:
-                                                AppColor().orangeBorderColor),
-                                      ),
-                                      Text(
-                                        "N ${display(item2.value)}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'DMSans',
-                                            fontSize: 10,
-                                            color: AppColor().blueColor),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    'View',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'DMSans',
-                                        fontSize: 10,
-                                        color: AppColor().backgroundColor),
-                                  ),
-                                ],
+              Obx(() {
+                return (transactionController.allExpenditureHoursData.length ==
+                        0)
+                    ? Expanded(
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // SizedBox(height: 20),
+                              SvgPicture.asset(
+                                'assets/images/frown.svg',
+                                height: 40,
                               ),
-                            ),
+                              Text(
+                                'Oh, snap. No transactions to show',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                            itemCount: transactionController
+                                .allExpenditureHoursData.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              var item1 = transactionController
+                                  .allExpenditureHoursData[index];
+                              var item2 = transactionController
+                                  .allIncomeHoursData[index];
+
+                              return Visibility(
+                                visible: (item1.value != 0 || item2.value != 0),
+                                child: InkWell(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(20))),
+                                        context: context,
+                                        builder: (context) =>
+                                            buildRecordSummary(item1, item2));
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom:
+                                            MediaQuery.of(context).size.width *
+                                                0.02,
+                                        left:
+                                            MediaQuery.of(context).size.height *
+                                                0.03,
+                                        right:
+                                            MediaQuery.of(context).size.height *
+                                                0.03),
+                                    child: Container(
+                                      padding: EdgeInsets.all(
+                                          MediaQuery.of(context).size.height *
+                                              0.015),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.grey.withOpacity(0.1),
+                                          border: Border.all(
+                                              width: 2,
+                                              color: Colors.grey
+                                                  .withOpacity(0.1))),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                item1.label,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'DMSans',
+                                                    fontSize: 10,
+                                                    color:
+                                                        AppColor().blackColor),
+                                              ),
+                                              Text(
+                                                "N ${display(item1.value)}",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'DMSans',
+                                                    fontSize: 10,
+                                                    color: AppColor()
+                                                        .orangeBorderColor),
+                                              ),
+                                              Text(
+                                                "N ${display(item2.value)}",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'DMSans',
+                                                    fontSize: 10,
+                                                    color:
+                                                        AppColor().blueColor),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            'View',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'DMSans',
+                                                fontSize: 10,
+                                                color:
+                                                    AppColor().backgroundColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
                       );
-                    }),
-              )
+              })
             ],
           ),
         );
@@ -997,7 +1075,7 @@ class _RecordsState extends State<Records> {
       );
 
   List<RecordsData> removeDoubleItem(List<RecordsData> list) {
-    print("previous items lenght ${list.length}");
+    print("previous items length ${list.length}");
     List<RecordsData> newList = [];
     list.forEach((element) {
       if (newList

@@ -8,16 +8,17 @@ import 'package:huzz/colors.dart';
 import 'package:share_plus/share_plus.dart';
 import 'records_pdf.dart';
 
-class DownloadReceipt extends StatefulWidget {
+class DownloadRecordReceipt extends StatefulWidget {
   final File? file;
 
-  const DownloadReceipt({Key? key, @required this.file}) : super(key: key);
+  const DownloadRecordReceipt({Key? key, @required this.file})
+      : super(key: key);
 
   @override
-  _DownloadReceiptState createState() => _DownloadReceiptState();
+  _DownloadRecordReceiptState createState() => _DownloadRecordReceiptState();
 }
 
-class _DownloadReceiptState extends State<DownloadReceipt> {
+class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
   PDFViewController? controller;
   bool receiptTheme = true;
   @override
@@ -39,46 +40,6 @@ class _DownloadReceiptState extends State<DownloadReceipt> {
                       setState(() => this.controller = controller),
                 ),
               ),
-              // Padding(
-              //   padding:
-              //       EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-              //   child: Row(
-              //     children: [
-              //       Container(
-              //         child: Checkbox(
-              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              //           activeColor: AppColor().backgroundColor,
-              //           value: receiptTheme,
-              //           onChanged: (bool? value) {
-              //             setState(() {
-              //               receiptTheme = value!;
-              //             });
-              //           },
-              //         ),
-              //       ),
-              //       Container(
-              //         child: Checkbox(
-              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              //           activeColor: Color(0xff0065D3),
-              //           value: !receiptTheme,
-              //           onChanged: (bool? value) {
-              //             setState(() {
-              //               receiptTheme = value!;
-              //             });
-              //           },
-              //         ),
-              //       ),
-              //       Text(
-              //         'Change receipt theme',
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontSize: 10,
-              //             fontWeight: FontWeight.w400,
-              //             fontFamily: 'DMSans'),
-              //       ),
-              //     ],
-              //   ),
-              // ),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.02),

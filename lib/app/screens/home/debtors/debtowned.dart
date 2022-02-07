@@ -8,7 +8,6 @@ import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
-
 import '../../../../colors.dart';
 
 // ignore: must_be_immutable
@@ -172,6 +171,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                             .randomColor()),
                                                     child: Center(
                                                         child: Text(
+                                                      // ignore: unnecessary_null_comparison
                                                       customer != null &&
                                                               customer.name !=
                                                                   null &&
@@ -481,7 +481,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        'Bal: ' + debtor.balance.toString(),
+                                        'Bal: ' + display(debtor.balance),
                                         style: TextStyle(
                                           fontFamily: "DMSans",
                                           color: AppColor().orangeBorderColor,
@@ -1052,7 +1052,6 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
   int statusType = 0;
   final _debtorController = Get.find<DebtorRepository>();
 
-  RandomColor _randomColor = RandomColor();
   final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
   @override

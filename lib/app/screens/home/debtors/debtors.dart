@@ -713,18 +713,20 @@ class _DebtorListingState extends State<DebtorListing> {
     var customer = _customerController
         .checkifCustomerAvailableWithValue(widget.item!.customerId!);
 
+    if (customer == null) {
+      return Container();
+    }
+    initialText =
+        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
-        if(customer==null){
-          return Container();
-        }
-        initialText="Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
-
+    // ignore: unnecessary_null_comparison
     if (customer == null) {
       return Container();
     }
     initialText =
         "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
+    // ignore: unnecessary_null_comparison
     return customer == null
         ? Container()
         : Row(
@@ -986,7 +988,11 @@ class _DebtorListingState extends State<DebtorListing> {
           physics: ScrollPhysics(),
           controller: controller,
           child: Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.04,
+                right: MediaQuery.of(context).size.width * 0.04,
+                bottom: MediaQuery.of(context).size.width * 0.04,
+                top: MediaQuery.of(context).size.width * 0.02),
             child: Form(
               key: _key,
               child: Column(
@@ -1128,7 +1134,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        'Bal: ' + debtor.balance.toString(),
+                                        'Bal: ' + display(debtor.balance),
                                         style: TextStyle(
                                           fontFamily: "DMSans",
                                           color: AppColor().orangeBorderColor,
