@@ -288,6 +288,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     );
   }
 
+  // ignore: unused_element
   _otpDialog(BuildContext context) async {
     return showDialog(
         context: context,
@@ -314,7 +315,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
             ),
             content:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Container(
                 margin: EdgeInsets.only(
                   left: 20,
@@ -359,14 +359,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   },
                   onChanged: (value) {
                     print(value);
-                    // setState(() {
-                    //   currentText = value;
-                    // });
                   },
                   beforeTextPaste: (text) {
                     print("Allowing to paste $text");
-                    //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                    //but you can show anything you want here, like your pop up saying wrong paste format or etc
                     return true;
                   },
                   appContext: context,

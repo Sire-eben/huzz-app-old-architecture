@@ -2,6 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huzz/app/screens/customers/customer_tabView.dart';
+import 'package:huzz/app/screens/more.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
@@ -77,6 +78,14 @@ class _DashboardState extends State<Dashboard> {
               ),
               activeColor: AppColor().backgroundColor,
               inactiveColor: inactiveColor),
+          BottomNavyBarItem(
+              icon: Icon(Icons.grid_view_rounded),
+              title: Text(
+                'More',
+                style: AppThemes.style12PriBold,
+              ),
+              activeColor: AppColor().backgroundColor,
+              inactiveColor: inactiveColor),
         ],
         onItemSelected: (index) => setState(() => this.selectedIndex = index),
       ),
@@ -92,8 +101,10 @@ class _DashboardState extends State<Dashboard> {
       case 2:
         return ManageInventory();
       case 3:
-      default:
         return AvailableInvoice();
+      case 4:
+      default:
+        return More();
     }
   }
 }
