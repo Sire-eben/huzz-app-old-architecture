@@ -65,7 +65,14 @@ class _MoreState extends State<More> {
                           fontSize: 16,
                         ),
                       ),
-                      Text('Collaborate with coworkers'),
+                      Text(
+                        'Collaborate with coworkers',
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                        ),
+                      ),
                     ],
                   ),
                   Spacer(),
@@ -110,7 +117,7 @@ class _MoreState extends State<More> {
                       Text(
                         'Maintain a Nigerian bank account',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.normal,
                           fontStyle: FontStyle.normal,
                           fontSize: 12,
                         ),
@@ -159,7 +166,7 @@ class _MoreState extends State<More> {
                       Text(
                         'Sell your products easily',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.normal,
                           fontStyle: FontStyle.normal,
                           fontSize: 12,
                         ),
@@ -185,7 +192,7 @@ class _MoreState extends State<More> {
               child: Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: 10,
-                  vertical: 5,
+                  vertical: 10,
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -195,8 +202,8 @@ class _MoreState extends State<More> {
                   children: [
                     Image.asset(
                       'assets/images/image 3.png',
-                      height: 100,
-                      width: 100,
+                      height: 80,
+                      width: 80,
                     ),
                     SizedBox(
                       width: 20,
