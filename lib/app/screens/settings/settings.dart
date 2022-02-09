@@ -438,8 +438,8 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget buildAddImage() => Obx(() {
-        return Obx(() {
+  Widget buildAddImage() => 
+     Obx(() {
           return Container(
             padding: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * 0.04,
@@ -563,7 +563,7 @@ class _SettingsState extends State<Settings> {
             ),
           );
         });
-      });
+
 
   _displayDialog(
       BuildContext context, String title, VoidCallback onContinue) async {
@@ -641,7 +641,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     InkWell(
                       onTap: () {
-                        controller.deleteUsersAccounts();
+                        // controller.deleteUsersAccounts();
                         onContinue();
                       },
                       child: Container(

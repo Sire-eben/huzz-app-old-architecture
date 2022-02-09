@@ -42,7 +42,7 @@ class PinSuccesful extends StatelessWidget {
           Container(
               width: MediaQuery.of(context).size.width * 0.5,
               child: Text(
-                "Otp Verified Successfully",
+                "Account Created Successfully",
                 textAlign: TextAlign.center,
                 style:
                     TextStyle(fontSize: 30, color: AppColor().backgroundColor),

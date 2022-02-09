@@ -448,7 +448,7 @@ class _HomeState extends State<Home> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  item.createdTime!.formatDate()!,
+                                  item!.entryDateTime!.formatDate()!,
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold),
