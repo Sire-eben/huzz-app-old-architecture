@@ -329,81 +329,83 @@ class _SettingsState extends State<Settings> {
                     height: 20,
                   ),
                   // Notification
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    height: 55,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Color(0xffE6F4F2),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                              width: 2,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(Notifications());
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      height: 55,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Color(0xffE6F4F2),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
                               color: AppColor().whiteColor,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColor().whiteColor,
+                              ),
+                              shape: BoxShape.circle,
                             ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              "assets/images/bell.svg",
-                              height: 20,
-                              width: 20,
+                            child: Center(
+                              child: SvgPicture.asset(
+                                "assets/images/bell.svg",
+                                height: 20,
+                                width: 20,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'Notification Settings',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontWeight: FontWeight.normal,
-                            fontSize: 14,
+                          SizedBox(
+                            width: 10,
                           ),
-                        ),
-                        Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(Notifications());
-                          },
-                          child: SvgPicture.asset(
+                          Text(
+                            'Notification Settings',
+                            style: TextStyle(
+                              color: AppColor().blackColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Spacer(),
+                          SvgPicture.asset(
                             "assets/images/setting.svg",
                             height: 20,
                             width: 20,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   // LogOut
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    height: 55,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Color(0xffE6F4F2),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        _displayDialog(
-                            context, "Are you sure you want to log out", () {
-                          controller.logout();
-                        });
-                      },
+                  InkWell(
+                    onTap: () {
+                      _displayDialog(
+                          context, "Are you sure you want to log out", () {
+                        controller.logout();
+                      });
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      height: 55,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Color(0xffE6F4F2),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -438,132 +440,130 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget buildAddImage() => 
-     Obx(() {
-          return Container(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.04,
-                right: MediaQuery.of(context).size.width * 0.04,
-                bottom: MediaQuery.of(context).size.width * 0.04,
-                top: MediaQuery.of(context).size.width * 0.02),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    height: 3,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
+  Widget buildAddImage() => Obx(() {
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  height: 3,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(4),
                   ),
                 ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE6F4F2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        Icons.close,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                'Upload Image',
+                style: TextStyle(
+                  color: AppColor().blackColor,
+                  fontFamily: 'DMSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              SizedBox(height: 100),
+              GestureDetector(
+                onTap: () async {
+                  final ImagePicker _picker = ImagePicker();
+                  // Pick an image
+                  final XFile? image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  controller.profileImage(File(image!.path));
+                  print("image path ${image.path}");
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
-                        shape: BoxShape.circle,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Icon(
-                          Icons.close,
-                          color: AppColor().backgroundColor,
-                        ),
-                      ),
-                    )
+                    (controller.profileImage.value != null)
+                        ? Image.file(
+                            controller.profileImage.value!,
+                            height: 150,
+                            width: 150,
+                          )
+                        : Image.asset(
+                            'assets/images/camera.png',
+                          ),
                   ],
                 ),
-                SizedBox(height: 5),
-                Text(
-                  'Upload Image',
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Center(
+                child: Text(
+                  'Select from Device',
                   style: TextStyle(
                     color: AppColor().blackColor,
                     fontFamily: 'DMSans',
-                    fontSize: 20,
+                    fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(height: 100),
-                GestureDetector(
-                  onTap: () async {
-                    final ImagePicker _picker = ImagePicker();
-                    // Pick an image
-                    final XFile? image =
-                        await _picker.pickImage(source: ImageSource.gallery);
-                    controller.profileImage(File(image!.path));
-                    print("image path ${image.path}");
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      (controller.profileImage.value != null)
-                          ? Image.file(
-                              controller.profileImage.value!,
-                              height: 150,
-                              width: 150,
-                            )
-                          : Image.asset(
-                              'assets/images/camera.png',
-                            ),
-                    ],
+              ),
+              Spacer(),
+              GestureDetector(
+                onTap: () async {
+                  await controller.updateProfileImage();
+                  Get.back();
+                  setState(() {});
+                },
+                child: Container(
+                  height: 55,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 15,
                   ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Center(
-                  child: Text(
-                    'Select from Device',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                Spacer(),
-                GestureDetector(
-                  onTap: () async {
-                    await controller.updateProfileImage();
-                    Get.back();
-                    setState(() {});
-                  },
-                  child: Container(
-                    height: 55,
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 15,
-                    ),
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                      child: Text(
-                        'Done',
-                        style: TextStyle(
-                          color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
-                          fontWeight: FontWeight.bold,
-                        ),
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                        color: AppColor().whiteColor,
+                        fontFamily: 'DMSans',
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
-          );
-        });
-
+              ),
+            ],
+          ),
+        );
+      });
 
   _displayDialog(
       BuildContext context, String title, VoidCallback onContinue) async {

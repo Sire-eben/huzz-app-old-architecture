@@ -7,7 +7,6 @@ import 'package:huzz/colors.dart';
 class PinSuccesful extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         body: Container(
       width: MediaQuery.of(context).size.width,
