@@ -1,6 +1,10 @@
 import 'dart:io';
+import 'package:get/get.dart';
+import 'package:huzz/Repository/transaction_respository.dart';
+import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/widget/util.dart';
 import 'package:huzz/model/record_receipt.dart';
+import 'package:number_display/number_display.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -10,10 +14,10 @@ import 'package:pdf/widgets.dart';
 class RecordPdfApi {
   static Future<File> generate(RecordInvoice recordInvoice) async {
     final pdf = Document();
-
+   var   _transactionController=Get.find<TransactionRespository>();
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(recordInvoice),
+        buildHeader(_transactionController),
         SizedBox(height: PdfPageFormat.cm),
         buildMoneyInOutInvoice(recordInvoice),
         SizedBox(height: 2 * PdfPageFormat.cm),
@@ -26,10 +30,10 @@ class RecordPdfApi {
     return PdfRecordApi.saveDocument(name: 'my_monthlyRecord.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(RecordInvoice recordInvoice) => Container(
+  static Widget buildHeader(TransactionRespository transactionRespository) => Container(
         padding: EdgeInsets.all(20),
         child: Center(
-            child: Text('YOUR TRANSACTIONS(This Month)',
+            child: Text('YOUR TRANSACTIONS(${transactionRespository.value.value})',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: PdfColors.black,
@@ -204,37 +208,37 @@ class RecordPdfApi {
 }
 
 class DailyRecordPdfApi {
-  static Future<File> generate(DailyRecordInvoice recordInvoice) async {
+  static Future<File> generate() async {
     final pdf = Document();
-
+    final transactionController=Get.find<TransactionRespository>();
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(recordInvoice),
+        buildHeader(transactionController),
         SizedBox(height: PdfPageFormat.cm),
-        buildMoneyInOutInvoice(recordInvoice),
+        buildMoneyInOutInvoice(transactionController),
         SizedBox(height: 2 * PdfPageFormat.cm),
-        buildMoneyInTotal(recordInvoice),
+        buildMoneyInTotal(transactionController),
         SizedBox(height: PdfPageFormat.cm),
-        buildMoneyOutTotal(recordInvoice),
+        buildMoneyOutTotal(transactionController),
         SizedBox(height: PdfPageFormat.cm),
-        buildTotal(recordInvoice),
+        buildTotal(transactionController),
       ],
     ));
 
-    return PdfRecordApi.saveDocument(name: 'my_dailyRecord.pdf', pdf: pdf);
+    return PdfRecordApi.saveDocument(name: 'my_Record.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(DailyRecordInvoice recordInvoice) => Container(
+  static Widget buildHeader(TransactionRespository transactionRespository) => Container(
         padding: EdgeInsets.all(20),
         child: Center(
-            child: Text('YOUR TRANSACTIONS(Today)',
+            child: Text('YOUR TRANSACTIONS(${transactionRespository.value.value})',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: PdfColors.black,
                     fontSize: 20))),
       );
 
-  static Widget buildMoneyInOutInvoice(DailyRecordInvoice recordInvoice) {
+  static Widget buildMoneyInOutInvoice(TransactionRespository transactionRespository) {
     final headers = [
       'Date',
       'Time',
@@ -245,21 +249,59 @@ class DailyRecordPdfApi {
       'Mode',
       // 'Customer Name',
     ];
-    final data = recordInvoice.items.map((item) {
-      // ignore: unused_local_variable
-      final total = item.amount * item.quantity;
+List<List<dynamic>> data=[];
+ for(int i=0;i< transactionRespository.allIncomeHoursData.length;++i){
 
-      return [
-        item.date,
-        item.time,
+  var item1 = transactionRespository
+                                  .allExpenditureHoursData[i];
+                              var item2 = transactionRespository
+                                  .allIncomeHoursData[i];
+item1.transactionList.forEach((element) {
+  element.businessTransactionPaymentItemList!.forEach((element1) {
+    
+data.add([
+  element.entryDateTime!.formatDate(pattern: "dd, MMM y"),
+        element.entryDateTime!.formatDate(pattern: "hh:mm a"),
         // item.type,
-        item.itemName,
-        '${item.quantity}',
-        '\N${item.amount}',
-        item.mode,
-        // item.customerName,
-      ];
-    }).toList();
+        element1.itemName,
+        '${element1.quality}',
+        '${Utils.formatPrice(element1.amount)}',
+        element1.isFullyPaid!?"Fully Paid":"Partily Paid",
+]);
+  });
+
+});
+// item2.transactionList.forEach((element) {
+//   element.businessTransactionPaymentItemList!.forEach((element1) {
+    
+// data.add([
+//   element.entryDateTime!.formatDate(pattern: "yymmdd"),
+//         element.entryDateTime!.formatDate(pattern: "hh:mm"),
+//         // item.type,
+//         element1.itemName,
+//         '${element1.quality}',
+//         '\N${element1.amount}',
+//         element1.isFullyPaid!?"Fully Paid":"Partily Paid",
+// ]);
+//   });
+
+// });
+ }
+    // final data = recordInvoice.items.map((item) {
+    //   // ignore: unused_local_variable
+    //   final total = item.amount * item.quantity;
+
+    //   return [
+    //     item.date,
+    //     item.time,
+    //     // item.type,
+    //     item.itemName,
+    //     '${item.quantity}',
+    //     '\N${item.amount}',
+    //     item.mode,
+    //     // item.customerName,
+    //   ];
+    // }).toList();
 
     return Table.fromTextArray(
       cellPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -282,12 +324,12 @@ class DailyRecordPdfApi {
     );
   }
 
-  static Widget buildTotal(DailyRecordInvoice recordInvoice) {
-    final amountTotal = recordInvoice.items
-        .map((item) => item.amount * item.quantity)
-        .reduce((item1, item2) => item1 + item2);
+  static Widget buildTotal(TransactionRespository transactionRespository) {
+    // final amountTotal = recordInvoice.items
+    //     .map((item) => item.amount * item.quantity)
+    //     .reduce((item1, item2) => item1 + item2);
 
-    final total = amountTotal;
+    // final total = amountTotal;
 
     return Container(
       alignment: Alignment.centerRight,
@@ -311,7 +353,7 @@ class DailyRecordPdfApi {
           Container(
             padding: EdgeInsets.all(8),
             child: Text(
-              Utils.formatPrice(total),
+              Utils.formatPrice(transactionRespository.recordBalance),
               style: TextStyle(
                 color: PdfColors.black,
                 fontSize: 15,
@@ -324,12 +366,12 @@ class DailyRecordPdfApi {
     );
   }
 
-  static Widget buildMoneyInTotal(DailyRecordInvoice recordInvoice) {
-    final moneyInTotal = recordInvoice.items
-        .map((item) => item.amount)
-        .reduce((item1, item2) => item1 + item2);
+  static Widget buildMoneyInTotal(TransactionRespository transactionRespository) {
+    // final moneyInTotal = recordInvoice.items
+    //     .map((item) => item.amount)
+    //     .reduce((item1, item2) => item1 + item2);
 
-    final moneyINtotal = moneyInTotal;
+    // final moneyINtotal = moneyInTotal;
 
     return Container(
       alignment: Alignment.centerRight,
@@ -353,7 +395,7 @@ class DailyRecordPdfApi {
           Container(
             padding: EdgeInsets.all(8),
             child: Text(
-              Utils.formatPrice(moneyINtotal),
+              Utils.formatPrice(transactionRespository.recordMoneyIn),
               style: TextStyle(
                 color: PdfColors.black,
                 fontSize: 15,
@@ -366,13 +408,13 @@ class DailyRecordPdfApi {
     );
   }
 
-  static Widget buildMoneyOutTotal(DailyRecordInvoice recordInvoice) {
-    final moneyInTotal = recordInvoice.items
-        .map((item) => item.amount)
-        .reduce((item1, item2) => item1 + item2);
+  static Widget buildMoneyOutTotal(TransactionRespository transactionRespository) {
+    // final moneyInTotal = recordInvoice.items
+    //     .map((item) => item.amount)
+    //     .reduce((item1, item2) => item1 + item2);
 
-    final moneyINtotal = moneyInTotal;
-
+    // final moneyINtotal = moneyInTotal;
+  
     return Container(
       alignment: Alignment.centerRight,
       decoration:
@@ -395,7 +437,7 @@ class DailyRecordPdfApi {
           Container(
             padding: EdgeInsets.all(8),
             child: Text(
-              Utils.formatPrice(moneyINtotal),
+              Utils.formatPrice(transactionRespository.recordMoneyOut),
               style: TextStyle(
                 color: PdfColors.black,
                 fontSize: 15,

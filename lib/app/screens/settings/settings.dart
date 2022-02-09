@@ -1,15 +1,16 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
-import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/user.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'notification.dart';
 import 'personalInfo.dart';
 
@@ -22,7 +23,6 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   final controller = Get.find<AuthRepository>();
-  final _productController = Get.find<ProductRepository>();
 
   late String email;
   late String phone;
@@ -82,17 +82,21 @@ class _SettingsState extends State<Settings> {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: (controller.profileImage.value != null ) ?Image.file(controller.profileImage.value!,width: 100,height: 100,):
-                 (
-                        controller.user!.profileImageFileStoreId!.isEmpty)
-                    ? Image.asset(
-                        "assets/images/profileImg.png",
-                      )
-                    : Image.network(
-                        controller.user!.profileImageFileStoreId!,
-                        height: 100,
+                child: (controller.profileImage.value != null)
+                    ? Image.file(
+                        controller.profileImage.value!,
                         width: 100,
-                      ),
+                        height: 100,
+                      )
+                    : (controller.user!.profileImageFileStoreId!.isEmpty)
+                        ? Image.asset(
+                            "assets/images/profileImg.png",
+                          )
+                        : Image.network(
+                            controller.user!.profileImageFileStoreId!,
+                            height: 100,
+                            width: 100,
+                          ),
               ),
             ),
           ),
@@ -434,137 +438,132 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget buildAddImage() => Obx(() {
-        return Obx(
-  () {
-            return Container(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.04,
-                  right: MediaQuery.of(context).size.width * 0.04,
-                  bottom: MediaQuery.of(context).size.width * 0.04,
-                  top: MediaQuery.of(context).size.width * 0.02),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Container(
-                      height: 3,
-                      width: 70,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+  Widget buildAddImage() => 
+     Obx(() {
+          return Container(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.04,
+                right: MediaQuery.of(context).size.width * 0.04,
+                bottom: MediaQuery.of(context).size.width * 0.04,
+                top: MediaQuery.of(context).size.width * 0.02),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    height: 3,
+                    width: 70,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: Color(0xffE6F4F2),
+                        shape: BoxShape.circle,
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: AppColor().backgroundColor,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Upload Image',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: 'DMSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                SizedBox(height: 100),
+                GestureDetector(
+                  onTap: () async {
+                    final ImagePicker _picker = ImagePicker();
+                    // Pick an image
+                    final XFile? image =
+                        await _picker.pickImage(source: ImageSource.gallery);
+                    controller.profileImage(File(image!.path));
+                    print("image path ${image.path}");
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Color(0xffE6F4F2),
-                          shape: BoxShape.circle,
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Icon(
-                            Icons.close,
-                            color: AppColor().backgroundColor,
-                          ),
-                        ),
-                      )
+                      (controller.profileImage.value != null)
+                          ? Image.file(
+                              controller.profileImage.value!,
+                              height: 150,
+                              width: 150,
+                            )
+                          : Image.asset(
+                              'assets/images/camera.png',
+                            ),
                     ],
                   ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Upload Image',
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Center(
+                  child: Text(
+                    'Select from Device',
                     style: TextStyle(
                       color: AppColor().blackColor,
                       fontFamily: 'DMSans',
-                      fontSize: 20,
+                      fontSize: 12,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  SizedBox(height: 100),
-                  GestureDetector(
-                    onTap: () async {
-                      final ImagePicker _picker = ImagePicker();
-                      // Pick an image
-                      final XFile? image =
-                          await _picker.pickImage(source: ImageSource.gallery);
-                      controller.profileImage(File(image!.path));
-                      print("image path ${image.path}");
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        (controller.profileImage.value!=null 
-                      )
-                            ? Image.file(
-                                controller.profileImage.value!,
-                                height: 150,
-                                width: 150,
-                              )
-                            : Image.asset(
-                                'assets/images/camera.png',
-                              ),
-                      ],
+                ),
+                Spacer(),
+                GestureDetector(
+                  onTap: () async {
+                    await controller.updateProfileImage();
+                    Get.back();
+                    setState(() {});
+                  },
+                  child: Container(
+                    height: 55,
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 15,
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Center(
-                    child: Text(
-                      'Select from Device',
-                      style: TextStyle(
-                        color: AppColor().blackColor,
-                        fontFamily: 'DMSans',
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  GestureDetector(
-                    onTap: ()async {
-                  await    controller.updateProfileImage();
-                      Get.back();
-                      setState(() {
-                        
-                      });
-                    },
-                    child: Container(
-                      height: 55,
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 15,
-                      ),
-                      decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                        child: Text(
-                          'Done',
-                          style: TextStyle(
-                            color: AppColor().whiteColor,
-                            fontFamily: 'DMSans',
-                            fontWeight: FontWeight.bold,
-                          ),
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text(
+                        'Done',
+                        style: TextStyle(
+                          color: AppColor().whiteColor,
+                          fontFamily: 'DMSans',
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
-            );
-          }
-        );
-      });
+                ),
+              ],
+            ),
+          );
+        });
+
 
   _displayDialog(
       BuildContext context, String title, VoidCallback onContinue) async {
@@ -642,7 +641,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     InkWell(
                       onTap: () {
-                        controller.deleteUsersAccounts();
+                        // controller.deleteUsersAccounts();
                         onContinue();
                       },
                       child: Container(

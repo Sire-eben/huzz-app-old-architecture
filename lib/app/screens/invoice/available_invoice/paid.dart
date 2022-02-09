@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
@@ -21,6 +22,7 @@ class _PaidState extends State<Paid> {
   // ignore: unused_field
   final _productController = Get.find<ProductRepository>();
   final _invoiceController = Get.find<InvoiceRespository>();
+    final _customerController=Get.find<CustomerRepository>();
   bool deleteItem = true;
   bool visible = true;
   List<Invoice> _items = [];
@@ -86,6 +88,8 @@ class _PaidState extends State<Paid> {
                         itemCount: _invoiceController.paidInvoiceList.length,
                         itemBuilder: (BuildContext context, int index) {
                           var item = _invoiceController.paidInvoiceList[index];
+                           var customer = _customerController
+        .checkifCustomerAvailableWithValue(item.customerId!);
                           return GestureDetector(
                             onTap: () async {
                               final singleInvoiceReceipt =
@@ -110,9 +114,19 @@ class _PaidState extends State<Paid> {
                                   children: [
                                     Expanded(
                                       child: Column(
+
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                             Text(
+                                              customer==null?"": customer!.name!,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'DMSans',
+                                                    fontSize: 16,
+                                                    color: Colors.black),
+                                              ),
+                                              SizedBox(height: 5,) ,
                                           //   Text(
                                           //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
                                           //     style: TextStyle(
@@ -179,6 +193,8 @@ class _PaidState extends State<Paid> {
                         itemBuilder: (BuildContext context, int index) {
                           var item = _invoiceController.paidInvoiceList[index];
                           final _isSelected = _selectedIndex.contains(index);
+                                                      var customer = _customerController
+        .checkifCustomerAvailableWithValue(item.customerId!);
                           return InkWell(
                             onTap: () {
                               setState(() {
@@ -211,6 +227,15 @@ class _PaidState extends State<Paid> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                             Text(
+                                              customer==null?"": customer!.name!,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'DMSans',
+                                                    fontSize: 16,
+                                                    color: Colors.black),
+                                              ),
+                                              SizedBox(height: 5,) ,
                                           // Text(
                                           // item.paymentItemRequestList!.first.itemName!,
                                           //   style: TextStyle(
@@ -285,14 +310,14 @@ class _PaidState extends State<Paid> {
                                         height: 25,
                                         width: 25,
                                         decoration: BoxDecoration(
-                                          color: (_invoiceController
+                                          color: (!_invoiceController
                                                   .checkifSelectedForDeleted(
                                                       item.id!))
                                               ? AppColor().whiteColor
                                               : AppColor().orangeBorderColor,
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: (_invoiceController
+                                            color: (!_invoiceController
                                                     .checkifSelectedForDeleted(
                                                         item.id!))
                                                 ? Color(0xffEF6500)

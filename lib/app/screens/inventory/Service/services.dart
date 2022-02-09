@@ -26,7 +26,7 @@ class _ServicesState extends State<Services> {
               icon: Icon(Icons.add),
               backgroundColor: AppColor().backgroundColor,
               label: Text(
-                'New Product',
+                'New Service',
                 style: TextStyle(
                     fontFamily: 'DMSans',
                     fontSize: 10,

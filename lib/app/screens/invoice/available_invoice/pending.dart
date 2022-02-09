@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
@@ -21,6 +22,7 @@ class Pending extends StatefulWidget {
 class _PendingState extends State<Pending> {
   final _productController = Get.find<ProductRepository>();
   final _invoiceController = Get.find<InvoiceRespository>();
+    final _customerController=Get.find<CustomerRepository>();
   bool deleteItem = true;
   bool visible = true;
   List<Invoice> _items = [];
@@ -87,6 +89,8 @@ class _PendingState extends State<Pending> {
                         itemBuilder: (BuildContext context, int index) {
                           var item =
                               _invoiceController.InvoicePendingList[index];
+                          var customer = _customerController
+        .checkifCustomerAvailableWithValue(item.customerId!);
                           return GestureDetector(
                             onTap: () async {
                               final singleInvoiceReceipt =
@@ -114,6 +118,15 @@ class _PendingState extends State<Pending> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                             Text(
+                                            customer==null?"": customer!.name!,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'DMSans',
+                                                    fontSize: 16,
+                                                    color: Colors.black),
+                                              ),
+                                              SizedBox(height: 5,) ,
                                           //   Text(
                                           //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
                                           //     style: TextStyle(
@@ -181,6 +194,8 @@ class _PendingState extends State<Pending> {
                           var item =
                               _invoiceController.InvoicePendingList[index];
                           final _isSelected = _selectedIndex.contains(index);
+                                                       var customer = _customerController
+        .checkifCustomerAvailableWithValue(item.customerId!);
                           return InkWell(
                             onTap: () {
                               setState(() {
@@ -213,6 +228,15 @@ class _PendingState extends State<Pending> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                             Text(
+                                              customer==null?"": customer!.name!,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'DMSans',
+                                                    fontSize: 16,
+                                                    color: Colors.black),
+                                              ),
+                                              SizedBox(height: 5,) ,
                                           // Text(
                                           // item.paymentItemRequestList!.first.itemName!,
                                           //   style: TextStyle(
@@ -287,14 +311,14 @@ class _PendingState extends State<Pending> {
                                         height: 25,
                                         width: 25,
                                         decoration: BoxDecoration(
-                                          color: (_invoiceController
+                                          color: (!_invoiceController
                                                   .checkifSelectedForDeleted(
                                                       item.id!))
                                               ? AppColor().whiteColor
                                               : AppColor().orangeBorderColor,
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: (_invoiceController
+                                            color: (!_invoiceController
                                                     .checkifSelectedForDeleted(
                                                         item.id!))
                                                 ? Color(0xffEF6500)

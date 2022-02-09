@@ -318,7 +318,7 @@ class PdfInvoiceApi {
   }
 
   static Widget buildFooter(Customer? customer,Invoice invoice){
-    List<PaymentHistory> lists=      invoice.businessTransaction==null || invoice.businessTransaction!.businessTransactionPaymentHistoryList!.isEmpty?[]:  invoice.businessTransaction!.businessTransactionPaymentHistoryList!;
+    List<PaymentHistory> lists=      invoice.businessTransaction==null ||   invoice.businessTransaction!.businessTransactionPaymentHistoryList==null||invoice.businessTransaction!.businessTransactionPaymentHistoryList!.isEmpty?[]:  invoice.businessTransaction!.businessTransactionPaymentHistoryList!;
     return Column(children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

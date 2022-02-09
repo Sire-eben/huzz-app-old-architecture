@@ -142,7 +142,7 @@ class CustomerRepository extends GetxController {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-
+print("customer adding response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -163,6 +163,7 @@ class CustomerRepository extends GetxController {
         Get.snackbar("Error", "Unable to add customer");
       }
     } catch (ex) {
+      print("error occurred ${ex.toString()}");
       _addingCustomerStatus(AddingCustomerStatus.Error);
       Get.snackbar("Error", "Unknown error occurred.. try again");
     }
@@ -803,6 +804,7 @@ _searchResult(list);
                                     Get.back();
                             nameController.text = item.displayName;
                             phoneNumberController.text = item.phones.first.number;
+                            if(item.emails.isNotEmpty)
                             emailController.text = item.emails.first.address;
                           //  Navigator.pop(context);
                    

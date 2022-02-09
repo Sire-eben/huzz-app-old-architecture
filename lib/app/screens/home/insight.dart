@@ -407,7 +407,7 @@ class _InsightState extends State<Insight> {
                                       dataSource: transactionController
                                               .value.value
                                               .contains("Today")
-                                          ? item2
+                                          ? item1
                                           : transactionController
                                               .pieIncomeValue,
                                       pointColorMapper: (RecordsData data, _) =>

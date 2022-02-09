@@ -86,7 +86,7 @@ class TransactionModel {
               e,
               json['transactionType'] ?? "",
               json['balance'] == null || json['balance'] == 0 ? true : false,
-              json['id']))
+              json['id'],DateTime.parse(json['entryDateTime'])))
           .toList());
 
   Map<String, dynamic> toJson() => {
