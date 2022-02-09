@@ -623,7 +623,7 @@ _overDue.add(element);
     deletedItem.forEach((element) {
       print("checking transaction whether exist");
       if (element.id == id) {
-        print("Customer   found");
+        print("Invoice added to delete list   found");
         result = true;
       }
     });

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
@@ -22,6 +23,7 @@ class Overdue extends StatefulWidget {
 class _OverdueState extends State<Overdue> {
   final _productController = Get.find<ProductRepository>();
   final _invoiceController = Get.find<InvoiceRespository>();
+    final _customerController=Get.find<CustomerRepository>();
   bool deleteItem = true;
   bool visible = true;
   List<Invoice> _items = [];
@@ -87,6 +89,8 @@ class _OverdueState extends State<Overdue> {
                         itemCount: _invoiceController.InvoiceDueList.length,
                         itemBuilder: (BuildContext context, int index) {
                           var item = _invoiceController.InvoiceDueList[index];
+                            var customer = _customerController
+        .checkifCustomerAvailableWithValue(item.customerId!);
                           return GestureDetector(
                             onTap: () async {
                               final singleInvoiceReceipt =
@@ -115,6 +119,15 @@ class _OverdueState extends State<Overdue> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           //   Text(
+                                               Text(
+                                            customer==null?"": customer!.name!,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'DMSans',
+                                                    fontSize: 16,
+                                                    color: Colors.black),
+                                              ),
+                                              SizedBox(height: 5,) ,
                                           //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
                                           //     style: TextStyle(
                                           //         fontWeight: FontWeight.bold,
@@ -180,6 +193,8 @@ class _OverdueState extends State<Overdue> {
                         itemBuilder: (BuildContext context, int index) {
                           var item = _invoiceController.InvoiceDueList[index];
                           final _isSelected = _selectedIndex.contains(index);
+                                                       var customer = _customerController
+        .checkifCustomerAvailableWithValue(item.customerId!);
                           return InkWell(
                             onTap: () async {
                               print("overdue clicked");
@@ -194,6 +209,7 @@ class _OverdueState extends State<Overdue> {
                                   _selectedIndex.remove(index);
                                 }
                               });
+ 
                               print('selected');
                               print(_items.toString());
                             },
@@ -217,6 +233,15 @@ class _OverdueState extends State<Overdue> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                             Text(
+                                              customer==null?"": customer!.name!,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'DMSans',
+                                                    fontSize: 16,
+                                                    color: Colors.black),
+                                              ),
+                                              SizedBox(height: 5,) ,
                                           // Text(
                                           // item.paymentItemRequestList!.first.itemName!,
                                           //   style: TextStyle(
@@ -291,14 +316,14 @@ class _OverdueState extends State<Overdue> {
                                         height: 25,
                                         width: 25,
                                         decoration: BoxDecoration(
-                                          color: (_invoiceController
+                                          color: (!_invoiceController
                                                   .checkifSelectedForDeleted(
                                                       item.id!))
                                               ? AppColor().whiteColor
                                               : AppColor().orangeBorderColor,
                                           shape: BoxShape.circle,
                                           border: Border.all(
-                                            color: (_invoiceController
+                                            color: (!_invoiceController
                                                     .checkifSelectedForDeleted(
                                                         item.id!))
                                                 ? Color(0xffEF6500)
