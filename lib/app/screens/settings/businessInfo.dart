@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
-import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/settings/itemCard.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/bank.dart';
@@ -29,7 +28,6 @@ class BusinessInfo extends StatefulWidget {
 
 class _BusinessInfoState extends State<BusinessInfo> {
   final controller = Get.find<AuthRepository>();
-  final _productController = Get.find<ProductRepository>();
   final businessController = Get.find<BusinessRespository>();
   final bankInfoController = Get.find<BankAccountRepository>();
 

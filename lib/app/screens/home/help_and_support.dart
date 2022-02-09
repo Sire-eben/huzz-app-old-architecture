@@ -133,13 +133,14 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       final messageBody = emailMessage;
                       final url =
                           'mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(messageBody)}';
-                      // if (await canLaunch(url)) {
-                      final action = await AlertDialogs.yesCancelDialog(
-                          context, 'Open Gmail', 'Click confirm to proceed');
-                      if (action == DialogsAction.yes) {
+                      if (await canLaunch(url)) {
                         launch(url);
-                      } else {
-                        return null;
+                        // final action = await AlertDialogs.yesCancelDialog(
+                        //     context, 'Open Gmail', 'Click confirm to proceed');
+                        // if (action == DialogsAction.yes) {
+
+                        // } else {
+                        //   return null;
                       }
                     },
                     child: Container(
