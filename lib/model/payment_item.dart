@@ -13,6 +13,7 @@ class PaymentItem {
   DateTime? updatedTime;
   bool? deleted;
   String? transactionType;
+  DateTime? entryDateTime;
 
   PaymentItem({
     this.id,
@@ -27,10 +28,11 @@ class PaymentItem {
     this.deleted,
     this.transactionType,
     this.isFullyPaid,
+    this.entryDateTime
   });
 
   factory PaymentItem.fromJson(
-          Map<String, dynamic> json, String type, bool isFullyPaid,String transactionId) =>
+          Map<String, dynamic> json, String type, bool isFullyPaid,String transactionId,DateTime entryDateTime) =>
       PaymentItem(
           id: json['id'],
           businessTransactionId: transactionId,
@@ -45,7 +47,8 @@ class PaymentItem {
               : DateTime.parse(json['updatedDateTime']),
           deleted: json['deleted'],
           transactionType: type,
-          isFullyPaid: isFullyPaid);
+          isFullyPaid: isFullyPaid,
+          entryDateTime: entryDateTime);
 
   Map<String, dynamic> toJson(String transactionId) => {
         "id": id,
@@ -61,6 +64,6 @@ class PaymentItem {
         "updatedDateTime":
             (updatedTime == null) ? null : updatedTime!.toIso8601String(),
         "deleted": deleted ?? false,
-        "isFully": isFullyPaid
+        "isFully": isFullyPaid,
       };
 }

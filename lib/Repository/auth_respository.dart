@@ -607,5 +607,6 @@ Get.snackbar("${json['error']}", "${json['message']}");
     await sqliteDb.deleteAllCustomers();
     await sqliteDb.deleteAllOfflineDebtors();
     await sqliteDb.deleteAllInvoice();
+    await sqliteDb.deleteAllBanks();
   }
 }

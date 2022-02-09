@@ -1761,11 +1761,11 @@ print("record balance $Balance");
         return;
       }
       if (element.transactionType == "INCOME") {
-        todayMoneyIn = todayMoneyIn + element.totalAmount;
+        todayMoneyIn = todayMoneyIn +( element.totalAmount-element.balance);
       } else {
         print("total amount is ${element.totalAmount} ${element.toJson()}");
         todayMoneyout =
-            todayMoneyout + element.totalAmount;
+            todayMoneyout + ( element.totalAmount-element.balance);
       }
     });
     todayBalance = todayMoneyIn - todayMoneyout;
@@ -1845,7 +1845,7 @@ print("record balance $Balance");
   }
 
   Future updatePaymentHistoryOnline(
-      String transactionId, String businessId, int amount, String mode) async {
+      String transactionId, String businessId, dynamic amount, String mode) async {
     try {
       print("business id is $businessId");
       _addingTransactionStatus(AddingTransactionStatus.Loading);
@@ -1892,7 +1892,7 @@ print("record balance $Balance");
   }
 
   Future updatePaymentHistoryOffline(
-      String transactionId, String businessId, int amount, String mode) async {
+      String transactionId, String businessId, dynamic amount, String mode) async {
     try {
       _addingTransactionStatus(AddingTransactionStatus.Loading);
       var transaction = getTransactionById(transactionId);
@@ -1940,7 +1940,7 @@ print("record balance $Balance");
   }
 
   Future<TransactionModel?> updateTransactionHistory(
-      String transactionId, String businessId, int amount, String mode) async {
+      String transactionId, String businessId, dynamic amount, String mode) async {
     var result;
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       result = await updatePaymentHistoryOnline(

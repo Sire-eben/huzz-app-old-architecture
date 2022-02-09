@@ -86,6 +86,26 @@ class _RecordsState extends State<Records> {
   @override
   void initState() {
     super.initState();
+
+                            if (transactionController.value.value
+                                .contains("This Year")) {
+                              transactionController.getYearRecord();
+                            } else if (transactionController.value.value
+                                .contains("Today")) {
+                              transactionController.splitCurrentTime();
+                            } else if (transactionController.value.value
+                                .contains("This Week")) {
+                              transactionController.getWeeklyRecordData();
+                            } else if (transactionController.value.value
+                                .contains("This month")) {
+                              transactionController.getMonthlyRecord();
+                            } else if (transactionController.value.value
+                                .contains("This Month")) {
+                              transactionController.getMonthlyRecord();
+                            } else if (transactionController.value.value
+                                .contains("All Time")) {
+                              transactionController.getAllTimeRecord();
+                            } 
   }
 
   @override
@@ -467,92 +487,97 @@ class _RecordsState extends State<Records> {
                         onTap: () async {
                           final date = DateTime.now();
                           // ignore: unused_local_variable
+                      final recordsData =
+                                await DailyRecordPdfApi.generate();
                           final dueDate = date.add(Duration(days: 7));
-                          if (transactionController.value.value
-                              .contains("Today")) {
-                            final records = DailyRecordInvoice(
-                              items: [
-                                DailyRecordItem(
-                                  date: 'Sept. 21,2021',
-                                  time: '10:00PM',
-                                  type: 'INCOME',
-                                  itemName: 'Clothes',
-                                  quantity: 7,
-                                  mode: 'PART',
-                                  customerName: 'JOSHUA OLAYEMI',
-                                  amount: 10000,
-                                ),
-                                DailyRecordItem(
-                                  date: 'Sept. 21,2021',
-                                  time: '10:00PM',
-                                  type: 'INCOME',
-                                  itemName: 'Clothes',
-                                  quantity: 8,
-                                  mode: 'PART',
-                                  customerName: 'JOSHUA OLAYEMI',
-                                  amount: 10000,
-                                ),
-                                DailyRecordItem(
-                                  date: 'Sept. 21,2021',
-                                  time: '10:00PM',
-                                  type: 'INCOME',
-                                  itemName: 'Clothes',
-                                  quantity: 7,
-                                  mode: 'PART',
-                                  customerName: 'JOSHUA OLAYEMI',
-                                  amount: 10000,
-                                ),
-                                DailyRecordItem(
-                                  date: 'Sept. 21,2021',
-                                  time: '10:00PM',
-                                  type: 'INCOME',
-                                  itemName: 'Clothes',
-                                  quantity: 6,
-                                  mode: 'PART',
-                                  customerName: 'JOSHUA OLAYEMI',
-                                  amount: 10000,
-                                ),
-                              ],
-                            );
+                          // if (transactionController.value.value
+                          //     .contains("Today")) {
+                          //   final records = DailyRecordInvoice(
+                          //     items: [
+                          //       DailyRecordItem(
+                          //         date: 'Sept. 21,2021',
+                          //         time: '10:00PM',
+                          //         type: 'INCOME',
+                          //         itemName: 'Clothes',
+                          //         quantity: 7,
+                          //         mode: 'PART',
+                          //         customerName: 'JOSHUA OLAYEMI',
+                          //         amount: 10000,
+                          //       ),
+                          //       DailyRecordItem(
+                          //         date: 'Sept. 21,2021',
+                          //         time: '10:00PM',
+                          //         type: 'INCOME',
+                          //         itemName: 'Clothes',
+                          //         quantity: 8,
+                          //         mode: 'PART',
+                          //         customerName: 'JOSHUA OLAYEMI',
+                          //         amount: 10000,
+                          //       ),
+                          //       DailyRecordItem(
+                          //         date: 'Sept. 21,2021',
+                          //         time: '10:00PM',
+                          //         type: 'INCOME',
+                          //         itemName: 'Clothes',
+                          //         quantity: 7,
+                          //         mode: 'PART',
+                          //         customerName: 'JOSHUA OLAYEMI',
+                          //         amount: 10000,
+                          //       ),
+                          //       DailyRecordItem(
+                          //         date: 'Sept. 21,2021',
+                          //         time: '10:00PM',
+                          //         type: 'INCOME',
+                          //         itemName: 'Clothes',
+                          //         quantity: 6,
+                          //         mode: 'PART',
+                          //         customerName: 'JOSHUA OLAYEMI',
+                          //         amount: 10000,
+                          //       ),
+                          //     ],
+                          //   );
 
-                            final recordsData =
-                                await DailyRecordPdfApi.generate(records);
+                          //   final recordsData =
+                          //       await DailyRecordPdfApi.generate(records);
+                          //   Get.to(() => DownloadRecordReceipt(
+                          //         file: recordsData,
+                          //       ));
+                          // } else if (transactionController.value.value
+                          //     .contains("This month")) {
+                          //   final records = RecordInvoice(
+                          //     items: [
+                          //       RecordItem(
+                          //         date: 'Sept. 21,2021',
+                          //         moneyIn: 10000,
+                          //         moneyOut: 50000,
+                          //       ),
+                          //       RecordItem(
+                          //         date: 'Sept. 21,2021',
+                          //         moneyIn: 10000,
+                          //         moneyOut: 50000,
+                          //       ),
+                          //       RecordItem(
+                          //         date: 'Sept. 21,2021',
+                          //         moneyIn: 10000,
+                          //         moneyOut: 50000,
+                          //       ),
+                          //       RecordItem(
+                          //         date: 'Sept. 21,2021',
+                          //         moneyIn: 10000,
+                          //         moneyOut: 50000,
+                          //       ),
+                          //     ],
+                          //   );
+
+                          //   final recordsData =
+                          //       await RecordPdfApi.generate(records);
+                          //   Get.to(() => DownloadRecordReceipt(
+                          //         file: recordsData,
+                          //       ));
+                          // }
                             Get.to(() => DownloadRecordReceipt(
                                   file: recordsData,
                                 ));
-                          } else if (transactionController.value.value
-                              .contains("This month")) {
-                            final records = RecordInvoice(
-                              items: [
-                                RecordItem(
-                                  date: 'Sept. 21,2021',
-                                  moneyIn: 10000,
-                                  moneyOut: 50000,
-                                ),
-                                RecordItem(
-                                  date: 'Sept. 21,2021',
-                                  moneyIn: 10000,
-                                  moneyOut: 50000,
-                                ),
-                                RecordItem(
-                                  date: 'Sept. 21,2021',
-                                  moneyIn: 10000,
-                                  moneyOut: 50000,
-                                ),
-                                RecordItem(
-                                  date: 'Sept. 21,2021',
-                                  moneyIn: 10000,
-                                  moneyOut: 50000,
-                                ),
-                              ],
-                            );
-
-                            final recordsData =
-                                await RecordPdfApi.generate(records);
-                            Get.to(() => DownloadRecordReceipt(
-                                  file: recordsData,
-                                ));
-                          }
                         },
                         child: SvgPicture.asset('assets/images/download.svg'))
                   ],

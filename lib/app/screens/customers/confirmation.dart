@@ -66,7 +66,7 @@ class ConfirmationCustomer extends StatelessWidget {
           InkWell(
             onTap: () {
               Get.to(Dashboard(
-                selectedIndex: 0,
+                selectedIndex: 1,
               ));
             },
             child: Container(
