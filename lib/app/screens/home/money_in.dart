@@ -1,6 +1,8 @@
 import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/customer_model.dart';
@@ -48,7 +49,6 @@ class _MoneyInState extends State<MoneyIn> {
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
-  
 
   String? value;
 
