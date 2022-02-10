@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/home/receipt/money_in_out_pdf.dart';
+import 'package:huzz/app/screens/home/receipt/view_transactions_pdf.dart';
 import 'package:huzz/app/screens/home/reciept.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
@@ -115,339 +116,212 @@ class _MoneySummaryState extends State<MoneySummary> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: AppColor().orangeBorderColor.withOpacity(0.2)),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: AppColor().orangeBorderColor.withOpacity(0.2)),
+              child: Text(
+                transactionModel!.balance == 0 ? 'Fully Paid' : "Partially",
+                style: TextStyle(
+                  color: AppColor().orangeBorderColor,
+                  fontFamily: "DMSans",
+                  fontStyle: FontStyle.normal,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            (transactionModel!.balance != 0)
+                ? Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Total Amt.',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Text(
+                              'N${display(transactionModel!.totalAmount!)}',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Bal.',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: "DMSans",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(
+                                'N${display(transactionModel!.balance!)}',
+                                style: TextStyle(
+                                  color: AppColor().orangeBorderColor,
+                                  fontFamily: "DMSans",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ]),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Paid Amt.',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            Text(
+                              'N${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: "DMSans",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                : Container(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            (transactionModel!.balance != 0)
+                ? GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          context: context,
+                          builder: (context) => buildSaveInvoice());
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppColor().backgroundColor.withOpacity(0.2)),
+                      child: Center(
+                        child: Text(
+                          'Update payment',
+                          style: TextStyle(
+                            color: AppColor().blackColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
                 child: Text(
-                  transactionModel!.balance == 0 ? 'Fully Paid' : "Partially",
+                  'Items',
                   style: TextStyle(
-                    color: AppColor().orangeBorderColor,
+                    color: AppColor().blackColor,
                     fontFamily: "DMSans",
                     fontStyle: FontStyle.normal,
-                    fontSize: 10,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              (transactionModel!.balance != 0)
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.height * 0.05),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Total Amt.',
-                                style: TextStyle(
-                                  color: AppColor().blackColor,
-                                  fontFamily: "DMSans",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.01),
-                              Text(
-                                'N${display(transactionModel!.totalAmount!)}',
-                                style: TextStyle(
-                                  color: AppColor().backgroundColor,
-                                  fontFamily: "DMSans",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Bal.',
-                                  style: TextStyle(
-                                    color: AppColor().blackColor,
-                                    fontFamily: "DMSans",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.01),
-                                Text(
-                                  'N${display(transactionModel!.balance!)}',
-                                  style: TextStyle(
-                                    color: AppColor().orangeBorderColor,
-                                    fontFamily: "DMSans",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              ]),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Paid Amt.',
-                                style: TextStyle(
-                                  color: AppColor().blackColor,
-                                  fontFamily: "DMSans",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.01),
-                              Text(
-                                'N${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
-                                style: TextStyle(
-                                  color: AppColor().backgroundColor,
-                                  fontFamily: "DMSans",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.03),
+              child: Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12)),
+                    color: AppColor().backgroundColor),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Item',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
                       ),
-                    )
-                  : Container(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              (transactionModel!.balance != 0)
-                  ? GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20))),
-                            context: context,
-                            builder: (context) => buildSaveInvoice());
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: AppColor().backgroundColor.withOpacity(0.2)),
-                        child: Center(
-                          child: Text(
-                            'Update payment',
-                            style: TextStyle(
-                              color: AppColor().blackColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  : Container(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Text(
-                    'Items',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: "DMSans",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Container(
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12)),
-                      color: AppColor().backgroundColor),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Item',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'DMSans',
-                              fontSize: 12,
-                              color: AppColor().whiteColor),
-                        ),
+                    Expanded(
+                      child: Text(
+                        'Qty',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
                       ),
-                      Expanded(
-                        child: Text(
-                          'Qty',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'DMSans',
-                              fontSize: 12,
-                              color: AppColor().whiteColor),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Amount',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'DMSans',
-                              fontSize: 12,
-                              color: AppColor().whiteColor),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ListView.separated(
-                    separatorBuilder: (context, index) => Divider(),
-                    itemCount: transactionModel!
-                        .businessTransactionPaymentItemList!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = transactionModel!
-                          .businessTransactionPaymentItemList![index];
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.height * 0.03),
-                        child: Container(
-                          padding: EdgeInsets.all(
-                              MediaQuery.of(context).size.height * 0.01),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  item.itemName!,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().blackColor),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "${item.quality}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().blackColor),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "'N ${display(item.totalAmount)}",
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().blackColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Text(
-                    'Payment History',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: "DMSans",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.03),
-                child: Container(
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12)),
-                      color: AppColor().backgroundColor),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Date',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'DMSans',
-                              fontSize: 12,
-                              color: AppColor().whiteColor),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Amount',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'DMSans',
-                              fontSize: 12,
-                              color: AppColor().whiteColor),
-                        ),
-                      ),
-                      Text(
-                        '',
+                    Expanded(
+                      child: Text(
+                        'Amount',
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -455,90 +329,214 @@ class _MoneySummaryState extends State<MoneySummary> {
                             fontSize: 12,
                             color: AppColor().whiteColor),
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView.separated(
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: transactionModel!
+                      .businessTransactionPaymentItemList!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = transactionModel!
+                        .businessTransactionPaymentItemList![index];
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      child: Container(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.height * 0.01),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                item.itemName!,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "${item.quality}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "'N ${display(item.totalAmount)}",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.03),
+                child: Text(
+                  'Payment History',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: "DMSans",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              Expanded(
-                child: ListView.separated(
-                    separatorBuilder: (context, index) => Divider(),
-                    itemCount: transactionModel!
-                        .businessTransactionPaymentHistoryList!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = transactionModel!
-                          .businessTransactionPaymentHistoryList![index];
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.height * 0.03),
-                        child: Container(
-                          padding: EdgeInsets.all(
-                              MediaQuery.of(context).size.height * 0.01),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  item.createdDateTime!.formatDate()!,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().blackColor),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'N ${display(item.amountPaid)}',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
-                                      fontSize: 10,
-                                      color: AppColor().blackColor),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () async {
-                                  final moneyInOutReceipt =
-                                      await PdfMoneyInOutApi.generate(
-                                          transactionModel!);
-                                  Get.to(() =>
-                                      IncomeReceipt(file: moneyInOutReceipt));
-                                },
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'View Receipt',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
-                                          fontSize: 10,
-                                          color: AppColor().backgroundColor),
-                                    ),
-                                    SizedBox(width: 4),
-                                    Container(
-                                        padding: EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: AppColor().backgroundColor),
-                                        child: Icon(
-                                          Icons.arrow_forward,
-                                          color: AppColor().whiteColor,
-                                          size: 15,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.03),
+              child: Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12)),
+                    color: AppColor().backgroundColor),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Date',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Amount',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'DMSans',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
+                    ),
+                    Text(
+                      '',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'DMSans',
+                          fontSize: 12,
+                          color: AppColor().whiteColor),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+            Expanded(
+              child: ListView.separated(
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: transactionModel!
+                      .businessTransactionPaymentHistoryList!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = transactionModel!
+                        .businessTransactionPaymentHistoryList![index];
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      child: Container(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.height * 0.01),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                item.createdDateTime!.formatDate()!,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                'N ${display(item.amountPaid)}',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: AppColor().blackColor),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () async {
+                                final transactionReceipt =
+                                    await PdfTransactionApi.generate(
+                                        transactionModel!);
+                                Get.to(() =>
+                                    IncomeReceipt(file: transactionReceipt));
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'View Receipt',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'DMSans',
+                                        fontSize: 10,
+                                        color: AppColor().backgroundColor),
+                                  ),
+                                  SizedBox(width: 4),
+                                  Container(
+                                      padding: EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColor().backgroundColor),
+                                      child: Icon(
+                                        Icons.arrow_forward,
+                                        color: AppColor().whiteColor,
+                                        size: 15,
+                                      ))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ],
         ),
       ),
     );
@@ -923,273 +921,267 @@ class _MoneySummaryState extends State<MoneySummary> {
         //   }
         // }
 
-        return SingleChildScrollView(
-          child: Container( 
-             margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
-          
-            padding: MediaQuery.of(context).viewInsets,
-            // padding: EdgeInsets.only(
-            //     left: MediaQuery.of(context).size.width * 0.04,
-            //     right: MediaQuery.of(context).size.width * 0.04,
-            //     bottom: MediaQuery.of(context).size.width * 0.04,
-            //     top: MediaQuery.of(context).size.width * 0.02),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    height: 6,
-                    width: 80,
-                    margin: EdgeInsets.only(top: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.01),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColor().backgroundColor.withOpacity(0.2)),
-                        child: Icon(
-                          Icons.close,
-                          color: AppColor().backgroundColor,
-                          size: 18,
-                        )),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Update Payment',
-                    style: TextStyle(
+        return Container(
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+              bottom: MediaQuery.of(context).size.width * 0.04,
+              top: MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  height: 6,
+                  width: 80,
+                  decoration: BoxDecoration(
                       color: Colors.black,
-                      fontFamily: "DMSans",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width * 0.01),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColor().backgroundColor.withOpacity(0.2)),
+                      child: Icon(
+                        Icons.close,
+                        color: AppColor().backgroundColor,
+                        size: 18,
+                      )),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Update Payment',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: "DMSans",
+                    fontStyle: FontStyle.normal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 1;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                          value: 1,
+                          activeColor: AppColor().backgroundColor,
+                          groupValue: paymentType,
+                          onChanged: (value) {
+                            myState(() {
+                              paymentType = 1;
+                            });
+                          },
+                        ),
+                        Text(
+                          'Paying Fully',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        myState(() {
-                          paymentType = 1;
-                        });
-                      },
-                      child: Row(
-                        children: [
-                          Radio<int>(
-                            value: 1,
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 0;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                            value: 0,
                             activeColor: AppColor().backgroundColor,
                             groupValue: paymentType,
                             onChanged: (value) {
                               myState(() {
-                                paymentType = 1;
+                                value = 0;
+                                paymentType = 0;
                               });
-                            },
+                            }),
+                        Text(
+                          'Paying Partly',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: "DMSans",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
                           ),
-                          Text(
-                            'Paying Fully',
-                            style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    InkWell(
-                      onTap: () {
-                        myState(() {
-                          paymentType = 0;
-                        });
-                      },
-                      child: Row(
-                        children: [
-                          Radio<int>(
-                              value: 0,
-                              activeColor: AppColor().backgroundColor,
-                              groupValue: paymentType,
-                              onChanged: (value) {
-                                myState(() {
-                                  value = 0;
-                                  paymentType = 0;
-                                });
-                              }),
-                          Text(
-                            'Paying Partly',
-                            style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
+                  )
+                ],
+              ),
+              paymentType == 0
+                  ? CustomTextFieldInvoiceOptional(
+                      label: 'Amount',
+                      hint: 'N',
+                      keyType: TextInputType.phone,
+                      textEditingController: _amountController,
                     )
-                  ],
-                ),
-                paymentType == 0
-                    ? CustomTextFieldInvoiceOptional(
-                        label: 'Amount',
-                        hint: 'N',
-                        keyType: TextInputType.phone,
-                        textEditingController: _amountController,
-                      )
-                    : Container(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     InkWell(
-                //       onTap: () => myState(() => paymentMode = 0),
-                //       child: Row(
-                //         children: [
-                //           Radio<int>(
-                //               value: 0,
-                //               activeColor: AppColor().backgroundColor,
-                //               groupValue: paymentMode,
-                //               onChanged: (value) =>
-                //                   myState(() => paymentMode = 0)),
-                //           Text(
-                //             'Cash',
-                //             style: TextStyle(
-                //               color: AppColor().backgroundColor,
-                //               fontFamily: "DMSans",
-                //               fontStyle: FontStyle.normal,
-                //               fontSize: 12,
-                //               fontWeight: FontWeight.w400,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     InkWell(
-                //       onTap: () => myState(() => paymentMode = 1),
-                //       child: Row(
-                //         children: [
-                //           Radio<int>(
-                //               value: 1,
-                //               activeColor: AppColor().backgroundColor,
-                //               groupValue: paymentMode,
-                //               onChanged: (value) =>
-                //                   myState(() => paymentMode = 1)),
-                //           Text(
-                //             'POS',
-                //             style: TextStyle(
-                //               color: AppColor().backgroundColor,
-                //               fontFamily: "DMSans",
-                //               fontStyle: FontStyle.normal,
-                //               fontSize: 12,
-                //               fontWeight: FontWeight.w400,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     InkWell(
-                //       onTap: () => myState(() => paymentMode = 2),
-                //       child: Row(
-                //         children: [
-                //           Radio<int>(
-                //               value: 2,
-                //               activeColor: AppColor().backgroundColor,
-                //               groupValue: paymentMode,
-                //               onChanged: (value) =>
-                //                   myState(() => paymentMode = 2)),
-                //           Text(
-                //             'Transfer',
-                //             style: TextStyle(
-                //               color: AppColor().backgroundColor,
-                //               fontFamily: "DMSans",
-                //               fontStyle: FontStyle.normal,
-                //               fontSize: 12,
-                //               fontWeight: FontWeight.w400,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     )
-                //   ],
-                // ),
-                Obx(() {
-                  return InkWell(
-                    onTap: () async {
-                      if (_transactionController.addingTransactionStatus !=
-                          AddingTransactionStatus.Loading) {
-                        var result =
-                            await _transactionController.updateTransactionHistory(
-                                transactionModel!.id!,
-                                transactionModel!.businessId!,
-                                (paymentType == 0)
-                                    ? int.parse(_amountController.text)
-                                    : (transactionModel!.balance ?? 0),
-                                (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
-          
-                        if (result != null) {
-                          print("result is not null");
-                          transactionModel = result;
-                          setState(() {});
-                        } else {
-                          print("result is null");
-                        }
-                        transactionModel =
-                            _transactionController.getTransactionById(
-                                widget.item!.businessTransactionId!);
+                  : Container(),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     InkWell(
+              //       onTap: () => myState(() => paymentMode = 0),
+              //       child: Row(
+              //         children: [
+              //           Radio<int>(
+              //               value: 0,
+              //               activeColor: AppColor().backgroundColor,
+              //               groupValue: paymentMode,
+              //               onChanged: (value) =>
+              //                   myState(() => paymentMode = 0)),
+              //           Text(
+              //             'Cash',
+              //             style: TextStyle(
+              //               color: AppColor().backgroundColor,
+              //               fontFamily: "DMSans",
+              //               fontStyle: FontStyle.normal,
+              //               fontSize: 12,
+              //               fontWeight: FontWeight.w400,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     InkWell(
+              //       onTap: () => myState(() => paymentMode = 1),
+              //       child: Row(
+              //         children: [
+              //           Radio<int>(
+              //               value: 1,
+              //               activeColor: AppColor().backgroundColor,
+              //               groupValue: paymentMode,
+              //               onChanged: (value) =>
+              //                   myState(() => paymentMode = 1)),
+              //           Text(
+              //             'POS',
+              //             style: TextStyle(
+              //               color: AppColor().backgroundColor,
+              //               fontFamily: "DMSans",
+              //               fontStyle: FontStyle.normal,
+              //               fontSize: 12,
+              //               fontWeight: FontWeight.w400,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     InkWell(
+              //       onTap: () => myState(() => paymentMode = 2),
+              //       child: Row(
+              //         children: [
+              //           Radio<int>(
+              //               value: 2,
+              //               activeColor: AppColor().backgroundColor,
+              //               groupValue: paymentMode,
+              //               onChanged: (value) =>
+              //                   myState(() => paymentMode = 2)),
+              //           Text(
+              //             'Transfer',
+              //             style: TextStyle(
+              //               color: AppColor().backgroundColor,
+              //               fontFamily: "DMSans",
+              //               fontStyle: FontStyle.normal,
+              //               fontSize: 12,
+              //               fontWeight: FontWeight.w400,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     )
+              //   ],
+              // ),
+              Obx(() {
+                return InkWell(
+                  onTap: () async {
+                    if (_transactionController.addingTransactionStatus !=
+                        AddingTransactionStatus.Loading) {
+                      var result =
+                          await _transactionController.updateTransactionHistory(
+                              transactionModel!.id!,
+                              transactionModel!.businessId!,
+                              (paymentType == 0)
+                                  ? int.parse(_amountController.text)
+                                  : (transactionModel!.balance ?? 0),
+                              (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
+
+                      if (result != null) {
+                        print("result is not null");
+                        transactionModel = result;
                         setState(() {});
+                      } else {
+                        print("result is null");
                       }
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.height * 0.01,vertical: MediaQuery.of(context).size.height * 0.01),
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_transactionController.addingTransactionStatus ==
-                              AddingTransactionStatus.Loading)
-                          ? Container(
-                              width: 30,
-                              height: 30,
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white)),
-                            )
-                          : Center(
-                              child: Text(
-                                'Save',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: 'DMSans'),
-                              ),
+                      transactionModel =
+                          _transactionController.getTransactionById(
+                              widget.item!.businessTransactionId!);
+                      setState(() {});
+                    }
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.01),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: (_transactionController.addingTransactionStatus ==
+                            AddingTransactionStatus.Loading)
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            child: Center(
+                                child: CircularProgressIndicator(
+                                    color: Colors.white)),
+                          )
+                        : Center(
+                            child: Text(
+                              'Save',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'DMSans'),
                             ),
-                    ),
-                  );
-                }),
-              ],
-            ),
+                          ),
+                  ),
+                );
+              }),
+            ],
           ),
         );
       });
