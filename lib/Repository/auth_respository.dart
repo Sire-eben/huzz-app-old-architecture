@@ -291,7 +291,7 @@ try{
       final resposne = await http.put(Uri.parse(ApiLink.update_profile),
           body: jsonEncode({
         
-            "profileImageFileStoreId": imageId,
+            // "profileImageFileStoreId": imageId,
             "imageUrl":imageId
             // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
