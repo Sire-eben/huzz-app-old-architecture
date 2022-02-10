@@ -72,10 +72,7 @@ class Service {
 }
 
 List<Service> serviceListz = [
-  Service(
-      name: 'Shoe'),
-  Service(
-      name: 'Bag'),
-  Service(
-      name: 'Television'),
+  Service(name: 'Shoe'),
+  Service(name: 'Bag'),
+  Service(name: 'Television'),
 ];

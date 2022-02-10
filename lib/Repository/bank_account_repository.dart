@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
@@ -183,8 +182,7 @@ class BankAccountRepository extends GetxController {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
-         
-        await  getOnlineBank(
+          await getOnlineBank(
               _businessController.selectedBusiness.value!.businessId!);
           clearValue();
 
