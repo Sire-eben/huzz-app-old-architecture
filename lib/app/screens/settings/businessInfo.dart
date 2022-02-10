@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
-import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/settings/itemCard.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/bank.dart';
@@ -29,7 +28,6 @@ class BusinessInfo extends StatefulWidget {
 
 class _BusinessInfoState extends State<BusinessInfo> {
   final controller = Get.find<AuthRepository>();
-  final _productController = Get.find<ProductRepository>();
   final businessController = Get.find<BusinessRespository>();
   final bankInfoController = Get.find<BankAccountRepository>();
 
@@ -59,7 +57,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
 
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
-  ScrollController _scrollController=ScrollController();
+  ScrollController _scrollController = ScrollController();
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     // businessImage = bankInfoController.BankImage as String?;
@@ -111,12 +109,12 @@ class _BusinessInfoState extends State<BusinessInfo> {
       body: Obx(() {
         return Container(
           width: MediaQuery.of(context).size.width,
-         height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             controller: _scrollController,
             child: Container(
-               width: MediaQuery.of(context).size.width,
-         height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -128,8 +126,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     GestureDetector(
                       onTap: () => showModalBottomSheet(
                           shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.vertical(top: Radius.circular(20))),
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
                           context: context,
                           builder: (context) => buildAddImage()),
                       child: Center(
@@ -150,8 +148,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                         'assets/images/Group 3647.png',
                                       )
                                     : Image.network(
-                                        businessController.selectedBusiness.value!
-                                            .buisnessLogoFileStoreId!,
+                                        businessController.selectedBusiness
+                                            .value!.buisnessLogoFileStoreId!,
                                         width: 100,
                                         height: 100,
                                       ),
@@ -193,7 +191,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             children: [
                               Text(
                                 'Phone Number',
-                                style: TextStyle(color: Colors.black, fontSize: 12),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12),
                               ),
                               SizedBox(
                                 width: 5,
@@ -202,7 +201,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                 margin: EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
-                                  style: TextStyle(color: Colors.red, fontSize: 12),
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 12),
                                 ),
                               ),
                             ],
@@ -216,8 +216,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       height: 50,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        border:
-                            Border.all(color: AppColor().backgroundColor, width: 2.0),
+                        border: Border.all(
+                            color: AppColor().backgroundColor, width: 2.0),
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       child: Row(
@@ -232,7 +232,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                               decoration: BoxDecoration(
                                 border: Border(
                                     right: BorderSide(
-                                        color: AppColor().backgroundColor, width: 2)),
+                                        color: AppColor().backgroundColor,
+                                        width: 2)),
                               ),
                               height: 50,
                               width: 80,
@@ -240,15 +241,17 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(width: 10),
-                                  Flag.fromString(countryFlag, height: 30, width: 30),
+                                  Flag.fromString(countryFlag,
+                                      height: 30, width: 30),
                                   SizedBox(
                                     width: 5,
                                   ),
                                   Icon(
                                     Icons.arrow_drop_down,
                                     size: 24,
-                                    color:
-                                        AppColor().backgroundColor.withOpacity(0.5),
+                                    color: AppColor()
+                                        .backgroundColor
+                                        .withOpacity(0.5),
                                   )
                                 ],
                               ),
@@ -259,7 +262,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           ),
                           Expanded(
                             child: TextFormField(
-                              controller: businessController.businessPhoneNumber,
+                              controller:
+                                  businessController.businessPhoneNumber,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText:
@@ -310,24 +314,28 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColor().backgroundColor, width: 2),
-                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColor().backgroundColor, width: 2),
-                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColor().backgroundColor, width: 2),
-                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         hintText:
                             "${businessController.selectedBusiness.value!.businessEmail}",
-                        hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                              fontFamily: 'DMSans',
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.normal,
-                            ),
+                        hintStyle:
+                            Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontFamily: 'DMSans',
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.normal,
+                                ),
                       ),
                     ),
                     CustomTextField(
@@ -369,8 +377,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        border:
-                            Border.all(width: 2, color: AppColor().backgroundColor),
+                        border: Border.all(
+                            width: 2, color: AppColor().backgroundColor),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
@@ -382,7 +390,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           ),
                           iconSize: 30,
                           items: items.map(buildMenuItem).toList(),
-                          onChanged: (value) => setState(() => this.value = value),
+                          onChanged: (value) =>
+                              setState(() => this.value = value),
                         ),
                       ),
                     ),
@@ -396,7 +405,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           children: [
                             Text(
                               'Bank Accounts',
-                              style: TextStyle(color: Colors.black, fontSize: 12),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 12),
                             ),
                             SizedBox(
                               width: 5,
@@ -427,7 +437,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                               Text(
                                 'Add Bank Account',
                                 style: TextStyle(
-                                    color: AppColor().backgroundColor, fontSize: 12),
+                                    color: AppColor().backgroundColor,
+                                    fontSize: 12),
                               ),
                             ],
                           ),
@@ -440,15 +451,15 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     // Spacer(),
                     (bankInfoController.offlineBusinessBank.isNotEmpty)
                         ? Expanded(
-                          // height: 50.0* bankInfoController.offlineBusinessBank.length,
+                            // height: 50.0* bankInfoController.offlineBusinessBank.length,
                             child: ListView.builder(
-                              shrinkWrap: true,
-                              controller: _scrollController,
-                                itemCount:
-                                    bankInfoController.offlineBusinessBank.length,
+                                shrinkWrap: true,
+                                controller: _scrollController,
+                                itemCount: bankInfoController
+                                    .offlineBusinessBank.length,
                                 itemBuilder: (_, index) {
-                                  var ite =
-                                      bankInfoController.offlineBusinessBank[index];
+                                  var ite = bankInfoController
+                                      .offlineBusinessBank[index];
                                   return ItemCard(
                                       item: ite,
                                       onDelete: () {
@@ -458,8 +469,10 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                         bankInfoController.setItem(ite);
                                         showModalBottomSheet(
                                             shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.vertical(
-                                                    top: Radius.circular(20))),
+                                                borderRadius:
+                                                    BorderRadius.vertical(
+                                                        top: Radius.circular(
+                                                            20))),
                                             context: context,
                                             builder: (context) =>
                                                 EditBankAccount(ite));
@@ -489,7 +502,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
                               color: AppColor().backgroundColor,
-                              borderRadius: BorderRadius.all(Radius.circular(10))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
                           child: (businessController.updateBusinessStatus ==
                                   UpdateBusinessStatus.Loading)
                               ? Center(

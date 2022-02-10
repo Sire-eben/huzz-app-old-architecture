@@ -21,7 +21,7 @@ class All extends StatefulWidget {
 
 class _AllState extends State<All> {
   final _invoiceController = Get.find<InvoiceRespository>();
-  final _customerController=Get.find<CustomerRepository>();
+  final _customerController = Get.find<CustomerRepository>();
   bool deleteItem = true;
   bool visible = true;
   List<Invoice> _items = [];
@@ -91,19 +91,19 @@ class _AllState extends State<All> {
                         itemCount: _invoiceController.offlineInvoices.length,
                         itemBuilder: (BuildContext context, int index) {
                           var item = _invoiceController.offlineInvoices[index];
-                              var customer = _customerController
-        .checkifCustomerAvailableWithValue(item.customerId!);
-        if(customer==null){
-
-          print("customer is null");
-        }
+                          var customer = _customerController
+                              .checkifCustomerAvailableWithValue(
+                                  item.customerId!);
+                          if (customer == null) {
+                            print("customer is null");
+                          }
                           return Visibility(
                             child: GestureDetector(
                               onTap: () async {
                                 final date = DateTime.now();
                                 // ignore: unused_local_variable
                                 final dueDate = date.add(Duration(days: 7));
-                          
+
                                 final singleInvoiceReceipt =
                                     await PdfInvoiceApi.generate(item);
                                 Get.to(() => PreviewSingleInvoice(
@@ -111,11 +111,12 @@ class _AllState extends State<All> {
                               },
                               child: Padding(
                                 padding: EdgeInsets.only(
-                                    bottom:
-                                        MediaQuery.of(context).size.width * 0.02),
+                                    bottom: MediaQuery.of(context).size.width *
+                                        0.02),
                                 child: Container(
                                   padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.height * 0.02),
+                                      MediaQuery.of(context).size.height *
+                                          0.02),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.grey.withOpacity(0.1),
@@ -129,23 +130,29 @@ class _AllState extends State<All> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                             Text(
-                                                customer==null?"": customer!.name! ,
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontFamily: 'DMSans',
-                                                      fontSize: 16,
-                                                      color: Colors.black),
-                                                ),
-                                                SizedBox(height: 5,) ,
+                                            Text(
+                                              customer == null
+                                                  ? ""
+                                                  : customer.name!,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'DMSans',
+                                                  fontSize: 16,
+                                                  color: Colors.black),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
                                             Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   "N${display(item.totalAmount)}",
                                                   style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontFamily: 'DMSans',
                                                       fontSize: 14,
                                                       color: Color(0xffEF6500)),
@@ -153,7 +160,8 @@ class _AllState extends State<All> {
                                                 Text(
                                                   "",
                                                   style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontFamily: 'DMSans',
                                                       fontSize: 14,
                                                       color: Colors.black),
@@ -162,7 +170,8 @@ class _AllState extends State<All> {
                                                   item.createdDateTime!
                                                       .formatDate()!,
                                                   style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontFamily: 'DMSans',
                                                       fontSize: 14,
                                                       color: Colors.black),
@@ -173,9 +182,10 @@ class _AllState extends State<All> {
                                         ),
                                       ),
                                       SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.05),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.05),
                                       Icon(
                                         Icons.arrow_forward_ios,
                                         color: AppColor().backgroundColor,
@@ -194,7 +204,8 @@ class _AllState extends State<All> {
                           // ignore: unused_local_variable
                           final _isSelected = _selectedIndex.contains(index);
                           var customer = _customerController
-        .checkifCustomerAvailableWithValue(item.customerId!);
+                              .checkifCustomerAvailableWithValue(
+                                  item.customerId!);
                           return InkWell(
                             onTap: () {
                               setState(() {
@@ -227,15 +238,19 @@ class _AllState extends State<All> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                             Text(
-                                              customer==null?"": customer!.name!,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
-                                                    fontSize: 16,
-                                                    color: Colors.black),
-                                              ),
-                                              SizedBox(height: 5,) ,
+                                          Text(
+                                            customer == null
+                                                ? ""
+                                                : customer.name!,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'DMSans',
+                                                fontSize: 16,
+                                                color: Colors.black),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
