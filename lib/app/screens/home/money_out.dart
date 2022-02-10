@@ -463,6 +463,7 @@ class _MoneyOutState extends State<MoneyOut> {
                       _transactionController.addMoreProduct();
                     }
                     showModalBottomSheet(
+                      isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(20))),
@@ -1126,11 +1127,9 @@ class _MoneyOutState extends State<MoneyOut> {
   Widget buildAddNewItem() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
+          margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
+          
+            padding: MediaQuery.of(context).viewInsets,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -1139,6 +1138,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   Get.back();
                 },
                 child: Container(
+                  margin: EdgeInsets.only(top: 10),
                   height: 6,
                   width: 80,
                   decoration: BoxDecoration(
@@ -1366,6 +1366,8 @@ class _MoneyOutState extends State<MoneyOut> {
                   ),
                 ),
               ),
+                SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.03),
             ],
           ),
         );
@@ -1418,6 +1420,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         _transactionController.productList[index]);
 
                     showModalBottomSheet(
+                      isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(20))),
@@ -1431,11 +1434,9 @@ class _MoneyOutState extends State<MoneyOut> {
   Widget buildEditItem(PaymentItem item, int index) =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
+         margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
+          
+            padding: MediaQuery.of(context).viewInsets,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -1444,6 +1445,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   Get.back();
                 },
                 child: Container(
+                  margin: EdgeInsets.only(top: 10),
                   height: 6,
                   width: 80,
                   decoration: BoxDecoration(
@@ -1510,6 +1512,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   ),
                 ),
               ),
+                   SizedBox(width: MediaQuery.of(context).size.height * 0.03),
             ],
           ),
         );

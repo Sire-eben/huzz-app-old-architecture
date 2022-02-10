@@ -93,7 +93,7 @@ class _AllState extends State<All> {
                           var item = _invoiceController.offlineInvoices[index];
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId!);
+                                  item.customerId??"");
                           if (customer == null) {
                             print("customer is null");
                           }
@@ -205,7 +205,7 @@ class _AllState extends State<All> {
                           final _isSelected = _selectedIndex.contains(index);
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId!);
+                                  item.customerId??"");
                           return InkWell(
                             onTap: () {
                               setState(() {

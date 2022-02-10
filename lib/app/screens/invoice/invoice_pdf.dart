@@ -177,7 +177,7 @@ class PdfInvoiceApi {
       return [
         '${item.itemName}',
         '${item.quality}',
-        '\NGN${display(item.totalAmount)}',
+        '${Utils.formatPrice(item.totalAmount)}',
       ];
     }).toList();
 
@@ -227,7 +227,7 @@ class PdfInvoiceApi {
             ),
           ),
           Text(
-            "NGN ${display(invoice.totalAmount)}",
+            "${Utils.formatPrice(invoice.totalAmount)}",
             style: TextStyle(
               color: PdfColors.blue,
               fontSize: 16,
@@ -399,7 +399,7 @@ class PdfInvoiceApi {
             ),
           ),
           Text(
-            'N ${display(e.amountPaid)}',
+            '${Utils.formatPrice(e.amountPaid)}',
             style: TextStyle(
               fontSize: 10,
               color: PdfColors.orange,
