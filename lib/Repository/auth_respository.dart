@@ -287,10 +287,12 @@ try{
       if (profileImage.value != null) {
         imageId = await uploadController.uploadFile(profileImage.value!.path);
       }
+      print("image url is $imageId");
       final resposne = await http.put(Uri.parse(ApiLink.update_profile),
           body: jsonEncode({
         
-            "profileImageFileStoreId": imageId,
+            // "profileImageFileStoreId": imageId,
+            "imageUrl":imageId
             // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
           headers: {

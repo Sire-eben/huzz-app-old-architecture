@@ -83,27 +83,34 @@ class _SettingsState extends State<Settings> {
               ),
               child: Center(
                 child: (controller.profileImage.value != null)
-                    ? Image.file(
+                    ?CircleAvatar(
+                      radius: 50,
+                   backgroundImage:  FileImage(
                         controller.profileImage.value!,
-                        width: 100,
-                        height: 100,
-                      )
+                     
+                      ))
                     : (controller.user!.profileImageFileStoreId!.isEmpty)
-                        ? Image.asset(
+                        ? 
+                        CircleAvatar(
+radius: 50,
+                        backgroundImage:AssetImage(
                             "assets/images/profileImg.png",
-                          )
-                        : Image.network(
-                            controller.user!.profileImageFileStoreId!,
-                            height: 100,
-                            width: 100,
-                          ),
+                          ))
+                        :CircleAvatar(
+                radius: 50.0,
+                backgroundImage:
+                    NetworkImage("${ controller.user!.profileImageFileStoreId!}"),
+                backgroundColor: Colors.transparent,
+              )
+                        
+                        
               ),
             ),
           ),
           Positioned(
-            top: 70,
+            top: 90,
             left: 200,
-            right: 150,
+            right: 115,
             child: GestureDetector(
               onTap: () => showModalBottomSheet(
                   shape: RoundedRectangleBorder(
@@ -494,7 +501,7 @@ class _SettingsState extends State<Settings> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(height: 100),
+              SizedBox(height: 50),
               GestureDetector(
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();
@@ -508,14 +515,21 @@ class _SettingsState extends State<Settings> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     (controller.profileImage.value != null)
-                        ? Image.file(
+                        ? 
+                        CircleAvatar(
+                          radius: 80,
+                          backgroundImage:
+                        FileImage(
                             controller.profileImage.value!,
-                            height: 150,
-                            width: 150,
-                          )
-                        : Image.asset(
+                          
+                          ))
+                        :
+                        CircleAvatar(
+                          radius: 80,
+                          child:
+                         Image.asset(
                             'assets/images/camera.png',
-                          ),
+                          )),
                   ],
                 ),
               ),
@@ -548,7 +562,18 @@ class _SettingsState extends State<Settings> {
                   decoration: BoxDecoration(
                       color: AppColor().backgroundColor,
                       borderRadius: BorderRadius.circular(10)),
-                  child: Center(
+                  child: (controller.updateProfileStatus==
+                                UpdateProfileStatus.Loading)
+                            ? Center(
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                          color: Colors.white)),
+                                ),
+                              )
+                            :  Center(
                     child: Text(
                       'Done',
                       style: TextStyle(
