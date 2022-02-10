@@ -51,73 +51,122 @@ class _MoreState extends State<More> {
           //   ),
           // ),
           //
-          Positioned.fill(
-            top: 5,
-            left: 20,
-            right: 20,
-            bottom: 550,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 10,
-                sigmaY: 10,
-              ),
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 20,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.grey.withOpacity(0.2),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset('assets/images/team 1.png'),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'My Team',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 16,
-                          ),
-                        ),
-                        Text(
-                          'Collaborate with coworkers',
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacer(),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.keyboard_arrow_right,
-                          color: AppColor().backgroundColor,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // Positioned.fill(
+          //   top: 5,
+          //   left: 20,
+          //   right: 20,
+          //   bottom: 550,
+          //   child: BackdropFilter(
+          //     filter: ImageFilter.blur(
+          //       sigmaX: 10,
+          //       sigmaY: 10,
+          //     ),
+          //     child: Container(
+          //       padding: EdgeInsets.symmetric(
+          //         horizontal: 10,
+          //         vertical: 20,
+          //       ),
+          //       decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(15),
+          //         color: Colors.grey.withOpacity(0.2),
+          //       ),
+          //       child: Row(
+          //         children: [
+          //           Image.asset('assets/images/team 1.png'),
+          //           SizedBox(
+          //             width: 20,
+          //           ),
+          //           Column(
+          //             mainAxisAlignment: MainAxisAlignment.start,
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               Text(
+          //                 'My Team',
+          //                 style: TextStyle(
+          //                   fontWeight: FontWeight.bold,
+          //                   fontStyle: FontStyle.normal,
+          //                   fontSize: 16,
+          //                 ),
+          //               ),
+          //               Text(
+          //                 'Collaborate with coworkers',
+          //                 style: TextStyle(
+          //                   fontWeight: FontWeight.normal,
+          //                   fontStyle: FontStyle.normal,
+          //                   fontSize: 12,
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //           Spacer(),
+          //           Row(
+          //             children: [
+          //               Icon(
+          //                 Icons.keyboard_arrow_right,
+          //                 color: AppColor().backgroundColor,
+          //               ),
+          //             ],
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 20,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.grey.withOpacity(0.2),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset('assets/images/team 1.png'),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'My Team',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            'Collaborate with coworkers',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.keyboard_arrow_right,
+                            color: AppColor().backgroundColor,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(
-                  height: 120,
+                  height: 20,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(

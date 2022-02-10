@@ -142,7 +142,9 @@ class _DebtorsState extends State<Debtors> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
-                                          'assets/images/debtors.svg'),
+                                        'assets/images/debtors.svg',
+                                        color: AppColor().backgroundColor,
+                                      ),
                                       Text(
                                         'Add Debtors',
                                         style: TextStyle(

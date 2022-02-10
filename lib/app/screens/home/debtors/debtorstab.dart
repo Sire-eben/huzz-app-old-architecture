@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../colors.dart';
 import 'debtors.dart';
-import 'debtowned.dart';
+import 'debtowed.dart';
 
 class DebtorsTab extends StatefulWidget {
   const DebtorsTab({Key? key}) : super(key: key);
