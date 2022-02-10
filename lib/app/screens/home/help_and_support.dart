@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/app/Utils/alert_dialogs.dart';
 import 'package:huzz/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -202,14 +201,15 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                   // WhatsApp Connect
                   InkWell(
                     onTap: () async {
-                      final action = await AlertDialogs.yesCancelDialog(
-                          context, 'Open WhatsApp', 'Click confirm to proceed');
-                      if (action == DialogsAction.yes) {
-                        launch(
-                            'https://api.whatsapp.com/send?phone=+2348133258252');
-                      } else {
-                        return null;
-                      }
+                      // final action = await AlertDialogs.yesCancelDialog(
+                      //     context, 'Open WhatsApp', 'Click confirm to proceed');
+                      // if (action == DialogsAction.yes) {
+                      //   launch(
+                      //       'https://api.whatsapp.com/send?phone=+2348133258252');
+                      // } else {
+                      //   return null;
+                      // }
+                      _displayDialog(context);
                     },
                     child: Container(
                       padding:
@@ -285,5 +285,123 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
         enableJavaScript: true,
       );
     }
+  }
+
+  _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 50,
+              vertical: 280,
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: Text(
+                    'Open WhatsApp..?',
+                    style: TextStyle(
+                      color: AppColor().backgroundColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Container(
+              child: Text(
+                'Please click continue if you want to proceed',
+                style: TextStyle(
+                  color: AppColor().blackColor,
+                  fontFamily: 'DMSans',
+                  fontWeight: FontWeight.normal,
+                  fontSize: 11,
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().backgroundColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: AppColor().backgroundColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        //  final action = await AlertDialogs.yesCancelDialog(
+                        //     context, 'Open WhatsApp', 'Click confirm to proceed');
+                        // if (action == DialogsAction.yes) {
+                        launch(
+                            'https://api.whatsapp.com/send?phone=+2348133258252');
+                        // } else {
+                        //   return null;
+                        // }
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().backgroundColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Continue',
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
