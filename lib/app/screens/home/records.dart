@@ -87,25 +87,19 @@ class _RecordsState extends State<Records> {
   void initState() {
     super.initState();
 
-                            if (transactionController.value.value
-                                .contains("This Year")) {
-                              transactionController.getYearRecord();
-                            } else if (transactionController.value.value
-                                .contains("Today")) {
-                              transactionController.splitCurrentTime();
-                            } else if (transactionController.value.value
-                                .contains("This Week")) {
-                              transactionController.getWeeklyRecordData();
-                            } else if (transactionController.value.value
-                                .contains("This month")) {
-                              transactionController.getMonthlyRecord();
-                            } else if (transactionController.value.value
-                                .contains("This Month")) {
-                              transactionController.getMonthlyRecord();
-                            } else if (transactionController.value.value
-                                .contains("All Time")) {
-                              transactionController.getAllTimeRecord();
-                            } 
+    if (transactionController.value.value.contains("This Year")) {
+      transactionController.getYearRecord();
+    } else if (transactionController.value.value.contains("Today")) {
+      transactionController.splitCurrentTime();
+    } else if (transactionController.value.value.contains("This Week")) {
+      transactionController.getWeeklyRecordData();
+    } else if (transactionController.value.value.contains("This month")) {
+      transactionController.getMonthlyRecord();
+    } else if (transactionController.value.value.contains("This Month")) {
+      transactionController.getMonthlyRecord();
+    } else if (transactionController.value.value.contains("All Time")) {
+      transactionController.getAllTimeRecord();
+    }
   }
 
   @override
@@ -487,8 +481,8 @@ class _RecordsState extends State<Records> {
                         onTap: () async {
                           final date = DateTime.now();
                           // ignore: unused_local_variable
-                      final recordsData =
-                                await DailyRecordPdfApi.generate();
+                          final recordsData =
+                              await DailyRecordPdfApi.generate();
                           final dueDate = date.add(Duration(days: 7));
                           // if (transactionController.value.value
                           //     .contains("Today")) {
@@ -575,9 +569,9 @@ class _RecordsState extends State<Records> {
                           //         file: recordsData,
                           //       ));
                           // }
-                            Get.to(() => DownloadRecordReceipt(
-                                  file: recordsData,
-                                ));
+                          Get.to(() => DownloadRecordReceipt(
+                                file: recordsData,
+                              ));
                         },
                         child: SvgPicture.asset('assets/images/download.svg'))
                   ],
@@ -629,7 +623,8 @@ class _RecordsState extends State<Records> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Obx(() {
                 return (transactionController.allExpenditureHoursData.length ==
-                        0)
+                            0 ||
+                        transactionController.allIncomeHoursData.length == 0)
                     ? Expanded(
                         child: Center(
                           child: Column(

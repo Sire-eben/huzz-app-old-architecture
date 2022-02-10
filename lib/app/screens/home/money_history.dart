@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
-import 'package:huzz/app/screens/home/receipt/money_in_out_pdf.dart';
 import 'package:huzz/app/screens/home/receipt/view_transactions_pdf.dart';
 import 'package:huzz/app/screens/home/reciept.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
