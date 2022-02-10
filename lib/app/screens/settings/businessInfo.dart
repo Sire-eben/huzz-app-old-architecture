@@ -62,6 +62,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
     errorController = StreamController<ErrorAnimationType>();
     // businessImage = bankInfoController.BankImage as String?;
     businessName = businessController.selectedBusiness.value!.businessName;
+    businessController.businessName.text=businessName!;
     businessEmail = businessController.selectedBusiness.value!.businessEmail;
     businessAddress =
         businessController.selectedBusiness.value!.businessAddress;
@@ -70,6 +71,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
     businessPhoneNumber =
         businessController.selectedBusiness.value!.businessPhoneNumber;
     value = businessController.selectedBusiness.value!.businessCurrency;
+     businessController.businessAddressController.text=businessAddress??"";
     print(
         "current business json ${businessController.selectedBusiness.value!.toJson()}");
     super.initState();
@@ -107,431 +109,454 @@ class _BusinessInfoState extends State<BusinessInfo> {
         elevation: 0,
       ),
       body: Obx(() {
-        return Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            controller: _scrollController,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      onTap: () => showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20))),
-                          context: context,
-                          builder: (context) => buildAddImage()),
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // ignore: unnecessary_null_comparison
-                            (businessController.businessImage.value != null)
-                                ? Image.file(
-                                    businessController.businessImage.value!,
-                                    width: 100,
-                                    height: 100,
-                                  )
-                                : businessController.selectedBusiness.value!
-                                            .buisnessLogoFileStoreId ==
-                                        null
-                                    ? Image.asset(
-                                        'assets/images/Group 3647.png',
-                                      )
-                                    : Image.network(
-                                        businessController.selectedBusiness
-                                            .value!.buisnessLogoFileStoreId!,
-                                        width: 100,
-                                        height: 100,
-                                      ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                        child: Text(
-                      "Business Logo",
-                      style: TextStyle(
-                        color: AppColor().blackColor,
-                        fontSize: 12,
-                      ),
-                    )),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    CustomTextField(
-                      label: "Business Name",
-                      validatorText: "Business Name required",
-                      colors: AppColor().blackColor,
-                      hint:
-                          "${businessController.selectedBusiness.value!.businessName}",
-                      textEditingController: businessController.businessName,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Phone Number',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 12),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 5),
-                                child: Text(
-                                  "*",
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 12),
-                                ),
-                              ),
-                            ],
-                          )
-                        ]),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                            color: AppColor().backgroundColor, width: 2.0),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
+        return SingleChildScrollView(
+          child: Container(
+            // width: MediaQuery.of(context).size.width,
+            // height: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () => showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20))),
+                        context: context,
+                        builder: (context) => buildAddImage()),
+                    child: Center(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              showCountryCode(context);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                    right: BorderSide(
-                                        color: AppColor().backgroundColor,
-                                        width: 2)),
-                              ),
-                              height: 50,
-                              width: 80,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(width: 10),
-                                  Flag.fromString(countryFlag,
-                                      height: 30, width: 30),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Icon(
-                                    Icons.arrow_drop_down,
-                                    size: 24,
-                                    color: AppColor()
-                                        .backgroundColor
-                                        .withOpacity(0.5),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              controller:
-                                  businessController.businessPhoneNumber,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText:
-                                      "${businessController.selectedBusiness.value!.businessPhoneNumber}",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                  prefixText: "+$countryCode ",
-                                  prefixStyle: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black)),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
+                          // ignore: unnecessary_null_comparison
+                          (businessController.businessImage.value != null)
+                              ? Image.file(
+                                  businessController.businessImage.value!,
+                                  width: 100,
+                                  height: 100,
+                                )
+                              : businessController.selectedBusiness.value!
+                                          .buisnessLogoFileStoreId ==
+                                      null
+                                  ? Image.asset(
+                                      'assets/images/Group 3647.png',
+                                    )
+                                  : 
+                                  CircleAvatar(
+                radius: 70.0,
+                backgroundImage:
+                    NetworkImage("${businessController.selectedBusiness
+                                          .value!.buisnessLogoFileStoreId}"),
+                backgroundColor: Colors.transparent,
+              )
+                                 
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 5,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                      child: Text(
+                    "Business Logo",
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontSize: 12,
                     ),
-                    Container(
-                      height: 30,
-                      margin: EdgeInsets.only(
-                        right: 20,
+                  )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField(
+                    label: "Business Name",
+                    validatorText: "Business Name required",
+                    colors: AppColor().blackColor,
+                    hint:
+                        "${businessController.selectedBusiness.value!.businessName}",
+                    textEditingController: businessController.businessName,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Phone Number',
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 12),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text(
+                                "*",
+                                style: TextStyle(
+                                    color: Colors.red, fontSize: 12),
+                              ),
+                            ),
+                          ],
+                        )
+                      ]),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                          color: AppColor().backgroundColor, width: 2.0),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            showCountryCode(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  right: BorderSide(
+                                      color: AppColor().backgroundColor,
+                                      width: 2)),
+                            ),
+                            height: 50,
+                            width: 80,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(width: 10),
+                                Flag.fromString(countryFlag,
+                                    height: 30, width: 30),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  Icons.arrow_drop_down,
+                                  size: 24,
+                                  color: AppColor()
+                                      .backgroundColor
+                                      .withOpacity(0.5),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller:
+                                businessController.businessPhoneNumber,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText:
+                                    "${businessController.selectedBusiness.value!.businessPhoneNumber}",
+                                hintStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                                prefixText: "+$countryCode ",
+                                prefixStyle: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black)),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    height: 30,
+                    margin: EdgeInsets.only(
+                      right: 20,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Email',
+                          style: TextStyle(color: Colors.black, fontSize: 12),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextFormField(
+                    controller: businessController.businessEmail,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColor().backgroundColor, width: 2),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColor().backgroundColor, width: 2),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColor().backgroundColor, width: 2),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      hintText:
+                          "${businessController.selectedBusiness.value!.businessEmail}",
+                      hintStyle:
+                          Theme.of(context).textTheme.headline4!.copyWith(
+                                fontFamily: 'DMSans',
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.normal,
+                              ),
+                    ),
+                  ),
+                  CustomTextField(
+                    label: "Address",
+                    validatorText: "Address is needed",
+                    colors: AppColor().blackColor,
+                    hint:
+                        "${businessController.selectedBusiness.value!.businessAddress}",
+                    textEditingController:
+                        businessController.businessAddressController,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Currency',
+                        style: TextStyle(color: Colors.black, fontSize: 12),
                       ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '*',
+                        style: TextStyle(color: Colors.red, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 1,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          width: 2, color: AppColor().backgroundColor),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: value,
+                        focusColor: AppColor().whiteColor,
+                        icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: AppColor().backgroundColor,
+                        ),
+                        iconSize: 30,
+                        items: items.map(buildMenuItem).toList(),
+                        onChanged: (value) =>
+                            setState(() => this.value = value),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
                         children: [
                           Text(
-                            'Email',
-                            style: TextStyle(color: Colors.black, fontSize: 12),
+                            'Bank Accounts',
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 12),
                           ),
                           SizedBox(
                             width: 5,
                           ),
                         ],
                       ),
-                    ),
-                    TextFormField(
-                      controller: businessController.businessEmail,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        hintText:
-                            "${businessController.selectedBusiness.value!.businessEmail}",
-                        hintStyle:
-                            Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontFamily: 'DMSans',
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                      ),
-                    ),
-                    CustomTextField(
-                      label: "Address",
-                      validatorText: "Address is needed",
-                      colors: AppColor().blackColor,
-                      hint:
-                          "${businessController.selectedBusiness.value!.businessAddress}",
-                      textEditingController:
-                          businessController.businessAddressController,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Currency',
-                          style: TextStyle(color: Colors.black, fontSize: 12),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          '*',
-                          style: TextStyle(color: Colors.red, fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 1,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            width: 2, color: AppColor().backgroundColor),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: value,
-                          focusColor: AppColor().whiteColor,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
-                          ),
-                          iconSize: 30,
-                          items: items.map(buildMenuItem).toList(),
-                          onChanged: (value) =>
-                              setState(() => this.value = value),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+                      GestureDetector(
+                        onTap: () {
+                          bankInfoController.clearValue();
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))),
+                              context: context,
+                              builder: (context) => addBusiness());
+                        },
+                        child: Row(
                           children: [
-                            Text(
-                              'Bank Accounts',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                            Container(
+                              child: Image.asset(
+                                'assets/images/Group 3890.png',
+                                scale: 1.2,
+                              ),
                             ),
                             SizedBox(
                               width: 5,
                             ),
+                            Text(
+                              'Add Bank Account',
+                              style: TextStyle(
+                                  color: AppColor().backgroundColor,
+                                  fontSize: 12),
+                            ),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            bankInfoController.clearValue();
-                            showModalBottomSheet(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))),
-                                context: context,
-                                builder: (context) => addBusiness());
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                child: Image.asset(
-                                  'assets/images/Group 3890.png',
-                                  scale: 1.2,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Add Bank Account',
-                                style: TextStyle(
-                                    color: AppColor().backgroundColor,
-                                    fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    // Spacer(),
-                    (bankInfoController.offlineBusinessBank.isNotEmpty)
-                        ? Expanded(
-                            // height: 50.0* bankInfoController.offlineBusinessBank.length,
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                controller: _scrollController,
-                                itemCount: bankInfoController
-                                    .offlineBusinessBank.length,
-                                itemBuilder: (_, index) {
-                                  var ite = bankInfoController
-                                      .offlineBusinessBank[index];
-                                  return ItemCard(
-                                      item: ite,
-                                      onDelete: () {
-                                        bankInfoController.addToDeleteList(ite);
-                                      },
-                                      onEdit: () {
-                                        bankInfoController.setItem(ite);
-                                        showModalBottomSheet(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.vertical(
-                                                        top: Radius.circular(
-                                                            20))),
-                                            context: context,
-                                            builder: (context) =>
-                                                EditBankAccount(ite));
-                                      });
-                                }))
-                        : Center(
-                            child: Text(
-                              'No bank account has been added yet',
-                              style: TextStyle(
-                                color: AppColor().hintColor,
-                                fontSize: 10,
-                              ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // Spacer(),
+               if   (bankInfoController.offlineBusinessBank.isNotEmpty)
+                      
+                      ...bankInfoController
+                                  .offlineBusinessBank.map((e) => 
+                                   ItemCard(
+                                    item: e,
+                                    onDelete: () {
+                                      bankInfoController.addToDeleteList(e);
+                                    },
+                                    onEdit: () {
+                                      bankInfoController.setItem(e);
+                                      showModalBottomSheet(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                      top: Radius.circular(
+                                                          20))),
+                                          context: context,
+                                          builder: (context) =>
+                                              EditBankAccount(e));
+                                    })
+            
+                                  ).toList(),
+                      // Container(
+                      //    height: 150.0* bankInfoController.offlineBusinessBank.length,
+                      //     child: ListView.builder(
+                      //         shrinkWrap: true,
+                      //         controller: _scrollController,
+                      //         itemCount: bankInfoController
+                      //             .offlineBusinessBank.length,
+                      //         itemBuilder: (_, index) {
+                      //           var ite = bankInfoController
+                      //               .offlineBusinessBank[index];
+                      //           return ItemCard(
+                      //               item: ite,
+                      //               onDelete: () {
+                      //                 bankInfoController.addToDeleteList(ite);
+                      //               },
+                      //               onEdit: () {
+                      //                 bankInfoController.setItem(ite);
+                      //                 showModalBottomSheet(
+                      //                     shape: RoundedRectangleBorder(
+                      //                         borderRadius:
+                      //                             BorderRadius.vertical(
+                      //                                 top: Radius.circular(
+                      //                                     20))),
+                      //                     context: context,
+                      //                     builder: (context) =>
+                      //                         EditBankAccount(ite));
+                      //               });
+                      //         }))
+                      if(bankInfoController.offlineBusinessBank.isEmpty)
+                       Center(
+                          child: Text(
+                            'No bank account has been added yet',
+                            style: TextStyle(
+                              color: AppColor().hintColor,
+                              fontSize: 10,
                             ),
                           ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Obx(() {
-                      return InkWell(
-                        onTap: () {
-                          if (businessController.updateBusinessStatus !=
-                              UpdateBusinessStatus.Loading)
-                            businessController.updateBusiness(value!);
-                        },
-                        child: Container(
-                          height: 50,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: (businessController.updateBusinessStatus ==
-                                  UpdateBusinessStatus.Loading)
-                              ? Center(
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    child: Center(
-                                        child: CircularProgressIndicator(
-                                            color: Colors.white)),
-                                  ),
-                                )
-                              : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Save',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18),
-                                    ),
-                                  ],
-                                ),
                         ),
-                      );
-                    }),
-                    SizedBox(height: 25),
-                  ],
-                ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Obx(() {
+                    return InkWell(
+                      onTap: () {
+                        if (businessController.updateBusinessStatus !=
+                            UpdateBusinessStatus.Loading)
+                          businessController.updateBusiness(value!);
+                      },
+                      child: Container(
+                        height: 50,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                            color: AppColor().backgroundColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: (businessController.updateBusinessStatus ==
+                                UpdateBusinessStatus.Loading)
+                            ? Center(
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                          color: Colors.white)),
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Save',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                      ),
+                    );
+                  }),
+                  SizedBox(height: 10,),
+                ],
               ),
             ),
           ),
@@ -663,227 +688,240 @@ class _BusinessInfoState extends State<BusinessInfo> {
         );
       });
 
-  Widget addBusiness() => Container(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.04,
-            right: MediaQuery.of(context).size.width * 0.04,
-            bottom: MediaQuery.of(context).size.width * 0.04,
-            top: MediaQuery.of(context).size.width * 0.02),
-        child: Form(
-          key: addAccountKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  height: 3,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
+  Widget addBusiness(){
+
+  
+  return StatefulBuilder(builder: (BuildContext context, StateSetter myState) { 
+      return SingleChildScrollView(
+        child: Container(
+           
+                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
+                
+                  padding: MediaQuery.of(context).viewInsets,
+              child: Form(
+                key: addAccountKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10),
+                        height: 3,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            shape: BoxShape.circle,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Icon(
+                              Icons.close,
+                              color: AppColor().backgroundColor,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Text(
+                      'Add Bank Account',
+                      style: TextStyle(
+                        color: AppColor().blackColor,
+                        fontFamily: 'DMSans',
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    CustomTextField(
+                      label: "Account Number ",
+                      validatorText: "Account Number required",
+                      textEditingController:
+                          bankInfoController.accoutNumberController,
+                    ),
+                    CustomTextField(
+                      label: "Account holder Name",
+                      validatorText: "Account holder Name required",
+                      textEditingController:
+                          bankInfoController.bankAccountNameController,
+                    ),
+                    CustomTextField(
+                      
+                        label: "Bank Name",
+                        validatorText: "Bank name required",
+                        textEditingController: bankInfoController.bankNameController),
+                   SizedBox(height: MediaQuery.of(context).size.height*0.02),
+                    Obx(() {
+                      return GestureDetector(
+                        onTap: () {
+                          if (bankInfoController.addingBankStatus !=
+                              AddingBankInfoStatus
+                                  .Loading) if (addAccountKey.currentState!
+                              .validate()) {
+                            bankInfoController.addBusinnessBank();
+                          }
+                        },
+                        child: Container(
+                          height: 55,
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 5,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: (bankInfoController.addingBankStatus ==
+                                    AddingBankInfoStatus.Loading)
+                                ? CircularProgressIndicator(color: Colors.white)
+                                : Text(
+                                    'Add Bank Account',
+                                    style: TextStyle(
+                                      color: AppColor().whiteColor,
+                                      fontFamily: 'DMSans',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      );
+                    }),
+                    SizedBox(height: MediaQuery.of(context).size.height*0.02,)
+                  ],
                 ),
               ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    height: 30,
-                    width: 30,
+            ),
+      );
+    }
+  
+  );
+  }
+  Widget EditBankAccount(Bank item) => SingleChildScrollView(
+    child: Container(
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
+          
+            padding: MediaQuery.of(context).viewInsets,
+          child: Form(
+            key: addAccountKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10),
+                    height: 3,
+                    width: 70,
                     decoration: BoxDecoration(
-                      color: Color(0xffE6F4F2),
-                      shape: BoxShape.circle,
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(4),
                     ),
-                    child: GestureDetector(
+                  ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
                       onTap: () {
                         Get.back();
                       },
-                      child: Icon(
-                        Icons.close,
-                        color: AppColor().backgroundColor,
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: Color(0xffE6F4F2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          color: AppColor().backgroundColor,
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-              Text(
-                'Add Bank Account',
-                style: TextStyle(
-                  color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.normal,
+                    )
+                  ],
                 ),
-              ),
-              SizedBox(height: 10),
-              CustomTextField(
-                label: "Account Number ",
-                validatorText: "Account Number required",
-                textEditingController:
-                    bankInfoController.accoutNumberController,
-              ),
-              CustomTextField(
-                label: "Account holder Name",
-                validatorText: "Account holder Name required",
-                textEditingController:
-                    bankInfoController.bankAccountNameController,
-              ),
-              CustomTextField(
-                  label: "Bank Name",
-                  validatorText: "Bank name required",
-                  textEditingController: bankInfoController.bankNameController),
-              Spacer(),
-              Obx(() {
-                return GestureDetector(
-                  onTap: () {
-                    if (bankInfoController.addingBankStatus !=
-                        AddingBankInfoStatus
-                            .Loading) if (addAccountKey.currentState!
-                        .validate()) {
-                      bankInfoController.addBusinnessBank();
-                    }
-                  },
-                  child: Container(
-                    height: 55,
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 15,
-                    ),
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                      child: (bankInfoController.addingBankStatus ==
-                              AddingBankInfoStatus.Loading)
-                          ? CircularProgressIndicator(color: Colors.white)
-                          : Text(
-                              'Add Bank Account',
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                    ),
-                  ),
-                );
-              }),
-            ],
-          ),
-        ),
-      );
-
-  Widget EditBankAccount(Bank item) => Container(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.04,
-            right: MediaQuery.of(context).size.width * 0.04,
-            bottom: MediaQuery.of(context).size.width * 0.04,
-            top: MediaQuery.of(context).size.width * 0.02),
-        child: Form(
-          key: addAccountKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  height: 3,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(4),
+                Text(
+                  'Add Bank Account',
+                  style: TextStyle(
+                    color: AppColor().blackColor,
+                    fontFamily: 'DMSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
+                SizedBox(height: 10),
+                CustomTextField(
+                  label: "Account Number ",
+                  validatorText: "Account Number required",
+                  textEditingController:
+                      bankInfoController.accoutNumberController,
+                ),
+                CustomTextField(
+                  label: "Account holder Name",
+                  validatorText: "Account holder Name required",
+                  textEditingController:
+                      bankInfoController.bankAccountNameController,
+                ),
+                CustomTextField(
+                    label: "Bank Name",
+                    validatorText: "Bank name required",
+                    textEditingController: bankInfoController.bankNameController),
+                Spacer(),
+                Obx(() {
+                  return GestureDetector(
                     onTap: () {
-                      Get.back();
+                      if (bankInfoController.addingBankStatus !=
+                          AddingBankInfoStatus
+                              .Loading) if (addAccountKey.currentState!
+                          .validate()) {
+                        bankInfoController.updateBusinessBank(item);
+                      }
                     },
                     child: Container(
-                      height: 30,
-                      width: 30,
+                      height: 55,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 15,
+                      ),
                       decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        color: AppColor().backgroundColor,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Text(
-                'Add Bank Account',
-                style: TextStyle(
-                  color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              SizedBox(height: 10),
-              CustomTextField(
-                label: "Account Number ",
-                validatorText: "Account Number required",
-                textEditingController:
-                    bankInfoController.accoutNumberController,
-              ),
-              CustomTextField(
-                label: "Account holder Name",
-                validatorText: "Account holder Name required",
-                textEditingController:
-                    bankInfoController.bankAccountNameController,
-              ),
-              CustomTextField(
-                  label: "Bank Name",
-                  validatorText: "Bank name required",
-                  textEditingController: bankInfoController.bankNameController),
-              Spacer(),
-              Obx(() {
-                return GestureDetector(
-                  onTap: () {
-                    if (bankInfoController.addingBankStatus !=
-                        AddingBankInfoStatus
-                            .Loading) if (addAccountKey.currentState!
-                        .validate()) {
-                      bankInfoController.updateBusinessBank(item);
-                    }
-                  },
-                  child: Container(
-                    height: 55,
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 15,
-                    ),
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                      child: (bankInfoController.addingBankStatus ==
-                              AddingBankInfoStatus.Loading)
-                          ? CircularProgressIndicator(color: Colors.white)
-                          : Text(
-                              'Edit Bank Account',
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.bold,
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: (bankInfoController.addingBankStatus ==
+                                AddingBankInfoStatus.Loading)
+                            ? CircularProgressIndicator(color: Colors.white)
+                            : Text(
+                                'Edit Bank Account',
+                                style: TextStyle(
+                                  color: AppColor().whiteColor,
+                                  fontFamily: 'DMSans',
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
+                      ),
                     ),
-                  ),
-                );
-              }),
-            ],
+                  );
+                }),
+                      SizedBox(height: MediaQuery.of(context).size.height*0.02,)
+              ],
+            ),
           ),
         ),
-      );
+  );
   // ignore: unused_element
   _displayDialog(BuildContext context) async {
     return showDialog(
