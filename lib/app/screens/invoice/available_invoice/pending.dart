@@ -91,7 +91,7 @@ class _PendingState extends State<Pending> {
                               _invoiceController.InvoicePendingList[index];
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId!);
+                                  item.customerId??"");
                           return GestureDetector(
                             onTap: () async {
                               final singleInvoiceReceipt =
@@ -201,7 +201,7 @@ class _PendingState extends State<Pending> {
                           final _isSelected = _selectedIndex.contains(index);
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId!);
+                                  item.customerId??"");
                           return InkWell(
                             onTap: () {
                               setState(() {
