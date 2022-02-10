@@ -48,13 +48,16 @@ class DebtorRepository extends GetxController
   Rx<File?> DebtorImage = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
 
-  final totalAmountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
-  final amountController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final totalAmountController = MoneyMaskedTextController(
+      leftSymbol: 'NGN ', decimalSeparator: '.', thousandSeparator: ',');
+  final amountController = MoneyMaskedTextController(
+      leftSymbol: 'NGN ', decimalSeparator: '.', thousandSeparator: ',');
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final serviceDescription = TextEditingController();
 
-  final DebtorSellingPriceController =MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',');
+  final DebtorSellingPriceController = MoneyMaskedTextController(
+      leftSymbol: 'NGN ', decimalSeparator: '.', thousandSeparator: ',');
   final DebtorQuantityController = TextEditingController();
   final DebtorUnitController = TextEditingController();
 
@@ -67,10 +70,10 @@ class DebtorRepository extends GetxController
   List<Debtor> pendingDeletedDebtorToServer = [];
   Rx<List<Debtor>> _debtorsList = Rx([]);
   Rx<List<Debtor>> _debtOwnedList = Rx([]);
-  Rx<List<Debtor>> _fullyPaidDebt=Rx([]);
-  Rx<List<Debtor>> _fullyPaidDebtOwned=Rx([]);
-  List<Debtor> get fullyPaidDebt=>_fullyPaidDebt.value;
-  List<Debtor> get fullyPaidDebtOwned=>_fullyPaidDebtOwned.value;
+  Rx<List<Debtor>> _fullyPaidDebt = Rx([]);
+  Rx<List<Debtor>> _fullyPaidDebtOwned = Rx([]);
+  List<Debtor> get fullyPaidDebt => _fullyPaidDebt.value;
+  List<Debtor> get fullyPaidDebtOwned => _fullyPaidDebtOwned.value;
 
   List<Debtor> get debtorsList => _debtorsList.value;
   List<Debtor> get debtOwnedList => _debtOwnedList.value;
@@ -198,9 +201,9 @@ class DebtorRepository extends GetxController
   Future UpdateBusinessDebtor(Debtor debtor, dynamic amount) async {
     print("debtor amount to be updated $amount");
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-    await  updateBusinessDebtorOnline(debtor, amount);
+      await updateBusinessDebtorOnline(debtor, amount);
     } else {
-    await  updateBusinessDebtorOffline(debtor, amount);
+      await updateBusinessDebtorOffline(debtor, amount);
     }
   }
 
@@ -277,7 +280,7 @@ class DebtorRepository extends GetxController
       debtor.isPendingUpdating = true;
     }
     debtor.balance = debtor.balance! - amount;
-    debtor.paid= debtor.balance! - amount==0;
+    debtor.paid = debtor.balance! - amount == 0;
 
     print("Debtor offline saving ${debtor.toJson()}");
     _businessController.sqliteDb.updateOfflineDebtor(debtor);
@@ -307,7 +310,7 @@ class DebtorRepository extends GetxController
           await http.put(Uri.parse(ApiLink.add_debtor + "/" + debtor.debtorId!),
               body: jsonEncode({
                 "balance": debtor.balance! - amount,
-                "paid":debtor.balance!-amount==0,
+                "paid": debtor.balance! - amount == 0,
 
 // "quantity":DebtorQuantityController.text,
                 "businessId": debtor.businessId,
@@ -372,9 +375,8 @@ class DebtorRepository extends GetxController
     _debtorsList(debtors);
   }
 
-Future setPaidDebt()async{
-
- List<Debtor> debtors = [];
+  Future setPaidDebt() async {
+    List<Debtor> debtors = [];
     List<Debtor> debtOwned = [];
     offlineBusinessDebtor.where((element) => element.paid!).forEach((element) {
       if (element.businessTransactionType == "INCOME") {
@@ -385,7 +387,8 @@ Future setPaidDebt()async{
     });
     _fullyPaidDebtOwned(debtOwned);
     _fullyPaidDebt(debtors);
-}
+  }
+
   Debtor? getDebtorByTransactionId(String id) {
     Debtor? result;
     offlineBusinessDebtor.forEach((element) {
@@ -745,6 +748,4 @@ Future setPaidDebt()async{
     _businessController.sqliteDb.updateOfflineDebtor(debtor);
     getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
   }
-
-
 }

@@ -15,24 +15,23 @@ class PaymentItem {
   String? transactionType;
   DateTime? entryDateTime;
 
-  PaymentItem({
-    this.id,
-    this.businessTransactionId,
-    this.itemName,
-    this.productId,
-    this.quality,
-    this.amount,
-    this.totalAmount,
-    this.createdTime,
-    this.updatedTime,
-    this.deleted,
-    this.transactionType,
-    this.isFullyPaid,
-    this.entryDateTime
-  });
+  PaymentItem(
+      {this.id,
+      this.businessTransactionId,
+      this.itemName,
+      this.productId,
+      this.quality,
+      this.amount,
+      this.totalAmount,
+      this.createdTime,
+      this.updatedTime,
+      this.deleted,
+      this.transactionType,
+      this.isFullyPaid,
+      this.entryDateTime});
 
-  factory PaymentItem.fromJson(
-          Map<String, dynamic> json, String type, bool isFullyPaid,String transactionId,DateTime entryDateTime) =>
+  factory PaymentItem.fromJson(Map<String, dynamic> json, String type,
+          bool isFullyPaid, String transactionId, DateTime entryDateTime) =>
       PaymentItem(
           id: json['id'],
           businessTransactionId: transactionId,
@@ -52,7 +51,7 @@ class PaymentItem {
 
   Map<String, dynamic> toJson(String transactionId) => {
         "id": id,
-        "businessTransactionId":transactionId,
+        "businessTransactionId": transactionId,
         "itemName": itemName,
         "productId": productId,
         "quantity": quality,

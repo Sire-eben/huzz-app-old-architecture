@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
@@ -12,9 +10,7 @@ import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/Utils/constants.dart';
-import 'package:huzz/app/screens/home/debtors/debtors.dart';
 import 'package:huzz/app/screens/home/income_success.dart';
-import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:huzz/model/payment_history.dart';
@@ -310,8 +306,11 @@ class TransactionRespository extends GetxController {
     var results = await _businessController.sqliteDb.getOfflineTransactions(id);
     print("offline transaction ${results.length}");
 
-    _offlineTransactions(
-        results.where((element) => !element.deleted! && element.businessTransactionPaymentItemList!.isNotEmpty).toList());
+    _offlineTransactions(results
+        .where((element) =>
+            !element.deleted! &&
+            element.businessTransactionPaymentItemList!.isNotEmpty)
+        .toList());
 
     getTodayTransaction();
     //  getWeeklyRecordData();
@@ -1843,9 +1842,9 @@ class TransactionRespository extends GetxController {
     dynamic todayBalance = 0;
     dynamic todayMoneyIn = 0;
     dynamic todayMoneyout = 0;
-print("total transaction size is ${todayTransaction.length}");
+    print("total transaction size is ${todayTransaction.length}");
     todayTransaction.forEach((element) {
-      if (element.totalAmount == null ) {
+      if (element.totalAmount == null) {
         return;
       }
       if (element.transactionType == "INCOME") {
@@ -1854,7 +1853,6 @@ print("total transaction size is ${todayTransaction.length}");
         print("total amount is ${element.totalAmount} ${element.toJson()}");
         todayMoneyout = todayMoneyout + (element.totalAmount - element.balance);
       }
-     
     });
 
     todayBalance = todayMoneyIn - todayMoneyout;

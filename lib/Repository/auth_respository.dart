@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +21,6 @@ import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'fingerprint_repository.dart';
 import 'home_respository.dart';
 
@@ -100,7 +98,7 @@ class AuthRepository extends GetxController {
 
   SqliteDb sqliteDb = SqliteDb();
   bool tokenExpired = false;
-  Rx<File?> profileImage=Rx(null);
+  Rx<File?> profileImage = Rx(null);
   @override
   void onInit() async {
     pref = SharePref();
@@ -116,7 +114,7 @@ class AuthRepository extends GetxController {
       if (pref!.getUser() != null &&
           !DateTime.now().isAfter(pref!.getDateTokenExpired()) &&
           !tokenExpired) {
-            print("gotten here is value");
+        print("gotten here is value");
         user = pref!.getUser()!;
 
         Mtoken(pref!.read());
@@ -278,9 +276,9 @@ class AuthRepository extends GetxController {
     }
   }
 
-   Future updateProfileImage()async{
-try{
-     _updateProfileStatus(UpdateProfileStatus.Loading);
+  Future updateProfileImage() async {
+    try {
+      _updateProfileStatus(UpdateProfileStatus.Loading);
       print("otp value ${otpController.text}");
       final uploadController = Get.find<FileUploadRespository>();
       String? imageId;
@@ -290,9 +288,8 @@ try{
       print("image url is $imageId");
       final resposne = await http.put(Uri.parse(ApiLink.update_profile),
           body: jsonEncode({
-        
             // "profileImageFileStoreId": imageId,
-            "imageUrl":imageId
+            "imageUrl": imageId
             // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
           headers: {
@@ -303,33 +300,31 @@ try{
       print("response of update personal profile info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
-         print("user detail ${json}");
-          var user = User.fromJsonSettngs(json);
-       user.businessList=this.user!.businessList;
-          this.user = user;
-          pref!.setUser(user);
-   
+        print("user detail ${json}");
+        var user = User.fromJsonSettngs(json);
+        user.businessList = this.user!.businessList;
+        this.user = user;
+        pref!.setUser(user);
 
-          _updateProfileStatus(UpdateProfileStatus.Success);
-          Get.snackbar(
-            "Success",
-            "Personal Profile Image",
-          );
-          Timer(Duration(milliseconds: 2000), () {
-            Get.back();
-          });
+        _updateProfileStatus(UpdateProfileStatus.Success);
+        Get.snackbar(
+          "Success",
+          "Personal Profile Image",
+        );
+        Timer(Duration(milliseconds: 2000), () {
+          Get.back();
+        });
         // } else {
-          
+
         //   Get.snackbar(
         //     "Error",
         //     "Failed to update Personal Information",
         //   );
         // }
-      }else{
+      } else {
         _updateProfileStatus(UpdateProfileStatus.Error);
-var json=jsonDecode(resposne.body);
-Get.snackbar("${json['error']}", "${json['message']}");
-
+        var json = jsonDecode(resposne.body);
+        Get.snackbar("${json['error']}", "${json['message']}");
       }
     } catch (ex) {
       _updateProfileStatus(UpdateProfileStatus.Error);
@@ -340,11 +335,7 @@ Get.snackbar("${json['error']}", "${json['message']}");
       );
       _updateProfileStatus(UpdateProfileStatus.Error);
     }
-
-
-
-   }
-
+  }
 
   Future updateProfile() async {
     try {
@@ -371,33 +362,31 @@ Get.snackbar("${json['error']}", "${json['message']}");
       print("response of update personal info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
-         print("user detail ${json}");
-          var user = User.fromJsonSettngs(json);
-       user.businessList=this.user!.businessList;
-          this.user = user;
-          pref!.setUser(user);
-   
+        print("user detail ${json}");
+        var user = User.fromJsonSettngs(json);
+        user.businessList = this.user!.businessList;
+        this.user = user;
+        pref!.setUser(user);
 
-          _updateProfileStatus(UpdateProfileStatus.Success);
-          Get.snackbar(
-            "Success",
-            "Personal Information Updated",
-          );
-          Timer(Duration(milliseconds: 2000), () {
-            Get.back();
-          });
+        _updateProfileStatus(UpdateProfileStatus.Success);
+        Get.snackbar(
+          "Success",
+          "Personal Information Updated",
+        );
+        Timer(Duration(milliseconds: 2000), () {
+          Get.back();
+        });
         // } else {
-          
+
         //   Get.snackbar(
         //     "Error",
         //     "Failed to update Personal Information",
         //   );
         // }
-      }else{
+      } else {
         _updateProfileStatus(UpdateProfileStatus.Error);
-var json=jsonDecode(resposne.body);
-Get.snackbar("${json['error']}", "${json['message']}");
-
+        var json = jsonDecode(resposne.body);
+        Get.snackbar("${json['error']}", "${json['message']}");
       }
     } catch (ex) {
       _updateProfileStatus(UpdateProfileStatus.Error);

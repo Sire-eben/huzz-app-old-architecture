@@ -52,8 +52,8 @@ class Product {
           ? null
           : DateTime.parse(json['productExpiration']),
       productLogoFileStoreId: json['productLogoFileStoreUrl'],
-      deleted: json['deleted']??false,
-      productNameChanged: json['productNameChanged']??false,
+      deleted: json['deleted'] ?? false,
+      productNameChanged: json['productNameChanged'] ?? false,
       isAddingPending: json['isAddingPending'] ?? false,
       isUpdatingPending: json['isUpdatingPending'] ?? false);
   Map<String, dynamic> toJson() => {
@@ -78,6 +78,6 @@ class Product {
         "deleted": deleted,
         "isAddingPending": isAddingPending ?? false,
         "isUpdatePendig": isUpdatingPending ?? false,
-        "productNameChanged":productNameChanged??false
+        "productNameChanged": productNameChanged ?? false
       };
 }

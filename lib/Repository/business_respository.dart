@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
-
 import 'package:country_currency_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +15,6 @@ import 'package:huzz/model/business.dart';
 import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
-
 import 'auth_respository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }
@@ -41,7 +39,7 @@ class BusinessRespository extends GetxController {
   Rx<Business?> selectedBusiness = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
   SharePref? pref;
-  Rx<File?> businessImage=Rx(null);
+  Rx<File?> businessImage = Rx(null);
   CreateBusinessStatus get createBusinessStatus => _createBusinessStatus.value;
   UpdateBusinessStatus get updateBusinessStatus => _updateBusinessStatus.value;
 
@@ -79,7 +77,7 @@ class BusinessRespository extends GetxController {
         businessListFromServer.addAll(result);
         print("online data business lenght ${result.length}");
         getBusinessYetToBeSavedLocally();
-     checkIfUpdateAvailable();
+        checkIfUpdateAvailable();
       }
     } else {}
   }
@@ -95,10 +93,10 @@ class BusinessRespository extends GetxController {
     return result;
   }
 
-Business? checkifBusinessAvailableWithValue(String id) {
-   Business? item;
+  Business? checkifBusinessAvailableWithValue(String id) {
+    Business? item;
 
-   offlineBusiness.forEach((element) {
+    offlineBusiness.forEach((element) {
       print("checking transaction whether exist");
       if (element.businessId == id) {
         print("Customer   found");
@@ -108,7 +106,7 @@ Business? checkifBusinessAvailableWithValue(String id) {
     return item;
   }
 
-    Future checkIfUpdateAvailable() async {
+  Future checkIfUpdateAvailable() async {
     businessListFromServer.forEach((element) async {
       var item = checkifBusinessAvailableWithValue(element.businessId!);
       if (item != null) {
@@ -117,7 +115,8 @@ Business? checkifBusinessAvailableWithValue(String id) {
         print("updated online ${element.updatedTime!.toIso8601String()}");
         if (!element.updatedTime!.isAtSameMomentAs(item.updatedTime!)) {
           print("found Customer to updated");
-          pendingUpdatedBusinessList.add(OfflineBusiness(business: element,businessId: element.businessId));
+          pendingUpdatedBusinessList.add(OfflineBusiness(
+              business: element, businessId: element.businessId));
         }
       }
     });
@@ -125,7 +124,7 @@ Business? checkifBusinessAvailableWithValue(String id) {
     updatePendingJob();
   }
 
-    Future updatePendingJob() async {
+  Future updatePendingJob() async {
     if (pendingUpdatedBusinessList.isEmpty) {
       return;
     }
@@ -135,7 +134,7 @@ Business? checkifBusinessAvailableWithValue(String id) {
     if (pendingUpdatedBusinessList.isNotEmpty) {
       updatePendingJob();
     }
-      GetOfflineBusiness();
+    GetOfflineBusiness();
   }
 
   Future setBusinessList(List<Business> list) async {
@@ -240,14 +239,14 @@ Business? checkifBusinessAvailableWithValue(String id) {
 
   Future updateBusiness(String selectedCurrency) async {
     print("token ${_userController.token}");
-   
+
     try {
       _updateBusinessStatus(UpdateBusinessStatus.Loading);
-       String? imageId;
-    var uploadController = Get.find<FileUploadRespository>();
-    if (businessImage.value != null) {
-      imageId = await uploadController.uploadFile(businessImage.value!.path);
-    }
+      String? imageId;
+      var uploadController = Get.find<FileUploadRespository>();
+      if (businessImage.value != null) {
+        imageId = await uploadController.uploadFile(businessImage.value!.path);
+      }
       final selectedCurrency = CountryPickerUtils.getCountryByIsoCode(
               _userController.countryCodeFLag)
           .currencyCode
