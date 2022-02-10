@@ -1367,7 +1367,7 @@ class _MoneyOutState extends State<MoneyOut> {
                 ),
               ),
                 SizedBox(
-                            width: MediaQuery.of(context).size.height * 0.03),
+                            height: MediaQuery.of(context).size.height * 0.02),
             ],
           ),
         );

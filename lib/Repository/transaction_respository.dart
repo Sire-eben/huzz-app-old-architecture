@@ -310,7 +310,7 @@ return list1;
     print("offline transaction ${results.length}");
 
     _offlineTransactions(
-        results.where((element) => !element.deleted!).toList());
+        results.where((element) => !element.deleted! && element.businessTransactionPaymentItemList!.isNotEmpty).toList());
 
     getTodayTransaction();
     //  getWeeklyRecordData();
@@ -1187,7 +1187,7 @@ List<RecordsData> _pieExpenditure=[];
       // print("element test date ${element.createdTime!.toIso8601String()}");
       final d = DateTime(element.entryDateTime!.year, element.entryDateTime!.month,
           element.entryDateTime!.day);
-      if (d.isAtSameMomentAs(DateTime(date.year, date.month, date.day))) {
+      if (d.isAtSameMomentAs(DateTime(date.year, date.month, date.day ) )&& (element.transactionType=="INCOME"|| element.transactionType=="EXPENDITURE")) {
         _todayTransaction.add(element);
 
         // print("found date for today");
@@ -1755,19 +1755,25 @@ print("record balance $Balance");
     dynamic todayBalance = 0;
     dynamic todayMoneyIn = 0;
     dynamic todayMoneyout = 0;
-
+print("total transaction size is ${todayTransaction.length}");
     todayTransaction.forEach((element) {
-      if (element.totalAmount == null) {
+      if (element.totalAmount == null ) {
         return;
       }
-      if (element.transactionType == "INCOME") {
+       print("today transaction json ${element.transactionType} ${element.toJson()}");
+     
+      if (element.transactionType == "INCOME" ) {
+   
         todayMoneyIn = todayMoneyIn +( element.totalAmount-element.balance);
-      } else {
-        print("total amount is ${element.totalAmount} ${element.toJson()}");
+           print("today income value $todayMoneyIn");
+      } else if(element.transactionType=="EXPENDITURE") {
+       
         todayMoneyout =
             todayMoneyout + ( element.totalAmount-element.balance);
       }
+     
     });
+
     todayBalance = todayMoneyIn - todayMoneyout;
     income(todayMoneyIn*1.0);
     expenses(todayMoneyout*1.0);

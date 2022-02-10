@@ -34,8 +34,8 @@ class PdfTransactionApi {
         Divider(),
         buildTotal(transactionModel.businessTransactionPaymentItemList!),
         SizedBox(height: PdfPageFormat.cm),
-        buildSummaryTotal(transactionModel.businessTransactionPaymentItemList!,
-            transactionModel.totalAmount, transactionModel.balance),
+      (transactionModel.balance>0)?  buildSummaryTotal(transactionModel.businessTransactionPaymentItemList!,
+            transactionModel.totalAmount, transactionModel.balance):pw.Container(),
         SizedBox(height: 2 * PdfPageFormat.cm),
         buildFooter(customer)
       ],
