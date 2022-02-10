@@ -81,6 +81,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
+                          fontFamily: 'DMSans',
                           color: AppColor().backgroundColor),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
