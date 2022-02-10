@@ -143,6 +143,8 @@ class _DebtorsState extends State<Debtors> {
                                     children: [
                                       SvgPicture.asset(
                                         'assets/images/debtors.svg',
+                                        height: 50,
+                                        width: 50,
                                         color: AppColor().backgroundColor,
                                       ),
                                       Text(
