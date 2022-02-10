@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -15,6 +16,7 @@ import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+
 import '../../../colors.dart';
 import 'itemCard.dart';
 
@@ -45,9 +47,9 @@ class _MoneyOutState extends State<MoneyOut> {
 
   final paymentMode = ['FULLY_PAID', 'DEPOSIT'];
   final products = ['Shoe', 'Bag', 'Clothes'];
-  final customers = ['Customer 1', 'Customer 2', 'Customer 3'];
+  final customers = ['Merchant 1', 'Merchant 2', 'Merchant 3'];
   final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
- 
+
   String? value;
 
   String countryFlag = "NG";
@@ -561,7 +563,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   ],
                 ),
               ),
-               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
@@ -602,7 +604,8 @@ class _MoneyOutState extends State<MoneyOut> {
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: _transactionController.selectedCategoryExpenses,
+                          value:
+                              _transactionController.selectedCategoryExpenses,
                           icon: Icon(
                             Icons.keyboard_arrow_down,
                             color: AppColor().backgroundColor,
@@ -883,7 +886,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Add Customer',
+                      'Add Merchant',
                       style: TextStyle(
                           color: _transactionController.addCustomer == true
                               ? AppColor().backgroundColor
@@ -924,7 +927,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                             _transactionController
                                                 .customerType = 1)),
                                     Text(
-                                      'New Customer',
+                                      'New Merchant',
                                       style: TextStyle(
                                         color: AppColor().backgroundColor,
                                         fontFamily: "DMSans",
@@ -950,7 +953,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                             _transactionController
                                                 .customerType = 0)),
                                     Text(
-                                      'Existing Customer',
+                                      'Existing Merchant',
                                       style: TextStyle(
                                         color: AppColor().backgroundColor,
                                         fontFamily: "DMSans",
@@ -972,9 +975,9 @@ class _MoneyOutState extends State<MoneyOut> {
                                       _customerController.phoneNumberController,
                                   contactMail:
                                       _customerController.emailController,
-                                  label: "Customer name",
-                                  validatorText: "Customer name is needed",
-                                  hint: 'customer name',
+                                  label: "Merchant name",
+                                  validatorText: "Merchant name is needed",
+                                  hint: 'merchant name',
                                 )
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -982,7 +985,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                     Row(
                                       children: [
                                         Text(
-                                          'Select Customer',
+                                          'Select Merchant',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 12,
@@ -1053,12 +1056,14 @@ class _MoneyOutState extends State<MoneyOut> {
                       if (_transactionController.productList.isEmpty) {
                         _transactionController.addMoreProduct();
                       }
-                      
+
                       if (_transactionController.productList.isNotEmpty) {
                         if (_transactionController.selectedPaymentMode !=
                                 null &&
                             _transactionController.selectedPaymentSource !=
-                                null&& _transactionController.selectedCategoryExpenses!=null) {
+                                null &&
+                            _transactionController.selectedCategoryExpenses !=
+                                null) {
                           if (_transactionController.addCustomer) {
                             if (_transactionController.selectedCustomer !=
                                     null ||

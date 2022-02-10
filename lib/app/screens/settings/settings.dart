@@ -393,7 +393,7 @@ class _SettingsState extends State<Settings> {
                   InkWell(
                     onTap: () {
                       _displayDialog(
-                          context, "Are you sure you want to log out", () {
+                          context, "Are you sure you want to log out.?", () {
                         controller.logout();
                       });
                     },
@@ -639,6 +639,7 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                     ),
+                    SizedBox(width: 10),
                     InkWell(
                       onTap: () {
                         // controller.deleteUsersAccounts();
