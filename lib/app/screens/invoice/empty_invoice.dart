@@ -26,9 +26,9 @@ class _InvoiceState extends State<EmptyInvoice> {
             Text(
               "Manage Invoices",
               style: TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                   fontFamily: 'DMSans',
-                  fontSize: 24,
                   color: AppColor().backgroundColor),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -59,13 +59,14 @@ class _InvoiceState extends State<EmptyInvoice> {
                           children: [
                             SvgPicture.asset('assets/images/invoice.svg'),
                             Text(
-                              'Create an EmptyInvoice here',
+                              'Create an invoice here',
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black,
                                   fontFamily: 'DMSans',
                                   fontWeight: FontWeight.bold),
                             ),
+                            SizedBox(height: 10),
                             Text(
                               'Your invoices will show here. Click the',
                               style: TextStyle(
@@ -74,7 +75,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                                   fontFamily: 'DMSans'),
                             ),
                             Text(
-                              'Add invoice button to add your first invoice',
+                              'Create invoice button to add your first invoice',
                               style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.black,
@@ -100,7 +101,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                                         BorderRadius.all(Radius.circular(10))),
                                 child: Center(
                                   child: Text(
-                                    'Create EmptyInvoice',
+                                    'Create Invoice',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,

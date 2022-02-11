@@ -1,11 +1,13 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/app/screens/customers/customer_tabView.dart';
+import 'package:huzz/app/screens/invoice/empty_invoice.dart';
 import 'package:huzz/app/screens/more.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-
 import 'customers/customer_tabView.dart';
 import 'home/home.dart';
 import 'inventory/manage_inventory.dart';
@@ -27,6 +29,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int selectedIndex = 0;
   _DashboardState({required this.selectedIndex});
+  final _invoiceRepository = Get.find<InvoiceRespository>();
   // ignore: unused_element
   void _selectPage(int index) {
     setState(() {
@@ -101,7 +104,12 @@ class _DashboardState extends State<Dashboard> {
       case 2:
         return ManageInventory();
       case 3:
-        return AvailableInvoice();
+        return (_invoiceRepository.InvoicePendingList.length == 0 &&
+                _invoiceRepository.InvoiceDueList.length == 0 &&
+                _invoiceRepository.InvoiceDepositList.length == 0 &&
+                _invoiceRepository.paidInvoiceList.length == 0)
+            ? EmptyInvoice()
+            : AvailableInvoice();
       case 4:
       default:
         return More();

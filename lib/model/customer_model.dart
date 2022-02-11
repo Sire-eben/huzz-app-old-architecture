@@ -41,8 +41,7 @@ class Customer {
       isUpdatingPending: json['isAddingPending'] ?? false,
       isCreatedFromTransaction: json['isCreatedFromTransaction'] ?? false,
       isCreatedFromInvoice: json['isCreatedFromInvoice'] ?? false,
-      isCreatedFromDebtors: json['isCreatedFromDebtors']??false);
-      
+      isCreatedFromDebtors: json['isCreatedFromDebtors'] ?? false);
 
   Map<String, dynamic> toJson() => {
         "name": this.name,
@@ -62,7 +61,7 @@ class Customer {
         "isUpdatingPending": isUpdatingPending,
         "isCreatedFromTransaction": isCreatedFromTransaction,
         "isCreatedFromInvoice": isCreatedFromInvoice,
-        "isCreatedFromDebtors":isCreatedFromDebtors
+        "isCreatedFromDebtors": isCreatedFromDebtors
       };
 }
 

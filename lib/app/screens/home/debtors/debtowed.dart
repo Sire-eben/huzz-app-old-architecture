@@ -8,6 +8,7 @@ import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
+
 import '../../../../colors.dart';
 
 // ignore: must_be_immutable
@@ -106,9 +107,16 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
-                                          'assets/images/debtors.svg'),
+                                        'assets/images/add_debt_owned.svg',
+                                        height: 50,
+                                        width: 50,
+                                        color: AppColor().backgroundColor,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
-                                        'Add Debt Owed',
+                                        'Add Debt Owned',
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.black,

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
@@ -12,7 +11,6 @@ import 'package:huzz/model/product.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-
 import 'auth_respository.dart';
 import 'file_upload_respository.dart';
 import 'package:path/path.dart' as path;
@@ -35,11 +33,19 @@ class ProductRepository extends GetxController
   List<Product> get productServices => _productService.value;
   List<Product> get productGoods => _productGoods.value;
   Rx<dynamic> MproductImage = Rx(null);
-  dynamic get productImage=>MproductImage.value;
+  dynamic get productImage => MproductImage.value;
   SqliteDb sqliteDb = SqliteDb();
   final productNameController = TextEditingController();
-  final productCostPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',',precision: 1);
-  final productSellingPriceController = MoneyMaskedTextController(leftSymbol: 'NGN ',decimalSeparator: '.', thousandSeparator: ',',precision: 1);
+  final productCostPriceController = MoneyMaskedTextController(
+      leftSymbol: 'NGN ',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
+  final productSellingPriceController = MoneyMaskedTextController(
+      leftSymbol: 'NGN ',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
   final productQuantityController = TextEditingController();
   final productUnitController = TextEditingController();
   final serviceDescription = TextEditingController();
@@ -54,9 +60,9 @@ class ProductRepository extends GetxController
   List<Product> pendingToUpdatedProductToServer = [];
   List<Product> pendingToBeAddedProductToServer = [];
   List<Product> pendingDeletedProductToServer = [];
-  Rx<dynamic> _totalProduct=0.0.obs;
-  Rx<dynamic> _totalService=0.0.obs;
-  dynamic get totalProduct=> _totalProduct.value;
+  Rx<dynamic> _totalProduct = 0.0.obs;
+  Rx<dynamic> _totalService = 0.0.obs;
+  dynamic get totalProduct => _totalProduct.value;
   dynamic get totalService => _totalService.value;
   var uuid = Uuid();
   @override
@@ -105,14 +111,13 @@ class ProductRepository extends GetxController
       _addingProductStatus(AddingProductStatus.Loading);
       // ignore: avoid_init_to_null
       String? fileId = null;
-      if (productImage != null&&productImage!=Null) {
-        fileId =
-            await _uploadFileController.uploadFile(productImage!.path);
+      if (productImage != null && productImage != Null) {
+        fileId = await _uploadFileController.uploadFile(productImage!.path);
       }
       print("image link is $fileId");
       var response = await http.post(Uri.parse(ApiLink.add_product),
           body: jsonEncode({
-         "name": productNameController.text,
+            "name": productNameController.text,
             "costPrice": productCostPriceController.numberValue,
             "sellingPrice": productSellingPriceController.numberValue,
             "quantity": productQuantityController.text,
@@ -165,7 +170,7 @@ class ProductRepository extends GetxController
 
   Future addBusinessProductOffline(String type, String title) async {
     File? outFile;
-    if (productImage!= null&& productImage!=Null) {
+    if (productImage != null && productImage != Null) {
       var list = await getApplicationDocumentsDirectory();
 
       Directory appDocDir = list;
@@ -184,7 +189,7 @@ class ProductRepository extends GetxController
         productId: uuid.v1(),
         businessId: _businessController.selectedBusiness.value!.businessId!,
         productName: productNameController.text,
-        sellingPrice:productSellingPriceController.numberValue,
+        sellingPrice: productSellingPriceController.numberValue,
         costPrice: productCostPriceController.numberValue,
         quantity: int.parse(productQuantityController.text),
         productType: type,
@@ -203,7 +208,7 @@ class ProductRepository extends GetxController
   Future updateBusinessProductOffline(Product newproduct, String title) async {
     File? outFile;
     // ignore: unnecessary_null_comparison
-    if (productImage != null&&productImage!=Null) {
+    if (productImage != null && productImage != Null) {
       var list = await getApplicationDocumentsDirectory();
 
       Directory appDocDir = list;
@@ -217,7 +222,8 @@ class ProductRepository extends GetxController
       productImage!.copySync(outFile.path);
     }
     Product product = Product(
-      productNameChanged: (selectedProduct!.productName!.contains(productNameController.text)),
+        productNameChanged: (selectedProduct!.productName!
+            .contains(productNameController.text)),
         isUpdatingPending: true,
         productName: productNameController.text,
         sellingPrice: int.parse(productSellingPriceController.text),
@@ -250,15 +256,17 @@ class ProductRepository extends GetxController
       _addingProductStatus(AddingProductStatus.Loading);
       // ignore: avoid_init_to_null
       String? fileId = null;
-print("selling Product Price ${productSellingPriceController.numberValue}");
-      if (productImage != null&& productImage!=Null) {
-        fileId =
-            await _uploadFileController.uploadFile(productImage!.path);
+      print(
+          "selling Product Price ${productSellingPriceController.numberValue}");
+      if (productImage != null && productImage != Null) {
+        fileId = await _uploadFileController.uploadFile(productImage!.path);
       }
       var response = await http
           .put(Uri.parse(ApiLink.add_product + "/" + product.productId!),
               body: jsonEncode({
-                if(!selectedProduct!.productName!.contains(productNameController.text))  "name": productNameController.text,
+                if (!selectedProduct!.productName!
+                    .contains(productNameController.text))
+                  "name": productNameController.text,
                 "costPrice": productCostPriceController.numberValue,
                 "sellingPrice": productSellingPriceController.numberValue,
 // "quantity":productQuantityController.text,
@@ -299,7 +307,7 @@ print("selling Product Price ${productSellingPriceController.numberValue}");
     productSellingPriceController.text = product.sellingPrice.toString();
     productUnitController.text = "";
     serviceDescription.text = "";
-    selectedProduct=product;
+    selectedProduct = product;
   }
 
   Future getOfflineProduct(String businessId) async {
@@ -363,14 +371,14 @@ print("selling Product Price ${productSellingPriceController.numberValue}");
   Future setProductDifferent() async {
     List<Product> goods = [];
     List<Product> services = [];
-    dynamic totalproduct=0.0;
-    dynamic totalservice=0.0;
+    dynamic totalproduct = 0.0;
+    dynamic totalservice = 0.0;
     offlineBusinessProduct.forEach((element) {
       if (element.productType == "SERVICES") {
         services.add(element);
-        totalservice=totalservice+element.costPrice;
+        totalservice = totalservice + element.costPrice;
       } else {
-        totalproduct=totalproduct+element.costPrice;
+        totalproduct = totalproduct + element.costPrice;
         goods.add(element);
       }
     });
@@ -442,7 +450,6 @@ print("selling Product Price ${productSellingPriceController.numberValue}");
         headers: {"Authorization": "Bearer ${_userController.token}"});
     print("delete response ${response.body}");
     if (response.statusCode == 200) {
-  
     } else {}
     _businessController.sqliteDb.deleteProduct(product);
     await getOfflineProduct(product.businessId!);
@@ -464,7 +471,7 @@ print("selling Product Price ${productSellingPriceController.numberValue}");
     } else {
       _businessController.sqliteDb.deleteProduct(product);
     }
-   
+
     getOfflineProduct(_businessController.selectedBusiness.value!.businessId!);
   }
 
@@ -495,7 +502,7 @@ print("selling Product Price ${productSellingPriceController.numberValue}");
       deleteSelectedItem();
     }
 
-   await getOfflineProduct(deletenext.businessId!);
+    await getOfflineProduct(deletenext.businessId!);
   }
 
   void addToDeleteList(Product product) {
@@ -557,15 +564,15 @@ print("selling Product Price ${productSellingPriceController.numberValue}");
 
       if (savenext.productLogoFileStoreId != null &&
           savenext.productLogoFileStoreId != '') {
-            if(File(savenext.productLogoFileStoreId!).existsSync()){
-        String image = await _uploadImageController
-            .uploadFile(savenext.productLogoFileStoreId!);
+        if (File(savenext.productLogoFileStoreId!).existsSync()) {
+          String image = await _uploadImageController
+              .uploadFile(savenext.productLogoFileStoreId!);
 
-        File _file = File(savenext.productLogoFileStoreId!);
-        savenext.productLogoFileStoreId = image;
-        _file.deleteSync();
+          File _file = File(savenext.productLogoFileStoreId!);
+          savenext.productLogoFileStoreId = image;
+          _file.deleteSync();
+        }
       }
-    }
       var response = await http.post(Uri.parse(ApiLink.add_product),
           body: jsonEncode(savenext.toJson()),
           headers: {
@@ -599,26 +606,24 @@ print("selling Product Price ${productSellingPriceController.numberValue}");
     }
     pendingToUpdatedProductToServer.forEach((element) async {
       var updatenext = element;
- String? fileId;
- if(updatenext.productLogoFileStoreId!=null && !updatenext.productLogoFileStoreId!.contains("https://")){
+      String? fileId;
+      if (updatenext.productLogoFileStoreId != null &&
+          !updatenext.productLogoFileStoreId!.contains("https://")) {}
 
-
- }
-
-      var response = await http.put(
-          Uri.parse(ApiLink.add_product + "/" + updatenext.productId!),
-          body: jsonEncode({
-
-  if(!updatenext.productNameChanged!)  "name": productNameController.text,
-                "costPrice":updatenext.costPrice,
+      var response = await http
+          .put(Uri.parse(ApiLink.add_product + "/" + updatenext.productId!),
+              body: jsonEncode({
+                if (!updatenext.productNameChanged!)
+                  "name": productNameController.text,
+                "costPrice": updatenext.costPrice,
                 "sellingPrice": updatenext.sellingPrice,
 // "quantity":productQuantityController.text,
-                "businessId":updatenext.businessId,
+                "businessId": updatenext.businessId,
                 "productType": updatenext.productType,
-                "productLogoFileStoreUrl": fileId??updatenext.productLogoFileStoreId
-
-          }),
-          headers: {
+                "productLogoFileStoreUrl":
+                    fileId ?? updatenext.productLogoFileStoreId
+              }),
+              headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });

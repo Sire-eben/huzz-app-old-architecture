@@ -599,7 +599,7 @@ class _RecordsState extends State<Records> {
                         ),
                       ),
                       Text(
-                        'MONEY OUT (N)',
+                        'MONEY OUT(N)',
                         style: TextStyle(
                           color: AppColor().backgroundColor,
                           fontFamily: 'DMSans',
@@ -608,7 +608,7 @@ class _RecordsState extends State<Records> {
                         ),
                       ),
                       Text(
-                        'MONEY IN (N)',
+                        'MONEY IN(N)',
                         style: TextStyle(
                           color: AppColor().backgroundColor,
                           fontFamily: 'DMSans',
@@ -622,9 +622,10 @@ class _RecordsState extends State<Records> {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Obx(() {
-                print("record size is ${transactionController.allExpenditureHoursData.length}");
-                return (transactionController.recordMoneyIn==0 &&
-                        transactionController.recordMoneyOut==0)
+                print(
+                    "record size is ${transactionController.allExpenditureHoursData.length}");
+                return (transactionController.recordMoneyIn == 0 &&
+                        transactionController.recordMoneyOut == 0)
                     ? Expanded(
                         child: Center(
                           child: Column(

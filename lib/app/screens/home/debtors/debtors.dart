@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, body_might_complete_normally_nullable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -142,7 +142,14 @@ class _DebtorsState extends State<Debtors> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
-                                          'assets/images/debtors.svg'),
+                                        'assets/images/add_debt_owned.svg',
+                                        height: 50,
+                                        width: 50,
+                                        color: AppColor().backgroundColor,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       Text(
                                         'Add Debtors',
                                         style: TextStyle(

@@ -400,7 +400,7 @@ radius: 50,
                   InkWell(
                     onTap: () {
                       _displayDialog(
-                          context, "Are you sure you want to log out", () {
+                          context, "Are you sure you want to log out.?", () {
                         controller.logout();
                       });
                     },
@@ -664,6 +664,7 @@ radius: 50,
                         ),
                       ),
                     ),
+                    SizedBox(width: 10),
                     InkWell(
                       onTap: () {
                         // controller.deleteUsersAccounts();
