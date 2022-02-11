@@ -264,6 +264,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         ),
                         Expanded(
                           child: TextFormField(
+                            enabled: false,
                             controller:
                                 businessController.businessPhoneNumber,
                             decoration: InputDecoration(

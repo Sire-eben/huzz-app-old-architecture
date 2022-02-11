@@ -56,8 +56,11 @@ class _RecordsState extends State<Records> {
     _SalesData('7pm', 40),
     _SalesData('8pm', 32)
   ];
-  final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+   final display = createDisplay(
+    roundingType: RoundingType.floor,
+    length: 15,
+    decimal: 5,
+  );
 
   Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
     final initialDateRange = DateTimeRange(

@@ -8,6 +8,7 @@ class User {
   String? signatureImageFileStoreId;
   String? profileImageFileStoreId;
   List<Business>? businessList;
+  String? profileImageFileStoreUrl;
 
   User(
       {this.firstName,
@@ -16,13 +17,16 @@ class User {
       this.email,
       this.signatureImageFileStoreId,
       this.profileImageFileStoreId,
-      this.businessList});
+      this.businessList,
+      this.profileImageFileStoreUrl
+      });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
       firstName: json['user']['firstName'],
       lastName: json['user']['lastName'],
       phoneNumber: json['user']['phoneNumber'],
       email: json['user']['email'],
+      profileImageFileStoreUrl: json['user']['profileImageFileStoreUrl']??"",
       signatureImageFileStoreId:
           json['user']['signatureImageFileStoreId'] == null
               ? ""
@@ -41,6 +45,7 @@ class User {
         lastName: json['lastName'],
         phoneNumber: json['phoneNumber'],
         email: json['email'],
+        profileImageFileStoreUrl:json['profileImageFileStoreUrl']??"",
         signatureImageFileStoreId: json['signatureImageFileStoreId'] == null
             ? ""
             : json['signatureImageFileStoreId'],
@@ -56,6 +61,7 @@ class User {
           "lastName": lastName,
           "phoneNumber": phoneNumber,
           "email": email,
+          "profileImageFileStoreUrl":profileImageFileStoreUrl,
           "profileImageFileStoreId": profileImageFileStoreId,
           "signatureImageFileStoreId": signatureImageFileStoreId,
         },

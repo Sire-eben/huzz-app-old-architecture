@@ -451,7 +451,7 @@ class AuthRepository extends GetxController {
       _signinStatus(SigninStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.signin_user),
           body: jsonEncode({
-            "phoneNumber": countryText + phoneNumberController.text,
+            "phoneNumber": countryText + phoneNumberController.text.trim(),
             "pin": pinController.text
           }),
           headers: {"Content-Type": "application/json"});
