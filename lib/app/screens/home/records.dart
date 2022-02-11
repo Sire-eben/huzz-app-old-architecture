@@ -460,7 +460,7 @@ class _RecordsState extends State<Records> {
                         ),
                         SizedBox(width: 5),
                         Text(
-                          '${transactionController.value.value}',
+                         (transactionController.value.value.contains("Custom date range")) ?transactionController.customText:'${transactionController.value.value}',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',

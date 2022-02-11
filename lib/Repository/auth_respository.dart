@@ -292,7 +292,7 @@ try{
           body: jsonEncode({
         
             // "profileImageFileStoreId": imageId,
-            "imageUrl":imageId
+            "profileImageUrl":imageId
             // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
           headers: {
