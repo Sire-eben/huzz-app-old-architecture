@@ -228,10 +228,10 @@ class DailyRecordPdfApi {
     return PdfRecordApi.saveDocument(name: 'my_Record.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(TransactionRespository transactionRespository) => Container(
+ static Widget buildHeader(TransactionRespository transactionRespository) => Container(
         padding: EdgeInsets.all(20),
         child: Center(
-            child: Text('YOUR TRANSACTIONS(${transactionRespository.value.value})',
+            child: Text('YOUR TRANSACTIONS ( ${(transactionRespository.value.contains("Custom date range"))?transactionRespository.customText:transactionRespository.value.value} )',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: PdfColors.black,

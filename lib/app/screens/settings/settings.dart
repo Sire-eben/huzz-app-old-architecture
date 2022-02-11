@@ -35,6 +35,7 @@ class _SettingsState extends State<Settings> {
   void initState() {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
+    print("user json ${controller.user!.toJson()}");
     super.initState();
   }
 
@@ -89,7 +90,7 @@ class _SettingsState extends State<Settings> {
                         controller.profileImage.value!,
                      
                       ))
-                    : (controller.user!.profileImageFileStoreId!.isEmpty)
+                    : (controller.user!.profileImageFileStoreUrl!.isEmpty)
                         ? 
                         CircleAvatar(
 radius: 50,
@@ -99,7 +100,7 @@ radius: 50,
                         :CircleAvatar(
                 radius: 50.0,
                 backgroundImage:
-                    NetworkImage("${ controller.user!.profileImageFileStoreId!}"),
+                    NetworkImage("${ controller.user!.profileImageFileStoreUrl!}"),
                 backgroundColor: Colors.transparent,
               )
                         

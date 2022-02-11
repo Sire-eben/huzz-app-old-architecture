@@ -201,8 +201,8 @@ class BusinessRespository extends GetxController {
               "name": businessName.text,
               "address": businessAddressController.text,
               "businessCategory": selectedCategory.value,
-              "phoneNumber": businessPhoneNumber.text,
-              "email": businessEmail.text,
+              "phoneNumber": businessPhoneNumber.text.trim(),
+              "email": businessEmail.text.trim(),
               "currency": currency,
               "buisnessLogoFileStoreId": null,
               "yearFounded": "",
@@ -227,7 +227,7 @@ class BusinessRespository extends GetxController {
 
           _createBusinessStatus(CreateBusinessStatus.Success);
 
-          Get.off(() => Dashboard());
+          Get.offAll(() => Dashboard());
         } else {}
       } else {
         _createBusinessStatus(CreateBusinessStatus.Error);
@@ -258,8 +258,8 @@ class BusinessRespository extends GetxController {
             {
               "name": businessName.text,
               "address": businessAddressController.text,
-              "phoneNumber": businessPhoneNumber.text,
-              "email": businessEmail.text,
+              "phoneNumber": businessPhoneNumber.text.trim(),
+              "email": businessEmail.text.trim(),
               "buisnessLogoFileStoreId": imageId,
               "currency": selectedCurrency,
             },

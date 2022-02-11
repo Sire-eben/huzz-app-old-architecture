@@ -289,7 +289,7 @@ class AuthRepository extends GetxController {
       final resposne = await http.put(Uri.parse(ApiLink.update_profile),
           body: jsonEncode({
             // "profileImageFileStoreId": imageId,
-            "imageUrl": imageId
+            "profileImageUrl":imageId
             // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
           headers: {
@@ -451,7 +451,7 @@ class AuthRepository extends GetxController {
       _signinStatus(SigninStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.signin_user),
           body: jsonEncode({
-            "phoneNumber": countryText + phoneNumberController.text,
+            "phoneNumber": countryText + phoneNumberController.text.trim(),
             "pin": pinController.text
           }),
           headers: {"Content-Type": "application/json"});
@@ -477,7 +477,7 @@ class AuthRepository extends GetxController {
         if (user.businessList!.isEmpty) {
           Get.off(() => CreateBusiness());
         } else {
-          Get.off(() => Dashboard());
+          Get.offAll(() => Dashboard());
         }
       } else if (response.statusCode == 401) {
         Get.snackbar("Login Error", "Invalid Crediential ");

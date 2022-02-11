@@ -57,6 +57,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                       top: 40,
                       child: GestureDetector(
                         onTap: () {
+                            _authController.pref!.setFirstTimeOpen(false);
                           Get.to(RegHome());
                         },
                         child: Text(
