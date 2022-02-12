@@ -893,7 +893,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 //       _customerRepository.amountController,
                                 // ),
                                 CustomTextFieldInvoiceOptional(
-                                  label: 'Total Amount',
+                                  label: 'Amount you owe',
                                   keyType: TextInputType.number,
                                   textEditingController:
                                       _debtorRepository.totalAmountController,
