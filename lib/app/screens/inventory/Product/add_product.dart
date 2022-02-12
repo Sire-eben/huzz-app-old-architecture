@@ -211,7 +211,7 @@ class _AddProductState extends State<AddProduct> {
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            hintText: '₦ 0.00',
+                            hintText: 'N 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       fontFamily: 'DMSans',
@@ -281,7 +281,7 @@ class _AddProductState extends State<AddProduct> {
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            hintText: '₦ 0.00',
+                            hintText: 'N 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       fontFamily: 'DMSans',

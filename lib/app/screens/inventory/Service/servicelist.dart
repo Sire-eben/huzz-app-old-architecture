@@ -21,7 +21,7 @@ class _ServiceListingState extends State<ServiceListing> {
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   bool isDelete = false;
   String searchtext = "";
   List<Product> searchResult = [];
@@ -198,14 +198,16 @@ class _ServiceListingState extends State<ServiceListing> {
                                 item: item,
                               )
                             : GestureDetector(
-                              onTap: (){
-                                _productController.setItem(item);
-                                  Get.to(AddService(item: item,));
-                              },
-                              child: ListingServices(
+                                onTap: () {
+                                  _productController.setItem(item);
+                                  Get.to(AddService(
+                                    item: item,
+                                  ));
+                                },
+                                child: ListingServices(
                                   item: item,
                                 ),
-                            );
+                              );
                       })
                   : Container(
                       child: Center(
@@ -454,7 +456,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "₦${display(_productController.totalService)}",
+                        "N${display(_productController.totalService)}",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
@@ -593,7 +595,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                   width: 150,
                                 ),
                                 Text(
-                                  '₦20,000',
+                                  'N20,000',
                                   style: TextStyle(
                                     color: AppColor().blackColor,
                                     fontFamily: 'DMSans',
@@ -680,7 +682,7 @@ class _ServiceListingState extends State<ServiceListing> {
                               color: AppColor().backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       // labelText: label,
-                      hintText: '₦ 0.00',
+                      hintText: 'N 0.00',
                       hintStyle:
                           Theme.of(context).textTheme.headline4!.copyWith(
                                 fontFamily: 'DMSans',
@@ -785,15 +787,15 @@ class _ListingServicesState extends State<ListingServices> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 widget.item!.productLogoFileStoreId == null ||
-                    widget.item!.productLogoFileStoreId!.isEmpty
-                ? Image.asset(
-                    "assets/images/Rectangle 1015.png",
-                    height: 50,
-                  )
-                : Image.network(
-                   widget.item!.productLogoFileStoreId!,
-                    height: 50,
-                  ),
+                        widget.item!.productLogoFileStoreId!.isEmpty
+                    ? Image.asset(
+                        "assets/images/Rectangle 1015.png",
+                        height: 50,
+                      )
+                    : Image.network(
+                        widget.item!.productLogoFileStoreId!,
+                        height: 50,
+                      ),
                 SizedBox(
                   width: 15,
                 ),
@@ -803,7 +805,9 @@ class _ListingServicesState extends State<ListingServices> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -817,7 +821,7 @@ class _ListingServicesState extends State<ListingServices> {
                             ),
                           ),
                           Text(
-                            '₦${display(widget.item!.costPrice!)}',
+                            'N${display(widget.item!.costPrice!)}',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -876,7 +880,6 @@ class ListingServicesDelete extends StatefulWidget {
 }
 
 class _ListingServicesDeleteState extends State<ListingServicesDelete> {
- 
   final display = createDisplay(
     length: 8,
     decimal: 0,
@@ -884,139 +887,137 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
   final _productController = Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-     () {
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
+    return Obx(() {
+      return Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 10,
+              ),
+              height: MediaQuery.of(context).size.height * 0.12,
+              decoration: BoxDecoration(
+                color: Color(0xffF5F5F5),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: Color(0xffC3C3C3),
                 ),
-                height: MediaQuery.of(context).size.height * 0.12,
-                decoration: BoxDecoration(
-                  color: Color(0xffF5F5F5),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: Color(0xffC3C3C3),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  widget.item!.productLogoFileStoreId == null ||
+                          widget.item!.productLogoFileStoreId!.isEmpty
+                      ? Image.asset(
+                          "assets/images/Rectangle 1015.png",
+                          height: 50,
+                        )
+                      : Image.network(
+                          widget.item!.productLogoFileStoreId!,
+                          height: 50,
+                        ),
+                  SizedBox(
+                    width: 20,
                   ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    widget.item!.productLogoFileStoreId == null ||
-                    widget.item!.productLogoFileStoreId!.isEmpty
-                ? Image.asset(
-                    "assets/images/Rectangle 1015.png",
-                    height: 50,
-                  )
-                : Image.network(
-                   widget.item!.productLogoFileStoreId!,
-                    height: 50,
-                  ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      flex: 5,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                widget.item!.productName!,
-                                style: TextStyle(
-                                  color: AppColor().blackColor,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                'N${display(widget.item!.costPrice!)}',
-                                style: TextStyle(
-                                  color: AppColor().blackColor,
-                                  fontFamily: 'DMSans',
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 3,
-                          ),
-                          Expanded(
-                            child: Text(
-                              "${widget.item!.description}",
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.item!.productName!,
                               style: TextStyle(
                                 color: AppColor().blackColor,
                                 fontFamily: 'DMSans',
-                                fontSize: 9,
-                                fontWeight: FontWeight.normal,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        if (_productController
-                            .checkifSelectedForDelted(widget.item!.productId!)) {
-                          _productController.removeFromDeleteList(widget.item!);
-                        } else {
-                          _productController.addToDeleteList(widget.item!);
-                        }
-                        setState(() {});
-                      },
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 200),
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: _productController
-                                  .checkifSelectedForDelted(widget.item!.productId!)
-                              ? AppColor().orangeBorderColor
-                              : AppColor().whiteColor,
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Color(0xffEF6500),
+                            Text(
+                              'N${display(widget.item!.costPrice!)}',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Expanded(
+                          child: Text(
+                            "${widget.item!.description}",
+                            style: TextStyle(
+                              color: AppColor().blackColor,
+                              fontFamily: 'DMSans',
+                              fontSize: 9,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
                         ),
-                        child: Visibility(
-                          visible: _productController
-                              .checkifSelectedForDelted(widget.item!.productId!),
-                          child: Icon(
-                            Icons.check,
-                            size: 15,
-                            color: _productController.checkifSelectedForDelted(
-                                    widget.item!.productId!)
-                                ? AppColor().whiteColor
-                                : AppColor().orangeBorderColor,
-                          ),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (_productController
+                          .checkifSelectedForDelted(widget.item!.productId!)) {
+                        _productController.removeFromDeleteList(widget.item!);
+                      } else {
+                        _productController.addToDeleteList(widget.item!);
+                      }
+                      setState(() {});
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: _productController.checkifSelectedForDelted(
+                                widget.item!.productId!)
+                            ? AppColor().orangeBorderColor
+                            : AppColor().whiteColor,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Color(0xffEF6500),
+                        ),
+                      ),
+                      child: Visibility(
+                        visible: _productController
+                            .checkifSelectedForDelted(widget.item!.productId!),
+                        child: Icon(
+                          Icons.check,
+                          size: 15,
+                          color: _productController.checkifSelectedForDelted(
+                                  widget.item!.productId!)
+                              ? AppColor().whiteColor
+                              : AppColor().orangeBorderColor,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 20,
-              )
-            ],
-          ),
-        );
-      }
-    );
+            ),
+            SizedBox(
+              height: 20,
+            )
+          ],
+        ),
+      );
+    });
   }
 }

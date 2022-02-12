@@ -511,16 +511,18 @@ class _SettingsState extends State<Settings> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     (controller.profileImage.value != null)
-                        ? CircleAvatar(
-                            radius: 80,
-                            backgroundImage: FileImage(
-                              controller.profileImage.value!,
-                            ))
-                        : CircleAvatar(
-                            radius: 80,
-                            child: SvgPicture.asset(
-                              'assets/images/camera.svg',
-                            ),
+                        ? Container(
+                            height: 80,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: FileImage(
+                                  controller.profileImage.value!,
+                                ))),
+                          )
+                        : SvgPicture.asset(
+                            'assets/images/camera.svg',
+                            height: 80,
                           ),
                   ],
                 ),

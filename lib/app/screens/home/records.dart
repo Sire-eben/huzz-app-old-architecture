@@ -175,7 +175,7 @@ class _RecordsState extends State<Records> {
                               ),
                             ),
                             Text(
-                              "₦${display(transactionController.recordMoneyIn)}",
+                              "N${display(transactionController.recordMoneyIn)}",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
@@ -204,7 +204,7 @@ class _RecordsState extends State<Records> {
                               ),
                             ),
                             Text(
-                              "₦${display(transactionController.recordBalance)}",
+                              "N${display(transactionController.recordBalance)}",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
@@ -233,7 +233,7 @@ class _RecordsState extends State<Records> {
                               ),
                             ),
                             Text(
-                              "₦${display(transactionController.recordMoneyOut)}",
+                              "N${display(transactionController.recordMoneyOut)}",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
@@ -265,7 +265,7 @@ class _RecordsState extends State<Records> {
                         ),
                         SizedBox(width: 2),
                         Text(
-                          'Money Out (₦)',
+                          'Money Out (N)',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
@@ -287,7 +287,7 @@ class _RecordsState extends State<Records> {
                         ),
                         SizedBox(width: 2),
                         Text(
-                          'Money in (₦)',
+                          'Money in (N)',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
@@ -386,9 +386,9 @@ class _RecordsState extends State<Records> {
                     // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                     return SfCartesianChart(
                         primaryYAxis: NumericAxis(
-                          // labelFormat: "₦"
+                          // labelFormat: "N"
                           axisLabelFormatter: (s) => ChartAxisLabel(
-                              "₦${display(s.value)}", TextStyle(fontSize: 10)),
+                              "N${display(s.value)}", TextStyle(fontSize: 10)),
                         ),
                         primaryXAxis: CategoryAxis(),
                         onTooltipRender: (s) {
@@ -594,31 +594,43 @@ class _RecordsState extends State<Records> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'DATE',
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontFamily: 'DMSans',
-                          fontSize: 9,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          'DATE',
+                          style: TextStyle(
+                            color: AppColor().backgroundColor,
+                            fontFamily: 'DMSans',
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                      Text(
-                        'MONEY OUT(₦)',
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontFamily: 'DMSans',
-                          fontSize: 9,
-                          fontWeight: FontWeight.w400,
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'MONEY OUT(N)',
+                            style: TextStyle(
+                              color: AppColor().backgroundColor,
+                              fontFamily: 'DMSans',
+                              fontSize: 9,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
                         ),
                       ),
-                      Text(
-                        'MONEY IN(₦)',
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontFamily: 'DMSans',
-                          fontSize: 9,
-                          fontWeight: FontWeight.w400,
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            'MONEY IN(N)',
+                            style: TextStyle(
+                              color: AppColor().backgroundColor,
+                              fontFamily: 'DMSans',
+                              fontSize: 9,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -700,29 +712,46 @@ class _RecordsState extends State<Records> {
                                               width: 2,
                                               color: Colors.grey
                                                   .withOpacity(0.1))),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                item1.label,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
-                                                    fontSize: 10,
-                                                    color:
-                                                        AppColor().blackColor),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
                                                 children: [
                                                   Text(
-                                                    "₦ ${display(item1.value)}",
+                                                    item1.label,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'DMSans',
+                                                        fontSize: 10,
+                                                        color: AppColor()
+                                                            .blackColor),
+                                                  ),
+                                                  Text(
+                                                    '',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'DMSans',
+                                                        fontSize: 10,
+                                                        color: AppColor()
+                                                            .backgroundColor),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    "N${display(item1.value)}",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -731,27 +760,48 @@ class _RecordsState extends State<Records> {
                                                         color: AppColor()
                                                             .orangeBorderColor),
                                                   ),
+                                                  Text(
+                                                    '',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'DMSans',
+                                                        fontSize: 10,
+                                                        color: AppColor()
+                                                            .backgroundColor),
+                                                  ),
                                                 ],
                                               ),
-                                              Text(
-                                                "₦ ${display(item2.value)}",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
-                                                    fontSize: 10,
-                                                    color:
-                                                        AppColor().blueColor),
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                          Text(
-                                            'View',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'DMSans',
-                                                fontSize: 10,
-                                                color:
-                                                    AppColor().backgroundColor),
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    "N${display(item2.value)}",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'DMSans',
+                                                        fontSize: 10,
+                                                        color: AppColor()
+                                                            .blueColor),
+                                                  ),
+                                                  Text(
+                                                    'View',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: 'DMSans',
+                                                        fontSize: 10,
+                                                        color: AppColor()
+                                                            .backgroundColor),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -897,7 +947,7 @@ class _RecordsState extends State<Records> {
                                 color: AppColor().blackColor),
                           ),
                           Text(
-                            "₦ ${display(item2.value)}",
+                            "N ${display(item2.value)}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'DMSans',
@@ -967,7 +1017,7 @@ class _RecordsState extends State<Records> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "₦${display(item.totalAmount)}",
+                                  "N${display(item.totalAmount)}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'DMSans',

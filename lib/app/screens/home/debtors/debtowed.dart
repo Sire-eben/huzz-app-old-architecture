@@ -8,7 +8,6 @@ import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
-
 import '../../../../colors.dart';
 
 // ignore: must_be_immutable
@@ -42,7 +41,7 @@ class _DebtOwnedState extends State<DebtOwned> {
   String? value = "Pending";
 
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
   @override
@@ -247,7 +246,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               FontWeight.w400),
                                                     ),
                                                     Text(
-                                                      "Paid: ₦${display((item.totalAmount! - item.balance!))}",
+                                                      "Paid: N${display((item.totalAmount! - item.balance!))}",
                                                       style: TextStyle(
                                                           fontSize: 11,
                                                           fontFamily: 'DMSans',
@@ -553,7 +552,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   // labelText: label,
-                                  hintText: '₦ 0.00',
+                                  hintText: 'N 0.00',
 
                                   hintStyle: Theme.of(context)
                                       .textTheme
@@ -820,18 +819,11 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   validatorText: "Phone number is needed",
                                 ),
                                 CustomTextFieldInvoiceOptional(
-                                  label: 'Balance',
-                                  keyType: TextInputType.number,
-                                  textEditingController:
-                                      _debtorRepository.amountController,
-                                  validatorText: "Balance is needed",
-                                ),
-                                CustomTextFieldInvoiceOptional(
-                                  label: 'Total Amount',
+                                  label: 'Amount you owe',
                                   keyType: TextInputType.number,
                                   textEditingController:
                                       _debtorRepository.totalAmountController,
-                                  validatorText: "Total Amount is needed",
+                                  validatorText: "Amount you owe is needed",
                                 ),
                               ],
                             )
@@ -894,12 +886,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     ),
                                   ),
                                 ),
-                                CustomTextFieldInvoiceOptional(
-                                  label: 'Balance',
-                                  keyType: TextInputType.number,
-                                  textEditingController:
-                                      _customerRepository.amountController,
-                                ),
+                                // CustomTextFieldInvoiceOptional(
+                                //   label: 'Balance',
+                                //   keyType: TextInputType.number,
+                                //   textEditingController:
+                                //       _customerRepository.amountController,
+                                // ),
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Total Amount',
                                   keyType: TextInputType.number,
@@ -1342,7 +1334,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   // labelText: label,
-                                  hintText: '₦ 0.00',
+                                  hintText: 'N 0.00',
 
                                   hintStyle: Theme.of(context)
                                       .textTheme

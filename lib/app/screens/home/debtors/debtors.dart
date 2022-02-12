@@ -458,11 +458,11 @@ class _DebtorsState extends State<Debtors> {
                                   //   validatorText: "Balance is needed",
                                   // ),
                                   CustomTextFieldInvoiceOptional(
-                                    label: 'Amount Paid',
+                                    label: 'Amount Owned',
                                     keyType: TextInputType.number,
                                     textEditingController:
                                         _debtorController.totalAmountController,
-                                    validatorText: "Amount Paid is needed",
+                                    validatorText: "Amount Owned is needed",
                                   ),
                                 ],
                               )
@@ -526,14 +526,8 @@ class _DebtorsState extends State<Debtors> {
                                       ),
                                     ),
                                   ),
-                                  // CustomTextFieldInvoiceOptional(
-                                  //   label: 'Balance',
-                                  //   keyType: TextInputType.number,
-                                  //   textEditingController:
-                                  //       _debtorController.amountController,
-                                  // ),
                                   CustomTextFieldInvoiceOptional(
-                                    label: 'Total Amount',
+                                    label: 'Amount Owned',
                                     keyType: TextInputType.number,
                                     textEditingController:
                                         _debtorController.totalAmountController,
@@ -699,7 +693,7 @@ class _DebtorListingState extends State<DebtorListing> {
   late String? firstName;
   late String? businessName;
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   final users = Rx(User());
   User? get usersData => users.value;
 
@@ -721,14 +715,14 @@ class _DebtorListingState extends State<DebtorListing> {
       return Container();
     }
     initialText =
-        "Dear ${customer.name!}, you have an outstanding payment of ₦${display(widget.item!.balance!)} for your purchase at  ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+        "Dear ${customer.name!}, you have an outstanding payment of N${display(widget.item!.balance!)} for your purchase at  ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
     // ignore: unnecessary_null_comparison
     if (customer == null) {
       return Container();
     }
     initialText =
-        "Dear ${customer.name!}, you have an outstanding payment of ₦${display(widget.item!.balance!)} for your purchase at ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+        "Dear ${customer.name!}, you have an outstanding payment of N${display(widget.item!.balance!)} for your purchase at ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
     // ignore: unnecessary_null_comparison
     return customer == null
@@ -1202,7 +1196,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   // labelText: label,
-                                  hintText: '₦ 0.00',
+                                  hintText: 'N 0.00',
 
                                   hintStyle: Theme.of(context)
                                       .textTheme

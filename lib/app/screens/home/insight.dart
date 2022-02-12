@@ -26,7 +26,7 @@ class _InsightState extends State<Insight> {
     'Custom date range'
   ];
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
 
   Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
     final initialDateRange = DateTimeRange(
@@ -152,7 +152,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 20),
                           Text(
-                            'Insight',
+                            'Insights',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
                               fontFamily: "DMSans",
@@ -249,7 +249,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money Out(₦)',
+                            'Money Out(N)',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -271,7 +271,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money in(₦)',
+                            'Money in(N)',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -302,9 +302,9 @@ class _InsightState extends State<Insight> {
                           legend: Legend(isVisible: false),
                           primaryXAxis: CategoryAxis(),
                           primaryYAxis: NumericAxis(
-                            // labelFormat: "₦"
+                            // labelFormat: "N"
                             axisLabelFormatter: (s) => ChartAxisLabel(
-                                "₦${display(s.value)}",
+                                "N${display(s.value)}",
                                 TextStyle(fontSize: 10)),
                           ),
 
