@@ -194,7 +194,7 @@ class _ServiceListingState extends State<ServiceListing> {
                             ? _productController.productServices[index]
                             : searchResult[index];
                         return (isDelete)
-                            ? ListingProductDelete(
+                            ? ListingServicesDelete(
                                 item: item,
                               )
                             : ListingServices(
@@ -778,14 +778,16 @@ class _ListingServicesState extends State<ListingServices> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: Image.asset(
+                widget.item!.productLogoFileStoreId == null ||
+                    widget.item!.productLogoFileStoreId!.isEmpty
+                ? Image.asset(
                     "assets/images/Rectangle 1015.png",
-                    height: 70,
-                    width: 70,
+                    height: 50,
+                  )
+                : Image.network(
+                   widget.item!.productLogoFileStoreId!,
+                    height: 50,
                   ),
-                ),
                 SizedBox(
                   width: 15,
                 ),
@@ -795,6 +797,7 @@ class _ListingServicesState extends State<ListingServices> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(height: 10,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -823,7 +826,7 @@ class _ListingServicesState extends State<ListingServices> {
                       ),
                       Expanded(
                         child: Text(
-                          "Description",
+                          "${widget.item!.description}",
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
@@ -866,8 +869,8 @@ class ListingServicesDelete extends StatefulWidget {
   _ListingServicesDeleteState createState() => _ListingServicesDeleteState();
 }
 
-class _ListingServicesDeleteState extends State<ListingServices> {
-  ProductModels? products;
+class _ListingServicesDeleteState extends State<ListingServicesDelete> {
+ 
   final display = createDisplay(
     length: 8,
     decimal: 0,
@@ -875,133 +878,139 @@ class _ListingServicesDeleteState extends State<ListingServices> {
   final _productController = Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 10,
-            ),
-            height: MediaQuery.of(context).size.height * 0.12,
-            decoration: BoxDecoration(
-              color: Color(0xffF5F5F5),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: Color(0xffC3C3C3),
-              ),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Image.asset(
-                    "assets/images/Rectangle 1015.png",
-                    height: 70,
-                    width: 70,
+    return Obx(
+     () {
+        return Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 10,
+                ),
+                height: MediaQuery.of(context).size.height * 0.12,
+                decoration: BoxDecoration(
+                  color: Color(0xffF5F5F5),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: Color(0xffC3C3C3),
                   ),
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    widget.item!.productLogoFileStoreId == null ||
+                    widget.item!.productLogoFileStoreId!.isEmpty
+                ? Image.asset(
+                    "assets/images/Rectangle 1015.png",
+                    height: 50,
+                  )
+                : Image.network(
+                   widget.item!.productLogoFileStoreId!,
+                    height: 50,
+                  ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            widget.item!.productName!,
-                            style: TextStyle(
-                              color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                widget.item!.productName!,
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'N${display(widget.item!.costPrice!)}',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'DMSans',
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            'N${display(widget.item!.costPrice!)}',
-                            style: TextStyle(
-                              color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
+                          SizedBox(
+                            height: 3,
+                          ),
+                          Expanded(
+                            child: Text(
+                              "${widget.item!.description}",
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'DMSans',
+                                fontSize: 9,
+                                fontWeight: FontWeight.normal,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Expanded(
-                        child: Text(
-                          "description",
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
-                            fontSize: 9,
-                            fontWeight: FontWeight.normal,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        if (_productController
+                            .checkifSelectedForDelted(widget.item!.productId!)) {
+                          _productController.removeFromDeleteList(widget.item!);
+                        } else {
+                          _productController.addToDeleteList(widget.item!);
+                        }
+                        setState(() {});
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 200),
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: _productController
+                                  .checkifSelectedForDelted(widget.item!.productId!)
+                              ? AppColor().orangeBorderColor
+                              : AppColor().whiteColor,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Color(0xffEF6500),
+                          ),
+                        ),
+                        child: Visibility(
+                          visible: _productController
+                              .checkifSelectedForDelted(widget.item!.productId!),
+                          child: Icon(
+                            Icons.check,
+                            size: 15,
+                            color: _productController.checkifSelectedForDelted(
+                                    widget.item!.productId!)
+                                ? AppColor().whiteColor
+                                : AppColor().orangeBorderColor,
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    if (_productController
-                        .checkifSelectedForDelted(widget.item!.productId!)) {
-                      _productController.removeFromDeleteList(widget.item!);
-                    } else {
-                      _productController.addToDeleteList(widget.item!);
-                    }
-                    setState(() {});
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: _productController
-                              .checkifSelectedForDelted(widget.item!.productId!)
-                          ? AppColor().orangeBorderColor
-                          : AppColor().whiteColor,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Color(0xffEF6500),
-                      ),
                     ),
-                    child: Visibility(
-                      visible: _productController
-                          .checkifSelectedForDelted(widget.item!.productId!),
-                      child: Icon(
-                        Icons.check,
-                        size: 15,
-                        color: _productController.checkifSelectedForDelted(
-                                widget.item!.productId!)
-                            ? AppColor().whiteColor
-                            : AppColor().orangeBorderColor,
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 20,
+              )
+            ],
           ),
-          SizedBox(
-            height: 20,
-          )
-        ],
-      ),
+        );
+      }
     );
   }
 }

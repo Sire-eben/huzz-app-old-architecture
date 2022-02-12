@@ -8,6 +8,7 @@ import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/single_invoice_preview.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/model/invoice.dart';
+import 'package:number_display/number_display.dart';
 
 import '../../../../colors.dart';
 import '../create_invoice.dart';
@@ -27,6 +28,10 @@ class _PendingState extends State<Pending> {
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
+    final display = createDisplay(
+    length: 10,
+    decimal: 0,
+  );
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -150,7 +155,7 @@ class _PendingState extends State<Pending> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${item.totalAmount}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -265,7 +270,7 @@ class _PendingState extends State<Pending> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${item.totalAmount}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -419,7 +424,7 @@ class _PendingState extends State<Pending> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          _invoiceController.deleteItems();
+                          // _invoiceController.deleteItems();
                           Get.back();
                         },
                         child: Container(
