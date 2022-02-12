@@ -197,9 +197,15 @@ class _ServiceListingState extends State<ServiceListing> {
                             ? ListingServicesDelete(
                                 item: item,
                               )
-                            : ListingServices(
-                                item: item,
-                              );
+                            : GestureDetector(
+                              onTap: (){
+                                _productController.setItem(item);
+                                  Get.to(AddService(item: item,));
+                              },
+                              child: ListingServices(
+                                  item: item,
+                                ),
+                            );
                       })
                   : Container(
                       child: Center(
