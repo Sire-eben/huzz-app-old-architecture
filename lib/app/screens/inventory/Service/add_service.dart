@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
@@ -94,13 +95,13 @@ class _AddServiceState extends State<AddService> {
             CustomTextField(
               label: "Service name",
               validatorText: "Service name is needed",
-              hint: 'E.g Television',
+              hint: 'E.g Manicure',
               textEditingController: _productController.productNameController,
             ),
             CustomTextField(
               label: "Service Amount",
               validatorText: "Service amount is needed",
-              hint: 'N0.00',
+              hint: '₦0.00',
               textEditingController:
                   _productController.productCostPriceController,
             ),
@@ -235,8 +236,8 @@ class _AddServiceState extends State<AddService> {
                             height: 150,
                             width: 150,
                           )
-                        : Image.asset(
-                            'assets/images/camera.png',
+                        : SvgPicture.asset(
+                            'assets/images/camera.svg',
                           ),
                   ],
                 ),

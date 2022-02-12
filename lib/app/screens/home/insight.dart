@@ -26,7 +26,7 @@ class _InsightState extends State<Insight> {
     'Custom date range'
   ];
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
 
   Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
     final initialDateRange = DateTimeRange(
@@ -249,7 +249,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money Out(N)',
+                            'Money Out(₦)',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -271,7 +271,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money in(N)',
+                            'Money in(₦)',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -302,9 +302,9 @@ class _InsightState extends State<Insight> {
                           legend: Legend(isVisible: false),
                           primaryXAxis: CategoryAxis(),
                           primaryYAxis: NumericAxis(
-                            // labelFormat: "N"
+                            // labelFormat: "₦"
                             axisLabelFormatter: (s) => ChartAxisLabel(
-                                "N${display(s.value)}",
+                                "₦${display(s.value)}",
                                 TextStyle(fontSize: 10)),
                           ),
 
@@ -745,7 +745,9 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/income_transaction.svg',
                               color: AppColor().blueColor,
-                              amount: transactionController.allIncomeTransaction.length.toString(),
+                              amount: transactionController
+                                  .allIncomeTransaction.length
+                                  .toString(),
                               name1: 'Income',
                               name2: 'Transaction',
                               message:
@@ -755,7 +757,9 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/expense_transaction.svg',
                               color: AppColor().orangeBorderColor,
-                              amount:transactionController.allExpenditureTransaction.length.toString(),
+                              amount: transactionController
+                                  .allExpenditureTransaction.length
+                                  .toString(),
                               name1: 'Expense',
                               name2: 'Transaction',
                               message:
@@ -796,7 +800,8 @@ class _InsightState extends State<Insight> {
                               color: AppColor().purpleColor,
                               amount: display(
                                   (transactionController.recordMoneyIn /
-                                     transactionController.allIncomeTransaction.length)),
+                                      transactionController
+                                          .allIncomeTransaction.length)),
                               name1: 'Average income',
                               name2: 'per transaction',
                               message:
@@ -808,7 +813,8 @@ class _InsightState extends State<Insight> {
                               color: AppColor().wineColor,
                               amount: display(
                                   (transactionController.recordMoneyOut /
-                                      transactionController.allExpenditureTransaction.length)),
+                                      transactionController
+                                          .allExpenditureTransaction.length)),
                               name1: 'Average expenses',
                               name2: 'per transaction',
                               message:

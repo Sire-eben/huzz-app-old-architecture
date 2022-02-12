@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/productlist.dart';
 import 'package:number_display/number_display.dart';
+
 import '../../../../colors.dart';
 import 'add_product.dart';
 
@@ -16,7 +17,7 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   final _productController = Get.find<ProductRepository>();
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
   @override
   Widget build(BuildContext context) {
     return (_productController.productGoods.isEmpty)
@@ -236,7 +237,7 @@ class _ProductsState extends State<Products> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "N0.00",
+                        "₦0.00",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,

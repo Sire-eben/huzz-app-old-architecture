@@ -21,7 +21,7 @@ class _ServiceListingState extends State<ServiceListing> {
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
   bool isDelete = false;
   String searchtext = "";
   List<Product> searchResult = [];
@@ -448,7 +448,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "N${display(_productController.totalService)}",
+                        "₦${display(_productController.totalService)}",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
@@ -587,7 +587,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                   width: 150,
                                 ),
                                 Text(
-                                  'N20,000',
+                                  '₦20,000',
                                   style: TextStyle(
                                     color: AppColor().blackColor,
                                     fontFamily: 'DMSans',
@@ -674,7 +674,7 @@ class _ServiceListingState extends State<ServiceListing> {
                               color: AppColor().backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       // labelText: label,
-                      hintText: 'N 0.00',
+                      hintText: '₦ 0.00',
                       hintStyle:
                           Theme.of(context).textTheme.headline4!.copyWith(
                                 fontFamily: 'DMSans',
@@ -808,7 +808,7 @@ class _ListingServicesState extends State<ListingServices> {
                             ),
                           ),
                           Text(
-                            'N${display(widget.item!.costPrice!)}',
+                            '₦${display(widget.item!.costPrice!)}',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -929,7 +929,7 @@ class _ListingServicesDeleteState extends State<ListingServices> {
                             ),
                           ),
                           Text(
-                            'N${display(widget.item!.costPrice!)}',
+                            '₦${display(widget.item!.costPrice!)}',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',

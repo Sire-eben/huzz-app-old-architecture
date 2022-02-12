@@ -8,6 +8,8 @@ import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/single_invoice_preview.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/model/invoice.dart';
+import 'package:number_display/number_display.dart';
+
 import '../../../../colors.dart';
 import '../create_invoice.dart';
 
@@ -27,13 +29,20 @@ class _PaidState extends State<Paid> {
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
+
+  final display = createDisplay(
+    length: 10,
+    decimal: 0,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+          // padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -90,7 +99,7 @@ class _PaidState extends State<Paid> {
                           var item = _invoiceController.paidInvoiceList[index];
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           return GestureDetector(
                             onTap: () async {
                               final singleInvoiceReceipt =
@@ -149,7 +158,7 @@ class _PaidState extends State<Paid> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${item.totalAmount}",
+                                                "₦${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -199,7 +208,7 @@ class _PaidState extends State<Paid> {
                           final _isSelected = _selectedIndex.contains(index);
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           return InkWell(
                             onTap: () {
                               setState(() {
@@ -263,7 +272,7 @@ class _PaidState extends State<Paid> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${item.totalAmount}",
+                                                "₦${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -402,7 +411,9 @@ class _PaidState extends State<Paid> {
             content: Center(
               child: SvgPicture.asset(
                 'assets/images/delete_alert.svg',
-                fit: BoxFit.fitHeight,
+                // fit: BoxFit.fitHeight,
+                height: 60,
+                width: 60,
               ),
             ),
             actions: <Widget>[

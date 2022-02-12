@@ -235,7 +235,7 @@ class _ServicesState extends State<Services> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "N0.00",
+                        "₦0.00",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
