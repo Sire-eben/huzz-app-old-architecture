@@ -87,7 +87,7 @@ class _DebtorsTabState extends State<DebtorsTab> {
                       text: 'Debtors',
                     ),
                     Tab(
-                      text: 'Debts Owed',
+                      text: 'Debts Owned',
                     ),
                   ],
                 ),

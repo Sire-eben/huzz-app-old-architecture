@@ -140,7 +140,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Remind me about debt Owed',
+                      'Remind me about debt Owned',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
