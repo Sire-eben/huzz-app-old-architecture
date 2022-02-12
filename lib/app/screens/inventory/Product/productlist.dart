@@ -18,7 +18,7 @@ class ProductListing extends StatefulWidget {
 
 class _ProductListingState extends State<ProductListing> {
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   final TextEditingController textEditingController = TextEditingController();
   List<Product> searchResult = [];
   var searchtext = '';
@@ -403,7 +403,7 @@ class _ProductListingState extends State<ProductListing> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "₦${display(_productController.totalProduct)}",
+                        "N${display(_productController.totalProduct)}",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
@@ -542,7 +542,7 @@ class _ProductListingState extends State<ProductListing> {
                                   width: 150,
                                 ),
                                 Text(
-                                  '₦20,000',
+                                  'N20,000',
                                   style: TextStyle(
                                     color: AppColor().blackColor,
                                     fontFamily: 'DMSans',
@@ -629,7 +629,7 @@ class _ProductListingState extends State<ProductListing> {
                               color: AppColor().backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       // labelText: label,
-                      hintText: '₦ 0.00',
+                      hintText: 'N 0.00',
                       hintStyle:
                           Theme.of(context).textTheme.headline4!.copyWith(
                                 fontFamily: 'DMSans',
@@ -781,7 +781,7 @@ class _ListingProductState extends State<ListingProduct> {
                         width: 50,
                       ),
                       Text(
-                        '₦${display(widget.item!.costPrice ?? 0)}',
+                        'N${display(widget.item!.costPrice ?? 0)}',
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',
@@ -942,7 +942,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                           width: 50,
                         ),
                         Text(
-                          '₦${display(widget.item!.costPrice ?? 0)}',
+                          'N${display(widget.item!.costPrice ?? 0)}',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',

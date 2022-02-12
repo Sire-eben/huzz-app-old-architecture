@@ -14,7 +14,7 @@ import 'package:pdf/widgets.dart';
 class RecordPdfApi {
   static Future<File> generate(RecordInvoice recordInvoice) async {
     final pdf = Document();
-   var   _transactionController=Get.find<TransactionRespository>();
+    var _transactionController = Get.find<TransactionRespository>();
     pdf.addPage(MultiPage(
       build: (context) => [
         buildHeader(_transactionController),
@@ -30,10 +30,12 @@ class RecordPdfApi {
     return PdfRecordApi.saveDocument(name: 'my_monthlyRecord.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(TransactionRespository transactionRespository) => Container(
+  static Widget buildHeader(TransactionRespository transactionRespository) =>
+      Container(
         padding: EdgeInsets.all(20),
         child: Center(
-            child: Text('YOUR TRANSACTIONS(${transactionRespository.value.value})',
+            child: Text(
+                'YOUR TRANSACTIONS(${transactionRespository.value.value})',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: PdfColors.black,
@@ -210,7 +212,7 @@ class RecordPdfApi {
 class DailyRecordPdfApi {
   static Future<File> generate() async {
     final pdf = Document();
-    final transactionController=Get.find<TransactionRespository>();
+    final transactionController = Get.find<TransactionRespository>();
     pdf.addPage(MultiPage(
       build: (context) => [
         buildHeader(transactionController),
@@ -228,17 +230,20 @@ class DailyRecordPdfApi {
     return PdfRecordApi.saveDocument(name: 'my_Record.pdf', pdf: pdf);
   }
 
- static Widget buildHeader(TransactionRespository transactionRespository) => Container(
+  static Widget buildHeader(TransactionRespository transactionRespository) =>
+      Container(
         padding: EdgeInsets.all(20),
         child: Center(
-            child: Text('YOUR TRANSACTIONS ( ${(transactionRespository.value.contains("Custom date range"))?transactionRespository.customText:transactionRespository.value.value} )',
+            child: Text(
+                'YOUR TRANSACTIONS ( ${(transactionRespository.value.contains("Custom date range")) ? transactionRespository.customText : transactionRespository.value.value} )',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: PdfColors.black,
                     fontSize: 20))),
       );
 
-  static Widget buildMoneyInOutInvoice(TransactionRespository transactionRespository) {
+  static Widget buildMoneyInOutInvoice(
+      TransactionRespository transactionRespository) {
     final headers = [
       'Date',
       'Time',
@@ -249,31 +254,26 @@ class DailyRecordPdfApi {
       'Mode',
       // 'Customer Name',
     ];
-List<List<dynamic>> data=[];
- for(int i=0;i< transactionRespository.allIncomeHoursData.length;++i){
-
-  var item1 = transactionRespository
-                                  .allExpenditureHoursData[i];
-                              var item2 = transactionRespository
-                                  .allIncomeHoursData[i];
-item1.transactionList.forEach((element) {
-  element.businessTransactionPaymentItemList!.forEach((element1) {
-    
-data.add([
-  element.entryDateTime!.formatDate(pattern: "dd, MMM y"),
-        element.entryDateTime!.formatDate(pattern: "hh:mm a"),
-        // item.type,
-        element1.itemName,
-        '${element1.quality}',
-        '${Utils.formatPrice(element1.amount)}',
-        element1.isFullyPaid!?"Fully Paid":"Partily Paid",
-]);
-  });
-
-});
+    List<List<dynamic>> data = [];
+    for (int i = 0; i < transactionRespository.allIncomeHoursData.length; ++i) {
+      var item1 = transactionRespository.allExpenditureHoursData[i];
+      var item2 = transactionRespository.allIncomeHoursData[i];
+      item1.transactionList.forEach((element) {
+        element.businessTransactionPaymentItemList!.forEach((element1) {
+          data.add([
+            element.entryDateTime!.formatDate(pattern: "dd, MMM y"),
+            element.entryDateTime!.formatDate(pattern: "hh:mm a"),
+            // item.type,
+            element1.itemName,
+            '${element1.quality}',
+            '${Utils.formatPrice(element1.amount)}',
+            element1.isFullyPaid! ? "Fully Paid" : "Partily Paid",
+          ]);
+        });
+      });
 // item2.transactionList.forEach((element) {
 //   element.businessTransactionPaymentItemList!.forEach((element1) {
-    
+
 // data.add([
 //   element.entryDateTime!.formatDate(pattern: "yymmdd"),
 //         element.entryDateTime!.formatDate(pattern: "hh:mm"),
@@ -286,7 +286,7 @@ data.add([
 //   });
 
 // });
- }
+    }
     // final data = recordInvoice.items.map((item) {
     //   // ignore: unused_local_variable
     //   final total = item.amount * item.quantity;
@@ -366,7 +366,8 @@ data.add([
     );
   }
 
-  static Widget buildMoneyInTotal(TransactionRespository transactionRespository) {
+  static Widget buildMoneyInTotal(
+      TransactionRespository transactionRespository) {
     // final moneyInTotal = recordInvoice.items
     //     .map((item) => item.amount)
     //     .reduce((item1, item2) => item1 + item2);
@@ -408,13 +409,14 @@ data.add([
     );
   }
 
-  static Widget buildMoneyOutTotal(TransactionRespository transactionRespository) {
+  static Widget buildMoneyOutTotal(
+      TransactionRespository transactionRespository) {
     // final moneyInTotal = recordInvoice.items
     //     .map((item) => item.amount)
     //     .reduce((item1, item2) => item1 + item2);
 
     // final moneyINtotal = moneyInTotal;
-  
+
     return Container(
       alignment: Alignment.centerRight,
       decoration:

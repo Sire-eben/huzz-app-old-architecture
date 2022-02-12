@@ -149,7 +149,7 @@ class _AllState extends State<All> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  "₦${display(item.totalAmount)}",
+                                                  "N${display(item.totalAmount)}",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -256,7 +256,7 @@ class _AllState extends State<All> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "₦${display(item.totalAmount)}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',

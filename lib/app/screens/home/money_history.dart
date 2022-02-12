@@ -375,7 +375,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             ),
                             Expanded(
                               child: Text(
-                                "₦${display(item.totalAmount)}",
+                                "N${display(item.totalAmount)}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,

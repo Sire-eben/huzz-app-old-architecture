@@ -24,7 +24,7 @@ class PdfInvoiceApi {
   static final _customerController = Get.find<CustomerRepository>();
   static final _bankController = Get.find<BankAccountRepository>();
   static final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
 
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
@@ -287,21 +287,21 @@ class PdfInvoiceApi {
       SizedBox(width: Get.width * 0.20),
       Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
         Text(
-          '₦ $totalAmount',
+          'N $totalAmount',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          '₦ ${invoice.tax}',
+          'N ${invoice.tax}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          '₦ ${invoice.discountAmount}',
+          'N ${invoice.discountAmount}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,

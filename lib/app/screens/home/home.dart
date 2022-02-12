@@ -182,7 +182,7 @@ class _HomeState extends State<Home> {
                         height: 10,
                       ),
                       Text(
-                        "₦${display(_transactionController.totalbalance.value)}",
+                        "N${display(_transactionController.totalbalance.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -267,7 +267,7 @@ class _HomeState extends State<Home> {
                       ),
                       Spacer(),
                       Text(
-                        "₦${display(_transactionController.income.value)}",
+                        "N${display(_transactionController.income.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -312,7 +312,7 @@ class _HomeState extends State<Home> {
                       ),
                       Spacer(),
                       Text(
-                        "₦${display(_transactionController.expenses.value)}",
+                        "N${display(_transactionController.expenses.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -376,7 +376,7 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           // ignore: unnecessary_null_comparison
-                          "₦${display(_debtorController.debtorAmount)}",
+                          "N${display(_debtorController.debtorAmount)}",
 
                           style: TextStyle(
                               fontSize: 15,
@@ -465,7 +465,7 @@ class _HomeState extends State<Home> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "₦${display(item.totalAmount)}",
+                                    "N${display(item.totalAmount)}",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold),
@@ -600,7 +600,7 @@ class _HomeState extends State<Home> {
                       height: 10,
                     ),
                     Text(
-                      "₦0",
+                      "N0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
@@ -683,7 +683,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "₦0",
+                      "N0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
@@ -726,7 +726,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "₦0",
+                      "N0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
@@ -788,7 +788,7 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          '₦${display(_debtorController.debtorAmount)}',
+                          'N${display(_debtorController.debtorAmount)}',
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),

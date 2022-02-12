@@ -17,7 +17,7 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   final _productController = Get.find<ProductRepository>();
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   @override
   Widget build(BuildContext context) {
     return (_productController.productGoods.isEmpty)
@@ -237,7 +237,7 @@ class _ProductsState extends State<Products> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "₦0.00",
+                        "N0.00",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,

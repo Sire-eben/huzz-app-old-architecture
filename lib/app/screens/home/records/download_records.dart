@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/colors.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../records.dart';
 import 'records_pdf.dart';
 
