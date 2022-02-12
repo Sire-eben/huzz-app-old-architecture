@@ -138,8 +138,10 @@ class _AddServiceState extends State<AddService> {
                         width: 30,
                         height: 30,
                         child: Center(
-                            child:
-                                CircularProgressIndicator(color: Colors.white)),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
                       )
                     : Center(
                         child: Text(

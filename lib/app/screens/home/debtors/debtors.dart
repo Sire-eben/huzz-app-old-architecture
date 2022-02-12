@@ -450,13 +450,13 @@ class _DebtorsState extends State<Debtors> {
                                         .phoneNumberController,
                                     validatorText: "Phone number is needed",
                                   ),
-                                  CustomTextFieldInvoiceOptional(
-                                    label: 'Balance',
-                                    keyType: TextInputType.number,
-                                    textEditingController:
-                                        _debtorController.amountController,
-                                    validatorText: "Balance is needed",
-                                  ),
+                                  // CustomTextFieldInvoiceOptional(
+                                  //   label: 'Balance',
+                                  //   keyType: TextInputType.number,
+                                  //   textEditingController:
+                                  //       _debtorController.amountController,
+                                  //   validatorText: "Balance is needed",
+                                  // ),
                                   CustomTextFieldInvoiceOptional(
                                     label: 'Amount Paid',
                                     keyType: TextInputType.number,
@@ -526,12 +526,12 @@ class _DebtorsState extends State<Debtors> {
                                       ),
                                     ),
                                   ),
-                                  CustomTextFieldInvoiceOptional(
-                                    label: 'Balance',
-                                    keyType: TextInputType.number,
-                                    textEditingController:
-                                        _debtorController.amountController,
-                                  ),
+                                  // CustomTextFieldInvoiceOptional(
+                                  //   label: 'Balance',
+                                  //   keyType: TextInputType.number,
+                                  //   textEditingController:
+                                  //       _debtorController.amountController,
+                                  // ),
                                   CustomTextFieldInvoiceOptional(
                                     label: 'Total Amount',
                                     keyType: TextInputType.number,

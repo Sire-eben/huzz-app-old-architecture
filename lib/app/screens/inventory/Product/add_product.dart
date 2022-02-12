@@ -479,8 +479,10 @@ class _AddProductState extends State<AddProduct> {
                         width: 30,
                         height: 30,
                         child: Center(
-                            child:
-                                CircularProgressIndicator(color: Colors.white)),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
                       )
                     : Center(
                         child: Text(

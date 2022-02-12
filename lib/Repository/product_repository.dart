@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
@@ -9,13 +10,15 @@ import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/inventory/Product/productConfirm.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+
 import 'auth_respository.dart';
 import 'file_upload_respository.dart';
-import 'package:path/path.dart' as path;
 
 enum AddingProductStatus { Loading, Error, Success, Empty }
+enum AddingServiceStatus { Loading, Error, Success, Empty }
 
 class ProductRepository extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -51,8 +54,10 @@ class ProductRepository extends GetxController
   final serviceDescription = TextEditingController();
   final _businessController = Get.find<BusinessRespository>();
   final _addingProductStatus = AddingProductStatus.Empty.obs;
+  final _addingServiceStatus = AddingServiceStatus.Empty.obs;
   final _uploadFileController = Get.find<FileUploadRespository>();
   AddingProductStatus get addingProductStatus => _addingProductStatus.value;
+  AddingServiceStatus get addingServiceStatus => _addingServiceStatus.value;
   TabController? tabController;
   Rx<List<Product>> _deleteProductList = Rx([]);
   List<Product> get deleteProductList => _deleteProductList.value;
