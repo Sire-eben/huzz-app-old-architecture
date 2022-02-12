@@ -458,11 +458,11 @@ class _DebtorsState extends State<Debtors> {
                                   //   validatorText: "Balance is needed",
                                   // ),
                                   CustomTextFieldInvoiceOptional(
-                                    label: 'Amount Owned',
+                                    label: 'Amount Owed',
                                     keyType: TextInputType.number,
                                     textEditingController:
                                         _debtorController.totalAmountController,
-                                    validatorText: "Amount Owned is needed",
+                                    validatorText: "Amount Owed is needed",
                                   ),
                                 ],
                               )
@@ -527,7 +527,7 @@ class _DebtorsState extends State<Debtors> {
                                     ),
                                   ),
                                   CustomTextFieldInvoiceOptional(
-                                    label: 'Amount Owned',
+                                    label: 'Amount Owed',
                                     keyType: TextInputType.number,
                                     textEditingController:
                                         _debtorController.totalAmountController,
