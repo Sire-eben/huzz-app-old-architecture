@@ -60,6 +60,7 @@ class CustomerRepository extends GetxController {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null) {
+      
           getOnlineCustomer(value.businessId!);
           getOfflineCustomer(value.businessId!);
         }
@@ -94,10 +95,18 @@ class CustomerRepository extends GetxController {
 
   Future getPhoneContact() async {
     print("trying phone contact list");
+    try{
     if (await FlutterContacts.requestPermission()) {
       contactList = await FlutterContacts.getContacts(
           withProperties: true, withPhoto: false);
-      print("phone contact ${contactList.length}");
+      print("phone contacts ${contactList.length}");
+    }else{
+
+      
+    }
+    }catch(ex){
+    print("contact error is ${ex.toString()}");
+
     }
   }
 
@@ -724,7 +733,8 @@ class CustomerRepository extends GetxController {
   }
 
   Widget buildSelectContact(BuildContext context) {
-    return Obx(() {
+print("contact on phone ${contactList.length}");
+   return Obx(() {
       return Container(
         padding: EdgeInsets.only(
             left: MediaQuery.of(context).size.width * 0.04,

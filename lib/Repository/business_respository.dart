@@ -262,6 +262,7 @@ class BusinessRespository extends GetxController {
               "email": businessEmail.text.trim(),
               "buisnessLogoFileStoreId": imageId,
               "currency": selectedCurrency,
+              
             },
           ),
           headers: {

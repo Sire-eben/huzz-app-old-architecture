@@ -129,7 +129,8 @@ class ProductRepository extends GetxController
             "businessId":
                 _businessController.selectedBusiness.value!.businessId!,
             "productType": type,
-            "productLogoFileStoreUrl": fileId
+            "productLogoFileStoreUrl": fileId,
+            "description":serviceDescription.text
           }),
           headers: {
             "Content-Type": "application/json",
@@ -151,6 +152,7 @@ class ProductRepository extends GetxController
         Get.snackbar("Error", "Unable to add product");
       }
     } catch (ex) {
+      print("adding product error ${ex.toString()}");
       Get.snackbar("Error", "Unknown error occurred.. try again");
       _addingProductStatus(AddingProductStatus.Error);
     }
@@ -198,6 +200,7 @@ class ProductRepository extends GetxController
         costPrice: productCostPriceController.numberValue,
         quantity: int.parse(productQuantityController.text),
         productType: type,
+        description: serviceDescription.text,
         productLogoFileStoreId: outFile == null ? null : outFile.path);
 
     print("product offline saving ${product.toJson()}");
@@ -234,6 +237,7 @@ class ProductRepository extends GetxController
         sellingPrice: int.parse(productSellingPriceController.text),
         costPrice: int.parse(productCostPriceController.text),
         quantity: int.parse(productQuantityController.text),
+        description: serviceDescription.text,
         productLogoFileStoreId:
             outFile == null ? newproduct.productLogoFileStoreId : outFile.path);
 
@@ -277,7 +281,8 @@ class ProductRepository extends GetxController
 // "quantity":productQuantityController.text,
                 "businessId": product.businessId,
                 "productType": tabController!.index == 0 ? "GOODS" : "SERVICES",
-                "productLogoFileStoreUrl": fileId
+                "productLogoFileStoreUrl": fileId,
+                "description":serviceDescription.text
               }),
               headers: {
             "Content-Type": "application/json",
@@ -310,6 +315,7 @@ class ProductRepository extends GetxController
     productQuantityController.text = product.quantity!.toString();
     productCostPriceController.text = product.costPrice.toString();
     productSellingPriceController.text = product.sellingPrice.toString();
+    serviceDescription.text=product.description!;
     productUnitController.text = "";
     serviceDescription.text = "";
     selectedProduct = product;
@@ -626,7 +632,8 @@ class ProductRepository extends GetxController
                 "businessId": updatenext.businessId,
                 "productType": updatenext.productType,
                 "productLogoFileStoreUrl":
-                    fileId ?? updatenext.productLogoFileStoreId
+                    fileId ?? updatenext.productLogoFileStoreId,
+                    "description":updatenext.description
               }),
               headers: {
             "Content-Type": "application/json",

@@ -16,6 +16,7 @@ class Product {
   bool? isAddingPending;
   bool? isUpdatingPending;
   bool? productNameChanged;
+  String? description;
   Product(
       {this.productId,
       this.businessId,
@@ -33,6 +34,7 @@ class Product {
       this.deleted,
       this.isAddingPending,
       this.isUpdatingPending,
+      this.description,
       this.productNameChanged});
   factory Product.fromJson(Map<String, dynamic> json) => Product(
       productId: json['id'],
@@ -41,6 +43,7 @@ class Product {
       productName: json['name'],
       sellingPrice: json['sellingPrice'],
       quantity: json['quantity'],
+      description: json['description']??"",
       quantitySold: json['quantitySold'] ?? 0,
       quantityLeft: json['quantityLeft'] ?? 0,
       createdTime: DateTime.parse(json['createdDateTime']),
@@ -78,6 +81,7 @@ class Product {
         "deleted": deleted,
         "isAddingPending": isAddingPending ?? false,
         "isUpdatePendig": isUpdatingPending ?? false,
-        "productNameChanged": productNameChanged ?? false
+        "productNameChanged": productNameChanged ?? false,
+        "description":description
       };
 }

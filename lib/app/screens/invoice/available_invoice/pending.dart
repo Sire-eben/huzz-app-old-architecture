@@ -26,12 +26,10 @@ class _PendingState extends State<Pending> {
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
-
-  final display = createDisplay(
+    final display = createDisplay(
     length: 10,
     decimal: 0,
   );
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -156,7 +154,7 @@ class _PendingState extends State<Pending> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "₦${display(item.totalAmount)}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -272,7 +270,7 @@ class _PendingState extends State<Pending> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "₦${display(item.totalAmount)}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',

@@ -9,7 +9,6 @@ import 'package:huzz/app/screens/invoice/available_invoice/single_invoice_previe
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/model/invoice.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../../../colors.dart';
 import '../create_invoice.dart';
 
@@ -29,12 +28,10 @@ class _PaidState extends State<Paid> {
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
-
-  final display = createDisplay(
+    final display = createDisplay(
     length: 10,
     decimal: 0,
   );
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -158,7 +155,7 @@ class _PaidState extends State<Paid> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "₦${display(item.totalAmount)}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -272,7 +269,7 @@ class _PaidState extends State<Paid> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "₦${display(item.totalAmount)}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',

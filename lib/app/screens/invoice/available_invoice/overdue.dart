@@ -158,7 +158,7 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "₦${display(item.totalAmount)}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -278,7 +278,7 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "₦${display(item.totalAmount)}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
