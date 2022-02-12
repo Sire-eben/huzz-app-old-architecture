@@ -317,7 +317,7 @@ class ProductRepository extends GetxController
     productSellingPriceController.text = product.sellingPrice.toString();
     serviceDescription.text=product.description!;
     productUnitController.text = "";
-    serviceDescription.text = "";
+    // serviceDescription.text = product.;
     selectedProduct = product;
   }
 
