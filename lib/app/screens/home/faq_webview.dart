@@ -42,7 +42,7 @@ class _FaqWebState extends State<FaqWeb> {
           WillPopScope(
             onWillPop: () async {
               String? url = await controller!.currentUrl();
-              if (url == "https://www.huzz.africa/faq/") {
+              if (url == "https://huzz.africa/mobile/faq") {
                 return true;
               } else {
                 controller!.goBack();
@@ -52,7 +52,7 @@ class _FaqWebState extends State<FaqWeb> {
             child: Builder(builder: (context) {
               return WebView(
                   key: _key,
-                  initialUrl: "https://www.huzz.africa/faq/",
+                  initialUrl: "https://huzz.africa/mobile/faq",
                   javascriptMode: JavascriptMode.unrestricted,
                   onPageFinished: (finish) {
                     setState(() {

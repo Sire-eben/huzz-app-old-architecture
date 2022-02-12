@@ -42,7 +42,7 @@ class _PrivacyState extends State<Privacy> {
           WillPopScope(
             onWillPop: () async {
               String? url = await controller!.currentUrl();
-              if (url == "https://www.huzz.africa/privacy-policy/") {
+              if (url == "https://huzz.africa/mobile/privacy-policy") {
                 return true;
               } else {
                 controller!.goBack();
@@ -52,7 +52,7 @@ class _PrivacyState extends State<Privacy> {
             child: Builder(builder: (context) {
               return WebView(
                   key: _key,
-                  initialUrl: "https://www.huzz.africa/privacy-policy/",
+                  initialUrl: "https://huzz.africa/mobile/privacy-policy",
                   javascriptMode: JavascriptMode.unrestricted,
                   onPageFinished: (finish) {
                     setState(() {

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -13,9 +14,9 @@ import 'package:huzz/app/screens/settings/notification.dart';
 import 'package:huzz/app/screens/settings/settings.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/business.dart';
+import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
-
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
@@ -32,6 +33,13 @@ class _HomeState extends State<Home> {
     length: 15,
     decimal: 5,
   );
+
+  currency(context) {
+    Locale locale = Localizations.localeOf(context);
+    var format =
+        NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'NGN');
+    return format;
+  }
 
   final items = ['Huzz Technologies', 'Technologies'];
   String? value;
@@ -182,7 +190,7 @@ class _HomeState extends State<Home> {
                         height: 10,
                       ),
                       Text(
-                        "N${display(_transactionController.totalbalance.value)}",
+                        "${currency(context).currencySymbol}${display(_transactionController.totalbalance.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -600,7 +608,7 @@ class _HomeState extends State<Home> {
                       height: 10,
                     ),
                     Text(
-                      "N0",
+                      "${currency(context).currencySymbol}0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
