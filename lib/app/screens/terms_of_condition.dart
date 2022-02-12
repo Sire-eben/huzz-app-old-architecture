@@ -43,7 +43,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
           WillPopScope(
             onWillPop: () async {
               String? url = await controller!.currentUrl();
-              if (url == "https://www.huzz.africa/terms-of-use/") {
+              if (url == "https://huzz.africa/mobile/terms-of-use") {
                 return true;
               } else {
                 controller!.goBack();
@@ -53,7 +53,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
             child: Builder(builder: (context) {
               return WebView(
                   key: _key,
-                  initialUrl: "https://www.huzz.africa/terms-of-use/",
+                  initialUrl: "https://huzz.africa/mobile/terms-of-use",
                   javascriptMode: JavascriptMode.unrestricted,
                   onPageFinished: (finish) {
                     setState(() {

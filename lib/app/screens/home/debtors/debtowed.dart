@@ -115,7 +115,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         height: 10,
                                       ),
                                       Text(
-                                        'Add Debt Owned',
+                                        'Add Debt Owed',
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.black,
@@ -133,7 +133,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                             fontFamily: 'DMSans'),
                                       ),
                                       Text(
-                                        'Add New Debt Owned button to add your first debt',
+                                        'Add New Debt Owed button to add your first debt',
                                         style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.black,
@@ -309,7 +309,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               ),
                               Center(
                                 child: Text(
-                                  'Add New Debt Owned',
+                                  'Add New Debt Owed',
                                   style: TextStyle(
                                     color: AppColor().whiteColor,
                                     fontFamily: 'DMSans',
@@ -651,7 +651,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      'Add Debt Owned',
+                      'Add Debt Owed',
                       style: TextStyle(
                         color: AppColor().blackColor,
                         fontFamily: 'DMSans',
