@@ -6,7 +6,6 @@ import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/home/insight.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/recordData.dart';
-import 'package:huzz/model/record_receipt.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -958,7 +957,7 @@ class _RecordsState extends State<Records> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  " N ${display(item.totalAmount)}",
+                                 "₦${display(item.totalAmount)}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'DMSans',

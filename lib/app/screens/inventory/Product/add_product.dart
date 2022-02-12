@@ -1,10 +1,13 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../../../../colors.dart';
 
 // ignore: must_be_immutable
@@ -208,7 +211,7 @@ class _AddProductState extends State<AddProduct> {
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            hintText: 'N 0.00',
+                            hintText: '₦ 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       fontFamily: 'DMSans',
@@ -278,7 +281,7 @@ class _AddProductState extends State<AddProduct> {
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            hintText: 'N 0.00',
+                            hintText: '₦ 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       fontFamily: 'DMSans',
@@ -576,8 +579,8 @@ class _AddProductState extends State<AddProduct> {
                             height: 150,
                             width: 150,
                           )
-                        : Image.asset(
-                            'assets/images/camera.png',
+                        : SvgPicture.asset(
+                            'assets/images/camera.svg',
                           ),
                   ],
                 ),

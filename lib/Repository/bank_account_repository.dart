@@ -86,17 +86,17 @@ class BankAccountRepository extends GetxController {
       }
     });
 
-    getPhoneContact();
+    // getPhoneContact();
   }
 
-  Future getPhoneContact() async {
-    print("trying phone contact list");
-    if (await FlutterContacts.requestPermission()) {
-      contactList = await FlutterContacts.getContacts(
-          withProperties: true, withPhoto: false);
-      print("phone contact ${contactList.length}");
-    }
-  }
+  // Future getPhoneContact() async {
+  //   print("trying phone contact list");
+  //   if (await FlutterContacts.requestPermission()) {
+  //     contactList = await FlutterContacts.getContacts(
+  //         withProperties: true, withPhoto: false);
+  //     print("phone contact ${contactList.length}");
+  //   }
+  // }
 
   Future addBusinnessBank() async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {

@@ -11,6 +11,7 @@ import 'package:huzz/app/screens/invoice/available_invoice/single_invoice_previe
 import 'package:huzz/app/screens/invoice/create_invoice.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/model/invoice.dart';
+import 'package:number_display/number_display.dart';
 
 import '../../../../colors.dart';
 
@@ -29,13 +30,19 @@ class _OverdueState extends State<Overdue> {
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
+  final display = createDisplay(
+    length: 10,
+    decimal: 0,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+          // padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -92,7 +99,7 @@ class _OverdueState extends State<Overdue> {
                           var item = _invoiceController.InvoiceDueList[index];
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           return GestureDetector(
                             onTap: () async {
                               final singleInvoiceReceipt =
@@ -151,7 +158,7 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${item.totalAmount}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -201,7 +208,7 @@ class _OverdueState extends State<Overdue> {
                           final _isSelected = _selectedIndex.contains(index);
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           return InkWell(
                             onTap: () async {
                               print("overdue clicked");
@@ -271,7 +278,7 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${item.totalAmount}",
+                                                "N${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -410,7 +417,9 @@ class _OverdueState extends State<Overdue> {
             content: Center(
               child: SvgPicture.asset(
                 'assets/images/delete_alert.svg',
-                fit: BoxFit.fitHeight,
+                // fit: BoxFit.fitHeight,
+                height: 60,
+                width: 60,
               ),
             ),
             actions: <Widget>[
@@ -425,7 +434,6 @@ class _OverdueState extends State<Overdue> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          _invoiceController.deleteItems();
                           Get.back();
                         },
                         child: Container(

@@ -479,141 +479,251 @@ class _CreateInvoiceState extends State<CreateInvoice> {
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         ScrollController? controller;
         return SingleChildScrollView(
-          physics: ScrollPhysics(),
-          controller: controller,
-          child: Container(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              (_invoiceController.productList.length < 2)
-                  ? Padding(
-                      // width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.00),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                _invoiceController.amountController.text = "";
-                                _invoiceController.itemNameController.text = "";
-                                _invoiceController.selectedProduct = null;
-                                myState(
-                                    () => _invoiceController.selectedValue = 1);
-                              },
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Radio<int>(
-                                      value: 1,
-                                      activeColor: AppColor().backgroundColor,
-                                      groupValue:
-                                          _invoiceController.selectedValue,
-                                      onChanged: (value) {
-                                        _invoiceController
-                                            .amountController.text = "";
-                                        _invoiceController
-                                            .itemNameController.text = "";
-                                        _invoiceController.selectedProduct =
-                                            null;
-                                        myState(() => _invoiceController
-                                            .selectedValue = 1);
-                                      }),
-                                  Text(
-                                    'Enter Item',
-                                    style: TextStyle(
-                                      color: AppColor().backgroundColor,
-                                      fontFamily: "DMSans",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                _invoiceController.amountController.text = "";
-                                _invoiceController.itemNameController.text = "";
-                                _invoiceController.selectedProduct = null;
-                                myState(
-                                    () => _invoiceController.selectedValue = 0);
-                              },
-                              child: Row(
-                                children: [
-                                  Radio<int>(
-                                      value: 0,
-                                      activeColor: AppColor().backgroundColor,
-                                      groupValue:
-                                          _invoiceController.selectedValue,
-                                      onChanged: (value) {
-                                        _invoiceController
-                                            .amountController.text = "";
-                                        _invoiceController
-                                            .itemNameController.text = "";
-                                        _invoiceController.selectedProduct =
-                                            null;
-                                        myState(() => _invoiceController
-                                            .selectedValue = 0);
-                                        print("item is select");
-                                      }),
-                                  Text(
-                                    'Select Product',
-                                    style: TextStyle(
-                                      color: AppColor().backgroundColor,
-                                      fontFamily: "DMSans",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ]))
-                  : Container(),
-              (_invoiceController.productList.length < 2)
-                  ? _invoiceController.selectedValue == 1
-                      ? Form(
-                          key: _productKey,
-                          child: Column(
+            physics: ScrollPhysics(),
+            controller: controller,
+            child: Container(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                (_invoiceController.productList.length < 2)
+                    ? Padding(
+                        // width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.height * 0.00),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        MediaQuery.of(context).size.height *
-                                            0.00),
-                                child: CustomTextField(
-                                  label: "Item Name",
-                                  onChanged: (value) {
-                                    print("value is $value");
-                                    myState(() {});
-                                  },
-                                  validatorText: "Item name is needed",
-                                  textEditingController:
-                                      _invoiceController.itemNameController,
-                                  hint: 'E.g. Television',
+                              InkWell(
+                                onTap: () {
+                                  _invoiceController.amountController.text = "";
+                                  _invoiceController.itemNameController.text =
+                                      "";
+                                  _invoiceController.selectedProduct = null;
+                                  myState(() =>
+                                      _invoiceController.selectedValue = 1);
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Radio<int>(
+                                        value: 1,
+                                        activeColor: AppColor().backgroundColor,
+                                        groupValue:
+                                            _invoiceController.selectedValue,
+                                        onChanged: (value) {
+                                          _invoiceController
+                                              .amountController.text = "";
+                                          _invoiceController
+                                              .itemNameController.text = "";
+                                          _invoiceController.selectedProduct =
+                                              null;
+                                          myState(() => _invoiceController
+                                              .selectedValue = 1);
+                                        }),
+                                    Text(
+                                      'Enter Item',
+                                      style: TextStyle(
+                                        color: AppColor().backgroundColor,
+                                        fontFamily: "DMSans",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        MediaQuery.of(context).size.height *
-                                            0.00),
+                              InkWell(
+                                onTap: () {
+                                  _invoiceController.amountController.text = "";
+                                  _invoiceController.itemNameController.text =
+                                      "";
+                                  _invoiceController.selectedProduct = null;
+                                  myState(() =>
+                                      _invoiceController.selectedValue = 0);
+                                },
                                 child: Row(
+                                  children: [
+                                    Radio<int>(
+                                        value: 0,
+                                        activeColor: AppColor().backgroundColor,
+                                        groupValue:
+                                            _invoiceController.selectedValue,
+                                        onChanged: (value) {
+                                          _invoiceController
+                                              .amountController.text = "";
+                                          _invoiceController
+                                              .itemNameController.text = "";
+                                          _invoiceController.selectedProduct =
+                                              null;
+                                          myState(() => _invoiceController
+                                              .selectedValue = 0);
+                                          print("item is select");
+                                        }),
+                                    Text(
+                                      'Select Product',
+                                      style: TextStyle(
+                                        color: AppColor().backgroundColor,
+                                        fontFamily: "DMSans",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ]))
+                    : Container(),
+                (_invoiceController.productList.length < 2)
+                    ? _invoiceController.selectedValue == 1
+                        ? Form(
+                            key: _productKey,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
+                                  child: CustomTextField(
+                                    label: "Item Name",
+                                    onChanged: (value) {
+                                      print("value is $value");
+                                      myState(() {});
+                                    },
+                                    validatorText: "Item name is needed",
+                                    textEditingController:
+                                        _invoiceController.itemNameController,
+                                    hint: 'E.g. Television',
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          MediaQuery.of(context).size.height *
+                                              0.00),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: CustomTextField(
+                                          label: "Amount",
+                                          hint: '₦ 0.00',
+                                          validatorText: "Amount is needed",
+                                          onChanged: (value) {
+                                            print("value is $value");
+                                            myState(() {});
+                                          },
+                                          textEditingController:
+                                              _invoiceController
+                                                  .amountController,
+                                          keyType: TextInputType.phone,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.03),
+                                      Expanded(
+                                        child: CustomTextField(
+                                            label: "Quantity",
+                                            hint: '4',
+                                            keyType: TextInputType.phone,
+                                            validatorText: "Quantity is needed",
+                                            onChanged: (value) {
+                                              print("value is $value");
+                                              myState(() {});
+                                            },
+                                            onSubmited: (value) {
+                                              myState(() {});
+                                            },
+                                            textEditingController:
+                                                _invoiceController
+                                                    .quantityController),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.height * 0.00),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Select Product',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontFamily: 'DMSans'),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "*",
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                          fontFamily: 'DMSans'),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 4),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            width: 2,
+                                            color: AppColor().backgroundColor)),
+                                    child: DropdownButtonHideUnderline(
+                                        child: DropdownButton<Product>(
+                                      value: _invoiceController.selectedProduct,
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down,
+                                        color: AppColor().backgroundColor,
+                                      ),
+                                      iconSize: 30,
+                                      items: _productController.productGoods
+                                          .map((value) {
+                                        return DropdownMenuItem<Product>(
+                                          value: value,
+                                          child: Text(value.productName!),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) => myState(() {
+                                        _invoiceController.selectedProduct =
+                                            value;
+                                        _invoiceController
+                                            .selectedProduct!.quantity = 1;
+                                        _invoiceController
+                                                .amountController.text =
+                                            value!.sellingPrice!.toString();
+                                        _invoiceController.quantityController
+                                            .text = 1.toString();
+                                      }),
+                                    ))),
+                                Row(
                                   children: [
                                     Expanded(
                                       child: CustomTextField(
                                         label: "Amount",
-                                        hint: 'N 0.00',
+                                        hint: '₦ 0.00',
                                         validatorText: "Amount is needed",
-                                        onChanged: (value) {
-                                          print("value is $value");
-                                          myState(() {});
-                                        },
                                         textEditingController:
                                             _invoiceController.amountController,
                                         keyType: TextInputType.phone,
@@ -625,206 +735,112 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                                 0.03),
                                     Expanded(
                                       child: CustomTextField(
-                                          label: "Quantity",
-                                          hint: '4',
-                                          keyType: TextInputType.phone,
-                                          validatorText: "Quantity is needed",
-                                          onChanged: (value) {
-                                            print("value is $value");
-                                            myState(() {});
-                                          },
-                                          onSubmited: (value) {
-                                            myState(() {});
-                                          },
-                                          textEditingController:
-                                              _invoiceController
-                                                  .quantityController),
-                                    ),
+                                        label: "Quantity",
+                                        hint: '4',
+                                        validatorText: "Quantity is needed",
+                                        textEditingController:
+                                            _invoiceController
+                                                .quantityController,
+                                        keyType: TextInputType.phone,
+                                      ),
+                                    )
                                   ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.height * 0.00),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Select Product',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans'),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "*",
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                        fontFamily: 'DMSans'),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 4),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          width: 2,
-                                          color: AppColor().backgroundColor)),
-                                  child: DropdownButtonHideUnderline(
-                                      child: DropdownButton<Product>(
-                                    value: _invoiceController.selectedProduct,
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down,
-                                      color: AppColor().backgroundColor,
-                                    ),
-                                    iconSize: 30,
-                                    items: _productController.productGoods
-                                        .map((value) {
-                                      return DropdownMenuItem<Product>(
-                                        value: value,
-                                        child: Text(value.productName!),
-                                      );
-                                    }).toList(),
-                                    onChanged: (value) => myState(() {
-                                      _invoiceController.selectedProduct =
-                                          value;
-                                      _invoiceController
-                                          .selectedProduct!.quantity = 1;
-                                      _invoiceController.amountController.text =
-                                          value!.sellingPrice!.toString();
-                                      _invoiceController.quantityController
-                                          .text = 1.toString();
-                                    }),
-                                  ))),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Amount",
-                                      hint: 'N 0.00',
-                                      validatorText: "Amount is needed",
-                                      textEditingController:
-                                          _invoiceController.amountController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.03),
-                                  Expanded(
-                                    child: CustomTextField(
-                                      label: "Quantity",
-                                      hint: '4',
-                                      validatorText: "Quantity is needed",
-                                      textEditingController:
-                                          _invoiceController.quantityController,
-                                      keyType: TextInputType.phone,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                  : Container(),
-              SizedBox(
-                  height: _invoiceController.productList.length >= 2
-                      ? 0
-                      : MediaQuery.of(context).size.height * 0.02),
-              (_invoiceController.productList.length >= 2)
-                  ? showAllItems()
-                  : Container(),
-              // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              GestureDetector(
-                onTap: () {
-                  print("New Item is selected");
+                              ],
+                            ),
+                          )
+                    : Container(),
+                SizedBox(
+                    height: _invoiceController.productList.length >= 2
+                        ? 0
+                        : MediaQuery.of(context).size.height * 0.02),
+                (_invoiceController.productList.length >= 2)
+                    ? showAllItems()
+                    : Container(),
+                // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                GestureDetector(
+                    onTap: () {
+                      print("New Item is selected");
 
-            if (_invoiceController.productList.length >= 2 ||
-                _invoiceController.selectedProduct != null ||
-                _invoiceController.itemNameController.text.isNotEmpty &&
-                    _invoiceController.amountController.text.isNotEmpty) {
-              if (_invoiceController.productList.isEmpty) {
-                _invoiceController.addMoreProduct();
-              }
-              showModalBottomSheet(
-                isScrollControlled: true,
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(20))),
-                  context: context,
-                  builder: (context) => buildAddNewItem());
-            }
-          },
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.055,
-            width: MediaQuery.of(context).size.width * 0.35,
-            decoration: BoxDecoration(
-                color: (_invoiceController.productList.length >= 2 ||
-                        _invoiceController.selectedProduct != null ||
-                        _invoiceController.itemNameController.text.isNotEmpty &&
-                            _invoiceController
-                                .quantityController.text.isNotEmpty &&
-                            _invoiceController.amountController.text.isNotEmpty)
-                    ? AppColor().backgroundColor
-                    : AppColor().backgroundColor.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(45)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.add, color: Colors.white),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                Text(
-                  'Add another item',
-                  style: TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 10,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-              
-              ),
-              ]))),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextFieldInvoiceOptional(
-                      label: 'Tax(%)',
-                      hint: '0',
-                      keyType: TextInputType.number,
-                      textEditingController: _invoiceController.taxController,
+                      if (_invoiceController.productList.length >= 2 ||
+                          _invoiceController.selectedProduct != null ||
+                          _invoiceController
+                                  .itemNameController.text.isNotEmpty &&
+                              _invoiceController
+                                  .amountController.text.isNotEmpty) {
+                        if (_invoiceController.productList.isEmpty) {
+                          _invoiceController.addMoreProduct();
+                        }
+                        showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20))),
+                            context: context,
+                            builder: (context) => buildAddNewItem());
+                      }
+                    },
+                    child: Container(
+                        height: MediaQuery.of(context).size.height * 0.055,
+                        width: MediaQuery.of(context).size.width * 0.35,
+                        decoration: BoxDecoration(
+                            color:
+                                (_invoiceController.productList.length >= 2 ||
+                                        _invoiceController.selectedProduct !=
+                                            null ||
+                                        _invoiceController.itemNameController
+                                                .text.isNotEmpty &&
+                                            _invoiceController
+                                                .quantityController
+                                                .text
+                                                .isNotEmpty &&
+                                            _invoiceController.amountController
+                                                .text.isNotEmpty)
+                                    ? AppColor().backgroundColor
+                                    : AppColor()
+                                        .backgroundColor
+                                        .withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(45)),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add, color: Colors.white),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              Text(
+                                'Add another item',
+                                style: TextStyle(
+                                    fontFamily: 'DMSans',
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ]))),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextFieldInvoiceOptional(
+                        label: 'Tax(%)',
+                        hint: '0',
+                        keyType: TextInputType.number,
+                        textEditingController: _invoiceController.taxController,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: CustomTextFieldInvoiceOptional(
-                      label: 'Discount(%)',
-                      hint: '0',
-                      keyType: TextInputType.number,
-                      textEditingController:
-                          _invoiceController.discountController,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          )));
-                
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: CustomTextFieldInvoiceOptional(
+                        label: 'Discount(%)',
+                        hint: '0',
+                        keyType: TextInputType.number,
+                        textEditingController:
+                            _invoiceController.discountController,
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            )));
       });
 
 //
@@ -1133,10 +1149,12 @@ class _CreateInvoiceState extends State<CreateInvoice> {
       );
 
   Widget buildAddItem() => SingleChildScrollView(
-    child: Container(
-      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
-          
-            padding: MediaQuery.of(context).viewInsets,  
+        child: Container(
+          margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+          ),
+          padding: MediaQuery.of(context).viewInsets,
           child: Form(
             key: _productKey,
             child: Column(
@@ -1195,12 +1213,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20,)
+                SizedBox(
+                  height: 20,
+                )
               ],
             ),
           ),
         ),
-  );
+      );
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
@@ -1415,7 +1435,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   Expanded(
                     child: CustomTextField(
                       label: "Amount",
-                      hint: 'N 0.00',
+                      hint: '₦ 0.00',
                       validatorText: "Amount name is needed",
                       // enabled:
                       //     item.productId == null || item.productId!.isEmpty,
@@ -1469,9 +1489,11 @@ class _CreateInvoiceState extends State<CreateInvoice> {
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
-            
-              padding: MediaQuery.of(context).viewInsets,
+            margin: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+            ),
+            padding: MediaQuery.of(context).viewInsets,
             child: Form(
               key: _createMoreProductKey,
               child: Column(
@@ -1573,7 +1595,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             Expanded(
                               child: CustomTextField(
                                 label: "Amount",
-                                hint: 'N 0.00',
+                                hint: '₦ 0.00',
                                 validatorText: "Amount name is needed",
                                 textEditingController:
                                     _invoiceController.amountController,
@@ -1581,7 +1603,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               ),
                             ),
                             SizedBox(
-                                width: MediaQuery.of(context).size.height * 0.03),
+                                width:
+                                    MediaQuery.of(context).size.height * 0.03),
                             Expanded(
                               child: CustomTextField(
                                   label: "Quantity",
@@ -1636,8 +1659,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   }).toList(),
                                   onChanged: (value) => myState(() {
                                     _invoiceController.selectedProduct = value;
-                                    _invoiceController.selectedProduct!.quantity =
-                                        1;
+                                    _invoiceController
+                                        .selectedProduct!.quantity = 1;
                                     _invoiceController.amountController.text =
                                         value!.sellingPrice!.toString();
                                     _invoiceController.quantityController.text =
@@ -1651,7 +1674,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 Expanded(
                                   child: CustomTextField(
                                     label: "Amount",
-                                    hint: 'N 0.00',
+                                    hint: '₦ 0.00',
                                     validatorText: "Amount name is needed",
                                     textEditingController:
                                         _invoiceController.amountController,
@@ -1667,8 +1690,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       hint: '4',
                                       keyType: TextInputType.phone,
                                       validatorText: "Quantity name is needed",
-                                      textEditingController:
-                                          _invoiceController.quantityController),
+                                      textEditingController: _invoiceController
+                                          .quantityController),
                                 ),
                               ],
                             )
@@ -1708,7 +1731,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,)
+                  SizedBox(
+                    height: 10,
+                  )
                 ],
               ),
             ),

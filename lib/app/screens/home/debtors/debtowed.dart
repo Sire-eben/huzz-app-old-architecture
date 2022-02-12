@@ -42,7 +42,7 @@ class _DebtOwnedState extends State<DebtOwned> {
   String? value = "Pending";
 
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
   final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
   @override
@@ -247,7 +247,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               FontWeight.w400),
                                                     ),
                                                     Text(
-                                                      "Paid: ${display((item.totalAmount! - item.balance!))}",
+                                                      "Paid: ₦${display((item.totalAmount! - item.balance!))}",
                                                       style: TextStyle(
                                                           fontSize: 11,
                                                           fontFamily: 'DMSans',
@@ -553,7 +553,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   // labelText: label,
-                                  hintText: 'N 0.00',
+                                  hintText: '₦ 0.00',
 
                                   hintStyle: Theme.of(context)
                                       .textTheme
@@ -998,7 +998,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                     child: CustomTextField(
                       label: "Amount",
                       validatorText: "amount is needed",
-                      hint: '0',
+                      hint: '₦0',
                     ),
                   ),
                   Expanded(
@@ -1342,7 +1342,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   // labelText: label,
-                                  hintText: 'N 0.00',
+                                  hintText: '₦ 0.00',
 
                                   hintStyle: Theme.of(context)
                                       .textTheme

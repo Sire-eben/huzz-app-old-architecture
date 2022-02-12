@@ -1,8 +1,11 @@
+// ignore_for_file: dead_code
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/model/product.dart';
 import 'package:number_display/number_display.dart';
+
 import '../../../../colors.dart';
 
 class BuildDeleteProduct extends StatefulWidget {
@@ -303,7 +306,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "N0.00",
+                        "₦0.00",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
@@ -413,7 +416,7 @@ class _ListingProductState extends State<ListingProduct> {
                           width: 50,
                         ),
                         Text(
-                          'N${display(widget.item!.costPrice ?? 0)}',
+                          '₦${display(widget.item!.costPrice ?? 0)}',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
