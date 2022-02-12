@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
-import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/widget/util.dart';
 import 'package:huzz/model/bank.dart';
@@ -21,16 +20,11 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
 class PdfInvoiceApi {
-  static final _invoiceController = Get.find<InvoiceRespository>();
   static final _businessController = Get.find<BusinessRespository>();
   static final _customerController = Get.find<CustomerRepository>();
   static final _bankController = Get.find<BankAccountRepository>();
-    static  final display = createDisplay(
-    length: 5,
-    decimal: 0,
-    placeholder: 'N',
-    units: ['K','M','B','T']
-  );
+  static final display = createDisplay(
+      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
 
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
@@ -49,7 +43,7 @@ class PdfInvoiceApi {
         SizedBox(height: 1 * PdfPageFormat.cm),
         buildTotal(invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
-        buildFooter(customer,invoice)
+        buildFooter(customer, invoice)
       ],
     ));
 
@@ -123,7 +117,7 @@ class PdfInvoiceApi {
                     color: PdfColors.white,
                     fontSize: 16)),
             SizedBox(width: 1 * PdfPageFormat.mm),
-            Text('#${invoice.id!.substring(1,6)}',
+            Text('#${invoice.id!.substring(1, 6)}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: PdfColors.white,
@@ -290,24 +284,24 @@ class PdfInvoiceApi {
           ),
         ),
       ]),
-      SizedBox(width: Get.width*0.20),
+      SizedBox(width: Get.width * 0.20),
       Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
         Text(
-          'N $totalAmount',
+          '₦ $totalAmount',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'N ${invoice.tax}',
+          '₦ ${invoice.tax}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'N ${invoice.discountAmount}',
+          '₦ ${invoice.discountAmount}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
@@ -317,103 +311,112 @@ class PdfInvoiceApi {
     ]);
   }
 
-  static Widget buildFooter(Customer? customer,Invoice invoice){
-    List<PaymentHistory> lists=      invoice.businessTransaction==null ||   invoice.businessTransaction!.businessTransactionPaymentHistoryList==null||invoice.businessTransaction!.businessTransactionPaymentHistoryList!.isEmpty?[]:  invoice.businessTransaction!.businessTransactionPaymentHistoryList!;
+  static Widget buildFooter(Customer? customer, Invoice invoice) {
+    List<PaymentHistory> lists = invoice.businessTransaction == null ||
+            invoice.businessTransaction!
+                    .businessTransactionPaymentHistoryList ==
+                null ||
+            invoice.businessTransaction!.businessTransactionPaymentHistoryList!
+                .isEmpty
+        ? []
+        : invoice.businessTransaction!.businessTransactionPaymentHistoryList!;
     return Column(children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              'ISSUED TO:',
-              style: TextStyle(
-                color: PdfColors.blue,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text("${customer!.name}"),
-            Text("${customer.phone}"),
-          ]),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(width: 1, color: PdfColors.orange),
-                  color: PdfColors.orange50),
-              child: Text(('${invoice.businessInvoiceStatus}'),
-                  style: TextStyle(color: PdfColors.orange, fontSize: 12)),
-            )
-          ]),
-          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Text(
-              'POWERED BY:',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'HUZZ',
-              style: TextStyle(
-                color: PdfColors.blue,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ])
-        ]),
-        SizedBox(height: 1 * PdfPageFormat.cm),
-      lists.isEmpty?pw.Container():  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(
-            'Date',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            'Amount Paid',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            'Mode of Payment',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
-          )
-        ]),
-        Divider(),
-
-      ...lists.map<pw.Widget>((e)=>
-      pw.Container(
-        child:
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
-           e.createdDateTime!.formatDate()!,
+            'ISSUED TO:',
             style: TextStyle(
-              fontSize: 10,
+              color: PdfColors.blue,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          Text(
-            '${Utils.formatPrice(e.amountPaid)}',
-            style: TextStyle(
-              fontSize: 10,
-              color: PdfColors.orange,
-            ),
-          ),
-          Text(
-           e.paymentSource!,
-            style: TextStyle(
-              fontSize: 10,
-            ),
+          Text("${customer!.name}"),
+          Text("${customer.phone}"),
+        ]),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(width: 1, color: PdfColors.orange),
+                color: PdfColors.orange50),
+            child: Text(('${invoice.businessInvoiceStatus}'),
+                style: TextStyle(color: PdfColors.orange, fontSize: 12)),
           )
-        ]))).toList(),
-      
-      ]);
+        ]),
+        Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          Text(
+            'POWERED BY:',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'HUZZ',
+            style: TextStyle(
+              color: PdfColors.blue,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ])
+      ]),
+      SizedBox(height: 1 * PdfPageFormat.cm),
+      lists.isEmpty
+          ? pw.Container()
+          : Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text(
+                'Date',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Amount Paid',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Mode of Payment',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ]),
+      Divider(),
+      ...lists
+          .map<pw.Widget>((e) => pw.Container(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                    Text(
+                      e.createdDateTime!.formatDate()!,
+                      style: TextStyle(
+                        fontSize: 10,
+                      ),
+                    ),
+                    Text(
+                      '${Utils.formatPrice(e.amountPaid)}',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: PdfColors.orange,
+                      ),
+                    ),
+                    Text(
+                      e.paymentSource!,
+                      style: TextStyle(
+                        fontSize: 10,
+                      ),
+                    )
+                  ])))
+          .toList(),
+    ]);
   }
 }
 

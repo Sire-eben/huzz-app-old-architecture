@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
-import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/single_invoice_preview.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
@@ -21,7 +20,6 @@ class Pending extends StatefulWidget {
 }
 
 class _PendingState extends State<Pending> {
-  final _productController = Get.find<ProductRepository>();
   final _invoiceController = Get.find<InvoiceRespository>();
   final _customerController = Get.find<CustomerRepository>();
   bool deleteItem = true;
@@ -38,7 +36,8 @@ class _PendingState extends State<Pending> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+          // padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -75,8 +74,8 @@ class _PendingState extends State<Pending> {
                       });
                     },
                     child: Container(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.02),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 2),
                         decoration: BoxDecoration(
                             color: deleteItem
                                 ? Colors.transparent
@@ -86,7 +85,7 @@ class _PendingState extends State<Pending> {
                   )
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.width * 0.02),
+              SizedBox(height: MediaQuery.of(context).size.width * 0.03),
               Expanded(
                 child: deleteItem
                     ? ListView.builder(
@@ -96,7 +95,7 @@ class _PendingState extends State<Pending> {
                               _invoiceController.InvoicePendingList[index];
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           return GestureDetector(
                             onTap: () async {
                               final singleInvoiceReceipt =
@@ -107,10 +106,10 @@ class _PendingState extends State<Pending> {
                             child: Padding(
                               padding: EdgeInsets.only(
                                   bottom:
-                                      MediaQuery.of(context).size.width * 0.02),
+                                      MediaQuery.of(context).size.width * 0.03),
                               child: Container(
                                 padding: EdgeInsets.all(
-                                    MediaQuery.of(context).size.height * 0.02),
+                                    MediaQuery.of(context).size.height * 0.015),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: Colors.grey.withOpacity(0.1),
@@ -203,10 +202,11 @@ class _PendingState extends State<Pending> {
                         itemBuilder: (BuildContext context, int index) {
                           var item =
                               _invoiceController.InvoicePendingList[index];
+                          // ignore: unused_local_variable
                           final _isSelected = _selectedIndex.contains(index);
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           return InkWell(
                             onTap: () {
                               setState(() {
@@ -409,7 +409,9 @@ class _PendingState extends State<Pending> {
             content: Center(
               child: SvgPicture.asset(
                 'assets/images/delete_alert.svg',
-                fit: BoxFit.fitHeight,
+                // fit: BoxFit.fitHeight,
+                height: 50,
+                width: 50,
               ),
             ),
             actions: <Widget>[
@@ -424,7 +426,6 @@ class _PendingState extends State<Pending> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          // _invoiceController.deleteItems();
                           Get.back();
                         },
                         child: Container(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
@@ -256,8 +257,8 @@ class _AddServiceState extends State<AddService> {
                             height: 150,
                             width: 150,
                           )
-                        : Image.asset(
-                            'assets/images/camera.png',
+                        : SvgPicture.asset(
+                            'assets/images/camera.svg',
                           ),
                   ],
                 ),

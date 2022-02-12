@@ -38,7 +38,8 @@ class _PaidState extends State<Paid> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+          // padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -95,7 +96,7 @@ class _PaidState extends State<Paid> {
                           var item = _invoiceController.paidInvoiceList[index];
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           return GestureDetector(
                             onTap: () async {
                               final singleInvoiceReceipt =
@@ -204,7 +205,7 @@ class _PaidState extends State<Paid> {
                           final _isSelected = _selectedIndex.contains(index);
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           return InkWell(
                             onTap: () {
                               setState(() {
@@ -407,7 +408,9 @@ class _PaidState extends State<Paid> {
             content: Center(
               child: SvgPicture.asset(
                 'assets/images/delete_alert.svg',
-                fit: BoxFit.fitHeight,
+                // fit: BoxFit.fitHeight,
+                height: 60,
+                width: 60,
               ),
             ),
             actions: <Widget>[

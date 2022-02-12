@@ -83,29 +83,24 @@ class _SettingsState extends State<Settings> {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: (controller.profileImage.value != null)
-                    ?CircleAvatar(
-                      radius: 50,
-                   backgroundImage:  FileImage(
-                        controller.profileImage.value!,
-                     
-                      ))
-                    : (controller.user!.profileImageFileStoreUrl!.isEmpty)
-                        ? 
-                        CircleAvatar(
-radius: 50,
-                        backgroundImage:AssetImage(
-                            "assets/images/profileImg.png",
+                  child: (controller.profileImage.value != null)
+                      ? CircleAvatar(
+                          radius: 50,
+                          backgroundImage: FileImage(
+                            controller.profileImage.value!,
                           ))
-                        :CircleAvatar(
-                radius: 50.0,
-                backgroundImage:
-                    NetworkImage("${ controller.user!.profileImageFileStoreUrl!}"),
-                backgroundColor: Colors.transparent,
-              )
-                        
-                        
-              ),
+                      : (controller.user!.profileImageFileStoreUrl!.isEmpty)
+                          ? CircleAvatar(
+                              radius: 50,
+                              backgroundImage: AssetImage(
+                                "assets/images/profileImg.png",
+                              ))
+                          : CircleAvatar(
+                              radius: 50.0,
+                              backgroundImage: NetworkImage(
+                                  "${controller.user!.profileImageFileStoreUrl!}"),
+                              backgroundColor: Colors.transparent,
+                            )),
             ),
           ),
           Positioned(
@@ -516,21 +511,17 @@ radius: 50,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     (controller.profileImage.value != null)
-                        ? 
-                        CircleAvatar(
-                          radius: 80,
-                          backgroundImage:
-                        FileImage(
-                            controller.profileImage.value!,
-                          
-                          ))
-                        :
-                        CircleAvatar(
-                          radius: 80,
-                          child:
-                         Image.asset(
-                            'assets/images/camera.png',
-                          )),
+                        ? CircleAvatar(
+                            radius: 80,
+                            backgroundImage: FileImage(
+                              controller.profileImage.value!,
+                            ))
+                        : CircleAvatar(
+                            radius: 80,
+                            child: SvgPicture.asset(
+                              'assets/images/camera.svg',
+                            ),
+                          ),
                   ],
                 ),
               ),
@@ -563,27 +554,27 @@ radius: 50,
                   decoration: BoxDecoration(
                       color: AppColor().backgroundColor,
                       borderRadius: BorderRadius.circular(10)),
-                  child: (controller.updateProfileStatus==
-                                UpdateProfileStatus.Loading)
-                            ? Center(
-                                child: Container(
-                                  width: 30,
-                                  height: 30,
-                                  child: Center(
-                                      child: CircularProgressIndicator(
-                                          color: Colors.white)),
-                                ),
-                              )
-                            :  Center(
-                    child: Text(
-                      'Done',
-                      style: TextStyle(
-                        color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  child: (controller.updateProfileStatus ==
+                          UpdateProfileStatus.Loading)
+                      ? Center(
+                          child: Container(
+                            width: 30,
+                            height: 30,
+                            child: Center(
+                                child: CircularProgressIndicator(
+                                    color: Colors.white)),
+                          ),
+                        )
+                      : Center(
+                          child: Text(
+                            'Done',
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                 ),
               ),
             ],

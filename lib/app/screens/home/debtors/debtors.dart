@@ -142,13 +142,10 @@ class _DebtorsState extends State<Debtors> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
-                                        'assets/images/add_debt_owned.svg',
+                                        'assets/images/debtors.svg',
                                         height: 50,
                                         width: 50,
                                         color: AppColor().backgroundColor,
-                                      ),
-                                      SizedBox(
-                                        height: 10,
                                       ),
                                       Text(
                                         'Add Debtors',
@@ -634,7 +631,7 @@ class _DebtorsState extends State<Debtors> {
                     child: CustomTextField(
                       label: "Amount",
                       validatorText: "amount is needed",
-                      hint: '0',
+                      hint: '₦0',
                     ),
                   ),
                   Expanded(
@@ -702,7 +699,7 @@ class _DebtorListingState extends State<DebtorListing> {
   late String? firstName;
   late String? businessName;
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
   final users = Rx(User());
   User? get usersData => users.value;
 
@@ -724,14 +721,14 @@ class _DebtorListingState extends State<DebtorListing> {
       return Container();
     }
     initialText =
-        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at  ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+        "Dear ${customer.name!}, you have an outstanding payment of ₦${display(widget.item!.balance!)} for your purchase at  ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
     // ignore: unnecessary_null_comparison
     if (customer == null) {
       return Container();
     }
     initialText =
-        "Dear ${customer.name!}, you have an outstanding payment of NGN ${display(widget.item!.balance!)} for your purchase at ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
+        "Dear ${customer.name!}, you have an outstanding payment of ₦${display(widget.item!.balance!)} for your purchase at ($businessName($phone)). Kindly pay as soon as possible. \n \nThanks for your patronage. \n  \nPowered by Huzz \n";
 
     // ignore: unnecessary_null_comparison
     return customer == null
@@ -1205,7 +1202,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   // labelText: label,
-                                  hintText: 'N 0.00',
+                                  hintText: '₦ 0.00',
 
                                   hintStyle: Theme.of(context)
                                       .textTheme

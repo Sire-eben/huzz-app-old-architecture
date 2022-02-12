@@ -36,7 +36,7 @@ class _AllState extends State<All> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -93,7 +93,7 @@ class _AllState extends State<All> {
                           var item = _invoiceController.offlineInvoices[index];
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           if (customer == null) {
                             print("customer is null");
                           }
@@ -149,7 +149,7 @@ class _AllState extends State<All> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  "N${display(item.totalAmount)}",
+                                                  "₦${display(item.totalAmount)}",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -205,7 +205,7 @@ class _AllState extends State<All> {
                           final _isSelected = _selectedIndex.contains(index);
                           var customer = _customerController
                               .checkifCustomerAvailableWithValue(
-                                  item.customerId??"");
+                                  item.customerId ?? "");
                           return InkWell(
                             onTap: () {
                               setState(() {
@@ -256,7 +256,7 @@ class _AllState extends State<All> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${display(item.totalAmount)}",
+                                                "₦${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -377,7 +377,7 @@ class _AllState extends State<All> {
               children: [
                 Expanded(
                   child: Text(
-                    'You are about to delete this transaction. Are you sure you want to continue?',
+                    'You are about to delete this invoice(s). Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
                       fontFamily: 'DMSans',
@@ -391,7 +391,9 @@ class _AllState extends State<All> {
             content: Center(
               child: SvgPicture.asset(
                 'assets/images/delete_alert.svg',
-                fit: BoxFit.fitHeight,
+                // fit: BoxFit.fitHeight,
+                height: 60,
+                width: 60,
               ),
             ),
             actions: <Widget>[
@@ -406,7 +408,6 @@ class _AllState extends State<All> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          // _invoiceController.deleteItems();
                           Get.back();
                         },
                         child: Container(
