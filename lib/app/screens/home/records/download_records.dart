@@ -1,11 +1,13 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/colors.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../records.dart';
 import 'records_pdf.dart';
 
 class DownloadRecordReceipt extends StatefulWidget {
@@ -120,7 +122,7 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
                 onTap: () {
-                  Get.offAll(Dashboard());
+                  Get.offAll(() => Records());
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,

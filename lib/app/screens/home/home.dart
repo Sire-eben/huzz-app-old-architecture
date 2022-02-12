@@ -624,7 +624,7 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "See all your Records",
+                              "See all your records",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
@@ -862,7 +862,7 @@ class _HomeState extends State<Home> {
                                 fontFamily: 'DMSans'),
                           ),
                           Text(
-                            'Add transaction button to record your first transaction',
+                            'Add transaction button to record your first transaction.',
                             style: TextStyle(
                                 fontSize: 10,
                                 color: Colors.black,

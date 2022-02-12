@@ -54,27 +54,29 @@ class CreateBusiness extends StatelessWidget {
                   height: 5,
                 ),
                 Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                    child: CustomTextField(
-                      label: "Address (Optional)",
-                      textEditingController:
-                          _businessController.businessAddressController,
-                    )),
+                  width: MediaQuery.of(context).size.width,
+                  height: 100,
+                  child: CustomTextField(
+                    label: "Address (Optional)",
+                    textEditingController:
+                        _businessController.businessAddressController,
+                  ),
+                ),
                 SizedBox(
                   height: 5,
                 ),
                 Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                    child: CustomTextField(
-                      label: "Phone Number",
-                      validatorText: "Phone Number is needed",
-                      keyType: TextInputType.phone,
-                      maxLength: 11,
-                      textEditingController:
-                          _businessController.businessPhoneNumber,
-                    )),
+                  width: MediaQuery.of(context).size.width,
+                  height: 100,
+                  child: CustomTextField(
+                    label: "Phone Number",
+                    validatorText: "Phone Number is needed",
+                    keyType: TextInputType.phone,
+                    maxLength: 11,
+                    textEditingController:
+                        _businessController.businessPhoneNumber,
+                  ),
+                ),
                 SizedBox(
                   height: 5,
                 ),
@@ -83,7 +85,6 @@ class CreateBusiness extends StatelessWidget {
                   height: 100,
                   child: CustomTextField(
                     label: "Email",
-                    validatorText: "Email is required",
                     textEditingController: _businessController.businessEmail,
                   ),
                 ),
