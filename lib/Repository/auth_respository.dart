@@ -289,7 +289,7 @@ class AuthRepository extends GetxController {
       final resposne = await http.put(Uri.parse(ApiLink.update_profile),
           body: jsonEncode({
             // "profileImageFileStoreId": imageId,
-            "profileImageUrl":imageId
+            "profileImageUrl": imageId
             // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
           }),
           headers: {
@@ -541,8 +541,7 @@ class AuthRepository extends GetxController {
         // ignore: unnecessary_null_comparison
         if (response != null) {
           _authStatus(AuthStatus.Authenticated);
-
-          Get.offAll(() => Signup());
+          logout();
         }
       } else {
         _authStatus(AuthStatus.Empty);
