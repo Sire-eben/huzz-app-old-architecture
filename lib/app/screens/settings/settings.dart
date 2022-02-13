@@ -239,7 +239,7 @@ class _SettingsState extends State<Settings> {
                           onTap: () {
                             _displayProfileDialog(
                                 context,
-                                "are you sure want to delete your account",
+                                'You are about to delete your Huzz account and all associated data. This is an irreversible action. Are you sure you want to continue?',
                                 () {});
                           },
                           child: SvgPicture.asset(
@@ -592,7 +592,7 @@ class _SettingsState extends State<Settings> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 55,
-              vertical: 250,
+              vertical: 240,
             ),
             title: Row(
               children: [
