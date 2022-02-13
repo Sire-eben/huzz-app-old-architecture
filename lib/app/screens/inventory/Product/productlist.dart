@@ -238,8 +238,7 @@ class _ProductListingState extends State<ProductListing> {
             ),
             content: Center(
               child: SvgPicture.asset(
-                'assets/images/delete_alert.svg',
-                fit: BoxFit.fitHeight,
+                'assets/images/polygon.svg',
               ),
             ),
             actions: <Widget>[

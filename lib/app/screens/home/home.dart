@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ import 'package:huzz/model/business.dart';
 import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
+
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
@@ -608,7 +610,8 @@ class _HomeState extends State<Home> {
                       height: 10,
                     ),
                     Text(
-                      "${currency(context).currencySymbol}0",
+                      // "${currency(context).currencySymbol}0",
+                      'N0',
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
