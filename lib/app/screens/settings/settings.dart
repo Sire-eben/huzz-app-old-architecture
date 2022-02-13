@@ -592,7 +592,7 @@ class _SettingsState extends State<Settings> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 55,
-              vertical: 250,
+              vertical: 240,
             ),
             title: Row(
               children: [
