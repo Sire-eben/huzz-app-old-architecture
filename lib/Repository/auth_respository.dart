@@ -14,6 +14,7 @@ import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
+import 'package:huzz/app/screens/reg_home.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/app/screens/sign_up.dart';
 import 'package:huzz/model/business.dart';
@@ -541,7 +542,7 @@ class AuthRepository extends GetxController {
         // ignore: unnecessary_null_comparison
         if (response != null) {
           _authStatus(AuthStatus.Authenticated);
-          logout();
+          accountDeletelogout();
         }
       } else {
         _authStatus(AuthStatus.Empty);
@@ -579,6 +580,14 @@ class AuthRepository extends GetxController {
     } catch (error) {
       _authStatus(AuthStatus.Error);
     }
+  }
+
+  void accountDeletelogout() {
+    _authStatus(AuthStatus.UnAuthenticated);
+    pref!.saveToken("0");
+    clearDatabase();
+    pref!.logout();
+    Get.offAll(() => RegHome());
   }
 
   void logout() {
