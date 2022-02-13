@@ -192,7 +192,7 @@ class _HomeState extends State<Home> {
                         height: 10,
                       ),
                       Text(
-                        "${currency(context).currencySymbol}${display(_transactionController.totalbalance.value)}",
+                        "N${display(_transactionController.totalbalance.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
