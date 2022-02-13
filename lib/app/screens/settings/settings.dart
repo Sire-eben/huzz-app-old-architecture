@@ -661,7 +661,7 @@ class _SettingsState extends State<Settings> {
                     SizedBox(width: 10),
                     InkWell(
                       onTap: () {
-                        // controller.deleteUsersAccounts();
+                        controller.deleteUsersAccounts();
                         onContinue();
                       },
                       child: Container(

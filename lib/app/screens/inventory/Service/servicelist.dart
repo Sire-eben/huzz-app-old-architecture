@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/app/screens/inventory/Product/productlist.dart';
 import 'package:huzz/app/screens/inventory/Service/add_service.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/product_model.dart';
@@ -277,7 +276,7 @@ class _ServiceListingState extends State<ServiceListing> {
               children: [
                 Expanded(
                   child: Text(
-                    'You are about to delete a product, Are you sure you want to continue?',
+                    'You are about to delete a service, Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
                       fontFamily: 'DMSans',
@@ -290,8 +289,7 @@ class _ServiceListingState extends State<ServiceListing> {
             ),
             content: Center(
               child: SvgPicture.asset(
-                'assets/images/delete_alert.svg',
-                fit: BoxFit.fitHeight,
+                'assets/images/polygon.svg',
               ),
             ),
             actions: <Widget>[
