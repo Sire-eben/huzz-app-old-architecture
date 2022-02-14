@@ -246,8 +246,8 @@ class DailyRecordPdfApi {
       TransactionRespository transactionRespository) {
     final headers = [
       'Date',
-      'Time',
-      // 'Type',
+      // 'Time',
+      'Type',
       'Item',
       'Qty',
       'Amount',
@@ -261,9 +261,9 @@ class DailyRecordPdfApi {
       item1.transactionList.forEach((element) {
         element.businessTransactionPaymentItemList!.forEach((element1) {
           data.add([
-            element.entryDateTime!.formatDate(pattern: "dd, MMM y"),
-            element.entryDateTime!.formatDate(pattern: "hh:mm a"),
-            // item.type,
+            '${element.entryDateTime!.formatDate(pattern: "dd, MMM y")} ${element.entryDateTime!.formatDate(pattern: "hh:mm a")}',
+            // element.entryDateTime!.formatDate(pattern: "hh:mm a"),
+            element1.transactionType,
             element1.itemName,
             '${element1.quality}',
             '${Utils.formatPrice(element1.amount)}',
