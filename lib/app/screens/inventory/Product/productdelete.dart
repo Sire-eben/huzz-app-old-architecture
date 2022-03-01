@@ -306,7 +306,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "₦0.00",
+                        "N0.00",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
@@ -416,7 +416,7 @@ class _ListingProductState extends State<ListingProduct> {
                           width: 50,
                         ),
                         Text(
-                          '₦${display(widget.item!.costPrice ?? 0)}',
+                          'N${display(widget.item!.costPrice ?? 0)}',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',

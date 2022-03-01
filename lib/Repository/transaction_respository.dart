@@ -54,7 +54,7 @@ class TransactionRespository extends GetxController {
   final debtors = 0.obs;
   List<PaymentItem> productList = [];
   List<TransactionModel> todayTransaction = [];
-  String customText="";
+  String customText = "";
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
   final amountController = MoneyMaskedTextController(
@@ -62,7 +62,7 @@ class TransactionRespository extends GetxController {
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
-  final quantityController = TextEditingController();
+  final quantityController = TextEditingController(text: '1');
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final paymentController = TextEditingController();
@@ -907,7 +907,7 @@ class TransactionRespository extends GetxController {
 
   Future getDateRangeRecordData(DateTime startDate, DateTime endDate) async {
     int days = endDate.difference(startDate).inDays;
-    customText=startDate.formatDate()!+" - "+endDate.formatDate()!;
+    customText = startDate.formatDate()! + " - " + endDate.formatDate()!;
     print("days difference in range $days");
     List<DateTime> value = [];
     for (int i = 0; i <= days; ++i) {
@@ -1802,7 +1802,7 @@ class TransactionRespository extends GetxController {
     print("clearing value");
     itemNameController.text = "";
     amountController.clear();
-    quantityController.text = "";
+    quantityController.text = "1";
     dateController.text = "";
     timeController.text = "";
     paymentController.text = "";

@@ -8,7 +8,6 @@ import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
-
 import '../../../../colors.dart';
 
 // ignore: must_be_immutable
@@ -42,7 +41,7 @@ class _DebtOwnedState extends State<DebtOwned> {
   String? value = "Pending";
 
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '₦', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
   @override
@@ -116,7 +115,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         height: 10,
                                       ),
                                       Text(
-                                        'Add Debt Owned',
+                                        'Add Debt Owed',
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.black,
@@ -247,7 +246,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               FontWeight.w400),
                                                     ),
                                                     Text(
-                                                      "Paid: ₦${display((item.totalAmount! - item.balance!))}",
+                                                      "Paid: N${display((item.totalAmount! - item.balance!))}",
                                                       style: TextStyle(
                                                           fontSize: 11,
                                                           fontFamily: 'DMSans',
@@ -287,6 +286,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                       ),
                       InkWell(
                         onTap: () => showModalBottomSheet(
+                          isScrollControlled:true,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(20))),
@@ -553,7 +553,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   // labelText: label,
-                                  hintText: '₦ 0.00',
+                                  hintText: 'N 0.00',
 
                                   hintStyle: Theme.of(context)
                                       .textTheme
@@ -630,289 +630,283 @@ class _DebtOwnedState extends State<DebtOwned> {
   StatefulBuilder buildAddDebtor() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    height: 3,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(4),
+            margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+          ),
+          padding: MediaQuery.of(context).viewInsets,
+          // padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10,),
+              Center(
+                child: Container(
+                  height: 3,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+              SizedBox(height: 15),
+              InkWell(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Add Debt Owed',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
-                InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'Add Debt Owed',
-                      style: TextStyle(
-                        color: AppColor().blackColor,
-                        fontFamily: 'DMSans',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: newCustomersInfo(),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Obx(() {
-                  return InkWell(
-                    onTap: () async {
-                      if (_customerKey.currentState!.validate()) {
-                        if (_debtorRepository.addingDebtorStatus !=
-                            AddingDebtorStatus.Loading) {
-                          await _debtorRepository
-                              .addBudinessDebtor("EXPENDITURE");
-                          setState(() {});
-                          Get.back();
-                        }
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: newCustomersInfo(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Obx(() {
+                return InkWell(
+                  onTap: () async {
+                    if (_customerKey.currentState!.validate()) {
+                      if (_debtorRepository.addingDebtorStatus !=
+                          AddingDebtorStatus.Loading) {
+                        await _debtorRepository
+                            .addBudinessDebtor("EXPENDITURE");
+                        setState(() {});
+                        Get.back();
                       }
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_debtorRepository.addingDebtorStatus ==
-                              AddingDebtorStatus.Loading)
-                          ? Container(
-                              width: 30,
-                              height: 30,
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white)),
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  size: 22,
-                                  color: AppColor().whiteColor,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Center(
-                                  child: Text(
-                                    'Add Debtor',
-                                    style: TextStyle(
-                                      color: AppColor().whiteColor,
-                                      fontFamily: 'DMSans',
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                    }
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(
+                        horizontal:
+                            MediaQuery.of(context).size.height * 0.03),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: AppColor().backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: (_debtorRepository.addingDebtorStatus ==
+                            AddingDebtorStatus.Loading)
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            child: Center(
+                                child: CircularProgressIndicator(
+                                    color: Colors.white)),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add,
+                                size: 22,
+                                color: AppColor().whiteColor,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Center(
+                                child: Text(
+                                  'Add Debtor',
+                                  style: TextStyle(
+                                    color: AppColor().whiteColor,
+                                    fontFamily: 'DMSans',
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ],
-                            ),
-                    ),
-                  );
-                }),
-              ],
-            ),
+                              ),
+                             
+                            ],
+                          ),
+                  ),
+                );
+              }),
+              SizedBox(height: 10,)
+            ],
           ),
         );
       });
   StatefulBuilder newCustomersInfo() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         ScrollController? controller;
-        return SingleChildScrollView(
-          physics: ScrollPhysics(),
-          controller: controller,
-          child: Form(
-            key: _customerKey,
-            child: Column(
-              children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.00),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.01),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () => myState(
-                                () => _debtorRepository.customerType = 1),
-                            child: Row(
-                              children: [
-                                Radio<int>(
-                                    value: 1,
-                                    activeColor: AppColor().backgroundColor,
-                                    groupValue: _debtorRepository.customerType,
-                                    onChanged: (value) => myState(() =>
-                                        _debtorRepository.customerType = 1)),
-                                Text(
-                                  'New Merchants',
-                                  style: TextStyle(
-                                    color: AppColor().backgroundColor,
-                                    fontFamily: "DMSans",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+        return Form(
+          key: _customerKey,
+          child: Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.00),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.01),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () => myState(
+                              () => _debtorRepository.customerType = 1),
+                          child: Row(
+                            children: [
+                              Radio<int>(
+                                  value: 1,
+                                  activeColor: AppColor().backgroundColor,
+                                  groupValue: _debtorRepository.customerType,
+                                  onChanged: (value) => myState(() =>
+                                      _debtorRepository.customerType = 1)),
+                              Text(
+                                'New Merchants',
+                                style: TextStyle(
+                                  color: AppColor().backgroundColor,
+                                  fontFamily: "DMSans",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          InkWell(
-                            onTap: () => myState(
-                                () => _debtorRepository.customerType = 0),
-                            child: Row(
-                              children: [
-                                Radio<int>(
-                                    value: 0,
-                                    activeColor: AppColor().backgroundColor,
-                                    groupValue: _debtorRepository.customerType,
-                                    onChanged: (value) => myState(() =>
-                                        _debtorRepository.customerType = 0)),
-                                Text(
-                                  'Existing Merchants',
-                                  style: TextStyle(
-                                    color: AppColor().backgroundColor,
-                                    fontFamily: "DMSans",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                        ),
+                        InkWell(
+                          onTap: () => myState(
+                              () => _debtorRepository.customerType = 0),
+                          child: Row(
+                            children: [
+                              Radio<int>(
+                                  value: 0,
+                                  activeColor: AppColor().backgroundColor,
+                                  groupValue: _debtorRepository.customerType,
+                                  onChanged: (value) => myState(() =>
+                                      _debtorRepository.customerType = 0)),
+                              Text(
+                                'Existing Merchants',
+                                style: TextStyle(
+                                  color: AppColor().backgroundColor,
+                                  fontFamily: "DMSans",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    _debtorRepository.customerType == 1
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomTextFieldInvoiceOptional(
+                                label: 'Name',
+                                keyType: TextInputType.name,
+                                textEditingController:
+                                    _customerRepository.nameController,
+                                validatorText: "Name is needed",
+                              ),
+                              CustomTextFieldInvoiceOptional(
+                                label: 'Phone Number',
+                                keyType: TextInputType.name,
+                                textEditingController:
+                                    _customerRepository.phoneNumberController,
+                                validatorText: "Phone number is needed",
+                              ),
+                              CustomTextFieldInvoiceOptional(
+                                label: 'Amount you owe',
+                                keyType: TextInputType.number,
+                                textEditingController:
+                                    _debtorRepository.totalAmountController,
+                                validatorText: "Amount you owe is needed",
+                              ),
+                            ],
                           )
-                        ],
-                      ),
-                      _debtorRepository.customerType == 1
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomTextFieldInvoiceOptional(
-                                  label: 'Name',
-                                  keyType: TextInputType.name,
-                                  textEditingController:
-                                      _customerRepository.nameController,
-                                  validatorText: "Name is needed",
-                                ),
-                                CustomTextFieldInvoiceOptional(
-                                  label: 'Phone Number',
-                                  keyType: TextInputType.name,
-                                  textEditingController:
-                                      _customerRepository.phoneNumberController,
-                                  validatorText: "Phone number is needed",
-                                ),
-                                CustomTextFieldInvoiceOptional(
-                                  label: 'Balance',
-                                  keyType: TextInputType.number,
-                                  textEditingController:
-                                      _debtorRepository.amountController,
-                                  validatorText: "Balance is needed",
-                                ),
-                                CustomTextFieldInvoiceOptional(
-                                  label: 'Total Amount',
-                                  keyType: TextInputType.number,
-                                  textEditingController:
-                                      _debtorRepository.totalAmountController,
-                                  validatorText: "Total Amount is needed",
-                                ),
-                              ],
-                            )
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Select Customer',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontFamily: 'DMSans'),
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'Select Customer',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontFamily: 'DMSans'),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "*",
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                        fontFamily: 'DMSans'),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 4),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        width: 2,
+                                        color: AppColor().backgroundColor)),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<Customer>(
+                                    value: _debtorRepository.selectedCustomer,
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColor().backgroundColor,
                                     ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      "*",
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                          fontFamily: 'DMSans'),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 4),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          width: 2,
-                                          color: AppColor().backgroundColor)),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton<Customer>(
-                                      value: _debtorRepository.selectedCustomer,
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: AppColor().backgroundColor,
-                                      ),
-                                      iconSize: 30,
-                                      items: _customerRepository
-                                          .offlineBusinessCustomer
-                                          .map((value) {
-                                        return DropdownMenuItem<Customer>(
-                                          value: value,
-                                          child: Text(value.name!),
-                                        );
-                                      }).toList(),
-                                      onChanged: (value) => myState(
-                                        () => _debtorRepository
-                                            .selectedCustomer = value,
-                                      ),
+                                    iconSize: 30,
+                                    items: _customerRepository
+                                        .offlineBusinessCustomer
+                                        .map((value) {
+                                      return DropdownMenuItem<Customer>(
+                                        value: value,
+                                        child: Text(value.name!),
+                                      );
+                                    }).toList(),
+                                    onChanged: (value) => myState(
+                                      () => _debtorRepository
+                                          .selectedCustomer = value,
                                     ),
                                   ),
                                 ),
-                                CustomTextFieldInvoiceOptional(
-                                  label: 'Balance',
-                                  keyType: TextInputType.number,
-                                  textEditingController:
-                                      _customerRepository.amountController,
-                                ),
-                                CustomTextFieldInvoiceOptional(
-                                  label: 'Total Amount',
-                                  keyType: TextInputType.number,
-                                  textEditingController:
-                                      _debtorRepository.totalAmountController,
-                                ),
-                              ],
-                            ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                              ),
+                              // CustomTextFieldInvoiceOptional(
+                              //   label: 'Balance',
+                              //   keyType: TextInputType.number,
+                              //   textEditingController:
+                              //       _customerRepository.amountController,
+                              // ),
+                              CustomTextFieldInvoiceOptional(
+                                label: 'Amount you owe',
+                                keyType: TextInputType.number,
+                                textEditingController:
+                                    _debtorRepository.totalAmountController,
+                              ),
+                            ],
+                          ),
+                  ],
+                ),
+              )
+            ],
           ),
         );
       });
@@ -975,10 +969,16 @@ class _DebtOwnedState extends State<DebtOwned> {
   Widget buildAddItem() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+          // padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+           margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+          ),
+          padding: MediaQuery.of(context).viewInsets,
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
+              SizedBox(height: 10,),
               Container(
                 height: 6,
                 width: 100,
@@ -1032,6 +1032,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   ),
                 ),
               ),
+              SizedBox(height: 10,)
             ],
           ),
         );
@@ -1342,7 +1343,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   // labelText: label,
-                                  hintText: '₦ 0.00',
+                                  hintText: 'N 0.00',
 
                                   hintStyle: Theme.of(context)
                                       .textTheme

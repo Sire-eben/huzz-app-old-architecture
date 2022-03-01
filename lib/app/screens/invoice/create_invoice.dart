@@ -610,7 +610,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       Expanded(
                                         child: CustomTextField(
                                           label: "Amount",
-                                          hint: '₦ 0.00',
+                                          hint: 'N 0.00',
                                           validatorText: "Amount is needed",
                                           onChanged: (value) {
                                             print("value is $value");
@@ -722,7 +722,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     Expanded(
                                       child: CustomTextField(
                                         label: "Amount",
-                                        hint: '₦ 0.00',
+                                        hint: 'N 0.00',
                                         validatorText: "Amount is needed",
                                         textEditingController:
                                             _invoiceController.amountController,
@@ -1435,7 +1435,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   Expanded(
                     child: CustomTextField(
                       label: "Amount",
-                      hint: '₦ 0.00',
+                      hint: 'N 0.00',
                       validatorText: "Amount name is needed",
                       // enabled:
                       //     item.productId == null || item.productId!.isEmpty,
@@ -1595,7 +1595,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             Expanded(
                               child: CustomTextField(
                                 label: "Amount",
-                                hint: '₦ 0.00',
+                                hint: 'N 0.00',
                                 validatorText: "Amount name is needed",
                                 textEditingController:
                                     _invoiceController.amountController,
@@ -1674,7 +1674,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 Expanded(
                                   child: CustomTextField(
                                     label: "Amount",
-                                    hint: '₦ 0.00',
+                                    hint: 'N 0.00',
                                     validatorText: "Amount name is needed",
                                     textEditingController:
                                         _invoiceController.amountController,

@@ -122,7 +122,7 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
                 onTap: () {
-                  Get.offAll(() => Records());
+                  Get.to(() => Records());
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,

@@ -237,9 +237,9 @@ class _SettingsState extends State<Settings> {
                         ),
                         InkWell(
                           onTap: () {
-                            _displayDialog(
+                            _displayProfileDialog(
                                 context,
-                                "are you sure want to delete your account",
+                                'You are about to delete your Huzz account and all associated data. This is an irreversible action. Are you sure you want to continue?',
                                 () {});
                           },
                           child: SvgPicture.asset(
@@ -395,9 +395,9 @@ class _SettingsState extends State<Settings> {
                   // LogOut
                   InkWell(
                     onTap: () {
-                      _displayDialog(
+                      _displayLogoutDialog(
                           context, "Are you sure you want to log out.?", () {
-                        controller.logout();
+                        // controller.logout();
                       });
                     },
                     child: Container(
@@ -511,16 +511,18 @@ class _SettingsState extends State<Settings> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     (controller.profileImage.value != null)
-                        ? CircleAvatar(
-                            radius: 80,
-                            backgroundImage: FileImage(
-                              controller.profileImage.value!,
-                            ))
-                        : CircleAvatar(
-                            radius: 80,
-                            child: SvgPicture.asset(
-                              'assets/images/camera.svg',
-                            ),
+                        ? Container(
+                            height: 80,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: FileImage(
+                                  controller.profileImage.value!,
+                                ))),
+                          )
+                        : SvgPicture.asset(
+                            'assets/images/camera.svg',
+                            height: 80,
                           ),
                   ],
                 ),
@@ -582,7 +584,117 @@ class _SettingsState extends State<Settings> {
         );
       });
 
-  _displayDialog(
+  _displayProfileDialog(
+      BuildContext context, String title, VoidCallback onContinue) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 55,
+              vertical: 240,
+            ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '$title',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'DMSans',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Column(
+              children: [
+                SizedBox(
+                  height: 8,
+                ),
+                SvgPicture.asset(
+                  'assets/images/polygon.svg',
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().backgroundColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: AppColor().backgroundColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    InkWell(
+                      onTap: () {
+                        controller.deleteUsersAccounts();
+                        onContinue();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().backgroundColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  _displayLogoutDialog(
       BuildContext context, String title, VoidCallback onContinue) async {
     return showDialog(
         context: context,
@@ -659,7 +771,7 @@ class _SettingsState extends State<Settings> {
                     SizedBox(width: 10),
                     InkWell(
                       onTap: () {
-                        // controller.deleteUsersAccounts();
+                        controller.logout();
                         onContinue();
                       },
                       child: Container(
@@ -673,7 +785,7 @@ class _SettingsState extends State<Settings> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
-                            'Continue',
+                            'Logout',
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'DMSans',
@@ -700,7 +812,7 @@ class _SettingsState extends State<Settings> {
           return AlertDialog(
             insetPadding: EdgeInsets.symmetric(
               horizontal: 55,
-              vertical: 225,
+              vertical: 240,
             ),
             title: Row(
               children: [
@@ -779,7 +891,7 @@ class _SettingsState extends State<Settings> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
-                            'Continue',
+                            'Delete',
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'DMSans',

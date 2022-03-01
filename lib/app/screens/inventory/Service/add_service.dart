@@ -116,7 +116,7 @@ class _AddServiceState extends State<AddService> {
                   CustomTextField(
                     label: "Service Amount",
                     validatorText: "Service amount is needed",
-                    hint: '₦0.00',
+                    hint: 'N0.00',
                     textEditingController:
                         _productController.productCostPriceController,
                   ),
