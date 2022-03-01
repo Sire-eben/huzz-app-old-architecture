@@ -880,7 +880,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       ),
                                       iconSize: 30,
                                       items: _customerRepository
-                                          .customerCustomer
+                                          .offlineBusinessCustomer
                                           .map((value) {
                                         return DropdownMenuItem<Customer>(
                                           value: value,

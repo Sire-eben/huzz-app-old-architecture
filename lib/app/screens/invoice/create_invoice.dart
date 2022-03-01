@@ -698,7 +698,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         color: AppColor().backgroundColor,
                                       ),
                                       iconSize: 30,
-                                      items: _productController.productGoods
+                                      items: _productController.offlineBusinessProduct
                                           .map((value) {
                                         return DropdownMenuItem<Product>(
                                           value: value,
@@ -1650,7 +1650,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     color: AppColor().backgroundColor,
                                   ),
                                   iconSize: 30,
-                                  items: _productController.productGoods
+                                  items: _productController.offlineBusinessProduct
                                       .map((value) {
                                     return DropdownMenuItem<Product>(
                                       value: value,

@@ -512,7 +512,7 @@ class _DebtorsState extends State<Debtors> {
                                         ),
                                         iconSize: 30,
                                         items: _customerController
-                                            .customerCustomer
+                                            .offlineBusinessCustomer
                                             .map((value) {
                                           return DropdownMenuItem<Customer>(
                                             value: value,
