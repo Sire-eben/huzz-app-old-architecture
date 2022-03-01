@@ -134,7 +134,7 @@ class PdfInvoiceApi {
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text('Mode of Payment',
               style: TextStyle(color: PdfColors.white, fontSize: 10)),
-          Text("Trnasfer",
+          Text("Transfer",
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           Text(bankDetails.bankAccountName!,

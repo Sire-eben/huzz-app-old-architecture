@@ -780,7 +780,7 @@ class _ListingProductState extends State<ListingProduct> {
                         width: 50,
                       ),
                       Text(
-                        'N${display(widget.item!.costPrice ?? 0)}',
+                        'N${display(widget.item!.sellingPrice ?? 0)}',
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',

@@ -373,7 +373,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       color: AppColor().backgroundColor,
                                     ),
                                     iconSize: 30,
-                                    items: _productController.productGoods
+                                    items: _productController.offlineBusinessProduct
                                         .map((value) {
                                       return DropdownMenuItem<Product>(
                                         value: value,
@@ -1226,7 +1226,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   color: AppColor().backgroundColor,
                                 ),
                                 iconSize: 30,
-                                items: _productController.productGoods
+                                items: _productController.offlineBusinessProduct
                                     .map((value) {
                                   return DropdownMenuItem<Product>(
                                     value: value,
