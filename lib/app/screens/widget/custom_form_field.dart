@@ -86,6 +86,8 @@ class CustomTextField extends StatelessWidget {
               if (AllowClickable!) onClick!();
             },
             child: Container(
+  
+
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
                   autofocus: true,

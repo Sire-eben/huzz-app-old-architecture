@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -17,7 +16,6 @@ import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
 import 'itemCard.dart';
 
 class MoneyIn extends StatefulWidget {
@@ -285,7 +283,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   Expanded(
                                     child: CustomTextField(
                                       label: "Amount",
-                                      hint: 'N 0.00',
+                                      hint: 'N0.00',
                                       validatorText: "Amount is needed",
                                       onChanged: (value) {
                                         print("value is $value");
@@ -304,7 +302,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   Expanded(
                                     child: CustomTextField(
                                         label: "Quantity",
-                                        hint: '4',
+                                        hint: '1',
                                         keyType: TextInputType.phone,
                                         validatorText: "Quantity is needed",
                                         onChanged: (value) {
@@ -375,7 +373,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       color: AppColor().backgroundColor,
                                     ),
                                     iconSize: 30,
-                                    items: _productController.productGoods
+                                    items: _productController.offlineBusinessProduct
                                         .map((value) {
                                       return DropdownMenuItem<Product>(
                                         value: value,
@@ -401,7 +399,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   Expanded(
                                     child: CustomTextField(
                                       label: "Amount",
-                                      hint: 'N 0.00',
+                                      hint: 'N0.00',
                                       validatorText: "Amount is needed",
                                       textEditingController:
                                           _transactionController
@@ -416,7 +414,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   Expanded(
                                     child: CustomTextField(
                                         label: "Quantity",
-                                        hint: '4',
+                                        hint: '1',
                                         keyType: TextInputType.phone,
                                         validatorText: "Quantity is needed",
                                         onChanged: (value) {
@@ -465,7 +463,7 @@ class _MoneyInState extends State<MoneyIn> {
                       _transactionController.addMoreProduct();
                     }
                     showModalBottomSheet(
-                      isScrollControlled: true,
+                        isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(20))),
@@ -1070,17 +1068,20 @@ class _MoneyInState extends State<MoneyIn> {
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return SingleChildScrollView(
           child: Container(
-           margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
-         padding: MediaQuery.of(context).viewInsets,
+            margin: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+            ),
+            padding: MediaQuery.of(context).viewInsets,
             child: Column(
-             mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
                   onTap: () {
                     Get.back();
                   },
                   child: Container(
-                    margin:EdgeInsets.only(top: 10),
+                    margin: EdgeInsets.only(top: 10),
                     height: 6,
                     width: 80,
                     decoration: BoxDecoration(
@@ -1171,7 +1172,7 @@ class _MoneyInState extends State<MoneyIn> {
                           Expanded(
                             child: CustomTextField(
                               label: "Amount",
-                              hint: 'N 0.00',
+                              hint: 'N0.00',
                               validatorText: "Amount name is needed",
                               textEditingController:
                                   _transactionController.amountController,
@@ -1183,7 +1184,7 @@ class _MoneyInState extends State<MoneyIn> {
                           Expanded(
                             child: CustomTextField(
                                 label: "Quantity",
-                                hint: '4',
+                                hint: '1',
                                 keyType: TextInputType.phone,
                                 validatorText: "Quantity name is needed",
                                 textEditingController:
@@ -1210,12 +1211,13 @@ class _MoneyInState extends State<MoneyIn> {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width,
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 4),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                    width: 2, color: AppColor().backgroundColor)),
+                                    width: 2,
+                                    color: AppColor().backgroundColor)),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<Product>(
                                 value: _transactionController.selectedProduct,
@@ -1224,21 +1226,22 @@ class _MoneyInState extends State<MoneyIn> {
                                   color: AppColor().backgroundColor,
                                 ),
                                 iconSize: 30,
-                                items:
-                                    _productController.productGoods.map((value) {
+                                items: _productController.offlineBusinessProduct
+                                    .map((value) {
                                   return DropdownMenuItem<Product>(
                                     value: value,
                                     child: Text(value.productName!),
                                   );
                                 }).toList(),
                                 onChanged: (value) => myState(() {
-                                  _transactionController.selectedProduct = value;
+                                  _transactionController.selectedProduct =
+                                      value;
                                   _transactionController
                                       .selectedProduct!.quantity = 1;
                                   _transactionController.amountController.text =
                                       value!.sellingPrice!.toString();
-                                  _transactionController.quantityController.text =
-                                      1.toString();
+                                  _transactionController
+                                      .quantityController.text = 1.toString();
                                 }),
                               ),
                             ),
@@ -1251,7 +1254,7 @@ class _MoneyInState extends State<MoneyIn> {
                               Expanded(
                                 child: CustomTextField(
                                   label: "Amount",
-                                  hint: 'N 0.00',
+                                  hint: 'N0.00',
                                   onChanged: (value) {
                                     print("value is $value");
                                     setState(() {});
@@ -1263,20 +1266,21 @@ class _MoneyInState extends State<MoneyIn> {
                                 ),
                               ),
                               SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.height * 0.03),
+                                  width: MediaQuery.of(context).size.height *
+                                      0.03),
                               Expanded(
                                 child: CustomTextField(
                                     label: "Quantity",
-                                    hint: '4',
+                                    hint: '1',
                                     onChanged: (value) {
                                       print("value is $value");
                                       setState(() {});
                                     },
                                     keyType: TextInputType.phone,
                                     validatorText: "Quantity is needed",
-                                    textEditingController: _transactionController
-                                        .quantityController),
+                                    textEditingController:
+                                        _transactionController
+                                            .quantityController),
                               ),
                             ],
                           ),
@@ -1284,7 +1288,8 @@ class _MoneyInState extends State<MoneyIn> {
                       ),
                 _transactionController.selectedValue == 1
                     ? Container()
-                    : SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02),
                 InkWell(
                   onTap: () {
                     _transactionController.addMoreProduct();
@@ -1308,7 +1313,9 @@ class _MoneyInState extends State<MoneyIn> {
                     ),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.02,)
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.02,
+                )
               ],
             ),
           ),
@@ -1376,8 +1383,11 @@ class _MoneyInState extends State<MoneyIn> {
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return SingleChildScrollView(
           child: Container(
-            padding:  MediaQuery.of(context).viewInsets,
-             margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
+            padding: MediaQuery.of(context).viewInsets,
+            margin: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.04,
+              right: MediaQuery.of(context).size.width * 0.04,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -1408,7 +1418,7 @@ class _MoneyInState extends State<MoneyIn> {
                     Expanded(
                       child: CustomTextField(
                         label: "Amount",
-                        hint: 'N 0.00',
+                        hint: 'N0.00',
                         validatorText: "Amount name is needed",
                         enabled:
                             item.productId == null || item.productId!.isEmpty,
@@ -1421,7 +1431,7 @@ class _MoneyInState extends State<MoneyIn> {
                     Expanded(
                       child: CustomTextField(
                           label: "Quantity",
-                          hint: '4',
+                          hint: '1',
                           keyType: TextInputType.phone,
                           validatorText: "Quantity name is needed",
                           textEditingController:
@@ -1453,7 +1463,9 @@ class _MoneyInState extends State<MoneyIn> {
                     ),
                   ),
                 ),
-                SizedBox(height:  MediaQuery.of(context).size.height * 0.02,)
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                )
               ],
             ),
           ),

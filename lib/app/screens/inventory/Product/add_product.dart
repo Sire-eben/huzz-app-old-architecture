@@ -32,12 +32,21 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void _incrementCounter() {
+    if(_productController.productQuantityController.text.isEmpty)
+_productController.productQuantityController.text="0";
+    
+    
+    _counter=int.parse(_productController.productQuantityController.text);
     setState(() {
       _counter++;
     });
+    _productController.productQuantityController.text="$_counter";
   }
 
   void _decrementCounter() {
+        if(_productController.productQuantityController.text.isEmpty)
+_productController.productQuantityController.text="0";
+    _counter=int.parse(_productController.productQuantityController.text);
     setState(() {
       if (_counter < 1) {
         setState(() {
@@ -46,6 +55,7 @@ class _AddProductState extends State<AddProduct> {
       } else {
         _counter--;
       }
+          _productController.productQuantityController.text="$_counter";
     });
   }
 

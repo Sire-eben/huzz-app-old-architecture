@@ -284,7 +284,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                   Expanded(
                                     child: CustomTextField(
                                       label: "Amount",
-                                      hint: 'N 0.00',
+                                      hint: 'N0.00',
                                       onChanged: (value) {
                                         print("value is $value");
                                         setState(() {});
@@ -303,7 +303,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                   Expanded(
                                     child: CustomTextField(
                                         label: "Quantity",
-                                        hint: '4',
+                                        hint: '1',
                                         onChanged: (value) {
                                           print("value is $value");
                                           setState(() {});
@@ -371,7 +371,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                       color: AppColor().backgroundColor,
                                     ),
                                     iconSize: 30,
-                                    items: _productController.productGoods
+                                    items: _productController.offlineBusinessProduct
                                         .map((value) {
                                       return DropdownMenuItem<Product>(
                                         value: value,
@@ -397,7 +397,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                   Expanded(
                                     child: CustomTextField(
                                       label: "Amount",
-                                      hint: 'N 0.00',
+                                      hint: 'N0.00',
                                       validatorText: "Amount is needed",
                                       onChanged: (value) {
                                         print("value is $value");
@@ -416,7 +416,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                   Expanded(
                                     child: CustomTextField(
                                         label: "Quantity",
-                                        hint: '4',
+                                        hint: '1',
                                         keyType: TextInputType.phone,
                                         validatorText: "Quantity is needed",
                                         onChanged: (value) {
@@ -465,7 +465,7 @@ class _MoneyOutState extends State<MoneyOut> {
                       _transactionController.addMoreProduct();
                     }
                     showModalBottomSheet(
-                      isScrollControlled: true,
+                        isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(20))),
@@ -1132,9 +1132,11 @@ class _MoneyOutState extends State<MoneyOut> {
   Widget buildAddNewItem() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
-          margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
-          
-            padding: MediaQuery.of(context).viewInsets,
+          margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+          ),
+          padding: MediaQuery.of(context).viewInsets,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -1234,7 +1236,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         Expanded(
                           child: CustomTextField(
                             label: "Amount",
-                            hint: 'N 0.00',
+                            hint: 'N0.00',
                             validatorText: "Amount name is needed",
                             textEditingController:
                                 _transactionController.amountController,
@@ -1246,7 +1248,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         Expanded(
                           child: CustomTextField(
                               label: "Quantity",
-                              hint: '4',
+                              hint: '1',
                               keyType: TextInputType.phone,
                               validatorText: "Quantity name is needed",
                               textEditingController:
@@ -1288,7 +1290,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               ),
                               iconSize: 30,
                               items:
-                                  _productController.productGoods.map((value) {
+                                  _productController.offlineBusinessProduct.map((value) {
                                 return DropdownMenuItem<Product>(
                                   value: value,
                                   child: Text(value.productName!),
@@ -1314,7 +1316,7 @@ class _MoneyOutState extends State<MoneyOut> {
                             Expanded(
                               child: CustomTextField(
                                 label: "Amount",
-                                hint: 'N 0.00',
+                                hint: 'N0.00',
                                 onChanged: (value) {
                                   print("value is $value");
                                   setState(() {});
@@ -1331,7 +1333,7 @@ class _MoneyOutState extends State<MoneyOut> {
                             Expanded(
                               child: CustomTextField(
                                   label: "Quantity",
-                                  hint: '4',
+                                  hint: '1',
                                   onChanged: (value) {
                                     print("value is $value");
                                     setState(() {});
@@ -1371,8 +1373,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   ),
                 ),
               ),
-                SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             ],
           ),
         );
@@ -1425,7 +1426,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         _transactionController.productList[index]);
 
                     showModalBottomSheet(
-                      isScrollControlled: true,
+                        isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(20))),
@@ -1439,9 +1440,11 @@ class _MoneyOutState extends State<MoneyOut> {
   Widget buildEditItem(PaymentItem item, int index) =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         return Container(
-         margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
-          
-            padding: MediaQuery.of(context).viewInsets,
+          margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+          ),
+          padding: MediaQuery.of(context).viewInsets,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -1472,7 +1475,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   Expanded(
                     child: CustomTextField(
                       label: "Amount",
-                      hint: 'N 0.00',
+                      hint: 'N0.00',
                       validatorText: "Amount name is needed",
                       enabled:
                           item.productId == null || item.productId!.isEmpty,
@@ -1485,7 +1488,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   Expanded(
                     child: CustomTextField(
                         label: "Quantity",
-                        hint: '4',
+                        hint: '1',
                         keyType: TextInputType.phone,
                         validatorText: "Quantity name is needed",
                         textEditingController:
@@ -1517,7 +1520,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   ),
                 ),
               ),
-                   SizedBox(width: MediaQuery.of(context).size.height * 0.03),
+              SizedBox(width: MediaQuery.of(context).size.height * 0.03),
             ],
           ),
         );
