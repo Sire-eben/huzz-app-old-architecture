@@ -189,10 +189,10 @@ class _DebtorsState extends State<Debtors> {
                                   // ignore: unused_local_variable
                                   var customer = _customerController
                                       .checkifCustomerAvailableWithValue(
-                                          item.customerId!);
-                                  return DebtorListing(
+                                          item.customerId??"");
+                                  return (customer!=null)? DebtorListing(
                                     item: item,
-                                  );
+                                  ):Container();
                                 }),
                       ),
                       SizedBox(
@@ -309,6 +309,24 @@ class _DebtorsState extends State<Debtors> {
               Obx(() {
                 return InkWell(
                   onTap: () async {
+                  
+                 if( _debtorController.customerType == 0){
+                   if(_debtorController.selectedCustomer==null){
+
+                     Get.snackbar("Error", "Kindly Select a customer");
+                  return;
+                   }
+
+                    if (_debtorController.addingDebtorStatus !=
+                          AddingDebtorStatus.Loading) {
+                                 if (_customerKey.currentState!.validate()) {
+                        await _debtorController.addBudinessDebtor("INCOME");
+                        setState(() {});
+                        Get.back();
+                                 }
+                      }
+
+                 }else{
                     if (_customerKey.currentState!.validate()) {
                       if (_debtorController.addingDebtorStatus !=
                           AddingDebtorStatus.Loading) {
@@ -316,6 +334,7 @@ class _DebtorsState extends State<Debtors> {
                         setState(() {});
                         Get.back();
                       }
+                    }
                     }
                   },
                   child: Container(
@@ -362,7 +381,7 @@ class _DebtorsState extends State<Debtors> {
                   ),
                 );
               }),
-              SizedBox(height: 10,)
+              SizedBox(height: 20,)
             ],
           ),
         );
@@ -445,14 +464,14 @@ class _DebtorsState extends State<Debtors> {
                                   keyType: TextInputType.name,
                                   textEditingController:
                                       _customerController.nameController,
-                                  validatorText: "Name is needed",
+                                  validatorText: "Name is required",
                                 ),
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Phone Number',
                                   keyType: TextInputType.name,
                                   textEditingController: _customerController
                                       .phoneNumberController,
-                                  validatorText: "Phone number is needed",
+                                  validatorText: "Phone number is required",
                                 ),
                                 // CustomTextFieldInvoiceOptional(
                                 //   label: 'Balance',
@@ -466,7 +485,7 @@ class _DebtorsState extends State<Debtors> {
                                   keyType: TextInputType.number,
                                   textEditingController:
                                       _debtorController.totalAmountController,
-                                  validatorText: "Amount Owed is needed",
+                                  validatorText: "Amount Owed is required",
                                 ),
                               ],
                             )
@@ -533,6 +552,7 @@ class _DebtorsState extends State<Debtors> {
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Amount Owed',
                                   keyType: TextInputType.number,
+                                  validatorText: "Amount Owed is required",
                                   textEditingController:
                                       _debtorController.totalAmountController,
                                 ),
@@ -540,7 +560,8 @@ class _DebtorsState extends State<Debtors> {
                             ),
                     ],
                   ),
-                )
+                ),
+            
               ],
             ),
           ),

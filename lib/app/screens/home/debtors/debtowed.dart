@@ -677,6 +677,23 @@ class _DebtOwnedState extends State<DebtOwned> {
               Obx(() {
                 return InkWell(
                   onTap: () async {
+
+                      if( _debtorRepository.customerType == 0){
+                   if(_debtorRepository.selectedCustomer==null){
+
+                     Get.snackbar("Error", "Kindly Select a customer");
+                  return;
+                   }
+
+                    if (_debtorRepository.addingDebtorStatus !=
+                          AddingDebtorStatus.Loading) {
+                                 if (_customerKey.currentState!.validate()) {
+                        await _debtorRepository.addBudinessDebtor("INCOME");
+                        setState(() {});
+                        Get.back();
+                                 }
+                          }
+                      }else{
                     if (_customerKey.currentState!.validate()) {
                       if (_debtorRepository.addingDebtorStatus !=
                           AddingDebtorStatus.Loading) {
@@ -686,6 +703,10 @@ class _DebtOwnedState extends State<DebtOwned> {
                         Get.back();
                       }
                     }
+                      }
+                    
+                      
+                      
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -812,21 +833,21 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 keyType: TextInputType.name,
                                 textEditingController:
                                     _customerRepository.nameController,
-                                validatorText: "Name is needed",
+                                validatorText: "Name is required",
                               ),
                               CustomTextFieldInvoiceOptional(
                                 label: 'Phone Number',
                                 keyType: TextInputType.name,
                                 textEditingController:
                                     _customerRepository.phoneNumberController,
-                                validatorText: "Phone number is needed",
+                                validatorText: "Phone number is required",
                               ),
                               CustomTextFieldInvoiceOptional(
                                 label: 'Amount you owe',
                                 keyType: TextInputType.number,
                                 textEditingController:
                                     _debtorRepository.totalAmountController,
-                                validatorText: "Amount you owe is needed",
+                                validatorText: "Amount you owe is required",
                               ),
                             ],
                           )
@@ -898,6 +919,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               CustomTextFieldInvoiceOptional(
                                 label: 'Amount you owe',
                                 keyType: TextInputType.number,
+                                validatorText: "Amount you owe is required",
                                 textEditingController:
                                     _debtorRepository.totalAmountController,
                               ),

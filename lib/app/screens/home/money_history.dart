@@ -237,6 +237,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                 ? GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
+                        isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20))),
@@ -921,14 +922,20 @@ class _MoneySummaryState extends State<MoneySummary> {
         // }
 
         return Container(
-          padding: EdgeInsets.only(
+          // padding: EdgeInsets.only(
+          //     left: MediaQuery.of(context).size.width * 0.04,
+          //     right: MediaQuery.of(context).size.width * 0.04,
+          //     bottom: MediaQuery.of(context).size.width * 0.04,
+          //     top: MediaQuery.of(context).size.width * 0.02),
+              margin: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.04,
               right: MediaQuery.of(context).size.width * 0.04,
-              bottom: MediaQuery.of(context).size.width * 0.04,
-              top: MediaQuery.of(context).size.width * 0.02),
+            ),
+            padding: MediaQuery.of(context).viewInsets,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              SizedBox(height: 10,),
               InkWell(
                 onTap: () {
                   Get.back();
@@ -1180,6 +1187,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   ),
                 );
               }),
+                SizedBox(height: 10,),
             ],
           ),
         );

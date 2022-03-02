@@ -1,5 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/appbinding.dart';
 import 'package:huzz/colors.dart';
@@ -7,8 +7,9 @@ import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/core/routes/app_router.dart';
 import 'app/screens/splashscreen.dart';
 
-void main() {
-  //  FlutterContacts.requestPermission();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(HuzzApp());
 }
 

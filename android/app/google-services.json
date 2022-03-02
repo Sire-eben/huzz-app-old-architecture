@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "577328293988",
+    "project_id": "huzz-apps",
+    "storage_bucket": "huzz-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577328293988:android:f0ac5ec1a578da8a845771",
+        "android_client_info": {
+          "package_name": "com.app.huzz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577328293988-nkk2q23m82oiffug8vtok6fn43a6c4kp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsXXGXbZDBM3gmEewk4bDf7-2jrFLpkvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577328293988-nkk2q23m82oiffug8vtok6fn43a6c4kp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "577328293988-mu2dmndfvss2hvtglp8l5c6coqg8oss3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.huzz.africa.huzz",
+                "app_store_id": "1596574133"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
