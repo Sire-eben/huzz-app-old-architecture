@@ -68,6 +68,9 @@ dependencies:
   flutter_masked_text2: ^0.9.1
   share_plus: ^3.0.4
   dotted_border: ^2.0.0
+  firebase_core: ^1.10.6
+  firebase_messaging: ^11.2.3
+  flutter_local_notifications: ^9.1.5
 
 dev_dependencies:
   flutter_test:
