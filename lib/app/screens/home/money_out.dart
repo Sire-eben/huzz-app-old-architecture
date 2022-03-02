@@ -371,7 +371,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                       color: AppColor().backgroundColor,
                                     ),
                                     iconSize: 30,
-                                    items: _productController.productGoods
+                                    items: _productController.offlineBusinessProduct
                                         .map((value) {
                                       return DropdownMenuItem<Product>(
                                         value: value,
@@ -1264,7 +1264,7 @@ class _MoneyOutState extends State<MoneyOut> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Select Product',
+                          'Select Item',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
@@ -1290,7 +1290,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               ),
                               iconSize: 30,
                               items:
-                                  _productController.productGoods.map((value) {
+                                  _productController.offlineBusinessProduct.map((value) {
                                 return DropdownMenuItem<Product>(
                                   value: value,
                                   child: Text(value.productName!),

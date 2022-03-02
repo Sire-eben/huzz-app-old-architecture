@@ -18,6 +18,7 @@ class _EnterOtpState extends State<EnterOtp> {
   final _authController = Get.find<AuthRepository>();
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    _authController.otpController=TextEditingController();
     super.initState();
   }
 

@@ -312,13 +312,14 @@ class ProductRepository extends GetxController
 
   void setItem(Product product) {
     productNameController.text = product.productName!;
-    productQuantityController.text = product.quantity!.toString();
+    productQuantityController.text = product.quantityLeft!.toString();
     productCostPriceController.text = product.costPrice.toString();
     productSellingPriceController.text = product.sellingPrice.toString();
     serviceDescription.text=product.description!;
     productUnitController.text = "";
     // serviceDescription.text = product.;
     selectedProduct = product;
+    // print("product quantity ${product.quantityLeft}");
   }
 
   Future getOfflineProduct(String businessId) async {

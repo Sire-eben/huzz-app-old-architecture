@@ -24,6 +24,7 @@ class _SignUpState extends State<Signup> {
   void initState() {
     super.initState();
     _authController.countryText = countryCode;
+
   }
 
   @override

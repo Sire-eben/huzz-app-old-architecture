@@ -1802,7 +1802,7 @@ class TransactionRespository extends GetxController {
     print("clearing value");
     itemNameController.text = "";
     amountController.clear();
-    quantityController.text = "";
+    quantityController.text = "1";
     dateController.text = "";
     timeController.text = "";
     paymentController.text = "";

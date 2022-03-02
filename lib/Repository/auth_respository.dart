@@ -41,15 +41,16 @@ enum AuthStatus {
   IsFirstTime,
   PHONE_EXISTED,
   EMAIL_EXISTED,
-  USERNAME_EXISTED
+  USERNAME_EXISTED,
+  TOKEN_EXISTED
 }
 enum OnlineStatus { Onilne, Offline, Empty }
 
 class AuthRepository extends GetxController {
   final _homeController = Get.find<HomeRespository>();
 
-  late final otpController = TextEditingController();
-  var pinController = TextEditingController();
+var otpController = TextEditingController();
+  var pinController;
   late final emailController = TextEditingController();
   late final lastNameController = TextEditingController();
   late final firstNameController = TextEditingController();
@@ -133,6 +134,7 @@ class AuthRepository extends GetxController {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       _updateConnectionStatus(result);
+      checkIfTokenStillValid();
       print("result is $result");
     });
   }
@@ -448,6 +450,7 @@ class AuthRepository extends GetxController {
   Future signIn() async {
     print(
         "phone number ${phoneNumberController.text}  country code ${countryText}");
+    print("pin is ${pinController.text}");
     try {
       _signinStatus(SigninStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.signin_user),
@@ -607,5 +610,19 @@ class AuthRepository extends GetxController {
     await sqliteDb.deleteAllOfflineDebtors();
     await sqliteDb.deleteAllInvoice();
     await sqliteDb.deleteAllBanks();
+  }
+  void checkIfTokenStillValid()async{
+var response = await http.get(Uri.parse(ApiLink.get_user_business),
+        headers: {"Authorization": "Bearer ${token}"});
+
+    print("online busines result ${response.body}");
+    if (response.statusCode == 401) {
+_authStatus(AuthStatus.TOKEN_EXISTED);
+Get.snackbar("Error", "Your Login token is expired.");
+Get.offAll(Signin());
+
+
+    }
+
   }
 }
