@@ -123,6 +123,10 @@ var otpController = TextEditingController();
         print("result of token is ${Mtoken.value}");
 
         _authStatus(AuthStatus.Authenticated);
+        if(connectionStatus==ConnectivityResult.mobile ||connectionStatus==ConnectivityResult.wifi)
+        {
+          checkIfTokenStillValid();
+        }
         if (Mtoken.value == "0") {
           _authStatus(AuthStatus.UnAuthenticated);
         }
@@ -134,7 +138,7 @@ var otpController = TextEditingController();
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       _updateConnectionStatus(result);
-      checkIfTokenStillValid();
+   
       print("result is $result");
     });
   }
