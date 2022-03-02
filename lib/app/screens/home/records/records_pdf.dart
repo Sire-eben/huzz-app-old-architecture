@@ -4,7 +4,6 @@ import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/screens/widget/util.dart';
 import 'package:huzz/model/record_receipt.dart';
-import 'package:number_display/number_display.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -39,7 +38,7 @@ class RecordPdfApi {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: PdfColors.black,
-                    fontSize: 20))),
+                    fontSize: 18))),
       );
 
   static Widget buildMoneyInOutInvoice(RecordInvoice recordInvoice) {
@@ -60,12 +59,15 @@ class RecordPdfApi {
     }).toList();
 
     return Table.fromTextArray(
-      cellPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      cellPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+      headerPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
       headers: headers,
       data: data,
       border: null,
+      cellStyle: TextStyle(
+          fontWeight: FontWeight.bold, color: PdfColors.black, fontSize: 18),
       headerStyle: TextStyle(
-          fontWeight: FontWeight.bold, color: PdfColors.white, fontSize: 20),
+          fontWeight: FontWeight.bold, color: PdfColors.white, fontSize: 18),
       headerDecoration: BoxDecoration(color: PdfColors.blue),
       rowDecoration: BoxDecoration(color: PdfColors.grey100),
       cellHeight: 30,
