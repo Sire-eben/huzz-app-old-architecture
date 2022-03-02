@@ -660,7 +660,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 Row(
                                   children: [
                                     Text(
-                                      'Select Product',
+                                      'Select Item',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 12,

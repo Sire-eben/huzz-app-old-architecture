@@ -55,7 +55,12 @@ class _RegHome extends State<RegHome> {
                       left: 20,
                       child: GestureDetector(
                         onTap: () {
+                          if(  _homeController.onboardingRegSelectedIndex>0){
+
+                            _homeController.selectedOnboardSelectedPrevious();
+                          }else{
                           Get.back();
+                          }
                         },
                         child: Icon(
                           Icons.arrow_back,
@@ -93,16 +98,26 @@ class _RegHome extends State<RegHome> {
                     scrollDirection: Axis.horizontal,
                     itemCount: 4,
                     itemBuilder: (_, index) {
-                      return Container(
-                        margin: EdgeInsets.only(left: 10),
-                        height: 5,
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        decoration: BoxDecoration(
-                          color: (index <=
-                                  _homeController.onboardingRegSelectedIndex)
-                              ? AppColor().backgroundColor
-                              : AppColor().backgroundColor.withOpacity(0.4),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                      return GestureDetector(
+                        onTap: (){
+                          
+                          print("index number is $index");
+                           if(index <=
+                                    _homeController.onboardingRegSelectedIndex)
+                            _homeController.gotoIndex(index);
+                          
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(left: 10),
+                          height: 5,
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          decoration: BoxDecoration(
+                            color: (index <=
+                                    _homeController.onboardingRegSelectedIndex)
+                                ? AppColor().backgroundColor
+                                : AppColor().backgroundColor.withOpacity(0.4),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
                         ),
                       );
                     }),
