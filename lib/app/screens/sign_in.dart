@@ -26,6 +26,7 @@ class _SiginState extends State<Signin> {
 
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    _authController.pinController=TextEditingController();
     super.initState();
   }
 
@@ -55,6 +56,7 @@ class _SiginState extends State<Signin> {
               margin: EdgeInsets.only(left: 20),
               child: GestureDetector(
                 onTap: () {
+      
                   Get.back();
                 },
                 child: Icon(

@@ -130,11 +130,11 @@ class DebtorRepository extends GetxController
   Future addDebtorOnline(String type) async {
     try {
       _addingDebtorStatus(AddingDebtorStatus.Loading);
-      String? fileId = null;
-      if (DebtorImage.value != null) {
-        fileId =
-            await _uploadFileController.uploadFile(DebtorImage.value!.path);
-      }
+      // String? fileId = null;
+      // if (DebtorImage.value != null) {
+      //   fileId =
+      //       await _uploadFileController.uploadFile(DebtorImage.value!.path);
+      // }
 
       var customerId;
       if (customerType == 1) {
@@ -146,9 +146,9 @@ class DebtorRepository extends GetxController
 
       var response = await http.post(Uri.parse(ApiLink.add_debtor),
           body: jsonEncode({
-            "balance": int.parse(totalAmountController.text) -
-                int.parse(amountController.text),
-            "totalAmount": totalAmountController.text,
+            "balance": totalAmountController.numberValue -
+             amountController.numberValue,
+            "totalAmount": totalAmountController.numberValue,
             "businessId":
                 _businessController.selectedBusiness.value!.businessId!,
             "businessTransactionType": type,
@@ -208,23 +208,23 @@ class DebtorRepository extends GetxController
   }
 
   Future addBusinessDebtorOffline(String type) async {
-    File? outFile;
-    if (DebtorImage.value != null) {
-      var list = await getApplicationDocumentsDirectory();
+    // File? outFile;
+    // if (DebtorImage.value != null) {
+    //   var list = await getApplicationDocumentsDirectory();
 
-      Directory appDocDir = list;
-      String appDocPath = appDocDir.path;
+    //   Directory appDocDir = list;
+    //   String appDocPath = appDocDir.path;
 
-      String basename = path.basename(DebtorImage.value!.path);
-      var newPath = appDocPath + basename;
-      print("new file path is ${newPath}");
-      outFile = File(newPath);
-      DebtorImage.value!.copySync(outFile.path);
-    }
+    //   String basename = path.basename(DebtorImage.value!.path);
+    //   var newPath = appDocPath + basename;
+    //   print("new file path is ${newPath}");
+    //   outFile = File(newPath);
+    //   DebtorImage.value!.copySync(outFile.path);
+    // }
 
     Debtor debtor = Debtor();
 
-    print("Debtor offline saving ${debtor.toJson()}");
+    
     var customerId;
     if (customerType == 1) {
       customerId = await _customerController
@@ -238,10 +238,11 @@ class DebtorRepository extends GetxController
         businessId: _businessController.selectedBusiness.value!.businessId!,
         createdTime: DateTime.now(),
         businessTransactionType: type,
-        totalAmount: int.parse(totalAmountController.text),
-        balance: int.parse(totalAmountController.text) -
-            int.parse(amountController.text));
+        totalAmount: totalAmountController.numberValue,
+        balance: totalAmountController.numberValue -
+       amountController.numberValue);
     _businessController.sqliteDb.insertDebtor(debtor);
+    print("Debtor offline saving ${debtor.toJson()}");
     clearValue();
     getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
     // Get.to(Confirmation(
@@ -293,10 +294,10 @@ class DebtorRepository extends GetxController
 
   void clearValue() {
     DebtorImage(null);
-    amountController.text = "";
+    amountController.clear();
     DebtorQuantityController.text = "";
-    totalAmountController.text = "";
-    DebtorSellingPriceController.text = "";
+    totalAmountController.clear();
+    DebtorSellingPriceController.clear();
     DebtorUnitController.text = "";
     serviceDescription.text = "";
   }

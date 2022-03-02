@@ -1264,7 +1264,7 @@ class _MoneyOutState extends State<MoneyOut> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Select Product',
+                          'Select Item',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,

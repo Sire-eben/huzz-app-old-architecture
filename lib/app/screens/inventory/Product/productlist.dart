@@ -20,20 +20,23 @@ class _ProductListingState extends State<ProductListing> {
   final display = createDisplay(
       length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   final TextEditingController textEditingController = TextEditingController();
-  List<Product> searchResult = [];
+ Rx<List<Product>> _searchResult=Rx([]);
+  List<Product> get searchResult =>_searchResult.value;
   var searchtext = '';
   bool isDelete = false;
   final _productController = Get.find<ProductRepository>();
   void searchItem(String val) {
     searchtext = val;
-    searchResult.clear();
+    // searchResult.clear();
+    List<Product> list=[];
     setState(() {});
     _productController.productGoods.forEach((element) {
       if (element.productName!.toLowerCase().contains(val.toLowerCase())) {
-        searchResult.add(element);
+        // searchResult.add(element);
+    list.add(element);
       }
     });
-    setState(() {});
+_searchResult(list);
   }
 
   @override
@@ -181,26 +184,29 @@ class _ProductListingState extends State<ProductListing> {
             left: 20,
             right: 20,
             child: (searchtext.isEmpty || searchResult.isNotEmpty)
-                ? Obx(() {
+                ? Obx(()
+                 {
                     return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: (searchResult.isEmpty)
-                            ? _productController.productGoods.length
-                            : searchResult.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          var item = (searchResult.isEmpty)
-                              ? _productController.productGoods[index]
-                              : searchResult[index];
-                          print("product item ${item.toJson()}");
-                          return (isDelete)
-                              ? ListingProductDelete(
-                                  item: item,
-                                )
-                              : ListingProduct(
-                                  item: item,
-                                );
-                        });
-                  })
+                            scrollDirection: Axis.vertical,
+                            itemCount: (searchResult.isEmpty)
+                                ? _productController.productGoods.length
+                                : searchResult.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              var item = (searchResult.isEmpty)
+                                  ? _productController.productGoods[index]
+                                  : searchResult[index];
+                              print("product item ${item.toJson()}");
+                              return (isDelete)
+                                  ? ListingProductDelete(
+                                      item: item,
+                                    )
+                                  : ListingProduct(
+                                      item: item,
+                                    );
+                           
+                      });
+                  }
+                )
                 : Container(
                     child: Center(
                       child: Text("No Product Found"),

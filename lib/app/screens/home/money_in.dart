@@ -1200,7 +1200,7 @@ class _MoneyInState extends State<MoneyIn> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Select Product',
+                            'Select Item',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 12,

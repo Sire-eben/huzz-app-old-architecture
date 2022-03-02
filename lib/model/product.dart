@@ -41,7 +41,7 @@ class Product {
       businessId: json['businessId'],
       costPrice: json['costPrice'],
       productName: json['name'],
-      sellingPrice: json['sellingPrice'],
+      sellingPrice: json['sellingPrice']==0?json['costPrice']:json['sellingPrice'],
       quantity: json['quantity'],
       description: json['description']??"",
       quantitySold: json['quantitySold'] ?? 0,
