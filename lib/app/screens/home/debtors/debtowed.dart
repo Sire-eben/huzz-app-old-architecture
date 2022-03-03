@@ -773,7 +773,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   onChanged: (value) => myState(() =>
                                       _debtorRepository.customerType = 1)),
                               Text(
-                                'New Merchants',
+                                'New Merchant',
                                 style: TextStyle(
                                   color: AppColor().backgroundColor,
                                   fontFamily: "DMSans",
@@ -1000,7 +1000,7 @@ class _DebtOwnedState extends State<DebtOwned> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               CustomTextField(
                 label: "Enter Name *",
-                validatorText: "merchants name is needed",
+                validatorText: "merchant name is needed",
                 hint: 'E.g.  Debtors Name',
               ),
               Row(
