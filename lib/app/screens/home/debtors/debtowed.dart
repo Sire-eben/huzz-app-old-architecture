@@ -725,7 +725,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               ),
                               Center(
                                 child: Text(
-                                  'Add Debtor',
+                                  'Add Debt Owed',
                                   style: TextStyle(
                                     color: AppColor().whiteColor,
                                     fontFamily: 'DMSans',
