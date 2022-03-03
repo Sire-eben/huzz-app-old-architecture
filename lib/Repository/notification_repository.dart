@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/api_link.dart';
 
 class NotificationRepository extends GetxController {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -25,6 +26,7 @@ class NotificationRepository extends GetxController {
     controller.Mtoken.listen((p0) {
       print("getting push notification");
       setupInteractedMessage();
+      sendFCMTokenToServer();
     });
     await requestForPermission();
 
@@ -61,7 +63,7 @@ class NotificationRepository extends GetxController {
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
 
-    FirebaseMessaging.instance.subscribeToTopic(controller.Mtoken.value);
+    FirebaseMessaging.instance.subscribeToTopic("huzz-notification");
     // If the message also contains a data property with a "type" of "chat",
     // navigate to a chat screen
     if (initialMessage != null) {
@@ -101,8 +103,21 @@ class NotificationRepository extends GetxController {
 
   Future sendFCMTokenToServer() async {
     print("trying to get the fcm");
-    // String token = await messaging.getToken();
-    // print("user phone token $token");
+    String? token = await messaging.getToken();
+    print("user phone token $token");
+
+    final resposne = await http.put(Uri.parse(ApiLink.update_profile),
+          body: jsonEncode({
+        "firebaseToken":token,
+            // "profileImageFileStoreId": imageId,
+            // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${controller.token}"
+          });
+
+print("update token ${resposne.body}");
     // var response = await http.post(
     //     Uri.parse(
     //         "http://foodgital2.herokuapp.com/notification/activate-user-notification"),
