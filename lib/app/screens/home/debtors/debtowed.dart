@@ -678,8 +678,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                       if (_debtorRepository.addingDebtorStatus !=
                           AddingDebtorStatus.Loading) {
                         if (_customerKey.currentState!.validate()) {
-                          await _debtorRepository.addBudinessDebtor("INCOME");
-                          setState(() {});
+                          await _debtorRepository.addBudinessDebtor("EXPENDITURE");
+                          // setState(() {});
                           Get.back();
                         }
                       }
@@ -689,7 +689,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                             AddingDebtorStatus.Loading) {
                           await _debtorRepository
                               .addBudinessDebtor("EXPENDITURE");
-                          setState(() {});
+                          // setState(() {});
                           Get.back();
                         }
                       }
@@ -844,7 +844,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               Row(
                                 children: [
                                   Text(
-                                    'Select Customer',
+                                    'Select Merchant',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
@@ -883,7 +883,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     ),
                                     iconSize: 30,
                                     items: _customerRepository
-                                        .offlineBusinessCustomer
+                                       .customerMerchant
                                         .map((value) {
                                       return DropdownMenuItem<Customer>(
                                         value: value,
