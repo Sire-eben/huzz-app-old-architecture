@@ -236,7 +236,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       print("item is select");
                                     }),
                                 Text(
-                                  'Select Product',
+                                  'Select Item',
                                   style: TextStyle(
                                     color: AppColor().backgroundColor,
                                     fontFamily: "DMSans",
@@ -334,7 +334,7 @@ class _MoneyInState extends State<MoneyIn> {
                               Row(
                                 children: [
                                   Text(
-                                    'Select Product',
+                                    'Select product/services',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
@@ -373,7 +373,8 @@ class _MoneyInState extends State<MoneyIn> {
                                       color: AppColor().backgroundColor,
                                     ),
                                     iconSize: 30,
-                                    items: _productController.offlineBusinessProduct
+                                    items: _productController
+                                        .offlineBusinessProduct
                                         .map((value) {
                                       return DropdownMenuItem<Product>(
                                         value: value,
@@ -1142,7 +1143,7 @@ class _MoneyInState extends State<MoneyIn> {
                                 });
                               }),
                           Text(
-                            'Select Product',
+                            'Select product/services',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
                               fontFamily: "DMSans",
