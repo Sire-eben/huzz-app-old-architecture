@@ -16,6 +16,7 @@ import 'package:huzz/model/business.dart';
 import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
+import '../app/screens/create_business.dart';
 import 'auth_respository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }
@@ -41,7 +42,7 @@ class BusinessRespository extends GetxController {
   SqliteDb sqliteDb = SqliteDb();
   SharePref? pref;
   Rx<File?> businessImage = Rx(null);
-  final _miscellaneousController=Get.find<MiscellaneousRepository>();
+  final _miscellaneousController = Get.find<MiscellaneousRepository>();
   CreateBusinessStatus get createBusinessStatus => _createBusinessStatus.value;
   UpdateBusinessStatus get updateBusinessStatus => _updateBusinessStatus.value;
 
@@ -63,11 +64,9 @@ class BusinessRespository extends GetxController {
     });
 
     _miscellaneousController.businessCategoryList.listen((p0) {
-       if(p0.isNotEmpty){
-
-         businessCategory=p0;
-       }
-
+      if (p0.isNotEmpty) {
+        businessCategory = p0;
+      }
     });
   }
 
@@ -238,7 +237,7 @@ class BusinessRespository extends GetxController {
 
           _createBusinessStatus(CreateBusinessStatus.Success);
 
-          Get.offAll(() => Dashboard());
+          Get.offAll(() => BusinessCreatedSuccesful());
         } else {}
       } else {
         _createBusinessStatus(CreateBusinessStatus.Error);
@@ -273,7 +272,6 @@ class BusinessRespository extends GetxController {
               "email": businessEmail.text.trim(),
               "buisnessLogoFileStoreId": imageId,
               "currency": selectedCurrency,
-              
             },
           ),
           headers: {
