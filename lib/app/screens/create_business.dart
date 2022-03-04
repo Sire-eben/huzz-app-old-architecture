@@ -4,25 +4,24 @@ import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/app/screens/widget/custom_drop_field.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
-
 import '../../Repository/auth_respository.dart';
 
 class CreateBusiness extends StatefulWidget {
-
-_CreateBusinessState createState()=>_CreateBusinessState();
-
+  _CreateBusinessState createState() => _CreateBusinessState();
 }
-class _CreateBusinessState extends State<CreateBusiness>{
+
+class _CreateBusinessState extends State<CreateBusiness> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-  
-  _businessController.businessEmail.text=_userController.user!.email??"";
-  _businessController.businessPhoneNumber.text=_userController.user!.phoneNumber??"";
+
+    _businessController.businessEmail.text = _userController.user!.email ?? "";
+    _businessController.businessPhoneNumber.text =
+        _userController.user!.phoneNumber ?? "";
   }
+
   final _businessController = Get.find<BusinessRespository>();
-  final _userController=Get.find<AuthRepository>();
+  final _userController = Get.find<AuthRepository>();
   @override
   // ignore: dead_code
   Widget build(BuildContext context) {
@@ -88,7 +87,7 @@ class _CreateBusinessState extends State<CreateBusiness>{
                     label: "Phone Number",
                     validatorText: "Phone Number is needed",
                     keyType: TextInputType.phone,
-                    maxLength: 11,
+                    maxLength: 13,
                     textEditingController:
                         _businessController.businessPhoneNumber,
                   ),
