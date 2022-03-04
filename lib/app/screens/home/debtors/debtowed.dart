@@ -671,7 +671,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   onTap: () async {
                     if (_debtorRepository.customerType == 0) {
                       if (_debtorRepository.selectedCustomer == null) {
-                        Get.snackbar("Error", "Kindly Select a customer");
+                        Get.snackbar("Error", "Kindly select a merchant");
                         return;
                       }
 
@@ -844,7 +844,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               Row(
                                 children: [
                                   Text(
-                                    'Select Customer',
+                                    'Select Merchant',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
