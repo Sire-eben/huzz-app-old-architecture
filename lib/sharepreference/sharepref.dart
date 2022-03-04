@@ -8,6 +8,7 @@ class SharePref {
   static String firstTimeAppOpen = " First Time  app open";
   static String dateTokenExpired=" Time when token expired";
   static String selectedLastBusiness="Selected Last Business";
+  static String miscellanous="Miscellanous";
   SharedPreferences? _preferences;
   SharePref() {
     //print("sharepref init");
@@ -68,6 +69,15 @@ class SharePref {
   void setLastSelectedBusiness(String id){
 
 _preferences!.setString(selectedLastBusiness, id);
+  }
+  void setMiscellaneous(String data){
+_preferences!.setString(miscellanous, data);
+
+  }
+  String getMiscellaneous(){
+var value=_preferences!.getString(miscellanous);
+return value==null?"":value;
+
   }
 String getLastSelectedBusiness(){
 var value=_preferences!.getString(selectedLastBusiness);

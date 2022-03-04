@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
+import 'package:huzz/Repository/miscellaneous_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
@@ -109,6 +110,7 @@ class InvoiceRespository extends GetxController {
   List<String> paymentMode = ["FULLY_PAID", "DEPOSIT"];
   String? selectedPaymentMode;
   List<Invoice> pendingInvoiceToBeAdded = [];
+    final _miscellaneousController=Get.find<MiscellaneousRepository>();
   Rx<List<Invoice>> _paidInvoiceList = Rx([]);
   Rx<List<Invoice>> _InvoicePendingList = Rx([]);
   Rx<List<Invoice>> _InvoiceDepositList = Rx([]);
@@ -128,6 +130,27 @@ class InvoiceRespository extends GetxController {
     // TODO: implement onInit
     print("getting Invoice repo");
 
+_miscellaneousController.businessTransactionPaymentSourceList.listen((p0) {
+  if(p0.isNotEmpty){
+
+
+    paymentSource=p0;
+
+  }
+
+});
+
+_miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
+  
+
+  if(p0.isNotEmpty){
+
+
+
+    paymentMode=p0;
+  }
+
+});
     _userController.Mtoken.listen((p0) {
       print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {

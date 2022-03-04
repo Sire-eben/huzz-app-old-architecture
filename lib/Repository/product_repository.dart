@@ -6,6 +6,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/miscellaneous_respository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/inventory/Product/productConfirm.dart';
 import 'package:huzz/model/product.dart';
@@ -28,6 +29,12 @@ class ProductRepository extends GetxController
   List<Product> get offlineBusinessProduct => _offlineBusinessProduct.value;
   List<Product> get onlineBusinessProduct => _onlineBusinessProduct.value;
   List<Product> pendingBusinessProduct = [];
+  List<String> units=[
+    'Box',
+    'feet',
+    'kilogram',
+    'meters',
+  ];
   Product? selectedProduct;
   final _uploadImageController = Get.find<FileUploadRespository>();
   Rx<List<Product>> _productService = Rx([]);
@@ -70,6 +77,7 @@ class ProductRepository extends GetxController
   dynamic get totalProduct => _totalProduct.value;
   dynamic get totalService => _totalService.value;
   var uuid = Uuid();
+    final _miscellaneousController=Get.find<MiscellaneousRepository>();
   @override
   void onInit() async {
     // ignore: todo
@@ -77,6 +85,13 @@ class ProductRepository extends GetxController
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
 
+_miscellaneousController.unitTypeList.listen((p0) {
+  
+if(p0.isNotEmpty){
+
+  units=p0;
+}
+});
     //  await sqliteDb.openDatabae();
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
