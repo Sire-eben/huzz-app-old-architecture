@@ -844,7 +844,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               Row(
                                 children: [
                                   Text(
-                                    'Select Customer',
+                                    'Select Merchant',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
