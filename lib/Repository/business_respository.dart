@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/file_upload_respository.dart';
+import 'package:huzz/Repository/miscellaneous_respository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/model/business.dart';
@@ -40,6 +41,7 @@ class BusinessRespository extends GetxController {
   SqliteDb sqliteDb = SqliteDb();
   SharePref? pref;
   Rx<File?> businessImage = Rx(null);
+  final _miscellaneousController=Get.find<MiscellaneousRepository>();
   CreateBusinessStatus get createBusinessStatus => _createBusinessStatus.value;
   UpdateBusinessStatus get updateBusinessStatus => _updateBusinessStatus.value;
 
@@ -47,6 +49,7 @@ class BusinessRespository extends GetxController {
   void onInit() async {
     pref = SharePref();
     await pref!.init();
+
     _userController.Mtoken.listen((p0) {
       print("available token is $p0");
       if (p0.isNotEmpty || p0 != "0") {
@@ -57,6 +60,14 @@ class BusinessRespository extends GetxController {
     OnlineBusiness();
     sqliteDb.openDatabae().then((value) {
       GetOfflineBusiness();
+    });
+
+    _miscellaneousController.businessCategoryList.listen((p0) {
+       if(p0.isNotEmpty){
+
+         businessCategory=p0;
+       }
+
     });
   }
 

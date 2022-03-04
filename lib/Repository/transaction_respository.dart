@@ -26,6 +26,7 @@ import 'package:uuid/uuid.dart';
 
 import 'auth_respository.dart';
 import 'customer_repository.dart';
+import 'miscellaneous_respository.dart';
 
 enum AddingTransactionStatus { Loading, Error, Success, Empty }
 enum TransactionStatus { Loading, Available, Error, Empty }
@@ -124,8 +125,8 @@ class TransactionRespository extends GetxController {
   List<RecordsData> get allIncomeHoursData => _allIncomeHoursData.value;
   List<RecordsData> get allExpenditureHoursData =>
       _allExpenditureHoursData.value;
-  final expenseCategories = ["FINANCE", "GROCERY", "OTHERS"];
-
+  List<String> expenseCategories = ["FINANCE", "GROCERY", "OTHERS"];
+  final _miscellaneousController=Get.find<MiscellaneousRepository>();
   Rx<dynamic> _recordBalance = Rx(0);
   Rx<dynamic> _recordMoneyIn = Rx(0);
   Rx<dynamic> _recordMoneyOut = Rx(0);
@@ -137,7 +138,36 @@ class TransactionRespository extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     print("getting transaction repo");
+_miscellaneousController.businessTransactionPaymentSourceList.listen((p0) {
+  if(p0.isNotEmpty){
 
+
+    paymentSource=p0;
+
+  }
+
+});
+
+_miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
+  
+
+  if(p0.isNotEmpty){
+
+
+
+    paymentMode=p0;
+  }
+
+});
+_miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
+  
+  if(p0.isNotEmpty){
+
+
+    expenseCategories=p0;
+  }
+
+});
     _userController.Mtoken.listen((p0) async {
       print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {

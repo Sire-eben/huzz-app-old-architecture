@@ -62,12 +62,12 @@ _productController.productQuantityController.text="0";
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
 
-  final items = [
-    'Box',
-    'feet',
-    'kilogram',
-    'meters',
-  ];
+  // final items = [
+  //   'Box',
+  //   'feet',
+  //   'kilogram',
+  //   'meters',
+  // ];
 
   String? value;
   int qty = 1;
@@ -457,7 +457,7 @@ _productController.productQuantityController.text="0";
                       fontFamily: 'DMSans',
                     ),
                   ),
-                  items: items.map(buildMenuItem).toList(),
+                  items: _productController.units.map(buildMenuItem).toList(),
                   onChanged: (value) => setState(() => this.value = value),
                 ),
               ),
