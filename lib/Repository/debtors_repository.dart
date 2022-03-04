@@ -146,8 +146,7 @@ class DebtorRepository extends GetxController
 
       var response = await http.post(Uri.parse(ApiLink.add_debtor),
           body: jsonEncode({
-            "balance": totalAmountController.numberValue -
-               0,
+            "balance": totalAmountController.numberValue - 0,
             "totalAmount": totalAmountController.numberValue,
             "businessId":
                 _businessController.selectedBusiness.value!.businessId!,
@@ -184,32 +183,30 @@ class DebtorRepository extends GetxController
   Future addBudinessDebtor(String type) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       await addDebtorOnline(type);
- Get.back();
-     if(type=="INCOME")
-      Get.snackbar(
-        "Sucessful",
-        "New Debtor Added successfully",
-      );
-      else 
-          Get.snackbar(
-        "Sucessful",
-        "New Debt Owned Added successfully",
-      );
-     
+      Get.back();
+      if (type == "INCOME")
+        Get.snackbar(
+          "Sucessful",
+          "New Debtor Added successfully",
+        );
+      else
+        Get.snackbar(
+          "Sucessful",
+          "New Debt Owed Added successfully",
+        );
     } else {
       await addBusinessDebtorOffline(type);
-           Get.back();
-if(type=="INCOME")
-      Get.snackbar(
-        "Sucessful",
-        "New Debtor Added successfully",
-      );
-      else 
-          Get.snackbar(
-        "Sucessful",
-        "New Debt Owned Added successfully",
-      );
- 
+      Get.back();
+      if (type == "INCOME")
+        Get.snackbar(
+          "Sucessful",
+          "New Debtor Added successfully",
+        );
+      else
+        Get.snackbar(
+          "Sucessful",
+          "New Debt Owed Added successfully",
+        );
     }
   }
 
@@ -254,8 +251,7 @@ if(type=="INCOME")
         createdTime: DateTime.now(),
         businessTransactionType: type,
         totalAmount: totalAmountController.numberValue,
-        balance:
-            totalAmountController.numberValue -0);
+        balance: totalAmountController.numberValue - 0);
     _businessController.sqliteDb.insertDebtor(debtor);
     print("Debtor offline saving ${debtor.toJson()}");
     clearValue();
