@@ -147,7 +147,7 @@ class DebtorRepository extends GetxController
       var response = await http.post(Uri.parse(ApiLink.add_debtor),
           body: jsonEncode({
             "balance": totalAmountController.numberValue -
-                amountController.numberValue,
+               0,
             "totalAmount": totalAmountController.numberValue,
             "businessId":
                 _businessController.selectedBusiness.value!.businessId!,
@@ -184,20 +184,32 @@ class DebtorRepository extends GetxController
   Future addBudinessDebtor(String type) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       await addDebtorOnline(type);
-
-      Get.snackbar(
-        "Successful",
-        "New Debtor Added successfully",
-      );
-      Get.back();
-    } else {
-      await addBusinessDebtorOffline(type);
-
+ Get.back();
+     if(type=="INCOME")
       Get.snackbar(
         "Sucessful",
         "New Debtor Added successfully",
       );
-      Get.back();
+      else 
+          Get.snackbar(
+        "Sucessful",
+        "New Debt Owned Added successfully",
+      );
+     
+    } else {
+      await addBusinessDebtorOffline(type);
+           Get.back();
+if(type=="INCOME")
+      Get.snackbar(
+        "Sucessful",
+        "New Debtor Added successfully",
+      );
+      else 
+          Get.snackbar(
+        "Sucessful",
+        "New Debt Owned Added successfully",
+      );
+ 
     }
   }
 
@@ -243,7 +255,7 @@ class DebtorRepository extends GetxController
         businessTransactionType: type,
         totalAmount: totalAmountController.numberValue,
         balance:
-            totalAmountController.numberValue - amountController.numberValue);
+            totalAmountController.numberValue -0);
     _businessController.sqliteDb.insertDebtor(debtor);
     print("Debtor offline saving ${debtor.toJson()}");
     clearValue();
