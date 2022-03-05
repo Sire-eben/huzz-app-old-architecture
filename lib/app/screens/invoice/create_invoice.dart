@@ -563,7 +563,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                           print("item is select");
                                         }),
                                     Text(
-                                      'Select Product',
+                                      'Select Item',
                                       style: TextStyle(
                                         color: AppColor().backgroundColor,
                                         fontFamily: "DMSans",
@@ -698,7 +698,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         color: AppColor().backgroundColor,
                                       ),
                                       iconSize: 30,
-                                      items: _productController.offlineBusinessProduct
+                                      items: _productController
+                                          .offlineBusinessProduct
                                           .map((value) {
                                         return DropdownMenuItem<Product>(
                                           value: value,
@@ -1565,7 +1566,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   });
                                 }),
                             Text(
-                              'Select Product',
+                              'Select Item',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
                                 fontFamily: "DMSans",
@@ -1624,7 +1625,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Select Product',
+                              'Select product/services',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
@@ -1650,7 +1651,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     color: AppColor().backgroundColor,
                                   ),
                                   iconSize: 30,
-                                  items: _productController.offlineBusinessProduct
+                                  items: _productController
+                                      .offlineBusinessProduct
                                       .map((value) {
                                     return DropdownMenuItem<Product>(
                                       value: value,

@@ -714,7 +714,10 @@ class _DebtorListingState extends State<DebtorListing> {
   late String? firstName;
   late String? businessName;
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+    roundingType: RoundingType.floor,
+    length: 15,
+    decimal: 5,
+  );
   final users = Rx(User());
   User? get usersData => users.value;
 
@@ -807,7 +810,7 @@ class _DebtorListingState extends State<DebtorListing> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Bal: ${display(widget.item!.balance!)}",
+                        "Bal: N${display(widget.item!.balance!)}",
                         style: TextStyle(
                             fontSize: 13,
                             fontFamily: 'DMSans',
@@ -815,7 +818,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Paid: ${display((widget.item!.totalAmount! - widget.item!.balance!))}",
+                        "Paid: N${display((widget.item!.totalAmount! - widget.item!.balance!))}",
                         style: TextStyle(
                             fontSize: 11,
                             fontFamily: 'DMSans',

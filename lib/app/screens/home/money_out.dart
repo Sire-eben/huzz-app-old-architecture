@@ -238,7 +238,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                       print("item is select");
                                     }),
                                 Text(
-                                  'Select Product',
+                                  'Select Item',
                                   style: TextStyle(
                                     color: AppColor().backgroundColor,
                                     fontFamily: "DMSans",
@@ -332,7 +332,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               Row(
                                 children: [
                                   Text(
-                                    'Select Product',
+                                    'Select product/services',
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
@@ -371,7 +371,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                       color: AppColor().backgroundColor,
                                     ),
                                     iconSize: 30,
-                                    items: _productController.offlineBusinessProduct
+                                    items: _productController
+                                        .offlineBusinessProduct
                                         .map((value) {
                                       return DropdownMenuItem<Product>(
                                         value: value,
@@ -1206,7 +1207,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               });
                             }),
                         Text(
-                          'Select Product',
+                          'Select Item',
                           style: TextStyle(
                             color: AppColor().backgroundColor,
                             fontFamily: "DMSans",
@@ -1289,8 +1290,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                 color: AppColor().backgroundColor,
                               ),
                               iconSize: 30,
-                              items:
-                                  _productController.offlineBusinessProduct.map((value) {
+                              items: _productController.offlineBusinessProduct
+                                  .map((value) {
                                 return DropdownMenuItem<Product>(
                                   value: value,
                                   child: Text(value.productName!),

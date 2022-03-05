@@ -41,7 +41,10 @@ class _DebtOwnedState extends State<DebtOwned> {
   String? value = "Pending";
 
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+    roundingType: RoundingType.floor,
+    length: 15,
+    decimal: 5,
+  );
   final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
   @override
@@ -236,7 +239,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "Bal: ${display(item.balance!)}",
+                                                      "Bal: N${display(item.balance!)}",
                                                       style: TextStyle(
                                                           fontSize: 13,
                                                           fontFamily: 'DMSans',
@@ -671,14 +674,15 @@ class _DebtOwnedState extends State<DebtOwned> {
                   onTap: () async {
                     if (_debtorRepository.customerType == 0) {
                       if (_debtorRepository.selectedCustomer == null) {
-                        Get.snackbar("Error", "Kindly Select a customer");
+                        Get.snackbar("Error", "Kindly select a merchant");
                         return;
                       }
 
                       if (_debtorRepository.addingDebtorStatus !=
                           AddingDebtorStatus.Loading) {
                         if (_customerKey.currentState!.validate()) {
-                          await _debtorRepository.addBudinessDebtor("EXPENDITURE");
+                          await _debtorRepository
+                              .addBudinessDebtor("EXPENDITURE");
                           // setState(() {});
                           Get.back();
                         }
@@ -882,8 +886,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       color: AppColor().backgroundColor,
                                     ),
                                     iconSize: 30,
-                                    items: _customerRepository
-                                       .customerMerchant
+                                    items: _customerRepository.customerMerchant
                                         .map((value) {
                                       return DropdownMenuItem<Customer>(
                                         value: value,
