@@ -46,7 +46,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyType;
   final TextEditingController? textEditingController;
   final TextInputAction? keyAction;
-  final ValueChanged<String>? validate;
+  final  String? Function(String?)? validate;
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
@@ -97,12 +97,12 @@ class CustomTextField extends StatelessWidget {
                   enabled: enabled,
                   keyboardType: this.keyType,
                   textInputAction: this.keyAction,
-                  validator: (value) {
+                  validator: (validate==null)? (value) {
                     if (value == null || value.isEmpty) {
                       return validatorText;
                     }
                     return null;
-                  },
+                  }:validate,
                   initialValue: this.initialValue,
                   decoration: InputDecoration(
                     isDense: true,

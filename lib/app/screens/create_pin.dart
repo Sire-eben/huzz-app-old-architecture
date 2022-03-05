@@ -16,6 +16,9 @@ class _CreatePinState extends State<CreatePin> {
   final _authController = Get.find<AuthRepository>();
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+     _authController.pinController=TextEditingController();
+     _authController.confirmPinController=TextEditingController();
+
     super.initState();
   }
 
