@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:country_currency_pickers/utils/utils.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
@@ -8,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import 'forget_pass/forgot_pin.dart';
 import 'reg_home.dart';
 
@@ -26,7 +24,7 @@ class _SiginState extends State<Signin> {
 
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
-    _authController.pinController=TextEditingController();
+    _authController.pinController = TextEditingController();
     super.initState();
   }
 
@@ -56,7 +54,6 @@ class _SiginState extends State<Signin> {
               margin: EdgeInsets.only(left: 20),
               child: GestureDetector(
                 onTap: () {
-      
                   Get.back();
                 },
                 child: Icon(
@@ -105,6 +102,7 @@ class _SiginState extends State<Signin> {
             SizedBox(
               height: 10,
             ),
+
             Container(
               margin: EdgeInsets.only(left: 20, right: 20),
               width: MediaQuery.of(context).size.width,
@@ -315,8 +313,22 @@ class _SiginState extends State<Signin> {
             Obx(() {
               return GestureDetector(
                 onTap: () {
-                  if (_authController.signinStatus != SigninStatus.Loading)
-                    _authController.signIn();
+                  if (_authController.phoneNumberController.text == '') {
+                    Get.snackbar(
+                        'Alert', 'Enter your phone number to continue!',
+                        titleText: Text(
+                          'Alert',
+                          // style: AppThemes.style14blackBold,
+                        ),
+                        messageText: Text(
+                          'Enter your phone number to continue!',
+                          // style: AppThemes.style14black,
+                        ),
+                        icon: Icon(Icons.info,
+                            color: AppColor().orangeBorderColor));
+                    print('phone cannot be empty');
+                  } else if (_authController.signinStatus !=
+                      SigninStatus.Loading) _authController.signIn();
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,

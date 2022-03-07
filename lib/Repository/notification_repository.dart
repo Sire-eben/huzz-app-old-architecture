@@ -89,7 +89,7 @@ class NotificationRepository extends GetxController {
                 channel.id,
                 channel.name,
                 channelDescription: channel.description,
-                icon: android?.smallIcon,
+                icon: android.smallIcon,
                 // other properties...
               ),
             ));
@@ -107,17 +107,17 @@ class NotificationRepository extends GetxController {
     print("user phone token $token");
 
     final resposne = await http.put(Uri.parse(ApiLink.update_profile),
-          body: jsonEncode({
-        "firebaseToken":token,
-            // "profileImageFileStoreId": imageId,
-            // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer ${controller.token}"
-          });
+        body: jsonEncode({
+          "firebaseToken": token,
+          // "profileImageFileStoreId": imageId,
+          // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${controller.token}"
+        });
 
-print("update token ${resposne.body}");
+    print("update token ${resposne.body}");
     // var response = await http.post(
     //     Uri.parse(
     //         "http://foodgital2.herokuapp.com/notification/activate-user-notification"),

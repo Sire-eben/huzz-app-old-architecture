@@ -46,11 +46,13 @@ class PinSuccesful extends StatelessWidget {
                 style:
                     TextStyle(fontSize: 30, color: AppColor().backgroundColor),
               )),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
+          Spacer(),
+          Center(
+            child: Image.asset(
+              'assets/images/checker.png',
+            ),
           ),
-          SvgPicture.asset("assets/images/Vector(2).svg"),
-          Expanded(child: SizedBox()),
+          Spacer(),
           GestureDetector(
             onTap: () {
               Get.to(CreateBusiness());

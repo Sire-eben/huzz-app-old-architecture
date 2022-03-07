@@ -27,7 +27,7 @@ class SingleInvoicePdf {
       ],
     ));
 
-    return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
+    return PdfApi.saveDocument(name: 'invoice.pdf', pdf: pdf);
   }
 
   static Widget buildHeader(Invoice invoice) => Container(

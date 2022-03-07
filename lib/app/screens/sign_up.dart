@@ -1,9 +1,11 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
+import 'package:huzz/app/screens/create_pin.dart';
 import 'package:huzz/colors.dart';
 
 import 'widget/custom_form_field.dart';
@@ -24,85 +26,135 @@ class _SignUpState extends State<Signup> {
   void initState() {
     super.initState();
     _authController.countryText = countryCode;
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: AppColor().whiteColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-              width: MediaQuery.of(context).size.width,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextField(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 70,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: [
+                    Positioned(
+                        top: 20,
+                        child: SvgPicture.asset('assets/images/Vector.svg')),
+                    Positioned(
+                      top: 40,
+                      left: 20,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.back();
+                          // if (_homeController.onboardingRegSelectedIndex > 0) {
+                          //   _homeController.selectedOnboardSelectedPrevious();
+                          // } else {
+                          //   Get.back();
+                          // }
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: AppColor().backgroundColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Center(
+                child: Text('Personal Details',
+                    style: TextStyle(
+                        color: AppColor().backgroundColor,
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500)),
+              ),
+              SizedBox(
+                height: 2,
+              ),
+              Center(
+                child: Text(
+                  'let’s get to know you better',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomTextField(
                   label: "First Name",
                   validatorText: "First name is needed",
                   textEditingController: _authController.firstNameController,
                 ),
-                SizedBox(
-                  height: 3,
-                ),
-                CustomTextField(
+              ),
+              SizedBox(
+                height: 3,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomTextField(
                   label: "Last Name",
                   validatorText: "Last name is needed",
                   textEditingController: _authController.lastNameController,
                 ),
-                SizedBox(
-                  height: 3,
+              ),
+              SizedBox(
+                height: 3,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomTextField(
+                  label: "Email",
+                  validate: (value) {
+                    if (value!.isEmpty) {
+                      return "Email is required";
+                    } else if (!value.isEmail) {
+                      return "Enter valid email address";
+                    } else {
+                      return null;
+                    }
+                  },
+                  validatorText: "Email is needed",
+                  textEditingController: _authController.emailController,
                 ),
-                Container(
-                  child: CustomTextField(
-                    label: "Email",
-                    validate: (value){
-                        if(value!.isEmpty){
-
-                          return "Email is required";
-                        }else if(!value!.isEmail){
-                          return "Enter valid email address";
-                        }else{
-                          return null;
-                        }
-
-                    },
-                    validatorText: "Email is needed",
-                    textEditingController: _authController.emailController,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  "Phone Number",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(
-                  height: 3,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                 
-                    child: Text(
-                      "Phone Number",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-              
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Container(
                   height: 50,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    border:
-                        Border.all(color: AppColor().backgroundColor, width: 2.0),
+                    border: Border.all(
+                        color: AppColor().backgroundColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
@@ -117,7 +169,8 @@ class _SignUpState extends State<Signup> {
                           decoration: BoxDecoration(
                             border: Border(
                                 right: BorderSide(
-                                    color: AppColor().backgroundColor, width: 2)),
+                                    color: AppColor().backgroundColor,
+                                    width: 2)),
                           ),
                           height: 50,
                           width: 80,
@@ -125,14 +178,16 @@ class _SignUpState extends State<Signup> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(width: 10),
-                              Flag.fromString(countryFlag, height: 30, width: 30),
+                              Flag.fromString(countryFlag,
+                                  height: 30, width: 30),
                               SizedBox(
                                 width: 5,
                               ),
                               Icon(
                                 Icons.arrow_drop_down,
                                 size: 24,
-                                color: AppColor().backgroundColor.withOpacity(0.5),
+                                color:
+                                    AppColor().backgroundColor.withOpacity(0.5),
                               )
                             ],
                           ),
@@ -166,50 +221,52 @@ class _SignUpState extends State<Signup> {
                     ],
                   ),
                 ),
-                Spacer(),
-                InkWell(
-                  onTap: () {
-                    if(_formKey.currentState!.validate())
-                    _homeController.selectOnboardSelectedNext();
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Continue',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              Spacer(),
+              InkWell(
+                onTap: () {
+                  if (_formKey.currentState!.validate())
+                    // _homeController.selectOnboardSelectedNext();
+                    Get.to(() => CreatePin());
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Continue',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: AppColor().backgroundColor,
+                          size: 16,
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(3),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(50))),
-                          child: Icon(
-                            Icons.arrow_forward,
-                            color: AppColor().backgroundColor,
-                            size: 16,
-                          ),
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
         ),
       ),

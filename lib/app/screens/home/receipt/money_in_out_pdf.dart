@@ -39,7 +39,7 @@ class PdfMoneyInOutApi {
       // footer: (context) => buildFooter(moneyInvoice),
     ));
 
-    return PdfApi.saveDocument(name: 'my_moneyInvoice.pdf', pdf: pdf);
+    return PdfApi.saveDocument(name: 'receipt.pdf', pdf: pdf);
   }
 
   static Widget buildHeader(Business item) => Container(

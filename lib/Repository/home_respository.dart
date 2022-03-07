@@ -11,8 +11,8 @@ class HomeRespository extends GetxController {
   void selectedOnboardSelectedPrevious() {
     _onboardingRegSelectedIndex(onboardingRegSelectedIndex - 1);
   }
-  void gotoIndex(int index){
-    _onboardingRegSelectedIndex(index);
 
+  void gotoIndex(int index) {
+    _onboardingRegSelectedIndex(index);
   }
 }
