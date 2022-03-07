@@ -184,7 +184,7 @@ if(p0.isNotEmpty){
   // ignore: non_constant_identifier_names
   Future UpdateBusinessProduct(Product product, String title) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      updateBusinessProductOnline(product, title);
+      updateBusinessProductOnline( product, title);
     } else {
       updateBusinessProductOffline(product, title);
     }
@@ -259,7 +259,7 @@ if(p0.isNotEmpty){
     print("product offline saving ${product.toJson()}");
     _businessController.sqliteDb.updateOfflineProdcut(product);
     clearValue();
-    Get.to(Confirmation(
+    Get.off(Confirmation(
       text: "Updated",
       title: title,
     ));
@@ -277,6 +277,7 @@ if(p0.isNotEmpty){
 
   Future updateBusinessProductOnline(Product product, String title) async {
     try {
+      print("product name is ${productNameController.text}");
       _addingProductStatus(AddingProductStatus.Loading);
       // ignore: avoid_init_to_null
       String? fileId = null;
@@ -295,7 +296,7 @@ if(p0.isNotEmpty){
                 "sellingPrice": productSellingPriceController.numberValue,
 // "quantity":productQuantityController.text,
                 "businessId": product.businessId,
-                "productType": tabController!.index == 0 ? "GOODS" : "SERVICES",
+                "productType": product.productType,
                 "productLogoFileStoreUrl": fileId,
                 "description":serviceDescription.text
               }),
@@ -310,7 +311,7 @@ if(p0.isNotEmpty){
         getOnlineProduct(
             _businessController.selectedBusiness.value!.businessId!);
 
-        Get.to(Confirmation(
+        Get.off(Confirmation(
           text: "Updated",
           title: title,
         ));
