@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/app/screens/customers/customer_tabView.dart';
 import 'package:huzz/app/screens/invoice/empty_invoice.dart';
-import 'package:huzz/app/screens/more.dart';
+import 'package:huzz/app/screens/more/more.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+
 import 'customers/customer_tabView.dart';
 import 'home/home.dart';
 import 'inventory/manage_inventory.dart';

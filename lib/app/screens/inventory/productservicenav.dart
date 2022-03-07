@@ -4,7 +4,7 @@ import 'package:huzz/app/screens/customers/customer_tabView.dart';
 import 'package:huzz/app/screens/home/home.dart';
 import 'package:huzz/app/screens/inventory/productserviceTab.dart';
 import 'package:huzz/app/screens/invoice/available_invoice.dart';
-import 'package:huzz/app/screens/more.dart';
+import 'package:huzz/app/screens/more/more.dart';
 import 'package:huzz/colors.dart';
 
 class ProServiceDashboard extends StatefulWidget {

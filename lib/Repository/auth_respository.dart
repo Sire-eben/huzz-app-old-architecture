@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'fingerprint_repository.dart';
 import 'home_respository.dart';
 
@@ -49,7 +51,7 @@ enum OnlineStatus { Onilne, Offline, Empty }
 class AuthRepository extends GetxController {
   final _homeController = Get.find<HomeRespository>();
 
-var otpController = TextEditingController();
+  var otpController = TextEditingController();
   var pinController;
   late final emailController = TextEditingController();
   late final lastNameController = TextEditingController();
@@ -123,8 +125,8 @@ var confirmPinController = TextEditingController();
         print("result of token is ${Mtoken.value}");
 
         _authStatus(AuthStatus.Authenticated);
-        if(connectionStatus==ConnectivityResult.mobile ||connectionStatus==ConnectivityResult.wifi)
-        {
+        if (connectionStatus == ConnectivityResult.mobile ||
+            connectionStatus == ConnectivityResult.wifi) {
           checkIfTokenStillValid();
         }
         if (Mtoken.value == "0") {
@@ -138,7 +140,7 @@ var confirmPinController = TextEditingController();
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       _updateConnectionStatus(result);
-   
+
       print("result is $result");
     });
   }
@@ -250,6 +252,7 @@ var confirmPinController = TextEditingController();
     try {
       _Otpforgotverifystatus(OtpForgotVerifyStatus.Loading);
       print("otp value ${otpController.text}");
+
       final resposne = await http.put(Uri.parse(ApiLink.forget_pin),
           body: jsonEncode({
             "phoneNumber":
@@ -257,7 +260,12 @@ var confirmPinController = TextEditingController();
             "otp": forgotOtpController.text,
             "pin": forgetpinController.text
           }),
-          headers: {"Content-Type": "application/json"});
+          headers: {"Content-Type": "application/json"}).timeout(
+        const Duration(seconds: 30),
+        onTimeout: (() {
+          throw TimeoutException('Connection timeout, Please try again!');
+        }),
+      );
 
       print("response of verify forgot pass otp ${resposne.body}");
       if (resposne.statusCode == 200) {
@@ -615,18 +623,16 @@ var confirmPinController = TextEditingController();
     await sqliteDb.deleteAllInvoice();
     await sqliteDb.deleteAllBanks();
   }
-  void checkIfTokenStillValid()async{
-var response = await http.get(Uri.parse(ApiLink.get_user_business),
+
+  void checkIfTokenStillValid() async {
+    var response = await http.get(Uri.parse(ApiLink.get_user_business),
         headers: {"Authorization": "Bearer ${token}"});
 
     print("online busines result ${response.body}");
     if (response.statusCode == 401) {
-_authStatus(AuthStatus.TOKEN_EXISTED);
-Get.snackbar("Error", "Your Login token is expired.");
-Get.offAll(Signin());
-
-
+      _authStatus(AuthStatus.TOKEN_EXISTED);
+      Get.snackbar("Error", "Your Login token is expired.");
+      Get.offAll(Signin());
     }
-
   }
 }
