@@ -26,7 +26,10 @@ class _InsightState extends State<Insight> {
     'Custom date range'
   ];
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+    roundingType: RoundingType.floor,
+    length: 15,
+    decimal: 0,
+  );
 
   Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
     final initialDateRange = DateTimeRange(
@@ -774,7 +777,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/total_income.svg',
                               color: AppColor().backgroundColor,
                               amount:
-                                  display(transactionController.recordMoneyIn),
+                                  'N${display(transactionController.recordMoneyIn)}',
                               name1: 'Total',
                               name2: 'Income',
                               message: 'Total income for\nthe selected period',
@@ -784,7 +787,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/total_expense.svg',
                               color: AppColor().blackColor,
                               amount:
-                                  display(transactionController.recordMoneyOut),
+                                  "N${display(transactionController.recordMoneyOut)}",
                               name1: 'Total',
                               name2: 'Expenses',
                               message:
@@ -798,10 +801,8 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/average_income.svg',
                               color: AppColor().purpleColor,
-                              amount: display(
-                                  (transactionController.recordMoneyIn /
-                                      transactionController
-                                          .allIncomeTransaction.length)),
+                              amount:
+                                  "N${display((transactionController.recordMoneyIn / transactionController.allIncomeTransaction.length))}",
                               name1: 'Average income',
                               name2: 'per transaction',
                               message:
@@ -811,10 +812,8 @@ class _InsightState extends State<Insight> {
                             StatisticsWidget(
                               image: 'assets/images/average_expenses.svg',
                               color: AppColor().wineColor,
-                              amount: display(
-                                  (transactionController.recordMoneyOut /
-                                      transactionController
-                                          .allExpenditureTransaction.length)),
+                              amount:
+                                  "N${display((transactionController.recordMoneyOut / transactionController.allExpenditureTransaction.length))}",
                               name1: 'Average expenses',
                               name2: 'per transaction',
                               message:

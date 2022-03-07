@@ -40,6 +40,7 @@ class _SiginState extends State<Signin> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: AppColor().whiteColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -267,47 +268,44 @@ class _SiginState extends State<Signin> {
             SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 120),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(ForgotPIN());
-                    },
-                    child: Container(
-                      child: Text(
-                        "Forgot PIN?",
-                        style: TextStyle(
-                          color: AppColor().orangeBorderColor,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.to(ForgotPIN());
+                  },
+                  child: Container(
+                    child: Text(
+                      "Forgot PIN?",
+                      style: TextStyle(
+                        color: AppColor().orangeBorderColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(RegHome());
-                    },
-                    child: Container(
-                      child: Text(
-                        "Sign up",
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(RegHome());
+                  },
+                  child: Container(
+                    child: Text(
+                      "Sign up",
+                      style: TextStyle(
+                        color: AppColor().backgroundColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Expanded(child: SizedBox()),
             Obx(() {

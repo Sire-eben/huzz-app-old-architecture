@@ -29,7 +29,7 @@ class ProductRepository extends GetxController
   List<Product> get offlineBusinessProduct => _offlineBusinessProduct.value;
   List<Product> get onlineBusinessProduct => _onlineBusinessProduct.value;
   List<Product> pendingBusinessProduct = [];
-  List<String> units=[
+  List<String> units = [
     'Box',
     'feet',
     'kilogram',
@@ -77,7 +77,7 @@ class ProductRepository extends GetxController
   dynamic get totalProduct => _totalProduct.value;
   dynamic get totalService => _totalService.value;
   var uuid = Uuid();
-    final _miscellaneousController=Get.find<MiscellaneousRepository>();
+  final _miscellaneousController = Get.find<MiscellaneousRepository>();
   @override
   void onInit() async {
     // ignore: todo
@@ -85,13 +85,11 @@ class ProductRepository extends GetxController
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
 
-_miscellaneousController.unitTypeList.listen((p0) {
-  
-if(p0.isNotEmpty){
-
-  units=p0;
-}
-});
+    _miscellaneousController.unitTypeList.listen((p0) {
+      if (p0.isNotEmpty) {
+        units = p0;
+      }
+    });
     //  await sqliteDb.openDatabae();
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
@@ -145,7 +143,7 @@ if(p0.isNotEmpty){
                 _businessController.selectedBusiness.value!.businessId!,
             "productType": type,
             "productLogoFileStoreUrl": fileId,
-            "description":serviceDescription.text
+            "description": serviceDescription.text
           }),
           headers: {
             "Content-Type": "application/json",
@@ -297,7 +295,7 @@ if(p0.isNotEmpty){
                 "businessId": product.businessId,
                 "productType": tabController!.index == 0 ? "GOODS" : "SERVICES",
                 "productLogoFileStoreUrl": fileId,
-                "description":serviceDescription.text
+                "description": serviceDescription.text
               }),
               headers: {
             "Content-Type": "application/json",
@@ -330,7 +328,7 @@ if(p0.isNotEmpty){
     productQuantityController.text = product.quantityLeft!.toString();
     productCostPriceController.text = product.costPrice.toString();
     productSellingPriceController.text = product.sellingPrice.toString();
-    serviceDescription.text=product.description!;
+    serviceDescription.text = product.description!;
     productUnitController.text = "";
     // serviceDescription.text = product.;
     selectedProduct = product;
@@ -405,7 +403,7 @@ if(p0.isNotEmpty){
         services.add(element);
         totalservice = totalservice + element.costPrice;
       } else {
-        totalproduct = totalproduct + element.costPrice;
+        totalproduct = totalproduct + element.sellingPrice;
         goods.add(element);
       }
     });
@@ -649,7 +647,7 @@ if(p0.isNotEmpty){
                 "productType": updatenext.productType,
                 "productLogoFileStoreUrl":
                     fileId ?? updatenext.productLogoFileStoreId,
-                    "description":updatenext.description
+                "description": updatenext.description
               }),
               headers: {
             "Content-Type": "application/json",

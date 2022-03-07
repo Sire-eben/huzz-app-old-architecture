@@ -6,7 +6,6 @@ import 'package:huzz/app/screens/inventory/Product/add_product.dart';
 import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
 import 'package:huzz/model/product.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../../../colors.dart';
 
 class ProductListing extends StatefulWidget {
@@ -18,25 +17,25 @@ class ProductListing extends StatefulWidget {
 
 class _ProductListingState extends State<ProductListing> {
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+      length: 3, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
   final TextEditingController textEditingController = TextEditingController();
- Rx<List<Product>> _searchResult=Rx([]);
-  List<Product> get searchResult =>_searchResult.value;
+  Rx<List<Product>> _searchResult = Rx([]);
+  List<Product> get searchResult => _searchResult.value;
   var searchtext = '';
   bool isDelete = false;
   final _productController = Get.find<ProductRepository>();
   void searchItem(String val) {
     searchtext = val;
     // searchResult.clear();
-    List<Product> list=[];
+    List<Product> list = [];
     setState(() {});
     _productController.productGoods.forEach((element) {
       if (element.productName!.toLowerCase().contains(val.toLowerCase())) {
         // searchResult.add(element);
-    list.add(element);
+        list.add(element);
       }
     });
-_searchResult(list);
+    _searchResult(list);
   }
 
   @override
@@ -184,29 +183,26 @@ _searchResult(list);
             left: 20,
             right: 20,
             child: (searchtext.isEmpty || searchResult.isNotEmpty)
-                ? Obx(()
-                 {
+                ? Obx(() {
                     return ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: (searchResult.isEmpty)
-                                ? _productController.productGoods.length
-                                : searchResult.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              var item = (searchResult.isEmpty)
-                                  ? _productController.productGoods[index]
-                                  : searchResult[index];
-                              print("product item ${item.toJson()}");
-                              return (isDelete)
-                                  ? ListingProductDelete(
-                                      item: item,
-                                    )
-                                  : ListingProduct(
-                                      item: item,
-                                    );
-                           
-                      });
-                  }
-                )
+                        scrollDirection: Axis.vertical,
+                        itemCount: (searchResult.isEmpty)
+                            ? _productController.productGoods.length
+                            : searchResult.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var item = (searchResult.isEmpty)
+                              ? _productController.productGoods[index]
+                              : searchResult[index];
+                          print("product item ${item.toJson()}");
+                          return (isDelete)
+                              ? ListingProductDelete(
+                                  item: item,
+                                )
+                              : ListingProduct(
+                                  item: item,
+                                );
+                        });
+                  })
                 : Container(
                     child: Center(
                       child: Text("No Product Found"),
