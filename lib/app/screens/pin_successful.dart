@@ -75,13 +75,6 @@ class PinSuccesful extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  //  Container(padding: EdgeInsets.all(3),
-                  //    decoration:BoxDecoration(
-                  //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
-
-                  //    ),
-                  //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
-                  //  )
                 ],
               ),
             ),

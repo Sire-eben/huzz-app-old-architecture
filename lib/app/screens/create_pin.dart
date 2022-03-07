@@ -7,8 +7,6 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import 'pin_successful.dart';
-
 class CreatePin extends StatefulWidget {
   _CreatePinState createState() => _CreatePinState();
 }
@@ -223,8 +221,7 @@ class _CreatePinState extends State<CreatePin> {
                       if (_authController.confirmPinController.text ==
                           _authController.pinController.text) {
                         //  if(_authController.signupStatus!=SignupStatus.Loading)
-                        // _authController.signUp();
-                        Get.off(PinSuccesful());
+                        _authController.signUp();
                       } else {
                         errorController!.add(ErrorAnimationType.shake);
                       }

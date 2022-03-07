@@ -7,7 +7,6 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/app/screens/create_pin.dart';
 import 'package:huzz/colors.dart';
-
 import 'widget/custom_form_field.dart';
 
 class Signup extends StatefulWidget {
