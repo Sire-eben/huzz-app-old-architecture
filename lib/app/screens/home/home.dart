@@ -825,64 +825,65 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Expanded(
+            child: Container(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.height * 0.02,
+                  right: MediaQuery.of(context).size.height * 0.02,
+                  bottom: MediaQuery.of(context).size.height * 0.02),
+              decoration: BoxDecoration(
+                  color: Color(0xffF5F5F5),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      width: 2, color: Colors.grey.withOpacity(0.2))),
               child: Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.height * 0.02,
-                      right: MediaQuery.of(context).size.height * 0.02,
-                      bottom: MediaQuery.of(context).size.height * 0.02),
-                  decoration: BoxDecoration(
-                      color: Color(0xffF5F5F5),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 2, color: Colors.grey.withOpacity(0.2))),
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.02,
-                        right: MediaQuery.of(context).size.height * 0.02,
-                        bottom: MediaQuery.of(context).size.height * 0.02),
-                    decoration: BoxDecoration(
-                      color: Color(0xffF5F5F5),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                              'assets/images/empty_transaction.svg'),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Record a transaction',
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.black,
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'Your recent transactions will show here. Click the',
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                                fontFamily: 'DMSans'),
-                          ),
-                          Text(
-                            'Add transaction button to record your first transaction.',
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                                fontFamily: 'DMSans'),
-                          ),
-                        ],
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.height * 0.02,
+                    right: MediaQuery.of(context).size.height * 0.02,
+                    bottom: MediaQuery.of(context).size.height * 0.02),
+                decoration: BoxDecoration(
+                  color: Color(0xffF5F5F5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset('assets/images/empty_transaction.svg'),
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  )))
+                      Text(
+                        'Record a transaction',
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        'Your recent transactions will show here. Click the',
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black,
+                            fontFamily: 'DMSans'),
+                      ),
+                      Text(
+                        'Add transaction button to record your first transaction.',
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.black,
+                            fontFamily: 'DMSans'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

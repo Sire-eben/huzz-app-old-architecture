@@ -448,7 +448,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         label: 'Account Number',
                         hint: 'account number',
                         validatorText: "Account Number is required",
-                        keyType: TextInputType.phone,
+                        keyType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
                         textEditingController:
                             _bankAccountController.accoutNumberController,
                       ),
