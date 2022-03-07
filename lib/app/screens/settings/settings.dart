@@ -434,6 +434,35 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                   ),
+
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // LogOut
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      height: 55,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: AppColor().orangeBorderColor,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Verify your Phone Number',
+                          style: TextStyle(
+                            color: AppColor().whiteColor,
+                            fontFamily: 'DMSans',
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
