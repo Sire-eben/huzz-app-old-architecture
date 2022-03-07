@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
@@ -835,7 +838,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                               ),
                               CustomTextFieldInvoiceOptional(
                                 label: 'Amount you owe',
-                                keyType: TextInputType.number,
+                                inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                 textEditingController:
                                     _debtorRepository.totalAmountController,
                                 validatorText: "Amount you owe is required",
@@ -902,13 +906,15 @@ class _DebtOwnedState extends State<DebtOwned> {
                               ),
                               // CustomTextFieldInvoiceOptional(
                               //   label: 'Balance',
-                              //   keyType: TextInputType.number,
+                              //   inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        // keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                               //   textEditingController:
                               //       _customerRepository.amountController,
                               // ),
                               CustomTextFieldInvoiceOptional(
                                 label: 'Amount you owe',
-                                keyType: TextInputType.number,
+                                inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                 validatorText: "Amount you owe is required",
                                 textEditingController:
                                     _debtorRepository.totalAmountController,
@@ -1013,6 +1019,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                       label: "Amount",
                       validatorText: "amount is needed",
                       hint: '₦0',
+                        inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                     ),
                   ),
                   Expanded(

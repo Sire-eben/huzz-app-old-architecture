@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
@@ -200,7 +201,8 @@ _productController.productQuantityController.text="0";
                         child: TextFormField(
                           controller:
                               _productController.productCostPriceController,
-                          keyboardType: TextInputType.number,
+                      keyboardType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           decoration: InputDecoration(
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
@@ -270,7 +272,8 @@ _productController.productQuantityController.text="0";
                         child: TextFormField(
                           controller:
                               _productController.productSellingPriceController,
-                          keyboardType: TextInputType.number,
+                    keyboardType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           decoration: InputDecoration(
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
@@ -365,7 +368,9 @@ _productController.productQuantityController.text="0";
                     width: 120,
                     child: TextFormField(
                       controller: _productController.productQuantityController,
-                      keyboardType: TextInputType.number,
+                      keyboardType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      
                       decoration: InputDecoration(
                         isDense: true,
                         focusedBorder: OutlineInputBorder(

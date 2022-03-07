@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
@@ -117,6 +118,8 @@ class _AddServiceState extends State<AddService> {
                     label: "Service Amount",
                     validatorText: "Service amount is needed",
                     hint: 'N0.00',
+                    inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                     textEditingController:
                         _productController.productCostPriceController,
                   ),

@@ -1,6 +1,9 @@
 // ignore_for_file: unused_element, body_might_complete_normally_nullable
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
@@ -467,21 +470,24 @@ class _DebtorsState extends State<Debtors> {
                                 ),
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Phone Number',
-                                  keyType: TextInputType.name,
+                                  inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                   textEditingController:
                                       _customerController.phoneNumberController,
                                   validatorText: "Phone number is required",
                                 ),
                                 // CustomTextFieldInvoiceOptional(
                                 //   label: 'Balance',
-                                //   keyType: TextInputType.number,
+                                //   inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        // keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                 //   textEditingController:
                                 //       _debtorController.amountController,
                                 //   validatorText: "Balance is needed",
                                 // ),
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Amount Owed',
-                                  keyType: TextInputType.number,
+                                  inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                   textEditingController:
                                       _debtorController.totalAmountController,
                                   validatorText: "Amount Owed is required",
@@ -549,7 +555,8 @@ class _DebtorsState extends State<Debtors> {
                                 ),
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Amount Owed',
-                                  keyType: TextInputType.number,
+                                  inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                   validatorText: "Amount Owed is required",
                                   textEditingController:
                                       _debtorController.totalAmountController,
