@@ -1,11 +1,10 @@
 import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
-import 'package:huzz/app/screens/widget/util.dart' ;
+import 'package:huzz/app/screens/widget/util.dart';
 import 'package:huzz/app/Utils/util.dart' as utils;
 import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/business.dart';
@@ -25,7 +24,10 @@ class PdfInvoiceApi {
   static final _customerController = Get.find<CustomerRepository>();
   static final _bankController = Get.find<BankAccountRepository>();
   static final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '${ utils.Utils.getCurrency()}', units: ['K', 'M', 'B', 'T']);
+      length: 5,
+      decimal: 0,
+      placeholder: '${utils.Utils.getCurrency()}',
+      units: ['K', 'M', 'B', 'T']);
 
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
@@ -138,12 +140,18 @@ class PdfInvoiceApi {
           Text("Transfer",
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
-       (bankDetails!=null)?   Text(bankDetails.bankAccountName!,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)):pw.Container(),
-          (bankDetails!=null)?   Text(bankDetails.bankAccountNumber!,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)):pw.Container(),
-          (bankDetails!=null)?   Text(bankDetails.bankName!,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)):pw.Container(),
+          (bankDetails != null)
+              ? Text(bankDetails.bankAccountName!,
+                  style: TextStyle(color: PdfColors.white, fontSize: 10))
+              : pw.Container(),
+          (bankDetails != null)
+              ? Text(bankDetails.bankAccountNumber!,
+                  style: TextStyle(color: PdfColors.white, fontSize: 10))
+              : pw.Container(),
+          (bankDetails != null)
+              ? Text(bankDetails.bankName!,
+                  style: TextStyle(color: PdfColors.white, fontSize: 10))
+              : pw.Container(),
         ],
       );
 
@@ -167,7 +175,6 @@ class PdfInvoiceApi {
       'Amount',
     ];
     final data = invoice.paymentItemRequestList!.map((item) {
-      // final total = item.amount! * item.quality!;
       print("item name ${item.itemName}");
       return [
         '${item.itemName}',

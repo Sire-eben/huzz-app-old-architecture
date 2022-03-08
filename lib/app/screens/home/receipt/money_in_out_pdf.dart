@@ -13,22 +13,23 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+import 'package:huzz/app/Utils/util.dart' as format;
 
 class PdfMoneyInOutApi {
   // ignore: avoid_init_to_null
-  
+
   static final _businessController = Get.find<BusinessRespository>();
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(TransactionModel transactionModel) async {
     final pdf = Document();
-    Customer? customer=null;
-    if (transactionModel.customerId != null){
+    Customer? customer = null;
+    if (transactionModel.customerId != null) {
       print("my customer id ${transactionModel.customerId}");
       customer = _customerController
           .checkifCustomerAvailableWithValue(transactionModel.customerId!);
-    }else{
-print("my customer id is null");
-      customer=null;
+    } else {
+      print("my customer id is null");
+      customer = null;
     }
     pdf.addPage(MultiPage(
       build: (context) => [
@@ -130,7 +131,7 @@ print("my customer id is null");
       return [
         item.itemName,
         '${item.quality}',
-        '\NGN${item.amount}',
+        '${Utils.formatPrice(item.amount)}',
       ];
     }).toList();
 

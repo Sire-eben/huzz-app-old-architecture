@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,7 +15,6 @@ import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/records_model.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../Utils/util.dart';
 
 class MoneySummary extends StatefulWidget {
@@ -442,7 +440,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     Expanded(
                       child: Text(
                         'Amount',
-                        textAlign: TextAlign.left,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontFamily: 'InterRegular',
@@ -450,14 +448,16 @@ class _MoneySummaryState extends State<MoneySummary> {
                             color: AppColor().whiteColor),
                       ),
                     ),
-                    Text(
-                      '',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'InterRegular',
-                          fontSize: 12,
-                          color: AppColor().whiteColor),
+                    Expanded(
+                      child: Text(
+                        '',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'InterRegular',
+                            fontSize: 12,
+                            color: AppColor().whiteColor),
+                      ),
                     ),
                   ],
                 ),
@@ -503,36 +503,39 @@ class _MoneySummaryState extends State<MoneySummary> {
                                     color: AppColor().blackColor),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () async {
-                                final transactionReceipt =
-                                    await PdfTransactionApi.generate(
-                                        transactionModel!);
-                                Get.to(() =>
-                                    IncomeReceipt(file: transactionReceipt));
-                              },
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'View Receipt',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'InterRegular',
-                                        fontSize: 10,
-                                        color: AppColor().backgroundColor),
-                                  ),
-                                  SizedBox(width: 4),
-                                  Container(
-                                      padding: EdgeInsets.all(2),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final transactionReceipt =
+                                      await PdfTransactionApi.generate(
+                                          transactionModel!);
+                                  Get.to(() =>
+                                      IncomeReceipt(file: transactionReceipt));
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      'View Receipt',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'InterRegular',
+                                          fontSize: 10,
                                           color: AppColor().backgroundColor),
-                                      child: Icon(
-                                        Icons.arrow_forward,
-                                        color: AppColor().whiteColor,
-                                        size: 15,
-                                      ))
-                                ],
+                                    ),
+                                    SizedBox(width: 4),
+                                    Container(
+                                        padding: EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: AppColor().backgroundColor),
+                                        child: Icon(
+                                          Icons.arrow_forward,
+                                          color: AppColor().whiteColor,
+                                          size: 15,
+                                        ))
+                                  ],
+                                ),
                               ),
                             ),
                           ],

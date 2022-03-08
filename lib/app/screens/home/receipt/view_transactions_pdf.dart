@@ -21,7 +21,7 @@ class PdfTransactionApi {
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(TransactionModel transactionModel) async {
     final pdf = Document();
-       Customer? customer;
+    Customer? customer;
     if (transactionModel.customerId != null)
       customer = _customerController
           .checkifCustomerAvailableWithValue(transactionModel.customerId!);
@@ -35,8 +35,12 @@ class PdfTransactionApi {
         Divider(),
         buildTotal(transactionModel.businessTransactionPaymentItemList!),
         SizedBox(height: PdfPageFormat.cm),
-      (transactionModel.balance>0)?  buildSummaryTotal(transactionModel.businessTransactionPaymentItemList!,
-            transactionModel.totalAmount, transactionModel.balance):pw.Container(),
+        (transactionModel.balance > 0)
+            ? buildSummaryTotal(
+                transactionModel.businessTransactionPaymentItemList!,
+                transactionModel.totalAmount,
+                transactionModel.balance)
+            : pw.Container(),
         SizedBox(height: 2 * PdfPageFormat.cm),
         buildFooter(customer)
       ],
@@ -129,7 +133,7 @@ class PdfTransactionApi {
       return [
         item.itemName,
         '${item.quality}',
-        '\NGN${item.amount}',
+        '${Utils.formatPrice(item.amount)}',
       ];
     }).toList();
 
