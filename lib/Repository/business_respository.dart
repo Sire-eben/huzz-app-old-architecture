@@ -78,7 +78,7 @@ class BusinessRespository extends GetxController {
   Future OnlineBusiness() async {
     businessListFromServer.clear();
     offlineBusiness.clear();
-    print("get online business is");
+    print("get online business is token ${_userController.token} ");
     var response = await http.get(Uri.parse(ApiLink.get_user_business),
         headers: {"Authorization": "Bearer ${_userController.token}"});
 
@@ -188,10 +188,10 @@ class BusinessRespository extends GetxController {
   Future GetOfflineBusiness() async {
     var results = await sqliteDb.getOfflineBusinesses();
     print("offline business ${results.length}");
-     selectedBusiness=Rx(null);
+     selectedBusiness=Rx(Business(businessId: null));
      print("selected business is ${selectedBusiness.value}");
     _offlineBusiness(results);
-    if (selectedBusiness.value == null) if (results.isNotEmpty) {
+    if (selectedBusiness.value == null|| selectedBusiness.value!.businessId==null) if (results.isNotEmpty) {
       var business = results.firstWhereOrNull(
           (e) => e.businessId == pref!.getLastSelectedBusiness());
       if (business == null)

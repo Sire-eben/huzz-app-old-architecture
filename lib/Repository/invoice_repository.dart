@@ -33,6 +33,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as path;
 
+import '../app/Utils/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
 
@@ -65,7 +66,7 @@ class InvoiceRespository extends GetxController {
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
   final amountController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ',
+      leftSymbol: '${Utils.getCurrency()} ',
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -76,7 +77,7 @@ class InvoiceRespository extends GetxController {
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
   final amountPaidController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ',
+      leftSymbol: '${Utils.getCurrency()} ',
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -165,7 +166,7 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
           print("current business is null");
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null) {
+          if (p0 != null && p0.businessId!=null) {
             print("business id ${p0.businessId}");
             _offlineInvoices([]);
             _allPaymentItem([]);

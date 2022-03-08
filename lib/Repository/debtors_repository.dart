@@ -14,6 +14,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
+import '../app/Utils/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
 import 'file_upload_respository.dart';
@@ -49,15 +50,15 @@ class DebtorRepository extends GetxController
   SqliteDb sqliteDb = SqliteDb();
 
   final totalAmountController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ', decimalSeparator: '.', thousandSeparator: ',');
+      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
   final amountController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ', decimalSeparator: '.', thousandSeparator: ',');
+      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final serviceDescription = TextEditingController();
 
   final DebtorSellingPriceController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ', decimalSeparator: '.', thousandSeparator: ',');
+      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
   final DebtorQuantityController = TextEditingController();
   final DebtorUnitController = TextEditingController();
 
@@ -102,7 +103,7 @@ class DebtorRepository extends GetxController
           getOfflineDebtor(value.businessId!);
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null) {
+          if (p0 != null&& p0.businessId!=null) {
             print("business id ${p0.businessId}");
             _offlineBusinessDebtor([]);
 

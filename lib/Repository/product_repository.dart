@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/miscellaneous_respository.dart';
 import 'package:huzz/api_link.dart';
+import 'package:huzz/app/Utils/util.dart';
 import 'package:huzz/app/screens/inventory/Product/productConfirm.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
@@ -47,12 +48,12 @@ class ProductRepository extends GetxController
   SqliteDb sqliteDb = SqliteDb();
   final productNameController = TextEditingController();
   final productCostPriceController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ',
+      leftSymbol: '${Utils.getCurrency()} ',
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
   final productSellingPriceController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ',
+      leftSymbol: '${Utils.getCurrency()} ',
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -99,7 +100,7 @@ class ProductRepository extends GetxController
           getOfflineProduct(value.businessId!);
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null) {
+          if (p0 != null&& p0.businessId!=null) {
             print("business id ${p0.businessId}");
             _offlineBusinessProduct([]);
 

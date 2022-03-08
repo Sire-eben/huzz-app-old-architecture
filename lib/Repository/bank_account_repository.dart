@@ -62,7 +62,7 @@ class BankAccountRepository extends GetxController {
           getOfflineBank(value.businessId!);
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null) {
+          if (p0 != null && p0.businessId!=null) {
             print("business id ${p0.businessId}");
             _offlineBusinessBank([]);
 

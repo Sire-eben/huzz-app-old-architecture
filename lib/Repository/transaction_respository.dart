@@ -24,6 +24,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 
+import '../app/Utils/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
 import 'miscellaneous_respository.dart';
@@ -59,7 +60,7 @@ class TransactionRespository extends GetxController {
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
   final amountController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ',
+      leftSymbol: '${Utils.getCurrency()} ',
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -70,7 +71,7 @@ class TransactionRespository extends GetxController {
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
   final amountPaidController = new MoneyMaskedTextController(
-      leftSymbol: 'NGN ',
+      leftSymbol: '${Utils.getCurrency()} ',
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -182,7 +183,7 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
           print("current business is null");
         }
         _businessController.selectedBusiness.listen((p0) async {
-          if (p0 != null) {
+          if (p0 != null && p0.businessId!=null) {
             print("business id ${p0.businessId}");
             _offlineTransactions([]);
             _allPaymentItem([]);
