@@ -8,6 +8,8 @@ import 'package:huzz/model/recordData.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../Utils/util.dart';
+
 class Insight extends StatefulWidget {
   @override
   _InsightState createState() => _InsightState();
@@ -252,7 +254,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money Out(N)',
+                            'Money Out(${ Utils.getCurrency()})',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -274,7 +276,7 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money in(N)',
+                            'Money in(${ Utils.getCurrency()})',
                             style: TextStyle(
                               color: AppColor().blackColor,
                               fontFamily: 'DMSans',
@@ -305,9 +307,9 @@ class _InsightState extends State<Insight> {
                           legend: Legend(isVisible: false),
                           primaryXAxis: CategoryAxis(),
                           primaryYAxis: NumericAxis(
-                            // labelFormat: "N"
+                            // labelFormat: "${ Utils.getCurrency()}"
                             axisLabelFormatter: (s) => ChartAxisLabel(
-                                "N${display(s.value)}",
+                                "${ Utils.getCurrency()}${display(s.value)}",
                                 TextStyle(fontSize: 10)),
                           ),
 
@@ -777,7 +779,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/total_income.svg',
                               color: AppColor().backgroundColor,
                               amount:
-                                  'N${display(transactionController.recordMoneyIn)}',
+                                  '${ Utils.getCurrency()}${display(transactionController.recordMoneyIn)}',
                               name1: 'Total',
                               name2: 'Income',
                               message: 'Total income for\nthe selected period',
@@ -787,7 +789,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/total_expense.svg',
                               color: AppColor().blackColor,
                               amount:
-                                  "N${display(transactionController.recordMoneyOut)}",
+                                  "${ Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
                               name1: 'Total',
                               name2: 'Expenses',
                               message:
@@ -802,7 +804,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/average_income.svg',
                               color: AppColor().purpleColor,
                               amount:
-                                  "N${display((transactionController.recordMoneyIn / transactionController.allIncomeTransaction.length))}",
+                                  "${ Utils.getCurrency()}${display((transactionController.recordMoneyIn / transactionController.allIncomeTransaction.length))}",
                               name1: 'Average income',
                               name2: 'per transaction',
                               message:
@@ -813,7 +815,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/average_expenses.svg',
                               color: AppColor().wineColor,
                               amount:
-                                  "N${display((transactionController.recordMoneyOut / transactionController.allExpenditureTransaction.length))}",
+                                  "${ Utils.getCurrency()}${display((transactionController.recordMoneyOut / transactionController.allExpenditureTransaction.length))}",
                               name1: 'Average expenses',
                               name2: 'per transaction',
                               message:

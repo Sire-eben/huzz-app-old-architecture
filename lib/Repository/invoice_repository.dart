@@ -33,6 +33,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as path;
 
+import '../app/Utils/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
 
@@ -64,8 +65,8 @@ class InvoiceRespository extends GetxController {
   List<Invoice> todayInvoice = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
-  final amountController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ',
+ MoneyMaskedTextController amountController = MoneyMaskedTextController(
+    
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -75,8 +76,8 @@ class InvoiceRespository extends GetxController {
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
-  final amountPaidController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ',
+ MoneyMaskedTextController amountPaidController = MoneyMaskedTextController(
+   
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -155,7 +156,7 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
       print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null) {
+        if (value != null && value.businessId!=null) {
           getOnlineInvoice(value.businessId!);
 
           // getSpending(value.businessId!);
@@ -165,7 +166,18 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
           print("current business is null");
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null) {
+          if (p0 != null && p0.businessId!=null) {
+              amountController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
+
+      amountPaidController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
             print("business id ${p0.businessId}");
             _offlineInvoices([]);
             _allPaymentItem([]);
@@ -173,6 +185,7 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
             getOnlineInvoice(p0.businessId!);
 
             GetOfflineInvoices(p0.businessId!);
+          
             // getSpending(p0.businessId!);
 
           }

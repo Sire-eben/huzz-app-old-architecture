@@ -10,6 +10,7 @@ import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../colors.dart';
+import '../../../Utils/util.dart';
 
 // ignore: must_be_immutable
 class AddProduct extends StatefulWidget {
@@ -223,7 +224,7 @@ _productController.productQuantityController.text="0";
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            hintText: 'N 0.00',
+                            hintText: '${ Utils.getCurrency()} 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       fontFamily: 'DMSans',
@@ -294,7 +295,7 @@ _productController.productQuantityController.text="0";
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            hintText: 'N 0.00',
+                            hintText: '${ Utils.getCurrency()} 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
                                       fontFamily: 'DMSans',

@@ -282,7 +282,7 @@ class DailyRecordPdfApi {
 //         // item.type,
 //         element1.itemName,
 //         '${element1.quality}',
-//         '\N${element1.amount}',
+//         '\${ Utils.getCurrency()}${element1.amount}',
 //         element1.isFullyPaid!?"Fully Paid":"Partily Paid",
 // ]);
 //   });
@@ -299,7 +299,7 @@ class DailyRecordPdfApi {
     //     // item.type,
     //     item.itemName,
     //     '${item.quantity}',
-    //     '\N${item.amount}',
+    //     '\${ Utils.getCurrency()}${item.amount}',
     //     item.mode,
     //     // item.customerName,
     //   ];

@@ -19,6 +19,7 @@ import 'package:random_color/random_color.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../colors.dart';
+import '../../../Utils/util.dart';
 import 'debtorreminder.dart';
 
 // ignore: must_be_immutable
@@ -811,7 +812,7 @@ class _DebtorListingState extends State<DebtorListing> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Bal: N${display(widget.item!.balance!)}",
+                        "Bal: ${ Utils.getCurrency()}${display(widget.item!.balance!)}",
                         style: TextStyle(
                             fontSize: 13,
                             fontFamily: 'DMSans',
@@ -819,7 +820,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Paid: N${display((widget.item!.totalAmount! - widget.item!.balance!))}",
+                        "Paid: ${ Utils.getCurrency()}${display((widget.item!.totalAmount! - widget.item!.balance!))}",
                         style: TextStyle(
                             fontSize: 11,
                             fontFamily: 'DMSans',
@@ -1212,7 +1213,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 // labelText: label,
-                                hintText: 'N 0.00',
+                                hintText: '${ Utils.getCurrency()} 0.00',
 
                                 hintStyle: Theme.of(context)
                                     .textTheme

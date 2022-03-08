@@ -5,7 +5,8 @@ import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
-import 'package:huzz/app/screens/widget/util.dart';
+import 'package:huzz/app/screens/widget/util.dart' ;
+import 'package:huzz/app/Utils/util.dart' as utils;
 import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/customer_model.dart';
@@ -24,7 +25,7 @@ class PdfInvoiceApi {
   static final _customerController = Get.find<CustomerRepository>();
   static final _bankController = Get.find<BankAccountRepository>();
   static final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: '${ utils.Utils.getCurrency()}', units: ['K', 'M', 'B', 'T']);
 
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
@@ -35,7 +36,7 @@ class PdfInvoiceApi {
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(bank!, invoice),
+        buildHeader(bank, invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
         buildInvoice(invoice),
         Divider(),
@@ -50,7 +51,7 @@ class PdfInvoiceApi {
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(Bank bank, Invoice invoice) => Container(
+  static Widget buildHeader(Bank? bank, Invoice invoice) => Container(
       padding: EdgeInsets.all(20),
       color: PdfColors.blue,
       child: Column(
@@ -107,7 +108,7 @@ class PdfInvoiceApi {
     );
   }
 
-  static Widget buildBankDetails(Bank bankDetails, Invoice invoice) => Column(
+  static Widget buildBankDetails(Bank? bankDetails, Invoice invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
@@ -137,12 +138,12 @@ class PdfInvoiceApi {
           Text("Transfer",
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
-          Text(bankDetails.bankAccountName!,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
-          Text(bankDetails.bankAccountNumber!,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
-          Text(bankDetails.bankName!,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+       (bankDetails!=null)?   Text(bankDetails.bankAccountName!,
+              style: TextStyle(color: PdfColors.white, fontSize: 10)):pw.Container(),
+          (bankDetails!=null)?   Text(bankDetails.bankAccountNumber!,
+              style: TextStyle(color: PdfColors.white, fontSize: 10)):pw.Container(),
+          (bankDetails!=null)?   Text(bankDetails.bankName!,
+              style: TextStyle(color: PdfColors.white, fontSize: 10)):pw.Container(),
         ],
       );
 
@@ -287,21 +288,21 @@ class PdfInvoiceApi {
       SizedBox(width: Get.width * 0.20),
       Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
         Text(
-          'N $totalAmount',
+          '$totalAmount',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'N ${invoice.tax}',
+          '${invoice.tax}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'N ${invoice.discountAmount}',
+          ' ${invoice.discountAmount}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
