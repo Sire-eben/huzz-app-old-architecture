@@ -24,6 +24,7 @@ import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../app/screens/enter_otp.dart';
 import 'fingerprint_repository.dart';
 import 'home_respository.dart';
 
@@ -59,7 +60,7 @@ class AuthRepository extends GetxController {
   late final forgotOtpController = TextEditingController();
   late final forgetpinController = TextEditingController();
   late final verifypinController = TextEditingController();
-var confirmPinController = TextEditingController();
+  var confirmPinController = TextEditingController();
   var phoneNumberController = TextEditingController();
   late final updatePhoneNumberController = TextEditingController();
   late final forgotPhoneNumberController = TextEditingController();
@@ -159,17 +160,17 @@ var confirmPinController = TextEditingController();
   }
 
   Future sendSmsOtp({bool isresend = false}) async {
-    print("phone number ${countryText}${phoneNumberController.text}");
+    print("phone number ${user!.phoneNumber}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.send_smsOtp),
-          body: jsonEncode(
-              {"phoneNumber": countryText + phoneNumberController.text}),
+          body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
           headers: {"Content-Type": "application/json"});
       print("response is ${response.body}");
       if (response.statusCode == 200) {
         _Otpauthstatus(OtpAuthStatus.Success);
-        if (!isresend) _homeController.selectOnboardSelectedNext();
+        if (!isresend) Get.to(() => EnterOtp());
+        // if (!isresend) _homeController.selectOnboardSelectedNext();
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
       }
@@ -207,8 +208,7 @@ var confirmPinController = TextEditingController();
   Future sendVoiceOtp() async {
     // _Otpauthstatus(OtpAuthStatus.Loading);
     final response = await http.post(Uri.parse(ApiLink.send_voiceOtp),
-        body: jsonEncode(
-            {"phoneNumber": countryText + phoneNumberController.text.trim()}),
+        body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
         headers: {"Content-Type": "application/json"});
     print("otp sent voice ${response.body}");
     if (response.statusCode == 200) {
@@ -223,7 +223,7 @@ var confirmPinController = TextEditingController();
       _Otpverifystatus(OtpVerifyStatus.Loading);
       final resposne = await http.post(Uri.parse(ApiLink.verify_otp),
           body: jsonEncode({
-            "phoneNumber": countryText + phoneNumberController.text.trim(),
+            "phoneNumber": "${user!.phoneNumber}",
             "otp": otpController.text
           }),
           headers: {"Content-Type": "application/json"});
@@ -232,10 +232,12 @@ var confirmPinController = TextEditingController();
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
         if (json['success']) {
-          _homeController.selectOnboardSelectedNext();
+          // _homeController.selectOnboardSelectedNext();
 
           _Otpverifystatus(OtpVerifyStatus.Success);
           Get.snackbar("Success", "Otp verified successfully");
+
+          logout();
         } else {
           _Otpverifystatus(OtpVerifyStatus.Error);
           Get.snackbar("Error", "Unable to verify Otp");

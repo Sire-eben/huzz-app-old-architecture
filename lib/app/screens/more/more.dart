@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/colors.dart';
-
 import 'help_and_support.dart';
 import 'my_team.dart';
 

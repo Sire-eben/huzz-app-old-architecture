@@ -219,7 +219,7 @@ class BusinessCreatedSuccesful extends StatelessWidget {
           Container(
               width: MediaQuery.of(context).size.width * 0.5,
               child: Text(
-                "Account Created Successfully",
+                "Business Created Successfully",
                 textAlign: TextAlign.center,
                 style:
                     TextStyle(fontSize: 30, color: AppColor().backgroundColor),

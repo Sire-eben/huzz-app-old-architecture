@@ -9,24 +9,27 @@ class User {
   String? profileImageFileStoreId;
   List<Business>? businessList;
   String? profileImageFileStoreUrl;
+  bool? phoneNumberVerified;
 
-  User(
-      {this.firstName,
-      this.lastName,
-      this.phoneNumber,
-      this.email,
-      this.signatureImageFileStoreId,
-      this.profileImageFileStoreId,
-      this.businessList,
-      this.profileImageFileStoreUrl
-      });
+  User({
+    this.firstName,
+    this.lastName,
+    this.phoneNumber,
+    this.email,
+    this.signatureImageFileStoreId,
+    this.profileImageFileStoreId,
+    this.businessList,
+    this.profileImageFileStoreUrl,
+    this.phoneNumberVerified,
+  });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
       firstName: json['user']['firstName'],
       lastName: json['user']['lastName'],
       phoneNumber: json['user']['phoneNumber'],
+      phoneNumberVerified: json['user']['phoneNumberVerified'],
       email: json['user']['email'],
-      profileImageFileStoreUrl: json['user']['profileImageFileStoreUrl']??"",
+      profileImageFileStoreUrl: json['user']['profileImageFileStoreUrl'] ?? "",
       signatureImageFileStoreId:
           json['user']['signatureImageFileStoreId'] == null
               ? ""
@@ -44,8 +47,9 @@ class User {
         firstName: json['firstName'],
         lastName: json['lastName'],
         phoneNumber: json['phoneNumber'],
+        phoneNumberVerified: json['phoneNumberVerified'],
         email: json['email'],
-        profileImageFileStoreUrl:json['profileImageFileStoreUrl']??"",
+        profileImageFileStoreUrl: json['profileImageFileStoreUrl'] ?? "",
         signatureImageFileStoreId: json['signatureImageFileStoreId'] == null
             ? ""
             : json['signatureImageFileStoreId'],
@@ -60,8 +64,9 @@ class User {
           "firstName": firstName,
           "lastName": lastName,
           "phoneNumber": phoneNumber,
+          "phoneNumberVerified": phoneNumberVerified,
           "email": email,
-          "profileImageFileStoreUrl":profileImageFileStoreUrl,
+          "profileImageFileStoreUrl": profileImageFileStoreUrl,
           "profileImageFileStoreId": profileImageFileStoreId,
           "signatureImageFileStoreId": signatureImageFileStoreId,
         },

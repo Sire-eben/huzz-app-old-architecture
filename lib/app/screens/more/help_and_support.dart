@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'faq_webview.dart';
 
 class HelpsAndSupport extends StatefulWidget {
