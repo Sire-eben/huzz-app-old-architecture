@@ -81,7 +81,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                   ),
                 ),
                 Center(
-                  child: Text('Forgot Password',
+                  child: Text('Forgot Pin',
                       style: TextStyle(
                           color: AppColor().orangeBorderColor,
                           fontSize: 28,

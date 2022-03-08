@@ -365,14 +365,8 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     ),
                     InkWell(
                       onTap: () {
-                        //  final action = await AlertDialogs.yesCancelDialog(
-                        //     context, 'Open WhatsApp', 'Click confirm to proceed');
-                        // if (action == DialogsAction.yes) {
                         launch(
-                            'https://api.whatsapp.com/send?phone=+2348133258252');
-                        // } else {
-                        //   return null;
-                        // }
+                            'https://api.whatsapp.com/send?phone=+2348132894616');
                       },
                       child: Container(
                         height: 45,
