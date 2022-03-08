@@ -7,6 +7,7 @@ import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/debtors_repository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
+import 'package:huzz/app/Utils/util.dart';
 import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
@@ -36,12 +37,12 @@ class _HomeState extends State<Home> {
     decimal: 5,
   );
 
-  currency(context) {
-    Locale locale = Localizations.localeOf(context);
-    var format =
-        NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'NGN');
-    return format;
-  }
+  // currency(context) {
+  //   Locale locale = Localizations.localeOf(context);
+  //   var format =
+  //       NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'NGN');
+  //   return format;
+  // }
 
   final items = ['Huzz Technologies', 'Technologies'];
   String? value;
@@ -192,7 +193,7 @@ class _HomeState extends State<Home> {
                         height: 10,
                       ),
                       Text(
-                        "N${display(_transactionController.totalbalance.value)}",
+                        "${ Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -277,7 +278,7 @@ class _HomeState extends State<Home> {
                       ),
                       Spacer(),
                       Text(
-                        "N${display(_transactionController.income.value)}",
+                        "${ Utils.getCurrency()}${display(_transactionController.income.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -322,7 +323,7 @@ class _HomeState extends State<Home> {
                       ),
                       Spacer(),
                       Text(
-                        "N${display(_transactionController.expenses.value)}",
+                        "${ Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
                           fontFamily: 'DMSans',
@@ -386,7 +387,7 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           // ignore: unnecessary_null_comparison
-                          "N${display(_debtorController.debtorAmount)}",
+                          "${ Utils.getCurrency()}${display(_debtorController.debtorAmount)}",
 
                           style: TextStyle(
                               fontSize: 15,
@@ -475,7 +476,7 @@ class _HomeState extends State<Home> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "N${display(item.totalAmount)}",
+                                    "${ Utils.getCurrency()}${display(item.totalAmount)}",
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold),
@@ -611,7 +612,7 @@ class _HomeState extends State<Home> {
                     ),
                     Text(
                       // "${currency(context).currencySymbol}0",
-                      'N0',
+                      '${ Utils.getCurrency()}0',
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
@@ -694,7 +695,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "N0",
+                      "${ Utils.getCurrency()}0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
@@ -737,7 +738,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "N0",
+                      "${ Utils.getCurrency()}0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
@@ -799,7 +800,7 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          'N${display(_debtorController.debtorAmount)}',
+                          '${ Utils.getCurrency()}${display(_debtorController.debtorAmount)}',
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),

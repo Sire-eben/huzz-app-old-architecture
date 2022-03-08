@@ -14,6 +14,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
+import '../app/Utils/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
 import 'file_upload_respository.dart';
@@ -48,16 +49,15 @@ class DebtorRepository extends GetxController
   Rx<File?> DebtorImage = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
 
-  final totalAmountController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ', decimalSeparator: '.', thousandSeparator: ',');
-  final amountController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ', decimalSeparator: '.', thousandSeparator: ',');
+  MoneyMaskedTextController totalAmountController = MoneyMaskedTextController(
+ decimalSeparator: '.', thousandSeparator: ',');
+MoneyMaskedTextController amountController = MoneyMaskedTextController( decimalSeparator: '.', thousandSeparator: ',');
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final serviceDescription = TextEditingController();
 
-  final DebtorSellingPriceController = MoneyMaskedTextController(
-      leftSymbol: 'NGN ', decimalSeparator: '.', thousandSeparator: ',');
+  MoneyMaskedTextController DebtorSellingPriceController = MoneyMaskedTextController(
+     decimalSeparator: '.', thousandSeparator: ',');
   final DebtorQuantityController = TextEditingController();
   final DebtorUnitController = TextEditingController();
 
@@ -97,12 +97,18 @@ class DebtorRepository extends GetxController
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null) {
+        if (value != null && value.businessId!=null) {
           getOnlineDebtor(value.businessId!);
           getOfflineDebtor(value.businessId!);
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null) {
+          if (p0 != null&& p0.businessId!=null) {
+            totalAmountController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
+       amountController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
+      DebtorSellingPriceController = MoneyMaskedTextController( leftSymbol: '${Utils.getCurrency()} ',
+     decimalSeparator: '.', thousandSeparator: ',');
             print("business id ${p0.businessId}");
             _offlineBusinessDebtor([]);
 
@@ -111,6 +117,7 @@ class DebtorRepository extends GetxController
             _DebtorGoods([]);
             getOnlineDebtor(p0.businessId!);
             getOfflineDebtor(p0.businessId!);
+             
           }
         });
       }

@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/payment_item.dart';
 
+import '../../Utils/util.dart';
+
 // ignore: must_be_immutable
 class ItemCard extends StatelessWidget {
   PaymentItem item;
@@ -39,7 +41,7 @@ class ItemCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'N ${item.amount}',
+                      '${ Utils.getCurrency()} ${item.amount}',
                       style: TextStyle(
                         fontFamily: "DMSans",
                         fontSize: 10,

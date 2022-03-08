@@ -12,6 +12,8 @@ import 'package:huzz/model/invoice.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../Utils/util.dart';
+
 class PreviewSingleInvoice extends StatefulWidget {
   final File? file;
   Invoice? invoice;
@@ -423,7 +425,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                   paymentType == 0
                       ? CustomTextFieldInvoiceOptional(
                           label: 'Amount',
-                          hint: 'N',
+                          hint: '${ Utils.getCurrency()}',
                           keyType: TextInputType.phone,
                           textEditingController: _amountController,
                         )

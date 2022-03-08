@@ -9,6 +9,7 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:number_display/number_display.dart';
 
+import '../../../Utils/util.dart';
 import '../invoice_pdf.dart';
 import 'single_invoice_preview.dart';
 
@@ -149,7 +150,7 @@ class _AllState extends State<All> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  "N${display(item.totalAmount)}",
+                                                  "${ Utils.getCurrency()}${display(item.totalAmount)}",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -256,7 +257,7 @@ class _AllState extends State<All> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${display(item.totalAmount)}",
+                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',

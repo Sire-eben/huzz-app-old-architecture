@@ -18,6 +18,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../../../colors.dart';
+import '../../Utils/util.dart';
 import 'itemCard.dart';
 
 class MoneyOut extends StatefulWidget {
@@ -173,7 +174,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         children: [
                           InkWell(
                             onTap: () {
-                              _transactionController.amountController.text = "";
+                              _transactionController.amountController!.text = "";
                               _transactionController.itemNameController.text =
                                   "";
                               _transactionController.selectedProduct = null;
@@ -189,7 +190,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
                                       _transactionController
-                                          .amountController.text = "";
+                                          .amountController!.text = "";
                                       _transactionController
                                           .itemNameController.text = "";
                                       _transactionController.selectedProduct =
@@ -212,7 +213,7 @@ class _MoneyOutState extends State<MoneyOut> {
                           ),
                           InkWell(
                             onTap: () {
-                              _transactionController.amountController.text = "";
+                              _transactionController.amountController!.text = "";
                               _transactionController.itemNameController.text =
                                   "";
                               _transactionController.selectedProduct = null;
@@ -228,7 +229,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
                                       _transactionController
-                                          .amountController.text = "";
+                                          .amountController!.text = "";
                                       _transactionController
                                           .itemNameController.text = "";
                                       _transactionController.selectedProduct =
@@ -387,7 +388,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                       _transactionController
                                           .selectedProduct!.quantity = 1;
                                       _transactionController
-                                              .amountController.text =
+                                              .amountController!.text =
                                           value!.sellingPrice!.toString();
                                       _transactionController.quantityController
                                           .text = 1.toString();
@@ -465,7 +466,7 @@ class _MoneyOutState extends State<MoneyOut> {
                       _transactionController
                               .itemNameController.text.isNotEmpty &&
                           _transactionController
-                              .amountController.text.isNotEmpty) {
+                              .amountController!.text.isNotEmpty) {
                     if (_transactionController.productList.isEmpty) {
                       _transactionController.addMoreProduct();
                     }
@@ -496,7 +497,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                             .text
                                             .isNotEmpty &&
                                         _transactionController
-                                            .amountController.text.isNotEmpty)
+                                            .amountController!.text.isNotEmpty)
                                 ? AppColor().backgroundColor
                                 : AppColor().backgroundColor.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(45)),
@@ -698,7 +699,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               MediaQuery.of(context).size.height * 0.03),
                       child: CustomTextField(
                         label: "Amount Paid",
-                        hint: 'N 0.00',
+                        hint: '${ Utils.getCurrency()} 0.00',
                         validatorText: "Amount Paid is needed",
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
@@ -1310,7 +1311,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                 _transactionController.selectedProduct = value;
                                 _transactionController
                                     .selectedProduct!.quantity = 1;
-                                _transactionController.amountController.text =
+                                _transactionController.amountController!.text =
                                     value!.sellingPrice!.toString();
                                 _transactionController.quantityController.text =
                                     1.toString();

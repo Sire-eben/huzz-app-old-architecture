@@ -7,6 +7,7 @@ import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
 import 'package:huzz/model/product.dart';
 import 'package:number_display/number_display.dart';
 import '../../../../colors.dart';
+import '../../../Utils/util.dart';
 
 class ProductListing extends StatefulWidget {
   const ProductListing({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class ProductListing extends StatefulWidget {
 
 class _ProductListingState extends State<ProductListing> {
   final display = createDisplay(
-      length: 3, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+      length: 3, decimal: 0, placeholder: '${ Utils.getCurrency()}', units: ['K', 'M', 'B', 'T']);
   final TextEditingController textEditingController = TextEditingController();
   Rx<List<Product>> _searchResult = Rx([]);
   List<Product> get searchResult => _searchResult.value;
@@ -404,7 +405,7 @@ class _ProductListingState extends State<ProductListing> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "N${display(_productController.totalProduct)}",
+                        "${ Utils.getCurrency()}${display(_productController.totalProduct)}",
                         style: TextStyle(
                           fontFamily: 'DMSans',
                           fontWeight: FontWeight.w600,
@@ -630,7 +631,7 @@ class _ProductListingState extends State<ProductListing> {
                               color: AppColor().backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       // labelText: label,
-                      hintText: 'N 0.00',
+                      hintText: '${ Utils.getCurrency()} 0.00',
                       hintStyle:
                           Theme.of(context).textTheme.headline4!.copyWith(
                                 fontFamily: 'DMSans',
@@ -782,7 +783,7 @@ class _ListingProductState extends State<ListingProduct> {
                         width: 50,
                       ),
                       Text(
-                        'N${display(widget.item!.sellingPrice ?? 0)}',
+                        '${ Utils.getCurrency()}${display(widget.item!.sellingPrice ?? 0)}',
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'DMSans',
@@ -943,7 +944,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                           width: 50,
                         ),
                         Text(
-                          'N${display(widget.item!.costPrice ?? 0)}',
+                          '${ Utils.getCurrency()}${display(widget.item!.costPrice ?? 0)}',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',

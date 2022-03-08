@@ -17,6 +17,8 @@ import 'package:huzz/model/records_model.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
 
+import '../../Utils/util.dart';
+
 class MoneySummary extends StatefulWidget {
   PaymentItem? item;
   MoneySummary({this.item});
@@ -165,7 +167,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.01),
                             Text(
-                              'N${display(transactionModel!.totalAmount!)}',
+                              '${ Utils.getCurrency()}${display(transactionModel!.totalAmount!)}',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
                                 fontFamily: "DMSans",
@@ -193,7 +195,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                   height: MediaQuery.of(context).size.height *
                                       0.01),
                               Text(
-                                'N${display(transactionModel!.balance!)}',
+                                '${ Utils.getCurrency()}${display(transactionModel!.balance!)}',
                                 style: TextStyle(
                                   color: AppColor().orangeBorderColor,
                                   fontFamily: "DMSans",
@@ -220,7 +222,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.01),
                             Text(
-                              'N${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
+                              '${ Utils.getCurrency()}${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
                                 fontFamily: "DMSans",
@@ -379,7 +381,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             ),
                             Expanded(
                               child: Text(
-                                "N${display(item.totalAmount)}",
+                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -492,7 +494,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             ),
                             Expanded(
                               child: Text(
-                                'N ${display(item.amountPaid)}',
+                                '${ Utils.getCurrency()} ${display(item.amountPaid)}',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -1053,7 +1055,7 @@ class _MoneySummaryState extends State<MoneySummary> {
               paymentType == 0
                   ? CustomTextFieldInvoiceOptional(
                       label: 'Amount',
-                      hint: 'N',
+                      hint: '${ Utils.getCurrency()}',
                       inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                       textEditingController: _amountController,

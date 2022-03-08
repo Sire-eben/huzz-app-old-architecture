@@ -10,6 +10,7 @@ import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../Utils/util.dart';
 import 'money_history.dart';
 import 'records/download_records.dart';
 import 'records/records_pdf.dart';
@@ -175,7 +176,7 @@ class _RecordsState extends State<Records> {
                               ),
                             ),
                             Text(
-                              "N${display(transactionController.recordMoneyIn)}",
+                              "${ Utils.getCurrency()}${display(transactionController.recordMoneyIn)}",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
@@ -204,7 +205,7 @@ class _RecordsState extends State<Records> {
                               ),
                             ),
                             Text(
-                              "N${display(transactionController.recordBalance)}",
+                              "${ Utils.getCurrency()}${display(transactionController.recordBalance)}",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
@@ -233,7 +234,7 @@ class _RecordsState extends State<Records> {
                               ),
                             ),
                             Text(
-                              "N${display(transactionController.recordMoneyOut)}",
+                              "${ Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'DMSans',
@@ -265,7 +266,7 @@ class _RecordsState extends State<Records> {
                         ),
                         SizedBox(width: 2),
                         Text(
-                          'Money Out (N)',
+                          'Money Out (${ Utils.getCurrency()})',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
@@ -287,7 +288,7 @@ class _RecordsState extends State<Records> {
                         ),
                         SizedBox(width: 2),
                         Text(
-                          'Money in (N)',
+                          'Money in (${ Utils.getCurrency()})',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'DMSans',
@@ -386,9 +387,9 @@ class _RecordsState extends State<Records> {
                     // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                     return SfCartesianChart(
                         primaryYAxis: NumericAxis(
-                          // labelFormat: "N"
+                          // labelFormat: "${ Utils.getCurrency()}"
                           axisLabelFormatter: (s) => ChartAxisLabel(
-                              "N${display(s.value)}", TextStyle(fontSize: 10)),
+                              "${ Utils.getCurrency()}${display(s.value)}", TextStyle(fontSize: 10)),
                         ),
                         primaryXAxis: CategoryAxis(),
                         onTooltipRender: (s) {
@@ -609,7 +610,7 @@ class _RecordsState extends State<Records> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
-                            'MONEY OUT(N)',
+                            'MONEY OUT(${ Utils.getCurrency()})',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
                               fontFamily: 'DMSans',
@@ -623,7 +624,7 @@ class _RecordsState extends State<Records> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Text(
-                            'MONEY IN(N)',
+                            'MONEY IN(${ Utils.getCurrency()})',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
                               fontFamily: 'DMSans',
@@ -751,7 +752,7 @@ class _RecordsState extends State<Records> {
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                    "N${display(item1.value)}",
+                                                    "${ Utils.getCurrency()}${display(item1.value)}",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -780,7 +781,7 @@ class _RecordsState extends State<Records> {
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                    "N${display(item2.value)}",
+                                                    "${ Utils.getCurrency()}${display(item2.value)}",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -947,7 +948,7 @@ class _RecordsState extends State<Records> {
                                 color: AppColor().blackColor),
                           ),
                           Text(
-                            "N ${display(item2.value)}",
+                            "${ Utils.getCurrency()} ${display(item2.value)}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'DMSans',
@@ -1017,7 +1018,7 @@ class _RecordsState extends State<Records> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "N${display(item.totalAmount)}",
+                                  "${ Utils.getCurrency()}${display(item.totalAmount)}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'DMSans',

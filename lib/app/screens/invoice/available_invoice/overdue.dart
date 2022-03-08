@@ -14,6 +14,7 @@ import 'package:huzz/model/invoice.dart';
 import 'package:number_display/number_display.dart';
 
 import '../../../../colors.dart';
+import '../../../Utils/util.dart';
 
 class Overdue extends StatefulWidget {
   const Overdue({Key? key}) : super(key: key);
@@ -158,7 +159,7 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${display(item.totalAmount)}",
+                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -278,7 +279,7 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${display(item.totalAmount)}",
+                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',

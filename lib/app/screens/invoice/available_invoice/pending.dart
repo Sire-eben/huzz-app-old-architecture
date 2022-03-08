@@ -10,6 +10,7 @@ import 'package:huzz/model/invoice.dart';
 import 'package:number_display/number_display.dart';
 
 import '../../../../colors.dart';
+import '../../../Utils/util.dart';
 import '../create_invoice.dart';
 
 class Pending extends StatefulWidget {
@@ -154,7 +155,7 @@ class _PendingState extends State<Pending> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${display(item.totalAmount)}",
+                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
@@ -270,7 +271,7 @@ class _PendingState extends State<Pending> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "N${display(item.totalAmount)}",
+                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily: 'DMSans',
