@@ -16,15 +16,20 @@ import 'package:pdf/widgets.dart';
 
 class PdfMoneyInOutApi {
   // ignore: avoid_init_to_null
-  static Customer? customer = null;
+  
   static final _businessController = Get.find<BusinessRespository>();
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(TransactionModel transactionModel) async {
     final pdf = Document();
-    if (transactionModel.customerId != null)
+    Customer? customer=null;
+    if (transactionModel.customerId != null){
+      print("my customer id ${transactionModel.customerId}");
       customer = _customerController
           .checkifCustomerAvailableWithValue(transactionModel.customerId!);
-
+    }else{
+print("my customer id is null");
+      customer=null;
+    }
     pdf.addPage(MultiPage(
       build: (context) => [
         buildHeader(_businessController.selectedBusiness.value!),

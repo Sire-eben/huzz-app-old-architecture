@@ -542,21 +542,22 @@ var confirmPinController = TextEditingController();
   void deleteUsersAccounts() async {
     _authStatus(AuthStatus.Loading);
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final key = 'token';
-      final value = prefs.get(key) ?? 0;
+      // final prefs = await SharedPreferences.getInstance();
+      // final key = 'token';
+      // final value = prefs.get(key) ?? 0;
 
       String myUrl = ApiLink.delete_user;
       var response = await http.delete(Uri.parse(myUrl), headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer $value'
+        'Authorization': 'Bearer $token'
       });
 
       // ignore: unnecessary_null_comparison
+      print("delete account response ${response.body}");
       if (response.statusCode != null) {
         // ignore: unnecessary_null_comparison
         if (response != null) {
-          _authStatus(AuthStatus.Authenticated);
+          _authStatus(AuthStatus.Empty);
           accountDeletelogout();
         }
       } else {
@@ -581,13 +582,13 @@ var confirmPinController = TextEditingController();
         'Authorization': 'Bearer $value'
       });
 
+
       // ignore: unnecessary_null_comparison
-      if (response.statusCode != null) {
+      if (response.statusCode==200) {
         // ignore: unnecessary_null_comparison
         if (response != null) {
-          _authStatus(AuthStatus.Authenticated);
-
-          Get.offAll(() => Signup());
+          Get.snackbar("Success","Your Business account have been deleted.");
+          // logout();
         }
       } else {
         _authStatus(AuthStatus.Empty);
@@ -614,6 +615,7 @@ var confirmPinController = TextEditingController();
   }
 
   void clearDatabase() async {
+    pref!.setLastSelectedBusiness("");
     await sqliteDb.openDatabae();
     await sqliteDb.deleteAllOfflineBusiness();
     await sqliteDb.deleteAllOfflineTransaction();
