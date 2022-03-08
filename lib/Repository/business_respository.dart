@@ -34,6 +34,7 @@ class BusinessRespository extends GetxController {
   final businessEmail = TextEditingController();
   final businessPhoneNumber = TextEditingController();
   final businessAddressController = TextEditingController();
+  final businessCurrency=TextEditingController();
   final _userController = Get.find<AuthRepository>();
 
   final _updateBusinessStatus = UpdateBusinessStatus.Empty.obs;
@@ -213,7 +214,7 @@ class BusinessRespository extends GetxController {
               "businessCategory": selectedCategory.value,
               "phoneNumber": businessPhoneNumber.text.trim(),
               "email": businessEmail.text.trim(),
-              "currency": currency,
+              "currency":businessCurrency.text,
               "buisnessLogoFileStoreId": null,
               "yearFounded": "",
               "businessRegistered": false,
@@ -233,6 +234,7 @@ class BusinessRespository extends GetxController {
         if (json['success']) {
           var business = Business.fromJson(json['data']);
           selectedBusiness(business);
+         clear();
           OnlineBusiness();
 
           _createBusinessStatus(CreateBusinessStatus.Success);
@@ -245,6 +247,16 @@ class BusinessRespository extends GetxController {
     } catch (ex) {
       _createBusinessStatus(CreateBusinessStatus.Error);
     }
+  }
+  void clear(){
+businessAddressController.clear();
+selectedCategory(null);
+businessEmail.clear();
+businessName.clear();
+businessImage(null);
+businessPhoneNumber.clear();
+
+
   }
 
   Future updateBusiness(String selectedCurrency) async {

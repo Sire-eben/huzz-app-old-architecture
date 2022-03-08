@@ -293,7 +293,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                       textEditingController:
                                           _transactionController
                                               .amountController,
-                                      keyType: TextInputType.phone,
+                                      inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                     ),
                                   ),
                                   SizedBox(
@@ -308,7 +309,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                           print("value is $value");
                                           setState(() {});
                                         },
-                                        keyType: TextInputType.phone,
+                                        inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                         validatorText: "Quantity is needed",
                                         textEditingController:
                                             _transactionController
@@ -407,7 +409,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                       textEditingController:
                                           _transactionController
                                               .amountController,
-                                      keyType: TextInputType.phone,
+                                      inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                     ),
                                   ),
                                   SizedBox(
@@ -418,7 +421,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                     child: CustomTextField(
                                         label: "Quantity",
                                         hint: '1',
-                                        keyType: TextInputType.phone,
+                                        inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                         validatorText: "Quantity is needed",
                                         onChanged: (value) {
                                           print("value is $value");
@@ -537,7 +541,8 @@ class _MoneyOutState extends State<MoneyOut> {
                           color: Colors.orange,
                         ),
                         validatorText: "Select date is needed",
-                        keyType: TextInputType.phone,
+                        inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.height * 0.03),
@@ -558,7 +563,8 @@ class _MoneyOutState extends State<MoneyOut> {
                           icon: Icon(Icons.lock_clock),
                           color: Colors.orange,
                         ),
-                        keyType: TextInputType.phone,
+                        inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                         validatorText: "Select time is needed",
                       ),
                     ),
@@ -694,7 +700,8 @@ class _MoneyOutState extends State<MoneyOut> {
                         label: "Amount Paid",
                         hint: 'N 0.00',
                         validatorText: "Amount Paid is needed",
-                        keyType: TextInputType.number,
+                        inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                         textEditingController:
                             _transactionController.amountPaidController,
                       ),
@@ -1241,7 +1248,8 @@ class _MoneyOutState extends State<MoneyOut> {
                             validatorText: "Amount name is needed",
                             textEditingController:
                                 _transactionController.amountController,
-                            keyType: TextInputType.phone,
+                            inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                           ),
                         ),
                         SizedBox(
@@ -1250,7 +1258,8 @@ class _MoneyOutState extends State<MoneyOut> {
                           child: CustomTextField(
                               label: "Quantity",
                               hint: '1',
-                              keyType: TextInputType.phone,
+                              inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                               validatorText: "Quantity name is needed",
                               textEditingController:
                                   _transactionController.quantityController),
@@ -1325,7 +1334,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                 validatorText: "Amount is needed",
                                 textEditingController:
                                     _transactionController.amountController,
-                                keyType: TextInputType.phone,
+                                inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                               ),
                             ),
                             SizedBox(
@@ -1339,7 +1349,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                     print("value is $value");
                                     setState(() {});
                                   },
-                                  keyType: TextInputType.phone,
+                                  inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                   validatorText: "Quantity is needed",
                                   textEditingController: _transactionController
                                       .quantityController),
@@ -1482,7 +1493,8 @@ class _MoneyOutState extends State<MoneyOut> {
                           item.productId == null || item.productId!.isEmpty,
                       textEditingController:
                           _transactionController.amountController,
-                      keyType: TextInputType.phone,
+                      inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                     ),
                   ),
                   SizedBox(width: MediaQuery.of(context).size.height * 0.03),
@@ -1490,7 +1502,8 @@ class _MoneyOutState extends State<MoneyOut> {
                     child: CustomTextField(
                         label: "Quantity",
                         hint: '1',
-                        keyType: TextInputType.phone,
+                        inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                         validatorText: "Quantity name is needed",
                         textEditingController:
                             _transactionController.quantityController),

@@ -66,9 +66,7 @@ class Confirmation extends StatelessWidget {
           Spacer(),
           InkWell(
             onTap: () {
-              Get.to(Dashboard(
-                selectedIndex: 2,
-              ));
+              Get.back();
             },
             child: Container(
               height: 55,

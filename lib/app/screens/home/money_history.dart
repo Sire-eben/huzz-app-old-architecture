@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
@@ -1051,7 +1054,8 @@ class _MoneySummaryState extends State<MoneySummary> {
                   ? CustomTextFieldInvoiceOptional(
                       label: 'Amount',
                       hint: 'N',
-                      keyType: TextInputType.phone,
+                      inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                       textEditingController: _amountController,
                     )
                   : Container(),
