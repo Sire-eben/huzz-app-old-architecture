@@ -59,13 +59,12 @@ class CustomerRepository extends GetxController {
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null && value.businessId!=null) {
-      
+        if (value != null && value.businessId != null) {
           getOnlineCustomer(value.businessId!);
           getOfflineCustomer(value.businessId!);
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null && p0.businessId!=null) {
+          if (p0 != null && p0.businessId != null) {
             print("business id ${p0.businessId}");
             _offlineBusinessCustomer([]);
 
@@ -95,18 +94,14 @@ class CustomerRepository extends GetxController {
 
   Future getPhoneContact() async {
     print("trying phone contact list");
-    try{
-    if (await FlutterContacts.requestPermission()) {
-      contactList = await FlutterContacts.getContacts(
-          withProperties: true, withPhoto: false);
-      print("phone contacts ${contactList.length}");
-    }else{
-
-      
-    }
-    }catch(ex){
-    print("contact error is ${ex.toString()}");
-
+    try {
+      if (await FlutterContacts.requestPermission()) {
+        contactList = await FlutterContacts.getContacts(
+            withProperties: true, withPhoto: false);
+        print("phone contacts ${contactList.length}");
+      } else {}
+    } catch (ex) {
+      print("contact error is ${ex.toString()}");
     }
   }
 
@@ -733,8 +728,8 @@ class CustomerRepository extends GetxController {
   }
 
   Widget buildSelectContact(BuildContext context) {
-print("contact on phone ${contactList.length}");
-   return Obx(() {
+    print("contact on phone ${contactList.length}");
+    return Obx(() {
       return Container(
         padding: EdgeInsets.only(
             left: MediaQuery.of(context).size.width * 0.04,
@@ -757,7 +752,7 @@ print("contact on phone ${contactList.length}");
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: AppColor().backgroundColor,
-                  fontFamily: 'DMSans'),
+                  fontFamily: 'InterRegular'),
               // controller: _searchcontroller,
               cursorColor: Colors.white,
               autofocus: false,
@@ -777,7 +772,7 @@ print("contact on phone ${contactList.length}");
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: Colors.grey,
-                    fontFamily: 'DMSans'),
+                    fontFamily: 'InterRegular'),
                 contentPadding:
                     EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
@@ -839,7 +834,7 @@ print("contact on phone ${contactList.length}");
                                           style: TextStyle(
                                               fontSize: 30,
                                               color: Colors.white,
-                                              fontFamily: 'DMSans',
+                                              fontFamily: 'InterRegular',
                                               fontWeight: FontWeight.bold),
                                         ))),
                                   ),
@@ -858,7 +853,7 @@ print("contact on phone ${contactList.length}");
                                           "${item.displayName}",
                                           style: TextStyle(
                                               fontSize: 12,
-                                              fontFamily: 'DMSans',
+                                              fontFamily: 'InterRegular',
                                               color: Colors.black,
                                               fontWeight: FontWeight.w400),
                                         ),
@@ -868,7 +863,7 @@ print("contact on phone ${contactList.length}");
                                               : "No Phone Number",
                                           style: TextStyle(
                                               fontSize: 12,
-                                              fontFamily: 'DMSans',
+                                              fontFamily: 'InterRegular',
                                               color: Colors.grey),
                                         ),
                                       ],

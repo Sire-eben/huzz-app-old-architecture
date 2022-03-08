@@ -160,7 +160,7 @@ class _InsightState extends State<Insight> {
                             'Insights',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
+                              fontFamily: "InterRegular",
                               fontStyle: FontStyle.normal,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
@@ -185,7 +185,7 @@ class _InsightState extends State<Insight> {
                             hint: Text(
                               'Today',
                               style: TextStyle(
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -254,10 +254,10 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money Out(${ Utils.getCurrency()})',
+                            'Money Out(${Utils.getCurrency()})',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
@@ -276,10 +276,10 @@ class _InsightState extends State<Insight> {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'Money in(${ Utils.getCurrency()})',
+                            'Money in(${Utils.getCurrency()})',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
@@ -309,7 +309,7 @@ class _InsightState extends State<Insight> {
                           primaryYAxis: NumericAxis(
                             // labelFormat: "${ Utils.getCurrency()}"
                             axisLabelFormatter: (s) => ChartAxisLabel(
-                                "${ Utils.getCurrency()}${display(s.value)}",
+                                "${Utils.getCurrency()}${display(s.value)}",
                                 TextStyle(fontSize: 10)),
                           ),
 
@@ -375,7 +375,7 @@ class _InsightState extends State<Insight> {
                     'Transaction Distribution',
                     style: TextStyle(
                       color: AppColor().backgroundColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
@@ -391,7 +391,7 @@ class _InsightState extends State<Insight> {
                             'Income',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
@@ -435,7 +435,7 @@ class _InsightState extends State<Insight> {
                             'Expenses',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
@@ -486,7 +486,7 @@ class _InsightState extends State<Insight> {
                         'Income',
                         style: TextStyle(
                           color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -513,7 +513,7 @@ class _InsightState extends State<Insight> {
                                               '${e.label}',
                                               style: TextStyle(
                                                 color: AppColor().blackColor,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -539,7 +539,7 @@ class _InsightState extends State<Insight> {
                                               '${e.label}',
                                               style: TextStyle(
                                                 color: AppColor().blackColor,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -566,7 +566,7 @@ class _InsightState extends State<Insight> {
                         'Expenses',
                         style: TextStyle(
                           color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -593,7 +593,7 @@ class _InsightState extends State<Insight> {
                                             '${e.label}',
                                             style: TextStyle(
                                               color: AppColor().blackColor,
-                                              fontFamily: 'DMSans',
+                                              fontFamily: 'InterRegular',
                                               fontSize: 9,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -619,7 +619,7 @@ class _InsightState extends State<Insight> {
                                             '${e.label}',
                                             style: TextStyle(
                                               color: AppColor().blackColor,
-                                              fontFamily: 'DMSans',
+                                              fontFamily: 'InterRegular',
                                               fontSize: 9,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -646,7 +646,7 @@ class _InsightState extends State<Insight> {
                     'Popular Items',
                     style: TextStyle(
                       color: AppColor().backgroundColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
@@ -668,7 +668,7 @@ class _InsightState extends State<Insight> {
                               'Income',
                               style: TextStyle(
                                 color: AppColor().blackColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -698,7 +698,7 @@ class _InsightState extends State<Insight> {
                               'Expenses',
                               style: TextStyle(
                                 color: AppColor().blackColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -733,7 +733,7 @@ class _InsightState extends State<Insight> {
                     'Statistics',
                     style: TextStyle(
                       color: AppColor().backgroundColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
@@ -779,7 +779,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/total_income.svg',
                               color: AppColor().backgroundColor,
                               amount:
-                                  '${ Utils.getCurrency()}${display(transactionController.recordMoneyIn)}',
+                                  '${Utils.getCurrency()}${display(transactionController.recordMoneyIn)}',
                               name1: 'Total',
                               name2: 'Income',
                               message: 'Total income for\nthe selected period',
@@ -789,7 +789,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/total_expense.svg',
                               color: AppColor().blackColor,
                               amount:
-                                  "${ Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
+                                  "${Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
                               name1: 'Total',
                               name2: 'Expenses',
                               message:
@@ -804,7 +804,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/average_income.svg',
                               color: AppColor().purpleColor,
                               amount:
-                                  "${ Utils.getCurrency()}${display((transactionController.recordMoneyIn / transactionController.allIncomeTransaction.length))}",
+                                  "${Utils.getCurrency()}${display((transactionController.recordMoneyIn / transactionController.allIncomeTransaction.length))}",
                               name1: 'Average income',
                               name2: 'per transaction',
                               message:
@@ -815,7 +815,7 @@ class _InsightState extends State<Insight> {
                               image: 'assets/images/average_expenses.svg',
                               color: AppColor().wineColor,
                               amount:
-                                  "${ Utils.getCurrency()}${display((transactionController.recordMoneyOut / transactionController.allExpenditureTransaction.length))}",
+                                  "${Utils.getCurrency()}${display((transactionController.recordMoneyOut / transactionController.allExpenditureTransaction.length))}",
                               name1: 'Average expenses',
                               name2: 'per transaction',
                               message:
@@ -898,7 +898,7 @@ class _InsightState extends State<Insight> {
                           'Date',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -908,7 +908,7 @@ class _InsightState extends State<Insight> {
                           'Money Out',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -936,7 +936,7 @@ class _InsightState extends State<Insight> {
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                   ),
                 ),
@@ -951,7 +951,9 @@ class _InsightState extends State<Insight> {
         child: Text(
           item,
           style: TextStyle(
-              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
+              fontFamily: 'InterRegular',
+              fontSize: 10,
+              fontWeight: FontWeight.bold),
         ),
       );
 }
@@ -993,7 +995,7 @@ class StatisticsWidget extends StatelessWidget {
                     ]),
                 textStyle: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 10,
                     color: Colors.black),
                 preferBelow: false,
@@ -1021,7 +1023,7 @@ class StatisticsWidget extends StatelessWidget {
                         amount!,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 15,
                             color: Colors.white),
                       ),
@@ -1029,7 +1031,7 @@ class StatisticsWidget extends StatelessWidget {
                         name1!,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 8,
                             color: Colors.white),
                       ),
@@ -1037,7 +1039,7 @@ class StatisticsWidget extends StatelessWidget {
                         name2!,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 8,
                             color: Colors.white),
                       ),

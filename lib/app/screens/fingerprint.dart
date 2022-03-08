@@ -38,7 +38,7 @@ class FingerPrint extends StatelessWidget {
               'Sign in with',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -49,7 +49,7 @@ class FingerPrint extends StatelessWidget {
               'your fingerprint',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -89,7 +89,7 @@ class FingerPrint extends StatelessWidget {
               'Please place your finger',
               style: TextStyle(
                 color: AppColor().blackColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.normal,
                 fontSize: 14,
               ),
@@ -107,7 +107,7 @@ class FingerPrint extends StatelessWidget {
                 'OR SIGN IN WITH PIN',
                 style: TextStyle(
                   color: AppColor().orangeBorderColor,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),

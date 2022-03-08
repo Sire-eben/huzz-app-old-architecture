@@ -60,7 +60,7 @@ class _SettingsState extends State<Settings> {
           'Settings',
           style: TextStyle(
             color: AppColor().backgroundColor,
-            fontFamily: 'DMSans',
+            fontFamily: 'InterRegular',
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -153,7 +153,7 @@ class _SettingsState extends State<Settings> {
                             : firstName,
                         style: TextStyle(
                           color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
@@ -167,7 +167,7 @@ class _SettingsState extends State<Settings> {
                             : lastName!,
                         style: TextStyle(
                           color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
@@ -215,7 +215,7 @@ class _SettingsState extends State<Settings> {
                           'Personal Account',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontWeight: FontWeight.normal,
                             fontSize: 14,
                           ),
@@ -291,7 +291,7 @@ class _SettingsState extends State<Settings> {
                           'Business Account',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontWeight: FontWeight.normal,
                             fontSize: 14,
                           ),
@@ -373,7 +373,7 @@ class _SettingsState extends State<Settings> {
                             'Notification Settings',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -423,7 +423,7 @@ class _SettingsState extends State<Settings> {
                             'Logout',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -468,7 +468,7 @@ class _SettingsState extends State<Settings> {
                                         'Verify your Phone Number',
                                         style: TextStyle(
                                           color: AppColor().whiteColor,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontWeight: FontWeight.normal,
                                           fontSize: 14,
                                         ),
@@ -535,7 +535,7 @@ class _SettingsState extends State<Settings> {
                 'Upload Image',
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -578,7 +578,7 @@ class _SettingsState extends State<Settings> {
                   'Select from Device',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -615,7 +615,7 @@ class _SettingsState extends State<Settings> {
                             'Done',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -644,7 +644,7 @@ class _SettingsState extends State<Settings> {
                     '$title',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -693,7 +693,7 @@ class _SettingsState extends State<Settings> {
                             'Cancel',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -721,7 +721,7 @@ class _SettingsState extends State<Settings> {
                             'Delete',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -769,7 +769,7 @@ class _SettingsState extends State<Settings> {
                 'Please click continue if you want to proceed',
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontWeight: FontWeight.normal,
                   fontSize: 11,
                 ),
@@ -806,7 +806,7 @@ class _SettingsState extends State<Settings> {
                             'Cancel',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -833,7 +833,7 @@ class _SettingsState extends State<Settings> {
                             'Continue',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -866,7 +866,7 @@ class _SettingsState extends State<Settings> {
                     '$title',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -915,7 +915,7 @@ class _SettingsState extends State<Settings> {
                             'Cancel',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -943,7 +943,7 @@ class _SettingsState extends State<Settings> {
                             'Logout',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -976,7 +976,7 @@ class _SettingsState extends State<Settings> {
                     '$title',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -1022,7 +1022,7 @@ class _SettingsState extends State<Settings> {
                             'Cancel',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1049,7 +1049,7 @@ class _SettingsState extends State<Settings> {
                             'Delete',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),

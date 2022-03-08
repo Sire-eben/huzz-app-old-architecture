@@ -26,7 +26,7 @@ class _HuzzAppState extends State<HuzzApp> {
     return GetMaterialApp(
       initialBinding: AppBinding(),
       theme: ThemeData(
-          fontFamily: 'DMSans',
+          fontFamily: 'InterRegular',
           primaryColor: AppColor().backgroundColor,
           primarySwatch: Palette.primaryColor),
       debugShowCheckedModeBanner: false,

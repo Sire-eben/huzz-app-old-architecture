@@ -306,7 +306,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     'We will send a one-time password to verify it\'s really you',
                     style: TextStyle(
                       color: AppColor().orangeBorderColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -421,7 +421,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             'Cancel',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -448,7 +448,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             'Continue',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -478,7 +478,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 'Phone Number successfully Changed',
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
                 ),
@@ -511,7 +511,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         'Continue',
                         style: TextStyle(
                           color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),

@@ -28,7 +28,7 @@ class _ServicesState extends State<Services> {
               label: Text(
                 'New Service',
                 style: TextStyle(
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 10,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
@@ -74,7 +74,7 @@ class _ServicesState extends State<Services> {
                           'Add service',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -86,7 +86,7 @@ class _ServicesState extends State<Services> {
                           "Your services will show here. Click the",
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -95,7 +95,7 @@ class _ServicesState extends State<Services> {
                           "New Service button to add your first service",
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -136,7 +136,7 @@ class _ServicesState extends State<Services> {
                 //             'New Service',
                 //             style: TextStyle(
                 //               color: AppColor().whiteColor,
-                //               fontFamily: 'DMSans',
+                //               fontFamily: 'InterRegular',
                 //               fontWeight: FontWeight.bold,
                 //               fontSize: 14,
                 //             ),
@@ -172,7 +172,7 @@ class _ServicesState extends State<Services> {
                     "Service Count",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 12,
                     ),
                   ),
@@ -182,7 +182,7 @@ class _ServicesState extends State<Services> {
                     "0",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
@@ -224,7 +224,7 @@ class _ServicesState extends State<Services> {
                       child: Text(
                         "Total service value",
                         style: TextStyle(
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -237,7 +237,7 @@ class _ServicesState extends State<Services> {
                       child: Text(
                         "N0.00",
                         style: TextStyle(
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
                           color: Colors.white,

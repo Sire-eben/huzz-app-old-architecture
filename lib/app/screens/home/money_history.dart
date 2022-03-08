@@ -73,7 +73,7 @@ class _MoneySummaryState extends State<MoneySummary> {
               'Transaction',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: "DMSans",
+                fontFamily: "InterRegular",
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -87,7 +87,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                       .formatDate(pattern: "dd, MMM y")!,
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: "DMSans",
+                    fontFamily: "InterRegular",
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.bold,
@@ -98,7 +98,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                       .formatDate(pattern: "hh:mm a")!,
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: "DMSans",
+                    fontFamily: "InterRegular",
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.bold,
@@ -135,7 +135,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                 transactionModel!.balance == 0 ? 'Fully Paid' : "Partially",
                 style: TextStyle(
                   color: AppColor().orangeBorderColor,
-                  fontFamily: "DMSans",
+                  fontFamily: "InterRegular",
                   fontStyle: FontStyle.normal,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
@@ -157,7 +157,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               'Total Amt.',
                               style: TextStyle(
                                 color: AppColor().blackColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
@@ -167,10 +167,10 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.01),
                             Text(
-                              '${ Utils.getCurrency()}${display(transactionModel!.totalAmount!)}',
+                              '${Utils.getCurrency()}${display(transactionModel!.totalAmount!)}',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -185,7 +185,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 'Bal.',
                                 style: TextStyle(
                                   color: AppColor().blackColor,
-                                  fontFamily: "DMSans",
+                                  fontFamily: "InterRegular",
                                   fontStyle: FontStyle.normal,
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
@@ -195,10 +195,10 @@ class _MoneySummaryState extends State<MoneySummary> {
                                   height: MediaQuery.of(context).size.height *
                                       0.01),
                               Text(
-                                '${ Utils.getCurrency()}${display(transactionModel!.balance!)}',
+                                '${Utils.getCurrency()}${display(transactionModel!.balance!)}',
                                 style: TextStyle(
                                   color: AppColor().orangeBorderColor,
-                                  fontFamily: "DMSans",
+                                  fontFamily: "InterRegular",
                                   fontStyle: FontStyle.normal,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -212,7 +212,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               'Paid Amt.',
                               style: TextStyle(
                                 color: AppColor().blackColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
@@ -222,10 +222,10 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.01),
                             Text(
-                              '${ Utils.getCurrency()}${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
+                              '${Utils.getCurrency()}${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -242,7 +242,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                 ? GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
-                        isScrollControlled: true,
+                          isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20))),
@@ -260,7 +260,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                           'Update payment',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: "DMSans",
+                            fontFamily: "InterRegular",
                             fontStyle: FontStyle.normal,
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -280,7 +280,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   'Items',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: "DMSans",
+                    fontFamily: "InterRegular",
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -308,7 +308,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 12,
                             color: AppColor().whiteColor),
                       ),
@@ -319,7 +319,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 12,
                             color: AppColor().whiteColor),
                       ),
@@ -330,7 +330,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         textAlign: TextAlign.right,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 12,
                             color: AppColor().whiteColor),
                       ),
@@ -363,7 +363,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -374,18 +374,18 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
                             ),
                             Expanded(
                               child: Text(
-                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
+                                "${Utils.getCurrency()}${display(item.totalAmount)}",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -406,7 +406,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   'Payment History',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: "DMSans",
+                    fontFamily: "InterRegular",
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -434,7 +434,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 12,
                             color: AppColor().whiteColor),
                       ),
@@ -445,7 +445,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 12,
                             color: AppColor().whiteColor),
                       ),
@@ -455,7 +455,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                       textAlign: TextAlign.right,
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
@@ -487,18 +487,18 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
                             ),
                             Expanded(
                               child: Text(
-                                '${ Utils.getCurrency()} ${display(item.amountPaid)}',
+                                '${Utils.getCurrency()} ${display(item.amountPaid)}',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -517,7 +517,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                     'View Receipt',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         fontSize: 10,
                                         color: AppColor().backgroundColor),
                                   ),
@@ -563,7 +563,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     'You are about to delete this transaction. Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -608,7 +608,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               'Cancel',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -638,7 +638,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               'Delete',
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -685,7 +685,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     '10, Nov. 2021',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: "DMSans",
+                      fontFamily: "InterRegular",
                       fontStyle: FontStyle.normal,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -732,7 +732,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               'Date',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -740,7 +740,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               recordModel.date!,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -755,7 +755,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               'Money Out',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -763,7 +763,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               recordModel.moneyOut!,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().orangeBorderColor),
                             ),
@@ -780,7 +780,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 'Money In',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -788,7 +788,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 recordModel.moneyIn!,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: AppColor().blueColor),
                               ),
@@ -827,7 +827,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                       item.name!,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -835,7 +835,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                       item.time!,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -850,7 +850,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                       item.price!,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -858,7 +858,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                       item.detail!,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -886,7 +886,9 @@ class _MoneySummaryState extends State<MoneySummary> {
         child: Text(
           item,
           style: TextStyle(
-              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
+              fontFamily: 'InterRegular',
+              fontSize: 10,
+              fontWeight: FontWeight.bold),
         ),
       );
 
@@ -932,15 +934,17 @@ class _MoneySummaryState extends State<MoneySummary> {
           //     right: MediaQuery.of(context).size.width * 0.04,
           //     bottom: MediaQuery.of(context).size.width * 0.04,
           //     top: MediaQuery.of(context).size.width * 0.02),
-              margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.04,
-            ),
-            padding: MediaQuery.of(context).viewInsets,
+          margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
+          ),
+          padding: MediaQuery.of(context).viewInsets,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               InkWell(
                 onTap: () {
                   Get.back();
@@ -978,7 +982,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   'Update Payment',
                   style: TextStyle(
                     color: Colors.black,
-                    fontFamily: "DMSans",
+                    fontFamily: "InterRegular",
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -1010,7 +1014,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                           'Paying Fully',
                           style: TextStyle(
                             color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
+                            fontFamily: "InterRegular",
                             fontStyle: FontStyle.normal,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -1041,7 +1045,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                           'Paying Partly',
                           style: TextStyle(
                             color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
+                            fontFamily: "InterRegular",
                             fontStyle: FontStyle.normal,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -1055,9 +1059,12 @@ class _MoneySummaryState extends State<MoneySummary> {
               paymentType == 0
                   ? CustomTextFieldInvoiceOptional(
                       label: 'Amount',
-                      hint: '${ Utils.getCurrency()}',
+                      hint: '${Utils.getCurrency()}',
                       inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                      keyType: Platform.isIOS
+                          ? TextInputType.numberWithOptions(
+                              signed: true, decimal: true)
+                          : TextInputType.number,
                       textEditingController: _amountController,
                     )
                   : Container(),
@@ -1080,7 +1087,7 @@ class _MoneySummaryState extends State<MoneySummary> {
               //             'Cash',
               //             style: TextStyle(
               //               color: AppColor().backgroundColor,
-              //               fontFamily: "DMSans",
+              //               fontFamily: "InterRegular",
               //               fontStyle: FontStyle.normal,
               //               fontSize: 12,
               //               fontWeight: FontWeight.w400,
@@ -1103,7 +1110,7 @@ class _MoneySummaryState extends State<MoneySummary> {
               //             'POS',
               //             style: TextStyle(
               //               color: AppColor().backgroundColor,
-              //               fontFamily: "DMSans",
+              //               fontFamily: "InterRegular",
               //               fontStyle: FontStyle.normal,
               //               fontSize: 12,
               //               fontWeight: FontWeight.w400,
@@ -1126,7 +1133,7 @@ class _MoneySummaryState extends State<MoneySummary> {
               //             'Transfer',
               //             style: TextStyle(
               //               color: AppColor().backgroundColor,
-              //               fontFamily: "DMSans",
+              //               fontFamily: "InterRegular",
               //               fontStyle: FontStyle.normal,
               //               fontSize: 12,
               //               fontWeight: FontWeight.w400,
@@ -1187,13 +1194,15 @@ class _MoneySummaryState extends State<MoneySummary> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                           ),
                   ),
                 );
               }),
-                SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
             ],
           ),
         );

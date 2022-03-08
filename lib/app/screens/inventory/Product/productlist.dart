@@ -18,7 +18,10 @@ class ProductListing extends StatefulWidget {
 
 class _ProductListingState extends State<ProductListing> {
   final display = createDisplay(
-      length: 3, decimal: 0, placeholder: '${ Utils.getCurrency()}', units: ['K', 'M', 'B', 'T']);
+      length: 3,
+      decimal: 0,
+      placeholder: '${Utils.getCurrency()}',
+      units: ['K', 'M', 'B', 'T']);
   final TextEditingController textEditingController = TextEditingController();
   Rx<List<Product>> _searchResult = Rx([]);
   List<Product> get searchResult => _searchResult.value;
@@ -55,7 +58,7 @@ class _ProductListingState extends State<ProductListing> {
         label: Text(
           (isDelete) ? "Delete Product(s)" : 'New Product',
           style: TextStyle(
-              fontFamily: 'DMSans',
+              fontFamily: 'InterRegular',
               fontSize: 10,
               color: Colors.white,
               fontWeight: FontWeight.bold),
@@ -119,7 +122,7 @@ class _ProductListingState extends State<ProductListing> {
                         hintText: 'Search',
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   color: Colors.black26,
                                   fontSize: 14,
                                   fontStyle: FontStyle.normal,
@@ -144,7 +147,7 @@ class _ProductListingState extends State<ProductListing> {
                   'Product (${_productController.productGoods.length})',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
@@ -231,7 +234,7 @@ class _ProductListingState extends State<ProductListing> {
                     'You are about to delete a product, Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -275,7 +278,7 @@ class _ProductListingState extends State<ProductListing> {
                               'Cancel',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -304,7 +307,7 @@ class _ProductListingState extends State<ProductListing> {
                               'Delete',
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -342,7 +345,7 @@ class _ProductListingState extends State<ProductListing> {
                     "Product Count",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 12,
                     ),
                   ),
@@ -352,7 +355,7 @@ class _ProductListingState extends State<ProductListing> {
                     "${_productController.productGoods.length}",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
@@ -394,7 +397,7 @@ class _ProductListingState extends State<ProductListing> {
                       child: Text(
                         "Total product value",
                         style: TextStyle(
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -405,9 +408,9 @@ class _ProductListingState extends State<ProductListing> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "${ Utils.getCurrency()}${display(_productController.totalProduct)}",
+                        "${Utils.getCurrency()}${display(_productController.totalProduct)}",
                         style: TextStyle(
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
                           color: Colors.white,
@@ -449,7 +452,7 @@ class _ProductListingState extends State<ProductListing> {
                   'Add stock',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
                   ),
@@ -507,7 +510,7 @@ class _ProductListingState extends State<ProductListing> {
                               'Television',
                               style: TextStyle(
                                 color: AppColor().blackColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -524,7 +527,7 @@ class _ProductListingState extends State<ProductListing> {
                                       'left: ',
                                       style: TextStyle(
                                         color: AppColor().blackColor,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         fontSize: 11,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -533,7 +536,7 @@ class _ProductListingState extends State<ProductListing> {
                                       '7',
                                       style: TextStyle(
                                         color: AppColor().orangeBorderColor,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -547,7 +550,7 @@ class _ProductListingState extends State<ProductListing> {
                                   'N20,000',
                                   style: TextStyle(
                                     color: AppColor().blackColor,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 11,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -631,10 +634,10 @@ class _ProductListingState extends State<ProductListing> {
                               color: AppColor().backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       // labelText: label,
-                      hintText: '${ Utils.getCurrency()} 0.00',
+                      hintText: '${Utils.getCurrency()} 0.00',
                       hintStyle:
                           Theme.of(context).textTheme.headline4!.copyWith(
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 color: Colors.black26,
                                 fontSize: 14,
                                 fontStyle: FontStyle.normal,
@@ -678,7 +681,7 @@ class _ProductListingState extends State<ProductListing> {
                     'Continue',
                     style: TextStyle(
                       color: AppColor().whiteColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -751,7 +754,7 @@ class _ListingProductState extends State<ListingProduct> {
                     "${widget.item!.productName}",
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -765,7 +768,7 @@ class _ListingProductState extends State<ListingProduct> {
                         'left: ',
                         style: TextStyle(
                           color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                         ),
@@ -774,7 +777,7 @@ class _ListingProductState extends State<ListingProduct> {
                         "${widget.item!.quantityLeft}",
                         style: TextStyle(
                           color: AppColor().orangeBorderColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -783,10 +786,10 @@ class _ListingProductState extends State<ListingProduct> {
                         width: 50,
                       ),
                       Text(
-                        '${ Utils.getCurrency()}${display(widget.item!.sellingPrice ?? 0)}',
+                        '${Utils.getCurrency()}${display(widget.item!.sellingPrice ?? 0)}',
                         style: TextStyle(
                           color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                         ),
@@ -831,7 +834,7 @@ class _ListingProductState extends State<ListingProduct> {
                         'Edit',
                         style: TextStyle(
                           color: AppColor().orangeBorderColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           fontWeight: FontWeight.normal,
                         ),
@@ -912,7 +915,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                       widget.item!.productName!,
                       style: TextStyle(
                         color: AppColor().blackColor,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
@@ -926,7 +929,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                           'left: ',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -935,7 +938,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                           "${widget.item!.quantityLeft}",
                           style: TextStyle(
                             color: AppColor().orangeBorderColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -944,10 +947,10 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                           width: 50,
                         ),
                         Text(
-                          '${ Utils.getCurrency()}${display(widget.item!.costPrice ?? 0)}',
+                          '${Utils.getCurrency()}${display(widget.item!.costPrice ?? 0)}',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),

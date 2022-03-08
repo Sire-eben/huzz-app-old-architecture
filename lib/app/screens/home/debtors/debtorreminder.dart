@@ -35,7 +35,7 @@ class DebtorsConfirmation extends StatelessWidget {
               'Your reminder has been',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -46,7 +46,7 @@ class DebtorsConfirmation extends StatelessWidget {
               'sent successfully',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -78,7 +78,7 @@ class DebtorsConfirmation extends StatelessWidget {
                   'Proceed',
                   style: TextStyle(
                     color: AppColor().whiteColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),

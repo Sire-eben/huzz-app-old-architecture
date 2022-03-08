@@ -116,7 +116,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           'Create Invoice',
           style: TextStyle(
             color: AppColor().backgroundColor,
-            fontFamily: "DMSans",
+            fontFamily: "InterRegular",
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -172,7 +172,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               'Back',
                               style: TextStyle(
                                   color: AppColor().backgroundColor,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                           ],
                         ),
@@ -203,7 +203,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     'Continue',
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   ),
                                   SizedBox(width: 4),
                                   Container(
@@ -311,7 +311,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   fontSize: 12,
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'DMSans'),
+                  fontFamily: 'InterRegular'),
             ),
             content: CustomerInfo()),
         Step(
@@ -322,7 +322,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   fontSize: 12,
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'DMSans'),
+                  fontFamily: 'InterRegular'),
             ),
             content: ItemInfo()),
         Step(
@@ -333,7 +333,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   fontSize: 12,
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'DMSans'),
+                  fontFamily: 'InterRegular'),
             ),
             content: PaymentInfo()),
       ];
@@ -361,7 +361,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       'New Details',
                       style: TextStyle(
                         color: AppColor().backgroundColor,
-                        fontFamily: "DMSans",
+                        fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -385,7 +385,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       'Existing Details',
                       style: TextStyle(
                         color: AppColor().backgroundColor,
-                        fontFamily: "DMSans",
+                        fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -534,7 +534,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       'Enter Item',
                                       style: TextStyle(
                                         color: AppColor().backgroundColor,
-                                        fontFamily: "DMSans",
+                                        fontFamily: "InterRegular",
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -574,7 +574,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       'Select Item',
                                       style: TextStyle(
                                         color: AppColor().backgroundColor,
-                                        fontFamily: "DMSans",
+                                        fontFamily: "InterRegular",
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -617,18 +617,22 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     children: [
                                       Expanded(
                                         child: CustomTextField(
-                                          label: "Amount",
-                                          hint: '${ Utils.getCurrency()} 0.00',
-                                          validatorText: "Amount is needed",
-                                          onChanged: (value) {
-                                            print("value is $value");
-                                            myState(() {});
-                                          },
-                                          textEditingController:
-                                              _invoiceController
-                                                  .amountController,
-                                          keyType:  Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number
-                                        ),
+                                            label: "Amount",
+                                            hint: '${Utils.getCurrency()} 0.00',
+                                            validatorText: "Amount is needed",
+                                            onChanged: (value) {
+                                              print("value is $value");
+                                              myState(() {});
+                                            },
+                                            textEditingController:
+                                                _invoiceController
+                                                    .amountController,
+                                            keyType: Platform.isIOS
+                                                ? TextInputType
+                                                    .numberWithOptions(
+                                                        signed: true,
+                                                        decimal: true)
+                                                : TextInputType.number),
                                       ),
                                       SizedBox(
                                           width: MediaQuery.of(context)
@@ -639,7 +643,12 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         child: CustomTextField(
                                             label: "Quantity",
                                             hint: '4',
-                                            keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                            keyType: Platform.isIOS
+                                                ? TextInputType
+                                                    .numberWithOptions(
+                                                        signed: true,
+                                                        decimal: true)
+                                                : TextInputType.number,
                                             validatorText: "Quantity is needed",
                                             onChanged: (value) {
                                               print("value is $value");
@@ -672,7 +681,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 12,
-                                          fontFamily: 'DMSans'),
+                                          fontFamily: 'InterRegular'),
                                     ),
                                     SizedBox(
                                       width: 5,
@@ -682,7 +691,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       style: TextStyle(
                                           color: Colors.red,
                                           fontSize: 12,
-                                          fontFamily: 'DMSans'),
+                                          fontFamily: 'InterRegular'),
                                     )
                                   ],
                                 ),
@@ -731,11 +740,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     Expanded(
                                       child: CustomTextField(
                                         label: "Amount",
-                                        hint: '${ Utils.getCurrency()} 0.00',
+                                        hint: '${Utils.getCurrency()} 0.00',
                                         validatorText: "Amount is needed",
                                         textEditingController:
                                             _invoiceController.amountController,
-                                        keyType:  Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                        keyType: Platform.isIOS
+                                            ? TextInputType.numberWithOptions(
+                                                signed: true, decimal: true)
+                                            : TextInputType.number,
                                       ),
                                     ),
                                     SizedBox(
@@ -750,8 +762,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         textEditingController:
                                             _invoiceController
                                                 .quantityController,
-                                                inputformater: [FilteringTextInputFormatter.digitsOnly],
-                                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                        inputformater: [
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
+                                        keyType: Platform.isIOS
+                                            ? TextInputType.numberWithOptions(
+                                                signed: true, decimal: true)
+                                            : TextInputType.number,
                                       ),
                                     )
                                   ],
@@ -821,7 +838,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               Text(
                                 'Add another item',
                                 style: TextStyle(
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -831,18 +848,25 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   children: [
                     Expanded(
                       child: CustomTextFieldInvoiceOptional(
-                        label: 'Tax(%)',
-                        hint: '0',
-                        inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number
-                      ),
+                          label: 'Tax(%)',
+                          hint: '0',
+                          inputformater: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyType: Platform.isIOS
+                              ? TextInputType.numberWithOptions(
+                                  signed: true, decimal: true)
+                              : TextInputType.number),
                     ),
                     SizedBox(width: 10),
                     Expanded(
                       child: CustomTextFieldInvoiceOptional(
                         label: 'Discount(%)',
                         hint: '0',
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                        keyType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
                         textEditingController:
                             _invoiceController.discountController,
                       ),
@@ -888,7 +912,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 'New Customer',
                                 style: TextStyle(
                                   color: AppColor().backgroundColor,
-                                  fontFamily: "DMSans",
+                                  fontFamily: "InterRegular",
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -913,7 +937,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 'Existing Customer',
                                 style: TextStyle(
                                   color: AppColor().backgroundColor,
-                                  fontFamily: "DMSans",
+                                  fontFamily: "InterRegular",
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -944,7 +968,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -954,7 +978,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     style: TextStyle(
                                         color: Colors.red,
                                         fontSize: 12,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   )
                                 ],
                               ),
@@ -1021,7 +1045,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 fontSize: 12,
                 color: Colors.black,
                 fontWeight: FontWeight.w400,
-                fontFamily: 'DMSans'),
+                fontFamily: 'InterRegular'),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           CustomTextFieldOptional(
@@ -1087,13 +1111,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         hintStyle: TextStyle(
                             color: Colors.black.withOpacity(0.5),
                             fontSize: 14,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontWeight: FontWeight.w500),
                         prefixText: "+$countryCode ",
                         prefixStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             color: Colors.black)),
                   ),
                 ),
@@ -1123,7 +1147,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 child: Text(
                   'Continue',
                   style: TextStyle(
-                      color: Colors.white, fontSize: 18, fontFamily: 'DMSans'),
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontFamily: 'InterRegular'),
                 ),
               ),
             ),
@@ -1154,7 +1180,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(fontSize: 14, fontFamily: 'DMSans'),
+          style: TextStyle(fontSize: 14, fontFamily: 'InterRegular'),
         ),
       );
 
@@ -1190,9 +1216,11 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       child: CustomTextField(
                         label: "Amount",
                         validatorText: "amount is needed",
-                         inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
-                      
+                        inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
                         hint: '0',
                       ),
                     ),
@@ -1221,7 +1249,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
-                            fontFamily: 'DMSans'),
+                            fontFamily: 'InterRegular'),
                       ),
                     ),
                   ),
@@ -1256,7 +1284,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: AppColor().backgroundColor,
-                  fontFamily: 'DMSans'),
+                  fontFamily: 'InterRegular'),
               controller: _searchcontroller,
               cursorColor: Colors.white,
               autofocus: false,
@@ -1276,7 +1304,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: Colors.grey,
-                    fontFamily: 'DMSans'),
+                    fontFamily: 'InterRegular'),
                 contentPadding:
                     EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
@@ -1322,7 +1350,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 style: TextStyle(
                                     fontSize: 30,
                                     color: Colors.white,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontWeight: FontWeight.bold),
                               ))),
                         ),
@@ -1334,7 +1362,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             style: TextStyle(
                                 fontSize: 13,
                                 color: Colors.black,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.bold),
                           )),
                       Expanded(
@@ -1344,7 +1372,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             style: TextStyle(
                                 fontSize: 13,
                                 color: Colors.black,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.bold),
                           )),
                     ],
@@ -1371,7 +1399,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
-                        fontFamily: 'DMSans'),
+                        fontFamily: 'InterRegular'),
                   ),
                 ),
               ),
@@ -1448,7 +1476,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   Expanded(
                     child: CustomTextField(
                       label: "Amount",
-                      hint: '${ Utils.getCurrency()} 0.00',
+                      hint: '${Utils.getCurrency()} 0.00',
                       validatorText: "Amount name is needed",
                       // enabled:
                       //     item.productId == null || item.productId!.isEmpty,
@@ -1488,7 +1516,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                   ),
                 ),
@@ -1550,7 +1578,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               'Enter Item',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1581,7 +1609,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               'Select Item',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1608,7 +1636,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             Expanded(
                               child: CustomTextField(
                                 label: "Amount",
-                                hint: '${ Utils.getCurrency()} 0.00',
+                                hint: '${Utils.getCurrency()} 0.00',
                                 validatorText: "Amount name is needed",
                                 textEditingController:
                                     _invoiceController.amountController,
@@ -1641,7 +1669,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                             SizedBox(
                               height: 8,
@@ -1688,7 +1716,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 Expanded(
                                   child: CustomTextField(
                                     label: "Amount",
-                                    hint: '${ Utils.getCurrency()} 0.00',
+                                    hint: '${Utils.getCurrency()} 0.00',
                                     validatorText: "Amount name is needed",
                                     textEditingController:
                                         _invoiceController.amountController,
@@ -1740,7 +1768,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         ),
                       ),
                     ),

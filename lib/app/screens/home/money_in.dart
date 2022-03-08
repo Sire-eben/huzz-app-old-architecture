@@ -146,7 +146,7 @@ class _MoneyInState extends State<MoneyIn> {
           'Money In',
           style: TextStyle(
             color: AppColor().backgroundColor,
-            fontFamily: "DMSans",
+            fontFamily: "InterRegular",
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -171,7 +171,8 @@ class _MoneyInState extends State<MoneyIn> {
                         children: [
                           InkWell(
                             onTap: () {
-                              _transactionController.amountController!.text = "";
+                              _transactionController.amountController!.text =
+                                  "";
                               _transactionController.itemNameController.text =
                                   "";
                               _transactionController.selectedProduct = null;
@@ -200,7 +201,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   'Enter Item',
                                   style: TextStyle(
                                     color: AppColor().backgroundColor,
-                                    fontFamily: "DMSans",
+                                    fontFamily: "InterRegular",
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -211,7 +212,8 @@ class _MoneyInState extends State<MoneyIn> {
                           ),
                           InkWell(
                             onTap: () {
-                              _transactionController.amountController!.text = "";
+                              _transactionController.amountController!.text =
+                                  "";
                               _transactionController.itemNameController.text =
                                   "";
                               _transactionController.selectedProduct = null;
@@ -240,7 +242,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   'Select Item',
                                   style: TextStyle(
                                     color: AppColor().backgroundColor,
-                                    fontFamily: "DMSans",
+                                    fontFamily: "InterRegular",
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -284,7 +286,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   Expanded(
                                     child: CustomTextField(
                                       label: "Amount",
-                                      hint: 'N0.00',
+                                      hint: '${Utils.getCurrency()}0.00',
                                       validatorText: "Amount is needed",
                                       onChanged: (value) {
                                         print("value is $value");
@@ -293,8 +295,13 @@ class _MoneyInState extends State<MoneyIn> {
                                       textEditingController:
                                           _transactionController
                                               .amountController!,
-                                      inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                      inputformater: [
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
+                                      keyType: Platform.isIOS
+                                          ? TextInputType.numberWithOptions(
+                                              signed: true, decimal: true)
+                                          : TextInputType.number,
                                     ),
                                   ),
                                   SizedBox(
@@ -305,8 +312,13 @@ class _MoneyInState extends State<MoneyIn> {
                                     child: CustomTextField(
                                         label: "Quantity",
                                         hint: '1',
-                                        inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                        inputformater: [
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
+                                        keyType: Platform.isIOS
+                                            ? TextInputType.numberWithOptions(
+                                                signed: true, decimal: true)
+                                            : TextInputType.number,
                                         validatorText: "Quantity is needed",
                                         onChanged: (value) {
                                           print("value is $value");
@@ -341,7 +353,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -351,7 +363,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     style: TextStyle(
                                         color: Colors.red,
                                         fontSize: 12,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   )
                                 ],
                               ),
@@ -403,13 +415,18 @@ class _MoneyInState extends State<MoneyIn> {
                                   Expanded(
                                     child: CustomTextField(
                                       label: "Amount",
-                                      hint: 'N0.00',
+                                      hint: '${Utils.getCurrency()}0.00',
                                       validatorText: "Amount is needed",
                                       textEditingController:
                                           _transactionController
                                               .amountController!,
-                                      inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                      inputformater: [
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
+                                      keyType: Platform.isIOS
+                                          ? TextInputType.numberWithOptions(
+                                              signed: true, decimal: true)
+                                          : TextInputType.number,
                                     ),
                                   ),
                                   SizedBox(
@@ -420,8 +437,13 @@ class _MoneyInState extends State<MoneyIn> {
                                     child: CustomTextField(
                                         label: "Quantity",
                                         hint: '1',
-                                        inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                        inputformater: [
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
+                                        keyType: Platform.isIOS
+                                            ? TextInputType.numberWithOptions(
+                                                signed: true, decimal: true)
+                                            : TextInputType.number,
                                         validatorText: "Quantity is needed",
                                         onChanged: (value) {
                                           print("value is $value");
@@ -508,7 +530,7 @@ class _MoneyInState extends State<MoneyIn> {
                         Text(
                           'Add another item',
                           style: TextStyle(
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 10,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
@@ -541,7 +563,10 @@ class _MoneyInState extends State<MoneyIn> {
                         ),
                         // validatorText: "Select date is needed",
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                        keyType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.height * 0.03),
@@ -563,7 +588,10 @@ class _MoneyInState extends State<MoneyIn> {
                           color: Colors.orange,
                         ),
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                        keyType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
                         // validatorText: "Select time is needed",
                       ),
                     ),
@@ -584,7 +612,7 @@ class _MoneyInState extends State<MoneyIn> {
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         ),
                         SizedBox(
                           width: 5,
@@ -594,7 +622,7 @@ class _MoneyInState extends State<MoneyIn> {
                           style: TextStyle(
                               color: Colors.red,
                               fontSize: 12,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         )
                       ],
                     ),
@@ -637,10 +665,13 @@ class _MoneyInState extends State<MoneyIn> {
                               MediaQuery.of(context).size.height * 0.03),
                       child: CustomTextField(
                         label: "Amount Paid",
-                        hint: '${ Utils.getCurrency()} 0.00',
+                        hint: '${Utils.getCurrency()} 0.00',
                         validatorText: "Amount Paid is needed",
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                        keyType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
                         textEditingController:
                             _transactionController.amountPaidController,
                       ),
@@ -660,7 +691,7 @@ class _MoneyInState extends State<MoneyIn> {
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         ),
                         SizedBox(
                           width: 5,
@@ -670,7 +701,7 @@ class _MoneyInState extends State<MoneyIn> {
                           style: TextStyle(
                               color: Colors.red,
                               fontSize: 12,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         )
                       ],
                     ),
@@ -796,7 +827,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       : Colors.grey,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                           ),
                           _transactionController.image != null
@@ -841,7 +872,7 @@ class _MoneyInState extends State<MoneyIn> {
                               : Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
@@ -878,7 +909,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       'New Customer',
                                       style: TextStyle(
                                         color: AppColor().backgroundColor,
-                                        fontFamily: "DMSans",
+                                        fontFamily: "InterRegular",
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -904,7 +935,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       'Existing Customer',
                                       style: TextStyle(
                                         color: AppColor().backgroundColor,
-                                        fontFamily: "DMSans",
+                                        fontFamily: "InterRegular",
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -937,7 +968,7 @@ class _MoneyInState extends State<MoneyIn> {
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 12,
-                                              fontFamily: 'DMSans'),
+                                              fontFamily: 'InterRegular'),
                                         ),
                                         SizedBox(
                                           width: 5,
@@ -947,7 +978,7 @@ class _MoneyInState extends State<MoneyIn> {
                                           style: TextStyle(
                                               color: Colors.red,
                                               fontSize: 12,
-                                              fontFamily: 'DMSans'),
+                                              fontFamily: 'InterRegular'),
                                         )
                                       ],
                                     ),
@@ -1059,7 +1090,7 @@ class _MoneyInState extends State<MoneyIn> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                           ),
                   ),
@@ -1123,7 +1154,7 @@ class _MoneyInState extends State<MoneyIn> {
                             'Enter Item',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
+                              fontFamily: "InterRegular",
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1154,7 +1185,7 @@ class _MoneyInState extends State<MoneyIn> {
                             'Select product/services',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
+                              fontFamily: "InterRegular",
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1181,13 +1212,17 @@ class _MoneyInState extends State<MoneyIn> {
                           Expanded(
                             child: CustomTextField(
                               label: "Amount",
-                              hint: 'N0.00',
+                              hint: '${Utils.getCurrency()}0.00',
                               validatorText: "Amount name is needed",
                               textEditingController:
                                   _transactionController.amountController!,
-                          inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
-
+                              inputformater: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              keyType: Platform.isIOS
+                                  ? TextInputType.numberWithOptions(
+                                      signed: true, decimal: true)
+                                  : TextInputType.number,
                             ),
                           ),
                           SizedBox(
@@ -1196,8 +1231,13 @@ class _MoneyInState extends State<MoneyIn> {
                             child: CustomTextField(
                                 label: "Quantity",
                                 hint: '1',
-                                inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                inputformater: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                keyType: Platform.isIOS
+                                    ? TextInputType.numberWithOptions(
+                                        signed: true, decimal: true)
+                                    : TextInputType.number,
                                 validatorText: "Quantity name is needed",
                                 textEditingController:
                                     _transactionController.quantityController),
@@ -1216,7 +1256,7 @@ class _MoneyInState extends State<MoneyIn> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 12,
-                                fontFamily: 'DMSans'),
+                                fontFamily: 'InterRegular'),
                           ),
                           SizedBox(
                             height: 8,
@@ -1250,8 +1290,8 @@ class _MoneyInState extends State<MoneyIn> {
                                       value;
                                   _transactionController
                                       .selectedProduct!.quantity = 1;
-                                  _transactionController.amountController!.text =
-                                      value!.sellingPrice!.toString();
+                                  _transactionController.amountController!
+                                      .text = value!.sellingPrice!.toString();
                                   _transactionController
                                       .quantityController.text = 1.toString();
                                 }),
@@ -1266,7 +1306,7 @@ class _MoneyInState extends State<MoneyIn> {
                               Expanded(
                                 child: CustomTextField(
                                   label: "Amount",
-                                  hint: 'N0.00',
+                                  hint: '${Utils.getCurrency()}0.00',
                                   onChanged: (value) {
                                     print("value is $value");
                                     setState(() {});
@@ -1274,8 +1314,13 @@ class _MoneyInState extends State<MoneyIn> {
                                   validatorText: "Amount is needed",
                                   textEditingController:
                                       _transactionController.amountController!,
-                                  inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                  inputformater: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  keyType: Platform.isIOS
+                                      ? TextInputType.numberWithOptions(
+                                          signed: true, decimal: true)
+                                      : TextInputType.number,
                                 ),
                               ),
                               SizedBox(
@@ -1289,8 +1334,13 @@ class _MoneyInState extends State<MoneyIn> {
                                       print("value is $value");
                                       setState(() {});
                                     },
-                                    inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                    inputformater: [
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    keyType: Platform.isIOS
+                                        ? TextInputType.numberWithOptions(
+                                            signed: true, decimal: true)
+                                        : TextInputType.number,
                                     validatorText: "Quantity is needed",
                                     textEditingController:
                                         _transactionController
@@ -1322,7 +1372,7 @@ class _MoneyInState extends State<MoneyIn> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
-                            fontFamily: 'DMSans'),
+                            fontFamily: 'InterRegular'),
                       ),
                     ),
                   ),
@@ -1340,7 +1390,7 @@ class _MoneyInState extends State<MoneyIn> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(fontSize: 14, fontFamily: 'DMSans'),
+          style: TextStyle(fontSize: 14, fontFamily: 'InterRegular'),
         ),
       );
 
@@ -1432,14 +1482,17 @@ class _MoneyInState extends State<MoneyIn> {
                     Expanded(
                       child: CustomTextField(
                         label: "Amount",
-                        hint: 'N0.00',
+                        hint: '${Utils.getCurrency()}0.00',
                         validatorText: "Amount name is needed",
                         enabled:
                             item.productId == null || item.productId!.isEmpty,
                         textEditingController:
                             _transactionController.amountController!,
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                        keyType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.height * 0.03),
@@ -1447,8 +1500,13 @@ class _MoneyInState extends State<MoneyIn> {
                       child: CustomTextField(
                           label: "Quantity",
                           hint: '1',
-                          inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                          inputformater: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyType: Platform.isIOS
+                              ? TextInputType.numberWithOptions(
+                                  signed: true, decimal: true)
+                              : TextInputType.number,
                           validatorText: "Quantity name is needed",
                           textEditingController:
                               _transactionController.quantityController),
@@ -1474,7 +1532,7 @@ class _MoneyInState extends State<MoneyIn> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
-                            fontFamily: 'DMSans'),
+                            fontFamily: 'InterRegular'),
                       ),
                     ),
                   ),

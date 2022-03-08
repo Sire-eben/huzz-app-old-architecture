@@ -28,7 +28,7 @@ class ItemCard extends StatelessWidget {
               child: Text(
                 item.bankAccountName!,
                 style: TextStyle(
-                  fontFamily: "DMSans",
+                  fontFamily: "InterRegular",
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
@@ -42,7 +42,7 @@ class ItemCard extends StatelessWidget {
               child: Text(
                 item.bankAccountNumber!,
                 style: TextStyle(
-                  fontFamily: "DMSans",
+                  fontFamily: "InterRegular",
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),
@@ -56,7 +56,7 @@ class ItemCard extends StatelessWidget {
               child: Text(
                 item.bankName!,
                 style: TextStyle(
-                  fontFamily: "DMSans",
+                  fontFamily: "InterRegular",
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),

@@ -45,7 +45,7 @@ class _CustomersState extends State<Customers> {
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: AppColor().backgroundColor,
-                  fontFamily: 'DMSans'),
+                  fontFamily: 'InterRegular'),
               controller: _searchcontroller,
               onChanged: searchItem,
               cursorColor: Colors.white,
@@ -66,7 +66,7 @@ class _CustomersState extends State<Customers> {
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: Colors.grey,
-                    fontFamily: 'DMSans'),
+                    fontFamily: 'InterRegular'),
                 contentPadding:
                     EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
@@ -128,7 +128,7 @@ class _CustomersState extends State<Customers> {
                                     style: TextStyle(
                                         fontSize: 13,
                                         color: Colors.black,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(
@@ -139,14 +139,14 @@ class _CustomersState extends State<Customers> {
                                     style: TextStyle(
                                         fontSize: 10,
                                         color: Colors.black,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   ),
                                   Text(
                                     'Add customer button to add your first customer',
                                     style: TextStyle(
                                         fontSize: 10,
                                         color: Colors.black,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   ),
                                 ],
                               ),
@@ -173,7 +173,7 @@ class _CustomersState extends State<Customers> {
                                         item.name!,
                                         style: TextStyle(
                                             fontSize: 12,
-                                            fontFamily: 'DMSans',
+                                            fontFamily: 'InterRegular',
                                             color: Colors.black,
                                             fontWeight: FontWeight.w400),
                                       ),
@@ -181,7 +181,7 @@ class _CustomersState extends State<Customers> {
                                         item.phone!,
                                         style: TextStyle(
                                             fontSize: 12,
-                                            fontFamily: 'DMSans',
+                                            fontFamily: 'InterRegular',
                                             color: Colors.grey),
                                       ),
                                     ],
@@ -219,7 +219,7 @@ class _CustomersState extends State<Customers> {
         label: Text(
           'Add Customer',
           style: TextStyle(
-              fontFamily: 'DMSans',
+              fontFamily: 'InterRegular',
               fontSize: 10,
               color: Colors.white,
               fontWeight: FontWeight.bold),

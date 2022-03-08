@@ -27,7 +27,7 @@ class _PendingState extends State<Pending> {
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
-    final display = createDisplay(
+  final display = createDisplay(
     length: 10,
     decimal: 0,
   );
@@ -52,7 +52,7 @@ class _PendingState extends State<Pending> {
                         'Invoices',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -61,7 +61,7 @@ class _PendingState extends State<Pending> {
                         '(${_invoiceController.InvoicePendingList.length})',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -130,7 +130,7 @@ class _PendingState extends State<Pending> {
                                                 : customer.name!,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 fontSize: 16,
                                                 color: Colors.black),
                                           ),
@@ -141,7 +141,7 @@ class _PendingState extends State<Pending> {
                                           //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
                                           //     style: TextStyle(
                                           //         fontWeight: FontWeight.bold,
-                                          //         fontFamily: 'DMSans',
+                                          //         fontFamily: 'InterRegular',
                                           //         fontSize: 14,
                                           //         color: Colors.black),
                                           //   ),
@@ -155,10 +155,10 @@ class _PendingState extends State<Pending> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
+                                                "${Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Color(0xffEF6500)),
                                               ),
@@ -166,7 +166,7 @@ class _PendingState extends State<Pending> {
                                                 "",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -175,7 +175,7 @@ class _PendingState extends State<Pending> {
                                                     .formatDate()!,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -246,7 +246,7 @@ class _PendingState extends State<Pending> {
                                                 : customer.name!,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 fontSize: 16,
                                                 color: Colors.black),
                                           ),
@@ -257,7 +257,7 @@ class _PendingState extends State<Pending> {
                                           // item.paymentItemRequestList!.first.itemName!,
                                           //   style: TextStyle(
                                           //       fontWeight: FontWeight.bold,
-                                          //       fontFamily: 'DMSans',
+                                          //       fontFamily: 'InterRegular',
                                           //       fontSize: 14,
                                           //       color: Colors.black),
                                           // ),
@@ -271,10 +271,10 @@ class _PendingState extends State<Pending> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
+                                                "${Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Color(0xffEF6500)),
                                               ),
@@ -282,7 +282,7 @@ class _PendingState extends State<Pending> {
                                                 "",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -291,7 +291,7 @@ class _PendingState extends State<Pending> {
                                                     .formatDate()!,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -373,7 +373,7 @@ class _PendingState extends State<Pending> {
           label: Text(
             deleteItem ? 'New Invoice' : 'Delete Item',
             style: TextStyle(
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontSize: 10,
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
@@ -399,7 +399,7 @@ class _PendingState extends State<Pending> {
                     'You are about to delete invoice(s). Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -446,7 +446,7 @@ class _PendingState extends State<Pending> {
                               'Cancel',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -475,7 +475,7 @@ class _PendingState extends State<Pending> {
                               'Delete',
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

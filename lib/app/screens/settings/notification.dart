@@ -38,7 +38,7 @@ class _NotificationsState extends State<Notifications> {
             'Notifications',
             style: TextStyle(
               color: AppColor().backgroundColor,
-              fontFamily: 'DMSans',
+              fontFamily: 'InterRegular',
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -60,7 +60,7 @@ class _NotificationsState extends State<Notifications> {
                       style: TextStyle(
                           fontSize: 13,
                           color: Colors.black,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
@@ -71,7 +71,7 @@ class _NotificationsState extends State<Notifications> {
                       style: TextStyle(
                           fontSize: 10,
                           color: Colors.black,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                   ],
                 ),
@@ -105,7 +105,7 @@ class _NotificationsState extends State<Notifications> {
                                   item.message!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       fontSize: 10),
                                 ),
                               ),
@@ -115,7 +115,7 @@ class _NotificationsState extends State<Notifications> {
                                     item.time!,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         color: AppColor()
                                             .blackColor
                                             .withOpacity(0.5),
@@ -125,7 +125,7 @@ class _NotificationsState extends State<Notifications> {
                                     item.time!,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         color: AppColor()
                                             .blackColor
                                             .withOpacity(0.5),
