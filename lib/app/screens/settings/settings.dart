@@ -439,27 +439,7 @@ class _SettingsState extends State<Settings> {
                   ),
                   // LogOut
                   controller.user!.phoneNumberVerified == true
-                      ? Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          height: 55,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Phone Number Verified',
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                        )
+                      ? Container()
                       : Obx(() {
                           return InkWell(
                             onTap: () {
@@ -776,7 +756,7 @@ class _SettingsState extends State<Settings> {
                   child: Text(
                     'Verify your phone number?',
                     style: TextStyle(
-                      color: AppColor().orangeBorderColor,
+                      color: AppColor().backgroundColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
@@ -818,14 +798,14 @@ class _SettingsState extends State<Settings> {
                             color: AppColor().whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().orangeBorderColor,
+                              color: AppColor().backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: TextStyle(
-                              color: AppColor().orangeBorderColor,
+                              color: AppColor().backgroundColor,
                               fontFamily: 'DMSans',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
@@ -846,7 +826,7 @@ class _SettingsState extends State<Settings> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().orangeBorderColor,
+                            color: AppColor().backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(

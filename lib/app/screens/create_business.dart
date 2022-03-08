@@ -24,7 +24,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
 
   final _businessController = Get.find<BusinessRespository>();
   final _userController = Get.find<AuthRepository>();
-final key=GlobalKey<FormState>();
+  final key = GlobalKey<FormState>();
   @override
   // ignore: dead_code
   Widget build(BuildContext context) {
@@ -73,18 +73,18 @@ final key=GlobalKey<FormState>();
                   SizedBox(
                     height: 5,
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                    child: CustomTextField(
-                      label: "Address (Optional)",
-                      textEditingController:
-                          _businessController.businessAddressController,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width,
+                  //   height: 100,
+                  //   child: CustomTextField(
+                  //     label: "Address (Optional)",
+                  //     textEditingController:
+                  //         _businessController.businessAddressController,
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     height: 100,
@@ -111,28 +111,27 @@ final key=GlobalKey<FormState>();
                   SizedBox(
                     height: 5,
                   ),
-            
-                     Container(
+
+                  Container(
                     width: MediaQuery.of(context).size.width,
                     height: 110,
                     child: CustomTextField(
                       enabled: false,
                       hint: "Select Currency",
                       AllowClickable: true,
-                      onClick: (){
-            
+                      onClick: () {
                         showCurrencyPicker(
-                context: context,
-                showFlag: true,
-                showCurrencyName: true,
-                showCurrencyCode: true,
-                onSelect: (Currency currency) {
-                  print('Select currency: ${currency.code}');
-                  _businessController.businessCurrency.text=currency.code;
-            
-                },
-                favorite: ['USD'],
-              );
+                          context: context,
+                          showFlag: true,
+                          showCurrencyName: true,
+                          showCurrencyCode: true,
+                          onSelect: (Currency currency) {
+                            print('Select currency: ${currency.code}');
+                            _businessController.businessCurrency.text =
+                                currency.code;
+                          },
+                          favorite: ['USD'],
+                        );
                       },
                       label: "Currency ",
                       validatorText: "Currency is required",
@@ -159,16 +158,17 @@ final key=GlobalKey<FormState>();
                   GestureDetector(
                     onTap: () {
                       // Get.to(Signin());
-                     
+
                       if (_businessController.createBusinessStatus !=
-                          CreateBusinessStatus.Loading)
-                          if(key.currentState!.validate()){
-                    if(_businessController.businessCurrency.text.isEmpty){
-                    Get.snackbar("Error", "Kindly select currency to proceed");
-                      return;
-                    }
+                          CreateBusinessStatus
+                              .Loading) if (key.currentState!.validate()) {
+                        if (_businessController.businessCurrency.text.isEmpty) {
+                          Get.snackbar(
+                              "Error", "Kindly select currency to proceed");
+                          return;
+                        }
                         _businessController.createBusiness();
-                    }
+                      }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -194,8 +194,8 @@ final key=GlobalKey<FormState>();
                                   padding: EdgeInsets.all(3),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(50))),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
                                   child: Icon(
                                     Icons.add,
                                     color: AppColor().backgroundColor,
