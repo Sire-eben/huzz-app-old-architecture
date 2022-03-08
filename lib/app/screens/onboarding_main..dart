@@ -57,8 +57,8 @@ class _OnboardingMainState extends State<OnboardingMain> {
                       top: 40,
                       child: GestureDetector(
                         onTap: () {
-                            _authController.pref!.setFirstTimeOpen(false);
-                          Get.to(RegHome());
+                          _authController.pref!.setFirstTimeOpen(false);
+                          Get.offAll(RegHome());
                         },
                         child: Text(
                           "Skip",
@@ -177,7 +177,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                   : InkWell(
                       onTap: () {
                         _authController.pref!.setFirstTimeOpen(false);
-                        Get.to(RegHome());
+                        Get.offAll(RegHome());
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
