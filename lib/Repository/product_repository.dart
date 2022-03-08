@@ -29,7 +29,7 @@ class ProductRepository extends GetxController
   List<Product> get offlineBusinessProduct => _offlineBusinessProduct.value;
   List<Product> get onlineBusinessProduct => _onlineBusinessProduct.value;
   List<Product> pendingBusinessProduct = [];
-  List<String> units=[
+  List<String> units = [
     'Box',
     'feet',
     'kilogram',
@@ -77,7 +77,7 @@ class ProductRepository extends GetxController
   dynamic get totalProduct => _totalProduct.value;
   dynamic get totalService => _totalService.value;
   var uuid = Uuid();
-    final _miscellaneousController=Get.find<MiscellaneousRepository>();
+  final _miscellaneousController = Get.find<MiscellaneousRepository>();
   @override
   void onInit() async {
     // ignore: todo
@@ -85,13 +85,11 @@ class ProductRepository extends GetxController
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
 
-_miscellaneousController.unitTypeList.listen((p0) {
-  
-if(p0.isNotEmpty){
-
-  units=p0;
-}
-});
+    _miscellaneousController.unitTypeList.listen((p0) {
+      if (p0.isNotEmpty) {
+        units = p0;
+      }
+    });
     //  await sqliteDb.openDatabae();
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
@@ -145,7 +143,7 @@ if(p0.isNotEmpty){
                 _businessController.selectedBusiness.value!.businessId!,
             "productType": type,
             "productLogoFileStoreUrl": fileId,
-            "description":serviceDescription.text
+            "description": serviceDescription.text
           }),
           headers: {
             "Content-Type": "application/json",
@@ -184,7 +182,7 @@ if(p0.isNotEmpty){
   // ignore: non_constant_identifier_names
   Future UpdateBusinessProduct(Product product, String title) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      updateBusinessProductOnline(product, title);
+      updateBusinessProductOnline( product, title);
     } else {
       updateBusinessProductOffline(product, title);
     }
@@ -259,7 +257,7 @@ if(p0.isNotEmpty){
     print("product offline saving ${product.toJson()}");
     _businessController.sqliteDb.updateOfflineProdcut(product);
     clearValue();
-    Get.to(Confirmation(
+    Get.off(Confirmation(
       text: "Updated",
       title: title,
     ));
@@ -277,6 +275,7 @@ if(p0.isNotEmpty){
 
   Future updateBusinessProductOnline(Product product, String title) async {
     try {
+      print("product name is ${productNameController.text}");
       _addingProductStatus(AddingProductStatus.Loading);
       // ignore: avoid_init_to_null
       String? fileId = null;
@@ -295,9 +294,9 @@ if(p0.isNotEmpty){
                 "sellingPrice": productSellingPriceController.numberValue,
 // "quantity":productQuantityController.text,
                 "businessId": product.businessId,
-                "productType": tabController!.index == 0 ? "GOODS" : "SERVICES",
+                "productType": product.productType,
                 "productLogoFileStoreUrl": fileId,
-                "description":serviceDescription.text
+                "description": serviceDescription.text
               }),
               headers: {
             "Content-Type": "application/json",
@@ -310,7 +309,7 @@ if(p0.isNotEmpty){
         getOnlineProduct(
             _businessController.selectedBusiness.value!.businessId!);
 
-        Get.to(Confirmation(
+        Get.off(Confirmation(
           text: "Updated",
           title: title,
         ));
@@ -330,7 +329,7 @@ if(p0.isNotEmpty){
     productQuantityController.text = product.quantityLeft!.toString();
     productCostPriceController.text = product.costPrice.toString();
     productSellingPriceController.text = product.sellingPrice.toString();
-    serviceDescription.text=product.description!;
+    serviceDescription.text = product.description!;
     productUnitController.text = "";
     // serviceDescription.text = product.;
     selectedProduct = product;
@@ -405,7 +404,7 @@ if(p0.isNotEmpty){
         services.add(element);
         totalservice = totalservice + element.costPrice;
       } else {
-        totalproduct = totalproduct + element.costPrice;
+        totalproduct = totalproduct + element.sellingPrice;
         goods.add(element);
       }
     });
@@ -649,7 +648,7 @@ if(p0.isNotEmpty){
                 "productType": updatenext.productType,
                 "productLogoFileStoreUrl":
                     fileId ?? updatenext.productLogoFileStoreId,
-                    "description":updatenext.description
+                "description": updatenext.description
               }),
               headers: {
             "Content-Type": "application/json",

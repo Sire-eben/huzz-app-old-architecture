@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:io';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';

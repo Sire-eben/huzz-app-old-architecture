@@ -58,7 +58,7 @@ class _RecordsState extends State<Records> {
   final display = createDisplay(
     roundingType: RoundingType.floor,
     length: 15,
-    decimal: 5,
+    decimal: 0,
   );
 
   Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
@@ -144,7 +144,7 @@ class _RecordsState extends State<Records> {
                     horizontal: MediaQuery.of(context).size.height * 0.03),
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                  height: 90,
+                  height: 100,
                   decoration: BoxDecoration(
                     color: AppColor().backgroundColor,
                     borderRadius: BorderRadius.circular(12),

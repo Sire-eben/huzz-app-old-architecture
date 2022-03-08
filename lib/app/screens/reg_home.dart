@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/home_respository.dart';
@@ -7,7 +6,6 @@ import 'package:huzz/app/screens/create_pin.dart';
 import 'package:huzz/app/screens/enter_otp.dart';
 import 'package:huzz/app/screens/sign_up.dart';
 import 'package:huzz/colors.dart';
-
 import 'send_otp.dart';
 
 class RegHome extends StatefulWidget {
@@ -36,6 +34,7 @@ class _RegHome extends State<RegHome> {
     selectedIndex = 0;
     return Obx(() {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -55,11 +54,10 @@ class _RegHome extends State<RegHome> {
                       left: 20,
                       child: GestureDetector(
                         onTap: () {
-                          if(  _homeController.onboardingRegSelectedIndex>0){
-
+                          if (_homeController.onboardingRegSelectedIndex > 0) {
                             _homeController.selectedOnboardSelectedPrevious();
-                          }else{
-                          Get.back();
+                          } else {
+                            Get.back();
                           }
                         },
                         child: Icon(
@@ -99,13 +97,11 @@ class _RegHome extends State<RegHome> {
                     itemCount: 4,
                     itemBuilder: (_, index) {
                       return GestureDetector(
-                        onTap: (){
-                          
+                        onTap: () {
                           print("index number is $index");
-                           if(index <=
-                                    _homeController.onboardingRegSelectedIndex)
+                          if (index <=
+                              _homeController.onboardingRegSelectedIndex)
                             _homeController.gotoIndex(index);
-                          
                         },
                         child: Container(
                           margin: EdgeInsets.only(left: 10),

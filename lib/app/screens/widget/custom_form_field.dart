@@ -2,6 +2,7 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
@@ -9,7 +10,7 @@ import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/colors.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField(
+ const CustomTextField(
       {this.hint,
       this.label,
       this.pretext,
@@ -30,6 +31,7 @@ class CustomTextField extends StatelessWidget {
       // ignore: non_constant_identifier_names
       this.AllowClickable = false,
       this.validatorText,
+      this.inputformater,
       this.onClick});
   final VoidCallback? onClick;
   final Color? colors;
@@ -50,6 +52,7 @@ class CustomTextField extends StatelessWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
+  final List<TextInputFormatter>? inputformater;
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +93,7 @@ class CustomTextField extends StatelessWidget {
 
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
+                inputFormatters: inputformater==null?[]:inputformater,
                   autofocus: true,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
@@ -166,7 +170,8 @@ class CustomTextFieldOptional extends StatelessWidget {
       this.onChanged,
       this.AllowClickable = false,
       this.validatorText,
-      this.onClick});
+      this.onClick,
+      this.inputformater});
   final VoidCallback? onClick;
   final bool? AllowClickable;
   final String? hint;
@@ -184,6 +189,8 @@ class CustomTextFieldOptional extends StatelessWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
+    final List<TextInputFormatter>? inputformater;
+
 
   @override
   Widget build(BuildContext context) {
@@ -206,6 +213,7 @@ class CustomTextFieldOptional extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.only(left: 20, right: 20, top: 10),
               child: TextFormField(
+                   inputFormatters: inputformater==null?[]:inputformater,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
                   controller: textEditingController,
@@ -273,7 +281,8 @@ class CustomTextFieldOnly extends StatelessWidget {
       this.onChanged,
       this.AllowClickable = false,
       this.validatorText,
-      this.onClick});
+      this.onClick,
+      this.inputformater});
   final VoidCallback? onClick;
   final bool? AllowClickable;
   final String? hint;
@@ -291,13 +300,14 @@ class CustomTextFieldOnly extends StatelessWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
-
+  final List<TextInputFormatter>? inputformater;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: 20, right: 20, top: 10),
       child: TextFormField(
+           inputFormatters: inputformater==null?[]:inputformater,
           onChanged: this.onChanged,
           maxLength: this.maxLength,
           controller: textEditingController,
@@ -361,7 +371,8 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
       this.onChanged,
       this.AllowClickable = false,
       this.validatorText,
-      this.onClick});
+      this.onClick,
+      this.inputformater});
   final VoidCallback? onClick;
   final bool? AllowClickable;
   final String? hint;
@@ -379,6 +390,7 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
+    final List<TextInputFormatter>? inputformater;
 
   @override
   Widget build(BuildContext context) {
@@ -401,6 +413,7 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
+                   inputFormatters: inputformater==null?[]:inputformater,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
                   controller: textEditingController,
@@ -468,7 +481,8 @@ class CustomTextFieldOption extends StatelessWidget {
       this.onChanged,
       this.AllowClickable = false,
       this.validatorText,
-      this.onClick});
+      this.onClick,
+      this.inputformater});
   final VoidCallback? onClick;
   final bool? AllowClickable;
   final String? hint;
@@ -486,6 +500,7 @@ class CustomTextFieldOption extends StatelessWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
+    final List<TextInputFormatter>? inputformater;
 
   @override
   Widget build(BuildContext context) {
@@ -517,6 +532,7 @@ class CustomTextFieldOption extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.only(left: 20, right: 20, top: 10),
               child: TextFormField(
+                   inputFormatters: inputformater==null?[]:inputformater,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
                   controller: textEditingController,
@@ -586,7 +602,8 @@ class CustomTextFieldWithImage extends StatefulWidget {
       this.onChanged,
       this.AllowClickable = false,
       this.validatorText,
-      this.onClick});
+      this.onClick,
+      this.inputformater});
   final VoidCallback? onClick;
   final bool? AllowClickable;
   final String? hint;
@@ -604,6 +621,7 @@ class CustomTextFieldWithImage extends StatefulWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
+    final List<TextInputFormatter>? inputformater;
 
   @override
   _CustomTextFieldWithImageState createState() =>
@@ -711,6 +729,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                 Container(
                   margin: EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: TextFormField(
+                    
                       onChanged: this.widget.onChanged,
                       maxLength: this.widget.maxLength,
                       controller: widget.contactName,
@@ -964,6 +983,7 @@ class CustomTextFieldWithImageTransaction extends StatefulWidget {
       this.onChanged,
       this.AllowClickable = false,
       this.validatorText,
+      this.inputformater,
       this.onClick});
   final VoidCallback? onClick;
   final bool? AllowClickable;
@@ -986,6 +1006,7 @@ class CustomTextFieldWithImageTransaction extends StatefulWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
+    final List<TextInputFormatter>? inputformater;
 
   @override
   _CustomTextFieldWithImageTransactionState createState() =>
@@ -1320,7 +1341,8 @@ class CustomTextFieldInvoice extends StatefulWidget {
       this.validatorText,
       this.onClick,
       this.contactAmount,
-      this.contactDescription});
+      this.contactDescription,
+      this.inputformater});
   final VoidCallback? onClick;
   // ignore: non_constant_identifier_names
   final bool? AllowClickable;
@@ -1344,6 +1366,7 @@ class CustomTextFieldInvoice extends StatefulWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
+    final List<TextInputFormatter>? inputformater;
 
   @override
   _CustomTextFieldInvoiceState createState() => _CustomTextFieldInvoiceState();

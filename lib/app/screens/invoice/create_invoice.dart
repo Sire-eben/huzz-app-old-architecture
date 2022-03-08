@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/bank_account_repository.dart';
@@ -445,7 +448,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         label: 'Account Number',
                         hint: 'account number',
                         validatorText: "Account Number is required",
-                        keyType: TextInputType.phone,
+                        keyType: Platform.isIOS
+                            ? TextInputType.numberWithOptions(
+                                signed: true, decimal: true)
+                            : TextInputType.number,
                         textEditingController:
                             _bankAccountController.accoutNumberController,
                       ),
@@ -619,7 +625,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                           textEditingController:
                                               _invoiceController
                                                   .amountController,
-                                          keyType: TextInputType.phone,
+                                          keyType:  Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number
                                         ),
                                       ),
                                       SizedBox(
@@ -631,7 +637,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         child: CustomTextField(
                                             label: "Quantity",
                                             hint: '4',
-                                            keyType: TextInputType.phone,
+                                            keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                             validatorText: "Quantity is needed",
                                             onChanged: (value) {
                                               print("value is $value");
@@ -727,7 +733,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         validatorText: "Amount is needed",
                                         textEditingController:
                                             _invoiceController.amountController,
-                                        keyType: TextInputType.phone,
+                                        keyType:  Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                       ),
                                     ),
                                     SizedBox(
@@ -742,7 +748,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         textEditingController:
                                             _invoiceController
                                                 .quantityController,
-                                        keyType: TextInputType.phone,
+                                                inputformater: [FilteringTextInputFormatter.digitsOnly],
+                                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                       ),
                                     )
                                   ],
@@ -824,8 +831,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       child: CustomTextFieldInvoiceOptional(
                         label: 'Tax(%)',
                         hint: '0',
-                        keyType: TextInputType.number,
-                        textEditingController: _invoiceController.taxController,
+                        inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number
                       ),
                     ),
                     SizedBox(width: 10),
@@ -833,7 +840,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       child: CustomTextFieldInvoiceOptional(
                         label: 'Discount(%)',
                         hint: '0',
-                        keyType: TextInputType.number,
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                         textEditingController:
                             _invoiceController.discountController,
                       ),
@@ -1181,6 +1188,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       child: CustomTextField(
                         label: "Amount",
                         validatorText: "amount is needed",
+                         inputformater: [FilteringTextInputFormatter.digitsOnly],
+                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                      
                         hint: '0',
                       ),
                     ),

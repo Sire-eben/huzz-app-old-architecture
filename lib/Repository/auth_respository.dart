@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +22,7 @@ import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../app/screens/enter_otp.dart';
 import 'fingerprint_repository.dart';
 import 'home_respository.dart';
 
@@ -59,7 +58,7 @@ class AuthRepository extends GetxController {
   late final forgotOtpController = TextEditingController();
   late final forgetpinController = TextEditingController();
   late final verifypinController = TextEditingController();
-var confirmPinController = TextEditingController();
+  var confirmPinController = TextEditingController();
   var phoneNumberController = TextEditingController();
   late final updatePhoneNumberController = TextEditingController();
   late final forgotPhoneNumberController = TextEditingController();
@@ -159,17 +158,17 @@ var confirmPinController = TextEditingController();
   }
 
   Future sendSmsOtp({bool isresend = false}) async {
-    print("phone number ${countryText}${phoneNumberController.text}");
+    print("phone number ${user!.phoneNumber}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.send_smsOtp),
-          body: jsonEncode(
-              {"phoneNumber": countryText + phoneNumberController.text}),
+          body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
           headers: {"Content-Type": "application/json"});
       print("response is ${response.body}");
       if (response.statusCode == 200) {
         _Otpauthstatus(OtpAuthStatus.Success);
-        if (!isresend) _homeController.selectOnboardSelectedNext();
+        if (!isresend) Get.to(() => EnterOtp());
+        // if (!isresend) _homeController.selectOnboardSelectedNext();
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
       }
@@ -207,8 +206,7 @@ var confirmPinController = TextEditingController();
   Future sendVoiceOtp() async {
     // _Otpauthstatus(OtpAuthStatus.Loading);
     final response = await http.post(Uri.parse(ApiLink.send_voiceOtp),
-        body: jsonEncode(
-            {"phoneNumber": countryText + phoneNumberController.text.trim()}),
+        body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
         headers: {"Content-Type": "application/json"});
     print("otp sent voice ${response.body}");
     if (response.statusCode == 200) {
@@ -223,7 +221,7 @@ var confirmPinController = TextEditingController();
       _Otpverifystatus(OtpVerifyStatus.Loading);
       final resposne = await http.post(Uri.parse(ApiLink.verify_otp),
           body: jsonEncode({
-            "phoneNumber": countryText + phoneNumberController.text.trim(),
+            "phoneNumber": "${user!.phoneNumber}",
             "otp": otpController.text
           }),
           headers: {"Content-Type": "application/json"});
@@ -232,10 +230,12 @@ var confirmPinController = TextEditingController();
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
         if (json['success']) {
-          _homeController.selectOnboardSelectedNext();
+          // _homeController.selectOnboardSelectedNext();
 
           _Otpverifystatus(OtpVerifyStatus.Success);
           Get.snackbar("Success", "Otp verified successfully");
+
+          logout();
         } else {
           _Otpverifystatus(OtpVerifyStatus.Error);
           Get.snackbar("Error", "Unable to verify Otp");
@@ -542,21 +542,22 @@ var confirmPinController = TextEditingController();
   void deleteUsersAccounts() async {
     _authStatus(AuthStatus.Loading);
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final key = 'token';
-      final value = prefs.get(key) ?? 0;
+      // final prefs = await SharedPreferences.getInstance();
+      // final key = 'token';
+      // final value = prefs.get(key) ?? 0;
 
       String myUrl = ApiLink.delete_user;
       var response = await http.delete(Uri.parse(myUrl), headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer $value'
+        'Authorization': 'Bearer $token'
       });
 
       // ignore: unnecessary_null_comparison
+      print("delete account response ${response.body}");
       if (response.statusCode != null) {
         // ignore: unnecessary_null_comparison
         if (response != null) {
-          _authStatus(AuthStatus.Authenticated);
+          _authStatus(AuthStatus.Empty);
           accountDeletelogout();
         }
       } else {
@@ -581,13 +582,13 @@ var confirmPinController = TextEditingController();
         'Authorization': 'Bearer $value'
       });
 
+
       // ignore: unnecessary_null_comparison
-      if (response.statusCode != null) {
+      if (response.statusCode==200) {
         // ignore: unnecessary_null_comparison
         if (response != null) {
-          _authStatus(AuthStatus.Authenticated);
-
-          Get.offAll(() => Signup());
+          Get.snackbar("Success","Your Business account have been deleted.");
+          // logout();
         }
       } else {
         _authStatus(AuthStatus.Empty);
@@ -614,6 +615,7 @@ var confirmPinController = TextEditingController();
   }
 
   void clearDatabase() async {
+    pref!.setLastSelectedBusiness("");
     await sqliteDb.openDatabae();
     await sqliteDb.deleteAllOfflineBusiness();
     await sqliteDb.deleteAllOfflineTransaction();

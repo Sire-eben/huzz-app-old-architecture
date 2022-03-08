@@ -46,11 +46,13 @@ class PinSuccesful extends StatelessWidget {
                 style:
                     TextStyle(fontSize: 30, color: AppColor().backgroundColor),
               )),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
+          Spacer(),
+          Center(
+            child: Image.asset(
+              'assets/images/checker.png',
+            ),
           ),
-          SvgPicture.asset("assets/images/Vector(2).svg"),
-          Expanded(child: SizedBox()),
+          Spacer(),
           GestureDetector(
             onTap: () {
               Get.to(CreateBusiness());
@@ -73,13 +75,6 @@ class PinSuccesful extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  //  Container(padding: EdgeInsets.all(3),
-                  //    decoration:BoxDecoration(
-                  //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
-
-                  //    ),
-                  //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
-                  //  )
                 ],
               ),
             ),

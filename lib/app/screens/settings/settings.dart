@@ -1,16 +1,15 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/app/screens/enter_otp.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/user.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'notification.dart';
 import 'personalInfo.dart';
 
@@ -434,6 +433,70 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                   ),
+
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // LogOut
+                  controller.user!.phoneNumberVerified == true
+                      ? Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: AppColor().backgroundColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Phone Number Verified',
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'DMSans',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        )
+                      : Obx(() {
+                          return InkWell(
+                            onTap: () {
+                              _displayVerifyPhoneDialog(context);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              height: 55,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: AppColor().orangeBorderColor,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: (controller.Otpauthstatus ==
+                                      OtpAuthStatus.Loading)
+                                  ? Container(
+                                      width: 30,
+                                      height: 30,
+                                      child: Center(
+                                          child: CircularProgressIndicator(
+                                              color: Colors.white)),
+                                    )
+                                  : Center(
+                                      child: Text(
+                                        'Verify your Phone Number',
+                                        style: TextStyle(
+                                          color: AppColor().whiteColor,
+                                          fontFamily: 'DMSans',
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                            ),
+                          );
+                        }),
                 ],
               ),
             ),
@@ -676,6 +739,118 @@ class _SettingsState extends State<Settings> {
                         child: Center(
                           child: Text(
                             'Delete',
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  _displayVerifyPhoneDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 50,
+              vertical: 280,
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: Text(
+                    'Verify your phone number?',
+                    style: TextStyle(
+                      color: AppColor().orangeBorderColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Container(
+              child: Text(
+                'Please click continue if you want to proceed',
+                style: TextStyle(
+                  color: AppColor().blackColor,
+                  fontFamily: 'DMSans',
+                  fontWeight: FontWeight.normal,
+                  fontSize: 11,
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().orangeBorderColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: AppColor().orangeBorderColor,
+                              fontFamily: 'DMSans',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        controller.sendSmsOtp();
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().orangeBorderColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Continue',
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'DMSans',
