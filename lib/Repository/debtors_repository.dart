@@ -49,16 +49,15 @@ class DebtorRepository extends GetxController
   Rx<File?> DebtorImage = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
 
-  final totalAmountController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
-  final amountController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
+  MoneyMaskedTextController totalAmountController = MoneyMaskedTextController(
+ decimalSeparator: '.', thousandSeparator: ',');
+MoneyMaskedTextController amountController = MoneyMaskedTextController( decimalSeparator: '.', thousandSeparator: ',');
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final serviceDescription = TextEditingController();
 
-  final DebtorSellingPriceController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
+  MoneyMaskedTextController DebtorSellingPriceController = MoneyMaskedTextController(
+     decimalSeparator: '.', thousandSeparator: ',');
   final DebtorQuantityController = TextEditingController();
   final DebtorUnitController = TextEditingController();
 
@@ -104,6 +103,12 @@ class DebtorRepository extends GetxController
         }
         _businessController.selectedBusiness.listen((p0) {
           if (p0 != null&& p0.businessId!=null) {
+            totalAmountController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
+       amountController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
+      DebtorSellingPriceController = MoneyMaskedTextController( leftSymbol: '${Utils.getCurrency()} ',
+     decimalSeparator: '.', thousandSeparator: ',');
             print("business id ${p0.businessId}");
             _offlineBusinessDebtor([]);
 
@@ -112,6 +117,7 @@ class DebtorRepository extends GetxController
             _DebtorGoods([]);
             getOnlineDebtor(p0.businessId!);
             getOfflineDebtor(p0.businessId!);
+             
           }
         });
       }

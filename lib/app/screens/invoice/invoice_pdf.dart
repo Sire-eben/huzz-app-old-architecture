@@ -36,7 +36,7 @@ class PdfInvoiceApi {
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(bank!, invoice),
+        buildHeader(bank, invoice),
         SizedBox(height: 1 * PdfPageFormat.cm),
         buildInvoice(invoice),
         Divider(),
@@ -51,7 +51,7 @@ class PdfInvoiceApi {
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(Bank bank, Invoice invoice) => Container(
+  static Widget buildHeader(Bank? bank, Invoice invoice) => Container(
       padding: EdgeInsets.all(20),
       color: PdfColors.blue,
       child: Column(
@@ -108,7 +108,7 @@ class PdfInvoiceApi {
     );
   }
 
-  static Widget buildBankDetails(Bank bankDetails, Invoice invoice) => Column(
+  static Widget buildBankDetails(Bank? bankDetails, Invoice invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
@@ -138,12 +138,12 @@ class PdfInvoiceApi {
           Text("Transfer",
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
-          Text(bankDetails.bankAccountName!,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
-          Text(bankDetails.bankAccountNumber!,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
-          Text(bankDetails.bankName!,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+       (bankDetails!=null)?   Text(bankDetails.bankAccountName!,
+              style: TextStyle(color: PdfColors.white, fontSize: 10)):pw.Container(),
+          (bankDetails!=null)?   Text(bankDetails.bankAccountNumber!,
+              style: TextStyle(color: PdfColors.white, fontSize: 10)):pw.Container(),
+          (bankDetails!=null)?   Text(bankDetails.bankName!,
+              style: TextStyle(color: PdfColors.white, fontSize: 10)):pw.Container(),
         ],
       );
 
@@ -288,21 +288,21 @@ class PdfInvoiceApi {
       SizedBox(width: Get.width * 0.20),
       Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
         Text(
-          '${  utils.Utils.getCurrency()} $totalAmount',
+          '$totalAmount',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          '${  utils.Utils.getCurrency()} ${invoice.tax}',
+          '${invoice.tax}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          '${  utils.Utils.getCurrency()} ${invoice.discountAmount}',
+          ' ${invoice.discountAmount}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,

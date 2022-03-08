@@ -47,13 +47,13 @@ class ProductRepository extends GetxController
   dynamic get productImage => MproductImage.value;
   SqliteDb sqliteDb = SqliteDb();
   final productNameController = TextEditingController();
-  final productCostPriceController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
+MoneyMaskedTextController productCostPriceController = MoneyMaskedTextController(
+     
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
-  final productSellingPriceController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
+MoneyMaskedTextController productSellingPriceController = MoneyMaskedTextController(
+      
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -98,9 +98,21 @@ class ProductRepository extends GetxController
         if (value != null && value.businessId!=null) {
           getOnlineProduct(value.businessId!);
           getOfflineProduct(value.businessId!);
+        
         }
         _businessController.selectedBusiness.listen((p0) {
           if (p0 != null&& p0.businessId!=null) {
+              productCostPriceController= MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
+
+ productSellingPriceController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
             print("business id ${p0.businessId}");
             _offlineBusinessProduct([]);
 
@@ -109,6 +121,7 @@ class ProductRepository extends GetxController
             _productGoods([]);
             getOnlineProduct(p0.businessId!);
             getOfflineProduct(p0.businessId!);
+         
           }
         });
       }

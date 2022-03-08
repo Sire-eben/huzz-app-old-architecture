@@ -158,15 +158,15 @@ class _CreateBusinessState extends State<CreateBusiness> {
                   GestureDetector(
                     onTap: () {
                       // Get.to(Signin());
-
-                      if (_businessController.createBusinessStatus !=
-                          CreateBusinessStatus
-                              .Loading) if (key.currentState!.validate()) {
-                        if (_businessController.businessCurrency.text.isEmpty) {
+   if (_businessController.businessCurrency.text.isEmpty) {
                           Get.snackbar(
                               "Error", "Kindly select currency to proceed");
                           return;
                         }
+                      if (_businessController.createBusinessStatus !=
+                          CreateBusinessStatus
+                              .Loading) if (key.currentState!.validate()) {
+                     
                         _businessController.createBusiness();
                       }
                     },

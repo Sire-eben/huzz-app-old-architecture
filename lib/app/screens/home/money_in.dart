@@ -171,7 +171,7 @@ class _MoneyInState extends State<MoneyIn> {
                         children: [
                           InkWell(
                             onTap: () {
-                              _transactionController.amountController.text = "";
+                              _transactionController.amountController!.text = "";
                               _transactionController.itemNameController.text =
                                   "";
                               _transactionController.selectedProduct = null;
@@ -188,7 +188,7 @@ class _MoneyInState extends State<MoneyIn> {
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
                                       _transactionController
-                                          .amountController.text = "";
+                                          .amountController!.text = "";
                                       _transactionController
                                           .itemNameController.text = "";
                                       _transactionController.selectedProduct =
@@ -211,7 +211,7 @@ class _MoneyInState extends State<MoneyIn> {
                           ),
                           InkWell(
                             onTap: () {
-                              _transactionController.amountController.text = "";
+                              _transactionController.amountController!.text = "";
                               _transactionController.itemNameController.text =
                                   "";
                               _transactionController.selectedProduct = null;
@@ -227,7 +227,7 @@ class _MoneyInState extends State<MoneyIn> {
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
                                       _transactionController
-                                          .amountController.text = "";
+                                          .amountController!.text = "";
                                       _transactionController
                                           .itemNameController.text = "";
                                       _transactionController.selectedProduct =
@@ -292,7 +292,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       },
                                       textEditingController:
                                           _transactionController
-                                              .amountController,
+                                              .amountController!,
                                       inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                     ),
@@ -390,7 +390,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       _transactionController
                                           .selectedProduct!.quantity = 1;
                                       _transactionController
-                                              .amountController.text =
+                                              .amountController!.text =
                                           value!.sellingPrice!.toString();
                                       _transactionController.quantityController
                                           .text = 1.toString();
@@ -407,7 +407,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       validatorText: "Amount is needed",
                                       textEditingController:
                                           _transactionController
-                                              .amountController,
+                                              .amountController!,
                                       inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                     ),
@@ -464,7 +464,7 @@ class _MoneyInState extends State<MoneyIn> {
                       _transactionController
                               .itemNameController.text.isNotEmpty &&
                           _transactionController
-                              .amountController.text.isNotEmpty) {
+                              .amountController!.text.isNotEmpty) {
                     if (_transactionController.productList.isEmpty) {
                       _transactionController.addMoreProduct();
                     }
@@ -495,7 +495,7 @@ class _MoneyInState extends State<MoneyIn> {
                                             .text
                                             .isNotEmpty &&
                                         _transactionController
-                                            .amountController.text.isNotEmpty)
+                                            .amountController!.text.isNotEmpty)
                                 ? AppColor().backgroundColor
                                 : AppColor().backgroundColor.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(45)),
@@ -1184,7 +1184,7 @@ class _MoneyInState extends State<MoneyIn> {
                               hint: 'N0.00',
                               validatorText: "Amount name is needed",
                               textEditingController:
-                                  _transactionController.amountController,
+                                  _transactionController.amountController!,
                           inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
 
@@ -1250,7 +1250,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       value;
                                   _transactionController
                                       .selectedProduct!.quantity = 1;
-                                  _transactionController.amountController.text =
+                                  _transactionController.amountController!.text =
                                       value!.sellingPrice!.toString();
                                   _transactionController
                                       .quantityController.text = 1.toString();
@@ -1273,7 +1273,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   },
                                   validatorText: "Amount is needed",
                                   textEditingController:
-                                      _transactionController.amountController,
+                                      _transactionController.amountController!,
                                   inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                 ),
@@ -1437,7 +1437,7 @@ class _MoneyInState extends State<MoneyIn> {
                         enabled:
                             item.productId == null || item.productId!.isEmpty,
                         textEditingController:
-                            _transactionController.amountController,
+                            _transactionController.amountController!,
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                       ),

@@ -65,8 +65,8 @@ class InvoiceRespository extends GetxController {
   List<Invoice> todayInvoice = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
-  final amountController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
+ MoneyMaskedTextController amountController = MoneyMaskedTextController(
+    
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -76,8 +76,8 @@ class InvoiceRespository extends GetxController {
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
-  final amountPaidController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
+ MoneyMaskedTextController amountPaidController = MoneyMaskedTextController(
+   
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -167,6 +167,17 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
         }
         _businessController.selectedBusiness.listen((p0) {
           if (p0 != null && p0.businessId!=null) {
+              amountController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
+
+      amountPaidController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()} ',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
             print("business id ${p0.businessId}");
             _offlineInvoices([]);
             _allPaymentItem([]);
@@ -174,6 +185,7 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
             getOnlineInvoice(p0.businessId!);
 
             GetOfflineInvoices(p0.businessId!);
+          
             // getSpending(p0.businessId!);
 
           }

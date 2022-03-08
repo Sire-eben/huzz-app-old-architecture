@@ -174,7 +174,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         children: [
                           InkWell(
                             onTap: () {
-                              _transactionController.amountController.text = "";
+                              _transactionController.amountController!.text = "";
                               _transactionController.itemNameController.text =
                                   "";
                               _transactionController.selectedProduct = null;
@@ -190,7 +190,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
                                       _transactionController
-                                          .amountController.text = "";
+                                          .amountController!.text = "";
                                       _transactionController
                                           .itemNameController.text = "";
                                       _transactionController.selectedProduct =
@@ -213,7 +213,7 @@ class _MoneyOutState extends State<MoneyOut> {
                           ),
                           InkWell(
                             onTap: () {
-                              _transactionController.amountController.text = "";
+                              _transactionController.amountController!.text = "";
                               _transactionController.itemNameController.text =
                                   "";
                               _transactionController.selectedProduct = null;
@@ -229,7 +229,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
                                       _transactionController
-                                          .amountController.text = "";
+                                          .amountController!.text = "";
                                       _transactionController
                                           .itemNameController.text = "";
                                       _transactionController.selectedProduct =
@@ -388,7 +388,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                       _transactionController
                                           .selectedProduct!.quantity = 1;
                                       _transactionController
-                                              .amountController.text =
+                                              .amountController!.text =
                                           value!.sellingPrice!.toString();
                                       _transactionController.quantityController
                                           .text = 1.toString();
@@ -466,7 +466,7 @@ class _MoneyOutState extends State<MoneyOut> {
                       _transactionController
                               .itemNameController.text.isNotEmpty &&
                           _transactionController
-                              .amountController.text.isNotEmpty) {
+                              .amountController!.text.isNotEmpty) {
                     if (_transactionController.productList.isEmpty) {
                       _transactionController.addMoreProduct();
                     }
@@ -497,7 +497,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                             .text
                                             .isNotEmpty &&
                                         _transactionController
-                                            .amountController.text.isNotEmpty)
+                                            .amountController!.text.isNotEmpty)
                                 ? AppColor().backgroundColor
                                 : AppColor().backgroundColor.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(45)),
@@ -1311,7 +1311,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                 _transactionController.selectedProduct = value;
                                 _transactionController
                                     .selectedProduct!.quantity = 1;
-                                _transactionController.amountController.text =
+                                _transactionController.amountController!.text =
                                     value!.sellingPrice!.toString();
                                 _transactionController.quantityController.text =
                                     1.toString();

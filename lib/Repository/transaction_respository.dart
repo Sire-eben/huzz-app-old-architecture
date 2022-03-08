@@ -59,8 +59,8 @@ class TransactionRespository extends GetxController {
   String customText = "";
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
-  final amountController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
+ MoneyMaskedTextController? amountController= new MoneyMaskedTextController(
+
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -70,8 +70,8 @@ class TransactionRespository extends GetxController {
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
-  final amountPaidController = new MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
+   MoneyMaskedTextController amountPaidController = new MoneyMaskedTextController(
+
       decimalSeparator: '.',
       thousandSeparator: ',',
       precision: 1);
@@ -184,6 +184,17 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
         }
         _businessController.selectedBusiness.listen((p0) async {
           if (p0 != null && p0.businessId!=null) {
+                  print("changing textfield in transaction");
+ amountController = MoneyMaskedTextController(
+      leftSymbol: '${Utils.getCurrency()}',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
+       amountPaidController = new MoneyMaskedTextController(
+      leftSymbol:'${Utils.getCurrency()}',
+      decimalSeparator: '.',
+      thousandSeparator: ',',
+      precision: 1);
             print("business id ${p0.businessId}");
             _offlineTransactions([]);
             _allPaymentItem([]);
@@ -194,7 +205,9 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
             await GetOfflineTransactions(p0.businessId!);
             await getOnlineTransaction(p0.businessId!);
             splitCurrentTime();
+      
 
+     
             // getSpending(p0.businessId!);
 
           }
@@ -1832,7 +1845,7 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
   clearValue() {
     print("clearing value");
     itemNameController.text = "";
-    amountController.clear();
+    amountController!.clear();
     quantityController.text = "1";
     dateController.text = "";
     timeController.text = "";
@@ -1895,21 +1908,21 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
   }
 
   void addMoreProduct() {
-    print("qunatity text is ${amountController.numberValue}");
+    print("qunatity text is ${amountController!.numberValue}");
     if (selectedValue == 0) {
       if (selectedProduct != null)
         productList.add(PaymentItem(
             productId: selectedProduct!.productId!,
             itemName: selectedProduct!.productName,
-            amount: (amountController.text.isEmpty)
+            amount: (amountController!.text.isEmpty)
                 ? selectedProduct!.sellingPrice
-                : amountController.numberValue,
-            totalAmount: (amountController.text.isEmpty)
+                : amountController!.numberValue,
+            totalAmount: (amountController!.text.isEmpty)
                 ? (selectedProduct!.sellingPrice! *
                     (quantityController.text.isEmpty
                         ? 1
                         : int.parse(quantityController.text)))
-                : amountController.numberValue *
+                : amountController!.numberValue *
                     (quantityController.text.isEmpty
                         ? 1
                         : int.parse(quantityController.text)),
@@ -1918,41 +1931,41 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
                 : int.parse(quantityController.text)));
     } else {
       if (itemNameController.text.isNotEmpty &&
-          amountController.numberValue > 0)
+          amountController!.numberValue > 0)
         productList.add(PaymentItem(
             itemName: itemNameController.text,
             quality: int.parse(quantityController.text),
-            amount: amountController.numberValue,
-            totalAmount: amountController.numberValue *
+            amount: amountController!.numberValue,
+            totalAmount: amountController!.numberValue *
                 int.parse(quantityController.text)));
     }
 
     selectedProduct = null;
     quantityController.text = "1";
-    amountController.clear();
+    amountController!.clear();
     itemNameController.text = "";
   }
 
   Future selectEditValue(PaymentItem item) async {
     quantityController.text = item.quality.toString();
-    amountController.text = item.amount.toString();
+    amountController!.text = item.amount.toString();
     itemNameController.text = item.itemName!;
   }
 
   Future updatePaymetItem(PaymentItem item, int index) async {
     item.itemName = itemNameController.text;
     item.quality = int.parse(quantityController.text);
-    item.amount = amountController.numberValue;
+    item.amount = amountController!.numberValue;
     productList[index] = item;
     quantityController.text = "1";
-    amountController.clear();
+    amountController!.clear();
     itemNameController.text = "";
   }
 
   Future setValue(PaymentItem item) async {
     if (item.productId == null || item.productId!.isEmpty) {
       quantityController.text = item.quality.toString();
-      amountController.text = item.amount.toString();
+      amountController!.text = item.amount.toString();
       itemNameController.text = item.itemName!;
       selectedValue = 1;
     } else {

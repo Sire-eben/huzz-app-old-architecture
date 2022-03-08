@@ -136,7 +136,7 @@ class SingleInvoicePdf {
       return [
         item.item,
         '${item.quantity}',
-        '\NGN${item.amount}',
+        '${utils.Utils.getCurrency()}{item.amount}',
       ];
     }).toList();
 
