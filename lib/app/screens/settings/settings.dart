@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
-import 'package:huzz/app/screens/enter_otp.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/user.dart';
@@ -35,6 +34,7 @@ class _SettingsState extends State<Settings> {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
     print("user json ${controller.user!.toJson()}");
+
     super.initState();
   }
 

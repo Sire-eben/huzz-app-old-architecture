@@ -73,18 +73,18 @@ class _CreateBusinessState extends State<CreateBusiness> {
                   SizedBox(
                     height: 5,
                   ),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width,
-                  //   height: 100,
-                  //   child: CustomTextField(
-                  //     label: "Address (Optional)",
-                  //     textEditingController:
-                  //         _businessController.businessAddressController,
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
+                    child: CustomTextField(
+                      label: "Address (Optional)",
+                      textEditingController:
+                          _businessController.businessAddressController,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     height: 100,

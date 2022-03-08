@@ -167,6 +167,7 @@ class AuthRepository extends GetxController {
       print("response is ${response.body}");
       if (response.statusCode == 200) {
         _Otpauthstatus(OtpAuthStatus.Success);
+        Get.snackbar("Success", "Otp sent successfully");
         if (!isresend) Get.to(() => EnterOtp());
         // if (!isresend) _homeController.selectOnboardSelectedNext();
       } else {
@@ -210,6 +211,7 @@ class AuthRepository extends GetxController {
         headers: {"Content-Type": "application/json"});
     print("otp sent voice ${response.body}");
     if (response.statusCode == 200) {
+      Get.snackbar("Success", "Otp sent successfully");
     } else {
       Get.snackbar("Error", "Unable to send Otp");
     }
@@ -234,8 +236,7 @@ class AuthRepository extends GetxController {
 
           _Otpverifystatus(OtpVerifyStatus.Success);
           Get.snackbar("Success", "Otp verified successfully");
-
-          logout();
+          getUser();
         } else {
           _Otpverifystatus(OtpVerifyStatus.Error);
           Get.snackbar("Error", "Unable to verify Otp");
@@ -411,6 +412,34 @@ class AuthRepository extends GetxController {
         "Failed to update Personal Information",
       );
       _updateProfileStatus(UpdateProfileStatus.Error);
+    }
+  }
+
+  Future getUser() async {
+    try {
+      _updateProfileStatus(UpdateProfileStatus.Loading);
+      print("getting user data");
+
+      final response = await http.get(Uri.parse(ApiLink.getUser), headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${token}"
+      });
+
+      print("response of update personal info ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        print("user detail ${json}");
+        var user = User.fromJsonSettngs(json);
+        user.businessList = this.user!.businessList;
+        this.user = user;
+        pref!.setUser(user);
+        Get.offAll(() => Dashboard());
+
+        _updateProfileStatus(UpdateProfileStatus.Success);
+      }
+    } catch (ex) {
+      _updateProfileStatus(UpdateProfileStatus.Error);
+      print("error from updating personal information ${ex.toString()}");
     }
   }
 
@@ -592,12 +621,11 @@ class AuthRepository extends GetxController {
         'Authorization': 'Bearer $value'
       });
 
-
       // ignore: unnecessary_null_comparison
-      if (response.statusCode==200) {
+      if (response.statusCode == 200) {
         // ignore: unnecessary_null_comparison
         if (response != null) {
-          Get.snackbar("Success","Your Business account have been deleted.");
+          Get.snackbar("Success", "Your Business account have been deleted.");
           // logout();
         }
       } else {
