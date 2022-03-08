@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
-import 'package:huzz/Repository/home_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:timer_button/timer_button.dart';
@@ -202,8 +201,6 @@ class _EnterOtpState extends State<EnterOtp> {
                 GestureDetector(
                   onTap: () {
                     _authController.verifyOpt();
-                    // Get.off(Signup());
-                    //  _homeController.selectOnboardSelectedNext();
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

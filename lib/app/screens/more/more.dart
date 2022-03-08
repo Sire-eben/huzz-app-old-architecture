@@ -116,226 +116,226 @@ class _MoreState extends State<More> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                // Container(
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(15),
-                //   ),
-                //   child: Image.asset('assets/images/my_team.png'),
-                // ),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                // Container(
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(15),
-                //   ),
-                //   child: Image.asset('assets/images/bank_wallet.png'),
-                // ),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                // Container(
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(15),
-                //   ),
-                //   child: Image.asset('assets/images/my_store.png'),
-                // ),
-                InkWell(
-                  onTap: (() {
-                    Get.to(MyTeam());
-                  }),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Color.fromARGB(31, 150, 150, 150),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Image.asset(
-                            'assets/images/team 1.png',
-                          ),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'My Team',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Text(
-                              'Collaborate with coworkers',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.keyboard_arrow_right,
-                              color: AppColor().backgroundColor,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 10,
-                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Color.fromARGB(31, 150, 150, 150),
                   ),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 5,
-                          // horizontal: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Image.asset(
-                          'assets/images/wallett.png',
-                          height: 70,
-                          width: 100,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Bank/Wallet',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            'Maintain a Nigerian bank account',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.keyboard_arrow_right,
-                            color: AppColor().backgroundColor,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  child: Image.asset('assets/images/my_team.png'),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 10,
-                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Color.fromARGB(31, 150, 150, 150),
                   ),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Image.asset(
-                          'assets/images/storeee 1.png',
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Store',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            'Sell your products easily',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.keyboard_arrow_right,
-                            color: AppColor().backgroundColor,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  child: Image.asset('assets/images/bank_wallet.png'),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Image.asset('assets/images/my_store.png'),
+                ),
+                // InkWell(
+                //   onTap: (() {
+                //     Get.to(MyTeam());
+                //   }),
+                //   child: Container(
+                //     padding: EdgeInsets.symmetric(
+                //       horizontal: 10,
+                //       vertical: 10,
+                //     ),
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(15),
+                //       color: Color.fromARGB(31, 150, 150, 150),
+                //     ),
+                //     child: Row(
+                //       children: [
+                //         Container(
+                //           padding: EdgeInsets.symmetric(
+                //             vertical: 10,
+                //             horizontal: 8,
+                //           ),
+                //           decoration: BoxDecoration(
+                //             color: Colors.white,
+                //             borderRadius: BorderRadius.circular(5),
+                //           ),
+                //           child: Image.asset(
+                //             'assets/images/team 1.png',
+                //           ),
+                //         ),
+                //         SizedBox(
+                //           width: 15,
+                //         ),
+                //         Column(
+                //           mainAxisAlignment: MainAxisAlignment.start,
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             Text(
+                //               'My Team',
+                //               style: TextStyle(
+                //                 fontWeight: FontWeight.bold,
+                //                 fontStyle: FontStyle.normal,
+                //                 fontSize: 16,
+                //               ),
+                //             ),
+                //             Text(
+                //               'Collaborate with coworkers',
+                //               style: TextStyle(
+                //                 fontWeight: FontWeight.normal,
+                //                 fontStyle: FontStyle.normal,
+                //                 fontSize: 12,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //         Spacer(),
+                //         Row(
+                //           children: [
+                //             Icon(
+                //               Icons.keyboard_arrow_right,
+                //               color: AppColor().backgroundColor,
+                //             ),
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // Container(
+                //   padding: EdgeInsets.symmetric(
+                //     horizontal: 10,
+                //     vertical: 10,
+                //   ),
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(15),
+                //     color: Color.fromARGB(31, 150, 150, 150),
+                //   ),
+                //   child: Row(
+                //     children: [
+                //       Container(
+                //         padding: EdgeInsets.symmetric(
+                //           vertical: 5,
+                //           // horizontal: 4,
+                //         ),
+                //         decoration: BoxDecoration(
+                //           color: Colors.white,
+                //           borderRadius: BorderRadius.circular(5),
+                //         ),
+                //         child: Image.asset(
+                //           'assets/images/wallett.png',
+                //           height: 70,
+                //           width: 100,
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         width: 10,
+                //       ),
+                //       Column(
+                //         mainAxisAlignment: MainAxisAlignment.start,
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           Text(
+                //             'Bank/Wallet',
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontStyle: FontStyle.normal,
+                //               fontSize: 16,
+                //             ),
+                //           ),
+                //           Text(
+                //             'Maintain a Nigerian bank account',
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.normal,
+                //               fontStyle: FontStyle.normal,
+                //               fontSize: 12,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //       Spacer(),
+                //       Row(
+                //         children: [
+                //           Icon(
+                //             Icons.keyboard_arrow_right,
+                //             color: AppColor().backgroundColor,
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // Container(
+                //   padding: EdgeInsets.symmetric(
+                //     horizontal: 10,
+                //     vertical: 10,
+                //   ),
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(15),
+                //     color: Color.fromARGB(31, 150, 150, 150),
+                //   ),
+                //   child: Row(
+                //     children: [
+                //       Container(
+                //         padding: EdgeInsets.symmetric(
+                //           vertical: 10,
+                //           horizontal: 5,
+                //         ),
+                //         decoration: BoxDecoration(
+                //           color: Colors.white,
+                //           borderRadius: BorderRadius.circular(5),
+                //         ),
+                //         child: Image.asset(
+                //           'assets/images/storeee 1.png',
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         width: 20,
+                //       ),
+                //       Column(
+                //         mainAxisAlignment: MainAxisAlignment.start,
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           Text(
+                //             'Store',
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontStyle: FontStyle.normal,
+                //               fontSize: 16,
+                //             ),
+                //           ),
+                //           Text(
+                //             'Sell your products easily',
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.normal,
+                //               fontStyle: FontStyle.normal,
+                //               fontSize: 12,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //       Spacer(),
+                //       Row(
+                //         children: [
+                //           Icon(
+                //             Icons.keyboard_arrow_right,
+                //             color: AppColor().backgroundColor,
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(
                   height: 10,
                 ),

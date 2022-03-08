@@ -12,6 +12,8 @@ class ApiLink {
   static String signup_user = baseurl + "auth/signup";
 // ignore: non_constant_identifier_names
   static String signin_user = baseurl + "auth/login";
+
+  static String getUser = baseurl + "user/me";
 // ignore: non_constant_identifier_names
   static String create_business = baseurl + "business";
   // ignore: non_constant_identifier_names
