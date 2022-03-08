@@ -22,7 +22,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(fontSize: 14, fontFamily: 'DMSans'),
+          style: TextStyle(fontSize: 14, fontFamily: 'InterRegular'),
         ),
       );
 
@@ -47,7 +47,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
             'Notification Settings',
             style: TextStyle(
               color: AppColor().backgroundColor,
-              fontFamily: 'DMSans',
+              fontFamily: 'InterRegular',
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -73,7 +73,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
@@ -96,7 +96,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                             SizedBox(
                               height: 8,
@@ -115,7 +115,8 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                   hint: Text(
                                     'Select Notification Interval',
                                     style: TextStyle(
-                                        fontSize: 15, fontFamily: 'DMSans'),
+                                        fontSize: 15,
+                                        fontFamily: 'InterRegular'),
                                   ),
                                   value: debtorsValue,
                                   icon: Icon(
@@ -146,7 +147,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
@@ -169,7 +170,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                             SizedBox(
                               height: 8,
@@ -188,7 +189,8 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                   hint: Text(
                                     'Select Notification Interval',
                                     style: TextStyle(
-                                        fontSize: 15, fontFamily: 'DMSans'),
+                                        fontSize: 15,
+                                        fontFamily: 'InterRegular'),
                                   ),
                                   value: debtOwnedValue,
                                   icon: Icon(

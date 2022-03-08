@@ -48,7 +48,7 @@ class IncomeSuccess extends StatelessWidget {
                       'Your $title has',
                       style: TextStyle(
                         color: AppColor().backgroundColor,
-                        fontFamily: "DMSans",
+                        fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -58,7 +58,7 @@ class IncomeSuccess extends StatelessWidget {
                       'been added successfully',
                       style: TextStyle(
                         color: AppColor().backgroundColor,
-                        fontFamily: "DMSans",
+                        fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -90,7 +90,7 @@ class IncomeSuccess extends StatelessWidget {
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         ),
                       ),
                     ),
@@ -162,7 +162,7 @@ class IncomeSuccess extends StatelessWidget {
                           style: TextStyle(
                               color: AppColor().backgroundColor,
                               fontSize: 18,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         ),
                       ),
                     ),

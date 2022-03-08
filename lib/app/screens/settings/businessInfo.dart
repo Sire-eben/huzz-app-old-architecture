@@ -326,7 +326,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           "${businessController.selectedBusiness.value!.businessEmail}",
                       hintStyle:
                           Theme.of(context).textTheme.headline4!.copyWith(
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 color: Colors.black,
                                 fontSize: 14,
                                 fontStyle: FontStyle.normal,
@@ -603,7 +603,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 'Upload Image',
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -641,7 +641,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   'Select from Device',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -665,7 +665,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       'Done',
                       style: TextStyle(
                         color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -731,7 +731,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   'Add Bank Account',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                   ),
@@ -781,7 +781,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                 'Add Bank Account',
                                 style: TextStyle(
                                   color: AppColor().whiteColor,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -851,7 +851,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   'Add Bank Account',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                   ),
@@ -901,7 +901,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                 'Edit Bank Account',
                                 style: TextStyle(
                                   color: AppColor().whiteColor,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -934,7 +934,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     'We will send a one-time password to verify it\'s really you',
                     style: TextStyle(
                       color: AppColor().orangeBorderColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -1064,7 +1064,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             'Cancel',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1090,7 +1090,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             'Continue',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1138,7 +1138,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     'We will send a one-time password to verify it\'s really you',
                     style: TextStyle(
                       color: AppColor().orangeBorderColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -1250,7 +1250,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             'Cancel',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1276,7 +1276,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             'Continue',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1306,7 +1306,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 'Phone Number successfully Changed',
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
                 ),
@@ -1339,7 +1339,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         'Continue',
                         style: TextStyle(
                           color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),

@@ -74,7 +74,7 @@ class _AddCustomerState extends State<AddCustomer> {
           widget.item == null ? 'Add Customer' : "Edit Customer",
           style: TextStyle(
             color: AppColor().backgroundColor,
-            fontFamily: "DMSans",
+            fontFamily: "InterRegular",
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -137,7 +137,7 @@ class _AddCustomerState extends State<AddCustomer> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                           ),
                   ),

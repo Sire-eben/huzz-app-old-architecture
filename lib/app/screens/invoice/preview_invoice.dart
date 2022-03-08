@@ -43,7 +43,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
               'View Invoice',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: "DMSans",
+                fontFamily: "InterRegular",
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -54,7 +54,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
             //   '(#00000001)',
             //   style: TextStyle(
             //     color: Colors.black,
-            //     fontFamily: "DMSans",
+            //     fontFamily: "InterRegular",
             //     fontStyle: FontStyle.normal,
             //     fontSize: 16,
             //     fontWeight: FontWeight.w500,
@@ -114,7 +114,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
               //             color: Colors.black,
               //             fontSize: 10,
               //             fontWeight: FontWeight.w400,
-              //             fontFamily: 'DMSans'),
+              //             fontFamily: 'InterRegular'),
               //       ),
               //     ],
               //   ),
@@ -153,7 +153,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                               color: Colors.black,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         ),
                       ],
                     ),
@@ -179,7 +179,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                               color: Colors.black,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         ),
                       ],
                     )
@@ -207,7 +207,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                   ),
                 ),

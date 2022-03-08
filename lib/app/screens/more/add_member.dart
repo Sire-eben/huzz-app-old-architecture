@@ -50,7 +50,7 @@ class _AddMemberState extends State<AddMember> {
               'Add Members',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -214,7 +214,7 @@ class _AddMemberState extends State<AddMember> {
                   hint: Text(
                     'Privilege',
                     style: TextStyle(
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontSize: 10,
                         fontWeight: FontWeight.bold),
                   ),
@@ -247,7 +247,7 @@ class _AddMemberState extends State<AddMember> {
                     'Invite Member',
                     style: TextStyle(
                       fontSize: 13,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),

@@ -18,7 +18,10 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   final _productController = Get.find<ProductRepository>();
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '${ Utils.getCurrency()}', units: ['K', 'M', 'B', 'T']);
+      length: 5,
+      decimal: 0,
+      placeholder: '${Utils.getCurrency()}',
+      units: ['K', 'M', 'B', 'T']);
   @override
   Widget build(BuildContext context) {
     return (_productController.productGoods.isEmpty)
@@ -32,7 +35,7 @@ class _ProductsState extends State<Products> {
               label: Text(
                 'New Product',
                 style: TextStyle(
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 10,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
@@ -77,7 +80,7 @@ class _ProductsState extends State<Products> {
                           'Add Product',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -89,7 +92,7 @@ class _ProductsState extends State<Products> {
                           "Your products will show here. Click the",
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -98,7 +101,7 @@ class _ProductsState extends State<Products> {
                           "New Product button to add your first product",
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -137,7 +140,7 @@ class _ProductsState extends State<Products> {
                 //             'New Products',
                 //             style: TextStyle(
                 //               color: AppColor().whiteColor,
-                //               fontFamily: 'DMSans',
+                //               fontFamily: 'InterRegular',
                 //               fontWeight: FontWeight.bold,
                 //               fontSize: 14,
                 //             ),
@@ -175,7 +178,7 @@ class _ProductsState extends State<Products> {
                     "Product Count",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 12,
                     ),
                   ),
@@ -185,7 +188,7 @@ class _ProductsState extends State<Products> {
                     "0",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
@@ -227,7 +230,7 @@ class _ProductsState extends State<Products> {
                       child: Text(
                         "Total product value",
                         style: TextStyle(
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -238,9 +241,9 @@ class _ProductsState extends State<Products> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "N0.00",
+                        "${Utils.getCurrency()}0.0",
                         style: TextStyle(
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
                           color: Colors.white,

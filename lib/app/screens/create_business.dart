@@ -49,7 +49,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
             'Create Your Business',
             style: TextStyle(
               color: AppColor().backgroundColor,
-              fontFamily: 'DMSans',
+              fontFamily: 'InterRegular',
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -158,15 +158,14 @@ class _CreateBusinessState extends State<CreateBusiness> {
                   GestureDetector(
                     onTap: () {
                       // Get.to(Signin());
-   if (_businessController.businessCurrency.text.isEmpty) {
-                          Get.snackbar(
-                              "Error", "Kindly select currency to proceed");
-                          return;
-                        }
+                      if (_businessController.businessCurrency.text.isEmpty) {
+                        Get.snackbar(
+                            "Error", "Kindly select currency to proceed");
+                        return;
+                      }
                       if (_businessController.createBusinessStatus !=
                           CreateBusinessStatus
                               .Loading) if (key.currentState!.validate()) {
-                     
                         _businessController.createBusiness();
                       }
                     },

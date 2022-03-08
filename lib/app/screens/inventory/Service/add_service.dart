@@ -101,7 +101,7 @@ class _AddServiceState extends State<AddService> {
                       'Service Image',
                       style: TextStyle(
                         color: Colors.black,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontSize: 12,
                       ),
                     ),
@@ -119,9 +119,12 @@ class _AddServiceState extends State<AddService> {
                   CustomTextField(
                     label: "Service Amount",
                     validatorText: "Service amount is needed",
-                    hint: '${ Utils.getCurrency()}0.00',
+                    hint: '${Utils.getCurrency()}0.00',
                     inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                    keyType: Platform.isIOS
+                        ? TextInputType.numberWithOptions(
+                            signed: true, decimal: true)
+                        : TextInputType.number,
                     textEditingController:
                         _productController.productCostPriceController,
                   ),
@@ -172,7 +175,7 @@ class _AddServiceState extends State<AddService> {
                                 style: TextStyle(
                                   color: AppColor().whiteColor,
                                   fontSize: 18,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -240,7 +243,7 @@ class _AddServiceState extends State<AddService> {
                 'Upload Image',
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -279,7 +282,7 @@ class _AddServiceState extends State<AddService> {
                   'Select from Device',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -303,7 +306,7 @@ class _AddServiceState extends State<AddService> {
                       'Continue',
                       style: TextStyle(
                         color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontWeight: FontWeight.bold,
                       ),
                     ),

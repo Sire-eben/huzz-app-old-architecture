@@ -82,7 +82,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                             hint: Text(
                               'Pending',
                               style: TextStyle(
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -126,7 +126,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.black,
-                                            fontFamily: 'DMSans',
+                                            fontFamily: 'InterRegular',
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
@@ -137,14 +137,14 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.black,
-                                            fontFamily: 'DMSans'),
+                                            fontFamily: 'InterRegular'),
                                       ),
                                       Text(
                                         'Add New Debt Owed button to add your first debt',
                                         style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.black,
-                                            fontFamily: 'DMSans'),
+                                            fontFamily: 'InterRegular'),
                                       ),
                                     ],
                                   ),
@@ -197,7 +197,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       style: TextStyle(
                                                           fontSize: 30,
                                                           color: Colors.white,
-                                                          fontFamily: 'DMSans',
+                                                          fontFamily:
+                                                              'InterRegular',
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ))),
@@ -219,7 +220,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       customer.name!,
                                                       style: TextStyle(
                                                           fontSize: 12,
-                                                          fontFamily: 'DMSans',
+                                                          fontFamily:
+                                                              'InterRegular',
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.w400),
@@ -228,7 +230,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       customer.phone!,
                                                       style: TextStyle(
                                                           fontSize: 12,
-                                                          fontFamily: 'DMSans',
+                                                          fontFamily:
+                                                              'InterRegular',
                                                           color: Colors.grey),
                                                     ),
                                                   ],
@@ -243,20 +246,22 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "Bal: ${ Utils.getCurrency()}${display(item.balance!)}",
+                                                      "Bal: ${Utils.getCurrency()}${display(item.balance!)}",
                                                       style: TextStyle(
                                                           fontSize: 13,
-                                                          fontFamily: 'DMSans',
+                                                          fontFamily:
+                                                              'InterRegular',
                                                           color: AppColor()
                                                               .orangeBorderColor,
                                                           fontWeight:
                                                               FontWeight.w400),
                                                     ),
                                                     Text(
-                                                      "Paid: ${ Utils.getCurrency()}${display((item.totalAmount! - item.balance!))}",
+                                                      "Paid: ${Utils.getCurrency()}${display((item.totalAmount! - item.balance!))}",
                                                       style: TextStyle(
                                                           fontSize: 11,
-                                                          fontFamily: 'DMSans',
+                                                          fontFamily:
+                                                              'InterRegular',
                                                           color: Colors.grey),
                                                     ),
                                                   ],
@@ -320,7 +325,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   'Add New Debt Owed',
                                   style: TextStyle(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -378,7 +383,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   'Update Payment',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -409,7 +414,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                             Text(
                               'Paying Fully',
                               style: TextStyle(
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -439,7 +444,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                             Text(
                               'Paying Partly',
                               style: TextStyle(
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -468,7 +473,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         fontStyle: FontStyle.normal,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -490,9 +495,9 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      'Bal: ' + display(debtor.balance),
+                                      'Bal:${Utils.getCurrency()}${display(debtor.balance)}',
                                       style: TextStyle(
-                                        fontFamily: "DMSans",
+                                        fontFamily: "InterRegular",
                                         color: AppColor().orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
@@ -503,7 +508,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       // debtOwnedModel.balance!,
                                       '',
                                       style: TextStyle(
-                                        fontFamily: "DMSans",
+                                        fontFamily: "InterRegular",
                                         color: AppColor().orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
@@ -553,13 +558,13 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 // labelText: label,
-                                hintText: '${ Utils.getCurrency()} 0.00',
+                                hintText: '${Utils.getCurrency()} 0.00',
 
                                 hintStyle: Theme.of(context)
                                     .textTheme
                                     .headline4!
                                     .copyWith(
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       color: Colors.black26,
                                       fontSize: 14,
                                       fontStyle: FontStyle.normal,
@@ -611,7 +616,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
-                                    fontFamily: 'DMSans'),
+                                    fontFamily: 'InterRegular'),
                               ),
                       ),
                     );
@@ -658,7 +663,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                     'Add Debt Owed',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -736,7 +741,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   'Add Debt Owed',
                                   style: TextStyle(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -784,7 +789,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 'New Merchant',
                                 style: TextStyle(
                                   color: AppColor().backgroundColor,
-                                  fontFamily: "DMSans",
+                                  fontFamily: "InterRegular",
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -808,7 +813,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 'Existing Merchants',
                                 style: TextStyle(
                                   color: AppColor().backgroundColor,
-                                  fontFamily: "DMSans",
+                                  fontFamily: "InterRegular",
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -839,8 +844,13 @@ class _DebtOwnedState extends State<DebtOwned> {
                               ),
                               CustomTextFieldInvoiceOptional(
                                 label: 'Amount you owe',
-                                inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                inputformater: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                keyType: Platform.isIOS
+                                    ? TextInputType.numberWithOptions(
+                                        signed: true, decimal: true)
+                                    : TextInputType.number,
                                 textEditingController:
                                     _debtorRepository.totalAmountController,
                                 validatorText: "Amount you owe is required",
@@ -857,7 +867,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -867,7 +877,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     style: TextStyle(
                                         color: Colors.red,
                                         fontSize: 12,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   )
                                 ],
                               ),
@@ -908,14 +918,19 @@ class _DebtOwnedState extends State<DebtOwned> {
                               // CustomTextFieldInvoiceOptional(
                               //   label: 'Balance',
                               //   inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        // keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                              // keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                               //   textEditingController:
                               //       _customerRepository.amountController,
                               // ),
                               CustomTextFieldInvoiceOptional(
                                 label: 'Amount you owe',
-                                inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                inputformater: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                keyType: Platform.isIOS
+                                    ? TextInputType.numberWithOptions(
+                                        signed: true, decimal: true)
+                                    : TextInputType.number,
                                 validatorText: "Amount you owe is required",
                                 textEditingController:
                                     _debtorRepository.totalAmountController,
@@ -1020,8 +1035,11 @@ class _DebtOwnedState extends State<DebtOwned> {
                       label: "Amount",
                       validatorText: "amount is needed",
                       hint: '₦0',
-                        inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                      inputformater: [FilteringTextInputFormatter.digitsOnly],
+                      keyType: Platform.isIOS
+                          ? TextInputType.numberWithOptions(
+                              signed: true, decimal: true)
+                          : TextInputType.number,
                     ),
                   ),
                   Expanded(
@@ -1050,7 +1068,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                   ),
                 ),
@@ -1068,7 +1086,9 @@ class _DebtOwnedState extends State<DebtOwned> {
         child: Text(
           item,
           style: TextStyle(
-              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
+              fontFamily: 'InterRegular',
+              fontSize: 10,
+              fontWeight: FontWeight.bold),
         ),
       );
 }
@@ -1103,14 +1123,16 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                   'name',
                   style: TextStyle(
                       fontSize: 12,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       color: Colors.black,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
                   'phone',
                   style: TextStyle(
-                      fontSize: 12, fontFamily: 'DMSans', color: Colors.grey),
+                      fontSize: 12,
+                      fontFamily: 'InterRegular',
+                      color: Colors.grey),
                 ),
               ],
             ),
@@ -1126,14 +1148,16 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                   "Bahl: ${widget.item!.balance!}",
                   style: TextStyle(
                       fontSize: 13,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       color: AppColor().backgroundColor,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
                   "Paid: ${(widget.item!.totalAmount! - widget.item!.balance!)}",
                   style: TextStyle(
-                      fontSize: 11, fontFamily: 'DMSans', color: Colors.grey),
+                      fontSize: 11,
+                      fontFamily: 'InterRegular',
+                      color: Colors.grey),
                 ),
               ],
             ),
@@ -1190,7 +1214,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                     'Update Payment',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -1221,7 +1245,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                               Text(
                                 'Paying Fully',
                                 style: TextStyle(
-                                  fontFamily: "DMSans",
+                                  fontFamily: "InterRegular",
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1251,7 +1275,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                               Text(
                                 'Paying Partly',
                                 style: TextStyle(
-                                  fontFamily: "DMSans",
+                                  fontFamily: "InterRegular",
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1282,7 +1306,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontStyle: FontStyle.normal,
                                           fontWeight: FontWeight.normal,
                                         ),
@@ -1306,7 +1330,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                       Text(
                                         'Bal: ' + debtor.balance.toString(),
                                         style: TextStyle(
-                                          fontFamily: "DMSans",
+                                          fontFamily: "InterRegular",
                                           color: AppColor().orangeBorderColor,
                                           fontStyle: FontStyle.normal,
                                           fontSize: 14,
@@ -1317,7 +1341,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                         // debtOwnedModel.balance!,
                                         '',
                                         style: TextStyle(
-                                          fontFamily: "DMSans",
+                                          fontFamily: "InterRegular",
                                           color: AppColor().orangeBorderColor,
                                           fontStyle: FontStyle.normal,
                                           fontSize: 14,
@@ -1368,13 +1392,13 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   // labelText: label,
-                                  hintText: '${ Utils.getCurrency()} 0.00',
+                                  hintText: '${Utils.getCurrency()} 0.00',
 
                                   hintStyle: Theme.of(context)
                                       .textTheme
                                       .headline4!
                                       .copyWith(
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         color: Colors.black26,
                                         fontSize: 14,
                                         fontStyle: FontStyle.normal,
@@ -1425,7 +1449,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
-                                    fontFamily: 'DMSans'),
+                                    fontFamily: 'InterRegular'),
                               ),
                       ),
                     ),

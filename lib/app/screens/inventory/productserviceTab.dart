@@ -27,7 +27,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
               'Manage Inventory',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -53,7 +53,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
                   unselectedLabelColor: AppColor().backgroundColor,
                   labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         color: AppColor().backgroundColor,
-                        fontFamily: "DMSans",
+                        fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -61,7 +61,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
                   unselectedLabelStyle:
                       Theme.of(context).textTheme.headline2!.copyWith(
                             color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
+                            fontFamily: "InterRegular",
                             fontStyle: FontStyle.normal,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

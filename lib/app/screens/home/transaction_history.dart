@@ -44,7 +44,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               'Transaction',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: "DMSans",
+                fontFamily: "InterRegular",
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -57,7 +57,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   '10, NOV. 2021',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: "DMSans",
+                    fontFamily: "InterRegular",
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.bold,
@@ -67,7 +67,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   '10:00 AM',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: "DMSans",
+                    fontFamily: "InterRegular",
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.bold,
@@ -104,7 +104,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 widget.recordSummary!.detail!,
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: "DMSans",
+                  fontFamily: "InterRegular",
                   fontStyle: FontStyle.normal,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
@@ -116,7 +116,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               'Total Amount',
               style: TextStyle(
                 color: AppColor().blackColor,
-                fontFamily: "DMSans",
+                fontFamily: "InterRegular",
                 fontStyle: FontStyle.normal,
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
@@ -127,7 +127,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               widget.recordSummary!.price!,
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: "DMSans",
+                fontFamily: "InterRegular",
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -143,7 +143,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   'Items',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: "DMSans",
+                    fontFamily: "InterRegular",
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -169,7 +169,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                       'Item',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
@@ -177,7 +177,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                       'Qty',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
@@ -185,7 +185,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                       'Amount',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
@@ -213,7 +213,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               item.name!,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -221,7 +221,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               item.quantity!,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -229,7 +229,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               item.price!,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -249,7 +249,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   'Payment History',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: "DMSans",
+                    fontFamily: "InterRegular",
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -275,7 +275,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                       'Date',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
@@ -283,7 +283,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                       'Amount',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
@@ -291,7 +291,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                       '',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
@@ -319,7 +319,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               item.date!,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -327,7 +327,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               item.price!,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -337,7 +337,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                   'View Receipt',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       fontSize: 10,
                                       color: AppColor().backgroundColor),
                                 ),
@@ -382,7 +382,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     'You are about to delete you want to delete this transaction. Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -427,7 +427,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               'Cancel',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -457,7 +457,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               'Delete',
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -504,7 +504,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     '10, Nov. 2021',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: "DMSans",
+                      fontFamily: "InterRegular",
                       fontStyle: FontStyle.normal,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -551,7 +551,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               'Date',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -559,7 +559,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               recordModel.date!,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -574,7 +574,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               'Money Out',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -582,7 +582,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               recordModel.moneyOut!,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   color: AppColor().orangeBorderColor),
                             ),
@@ -599,7 +599,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                 'Money In',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -607,7 +607,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                 recordModel.moneyIn!,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 10,
                                     color: AppColor().blueColor),
                               ),
@@ -646,7 +646,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                       item.name!,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -654,7 +654,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                       item.time!,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -669,7 +669,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                       item.price!,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -677,7 +677,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                       item.detail!,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -705,7 +705,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         child: Text(
           item,
           style: TextStyle(
-              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
+              fontFamily: 'InterRegular',
+              fontSize: 10,
+              fontWeight: FontWeight.bold),
         ),
       );
 }

@@ -26,7 +26,7 @@ class _ManageInventoryState extends State<ManageInventory> {
             'Manage Inventory',
             style: TextStyle(
               color: AppColor().backgroundColor,
-              fontFamily: 'DMSans',
+              fontFamily: 'InterRegular',
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -51,7 +51,7 @@ class _ManageInventoryState extends State<ManageInventory> {
                   unselectedLabelColor: AppColor().backgroundColor,
                   labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
                         color: AppColor().backgroundColor,
-                        fontFamily: "DMSans",
+                        fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -59,7 +59,7 @@ class _ManageInventoryState extends State<ManageInventory> {
                   unselectedLabelStyle:
                       Theme.of(context).textTheme.headline2!.copyWith(
                             color: AppColor().backgroundColor,
-                            fontFamily: "DMSans",
+                            fontFamily: "InterRegular",
                             fontStyle: FontStyle.normal,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
