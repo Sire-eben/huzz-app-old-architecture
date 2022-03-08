@@ -96,7 +96,7 @@ class AuthRepository extends GetxController {
   Business? business;
   SharePref? pref;
 
-  final Mtoken = "".obs;
+  Rx<String> Mtoken =Rx("");
   String get token => Mtoken.value;
 
   SqliteDb sqliteDb = SqliteDb();
@@ -468,7 +468,8 @@ class AuthRepository extends GetxController {
       final response = await http.post(Uri.parse(ApiLink.signin_user),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text.trim(),
-            "pin": pinController.text
+            "pin":pinController.text,
+            // "pin":"3152"
           }),
           headers: {"Content-Type": "application/json"});
       print("sign in response ${response.body}");
@@ -479,16 +480,25 @@ class AuthRepository extends GetxController {
 
         var token = json['accessToken'];
         var user = User.fromJson(json);
+         print("token from mtoken is ${Mtoken}");
+       
         pref!.saveToken(token);
         pref!.setUser(user);
-        Mtoken(token);
+        //  Mtoken=Rx(token);
+       
+            print("user to json ${user.toJson()}"); 
         this.user = user;
+    
         DateTime date = DateTime.now();
+
         DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
+       
         pref!.setDateTokenExpired(expireToken);
+      
         _authStatus(AuthStatus.Authenticated);
         final _businessController = Get.find<BusinessRespository>();
         _businessController.setBusinessList(user.businessList!);
+           Mtoken(token);
         print("user business lenght ${user.businessList!.length}");
         if (user.businessList!.isEmpty) {
           Get.off(() => CreateBusiness());
@@ -610,8 +620,11 @@ class AuthRepository extends GetxController {
     _authStatus(AuthStatus.UnAuthenticated);
     pref!.saveToken("0");
     clearDatabase();
+    Mtoken("0");
     pref!.logout();
     Get.offAll(Signin());
+    final businessController=Get.find<BusinessRespository>();
+      businessController.selectedBusiness=Rx(Business(businessId: null));
   }
 
   void clearDatabase() async {

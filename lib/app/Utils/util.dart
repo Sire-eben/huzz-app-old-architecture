@@ -8,7 +8,7 @@ class Utils{
 static final _businessRepository=Get.find<BusinessRespository>();
 
  static String getCurrency() {
-  var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name:"USD");
+  var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name:_businessRepository.selectedBusiness.value!.businessCurrency!);
   return format.currencySymbol;
 }
 }

@@ -10,6 +10,8 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../Utils/util.dart';
+
 // ignore: must_be_immutable
 class AddService extends StatefulWidget {
   Product? item;
@@ -117,7 +119,7 @@ class _AddServiceState extends State<AddService> {
                   CustomTextField(
                     label: "Service Amount",
                     validatorText: "Service amount is needed",
-                    hint: 'N0.00',
+                    hint: '${ Utils.getCurrency()}0.00',
                     inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                     textEditingController:

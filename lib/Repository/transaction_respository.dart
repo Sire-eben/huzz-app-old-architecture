@@ -173,7 +173,7 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
       print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null) {
+        if (value != null && value.businessId!=null) {
           await GetOfflineTransactions(value.businessId!);
           getOnlineTransaction(value.businessId!);
 

@@ -95,7 +95,7 @@ class ProductRepository extends GetxController
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null) {
+        if (value != null && value.businessId!=null) {
           getOnlineProduct(value.businessId!);
           getOfflineProduct(value.businessId!);
         }

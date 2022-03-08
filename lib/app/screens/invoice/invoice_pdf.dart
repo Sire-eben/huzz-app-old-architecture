@@ -5,7 +5,8 @@ import 'package:huzz/Repository/bank_account_repository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/app/Utils/constants.dart';
-import 'package:huzz/app/screens/widget/util.dart';
+import 'package:huzz/app/screens/widget/util.dart' ;
+import 'package:huzz/app/Utils/util.dart' as utils;
 import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/customer_model.dart';
@@ -24,7 +25,7 @@ class PdfInvoiceApi {
   static final _customerController = Get.find<CustomerRepository>();
   static final _bankController = Get.find<BankAccountRepository>();
   static final display = createDisplay(
-      length: 5, decimal: 0, placeholder: 'N', units: ['K', 'M', 'B', 'T']);
+      length: 5, decimal: 0, placeholder: '${ utils.Utils.getCurrency()}', units: ['K', 'M', 'B', 'T']);
 
   static Future<File> generate(Invoice invoice) async {
     final pdf = Document();
@@ -287,21 +288,21 @@ class PdfInvoiceApi {
       SizedBox(width: Get.width * 0.20),
       Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
         Text(
-          'N $totalAmount',
+          '${  utils.Utils.getCurrency()} $totalAmount',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'N ${invoice.tax}',
+          '${  utils.Utils.getCurrency()} ${invoice.tax}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'N ${invoice.discountAmount}',
+          '${  utils.Utils.getCurrency()} ${invoice.discountAmount}',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,

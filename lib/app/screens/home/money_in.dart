@@ -16,6 +16,7 @@ import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import '../../Utils/util.dart';
 import 'itemCard.dart';
 
 class MoneyIn extends StatefulWidget {
@@ -636,7 +637,7 @@ class _MoneyInState extends State<MoneyIn> {
                               MediaQuery.of(context).size.height * 0.03),
                       child: CustomTextField(
                         label: "Amount Paid",
-                        hint: 'N 0.00',
+                        hint: '${ Utils.getCurrency()} 0.00',
                         validatorText: "Amount Paid is needed",
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,

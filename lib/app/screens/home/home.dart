@@ -612,7 +612,7 @@ class _HomeState extends State<Home> {
                     ),
                     Text(
                       // "${currency(context).currencySymbol}0",
-                      'N0',
+                      '${ Utils.getCurrency()}0',
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
@@ -695,7 +695,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "N0",
+                      "${ Utils.getCurrency()}0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',
@@ -738,7 +738,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "N0",
+                      "${ Utils.getCurrency()}0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'DMSans',

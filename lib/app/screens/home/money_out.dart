@@ -18,6 +18,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../../../colors.dart';
+import '../../Utils/util.dart';
 import 'itemCard.dart';
 
 class MoneyOut extends StatefulWidget {
@@ -698,7 +699,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               MediaQuery.of(context).size.height * 0.03),
                       child: CustomTextField(
                         label: "Amount Paid",
-                        hint: 'N 0.00',
+                        hint: '${ Utils.getCurrency()} 0.00',
                         validatorText: "Amount Paid is needed",
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
