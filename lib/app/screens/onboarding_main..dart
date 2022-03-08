@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/reg_home.dart';
-import 'package:huzz/app/screens/sign_up.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/onboarding_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -59,7 +58,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                       child: GestureDetector(
                         onTap: () {
                           _authController.pref!.setFirstTimeOpen(false);
-                          Get.offAll(Signup());
+                          Get.offAll(RegHome());
                         },
                         child: Text(
                           "Skip",
@@ -178,7 +177,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                   : InkWell(
                       onTap: () {
                         _authController.pref!.setFirstTimeOpen(false);
-                        Get.to(RegHome());
+                        Get.offAll(RegHome());
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,

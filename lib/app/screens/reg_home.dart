@@ -16,7 +16,7 @@ class _RegHome extends State<RegHome> {
   int stepNumber = 4;
   int selectedIndex = 1;
   List<String> bodyText = [
-    'To make sure it’s really you, we’ll send a secret code to your phone number via SMS',
+    'Sign up now',
     'Enter  the four digit code we sent to your phone number',
     'let’s get to know you better',
     'Set a 4-digit PIN for subsequent logins'
