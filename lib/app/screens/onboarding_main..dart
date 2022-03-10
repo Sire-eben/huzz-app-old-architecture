@@ -90,7 +90,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 24,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     color: Colors.black,
                   ),
                   maxLines: 1,
@@ -105,7 +105,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                   boards[selectedIndex].body!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     color: Colors.black,
                     fontSize: 12,
                     letterSpacing: 0.5,

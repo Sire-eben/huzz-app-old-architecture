@@ -35,15 +35,15 @@ class ItemCard extends StatelessWidget {
                     Text(
                       item.itemName!,
                       style: TextStyle(
-                        fontFamily: "DMSans",
+                        fontFamily: "InterRegular",
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      '${ Utils.getCurrency()} ${item.amount}',
+                      '${Utils.getCurrency()} ${item.amount}',
                       style: TextStyle(
-                        fontFamily: "DMSans",
+                        fontFamily: "InterRegular",
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
@@ -56,7 +56,7 @@ class ItemCard extends StatelessWidget {
               child: Text(
                 'Qty: ${item.quality}',
                 style: TextStyle(
-                  fontFamily: "DMSans",
+                  fontFamily: "InterRegular",
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),

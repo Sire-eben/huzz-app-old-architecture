@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:huzz/app/screens/widget/util.dart';
-import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice_receipt_model.dart';
 import 'package:intl/intl.dart';
-import 'package:huzz/app/Utils/util.dart' as utils;
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -136,7 +134,7 @@ class SingleInvoicePdf {
       return [
         item.item,
         '${item.quantity}',
-        '${utils.Utils.getCurrency()}{item.amount}',
+        '${Utils.formatPrice(item.amount)}',
       ];
     }).toList();
 
@@ -257,21 +255,21 @@ class SingleInvoicePdf {
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           Text(
-            '${ utils.Utils.getCurrency()} 150,000',
+            '${Utils.formatPrice(150000)}',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            '${ utils.Utils.getCurrency()} 2,000',
+            '${Utils.formatPrice(2000)}',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            '${utils.Utils.getCurrency()} 1,000',
+            '${Utils.formatPrice(1000)}',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,

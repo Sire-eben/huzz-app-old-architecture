@@ -21,7 +21,10 @@ class _ServiceListingState extends State<ServiceListing> {
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
   final display = createDisplay(
-      length: 5, decimal: 0, placeholder: '${ Utils.getCurrency()}', units: ['K', 'M', 'B', 'T']);
+      length: 5,
+      decimal: 0,
+      placeholder: '${Utils.getCurrency()}',
+      units: ['K', 'M', 'B', 'T']);
   bool isDelete = false;
   String searchtext = "";
   List<Product> searchResult = [];
@@ -55,7 +58,7 @@ class _ServiceListingState extends State<ServiceListing> {
         label: Text(
           (isDelete) ? "Delete Service(s)" : 'New Service',
           style: TextStyle(
-              fontFamily: 'DMSans',
+              fontFamily: 'InterRegular',
               fontSize: 10,
               color: Colors.white,
               fontWeight: FontWeight.bold),
@@ -119,7 +122,7 @@ class _ServiceListingState extends State<ServiceListing> {
                           hintText: 'Search',
                           hintStyle:
                               Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     color: Colors.black26,
                                     fontSize: 14,
                                     fontStyle: FontStyle.normal,
@@ -143,7 +146,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     'Services (${_productController.productServices.length})',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -248,7 +251,7 @@ class _ServiceListingState extends State<ServiceListing> {
             //             (isDelete) ? "Delete Service(s)" : 'New Service',
             //             style: TextStyle(
             //               color: AppColor().whiteColor,
-            //               fontFamily: 'DMSans',
+            //               fontFamily: 'InterRegular',
             //               fontWeight: FontWeight.bold,
             //               fontSize: 14,
             //             ),
@@ -280,7 +283,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     'You are about to delete a service, Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -324,7 +327,7 @@ class _ServiceListingState extends State<ServiceListing> {
                               'Cancel',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -353,7 +356,7 @@ class _ServiceListingState extends State<ServiceListing> {
                               'Delete',
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -392,7 +395,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     "Services Count",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 12,
                     ),
                   ),
@@ -402,7 +405,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     "${_productController.productServices.length}",
                     style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
@@ -444,7 +447,7 @@ class _ServiceListingState extends State<ServiceListing> {
                       child: Text(
                         "Total Services value",
                         style: TextStyle(
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -455,9 +458,9 @@ class _ServiceListingState extends State<ServiceListing> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "${ Utils.getCurrency()}${display(_productController.totalService)}",
+                        "${Utils.getCurrency()}${display(_productController.totalService)}",
                         style: TextStyle(
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
                           color: Colors.white,
@@ -499,7 +502,7 @@ class _ServiceListingState extends State<ServiceListing> {
                   'Add stock',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
                   ),
@@ -557,7 +560,7 @@ class _ServiceListingState extends State<ServiceListing> {
                               'Television',
                               style: TextStyle(
                                 color: AppColor().blackColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -574,7 +577,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                       'left: ',
                                       style: TextStyle(
                                         color: AppColor().blackColor,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         fontSize: 11,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -583,7 +586,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                       '7',
                                       style: TextStyle(
                                         color: AppColor().orangeBorderColor,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -597,7 +600,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                   'N20,000',
                                   style: TextStyle(
                                     color: AppColor().blackColor,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 11,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -681,10 +684,10 @@ class _ServiceListingState extends State<ServiceListing> {
                               color: AppColor().backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       // labelText: label,
-                      hintText: '${ Utils.getCurrency()} 0.00',
+                      hintText: '${Utils.getCurrency()} 0.00',
                       hintStyle:
                           Theme.of(context).textTheme.headline4!.copyWith(
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 color: Colors.black26,
                                 fontSize: 14,
                                 fontStyle: FontStyle.normal,
@@ -728,7 +731,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     'Continue',
                     style: TextStyle(
                       color: AppColor().whiteColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -814,16 +817,16 @@ class _ListingServicesState extends State<ListingServices> {
                             widget.item!.productName!,
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            '${ Utils.getCurrency()}${display(widget.item!.costPrice!)}',
+                            '${Utils.getCurrency()}${display(widget.item!.costPrice!)}',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
                             ),
@@ -838,7 +841,7 @@ class _ListingServicesState extends State<ListingServices> {
                           "${widget.item!.description}",
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 9,
                             fontWeight: FontWeight.normal,
                           ),
@@ -937,16 +940,16 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                               widget.item!.productName!,
                               style: TextStyle(
                                 color: AppColor().blackColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              '${ Utils.getCurrency()}${display(widget.item!.costPrice!)}',
+                              '${Utils.getCurrency()}${display(widget.item!.costPrice!)}',
                               style: TextStyle(
                                 color: AppColor().blackColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 11,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -961,7 +964,7 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                             "${widget.item!.description}",
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 9,
                               fontWeight: FontWeight.normal,
                             ),

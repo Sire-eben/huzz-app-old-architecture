@@ -51,7 +51,7 @@ class _AllState extends State<All> {
                         'Invoices',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -60,7 +60,7 @@ class _AllState extends State<All> {
                         '(${_invoiceController.offlineInvoices.length})',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -137,7 +137,7 @@ class _AllState extends State<All> {
                                                   : customer.name!,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontFamily: 'DMSans',
+                                                  fontFamily: 'InterRegular',
                                                   fontSize: 16,
                                                   color: Colors.black),
                                             ),
@@ -150,11 +150,12 @@ class _AllState extends State<All> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  "${ Utils.getCurrency()}${display(item.totalAmount)}",
+                                                  "${Utils.getCurrency()}${display(item.totalAmount)}",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontFamily: 'DMSans',
+                                                      fontFamily:
+                                                          'InterRegular',
                                                       fontSize: 14,
                                                       color: Color(0xffEF6500)),
                                                 ),
@@ -163,7 +164,8 @@ class _AllState extends State<All> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontFamily: 'DMSans',
+                                                      fontFamily:
+                                                          'InterRegular',
                                                       fontSize: 14,
                                                       color: Colors.black),
                                                 ),
@@ -173,7 +175,8 @@ class _AllState extends State<All> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontFamily: 'DMSans',
+                                                      fontFamily:
+                                                          'InterRegular',
                                                       fontSize: 14,
                                                       color: Colors.black),
                                                 ),
@@ -245,7 +248,7 @@ class _AllState extends State<All> {
                                                 : customer.name!,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 fontSize: 16,
                                                 color: Colors.black),
                                           ),
@@ -257,10 +260,10 @@ class _AllState extends State<All> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
+                                                "${Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Color(0xffEF6500)),
                                               ),
@@ -268,7 +271,7 @@ class _AllState extends State<All> {
                                                 "",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -277,7 +280,7 @@ class _AllState extends State<All> {
                                                     .formatDate()!,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -355,7 +358,7 @@ class _AllState extends State<All> {
           label: Text(
             deleteItem ? 'New Invoice' : 'Delete Item',
             style: TextStyle(
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontSize: 10,
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
@@ -381,7 +384,7 @@ class _AllState extends State<All> {
                     'You are about to delete this invoice(s). Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -428,7 +431,7 @@ class _AllState extends State<All> {
                               'Cancel',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -457,7 +460,7 @@ class _AllState extends State<All> {
                               'Delete',
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

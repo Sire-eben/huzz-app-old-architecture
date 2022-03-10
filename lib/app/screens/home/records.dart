@@ -125,7 +125,7 @@ class _RecordsState extends State<Records> {
           'Records',
           style: TextStyle(
             color: AppColor().backgroundColor,
-            fontFamily: "DMSans",
+            fontFamily: "InterRegular",
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -170,16 +170,16 @@ class _RecordsState extends State<Records> {
                               "Money In",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             Text(
-                              "${ Utils.getCurrency()}${display(transactionController.recordMoneyIn)}",
+                              "${Utils.getCurrency()}${display(transactionController.recordMoneyIn)}",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -199,16 +199,16 @@ class _RecordsState extends State<Records> {
                               "Balance",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             Text(
-                              "${ Utils.getCurrency()}${display(transactionController.recordBalance)}",
+                              "${Utils.getCurrency()}${display(transactionController.recordBalance)}",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -228,16 +228,16 @@ class _RecordsState extends State<Records> {
                               "Money Out",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             Text(
-                              "${ Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
+                              "${Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -266,10 +266,10 @@ class _RecordsState extends State<Records> {
                         ),
                         SizedBox(width: 2),
                         Text(
-                          'Money Out (${ Utils.getCurrency()})',
+                          'Money Out (${Utils.getCurrency()})',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 9,
                             fontWeight: FontWeight.w400,
                           ),
@@ -288,10 +288,10 @@ class _RecordsState extends State<Records> {
                         ),
                         SizedBox(width: 2),
                         Text(
-                          'Money in (${ Utils.getCurrency()})',
+                          'Money in (${Utils.getCurrency()})',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 9,
                             fontWeight: FontWeight.w400,
                           ),
@@ -316,7 +316,7 @@ class _RecordsState extends State<Records> {
                           hint: Text(
                             'This month',
                             style: TextStyle(
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -389,7 +389,8 @@ class _RecordsState extends State<Records> {
                         primaryYAxis: NumericAxis(
                           // labelFormat: "${ Utils.getCurrency()}"
                           axisLabelFormatter: (s) => ChartAxisLabel(
-                              "${ Utils.getCurrency()}${display(s.value)}", TextStyle(fontSize: 10)),
+                              "${Utils.getCurrency()}${display(s.value)}",
+                              TextStyle(fontSize: 10)),
                         ),
                         primaryXAxis: CategoryAxis(),
                         onTooltipRender: (s) {
@@ -456,7 +457,7 @@ class _RecordsState extends State<Records> {
                           'Transactions',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -469,7 +470,7 @@ class _RecordsState extends State<Records> {
                               : '${transactionController.value.value}',
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 9,
                             fontWeight: FontWeight.w400,
                           ),
@@ -600,7 +601,7 @@ class _RecordsState extends State<Records> {
                           'DATE',
                           style: TextStyle(
                             color: AppColor().backgroundColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 9,
                             fontWeight: FontWeight.bold,
                           ),
@@ -610,10 +611,10 @@ class _RecordsState extends State<Records> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
-                            'MONEY OUT(${ Utils.getCurrency()})',
+                            'MONEY OUT(${Utils.getCurrency()})',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
@@ -624,10 +625,10 @@ class _RecordsState extends State<Records> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Text(
-                            'MONEY IN(${ Utils.getCurrency()})',
+                            'MONEY IN(${Utils.getCurrency()})',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
@@ -659,7 +660,7 @@ class _RecordsState extends State<Records> {
                                 'Oh, snap. No transactions to show',
                                 style: TextStyle(
                                   color: AppColor().blackColor,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -727,7 +728,8 @@ class _RecordsState extends State<Records> {
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontFamily: 'DMSans',
+                                                        fontFamily:
+                                                            'InterRegular',
                                                         fontSize: 10,
                                                         color: AppColor()
                                                             .blackColor),
@@ -737,7 +739,8 @@ class _RecordsState extends State<Records> {
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontFamily: 'DMSans',
+                                                        fontFamily:
+                                                            'InterRegular',
                                                         fontSize: 10,
                                                         color: AppColor()
                                                             .backgroundColor),
@@ -752,11 +755,12 @@ class _RecordsState extends State<Records> {
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                    "${ Utils.getCurrency()}${display(item1.value)}",
+                                                    "${Utils.getCurrency()}${display(item1.value)}",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontFamily: 'DMSans',
+                                                        fontFamily:
+                                                            'InterRegular',
                                                         fontSize: 10,
                                                         color: AppColor()
                                                             .orangeBorderColor),
@@ -766,7 +770,8 @@ class _RecordsState extends State<Records> {
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontFamily: 'DMSans',
+                                                        fontFamily:
+                                                            'InterRegular',
                                                         fontSize: 10,
                                                         color: AppColor()
                                                             .backgroundColor),
@@ -781,11 +786,12 @@ class _RecordsState extends State<Records> {
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                    "${ Utils.getCurrency()}${display(item2.value)}",
+                                                    "${Utils.getCurrency()}${display(item2.value)}",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontFamily: 'DMSans',
+                                                        fontFamily:
+                                                            'InterRegular',
                                                         fontSize: 10,
                                                         color: AppColor()
                                                             .blueColor),
@@ -795,7 +801,8 @@ class _RecordsState extends State<Records> {
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontFamily: 'DMSans',
+                                                        fontFamily:
+                                                            'InterRegular',
                                                         fontSize: 10,
                                                         color: AppColor()
                                                             .backgroundColor),
@@ -849,7 +856,7 @@ class _RecordsState extends State<Records> {
                 '${item1.label}',
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: "DMSans",
+                  fontFamily: "InterRegular",
                   fontStyle: FontStyle.normal,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -895,7 +902,7 @@ class _RecordsState extends State<Records> {
                           'Date',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -903,7 +910,7 @@ class _RecordsState extends State<Records> {
                           item1.label,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -918,7 +925,7 @@ class _RecordsState extends State<Records> {
                           'Money Out',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -926,7 +933,7 @@ class _RecordsState extends State<Records> {
                           "${display(item1.value)}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 10,
                               color: AppColor().orangeBorderColor),
                         ),
@@ -943,15 +950,15 @@ class _RecordsState extends State<Records> {
                             'Money In',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 10,
                                 color: AppColor().blackColor),
                           ),
                           Text(
-                            "${ Utils.getCurrency()} ${display(item2.value)}",
+                            "${Utils.getCurrency()} ${display(item2.value)}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 10,
                                 color: AppColor().blueColor),
                           ),
@@ -998,7 +1005,7 @@ class _RecordsState extends State<Records> {
                                   item.itemName!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       fontSize: 10,
                                       color: AppColor().blackColor),
                                 ),
@@ -1006,7 +1013,7 @@ class _RecordsState extends State<Records> {
                                   item.createdTime!.formatDate()!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       fontSize: 10,
                                       color: AppColor().blackColor),
                                 ),
@@ -1018,10 +1025,10 @@ class _RecordsState extends State<Records> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "${ Utils.getCurrency()}${display(item.totalAmount)}",
+                                  "${Utils.getCurrency()}${display(item.totalAmount)}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       fontSize: 10,
                                       color: AppColor().blackColor),
                                 ),
@@ -1031,7 +1038,7 @@ class _RecordsState extends State<Records> {
                                       : "Partially",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       fontSize: 10,
                                       color: AppColor().blackColor),
                                 ),
@@ -1102,7 +1109,7 @@ class _RecordsState extends State<Records> {
                         'Date',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 10,
                             color: AppColor().blackColor),
                       ),
@@ -1112,7 +1119,7 @@ class _RecordsState extends State<Records> {
                         'Money Out',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 10,
                             color: AppColor().blackColor),
                       ),
@@ -1140,7 +1147,7 @@ class _RecordsState extends State<Records> {
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
-                        fontFamily: 'DMSans'),
+                        fontFamily: 'InterRegular'),
                   ),
                 ),
               ),
@@ -1154,7 +1161,9 @@ class _RecordsState extends State<Records> {
         child: Text(
           item,
           style: TextStyle(
-              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
+              fontFamily: 'InterRegular',
+              fontSize: 10,
+              fontWeight: FontWeight.bold),
         ),
       );
 

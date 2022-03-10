@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
           label: Text(
             'Add transaction',
             style: TextStyle(
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontSize: 10,
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
@@ -183,7 +183,7 @@ class _HomeState extends State<Home> {
                           "Today’s BALANCE",
                           style: TextStyle(
                             color: AppColor().blackColor,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
@@ -193,10 +193,10 @@ class _HomeState extends State<Home> {
                         height: 10,
                       ),
                       Text(
-                        "${ Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                        "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -220,7 +220,7 @@ class _HomeState extends State<Home> {
                                 "See all your Records",
                                 style: TextStyle(
                                   color: AppColor().whiteColor,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -268,7 +268,7 @@ class _HomeState extends State<Home> {
                               "Today’s Money IN",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -278,10 +278,10 @@ class _HomeState extends State<Home> {
                       ),
                       Spacer(),
                       Text(
-                        "${ Utils.getCurrency()}${display(_transactionController.income.value)}",
+                        "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -313,7 +313,7 @@ class _HomeState extends State<Home> {
                               "Today’s Money Out",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -323,10 +323,10 @@ class _HomeState extends State<Home> {
                       ),
                       Spacer(),
                       Text(
-                        "${ Utils.getCurrency()}${display(_transactionController.expenses.value)}",
+                        "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                         style: TextStyle(
                           color: AppColor().whiteColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -387,12 +387,13 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           // ignore: unnecessary_null_comparison
-                          "${ Utils.getCurrency()}${display(_debtorController.debtorAmount)}",
+                          "${Utils.getCurrency()}${display(_debtorController.debtorAmount)}",
 
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'InterRegular'),
                         ),
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
@@ -471,15 +472,16 @@ class _HomeState extends State<Home> {
                           ),
                           Spacer(),
                           Expanded(
-                            flex: 2,
+                            flex: 3,
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${ Utils.getCurrency()}${display(item.totalAmount)}",
+                                    "${Utils.getCurrency()}${display(item.totalAmount)}",
                                     style: TextStyle(
                                         fontSize: 12,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'InterRegular'),
                                   ),
                                   Text(
                                     item.isFullyPaid!
@@ -601,7 +603,7 @@ class _HomeState extends State<Home> {
                         "Today’s BALANCE",
                         style: TextStyle(
                           color: AppColor().blackColor,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -612,10 +614,10 @@ class _HomeState extends State<Home> {
                     ),
                     Text(
                       // "${currency(context).currencySymbol}0",
-                      '${ Utils.getCurrency()}0',
+                      '${Utils.getCurrency()}0',
                       style: TextStyle(
                         color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -639,7 +641,7 @@ class _HomeState extends State<Home> {
                               "See all your records",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -685,7 +687,7 @@ class _HomeState extends State<Home> {
                             "Today’s Money IN",
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
@@ -695,10 +697,10 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "${ Utils.getCurrency()}0",
+                      "${Utils.getCurrency()}0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -728,7 +730,7 @@ class _HomeState extends State<Home> {
                             "Today’s Money Out",
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
@@ -738,10 +740,10 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "${ Utils.getCurrency()}0",
+                      "${Utils.getCurrency()}0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -800,7 +802,7 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          '${ Utils.getCurrency()}${display(_debtorController.debtorAmount)}',
+                          '${Utils.getCurrency()}${display(_debtorController.debtorAmount)}',
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),
@@ -859,7 +861,7 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                             fontSize: 13,
                             color: Colors.black,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
@@ -870,14 +872,14 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                             fontSize: 10,
                             color: Colors.black,
-                            fontFamily: 'DMSans'),
+                            fontFamily: 'InterRegular'),
                       ),
                       Text(
                         'Add transaction button to record your first transaction.',
                         style: TextStyle(
                             fontSize: 10,
                             color: Colors.black,
-                            fontFamily: 'DMSans'),
+                            fontFamily: 'InterRegular'),
                       ),
                     ],
                   ),
@@ -1059,7 +1061,7 @@ class _HomeState extends State<Home> {
                                       style: TextStyle(
                                           fontSize: 20,
                                           color: Colors.white,
-                                          fontFamily: 'DMSans',
+                                          fontFamily: 'InterRegular',
                                           fontWeight: FontWeight.bold),
                                     ))),
                               ),
@@ -1071,7 +1073,7 @@ class _HomeState extends State<Home> {
                                   style: TextStyle(
                                       fontSize: 13,
                                       color: Colors.black,
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       fontWeight: FontWeight.bold),
                                 )),
                             Expanded(
@@ -1119,7 +1121,7 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
-                            fontFamily: 'DMSans'),
+                            fontFamily: 'InterRegular'),
                       ),
                     ),
                   ),

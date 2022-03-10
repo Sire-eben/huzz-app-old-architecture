@@ -81,7 +81,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           color: AppColor().backgroundColor),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
@@ -132,7 +132,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       labelStyle:
                           Theme.of(context).textTheme.headline2!.copyWith(
                                 color: Colors.black,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -140,7 +140,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       unselectedLabelStyle:
                           Theme.of(context).textTheme.headline2!.copyWith(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -189,7 +189,7 @@ class DashboardDetails extends StatelessWidget {
               name!,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontSize: 12,
                   color: Colors.black),
             ),
@@ -197,7 +197,7 @@ class DashboardDetails extends StatelessWidget {
               no!.toString(),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontSize: 18,
                   color: AppColor().backgroundColor),
             )

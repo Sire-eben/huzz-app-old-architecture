@@ -42,7 +42,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
               'Help and Support',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -105,7 +105,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                             'FAQ',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -179,7 +179,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                             'Mail',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -248,7 +248,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                             'Connect on WhatsApp',
                             style: TextStyle(
                               color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -318,7 +318,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                 'Please click continue if you want to proceed',
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontWeight: FontWeight.normal,
                   fontSize: 11,
                 ),
@@ -355,7 +355,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                             'Cancel',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -382,7 +382,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                             'Continue',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),

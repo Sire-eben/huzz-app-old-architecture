@@ -103,3 +103,7 @@ flutter:
         - asset: assets/fontFamily/DMSans-MediumItalic.ttf
           style: italic
         - asset: assets/fontFamily/DMSans-Regular.ttf
+
+    - family: InterRegular
+      fonts:
+        - asset: assets/fontFamily/Inter-Regular.ttf

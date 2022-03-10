@@ -28,7 +28,7 @@ class _InvoiceState extends State<EmptyInvoice> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   color: AppColor().backgroundColor),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -63,7 +63,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(height: 10),
@@ -72,14 +72,14 @@ class _InvoiceState extends State<EmptyInvoice> {
                               style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.black,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                             Text(
                               'Create invoice button to add your first invoice',
                               style: TextStyle(
                                   fontSize: 8,
                                   color: Colors.black,
-                                  fontFamily: 'DMSans'),
+                                  fontFamily: 'InterRegular'),
                             ),
                             SizedBox(
                                 height:
@@ -105,7 +105,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   ),
                                 ),
                               ),

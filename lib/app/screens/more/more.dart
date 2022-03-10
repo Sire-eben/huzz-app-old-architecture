@@ -28,7 +28,7 @@ class _MoreState extends State<More> {
               'Do more with Huzz',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),

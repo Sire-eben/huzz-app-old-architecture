@@ -34,21 +34,20 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void _incrementCounter() {
-    if(_productController.productQuantityController.text.isEmpty)
-_productController.productQuantityController.text="0";
-    
-    
-    _counter=int.parse(_productController.productQuantityController.text);
+    if (_productController.productQuantityController.text.isEmpty)
+      _productController.productQuantityController.text = "0";
+
+    _counter = int.parse(_productController.productQuantityController.text);
     setState(() {
       _counter++;
     });
-    _productController.productQuantityController.text="$_counter";
+    _productController.productQuantityController.text = "$_counter";
   }
 
   void _decrementCounter() {
-        if(_productController.productQuantityController.text.isEmpty)
-_productController.productQuantityController.text="0";
-    _counter=int.parse(_productController.productQuantityController.text);
+    if (_productController.productQuantityController.text.isEmpty)
+      _productController.productQuantityController.text = "0";
+    _counter = int.parse(_productController.productQuantityController.text);
     setState(() {
       if (_counter < 1) {
         setState(() {
@@ -57,7 +56,7 @@ _productController.productQuantityController.text="0";
       } else {
         _counter--;
       }
-          _productController.productQuantityController.text="$_counter";
+      _productController.productQuantityController.text = "$_counter";
     });
   }
 
@@ -144,7 +143,7 @@ _productController.productQuantityController.text="0";
                 'Product Image',
                 style: TextStyle(
                   color: Colors.black,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontSize: 12,
                 ),
               ),
@@ -202,8 +201,13 @@ _productController.productQuantityController.text="0";
                         child: TextFormField(
                           controller:
                               _productController.productCostPriceController,
-                      keyboardType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          keyboardType: Platform.isIOS
+                              ? TextInputType.numberWithOptions(
+                                  signed: true, decimal: true)
+                              : TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           decoration: InputDecoration(
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
@@ -224,10 +228,10 @@ _productController.productQuantityController.text="0";
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            hintText: '${ Utils.getCurrency()} 0.00',
+                            hintText: '${Utils.getCurrency()} 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       color: Colors.black26,
                                       fontSize: 14,
                                       fontStyle: FontStyle.normal,
@@ -273,8 +277,13 @@ _productController.productQuantityController.text="0";
                         child: TextFormField(
                           controller:
                               _productController.productSellingPriceController,
-                    keyboardType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          keyboardType: Platform.isIOS
+                              ? TextInputType.numberWithOptions(
+                                  signed: true, decimal: true)
+                              : TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           decoration: InputDecoration(
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
@@ -295,10 +304,10 @@ _productController.productQuantityController.text="0";
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            hintText: '${ Utils.getCurrency()} 0.00',
+                            hintText: '${Utils.getCurrency()} 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       fontSize: 14,
                                       color: Colors.black26,
                                       fontStyle: FontStyle.normal,
@@ -369,9 +378,11 @@ _productController.productQuantityController.text="0";
                     width: 120,
                     child: TextFormField(
                       controller: _productController.productQuantityController,
-                      keyboardType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                      keyboardType: Platform.isIOS
+                          ? TextInputType.numberWithOptions(
+                              signed: true, decimal: true)
+                          : TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      
                       decoration: InputDecoration(
                         isDense: true,
                         focusedBorder: OutlineInputBorder(
@@ -392,7 +403,7 @@ _productController.productQuantityController.text="0";
                         hintText: '$_counter',
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   color: Colors.black,
                                   fontSize: 14,
                                   fontStyle: FontStyle.normal,
@@ -460,7 +471,7 @@ _productController.productQuantityController.text="0";
                     'Select product unit',
                     style: TextStyle(
                       color: Colors.black26,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                     ),
                   ),
                   items: _productController.units.map(buildMenuItem).toList(),
@@ -506,7 +517,7 @@ _productController.productQuantityController.text="0";
                           style: TextStyle(
                             color: AppColor().whiteColor,
                             fontSize: 18,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -572,7 +583,7 @@ _productController.productQuantityController.text="0";
                 'Upload Image',
                 style: TextStyle(
                   color: AppColor().blackColor,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -611,7 +622,7 @@ _productController.productQuantityController.text="0";
                   'Select from Device',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -635,7 +646,7 @@ _productController.productQuantityController.text="0";
                       'Done',
                       style: TextStyle(
                         color: AppColor().whiteColor,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontWeight: FontWeight.bold,
                       ),
                     ),

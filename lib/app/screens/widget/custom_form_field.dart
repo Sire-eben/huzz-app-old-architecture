@@ -10,7 +10,7 @@ import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/colors.dart';
 
 class CustomTextField extends StatelessWidget {
- const CustomTextField(
+  const CustomTextField(
       {this.hint,
       this.label,
       this.pretext,
@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyType;
   final TextEditingController? textEditingController;
   final TextInputAction? keyAction;
-  final  String? Function(String?)? validate;
+  final String? Function(String?)? validate;
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
@@ -89,11 +89,9 @@ class CustomTextField extends StatelessWidget {
               if (AllowClickable!) onClick!();
             },
             child: Container(
-  
-
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
-                inputFormatters: inputformater==null?[]:inputformater,
+                  inputFormatters: inputformater == null ? [] : inputformater,
                   autofocus: true,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
@@ -101,12 +99,14 @@ class CustomTextField extends StatelessWidget {
                   enabled: enabled,
                   keyboardType: this.keyType,
                   textInputAction: this.keyAction,
-                  validator: (validate==null)? (value) {
-                    if (value == null || value.isEmpty) {
-                      return validatorText;
-                    }
-                    return null;
-                  }:validate,
+                  validator: (validate == null)
+                      ? (value) {
+                          if (value == null || value.isEmpty) {
+                            return validatorText;
+                          }
+                          return null;
+                        }
+                      : validate,
                   initialValue: this.initialValue,
                   decoration: InputDecoration(
                     isDense: true,
@@ -134,7 +134,7 @@ class CustomTextField extends StatelessWidget {
                     //     fontSize: 14),
                     hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
                           color: colors ?? Colors.black26,
-                          fontFamily: 'DMSans',
+                          fontFamily: 'InterRegular',
                           fontSize: 14,
                           fontStyle: FontStyle.normal,
                           fontWeight: FontWeight.normal,
@@ -189,8 +189,7 @@ class CustomTextFieldOptional extends StatelessWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
-    final List<TextInputFormatter>? inputformater;
-
+  final List<TextInputFormatter>? inputformater;
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +212,7 @@ class CustomTextFieldOptional extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.only(left: 20, right: 20, top: 10),
               child: TextFormField(
-                   inputFormatters: inputformater==null?[]:inputformater,
+                  inputFormatters: inputformater == null ? [] : inputformater,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
                   controller: textEditingController,
@@ -307,7 +306,7 @@ class CustomTextFieldOnly extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: 20, right: 20, top: 10),
       child: TextFormField(
-           inputFormatters: inputformater==null?[]:inputformater,
+          inputFormatters: inputformater == null ? [] : inputformater,
           onChanged: this.onChanged,
           maxLength: this.maxLength,
           controller: textEditingController,
@@ -390,7 +389,7 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
-    final List<TextInputFormatter>? inputformater;
+  final List<TextInputFormatter>? inputformater;
 
   @override
   Widget build(BuildContext context) {
@@ -413,7 +412,7 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
-                   inputFormatters: inputformater==null?[]:inputformater,
+                  inputFormatters: inputformater == null ? [] : inputformater,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
                   controller: textEditingController,
@@ -500,7 +499,7 @@ class CustomTextFieldOption extends StatelessWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
-    final List<TextInputFormatter>? inputformater;
+  final List<TextInputFormatter>? inputformater;
 
   @override
   Widget build(BuildContext context) {
@@ -532,7 +531,7 @@ class CustomTextFieldOption extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.only(left: 20, right: 20, top: 10),
               child: TextFormField(
-                   inputFormatters: inputformater==null?[]:inputformater,
+                  inputFormatters: inputformater == null ? [] : inputformater,
                   onChanged: this.onChanged,
                   maxLength: this.maxLength,
                   controller: textEditingController,
@@ -621,7 +620,7 @@ class CustomTextFieldWithImage extends StatefulWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
-    final List<TextInputFormatter>? inputformater;
+  final List<TextInputFormatter>? inputformater;
 
   @override
   _CustomTextFieldWithImageState createState() =>
@@ -729,7 +728,6 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                 Container(
                   margin: EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: TextFormField(
-                    
                       onChanged: this.widget.onChanged,
                       maxLength: this.widget.maxLength,
                       controller: widget.contactName,
@@ -833,13 +831,13 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontWeight: FontWeight.w500),
                               prefixText: "+$countryCode ",
                               prefixStyle: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   color: Colors.black)),
                         ),
                       ),
@@ -1006,7 +1004,7 @@ class CustomTextFieldWithImageTransaction extends StatefulWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
-    final List<TextInputFormatter>? inputformater;
+  final List<TextInputFormatter>? inputformater;
 
   @override
   _CustomTextFieldWithImageTransactionState createState() =>
@@ -1206,13 +1204,13 @@ class _CustomTextFieldWithImageTransactionState
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontWeight: FontWeight.w500),
                               prefixText: "+$countryCode ",
                               prefixStyle: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   color: Colors.black)),
                         ),
                       ),
@@ -1366,7 +1364,7 @@ class CustomTextFieldInvoice extends StatefulWidget {
   final ValueChanged<String>? onSubmited;
   final ValueChanged<String>? onChanged;
   final String? validatorText;
-    final List<TextInputFormatter>? inputformater;
+  final List<TextInputFormatter>? inputformater;
 
   @override
   _CustomTextFieldInvoiceState createState() => _CustomTextFieldInvoiceState();
@@ -1567,13 +1565,13 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                               hintStyle: TextStyle(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontWeight: FontWeight.w500),
                               prefixText: "+$countryCode ",
                               prefixStyle: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   color: Colors.black)),
                         ),
                       ),

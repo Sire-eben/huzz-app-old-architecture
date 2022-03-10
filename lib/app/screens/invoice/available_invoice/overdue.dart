@@ -57,7 +57,7 @@ class _OverdueState extends State<Overdue> {
                         'Invoices',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -66,7 +66,7 @@ class _OverdueState extends State<Overdue> {
                         '(${_invoiceController.InvoiceDueList.length})',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -135,7 +135,7 @@ class _OverdueState extends State<Overdue> {
                                                 : customer.name!,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 fontSize: 16,
                                                 color: Colors.black),
                                           ),
@@ -145,7 +145,7 @@ class _OverdueState extends State<Overdue> {
                                           //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
                                           //     style: TextStyle(
                                           //         fontWeight: FontWeight.bold,
-                                          //         fontFamily: 'DMSans',
+                                          //         fontFamily: 'InterRegular',
                                           //         fontSize: 14,
                                           //         color: Colors.black),
                                           //   ),
@@ -159,10 +159,10 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
+                                                "${Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Color(0xffEF6500)),
                                               ),
@@ -170,7 +170,7 @@ class _OverdueState extends State<Overdue> {
                                                 "",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -179,7 +179,7 @@ class _OverdueState extends State<Overdue> {
                                                     .formatDate()!,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -254,7 +254,7 @@ class _OverdueState extends State<Overdue> {
                                                 : customer.name!,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 fontSize: 16,
                                                 color: Colors.black),
                                           ),
@@ -265,7 +265,7 @@ class _OverdueState extends State<Overdue> {
                                           // item.paymentItemRequestList!.first.itemName!,
                                           //   style: TextStyle(
                                           //       fontWeight: FontWeight.bold,
-                                          //       fontFamily: 'DMSans',
+                                          //       fontFamily: 'InterRegular',
                                           //       fontSize: 14,
                                           //       color: Colors.black),
                                           // ),
@@ -279,10 +279,10 @@ class _OverdueState extends State<Overdue> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                "${ Utils.getCurrency()}${display(item.totalAmount)}",
+                                                "${Utils.getCurrency()}${display(item.totalAmount)}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Color(0xffEF6500)),
                                               ),
@@ -290,7 +290,7 @@ class _OverdueState extends State<Overdue> {
                                                 "",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -299,7 +299,7 @@ class _OverdueState extends State<Overdue> {
                                                     .formatDate()!,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontFamily: 'DMSans',
+                                                    fontFamily: 'InterRegular',
                                                     fontSize: 14,
                                                     color: Colors.black),
                                               ),
@@ -381,7 +381,7 @@ class _OverdueState extends State<Overdue> {
           label: Text(
             deleteItem ? 'New Invoice' : 'Delete Item',
             style: TextStyle(
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontSize: 10,
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
@@ -407,7 +407,7 @@ class _OverdueState extends State<Overdue> {
                     'You are about to delete invoice(s). Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -454,7 +454,7 @@ class _OverdueState extends State<Overdue> {
                               'Cancel',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -483,7 +483,7 @@ class _OverdueState extends State<Overdue> {
                               'Delete',
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

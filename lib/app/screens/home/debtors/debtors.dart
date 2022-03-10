@@ -116,7 +116,7 @@ class _DebtorsState extends State<Debtors> {
                             hint: Text(
                               'Pending',
                               style: TextStyle(
-                                  fontFamily: 'DMSans',
+                                  fontFamily: 'InterRegular',
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -156,7 +156,7 @@ class _DebtorsState extends State<Debtors> {
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.black,
-                                            fontFamily: 'DMSans',
+                                            fontFamily: 'InterRegular',
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
@@ -167,14 +167,14 @@ class _DebtorsState extends State<Debtors> {
                                         style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.black,
-                                            fontFamily: 'DMSans'),
+                                            fontFamily: 'InterRegular'),
                                       ),
                                       Text(
                                         'Add New Debtors button to add your first debtor',
                                         style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.black,
-                                            fontFamily: 'DMSans'),
+                                            fontFamily: 'InterRegular'),
                                       ),
                                     ],
                                   ),
@@ -233,7 +233,7 @@ class _DebtorsState extends State<Debtors> {
                                   'Add New Debtor',
                                   style: TextStyle(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -261,7 +261,9 @@ class _DebtorsState extends State<Debtors> {
         child: Text(
           item,
           style: TextStyle(
-              fontFamily: 'DMSans', fontSize: 10, fontWeight: FontWeight.bold),
+              fontFamily: 'InterRegular',
+              fontSize: 10,
+              fontWeight: FontWeight.bold),
         ),
       );
 
@@ -298,7 +300,7 @@ class _DebtorsState extends State<Debtors> {
                     'Add Debtor',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -374,7 +376,7 @@ class _DebtorsState extends State<Debtors> {
                                   'Add Debtor',
                                   style: TextStyle(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'DMSans',
+                                    fontFamily: 'InterRegular',
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -423,7 +425,7 @@ class _DebtorsState extends State<Debtors> {
                                   'New Customer',
                                   style: TextStyle(
                                     color: AppColor().backgroundColor,
-                                    fontFamily: "DMSans",
+                                    fontFamily: "InterRegular",
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -447,7 +449,7 @@ class _DebtorsState extends State<Debtors> {
                                   'Existing Customers',
                                   style: TextStyle(
                                     color: AppColor().backgroundColor,
-                                    fontFamily: "DMSans",
+                                    fontFamily: "InterRegular",
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -471,8 +473,13 @@ class _DebtorsState extends State<Debtors> {
                                 ),
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Phone Number',
-                                  inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                  inputformater: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  keyType: Platform.isIOS
+                                      ? TextInputType.numberWithOptions(
+                                          signed: true, decimal: true)
+                                      : TextInputType.number,
                                   textEditingController:
                                       _customerController.phoneNumberController,
                                   validatorText: "Phone number is required",
@@ -480,15 +487,20 @@ class _DebtorsState extends State<Debtors> {
                                 // CustomTextFieldInvoiceOptional(
                                 //   label: 'Balance',
                                 //   inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        // keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                // keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
                                 //   textEditingController:
                                 //       _debtorController.amountController,
                                 //   validatorText: "Balance is needed",
                                 // ),
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Amount Owed',
-                                  inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                  inputformater: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  keyType: Platform.isIOS
+                                      ? TextInputType.numberWithOptions(
+                                          signed: true, decimal: true)
+                                      : TextInputType.number,
                                   textEditingController:
                                       _debtorController.totalAmountController,
                                   validatorText: "Amount Owed is required",
@@ -505,7 +517,7 @@ class _DebtorsState extends State<Debtors> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 12,
-                                          fontFamily: 'DMSans'),
+                                          fontFamily: 'InterRegular'),
                                     ),
                                     SizedBox(
                                       width: 5,
@@ -515,7 +527,7 @@ class _DebtorsState extends State<Debtors> {
                                       style: TextStyle(
                                           color: Colors.red,
                                           fontSize: 12,
-                                          fontFamily: 'DMSans'),
+                                          fontFamily: 'InterRegular'),
                                     )
                                   ],
                                 ),
@@ -556,8 +568,13 @@ class _DebtorsState extends State<Debtors> {
                                 ),
                                 CustomTextFieldInvoiceOptional(
                                   label: 'Amount Owed',
-                                  inputformater: [FilteringTextInputFormatter.digitsOnly],
-                        keyType: Platform.isIOS?TextInputType.numberWithOptions(signed: true, decimal: true): TextInputType.number,
+                                  inputformater: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  keyType: Platform.isIOS
+                                      ? TextInputType.numberWithOptions(
+                                          signed: true, decimal: true)
+                                      : TextInputType.number,
                                   validatorText: "Amount Owed is required",
                                   textEditingController:
                                       _debtorController.totalAmountController,
@@ -683,7 +700,7 @@ class _DebtorsState extends State<Debtors> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                   ),
                 ),
@@ -774,7 +791,7 @@ class _DebtorListingState extends State<DebtorListing> {
                         style: TextStyle(
                             fontSize: 30,
                             color: Colors.white,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             fontWeight: FontWeight.normal),
                       ))),
                 ),
@@ -790,7 +807,7 @@ class _DebtorListingState extends State<DebtorListing> {
                         customer.name!,
                         style: TextStyle(
                             fontSize: 12,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             color: Colors.black,
                             fontWeight: FontWeight.w400),
                       ),
@@ -798,7 +815,7 @@ class _DebtorListingState extends State<DebtorListing> {
                         customer.phone!,
                         style: TextStyle(
                             fontSize: 12,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             color: Colors.grey),
                       ),
                     ],
@@ -812,18 +829,18 @@ class _DebtorListingState extends State<DebtorListing> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Bal: ${ Utils.getCurrency()}${display(widget.item!.balance!)}",
+                        "Bal: ${Utils.getCurrency()}${display(widget.item!.balance!)}",
                         style: TextStyle(
                             fontSize: 13,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             color: AppColor().backgroundColor,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Paid: ${ Utils.getCurrency()}${display((widget.item!.totalAmount! - widget.item!.balance!))}",
+                        "Paid: ${Utils.getCurrency()}${display((widget.item!.totalAmount! - widget.item!.balance!))}",
                         style: TextStyle(
                             fontSize: 11,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             color: Colors.grey),
                       ),
                     ],
@@ -884,7 +901,7 @@ class _DebtorListingState extends State<DebtorListing> {
                   'Send Reminder to debtor',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -1038,7 +1055,7 @@ class _DebtorListingState extends State<DebtorListing> {
                   'Update Payment',
                   style: TextStyle(
                     color: AppColor().blackColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -1069,7 +1086,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             Text(
                               'Paying Fully',
                               style: TextStyle(
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1099,7 +1116,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             Text(
                               'Paying Partly',
                               style: TextStyle(
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1128,7 +1145,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 16,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         fontStyle: FontStyle.normal,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -1150,9 +1167,9 @@ class _DebtorListingState extends State<DebtorListing> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      'Bal: ' + display(debtor.balance),
+                                      'Bal:${Utils.getCurrency()}${display(debtor.balance)}',
                                       style: TextStyle(
-                                        fontFamily: "DMSans",
+                                        fontFamily: "InterRegular",
                                         color: AppColor().orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
@@ -1163,7 +1180,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                       // debtOwnedModel.balance!,
                                       '',
                                       style: TextStyle(
-                                        fontFamily: "DMSans",
+                                        fontFamily: "InterRegular",
                                         color: AppColor().orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
@@ -1213,13 +1230,13 @@ class _DebtorListingState extends State<DebtorListing> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 // labelText: label,
-                                hintText: '${ Utils.getCurrency()} 0.00',
+                                hintText: '${Utils.getCurrency()} 0.00',
 
                                 hintStyle: Theme.of(context)
                                     .textTheme
                                     .headline4!
                                     .copyWith(
-                                      fontFamily: 'DMSans',
+                                      fontFamily: 'InterRegular',
                                       color: Colors.black26,
                                       fontSize: 14,
                                       fontStyle: FontStyle.normal,
@@ -1271,7 +1288,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
-                                    fontFamily: 'DMSans'),
+                                    fontFamily: 'InterRegular'),
                               ),
                       ),
                     );
@@ -1306,7 +1323,7 @@ class _DebtorListingState extends State<DebtorListing> {
                       'This will send a direct sms to the debtor.',
                       style: TextStyle(
                         color: AppColor().blackColor,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontWeight: FontWeight.normal,
                         fontSize: 11,
                       ),
@@ -1360,7 +1377,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             'Cancel',
                             style: TextStyle(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1386,7 +1403,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             'Continue',
                             style: TextStyle(
                               color: AppColor().whiteColor,
-                              fontFamily: 'DMSans',
+                              fontFamily: 'InterRegular',
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),

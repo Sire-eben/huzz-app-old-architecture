@@ -38,7 +38,7 @@ class Confirmation extends StatelessWidget {
               '$title Successfully ',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -49,7 +49,7 @@ class Confirmation extends StatelessWidget {
               text,
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -81,7 +81,7 @@ class Confirmation extends StatelessWidget {
                   'Continue',
                   style: TextStyle(
                     color: AppColor().whiteColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontWeight: FontWeight.bold,
                   ),
                 ),

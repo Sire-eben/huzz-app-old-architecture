@@ -50,7 +50,7 @@ class _MerchantsState extends State<Merchants> {
                 style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: AppColor().backgroundColor,
-                    fontFamily: 'DMSans'),
+                    fontFamily: 'InterRegular'),
                 controller: _searchcontroller,
                 cursorColor: Colors.white,
                 autofocus: false,
@@ -71,7 +71,7 @@ class _MerchantsState extends State<Merchants> {
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey,
-                      fontFamily: 'DMSans'),
+                      fontFamily: 'InterRegular'),
                   contentPadding:
                       EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                   enabledBorder: OutlineInputBorder(
@@ -129,7 +129,7 @@ class _MerchantsState extends State<Merchants> {
                                             style: TextStyle(
                                                 fontSize: 30,
                                                 color: Colors.white,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 fontWeight: FontWeight.bold),
                                           ))),
                                     ),
@@ -148,7 +148,7 @@ class _MerchantsState extends State<Merchants> {
                                             item.name!,
                                             style: TextStyle(
                                                 fontSize: 12,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w400),
                                           ),
@@ -156,7 +156,7 @@ class _MerchantsState extends State<Merchants> {
                                             item.phone!,
                                             style: TextStyle(
                                                 fontSize: 12,
-                                                fontFamily: 'DMSans',
+                                                fontFamily: 'InterRegular',
                                                 color: Colors.grey),
                                           ),
                                         ],
@@ -211,7 +211,7 @@ class _MerchantsState extends State<Merchants> {
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: Colors.black,
-                                        fontFamily: 'DMSans',
+                                        fontFamily: 'InterRegular',
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
@@ -219,14 +219,14 @@ class _MerchantsState extends State<Merchants> {
                                     style: TextStyle(
                                         fontSize: 8,
                                         color: Colors.black,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   ),
                                   Text(
                                     'Add merchant button to add your first merchant',
                                     style: TextStyle(
                                         fontSize: 8,
                                         color: Colors.black,
-                                        fontFamily: 'DMSans'),
+                                        fontFamily: 'InterRegular'),
                                   ),
                                 ],
                               ),
@@ -251,7 +251,7 @@ class _MerchantsState extends State<Merchants> {
         label: Text(
           'Add Merchant',
           style: TextStyle(
-              fontFamily: 'DMSans',
+              fontFamily: 'InterRegular',
               fontSize: 10,
               color: Colors.white,
               fontWeight: FontWeight.bold),
@@ -276,7 +276,7 @@ class _MerchantsState extends State<Merchants> {
                     'You are about to delete a merchant, Are you sure you want to continue?',
                     style: TextStyle(
                       color: AppColor().blackColor,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -321,7 +321,7 @@ class _MerchantsState extends State<Merchants> {
                               'Cancel',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -350,7 +350,7 @@ class _MerchantsState extends State<Merchants> {
                               'Delete',
                               style: TextStyle(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'DMSans',
+                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

@@ -84,7 +84,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
           'View Invoice',
           style: TextStyle(
             color: AppColor().backgroundColor,
-            fontFamily: "DMSans",
+            fontFamily: "InterRegular",
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -142,7 +142,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
               //             color: Colors.black,
               //             fontSize: 10,
               //             fontWeight: FontWeight.w400,
-              //             fontFamily: 'DMSans'),
+              //             fontFamily: 'InterRegular'),
               //       ),
               //     ],
               //   ),
@@ -187,7 +187,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               color: Colors.black,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         ),
                       ],
                     ),
@@ -221,7 +221,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               color: Colors.black,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'DMSans'),
+                              fontFamily: 'InterRegular'),
                         ),
                       ],
                     ),
@@ -255,7 +255,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                 color: Colors.black,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w400,
-                                fontFamily: 'DMSans'),
+                                fontFamily: 'InterRegular'),
                           ),
                         ],
                       ),
@@ -282,7 +282,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: 'DMSans'),
+                          fontFamily: 'InterRegular'),
                     ),
                   ),
                 ),
@@ -297,16 +297,14 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
 
   Widget buildUpdateSingleInvoice() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
-        
-
         return Obx(() {
           return SingleChildScrollView(
-
             child: Container(
-                   
-              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04,),
-          
-            padding: MediaQuery.of(context).viewInsets,    
+              margin: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.04,
+                right: MediaQuery.of(context).size.width * 0.04,
+              ),
+              padding: MediaQuery.of(context).viewInsets,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -334,7 +332,8 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               MediaQuery.of(context).size.width * 0.01),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: AppColor().backgroundColor.withOpacity(0.2)),
+                              color:
+                                  AppColor().backgroundColor.withOpacity(0.2)),
                           child: Icon(
                             Icons.close,
                             color: AppColor().backgroundColor,
@@ -348,7 +347,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                       'Update Payment',
                       style: TextStyle(
                         color: Colors.black,
-                        fontFamily: "DMSans",
+                        fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -380,7 +379,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               'Paying Fully',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -411,7 +410,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               'Paying Partly',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -425,7 +424,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                   paymentType == 0
                       ? CustomTextFieldInvoiceOptional(
                           label: 'Amount',
-                          hint: '${ Utils.getCurrency()}',
+                          hint: '${Utils.getCurrency()}',
                           keyType: TextInputType.phone,
                           textEditingController: _amountController,
                         )
@@ -508,7 +507,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                   //                 color: image != null ? Colors.black : Colors.grey,
                   //                 fontSize: 12,
                   //                 fontWeight: FontWeight.w400,
-                  //                 fontFamily: 'DMSans'),
+                  //                 fontFamily: 'InterRegular'),
                   //           ),
                   //         ),
                   //         image != null
@@ -553,7 +552,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               'Cash',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -576,7 +575,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               'POS',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -599,7 +598,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               'Transfer',
                               style: TextStyle(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "DMSans",
+                                fontFamily: "InterRegular",
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -636,7 +635,8 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.height * 0.01),
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.01),
                       height: 50,
                       decoration: BoxDecoration(
                           color: AppColor().backgroundColor,
@@ -656,12 +656,14 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
-                                    fontFamily: 'DMSans'),
+                                    fontFamily: 'InterRegular'),
                               ),
                             ),
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height*0.03,)
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
+                  )
                 ],
               ),
             ),

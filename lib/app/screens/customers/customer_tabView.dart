@@ -44,7 +44,7 @@ class _CustomerTabViewState extends State<CustomerTabView> {
                   'Manage $customer',
                   style: TextStyle(
                     color: AppColor().backgroundColor,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -63,7 +63,7 @@ class _CustomerTabViewState extends State<CustomerTabView> {
                       ]),
                   textStyle: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                       fontSize: 10,
                       color: Colors.black),
                   preferBelow: false,
@@ -91,7 +91,7 @@ class _CustomerTabViewState extends State<CustomerTabView> {
                   child: TabBar(
                     labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
                           color: AppColor().backgroundColor,
-                          fontFamily: "DMSans",
+                          fontFamily: "InterRegular",
                           fontStyle: FontStyle.normal,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -100,7 +100,7 @@ class _CustomerTabViewState extends State<CustomerTabView> {
                     unselectedLabelStyle:
                         Theme.of(context).textTheme.headline2!.copyWith(
                               color: AppColor().backgroundColor,
-                              fontFamily: "DMSans",
+                              fontFamily: "InterRegular",
                               fontStyle: FontStyle.normal,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

@@ -30,7 +30,7 @@ class MyTeam extends StatelessWidget {
               'My Team',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -76,7 +76,7 @@ class MyTeam extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 13,
                         color: Colors.black,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -87,14 +87,14 @@ class MyTeam extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 10,
                         color: Colors.black,
-                        fontFamily: 'DMSans'),
+                        fontFamily: 'InterRegular'),
                   ),
                   Text(
                     'you manage your business',
                     style: TextStyle(
                       fontSize: 10,
                       color: Colors.black,
-                      fontFamily: 'DMSans',
+                      fontFamily: 'InterRegular',
                     ),
                   ),
                   SizedBox(
@@ -117,7 +117,7 @@ class MyTeam extends StatelessWidget {
                           'Add Members',
                           style: TextStyle(
                             fontSize: 13,
-                            fontFamily: 'DMSans',
+                            fontFamily: 'InterRegular',
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),

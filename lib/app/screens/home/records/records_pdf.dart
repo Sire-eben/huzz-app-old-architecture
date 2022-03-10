@@ -53,8 +53,8 @@ class RecordPdfApi {
 
       return [
         item.date,
-        '\NGN${item.moneyIn}',
-        '\NGN${item.moneyOut}',
+        '${Utils.formatPrice(item.moneyIn)}',
+        '${Utils.formatPrice(item.moneyOut)}',
       ];
     }).toList();
 
