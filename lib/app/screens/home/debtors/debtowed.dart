@@ -269,13 +269,14 @@ class _DebtOwnedState extends State<DebtOwned> {
                                               child: InkWell(
                                                   onTap: () {
                                                     print(index);
+                                                    // item.businessTransactionId="6229ab581982280f4fd07cf5";
                                                   print("business transaction id  is ${item.businessTransactionId}");
                                                   if(item.businessTransactionId!=null && item.businessTransactionId!.isNotEmpty){
                                                  
                                                   final _transactionController=Get.find<TransactionRespository>();
  final Titem=_transactionController.getTransactionById(item.businessTransactionId!);
  if(Titem!=null){
-                     Get.snackbar("Error","Going to transaction page");
+                    //  Get.snackbar("Error","Going to transaction page");
                                                       Get.to(() => MoneySummary(
                               item: Titem.businessTransactionPaymentItemList![0],
                             ));
