@@ -390,7 +390,7 @@ class PdfInvoiceApi {
             Text(
               'Huzz',
               style: TextStyle(
-                color: themeColor,
+                color: PdfColors.black,
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
