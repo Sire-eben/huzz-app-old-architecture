@@ -147,7 +147,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                       'assets/images/Group 3647.png',
                                     )
                                   : CircleAvatar(
-                                      radius: 70.0,
+                                      radius: 50.0,
                                       backgroundImage: NetworkImage(
                                           "${businessController.selectedBusiness.value!.buisnessLogoFileStoreId}"),
                                       backgroundColor: Colors.transparent,

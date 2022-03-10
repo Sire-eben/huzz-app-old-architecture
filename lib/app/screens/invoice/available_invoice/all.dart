@@ -105,10 +105,10 @@ class _AllState extends State<All> {
                                 // ignore: unused_local_variable
                                 final dueDate = date.add(Duration(days: 7));
 
-                                final singleInvoiceReceipt =
-                                    await PdfInvoiceApi.generate(item);
+                                // final singleInvoiceReceipt =
+                                //     await PdfInvoiceApi.generate(item);
                                 Get.to(() => PreviewSingleInvoice(
-                                    invoice: item, file: singleInvoiceReceipt));
+                                    invoice: item));
                               },
                               child: Padding(
                                 padding: EdgeInsets.only(

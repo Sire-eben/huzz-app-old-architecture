@@ -188,8 +188,10 @@ class _DebtorsState extends State<Debtors> {
                                     ? (_debtorController.debtorsList.length)
                                     : (_debtorController.fullyPaidDebt.length)),
                                 itemBuilder: (context, index) {
-                                  var item =
-                                      _debtorController.debtorsList[index];
+                                  var item = ((value == "Pending")
+                                      ? (_debtorController.debtorsList)
+                                      : (_debtorController
+                                          .fullyPaidDebt))[index];
                                   // ignore: unused_local_variable
                                   var customer = _customerController
                                       .checkifCustomerAvailableWithValue(

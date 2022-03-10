@@ -103,10 +103,7 @@ class _OverdueState extends State<Overdue> {
                                   item.customerId ?? "");
                           return GestureDetector(
                             onTap: () async {
-                              final singleInvoiceReceipt =
-                                  await PdfInvoiceApi.generate(item);
-                              Get.to(() => PreviewSingleInvoice(
-                                  invoice: item, file: singleInvoiceReceipt));
+                              Get.to(() => PreviewSingleInvoice(invoice: item));
                             },
                             child: Padding(
                               padding: EdgeInsets.only(
@@ -212,11 +209,7 @@ class _OverdueState extends State<Overdue> {
                                   item.customerId ?? "");
                           return InkWell(
                             onTap: () async {
-                              print("overdue clicked");
-                              final singleInvoiceReceipt =
-                                  await PdfInvoiceApi.generate(item);
-                              Get.to(() => PreviewSingleInvoice(
-                                  invoice: item, file: singleInvoiceReceipt));
+                              Get.to(() => PreviewSingleInvoice(invoice: item));
                               setState(() {
                                 if (_items.contains(index)) {
                                   _selectedIndex.add(index);
