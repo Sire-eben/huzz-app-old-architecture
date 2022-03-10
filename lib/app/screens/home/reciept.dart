@@ -4,14 +4,17 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
+import 'package:huzz/core/constants/app_colors.dart';
+import 'package:huzz/model/transaction_model.dart';
+import 'package:pdf/pdf.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../colors.dart';
 import 'receipt/money_in_out_pdf.dart';
 
 class IncomeReceipt extends StatefulWidget {
-  final File? file;
+  final TransactionModel transaction;
 
-  const IncomeReceipt({Key? key, @required this.file}) : super(key: key);
+  const IncomeReceipt({Key? key, required this.transaction}) : super(key: key);
 
   @override
   _IncomeReceiptState createState() => _IncomeReceiptState();
@@ -19,172 +22,203 @@ class IncomeReceipt extends StatefulWidget {
 
 class _IncomeReceiptState extends State<IncomeReceipt> {
   PDFViewController? controller;
-  bool receiptTheme = true;
+  bool isLoading = true;
+  File? generatedReceipt;
+  PdfColor themeColor = themeColors.first;
+
+  @override
+  void initState() {
+    super.initState();
+    generatePdf(themeColor);
+  }
+
+  void generatePdf(PdfColor color) async {
+    generatedReceipt =
+        await PdfMoneyInOutApi.generate(widget.transaction, color);
+    setState(() {
+      themeColor = color;
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              Expanded(
-                child: PDFView(
-                  fitPolicy: FitPolicy.WIDTH,
-                  filePath: widget.file!.path,
-                  autoSpacing: false,
-                  onViewCreated: (controller) =>
-                      setState(() => this.controller = controller),
-                ),
-              ),
-              // Padding(
-              //   padding:
-              //       EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-              //   child: Row(
-              //     children: [
-              //       Container(
-              //         child: Checkbox(
-              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              //           activeColor: AppColor().backgroundColor,
-              //           value: receiptTheme,
-              //           onChanged: (bool? value) {
-              //             setState(() {
-              //               receiptTheme = value!;
-              //             });
-              //           },
-              //         ),
-              //       ),
-              //       Container(
-              //         child: Checkbox(
-              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              //           activeColor: Color(0xff0065D3),
-              //           value: !receiptTheme,
-              //           onChanged: (bool? value) {
-              //             setState(() {
-              //               receiptTheme = value!;
-              //             });
-              //           },
-              //         ),
-              //       ),
-              //       Text(
-              //         'Change receipt theme',
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontSize: 10,
-              //             fontWeight: FontWeight.w400,
-              //             fontFamily: 'InterRegular'),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.02),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            PdfApi.openFile(widget.file!);
-                            Get.back();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            width: MediaQuery.of(context).size.height * 0.06,
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppColor()
-                                    .backgroundColor
-                                    .withOpacity(0.2)),
-                            child:
-                                SvgPicture.asset('assets/images/download.svg'),
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Text(
-                          'Download',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'InterRegular'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.height * 0.01),
-                    GestureDetector(
-                      onTap: () {
-                        Share.shareFiles([widget.file!.path],
-                            text: 'Share Receipt');
-                        Get.back();
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            width: MediaQuery.of(context).size.height * 0.06,
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppColor()
-                                    .backgroundColor
-                                    .withOpacity(0.2)),
-                            child: SvgPicture.asset('assets/images/share.svg'),
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                          Text(
-                            'Share',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'InterRegular'),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  Get.offAll(Dashboard());
-                },
+        backgroundColor: Colors.white,
+        body: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SafeArea(
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      'Continue',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'InterRegular'),
-                    ),
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: PDFView(
+                          key: ValueKey(themeColor),
+                          fitPolicy: FitPolicy.WIDTH,
+                          filePath: generatedReceipt!.path,
+                          autoSpacing: false,
+                          onViewCreated: (controller) =>
+                              setState(() => this.controller = controller),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.height * 0.02,
+                            vertical: 10),
+                        child: Row(
+                          children: [
+                            ...themeColors
+                                .map((color) => Container(
+                                      height: 24,
+                                      width: 24,
+                                      margin: EdgeInsets.only(left: 10),
+                                      color: Color(color.toInt()),
+                                      child: GestureDetector(
+                                        onTap: () => generatePdf(color),
+                                        child: themeColor == color
+                                            ? Icon(
+                                                Icons.check,
+                                                color: Colors.white,
+                                              )
+                                            : null,
+                                      ),
+                                    ))
+                                .toList(),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Change receipt theme',
+                              style: TextStyle(fontSize: 12),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.height * 0.02,
+                            vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    PdfApi.openFile(generatedReceipt!);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.height *
+                                            0.015),
+                                    width: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColor()
+                                            .backgroundColor
+                                            .withOpacity(0.2)),
+                                    child: SvgPicture.asset(
+                                        'assets/images/download.svg'),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
+                                Text(
+                                  'Download',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'InterRegular'),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.height * 0.01),
+                            GestureDetector(
+                              onTap: () {
+                                Share.shareFiles([generatedReceipt!.path],
+                                    text: 'Share Receipt');
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.height *
+                                            0.015),
+                                    width: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColor()
+                                            .backgroundColor
+                                            .withOpacity(0.2)),
+                                    child: SvgPicture.asset(
+                                        'assets/images/share.svg'),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01),
+                                  Text(
+                                    'Share',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'InterRegular'),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                      InkWell(
+                        onTap: () {
+                          Get.offAll(Dashboard());
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.height * 0.03),
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Center(
+                            child: Text(
+                              'Continue',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'InterRegular'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            ],
-          ),
-        ),
-      ),
-    );
+              ));
   }
 }

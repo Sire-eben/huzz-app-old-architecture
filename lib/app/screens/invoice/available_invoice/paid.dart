@@ -100,10 +100,8 @@ class _PaidState extends State<Paid> {
                                   item.customerId ?? "");
                           return GestureDetector(
                             onTap: () async {
-                              final singleInvoiceReceipt =
-                                  await PdfInvoiceApi.generate(item);
                               Get.to(() => PreviewSingleInvoice(
-                                  invoice: item, file: singleInvoiceReceipt));
+                                  invoice: item));
                             },
                             child: Padding(
                               padding: EdgeInsets.only(

@@ -6,9 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharePref {
   static String isLogin = "App is Login";
   static String firstTimeAppOpen = " First Time  app open";
-  static String dateTokenExpired=" Time when token expired";
-  static String selectedLastBusiness="Selected Last Business";
-  static String miscellanous="Miscellanous";
+  static String dateTokenExpired = " Time when token expired";
+  static String selectedLastBusiness = "Selected Last Business";
+  static String miscellanous = "Miscellanous";
   SharedPreferences? _preferences;
   SharePref() {
     //print("sharepref init");
@@ -22,8 +22,6 @@ class SharePref {
     _preferences!.setString(isLogin, jsonEncode(user.toJson()));
   }
 
- 
-
   void logout() {
     _preferences!.setString(isLogin, "");
   }
@@ -32,8 +30,7 @@ class SharePref {
     final key = 'token';
     String value = _preferences!.getString(key)!;
     print('read: $value');
-    return value.isEmpty?"0":value;
-    
+    return value.isEmpty ? "0" : value;
   }
 
   saveToken(String value) {
@@ -61,30 +58,31 @@ class SharePref {
     print("Am I a new User?  $value");
     return value == null ? true : value;
   }
-  void setDateTokenExpired(DateTime time){
 
+  void setDateTokenExpired(DateTime time) {
     _preferences!.setString(dateTokenExpired, time.toIso8601String());
   }
 
-  void setLastSelectedBusiness(String id){
+  void setLastSelectedBusiness(String id) {
+    _preferences!.setString(selectedLastBusiness, id);
+  }
 
-_preferences!.setString(selectedLastBusiness, id);
+  void setMiscellaneous(String data) {
+    _preferences!.setString(miscellanous, data);
   }
-  void setMiscellaneous(String data){
-_preferences!.setString(miscellanous, data);
 
+  String getMiscellaneous() {
+    var value = _preferences!.getString(miscellanous);
+    return value == null ? "" : value;
   }
-  String getMiscellaneous(){
-var value=_preferences!.getString(miscellanous);
-return value==null?"":value;
 
+  String getLastSelectedBusiness() {
+    var value = _preferences!.getString(selectedLastBusiness);
+    return value == null ? "" : value;
   }
-String getLastSelectedBusiness(){
-var value=_preferences!.getString(selectedLastBusiness);
-return value==null?"":value;
-  }
-  DateTime getDateTokenExpired(){
-  var expireTime=_preferences!.getString(dateTokenExpired);
-    return expireTime==null?DateTime.now():DateTime.parse(expireTime);
+
+  DateTime getDateTokenExpired() {
+    var expireTime = _preferences!.getString(dateTokenExpired);
+    return expireTime == null ? DateTime.now() : DateTime.parse(expireTime);
   }
 }

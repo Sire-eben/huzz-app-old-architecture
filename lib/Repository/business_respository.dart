@@ -34,7 +34,7 @@ class BusinessRespository extends GetxController {
   final businessEmail = TextEditingController();
   final businessPhoneNumber = TextEditingController();
   final businessAddressController = TextEditingController();
-  final businessCurrency=TextEditingController();
+  final businessCurrency = TextEditingController();
   final _userController = Get.find<AuthRepository>();
 
   final _updateBusinessStatus = UpdateBusinessStatus.Empty.obs;
@@ -188,10 +188,11 @@ class BusinessRespository extends GetxController {
   Future GetOfflineBusiness() async {
     var results = await sqliteDb.getOfflineBusinesses();
     print("offline business ${results.length}");
-  
-     print("selected business is ${selectedBusiness.value}");
+
+    print("selected business is ${selectedBusiness.value}");
     _offlineBusiness(results);
-    if (selectedBusiness.value == null|| selectedBusiness.value!.businessId==null) if (results.isNotEmpty) {
+    if (selectedBusiness.value == null ||
+        selectedBusiness.value!.businessId == null) if (results.isNotEmpty) {
       var business = results.firstWhereOrNull(
           (e) => e.businessId == pref!.getLastSelectedBusiness());
       if (business == null)
@@ -217,7 +218,7 @@ class BusinessRespository extends GetxController {
               "businessCategory": selectedCategory.value,
               "phoneNumber": businessPhoneNumber.text.trim(),
               "email": businessEmail.text.trim(),
-              "currency":businessCurrency.text,
+              "currency": businessCurrency.text,
               "buisnessLogoFileStoreId": null,
               "yearFounded": "",
               "businessRegistered": false,
@@ -237,7 +238,7 @@ class BusinessRespository extends GetxController {
         if (json['success']) {
           var business = Business.fromJson(json['data']);
           selectedBusiness(business);
-         clear();
+          clear();
           OnlineBusiness();
 
           _createBusinessStatus(CreateBusinessStatus.Success);
@@ -251,15 +252,14 @@ class BusinessRespository extends GetxController {
       _createBusinessStatus(CreateBusinessStatus.Error);
     }
   }
-  void clear(){
-businessAddressController.clear();
-selectedCategory(null);
-businessEmail.clear();
-businessName.clear();
-businessImage(null);
-businessPhoneNumber.clear();
 
-
+  void clear() {
+    businessAddressController.clear();
+    selectedCategory(null);
+    businessEmail.clear();
+    businessName.clear();
+    businessImage(null);
+    businessPhoneNumber.clear();
   }
 
   Future updateBusiness(String selectedCurrency) async {
@@ -276,19 +276,20 @@ businessPhoneNumber.clear();
               _userController.countryCodeFLag)
           .currencyCode
           .toString();
+      final itemsToUpdate = {
+        "address": businessAddressController.text,
+        "phoneNumber": businessPhoneNumber.text.trim(),
+        "email": businessEmail.text.trim(),
+        "buisnessLogoFileStoreId": imageId,
+        "currency": selectedCurrency,
+      };
+      if (businessName.text != selectedBusiness.value!.businessName) {
+        itemsToUpdate.putIfAbsent("name", () => businessName.text);
+      }
       final response = await http.put(
           Uri.parse(ApiLink.update_business +
               "/${selectedBusiness.value!.businessId}"),
-          body: jsonEncode(
-            {
-              "name": businessName.text,
-              "address": businessAddressController.text,
-              "phoneNumber": businessPhoneNumber.text.trim(),
-              "email": businessEmail.text.trim(),
-              "buisnessLogoFileStoreId": imageId,
-              "currency": selectedCurrency,
-            },
-          ),
+          body: jsonEncode(itemsToUpdate),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"

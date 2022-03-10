@@ -65,22 +65,16 @@ class InvoiceRespository extends GetxController {
   List<Invoice> todayInvoice = [];
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
- MoneyMaskedTextController amountController = MoneyMaskedTextController(
-    
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+  MoneyMaskedTextController amountController = MoneyMaskedTextController(
+      decimalSeparator: '.', thousandSeparator: ',', precision: 1);
   final quantityController = TextEditingController();
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
- MoneyMaskedTextController amountPaidController = MoneyMaskedTextController(
-   
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+  MoneyMaskedTextController amountPaidController = MoneyMaskedTextController(
+      decimalSeparator: '.', thousandSeparator: ',', precision: 1);
   final taxController = TextEditingController();
   final discountController = TextEditingController();
   Bank? invoiceBank;
@@ -111,7 +105,7 @@ class InvoiceRespository extends GetxController {
   List<String> paymentMode = ["FULLY_PAID", "DEPOSIT"];
   String? selectedPaymentMode;
   List<Invoice> pendingInvoiceToBeAdded = [];
-    final _miscellaneousController=Get.find<MiscellaneousRepository>();
+  final _miscellaneousController = Get.find<MiscellaneousRepository>();
   Rx<List<Invoice>> _paidInvoiceList = Rx([]);
   Rx<List<Invoice>> _InvoicePendingList = Rx([]);
   Rx<List<Invoice>> _InvoiceDepositList = Rx([]);
@@ -131,32 +125,22 @@ class InvoiceRespository extends GetxController {
     // TODO: implement onInit
     print("getting Invoice repo");
 
-_miscellaneousController.businessTransactionPaymentSourceList.listen((p0) {
-  if(p0.isNotEmpty){
+    _miscellaneousController.businessTransactionPaymentSourceList.listen((p0) {
+      if (p0.isNotEmpty) {
+        paymentSource = p0;
+      }
+    });
 
-
-    paymentSource=p0;
-
-  }
-
-});
-
-_miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
-  
-
-  if(p0.isNotEmpty){
-
-
-
-    paymentMode=p0;
-  }
-
-});
+    _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
+      if (p0.isNotEmpty) {
+        paymentMode = p0;
+      }
+    });
     _userController.Mtoken.listen((p0) {
       print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null && value.businessId!=null) {
+        if (value != null && value.businessId != null) {
           getOnlineInvoice(value.businessId!);
 
           // getSpending(value.businessId!);
@@ -166,18 +150,18 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
           print("current business is null");
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null && p0.businessId!=null) {
-              amountController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+          if (p0 != null && p0.businessId != null) {
+            amountController = MoneyMaskedTextController(
+                leftSymbol: '${Utils.getCurrency()} ',
+                decimalSeparator: '.',
+                thousandSeparator: ',',
+                precision: 1);
 
-      amountPaidController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+            amountPaidController = MoneyMaskedTextController(
+                leftSymbol: '${Utils.getCurrency()} ',
+                decimalSeparator: '.',
+                thousandSeparator: ',',
+                precision: 1);
             print("business id ${p0.businessId}");
             _offlineInvoices([]);
             _allPaymentItem([]);
@@ -185,7 +169,7 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
             getOnlineInvoice(p0.businessId!);
 
             GetOfflineInvoices(p0.businessId!);
-          
+
             // getSpending(p0.businessId!);
 
           }
@@ -543,7 +527,6 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
         var result = Invoice.fromJson(json['data']);
         result.paymentItemRequestList = productList;
         print("second result is ${result.toJson()}");
-        final invoiceReceipt = await PdfInvoiceApi.generate(result);
 
         //  Get.to(() => IncomeSuccess(Invoice: result,title: "Invoice",));
         await getOnlineInvoice(
@@ -552,7 +535,8 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
         GetOfflineInvoices(
             _businessController.selectedBusiness.value!.businessId!);
         _addingInvoiceStatus(AddingInvoiceStatus.Success);
-        Get.to(() => PreviewInvoice(file: invoiceReceipt));
+        Get.to(() => PreviewInvoice(invoice: result));
+
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         clearValue();
       } else {
@@ -636,8 +620,7 @@ _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
     await _businessController.sqliteDb.insertInvoce(value);
     GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
     // Get.to(() => IncomeSuccess(Invoice: value!,title: "Invoice",));
-    final invoiceReceipt = await PdfInvoiceApi.generate(value);
-    Get.to(() => PreviewInvoice(file: invoiceReceipt));
+    Get.to(() => PreviewInvoice(invoice: value!));
     clearValue();
   }
 

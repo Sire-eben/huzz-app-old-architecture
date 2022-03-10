@@ -99,10 +99,7 @@ class _PendingState extends State<Pending> {
                                   item.customerId ?? "");
                           return GestureDetector(
                             onTap: () async {
-                              final singleInvoiceReceipt =
-                                  await PdfInvoiceApi.generate(item);
-                              Get.to(() => PreviewSingleInvoice(
-                                  invoice: item, file: singleInvoiceReceipt));
+                              Get.to(() => PreviewSingleInvoice(invoice: item));
                             },
                             child: Padding(
                               padding: EdgeInsets.only(
