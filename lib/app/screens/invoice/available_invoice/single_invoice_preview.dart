@@ -1,24 +1,30 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pdf/pdf.dart';
+import 'package:share_plus/share_plus.dart';
+
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/core/constants/app_colors.dart';
 import 'package:huzz/model/invoice.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../Utils/util.dart';
 
 class PreviewSingleInvoice extends StatefulWidget {
-  final File? file;
-  Invoice? invoice;
+  final Invoice? invoice;
 
-  PreviewSingleInvoice({Key? key, this.file, this.invoice}) : super(key: key);
+  PreviewSingleInvoice({
+    Key? key,
+    this.invoice,
+  }) : super(key: key);
 
   @override
   _PreviewSingleInvoiceState createState() => _PreviewSingleInvoiceState();
@@ -29,9 +35,26 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
   bool previewTheme = true;
   int paymentType = 0;
   int paymentMode = 0;
+  bool isLoading = true;
   File? image;
+  File? generatedInvoice;
   final _invoiceController = Get.find<InvoiceRespository>();
   final _amountController = TextEditingController();
+  PdfColor themeColor = themeColors.first;
+
+  @override
+  void initState() {
+    super.initState();
+    generatePdf(themeColor);
+  }
+
+  void generatePdf(PdfColor color) async {
+    generatedInvoice = await PdfInvoiceApi.generate(widget.invoice!, color);
+    setState(() {
+      themeColor = color;
+      isLoading = false;
+    });
+  }
 
   Future pickImageFromGallery() async {
     try {
@@ -68,231 +91,250 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColor().backgroundColor,
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+          title: Text(
+            'View Invoice',
+            style: TextStyle(
+              color: AppColor().backgroundColor,
+              fontFamily: "InterRegular",
+              fontStyle: FontStyle.normal,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
         backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: AppColor().backgroundColor,
-          ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: Text(
-          'View Invoice',
-          style: TextStyle(
-            color: AppColor().backgroundColor,
-            fontFamily: "InterRegular",
-            fontStyle: FontStyle.normal,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              Expanded(
-                child: PDFView(
-                  fitPolicy: FitPolicy.WIDTH,
-                  filePath: widget.file!.path,
-                  autoSpacing: false,
-                  onViewCreated: (controller) =>
-                      setState(() => this.controller = controller),
-                ),
-              ),
-              // Padding(
-              //   padding:
-              //       EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-              //   child: Row(
-              //     children: [
-              //       Container(
-              //         child: Checkbox(
-              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              //           activeColor: AppColor().backgroundColor,
-              //           value: previewTheme,
-              //           onChanged: (bool? value) {
-              //             setState(() {
-              //               previewTheme = value!;
-              //             });
-              //           },
-              //         ),
-              //       ),
-              //       Container(
-              //         child: Checkbox(
-              //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              //           activeColor: Color(0xff0065D3),
-              //           value: !previewTheme,
-              //           onChanged: (bool? value) {
-              //             setState(() {
-              //               previewTheme = value!;
-              //             });
-              //           },
-              //         ),
-              //       ),
-              //       Text(
-              //         'Change receipt theme',
-              //         style: TextStyle(
-              //             color: Colors.black,
-              //             fontSize: 10,
-              //             fontWeight: FontWeight.w400,
-              //             fontFamily: 'InterRegular'),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.02),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))),
-                                context: context,
-                                builder: (context) =>
-                                    buildUpdateSingleInvoice());
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            width: MediaQuery.of(context).size.height * 0.06,
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppColor()
-                                    .backgroundColor
-                                    .withOpacity(0.2)),
-                            child: SvgPicture.asset(
-                                'assets/images/credit_card.svg'),
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Text(
-                          'Update Payment',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'InterRegular'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.height * 0.1),
-                    Column(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            PdfApi.openFile(widget.file!);
-                            Get.back();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            width: MediaQuery.of(context).size.height * 0.06,
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppColor()
-                                    .backgroundColor
-                                    .withOpacity(0.2)),
-                            child:
-                                SvgPicture.asset('assets/images/download.svg'),
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Text(
-                          'Download',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'InterRegular'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.height * 0.1),
-                    GestureDetector(
-                      onTap: () {
-                        Share.shareFiles([widget.file!.path],
-                            text: 'Share Invoice');
-                        Get.back();
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            width: MediaQuery.of(context).size.height * 0.06,
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppColor()
-                                    .backgroundColor
-                                    .withOpacity(0.2)),
-                            child: SvgPicture.asset('assets/images/share.svg'),
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                          Text(
-                            'Share',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'InterRegular'),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              InkWell(
-                onTap: () {
-                  Get.back();
-                },
+        body: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SafeArea(
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Center(
-                    child: Text(
-                      'Go back',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'InterRegular'),
-                    ),
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: PDFView(
+                          key: ValueKey(themeColor),
+                          fitPolicy: FitPolicy.WIDTH,
+                          filePath: generatedInvoice!.path,
+                          autoSpacing: false,
+                          onViewCreated: (controller) =>
+                              setState(() => this.controller = controller),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.height * 0.02,
+                            vertical: 10),
+                        child: Row(
+                          children: [
+                            ...themeColors
+                                .map((color) => Container(
+                                      height: 24,
+                                      width: 24,
+                                      margin: EdgeInsets.only(left: 10),
+                                      color: Color(color.toInt()),
+                                      child: GestureDetector(
+                                        onTap: () => generatePdf(color),
+                                        child: themeColor == color
+                                            ? Icon(
+                                                Icons.check,
+                                                color: Colors.white,
+                                              )
+                                            : null,
+                                      ),
+                                    ))
+                                .toList(),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Change invoice theme',
+                              style: TextStyle(fontSize: 12),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.height * 0.02,
+                            vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(20))),
+                                        context: context,
+                                        builder: (context) =>
+                                            buildUpdateSingleInvoice());
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.height *
+                                            0.015),
+                                    width: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColor()
+                                            .backgroundColor
+                                            .withOpacity(0.2)),
+                                    child: SvgPicture.asset(
+                                        'assets/images/credit_card.svg'),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
+                                Text(
+                                  'Update Payment',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'InterRegular'),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.height * 0.1),
+                            Column(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    PdfApi.openFile(generatedInvoice!);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.height *
+                                            0.015),
+                                    width: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColor()
+                                            .backgroundColor
+                                            .withOpacity(0.2)),
+                                    child: SvgPicture.asset(
+                                        'assets/images/download.svg'),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.01),
+                                Text(
+                                  'Download',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'InterRegular'),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.height * 0.1),
+                            GestureDetector(
+                              onTap: () {
+                                Share.shareFiles([generatedInvoice!.path],
+                                    text: 'Share Invoice');
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.height *
+                                            0.015),
+                                    width: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColor()
+                                            .backgroundColor
+                                            .withOpacity(0.2)),
+                                    child: SvgPicture.asset(
+                                        'assets/images/share.svg'),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01),
+                                  Text(
+                                    'Share',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'InterRegular'),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.height * 0.03),
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Center(
+                            child: Text(
+                              'Go back',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'InterRegular'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            ],
-          ),
-        ),
-      ),
-    );
+              ));
   }
 
   Widget buildUpdateSingleInvoice() =>

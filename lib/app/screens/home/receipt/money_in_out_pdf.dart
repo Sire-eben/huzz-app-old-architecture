@@ -14,61 +14,74 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:huzz/app/Utils/util.dart' as format;
+import 'package:printing/printing.dart';
 
 class PdfMoneyInOutApi {
   // ignore: avoid_init_to_null
 
   static final _businessController = Get.find<BusinessRespository>();
   static final _customerController = Get.find<CustomerRepository>();
-  static Future<File> generate(TransactionModel transactionModel) async {
+  static Future<File> generate(
+      TransactionModel transactionModel, PdfColor themeColor) async {
     final pdf = Document();
-    Customer? customer = null;
+    Customer? customer;
     if (transactionModel.customerId != null) {
       print("my customer id ${transactionModel.customerId}");
       customer = _customerController
           .checkifCustomerAvailableWithValue(transactionModel.customerId!);
-    } else {
-      print("my customer id is null");
-      customer = null;
     }
+    final selectedBusiness = _businessController.selectedBusiness.value!;
+    pw.ImageProvider? businessImgProvider;
+    if (selectedBusiness.buisnessLogoFileStoreId != null &&
+        selectedBusiness.buisnessLogoFileStoreId!.isNotEmpty) {
+      businessImgProvider =
+          await networkImage(selectedBusiness.buisnessLogoFileStoreId!);
+    }
+
+    final huzzImgProvider =
+        await imageFromAssetBundle('assets/images/huzz_logo.png');
+
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(_businessController.selectedBusiness.value!),
+        buildHeader(selectedBusiness, businessImgProvider, themeColor),
         SizedBox(height: 2 * PdfPageFormat.cm),
         buildMoneyInOutInvoice(
-            transactionModel.businessTransactionPaymentItemList!),
-        Divider(),
-        buildTotal(transactionModel.businessTransactionPaymentItemList!),
+            transactionModel.businessTransactionPaymentItemList!, themeColor),
+        SizedBox(height: 20),
+        buildTotal(
+            transactionModel.businessTransactionPaymentItemList!, themeColor),
         SizedBox(height: 2 * PdfPageFormat.cm),
-        buildFooter(customer)
+        buildFooter(customer, huzzImgProvider, themeColor)
       ],
-      // footer: (context) => buildFooter(moneyInvoice),
     ));
 
     return PdfApi.saveDocument(name: 'receipt.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(Business item) => Container(
-      padding: EdgeInsets.all(20),
-      color: PdfColors.blue,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  static Widget buildHeader(Business item, ImageProvider? businessImgProvider,
+          PdfColor themeColor) =>
+      Container(
+          padding: EdgeInsets.all(20),
+          color: themeColor,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildSupplierAddress(item),
-              Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                Text('RECEIPT',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: PdfColors.white)),
-                Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
-                    style: TextStyle(color: PdfColors.white)),
-              ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  buildSupplierAddress(item, businessImgProvider, themeColor),
+                  Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                    Text('RECEIPT',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: PdfColors.white)),
+                    Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
+                        style: TextStyle(color: PdfColors.white)),
+                  ]),
+                ],
+              ),
             ],
-          ),
-        ],
-      ));
+          ));
 
   static Widget buildCustomerAddress(Customer? customer) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,21 +91,34 @@ class PdfMoneyInOutApi {
         ],
       );
 
-  static Widget buildSupplierAddress(Business item) => Column(
+  static Widget buildSupplierAddress(Business item,
+          ImageProvider? businessImgProvider, PdfColor themeColor) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              height: 40,
-              width: 40,
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
-              child: Center(
-                child: Text(item.businessName![0],
-                    style: TextStyle(
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: PdfColors.white,
+                image: businessImgProvider != null
+                    ? pw.DecorationImage(image: businessImgProvider)
+                    : null),
+            child: businessImgProvider == null
+                ? Center(
+                    child: Text(
+                      item.businessName![0],
+                      style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: PdfColors.blue)),
-              )),
+                        color: themeColor,
+                      ),
+                    ),
+                  )
+                : null,
+          ),
+          pw.SizedBox(height: 8),
           Text(item.businessName!,
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
@@ -118,7 +144,8 @@ class PdfMoneyInOutApi {
         ],
       );
 
-  static Widget buildMoneyInOutInvoice(List<PaymentItem> items) {
+  static Widget buildMoneyInOutInvoice(
+      List<PaymentItem> items, PdfColor themeColor) {
     final headers = [
       'Item',
       'Qty',
@@ -139,10 +166,20 @@ class PdfMoneyInOutApi {
       headers: headers,
       data: data,
       border: null,
-      headerStyle:
-          TextStyle(fontWeight: FontWeight.bold, color: PdfColors.blue),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
-      cellHeight: 30,
+      cellStyle: TextStyle(fontSize: 15),
+      headerStyle: TextStyle(
+          fontWeight: FontWeight.bold, color: themeColor, fontSize: 20),
+      cellHeight: 38,
+      cellDecoration: (r, __, c) {
+        return c == data.length
+            ? pw.BoxDecoration(
+                border: Border.symmetric(
+                horizontal: pw.BorderSide(color: themeColor, width: 2),
+              ))
+            : pw.BoxDecoration(
+                border: Border(top: pw.BorderSide(color: themeColor, width: 2)),
+              );
+      },
       cellAlignments: {
         0: Alignment.centerLeft,
         1: Alignment.centerRight,
@@ -154,7 +191,7 @@ class PdfMoneyInOutApi {
     );
   }
 
-  static Widget buildTotal(List<PaymentItem> items) {
+  static Widget buildTotal(List<PaymentItem> items, PdfColor themeColor) {
     dynamic netTotal = 0;
     // items
     //     .map((item) => item.amount! * item.quality!)
@@ -185,7 +222,7 @@ class PdfMoneyInOutApi {
           Text(
             Utils.formatPrice(total * 1.0),
             style: TextStyle(
-              color: PdfColors.blue,
+              color: themeColor,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -195,41 +232,52 @@ class PdfMoneyInOutApi {
     );
   }
 
-  static Widget buildFooter(Customer? customer) => Column(
+  static Widget buildFooter(Customer? customer,
+          pw.ImageProvider huzzImgProvider, PdfColor themeColor) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 2 * PdfPageFormat.mm),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            (customer != null)
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        Text(
-                          'ISSUED TO:',
-                          style: TextStyle(
-                            color: PdfColors.blue,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(customer.name!),
-                        Text(customer.phone!),
-                      ])
-                : Container(),
-            Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-              Text('POWERED BY:'),
+            if (customer != null)
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(
+                  'ISSUED TO:',
+                  style: TextStyle(
+                    color: themeColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                pw.SizedBox(height: 4),
+                Text("${customer.name}"),
+                Text("${customer.phone}"),
+              ])
+            else
+              pw.SizedBox(),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'HUZZ',
+                'POWERED BY:',
                 style: TextStyle(
-                  color: PdfColors.blue,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              pw.SizedBox(height: 7),
+              pw.Row(children: [
+                pw.Image(huzzImgProvider, height: 27, width: 27),
+                pw.SizedBox(width: 7),
+                Text(
+                  'Huzz',
+                  style: TextStyle(
+                    color: PdfColors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ])
             ])
           ]),
-          SizedBox(height: 1 * PdfPageFormat.mm),
-          // buildSimpleText(title: 'Paypal', value: moneyInvoice.supplier.mail),
         ],
       );
 

@@ -375,7 +375,7 @@ class _HomeState extends State<Home> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
                         Text(
-                          'Debtors',
+                          'Debts',
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,
@@ -791,7 +791,7 @@ class _HomeState extends State<Home> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
                         Text(
-                          'Debtors',
+                          'Debts',
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,

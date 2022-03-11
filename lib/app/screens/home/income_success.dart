@@ -141,9 +141,8 @@ class IncomeSuccess extends StatelessWidget {
                           ),
                         ],
                       );
-                      final moneyInOutReceipt =
-                          await PdfMoneyInOutApi.generate(transactionModel);
-                      Get.to(() => IncomeReceipt(file: moneyInOutReceipt));
+                      Get.to(
+                          () => IncomeReceipt(transaction: transactionModel));
                       // PdfApi.openFile(invoiceReceipt);
                     },
                     child: Container(

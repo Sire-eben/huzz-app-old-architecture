@@ -506,11 +506,8 @@ class _MoneySummaryState extends State<MoneySummary> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () async {
-                                  final transactionReceipt =
-                                      await PdfTransactionApi.generate(
-                                          transactionModel!);
-                                  Get.to(() =>
-                                      IncomeReceipt(file: transactionReceipt));
+                                  Get.to(() => IncomeReceipt(
+                                      transaction: transactionModel!));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
