@@ -387,7 +387,7 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           // ignore: unnecessary_null_comparison
-                          "${Utils.getCurrency()}${display(_debtorController.debtorAmount)}",
+                          "${Utils.getCurrency()}${display(_debtorController.totalDebt)}",
 
                           style: TextStyle(
                               fontSize: 15,
@@ -802,7 +802,7 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          '${Utils.getCurrency()}${display(_debtorController.debtorAmount)}',
+                          '${Utils.getCurrency()}${display(_debtorController.totalDebt)}',
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),
