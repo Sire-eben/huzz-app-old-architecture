@@ -922,7 +922,7 @@ class _RecordsState extends State<Records> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Money Out',
+                          'Total Money Out',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'InterRegular',
@@ -947,7 +947,7 @@ class _RecordsState extends State<Records> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Money In',
+                            'Total Money In',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'InterRegular',
