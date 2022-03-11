@@ -1,25 +1,30 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pdf/pdf.dart';
+import 'package:share_plus/share_plus.dart';
+
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_colors.dart';
 import 'package:huzz/model/invoice.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:pdf/pdf.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../Utils/util.dart';
 
 class PreviewSingleInvoice extends StatefulWidget {
-  Invoice? invoice;
+  final Invoice? invoice;
 
-  PreviewSingleInvoice({Key? key, this.invoice}) : super(key: key);
+  PreviewSingleInvoice({
+    Key? key,
+    this.invoice,
+  }) : super(key: key);
 
   @override
   _PreviewSingleInvoiceState createState() => _PreviewSingleInvoiceState();

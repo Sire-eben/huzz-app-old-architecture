@@ -10,6 +10,7 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_colors.dart';
 import 'package:huzz/model/invoice.dart';
 import 'package:pdf/pdf.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PreviewInvoice extends StatefulWidget {
   final Invoice invoice;
@@ -36,9 +37,10 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
     generatePdf(themeColor);
   }
 
-  void generatePdf(PdfColor themeColor) async {
-    generatedInvoice = await PdfInvoiceApi.generate(widget.invoice, themeColor);
+  void generatePdf(PdfColor color) async {
+    generatedInvoice = await PdfInvoiceApi.generate(widget.invoice!, color);
     setState(() {
+      themeColor = color;
       isLoading = false;
     });
   }
@@ -97,6 +99,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                     children: [
                       Expanded(
                         child: PDFView(
+                          key: ValueKey(themeColor),
                           fitPolicy: FitPolicy.WIDTH,
                           filePath: generatedInvoice!.path,
                           autoSpacing: false,
@@ -104,50 +107,45 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                               setState(() => this.controller = controller),
                         ),
                       ),
-                      // Padding(
-                      //   padding:
-                      //       EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-                      //   child: Row(
-                      //     children: [
-                      //       Container(
-                      //         child: Checkbox(
-                      //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      //           activeColor: AppColor().backgroundColor,
-                      //           value: previewTheme,
-                      //           onChanged: (bool? value) {
-                      //             setState(() {
-                      //               previewTheme = value!;
-                      //             });
-                      //           },
-                      //         ),
-                      //       ),
-                      //       Container(
-                      //         child: Checkbox(
-                      //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      //           activeColor: Color(0xff0065D3),
-                      //           value: !previewTheme,
-                      //           onChanged: (bool? value) {
-                      //             setState(() {
-                      //               previewTheme = value!;
-                      //             });
-                      //           },
-                      //         ),
-                      //       ),
-                      //       Text(
-                      //         'Change receipt theme',
-                      //         style: TextStyle(
-                      //             color: Colors.black,
-                      //             fontSize: 10,
-                      //             fontWeight: FontWeight.w400,
-                      //             fontFamily: 'InterRegular'),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal:
-                                MediaQuery.of(context).size.height * 0.02),
+                                MediaQuery.of(context).size.height * 0.02,
+                            vertical: 10),
+                        child: Row(
+                          children: [
+                            ...themeColors
+                                .map((color) => Container(
+                                      height: 24,
+                                      width: 24,
+                                      margin: EdgeInsets.only(left: 10),
+                                      color: Color(color.toInt()),
+                                      child: GestureDetector(
+                                        onTap: () => generatePdf(color),
+                                        child: themeColor == color
+                                            ? Icon(
+                                                Icons.check,
+                                                color: Colors.white,
+                                              )
+                                            : null,
+                                      ),
+                                    ))
+                                .toList(),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Change invoice theme',
+                              style: TextStyle(fontSize: 12),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.height * 0.02,
+                          vertical: 10,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -190,36 +188,43 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                             SizedBox(
                                 width:
                                     MediaQuery.of(context).size.height * 0.01),
-                            Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.height *
-                                          0.015),
-                                  width:
-                                      MediaQuery.of(context).size.height * 0.06,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.06,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: AppColor()
-                                          .backgroundColor
-                                          .withOpacity(0.2)),
-                                  child: SvgPicture.asset(
-                                      'assets/images/share.svg'),
-                                ),
-                                SizedBox(
+                            GestureDetector(
+                              onTap: () {
+                                Share.shareFiles([generatedInvoice!.path],
+                                    text: 'Share Invoice');
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(
+                                        MediaQuery.of(context).size.height *
+                                            0.015),
+                                    width: MediaQuery.of(context).size.height *
+                                        0.06,
                                     height: MediaQuery.of(context).size.height *
-                                        0.01),
-                                Text(
-                                  'Share',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'InterRegular'),
-                                ),
-                              ],
+                                        0.06,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColor()
+                                            .backgroundColor
+                                            .withOpacity(0.2)),
+                                    child: SvgPicture.asset(
+                                        'assets/images/share.svg'),
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01),
+                                  Text(
+                                    'Share',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'InterRegular'),
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),
