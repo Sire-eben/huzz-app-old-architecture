@@ -42,7 +42,9 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.02),
+                  horizontal: MediaQuery.of(context).size.height * 0.02,
+                  vertical: 10,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -51,7 +53,6 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
                         InkWell(
                           onTap: () {
                             PdfRecordApi.openFile(widget.file!);
-                            Get.back();
                           },
                           child: Container(
                             padding: EdgeInsets.all(
@@ -83,8 +84,7 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
                     GestureDetector(
                       onTap: () {
                         Share.shareFiles([widget.file!.path],
-                            text: 'Share Receipt');
-                        Get.back();
+                            text: 'Share Transaction Record');
                       },
                       child: Column(
                         children: [

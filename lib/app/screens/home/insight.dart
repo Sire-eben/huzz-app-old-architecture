@@ -361,13 +361,116 @@ class _InsightState extends State<Insight> {
                     }),
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   child: Divider(),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.03),
+                  child: Text(
+                    'Statistics',
+                    style: TextStyle(
+                      color: AppColor().backgroundColor,
+                      fontFamily: 'InterRegular',
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.03),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            StatisticsWidget(
+                              image: 'assets/images/income_transaction.svg',
+                              color: AppColor().blueColor,
+                              amount: transactionController
+                                  .allIncomeTransaction.length
+                                  .toString(),
+                              name1: 'Income',
+                              name2: 'Transaction',
+                              message:
+                                  'Total number of\nincome transactions\nfor the selected period',
+                            ),
+                            SizedBox(width: 10),
+                            StatisticsWidget(
+                              image: 'assets/images/expense_transaction.svg',
+                              color: AppColor().orangeBorderColor,
+                              amount: transactionController
+                                  .allExpenditureTransaction.length
+                                  .toString(),
+                              name1: 'Expense',
+                              name2: 'Transaction',
+                              message:
+                                  'Total number of\nexpenses transactions\nfor the selected period',
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            StatisticsWidget(
+                              image: 'assets/images/total_income.svg',
+                              color: AppColor().backgroundColor,
+                              amount:
+                                  '${Utils.getCurrency()}${display(transactionController.recordMoneyIn)}',
+                              name1: 'Total',
+                              name2: 'Income',
+                              message: 'Total income for\nthe selected period',
+                            ),
+                            SizedBox(width: 10),
+                            StatisticsWidget(
+                              image: 'assets/images/total_expense.svg',
+                              color: AppColor().blackColor,
+                              amount:
+                                  "${Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
+                              name1: 'Total',
+                              name2: 'Expenses',
+                              message:
+                                  'Total expenses for\nthe selected period',
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            StatisticsWidget(
+                              image: 'assets/images/average_income.svg',
+                              color: AppColor().purpleColor,
+                              amount:
+                                  "${Utils.getCurrency()}${display((transactionController.recordMoneyIn / transactionController.allIncomeTransaction.length))}",
+                              name1: 'Average income',
+                              name2: 'per transaction',
+                              message:
+                                  'Average income\nper transaction\nfor the selected period',
+                            ),
+                            SizedBox(width: 10),
+                            StatisticsWidget(
+                              image: 'assets/images/average_expenses.svg',
+                              color: AppColor().wineColor,
+                              amount:
+                                  "${Utils.getCurrency()}${display((transactionController.recordMoneyOut / transactionController.allExpenditureTransaction.length))}",
+                              name1: 'Average expenses',
+                              name2: 'per transaction',
+                              message:
+                                  'Average expenses\nper transaction\nfor the selected period',
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    )),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.03),
+                  child: Divider(),
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
@@ -721,133 +824,7 @@ class _InsightState extends State<Insight> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Divider(),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Text(
-                    'Statistics',
-                    style: TextStyle(
-                      color: AppColor().backgroundColor,
-                      fontFamily: 'InterRegular',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.03),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            StatisticsWidget(
-                              image: 'assets/images/income_transaction.svg',
-                              color: AppColor().blueColor,
-                              amount: transactionController
-                                  .allIncomeTransaction.length
-                                  .toString(),
-                              name1: 'Income',
-                              name2: 'Transaction',
-                              message:
-                                  'Total number of\nincome transactions\nfor the selected period',
-                            ),
-                            SizedBox(width: 10),
-                            StatisticsWidget(
-                              image: 'assets/images/expense_transaction.svg',
-                              color: AppColor().orangeBorderColor,
-                              amount: transactionController
-                                  .allExpenditureTransaction.length
-                                  .toString(),
-                              name1: 'Expense',
-                              name2: 'Transaction',
-                              message:
-                                  'Total number of\nexpenses transactions\nfor the selected period',
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            StatisticsWidget(
-                              image: 'assets/images/total_income.svg',
-                              color: AppColor().backgroundColor,
-                              amount:
-                                  '${Utils.getCurrency()}${display(transactionController.recordMoneyIn)}',
-                              name1: 'Total',
-                              name2: 'Income',
-                              message: 'Total income for\nthe selected period',
-                            ),
-                            SizedBox(width: 10),
-                            StatisticsWidget(
-                              image: 'assets/images/total_expense.svg',
-                              color: AppColor().blackColor,
-                              amount:
-                                  "${Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
-                              name1: 'Total',
-                              name2: 'Expenses',
-                              message:
-                                  'Total expenses for\nthe selected period',
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            StatisticsWidget(
-                              image: 'assets/images/average_income.svg',
-                              color: AppColor().purpleColor,
-                              amount:
-                                  "${Utils.getCurrency()}${display((transactionController.recordMoneyIn / transactionController.allIncomeTransaction.length))}",
-                              name1: 'Average income',
-                              name2: 'per transaction',
-                              message:
-                                  'Average income\nper transaction\nfor the selected period',
-                            ),
-                            SizedBox(width: 10),
-                            StatisticsWidget(
-                              image: 'assets/images/average_expenses.svg',
-                              color: AppColor().wineColor,
-                              amount:
-                                  "${Utils.getCurrency()}${display((transactionController.recordMoneyOut / transactionController.allExpenditureTransaction.length))}",
-                              name1: 'Average expenses',
-                              name2: 'per transaction',
-                              message:
-                                  'Average expenses\nper transaction\nfor the selected period',
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        // Row(
-                        //   children: [
-                        //     StatisticsWidget(
-                        //       image: 'assets/images/net_income.svg',
-                        //       color: AppColor().lightblueColor,
-                        //       amount: 50,
-                        //       name1: 'Net income',
-                        //       name2: '',
-                        //       message: '',
-                        //     ),
-                        //     SizedBox(width: 10),
-                        //     StatisticsWidget(
-                        //       image: 'assets/images/h_income_transaction.svg',
-                        //       color: AppColor().brownColor,
-                        //       amount: 50,
-                        //       name1: 'Highest income',
-                        //       name2: 'transaction',
-                        //       message: '',
-                        //     ),
-                        //   ],
-                        // ),
-                      ],
-                    )),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: 40),
               ],
             ),
           ),
