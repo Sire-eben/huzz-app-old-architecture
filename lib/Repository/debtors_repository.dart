@@ -80,9 +80,10 @@ class DebtorRepository extends GetxController
   List<Debtor> get debtOwnedList => _debtOwnedList.value;
   Rx<dynamic> _debotorAmount = Rx(0);
   Rx<dynamic> _debtOwnedAmount = Rx(0);
+  dynamic get totalDebt => _debotorAmount.value - _debtOwnedAmount.value;
   dynamic get debtorAmount => _debotorAmount.value;
-  dynamic get totalDebt => _debtOwnedAmount.value + _debotorAmount.value;
-
+  dynamic get debtOwnedAmount => _debtOwnedAmount.value;
+  bool get isTotalDebtNegative => (totalDebt as num).sign == -1;
   List<Debtor> get deleteDebtorList => _deleteDebtorList.value;
 
   final _addingDebtorStatus = AddingDebtorStatus.Empty.obs;
@@ -280,11 +281,11 @@ class DebtorRepository extends GetxController
   Future calculateDebtsAndDebtsOwned() async {
     dynamic totalDebotors = 0;
     debtorsList.forEach((element) {
-      totalDebotors = totalDebotors + element.totalAmount!;
+      totalDebotors = totalDebotors + element.balance;
     });
 
     final _debtOwned =
-        debtOwnedList.fold<num>(0, (acc, debt) => acc + debt.totalAmount);
+        debtOwnedList.fold<num>(0, (acc, debt) => acc + debt.balance);
 
     _debotorAmount(totalDebotors);
     _debtOwnedAmount(_debtOwned);

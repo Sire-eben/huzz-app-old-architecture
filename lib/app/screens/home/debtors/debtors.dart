@@ -10,6 +10,7 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/debtors_repository.dart';
+import 'package:huzz/app/screens/home/debtors/debt_updated_success.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
@@ -54,6 +55,11 @@ class _DebtorsState extends State<Debtors> {
   final TextEditingController textEditingController = TextEditingController();
 
   final debtStatus = ['Pending', 'Fully Paid'];
+  final display = createDisplay(
+    roundingType: RoundingType.floor,
+    length: 15,
+    decimal: 5,
+  );
 
   final items = [
     'Box',
@@ -96,11 +102,103 @@ class _DebtorsState extends State<Debtors> {
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 20,
-                    vertical: 20,
+                    vertical: 14,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      Container(
+                        height: 95,
+                        decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Number Of Debts",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'InterRegular',
+                                      fontSize: 12,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      "${_debtorController.debtorsList.length}",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'InterRegular',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 95,
+                                decoration: BoxDecoration(
+                                  color: AppColor().secondbgColor,
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    stops: [
+                                      0.1,
+                                      0.6,
+                                      0.8,
+                                    ],
+                                    colors: [
+                                      Color(0xff0D8372),
+                                      Color(0xff07A58E),
+                                      AppColor()
+                                          .backgroundColor
+                                          .withOpacity(0.5),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    bottomRight: Radius.circular(15),
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Total Debts",
+                                      style: TextStyle(
+                                        fontFamily: 'InterRegular',
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${Utils.getCurrency()}${display(_debtorController.debtorAmount)}",
+                                      style: TextStyle(
+                                        fontFamily: 'InterRegular',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 14),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 12),
                         decoration: BoxDecoration(
@@ -827,13 +925,13 @@ class _DebtorListingState extends State<DebtorListing> {
                 ),
               ),
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Bal: ${Utils.getCurrency()}${display(widget.item!.balance!)}",
+                        "Balance: ${Utils.getCurrency()}${display(widget.item!.balance!)}",
                         style: TextStyle(
                             fontSize: 13,
                             fontFamily: 'InterRegular',
@@ -907,6 +1005,16 @@ class _DebtorListingState extends State<DebtorListing> {
                   ),
                 ),
               ),
+              // GestureDetector(
+              //   onTap: () async {
+              //     final debtor = widget.item!;
+              //     await _debtorController.deleteBusinessDebtor(debtor);
+              //   },
+              //   child: Icon(
+              //     Icons.delete_outline_rounded,
+              //     color: Colors.red,
+              //   ),
+              // ),
             ],
           );
   }
@@ -1201,7 +1309,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      'Bal:${Utils.getCurrency()}${display(debtor.balance)}',
+                                      'Balance: ${Utils.getCurrency()}${display(debtor.balance)}',
                                       style: TextStyle(
                                         fontFamily: "InterRegular",
                                         color: AppColor().orangeBorderColor,
@@ -1296,7 +1404,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             statusType == 1
                                 ? debtor.balance
                                 : int.parse(textEditingController.text));
-                        Get.back();
+                        Get.to(DebtUpdatedSuccess());
                       }
                     }
                   },
