@@ -13,12 +13,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:huzz/app/Utils/util.dart' as format;
 import 'package:printing/printing.dart';
 
 class PdfMoneyInOutApi {
-  // ignore: avoid_init_to_null
-
   static final _businessController = Get.find<BusinessRespository>();
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(

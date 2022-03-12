@@ -145,15 +145,45 @@ class _MoneyOutState extends State<MoneyOut> {
             Get.back();
           },
         ),
-        title: Text(
-          'Money Out',
-          style: TextStyle(
-            color: AppColor().backgroundColor,
-            fontFamily: "InterRegular",
-            fontStyle: FontStyle.normal,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
+        title: Row(
+          children: [
+            Text(
+              'Money Out',
+              style: TextStyle(
+                color: AppColor().backgroundColor,
+                fontFamily: "InterRegular",
+                fontStyle: FontStyle.normal,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(width: 4),
+
+            //Tool tip
+            Tooltip(
+              triggerMode: TooltipTriggerMode.tap,
+              padding: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(color: Colors.black38, blurRadius: 10)
+                  ]),
+              textStyle: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'InterRegular',
+                  fontSize: 10,
+                  color: Colors.black),
+              preferBelow: false,
+              message:
+                  'When you purchase some\nitems or pay for some services,\nyou can record it here.',
+              child: SvgPicture.asset(
+                "assets/images/info.svg",
+                height: 20,
+                width: 20,
+              ),
+            ),
+          ],
         ),
       ),
       backgroundColor: Colors.white,

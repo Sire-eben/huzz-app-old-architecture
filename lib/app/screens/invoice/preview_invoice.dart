@@ -38,7 +38,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
   }
 
   void generatePdf(PdfColor color) async {
-    generatedInvoice = await PdfInvoiceApi.generate(widget.invoice!, color);
+    generatedInvoice = await PdfInvoiceApi.generate(widget.invoice, color);
     setState(() {
       themeColor = color;
       isLoading = false;

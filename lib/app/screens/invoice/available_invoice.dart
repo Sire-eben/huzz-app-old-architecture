@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/all.dart';
@@ -76,13 +77,43 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Manage Invoices",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          fontFamily: 'InterRegular',
-                          color: AppColor().backgroundColor),
+                    Row(
+                      children: [
+                        Text(
+                          "Manage Invoices",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              fontFamily: 'InterRegular',
+                              color: AppColor().backgroundColor),
+                        ),
+                        SizedBox(width: 4),
+
+                        //Tool tip
+                        Tooltip(
+                          triggerMode: TooltipTriggerMode.tap,
+                          padding: EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(color: Colors.black38, blurRadius: 10)
+                              ]),
+                          textStyle: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'InterRegular',
+                              fontSize: 10,
+                              color: Colors.black),
+                          preferBelow: false,
+                          message:
+                              'This is where you can create new\ninvoices for your customers or\nupdate payments for existing invoices.',
+                          child: SvgPicture.asset(
+                            "assets/images/info.svg",
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Row(
