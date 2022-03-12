@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
 import 'package:huzz/app/Utils/util.dart';
 import 'package:huzz/app/screens/create_business.dart';
+import 'package:huzz/app/screens/home/insight.dart';
 import 'package:huzz/app/screens/home/money_in.dart';
 import 'package:huzz/app/screens/home/money_out.dart';
 import 'package:huzz/app/screens/home/records.dart';
@@ -22,6 +24,33 @@ import 'package:random_color/random_color.dart';
 
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
+
+class DebtInformationDialog extends StatelessWidget {
+  const DebtInformationDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          "Total debts is the sum of the debts you owe and the debts others owe you. It gives you a sense of your potential revenue.",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -85,6 +114,7 @@ class _HomeState extends State<Home> {
   //Transaction is available
   // ignore: non_constant_identifier_names
   Container TransactionAvailable(BuildContext context) {
+    final _tooltipKey = GlobalKey<State<Tooltip>>();
     return Container(
       padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
       width: MediaQuery.of(context).size.width,
@@ -174,13 +204,13 @@ class _HomeState extends State<Home> {
                     children: [
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                         decoration: BoxDecoration(
                           color: AppColor().whiteColor,
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         child: Text(
-                          "Today’s BALANCE",
+                          "Today's BALANCE",
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'InterRegular',
@@ -202,40 +232,92 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Spacer(),
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => Records());
-                        },
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: Color(0xff056B5C),
-                            borderRadius: BorderRadius.circular(4),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => Records());
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 7, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Color(0xff056B5C),
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "All Records",
+                                    style: TextStyle(
+                                      color: AppColor().whiteColor,
+                                      fontFamily: 'InterRegular',
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Container(
+                                    padding: EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      Icons.arrow_forward_outlined,
+                                      color: Color(0xff056B5C),
+                                      size: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "See all your Records",
-                                style: TextStyle(
-                                  color: AppColor().whiteColor,
-                                  fontFamily: 'InterRegular',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                          SizedBox(width: 7),
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => Insight());
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 7, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Color(0xff056B5C),
+                                borderRadius: BorderRadius.circular(24),
                               ),
-                              SizedBox(
-                                width: 5,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Insights",
+                                    style: TextStyle(
+                                      color: AppColor().whiteColor,
+                                      fontFamily: 'InterRegular',
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Container(
+                                    padding: EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: SvgPicture.asset(
+                                      'assets/images/graph.svg',
+                                      height: 14,
+                                      width: 14,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Icon(
-                                Icons.arrow_forward_outlined,
-                                color: AppColor().whiteColor,
-                                size: 18,
-                              ),
-                            ],
-                          ),
-                        ),
+                            ),
+                          )
+                        ],
                       ),
                     ],
                   ),
@@ -265,7 +347,7 @@ class _HomeState extends State<Home> {
                               width: 5,
                             ),
                             Text(
-                              "Today’s Money IN",
+                              "Today's Money IN",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'InterRegular',
@@ -310,7 +392,7 @@ class _HomeState extends State<Home> {
                               width: 5,
                             ),
                             Text(
-                              "Today’s Money Out",
+                              "Today's Money Out",
                               style: TextStyle(
                                 color: AppColor().whiteColor,
                                 fontFamily: 'InterRegular',
@@ -375,19 +457,57 @@ class _HomeState extends State<Home> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
                         Text(
-                          'Debts',
+                          'Total debts',
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
                         ),
+                        GestureDetector(
+                          onTap: () {
+                            Platform.isIOS
+                                ? showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) => CupertinoAlertDialog(
+                                      content: DebtInformationDialog(),
+                                      actions: [
+                                        CupertinoButton(
+                                          child: Text("OK"),
+                                          onPressed: () => Get.back(),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      content: DebtInformationDialog(),
+                                      actions: [
+                                        CupertinoButton(
+                                          child: Text("OK"),
+                                          onPressed: () => Get.back(),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 4.0, top: 2.0),
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              size: 18,
+                              color: Color(0xff056B5C),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                     Row(
                       children: [
                         Text(
                           // ignore: unnecessary_null_comparison
-                          "${Utils.getCurrency()}${display(_debtorController.totalDebt)}",
+                          "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
 
                           style: TextStyle(
                               fontSize: 15,
@@ -409,7 +529,7 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Text(
-            'Today`s transactions',
+            "Today's transactions",
             style: TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
@@ -594,13 +714,14 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                       decoration: BoxDecoration(
                         color: AppColor().whiteColor,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       child: Text(
-                        "Today’s BALANCE",
+                        "Today's BALANCE",
                         style: TextStyle(
                           color: AppColor().blackColor,
                           fontFamily: 'InterRegular',
@@ -613,50 +734,99 @@ class _HomeState extends State<Home> {
                       height: 10,
                     ),
                     Text(
-                      // "${currency(context).currencySymbol}0",
-                      '${Utils.getCurrency()}0',
+                      '${Utils.getCurrency()}0.00',
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'InterRegular',
-                        fontSize: 20,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Spacer(),
-                    InkWell(
-                      onTap: () {
-                        Get.to(() => Records());
-                      },
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff056B5C),
-                          borderRadius: BorderRadius.circular(4),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => Records());
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Color(0xff056B5C),
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "All Records",
+                                  style: TextStyle(
+                                    color: AppColor().whiteColor,
+                                    fontFamily: 'InterRegular',
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(width: 5),
+                                Container(
+                                  padding: EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.arrow_forward_outlined,
+                                    color: Color(0xff056B5C),
+                                    size: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "See all your records",
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
+                        SizedBox(width: 7),
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => Insight());
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Color(0xff056B5C),
+                              borderRadius: BorderRadius.circular(24),
                             ),
-                            SizedBox(
-                              width: 5,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Insights",
+                                  style: TextStyle(
+                                    color: AppColor().whiteColor,
+                                    fontFamily: 'InterRegular',
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(width: 5),
+                                Container(
+                                  padding: EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    'assets/images/graph.svg',
+                                    height: 14,
+                                    width: 14,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Icon(
-                              Icons.arrow_forward_outlined,
-                              color: AppColor().whiteColor,
-                              size: 18,
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        )
+                      ],
                     ),
                   ],
                 ),
@@ -684,7 +854,7 @@ class _HomeState extends State<Home> {
                             width: 5,
                           ),
                           Text(
-                            "Today’s Money IN",
+                            "Today's Money IN",
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'InterRegular',
@@ -697,7 +867,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "${Utils.getCurrency()}0",
+                      "${Utils.getCurrency()}0.00",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'InterRegular',
@@ -727,7 +897,7 @@ class _HomeState extends State<Home> {
                             width: 5,
                           ),
                           Text(
-                            "Today’s Money Out",
+                            "Today's Money Out",
                             style: TextStyle(
                               color: AppColor().whiteColor,
                               fontFamily: 'InterRegular',
@@ -740,7 +910,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "${Utils.getCurrency()}0",
+                      "${Utils.getCurrency()}0.00",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'InterRegular',
@@ -791,12 +961,50 @@ class _HomeState extends State<Home> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
                         Text(
-                          'Debts',
+                          'Total debts',
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
                         ),
+                        GestureDetector(
+                          onTap: () {
+                            Platform.isIOS
+                                ? showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) => CupertinoAlertDialog(
+                                      content: DebtInformationDialog(),
+                                      actions: [
+                                        CupertinoButton(
+                                          child: Text("OK"),
+                                          onPressed: () => Get.back(),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      content: DebtInformationDialog(),
+                                      actions: [
+                                        CupertinoButton(
+                                          child: Text("OK"),
+                                          onPressed: () => Get.back(),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 4.0, top: 2.0),
+                            child: Icon(
+                              Icons.info_outline_rounded,
+                              size: 18,
+                              color: Color(0xff056B5C),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                     Row(
@@ -822,7 +1030,7 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Text(
-            'Today`s transactions',
+            "Today's transactions",
             style: TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
