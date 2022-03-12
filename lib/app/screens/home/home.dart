@@ -16,10 +16,8 @@ import 'package:huzz/app/screens/settings/notification.dart';
 import 'package:huzz/app/screens/settings/settings.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/business.dart';
-import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
-
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
@@ -424,81 +422,102 @@ class _HomeState extends State<Home> {
                 border:
                     Border.all(width: 2, color: Colors.grey.withOpacity(0.2))),
             child: Obx(() {
-              return ListView.separated(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    var item = _transactionController.allPaymentItem[index];
-                    return InkWell(
-                      onTap: () {
-                        print(
-                            "item payment transaction id is ${item.businessTransactionId}");
-                        Get.to(() => MoneySummary(
-                              item: item,
-                            ));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Image.asset(
-                              (item.transactionType == "EXPENDITURE")
-                                  ? "assets/images/arrow_up.png"
-                                  : "assets/images/arrow_down.png",
-                              width: 20,
-                              height: 20,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.itemName!,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
+              return RefreshIndicator(
+                onRefresh: () async {
+                  return Future.delayed(Duration(seconds: 1), () {
+                    _transactionController.getAllPaymentItem();
+                  });
+                },
+                child: (_transactionController.transactionStatus ==
+                        TransactionStatus.Loading)
+                    ? Center(child: CircularProgressIndicator())
+                    : (_transactionController.transactionStatus ==
+                            TransactionStatus.Available)
+                        ? ListView.separated(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              var item =
+                                  _transactionController.allPaymentItem[index];
+                              return InkWell(
+                                onTap: () {
+                                  print(
+                                      "item payment transaction id is ${item.businessTransactionId}");
+                                  Get.to(() => MoneySummary(
+                                        item: item,
+                                      ));
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Image.asset(
+                                        (item.transactionType == "EXPENDITURE")
+                                            ? "assets/images/arrow_up.png"
+                                            : "assets/images/arrow_down.png",
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 7,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.itemName!,
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            item.entryDateTime!.formatDate()!,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "${Utils.getCurrency()}${display(item.totalAmount)}",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'InterRegular'),
+                                            ),
+                                            Text(
+                                              item.isFullyPaid!
+                                                  ? "Fully Paid"
+                                                  : "Partially",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ]),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  item.entryDateTime!.formatDate()!,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Expanded(
-                            flex: 3,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${Utils.getCurrency()}${display(item.totalAmount)}",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'InterRegular'),
-                                  ),
-                                  Text(
-                                    item.isFullyPaid!
-                                        ? "Fully Paid"
-                                        : "Partially",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ]),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => Divider(),
-                  itemCount: _transactionController.allPaymentItem.length);
+                              );
+                            },
+                            separatorBuilder: (context, index) => Divider(),
+                            itemCount:
+                                _transactionController.allPaymentItem.length)
+                        : (_transactionController.transactionStatus ==
+                                TransactionStatus.Empty)
+                            ? Text('Not Item')
+                            : Text('Empty'),
+              );
             }),
           ))
         ],

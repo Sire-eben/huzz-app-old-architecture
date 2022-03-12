@@ -23,7 +23,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
-
 import '../app/Utils/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
@@ -59,22 +58,17 @@ class TransactionRespository extends GetxController {
   String customText = "";
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
- MoneyMaskedTextController? amountController= new MoneyMaskedTextController(
-
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+  MoneyMaskedTextController? amountController = new MoneyMaskedTextController(
+      decimalSeparator: '.', thousandSeparator: ',', precision: 1);
   final quantityController = TextEditingController(text: '1');
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final paymentController = TextEditingController();
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
-   MoneyMaskedTextController amountPaidController = new MoneyMaskedTextController(
-
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+  MoneyMaskedTextController amountPaidController =
+      new MoneyMaskedTextController(
+          decimalSeparator: '.', thousandSeparator: ',', precision: 1);
 
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController timeController = TextEditingController();
@@ -127,7 +121,7 @@ class TransactionRespository extends GetxController {
   List<RecordsData> get allExpenditureHoursData =>
       _allExpenditureHoursData.value;
   List<String> expenseCategories = ["FINANCE", "GROCERY", "OTHERS"];
-  final _miscellaneousController=Get.find<MiscellaneousRepository>();
+  final _miscellaneousController = Get.find<MiscellaneousRepository>();
   Rx<dynamic> _recordBalance = Rx(0);
   Rx<dynamic> _recordMoneyIn = Rx(0);
   Rx<dynamic> _recordMoneyOut = Rx(0);
@@ -139,41 +133,28 @@ class TransactionRespository extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     print("getting transaction repo");
-_miscellaneousController.businessTransactionPaymentSourceList.listen((p0) {
-  if(p0.isNotEmpty){
+    _miscellaneousController.businessTransactionPaymentSourceList.listen((p0) {
+      if (p0.isNotEmpty) {
+        paymentSource = p0;
+      }
+    });
 
-
-    paymentSource=p0;
-
-  }
-
-});
-
-_miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
-  
-
-  if(p0.isNotEmpty){
-
-
-
-    paymentMode=p0;
-  }
-
-});
-_miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
-  
-  if(p0.isNotEmpty){
-
-
-    expenseCategories=p0;
-  }
-
-});
+    _miscellaneousController.businessTransactionPaymentModeList.listen((p0) {
+      if (p0.isNotEmpty) {
+        paymentMode = p0;
+      }
+    });
+    _miscellaneousController.businessTransactionExpenseCategoryList
+        .listen((p0) {
+      if (p0.isNotEmpty) {
+        expenseCategories = p0;
+      }
+    });
     _userController.Mtoken.listen((p0) async {
       print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null && value.businessId!=null) {
+        if (value != null && value.businessId != null) {
           await GetOfflineTransactions(value.businessId!);
           getOnlineTransaction(value.businessId!);
 
@@ -183,18 +164,18 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
           print("current business is null");
         }
         _businessController.selectedBusiness.listen((p0) async {
-          if (p0 != null && p0.businessId!=null) {
-                  print("changing textfield in transaction");
- amountController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()}',
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
-       amountPaidController = new MoneyMaskedTextController(
-      leftSymbol:'${Utils.getCurrency()}',
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+          if (p0 != null && p0.businessId != null) {
+            print("changing textfield in transaction");
+            amountController = MoneyMaskedTextController(
+                leftSymbol: '${Utils.getCurrency()}',
+                decimalSeparator: '.',
+                thousandSeparator: ',',
+                precision: 1);
+            amountPaidController = new MoneyMaskedTextController(
+                leftSymbol: '${Utils.getCurrency()}',
+                decimalSeparator: '.',
+                thousandSeparator: ',',
+                precision: 1);
             print("business id ${p0.businessId}");
             _offlineTransactions([]);
             _allPaymentItem([]);
@@ -205,9 +186,7 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
             await GetOfflineTransactions(p0.businessId!);
             await getOnlineTransaction(p0.businessId!);
             splitCurrentTime();
-      
 
-     
             // getSpending(p0.businessId!);
 
           }
@@ -276,17 +255,26 @@ _miscellaneousController.businessTransactionExpenseCategoryList.listen((p0) {
   }
 
   Future getAllPaymentItem() async {
-    if (todayTransaction.isEmpty) {
-      _allPaymentItem([]);
-      return;
-    }
-    ;
-    List<PaymentItem> items = [];
-    todayTransaction.forEach((element) {
-      items.addAll(element.businessTransactionPaymentItemList!);
-    });
+    try {
+      _transactionStatus(TransactionStatus.Loading);
+      if (todayTransaction.isEmpty) {
+        _allPaymentItem([]);
+        return;
+      }
+
+      List<PaymentItem> items = [];
+      todayTransaction.forEach((element) {
+        items.addAll(element.businessTransactionPaymentItemList!);
+      });
 // items.reversed.toList
-    _allPaymentItem(items.reversed.toList());
+      _allPaymentItem(items.reversed.toList());
+      print(items);
+      items.isNotEmpty
+          ? _transactionStatus(TransactionStatus.Available)
+          : _transactionStatus(TransactionStatus.Empty);
+    } catch (error) {
+      _transactionStatus(TransactionStatus.Error);
+    }
   }
 
   Future getOnlineTransaction(String businessId) async {
