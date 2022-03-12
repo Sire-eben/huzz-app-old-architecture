@@ -53,7 +53,7 @@ class _ServiceListingState extends State<ServiceListing> {
           else
             Get.to(AddService());
         },
-        icon: Icon(Icons.add),
+        icon:(isDelete)?Container(): Icon(Icons.add),
         backgroundColor: AppColor().backgroundColor,
         label: Text(
           (isDelete) ? "Delete Service(s)" : 'New Service',

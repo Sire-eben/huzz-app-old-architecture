@@ -56,3 +56,11 @@ Such as the network, storage, analytics, etc.
 
 ### Building the feature folder
 ``` mkdir data data/models data/repositories data/services domain domain/abstract_repo presentation presentation/ui presentation/viewmodel presentation/ui/screens presentation/ui/widgets ``` builds the default folder structure for each feature
+
+
+### Deploying to the stores
+1. You need to be invited to the stores
+2. You need the keystore and local.properties file where the alias and password
+3. You need xcode and android studio for appstore and playstore respectively
+
+

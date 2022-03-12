@@ -6,8 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/debtors_repository.dart';
-import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/home/debtors/debt_updated_success.dart';
+import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
@@ -15,6 +15,7 @@ import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../../../colors.dart';
 import '../../../Utils/util.dart';
+import '../money_history.dart';
 
 // ignore: must_be_immutable
 class DebtOwned extends StatefulWidget {
@@ -83,7 +84,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Number Of Debts Owned",
+                                    "Number Of Debts Owed",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'InterRegular',
@@ -135,7 +136,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Total Debts Owned",
+                                      "Total Debts Owed",
                                       style: TextStyle(
                                         fontFamily: 'InterRegular',
                                         color: Colors.white,
@@ -366,6 +367,25 @@ class _DebtOwnedState extends State<DebtOwned> {
                                               child: InkWell(
                                                   onTap: () {
                                                     print(index);
+                                                    // item.businessTransactionId="6229ab581982280f4fd07cf5";
+                                                  print("business transaction id  is ${item.businessTransactionId}");
+                                                  if(item.businessTransactionId!=null && item.businessTransactionId!.isNotEmpty){
+                                                 
+                                                  final _transactionController=Get.find<TransactionRespository>();
+ final Titem=_transactionController.getTransactionById(item.businessTransactionId!);
+ if(Titem!=null){
+                    //  Get.snackbar("Error","Going to transaction page");
+                                                      Get.to(() => MoneySummary(
+                              item: Titem.businessTransactionPaymentItemList![0],
+                            ));
+ }
+                            else{
+                    Get.snackbar("Error", "Transaction is not found");
+
+
+                            }}
+                                                  
+                                                  else{
                                                     showModalBottomSheet(
                                                         shape: RoundedRectangleBorder(
                                                             borderRadius:
@@ -379,6 +399,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                         builder: (context) =>
                                                             buildUpdatePayments(
                                                                 item));
+                                                  }
+
                                                   },
                                                   child: SvgPicture.asset(
                                                       'assets/images/edit_pri.svg')),
@@ -854,7 +876,6 @@ class _DebtOwnedState extends State<DebtOwned> {
       });
   StatefulBuilder newCustomersInfo() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
-        ScrollController? controller;
         return Form(
           key: _customerKey,
           child: Column(

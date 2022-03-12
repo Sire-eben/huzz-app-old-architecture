@@ -53,7 +53,7 @@ class _ProductListingState extends State<ProductListing> {
           else
             Get.to(AddProduct());
         },
-        icon: Icon(Icons.add),
+        icon:(isDelete)?Container(): Icon(Icons.add),
         backgroundColor: AppColor().backgroundColor,
         label: Text(
           (isDelete) ? "Delete Product(s)" : 'New Product',
