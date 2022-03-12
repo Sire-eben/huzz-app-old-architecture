@@ -8,6 +8,8 @@ import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/debtors_repository.dart';
 import 'package:huzz/app/screens/home/debtors/debt_updated_success.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
+import 'package:huzz/app/screens/dashboard.dart';
+import 'package:huzz/app/screens/home/debtors/debt_updated_success.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/debtor.dart';
@@ -1260,7 +1262,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Bahl: ${widget.item!.balance!}",
+                  "Balance: ${widget.item!.balance!}",
                   style: TextStyle(
                       fontSize: 13,
                       fontFamily: 'InterRegular',
@@ -1443,7 +1445,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        'Bal: ' + debtor.balance.toString(),
+                                        'Balance: ' + debtor.balance.toString(),
                                         style: TextStyle(
                                           fontFamily: "InterRegular",
                                           color: AppColor().orangeBorderColor,
