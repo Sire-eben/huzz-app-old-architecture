@@ -365,7 +365,7 @@ class _PaidState extends State<Paid> {
                 ? Get.to(() => CreateInvoice())
                 : _displayDialog(context);
           },
-          icon: Icon(Icons.add),
+          icon: (!deleteItem)?Container(): Icon(Icons.add),
           backgroundColor: AppColor().backgroundColor,
           label: Text(
             deleteItem ? 'New Invoice' : 'Delete Item',
