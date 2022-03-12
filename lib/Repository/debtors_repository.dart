@@ -49,15 +49,16 @@ class DebtorRepository extends GetxController
   Rx<File?> DebtorImage = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
 
-  MoneyMaskedTextController totalAmountController = MoneyMaskedTextController(
- decimalSeparator: '.', thousandSeparator: ',');
-MoneyMaskedTextController amountController = MoneyMaskedTextController( decimalSeparator: '.', thousandSeparator: ',');
+  MoneyMaskedTextController totalAmountController =
+      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+  MoneyMaskedTextController amountController =
+      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final serviceDescription = TextEditingController();
 
-  MoneyMaskedTextController DebtorSellingPriceController = MoneyMaskedTextController(
-     decimalSeparator: '.', thousandSeparator: ',');
+  MoneyMaskedTextController DebtorSellingPriceController =
+      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
   final DebtorQuantityController = TextEditingController();
   final DebtorUnitController = TextEditingController();
 
@@ -78,7 +79,9 @@ MoneyMaskedTextController amountController = MoneyMaskedTextController( decimalS
   List<Debtor> get debtorsList => _debtorsList.value;
   List<Debtor> get debtOwnedList => _debtOwnedList.value;
   Rx<dynamic> _debotorAmount = Rx(0);
+  Rx<dynamic> _debtOwnedAmount = Rx(0);
   dynamic get debtorAmount => _debotorAmount.value;
+  dynamic get totalDebt => _debtOwnedAmount.value + _debotorAmount.value;
 
   List<Debtor> get deleteDebtorList => _deleteDebtorList.value;
 
@@ -97,18 +100,24 @@ MoneyMaskedTextController amountController = MoneyMaskedTextController( decimalS
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null && value.businessId!=null) {
+        if (value != null && value.businessId != null) {
           getOnlineDebtor(value.businessId!);
           getOfflineDebtor(value.businessId!);
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null&& p0.businessId!=null) {
+          if (p0 != null && p0.businessId != null) {
             totalAmountController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
-       amountController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ', decimalSeparator: '.', thousandSeparator: ',');
-      DebtorSellingPriceController = MoneyMaskedTextController( leftSymbol: '${Utils.getCurrency()} ',
-     decimalSeparator: '.', thousandSeparator: ',');
+                leftSymbol: '${Utils.getCurrency()} ',
+                decimalSeparator: '.',
+                thousandSeparator: ',');
+            amountController = MoneyMaskedTextController(
+                leftSymbol: '${Utils.getCurrency()} ',
+                decimalSeparator: '.',
+                thousandSeparator: ',');
+            DebtorSellingPriceController = MoneyMaskedTextController(
+                leftSymbol: '${Utils.getCurrency()} ',
+                decimalSeparator: '.',
+                thousandSeparator: ',');
             print("business id ${p0.businessId}");
             _offlineBusinessDebtor([]);
 
@@ -117,7 +126,6 @@ MoneyMaskedTextController amountController = MoneyMaskedTextController( decimalS
             _DebtorGoods([]);
             getOnlineDebtor(p0.businessId!);
             getOfflineDebtor(p0.businessId!);
-             
           }
         });
       }
@@ -269,13 +277,17 @@ MoneyMaskedTextController amountController = MoneyMaskedTextController( decimalS
     // ));
   }
 
-  Future calculateDebtors() async {
+  Future calculateDebtsAndDebtsOwned() async {
     dynamic totalDebotors = 0;
     debtorsList.forEach((element) {
       totalDebotors = totalDebotors + element.totalAmount!;
     });
 
+    final _debtOwned =
+        debtOwnedList.fold<num>(0, (acc, debt) => acc + debt.totalAmount);
+
     _debotorAmount(totalDebotors);
+    _debtOwnedAmount(_debtOwned);
   }
 
   Future updateBusinessDebtorOffline(Debtor debtor, dynamic amount) async {
@@ -375,7 +387,7 @@ MoneyMaskedTextController amountController = MoneyMaskedTextController( decimalS
     _offlineBusinessDebtor(result);
     print("offline Debtor found ${result.length}");
     classifiedDebt();
-    calculateDebtors();
+    calculateDebtsAndDebtsOwned();
     setPaidDebt();
     // setDebtorDifferent();
   }
