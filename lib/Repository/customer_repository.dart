@@ -17,6 +17,7 @@ import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 
 enum AddingCustomerStatus { Loading, Error, Success, Empty }
+enum CustomerStatus { Loading, Available, Error, Empty }
 
 class CustomerRepository extends GetxController {
   final nameController = TextEditingController();
@@ -37,13 +38,20 @@ class CustomerRepository extends GetxController {
   AddingCustomerStatus get addingCustomerStatus => _addingCustomerStatus.value;
   TabController? tabController;
   Rx<List<Customer>> _deleteCustomerList = Rx([]);
+
   List<Customer> get deleteCustomerList => _deleteCustomerList.value;
   List<Customer> pendingUpdatedCustomerList = [];
+
   Rx<List<Customer>> _customerCustomer = Rx([]);
   Rx<List<Customer>> _customerMerchant = Rx([]);
+
   final isCustomerService = false.obs;
+  final _customerStatus = CustomerStatus.Empty.obs;
+
   List<Customer> get customerCustomer => _customerCustomer.value;
   List<Customer> get customerMerchant => _customerMerchant.value;
+  CustomerStatus get customerStatus => _customerStatus.value;
+
   List<Contact> contactList = [];
 
   Rx<File?> CustomerImage = Rx(null);
@@ -407,16 +415,20 @@ class CustomerRepository extends GetxController {
   }
 
   Future updatePendingJob() async {
-    if (pendingUpdatedCustomerList.isEmpty) {
-      return;
+    try {
+      if (pendingUpdatedCustomerList.isEmpty) {
+        return;
+      }
+      var updatednext = pendingUpdatedCustomerList.first;
+      await _businessController.sqliteDb.updateOfflineCustomer(updatednext);
+      pendingUpdatedCustomerList.remove(updatednext);
+      if (pendingUpdatedCustomerList.isNotEmpty) {
+        updatePendingJob();
+      }
+      getOfflineCustomer(updatednext.businessId!);
+    } catch (error) {
+      print(error.toString());
     }
-    var updatednext = pendingUpdatedCustomerList.first;
-    await _businessController.sqliteDb.updateOfflineCustomer(updatednext);
-    pendingUpdatedCustomerList.remove(updatednext);
-    if (pendingUpdatedCustomerList.isNotEmpty) {
-      updatePendingJob();
-    }
-    getOfflineCustomer(updatednext.businessId!);
   }
 
   Future savePendingJob() async {
