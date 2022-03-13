@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/add_product.dart';
 import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
@@ -17,6 +18,7 @@ class ProductListing extends StatefulWidget {
 }
 
 class _ProductListingState extends State<ProductListing> {
+  final _businessController = Get.find<BusinessRespository>();
   final display = createDisplay(
       length: 3,
       decimal: 0,
@@ -44,178 +46,202 @@ class _ProductListingState extends State<ProductListing> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor().whiteColor,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          if (isDelete)
-            _displayDialog(context);
-          else
-            Get.to(AddProduct());
-        },
-        icon:(isDelete)?Container(): Icon(Icons.add),
-        backgroundColor: AppColor().backgroundColor,
-        label: Text(
-          (isDelete) ? "Delete Product(s)" : 'New Product',
-          style: TextStyle(
-              fontFamily: 'InterRegular',
-              fontSize: 10,
-              color: Colors.white,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Stack(
-        children: [
-          // Product Count
-          Positioned(
-            top: 15,
-            left: 20,
-            right: 20,
-            child: productCount(context),
+    return Obx(() {
+      final value = _businessController.selectedBusiness.value;
+      return Scaffold(
+        backgroundColor: AppColor().whiteColor,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            if (isDelete)
+              _displayDialog(context);
+            else
+              Get.to(AddProduct());
+          },
+          icon: (isDelete) ? Container() : Icon(Icons.add),
+          backgroundColor: AppColor().backgroundColor,
+          label: Text(
+            (isDelete) ? "Delete Product(s)" : 'New Product',
+            style: TextStyle(
+                fontFamily: 'InterRegular',
+                fontSize: 10,
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
           ),
+        ),
+        body: Stack(
+          children: [
+            // Product Count
+            Positioned(
+              top: 15,
+              left: 20,
+              right: 20,
+              child: productCount(context),
+            ),
 
-          //Search
-          Positioned(
-            top: 125,
-            left: 20,
-            right: 20,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              height: 55,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Color(0xffE6F4F2),
-                borderRadius: BorderRadius.circular(25),
+            //Search
+            Positioned(
+              top: 125,
+              left: 20,
+              right: 20,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                height: 55,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Color(0xffE6F4F2),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.search,
+                      color: AppColor().backgroundColor,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      height: 55,
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: TextFormField(
+                        controller: textEditingController,
+                        onChanged: searchItem,
+                        // textInputAction: TextInputAction.none,
+                        decoration: InputDecoration(
+                          isDense: true,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: AppColor().backgroundColor, width: 2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          hintText: 'Search',
+                          hintStyle:
+                              Theme.of(context).textTheme.headline4!.copyWith(
+                                    fontFamily: 'InterRegular',
+                                    color: Colors.black26,
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.normal,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
+            ),
+
+            // Add &  Delete Button
+            Positioned(
+              top: 190,
+              left: 30,
+              right: 30,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.search,
-                    color: AppColor().backgroundColor,
+                  Text(
+                    'Product (${_productController.productGoods.length})',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'InterRegular',
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  Spacer(),
                   SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
-                  Container(
-                    height: 55,
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    child: TextFormField(
-                      controller: textEditingController,
-                      onChanged: searchItem,
-                      // textInputAction: TextInputAction.none,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        hintText: 'Search',
-                        hintStyle:
-                            Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontFamily: 'InterRegular',
-                                  color: Colors.black26,
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.normal,
-                                ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        isDelete = !isDelete;
+                      });
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: AppColor().lightbackgroundColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.delete_outline_outlined,
+                        size: 20,
+                        color: AppColor().backgroundColor,
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
 
-          // Add &  Delete Button
-          Positioned(
-            top: 190,
-            left: 30,
-            right: 30,
-            child: Row(
-              children: [
-                Text(
-                  'Product (${_productController.productGoods.length})',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Spacer(),
-                SizedBox(
-                  width: 5,
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      isDelete = !isDelete;
-                    });
-                  },
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
-                      shape: BoxShape.circle,
+            //ProductList
+            Positioned(
+              top: 240,
+              bottom: 30,
+              left: 20,
+              right: 20,
+              child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                  ? Obx(() {
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          return Future.delayed(Duration(seconds: 1), () {
+                            _productController
+                                .getOnlineProduct(value!.businessId!);
+                            _productController
+                                .getOfflineProduct(value.businessId!);
+                          });
+                        },
+                        child: (_productController.productStatus ==
+                                ProductStatus.Loading)
+                            ? Center(child: CircularProgressIndicator())
+                            : (_productController.productStatus ==
+                                    ProductStatus.Available)
+                                ? ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: (searchResult.isEmpty)
+                                        ? _productController.productGoods.length
+                                        : searchResult.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      var item = (searchResult.isEmpty)
+                                          ? _productController
+                                              .productGoods[index]
+                                          : searchResult[index];
+                                      print("product item ${item.toJson()}");
+                                      return (isDelete)
+                                          ? ListingProductDelete(
+                                              item: item,
+                                            )
+                                          : ListingProduct(
+                                              item: item,
+                                            );
+                                    })
+                                : (_productController.productStatus ==
+                                        ProductStatus.Empty)
+                                    ? Text('Not Item')
+                                    : Text('Empty'),
+                      );
+                    })
+                  : Container(
+                      child: Center(
+                        child: Text("No Product Found"),
+                      ),
                     ),
-                    child: Icon(
-                      Icons.delete_outline_outlined,
-                      size: 20,
-                      color: AppColor().backgroundColor,
-                    ),
-                  ),
-                ),
-              ],
             ),
-          ),
-
-          //ProductList
-          Positioned(
-            top: 240,
-            bottom: 30,
-            left: 20,
-            right: 20,
-            child: (searchtext.isEmpty || searchResult.isNotEmpty)
-                ? Obx(() {
-                    return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: (searchResult.isEmpty)
-                            ? _productController.productGoods.length
-                            : searchResult.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          var item = (searchResult.isEmpty)
-                              ? _productController.productGoods[index]
-                              : searchResult[index];
-                          print("product item ${item.toJson()}");
-                          return (isDelete)
-                              ? ListingProductDelete(
-                                  item: item,
-                                )
-                              : ListingProduct(
-                                  item: item,
-                                );
-                        });
-                  })
-                : Container(
-                    child: Center(
-                      child: Text("No Product Found"),
-                    ),
-                  ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 
   _displayDialog(BuildContext context) async {

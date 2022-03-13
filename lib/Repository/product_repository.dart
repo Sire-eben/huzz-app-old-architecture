@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
@@ -15,12 +14,13 @@ import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-
 import 'auth_respository.dart';
 import 'file_upload_respository.dart';
 
 enum AddingProductStatus { Loading, Error, Success, Empty }
 enum AddingServiceStatus { Loading, Error, Success, Empty }
+enum ProductStatus { Loading, Available, Error, Empty }
+enum ServiceStatus { Loading, Available, Error, Empty }
 
 class ProductRepository extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -30,33 +30,31 @@ class ProductRepository extends GetxController
   List<Product> get offlineBusinessProduct => _offlineBusinessProduct.value;
   List<Product> get onlineBusinessProduct => _onlineBusinessProduct.value;
   List<Product> pendingBusinessProduct = [];
-  List<String> units = [
-    'Box',
-    'feet',
-    'kilogram',
-    'meters',
-  ];
+  List<String> units = ['Box', 'feet', 'kilogram', 'meters'];
+
   Product? selectedProduct;
   final _uploadImageController = Get.find<FileUploadRespository>();
   Rx<List<Product>> _productService = Rx([]);
   Rx<List<Product>> _productGoods = Rx([]);
   final isProductService = false.obs;
+  final _productStatus = ProductStatus.Empty.obs;
+  final _serviceStatus = ServiceStatus.Empty.obs;
+
   List<Product> get productServices => _productService.value;
   List<Product> get productGoods => _productGoods.value;
+  ProductStatus get productStatus => _productStatus.value;
+  ServiceStatus get serviceStatus => _serviceStatus.value;
+
   Rx<dynamic> MproductImage = Rx(null);
   dynamic get productImage => MproductImage.value;
   SqliteDb sqliteDb = SqliteDb();
   final productNameController = TextEditingController();
-MoneyMaskedTextController productCostPriceController = MoneyMaskedTextController(
-     
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
-MoneyMaskedTextController productSellingPriceController = MoneyMaskedTextController(
-      
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+  MoneyMaskedTextController productCostPriceController =
+      MoneyMaskedTextController(
+          decimalSeparator: '.', thousandSeparator: ',', precision: 1);
+  MoneyMaskedTextController productSellingPriceController =
+      MoneyMaskedTextController(
+          decimalSeparator: '.', thousandSeparator: ',', precision: 1);
   final productQuantityController = TextEditingController();
   final productUnitController = TextEditingController();
   final serviceDescription = TextEditingController();
@@ -95,24 +93,23 @@ MoneyMaskedTextController productSellingPriceController = MoneyMaskedTextControl
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null && value.businessId!=null) {
+        if (value != null && value.businessId != null) {
           getOnlineProduct(value.businessId!);
           getOfflineProduct(value.businessId!);
-        
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null&& p0.businessId!=null) {
-              productCostPriceController= MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+          if (p0 != null && p0.businessId != null) {
+            productCostPriceController = MoneyMaskedTextController(
+                leftSymbol: '${Utils.getCurrency()} ',
+                decimalSeparator: '.',
+                thousandSeparator: ',',
+                precision: 1);
 
- productSellingPriceController = MoneyMaskedTextController(
-      leftSymbol: '${Utils.getCurrency()} ',
-      decimalSeparator: '.',
-      thousandSeparator: ',',
-      precision: 1);
+            productSellingPriceController = MoneyMaskedTextController(
+                leftSymbol: '${Utils.getCurrency()} ',
+                decimalSeparator: '.',
+                thousandSeparator: ',',
+                precision: 1);
             print("business id ${p0.businessId}");
             _offlineBusinessProduct([]);
 
@@ -121,7 +118,6 @@ MoneyMaskedTextController productSellingPriceController = MoneyMaskedTextControl
             _productGoods([]);
             getOnlineProduct(p0.businessId!);
             getOfflineProduct(p0.businessId!);
-         
           }
         });
       }
@@ -196,7 +192,7 @@ MoneyMaskedTextController productSellingPriceController = MoneyMaskedTextControl
   // ignore: non_constant_identifier_names
   Future UpdateBusinessProduct(Product product, String title) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
-      updateBusinessProductOnline( product, title);
+      updateBusinessProductOnline(product, title);
     } else {
       updateBusinessProductOffline(product, title);
     }
@@ -351,32 +347,51 @@ MoneyMaskedTextController productSellingPriceController = MoneyMaskedTextControl
   }
 
   Future getOfflineProduct(String businessId) async {
-    var result =
-        await _businessController.sqliteDb.getOfflineProducts(businessId);
-    _offlineBusinessProduct(result);
-    print("offline product found ${result.length}");
-    setProductDifferent();
+    try {
+      _productStatus(ProductStatus.Loading);
+      print("trying to get product offline");
+      var result =
+          await _businessController.sqliteDb.getOfflineProducts(businessId);
+      _offlineBusinessProduct(result);
+      print("offline product found ${result.length}");
+      setProductDifferent();
+      result.isNotEmpty
+          ? _productStatus(ProductStatus.Available)
+          : _productStatus(ProductStatus.Empty);
+    } catch (error) {
+      print(error.toString());
+      _productStatus(ProductStatus.Error);
+    }
   }
 
   Future getOnlineProduct(String businessId) async {
-    print("trying to get product online");
-    final response = await http.get(
-        Uri.parse(ApiLink.get_business_product + "?businessId=" + businessId),
-        headers: {"Authorization": "Bearer ${_userController.token}"});
+    try {
+      _productStatus(ProductStatus.Loading);
+      print("trying to get product online");
+      final response = await http.get(
+          Uri.parse(ApiLink.get_business_product + "?businessId=" + businessId),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
 
-    print("result of get product online ${response.body}");
-    if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
-      if (json['success']) {
-        var result = List.from(json['data']['content'])
-            .map((e) => Product.fromJson(e))
-            .toList();
-        _onlineBusinessProduct(result);
-        print("product business lenght ${result.length}");
-        await getBusinessProductYetToBeSavedLocally();
-        checkIfUpdateAvailable();
-      }
-    } else {}
+      print("result of get product online ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+          var result = List.from(json['data']['content'])
+              .map((e) => Product.fromJson(e))
+              .toList();
+          _onlineBusinessProduct(result);
+          print("product business lenght ${result.length}");
+          await getBusinessProductYetToBeSavedLocally();
+          checkIfUpdateAvailable();
+          result.isNotEmpty
+              ? _productStatus(ProductStatus.Available)
+              : _productStatus(ProductStatus.Empty);
+        }
+      } else {}
+    } catch (error) {
+      print(error.toString());
+      _productStatus(ProductStatus.Error);
+    }
   }
 
   Future getBusinessProductYetToBeSavedLocally() async {

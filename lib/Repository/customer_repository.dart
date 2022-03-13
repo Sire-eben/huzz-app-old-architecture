@@ -30,6 +30,7 @@ class CustomerRepository extends GetxController {
   final _userController = Get.find<AuthRepository>();
   final _addingCustomerStatus = AddingCustomerStatus.Empty.obs;
   var uuid = Uuid();
+
   Rx<List<Customer>> _onlineBusinessCustomer = Rx([]);
   Rx<List<Customer>> _offlineBusinessCustomer = Rx([]);
   List<Customer> get offlineBusinessCustomer => _offlineBusinessCustomer.value;
@@ -342,12 +343,21 @@ class CustomerRepository extends GetxController {
   }
 
   Future getOfflineCustomer(String businessId) async {
-    var result =
-        await _businessController.sqliteDb.getOfflineCustomers(businessId);
-    var list = result.where((c) => c.deleted == false).toList();
-    _offlineBusinessCustomer(list);
-    print("offline Customer found ${result.length}");
-    setCustomerDifferent();
+    try {
+      _customerStatus(CustomerStatus.Loading);
+      var result =
+          await _businessController.sqliteDb.getOfflineCustomers(businessId);
+      var list = result.where((c) => c.deleted == false).toList();
+      _offlineBusinessCustomer(list);
+      print("offline Customer found ${result.length}");
+      setCustomerDifferent();
+      list.isNotEmpty
+          ? _customerStatus(CustomerStatus.Available)
+          : _customerStatus(CustomerStatus.Empty);
+    } catch (error) {
+      _customerStatus(CustomerStatus.Error);
+      print(error.toString());
+    }
   }
 
   Future getOnlineCustomer(String businessId) async {

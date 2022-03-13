@@ -106,6 +106,8 @@ class _CustomersState extends State<Customers> {
                               return Future.delayed(Duration(seconds: 1), () {
                                 _customerController
                                     .getOnlineCustomer(value!.businessId!);
+                                _customerController
+                                    .getOfflineCustomer(value.businessId!);
                               });
                             },
                             child: (_customerController.customerStatus ==
