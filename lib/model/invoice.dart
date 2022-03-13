@@ -1,7 +1,4 @@
-import 'package:get/get.dart';
-import 'package:huzz/model/payment_history_request.dart';
 import 'package:huzz/model/payment_item.dart';
-import 'package:huzz/model/records_model.dart';
 import 'package:huzz/model/transaction_model.dart';
 
 class Invoice {

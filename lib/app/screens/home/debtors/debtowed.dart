@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/debtors_repository.dart';
+import 'package:huzz/app/screens/home/debtors/debt_updated_success.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/customer_model.dart';
@@ -62,11 +62,103 @@ class _DebtOwnedState extends State<DebtOwned> {
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 20,
-                    vertical: 20,
+                    vertical: 14,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      Container(
+                        height: 95,
+                        decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Number Of Debts Owed",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'InterRegular',
+                                      fontSize: 12,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      "${_debtorRepository.debtOwnedList.length}",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'InterRegular',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 95,
+                                decoration: BoxDecoration(
+                                  color: AppColor().secondbgColor,
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    stops: [
+                                      0.1,
+                                      0.6,
+                                      0.8,
+                                    ],
+                                    colors: [
+                                      Color(0xff0D8372),
+                                      Color(0xff07A58E),
+                                      AppColor()
+                                          .backgroundColor
+                                          .withOpacity(0.5),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    bottomRight: Radius.circular(15),
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Total Debts Owed",
+                                      style: TextStyle(
+                                        fontFamily: 'InterRegular',
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${Utils.getCurrency()}${display(_debtorRepository.debtOwnedAmount)}",
+                                      style: TextStyle(
+                                        fontFamily: 'InterRegular',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 14),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 12),
                         decoration: BoxDecoration(
@@ -212,7 +304,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                         .width *
                                                     0.02),
                                             Expanded(
-                                              flex: 5,
+                                              flex: 4,
                                               child: Container(
                                                 child: Column(
                                                   crossAxisAlignment:
@@ -241,14 +333,14 @@ class _DebtOwnedState extends State<DebtOwned> {
                                               ),
                                             ),
                                             Expanded(
-                                              flex: 3,
+                                              flex: 4,
                                               child: Container(
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "Bal: ${Utils.getCurrency()}${display(item.balance!)}",
+                                                      "Balance: ${Utils.getCurrency()}${display(item.balance!)}",
                                                       style: TextStyle(
                                                           fontSize: 13,
                                                           fontFamily:
@@ -275,39 +367,45 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                   onTap: () {
                                                     print(index);
                                                     // item.businessTransactionId="6229ab581982280f4fd07cf5";
-                                                  print("business transaction id  is ${item.businessTransactionId}");
-                                                  if(item.businessTransactionId!=null && item.businessTransactionId!.isNotEmpty){
-                                                 
-                                                  final _transactionController=Get.find<TransactionRespository>();
- final Titem=_transactionController.getTransactionById(item.businessTransactionId!);
- if(Titem!=null){
-                    //  Get.snackbar("Error","Going to transaction page");
-                                                      Get.to(() => MoneySummary(
-                              item: Titem.businessTransactionPaymentItemList![0],
-                            ));
- }
-                            else{
-                    Get.snackbar("Error", "Transaction is not found");
-
-
-                            }}
-                                                  
-                                                  else{
-                                                    showModalBottomSheet(
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius.vertical(
-                                                                    top: Radius
-                                                                        .circular(
-                                                                            20))),
-                                                        context: context,
-                                                        isScrollControlled:
-                                                            true,
-                                                        builder: (context) =>
-                                                            buildUpdatePayments(
-                                                                item));
-                                                  }
-
+                                                    print(
+                                                        "business transaction id  is ${item.businessTransactionId}");
+                                                    if (item.businessTransactionId !=
+                                                            null &&
+                                                        item.businessTransactionId!
+                                                            .isNotEmpty) {
+                                                      final _transactionController =
+                                                          Get.find<
+                                                              TransactionRespository>();
+                                                      final Titem =
+                                                          _transactionController
+                                                              .getTransactionById(
+                                                                  item.businessTransactionId!);
+                                                      if (Titem != null) {
+                                                        //  Get.snackbar("Error","Going to transaction page");
+                                                        Get.to(
+                                                            () => MoneySummary(
+                                                                  item: Titem
+                                                                      .businessTransactionPaymentItemList![0],
+                                                                ));
+                                                      } else {
+                                                        Get.snackbar("Error",
+                                                            "Transaction is not found");
+                                                      }
+                                                    } else {
+                                                      showModalBottomSheet(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius.vertical(
+                                                                      top: Radius
+                                                                          .circular(
+                                                                              20))),
+                                                          context: context,
+                                                          isScrollControlled:
+                                                              true,
+                                                          builder: (context) =>
+                                                              buildUpdatePayments(
+                                                                  item));
+                                                    }
                                                   },
                                                   child: SvgPicture.asset(
                                                       'assets/images/edit_pri.svg')),
@@ -518,7 +616,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      'Bal:${Utils.getCurrency()}${display(debtor.balance)}',
+                                      'Balance: ${Utils.getCurrency()}${display(debtor.balance)}',
                                       style: TextStyle(
                                         fontFamily: "InterRegular",
                                         color: AppColor().orangeBorderColor,
@@ -613,7 +711,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                             statusType == 1
                                 ? debtor.balance
                                 : int.parse(textEditingController.text));
-                        Get.back();
+                        Get.to(DebtUpdatedSuccess());
                       }
                     }
                   },
@@ -783,7 +881,6 @@ class _DebtOwnedState extends State<DebtOwned> {
       });
   StatefulBuilder newCustomersInfo() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
-        ScrollController? controller;
         return Form(
           key: _customerKey,
           child: Column(
@@ -1168,7 +1265,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Bahl: ${widget.item!.balance!}",
+                  "Balance: ${widget.item!.balance!}",
                   style: TextStyle(
                       fontSize: 13,
                       fontFamily: 'InterRegular',
@@ -1351,7 +1448,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        'Bal: ' + debtor.balance.toString(),
+                                        'Balance: ' + debtor.balance.toString(),
                                         style: TextStyle(
                                           fontFamily: "InterRegular",
                                           color: AppColor().orangeBorderColor,
@@ -1447,7 +1544,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                               statusType == 1
                                   ? 0
                                   : int.parse(textEditingController.text));
-                          Get.back();
+                          Get.to(DebtUpdatedSuccess());
                         }
                       }
                     },

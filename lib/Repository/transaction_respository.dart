@@ -110,7 +110,7 @@ class TransactionRespository extends GetxController {
   Rx<List<RecordsData>> _pieExpenditureValue = Rx([]);
   List<RecordsData> get pieIncomeValue => _pieIncomeValue.value;
   List<RecordsData> get pieExpenditure => _pieExpenditureValue.value;
-  Rx<String> value = "Today".obs;
+  Rx<String> value = "This month".obs;
   Rx<List<TransactionModel>> _allIncomeTransaction = Rx([]);
   Rx<List<TransactionModel>> _allExpenditureTransaction = Rx([]);
   List<TransactionModel> get allIncomeTransaction =>
@@ -430,98 +430,98 @@ class TransactionRespository extends GetxController {
     dynamic saturdayTotalExpenditure = 0;
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
-    years.forEach((element1) {
-      dynamic incomeTotalAmount = 0;
-      dynamic expenditureTotalAmount = 0;
-      List<TransactionModel> currentTran = [];
-      if (todayTransaction.isEmpty)
-        print("alltime is empty");
-      else
-        print("alltime transaction is not empty");
-      offlineTransactions.forEach((element) {
-        print(
-            "alltime testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
+    if (offlineTransactions.isNotEmpty) {
+      years.forEach((element1) {
+        dynamic incomeTotalAmount = 0;
+        dynamic expenditureTotalAmount = 0;
+        List<TransactionModel> currentTran = [];
 
-        if (element.entryDateTime != null &&
-            DateTime(element.entryDateTime!.year)
-                .isAtSameMomentAs(DateTime(element1.year))) {
-          print("AllTime found");
-          if (element.transactionType!.contains("INCOME")) {
-            _currentHoursIncome.add(element);
-            print("AllTime is  $element1 amount ${element.totalAmount}");
-            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-            print("AllTime is  $element1 amount $incomeTotalAmount");
+        offlineTransactions.forEach((element) {
+          print(
+              "alltime testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalIncome = mondayTotalIncome + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalIncome =
-                    wednesdayTotalIncome + element.totalAmount!;
-                break;
-              case 4:
-                thursdayTotalIncome =
-                    thursdayTotalIncome + element.totalAmount!;
-                break;
-              case 5:
-                fridayTotalIncome = fridayTotalIncome + element.totalAmount!;
-                break;
-              case 6:
-                saturdayTotalIncome =
-                    saturdayTotalIncome + element.totalAmount!;
+          if (element.entryDateTime != null &&
+              DateTime(element.entryDateTime!.year)
+                  .isAtSameMomentAs(DateTime(element1.year))) {
+            print("AllTime found");
+            if (element.transactionType!.contains("INCOME")) {
+              _currentHoursIncome.add(element);
+              print("AllTime is  $element1 amount ${element.totalAmount}");
+              incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+              print("AllTime is  $element1 amount $incomeTotalAmount");
+
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalIncome = mondayTotalIncome + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalIncome =
+                      wednesdayTotalIncome + element.totalAmount!;
+                  break;
+                case 4:
+                  thursdayTotalIncome =
+                      thursdayTotalIncome + element.totalAmount!;
+                  break;
+                case 5:
+                  fridayTotalIncome = fridayTotalIncome + element.totalAmount!;
+                  break;
+                case 6:
+                  saturdayTotalIncome =
+                      saturdayTotalIncome + element.totalAmount!;
+              }
+            } else {
+              _currentHoursExpenditure.add(element);
+              expenditureTotalAmount =
+                  expenditureTotalAmount + element.totalAmount ?? 0;
+              print(
+                  "expenditure AllTime is  $element1 amount $expenditureTotalAmount");
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalExpenditure =
+                      sundayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalExpenditure =
+                      mondayTotalExpenditure + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalExpenditure =
+                      tuesdayTotalExpenditure + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalExpenditure =
+                      wednesdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 4:
+                  thursdayTotalExpenditure =
+                      thursdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 5:
+                  fridayTotalExpenditure =
+                      fridayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 6:
+                  saturdayTotalExpenditure =
+                      saturdayTotalExpenditure + element.totalAmount!;
+              }
             }
-          } else {
-            _currentHoursExpenditure.add(element);
-            expenditureTotalAmount =
-                expenditureTotalAmount + element.totalAmount ?? 0;
-            print(
-                "expenditure AllTime is  $element1 amount $expenditureTotalAmount");
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalExpenditure =
-                    sundayTotalExpenditure + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalExpenditure =
-                    mondayTotalExpenditure + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalExpenditure =
-                    tuesdayTotalExpenditure + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalExpenditure =
-                    wednesdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 4:
-                thursdayTotalExpenditure =
-                    thursdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 5:
-                fridayTotalExpenditure =
-                    fridayTotalExpenditure + element.totalAmount!;
-                break;
-              case 6:
-                saturdayTotalExpenditure =
-                    saturdayTotalExpenditure + element.totalAmount!;
-            }
+
+            currentTran.add(element);
           }
-
-          currentTran.add(element);
-        }
+        });
+        _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "y")!,
+            incomeTotalAmount, currentTran, _randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(element1.formatDate(pattern: "y")!,
+            expenditureTotalAmount, currentTran, _randomColor.randomColor()));
       });
-      _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "y")!,
-          incomeTotalAmount, currentTran, _randomColor.randomColor()));
-      _hourExpenditureData.add(RecordsData(element1.formatDate(pattern: "y")!,
-          expenditureTotalAmount, currentTran, _randomColor.randomColor()));
-    });
+    }
+
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
     _pieIncome.add(
@@ -583,97 +583,100 @@ class TransactionRespository extends GetxController {
     dynamic saturdayTotalExpenditure = 0;
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
-    months.forEach((element1) {
-      dynamic incomeTotalAmount = 0;
-      dynamic expenditureTotalAmount = 0;
-      List<TransactionModel> currentTran = [];
-      if (todayTransaction.isEmpty)
-        print(" transactonlist is empty");
-      else
-        print("today transaction is not empty");
-      offlineTransactions.forEach((element) {
-        print(
-            "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
+    if (offlineTransactions.isNotEmpty) {
+      months.forEach((element1) {
+        dynamic incomeTotalAmount = 0;
+        dynamic expenditureTotalAmount = 0;
+        List<TransactionModel> currentTran = [];
+        offlineTransactions.forEach((element) {
+          print(
+              "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
-        if (element.entryDateTime != null &&
-            DateTime(element.entryDateTime!.year, element.entryDateTime!.month)
-                .isAtSameMomentAs(DateTime(element1.year, element1.month))) {
-          print("today hour found");
-          if (element.transactionType!.contains("INCOME")) {
-            _currentHoursIncome.add(element);
-            print("income hour is  $element1 amount ${element.totalAmount}");
-            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-            print("income hour is  $element1 amount $incomeTotalAmount");
+          if (element.entryDateTime != null &&
+              DateTime(
+                      element.entryDateTime!.year, element.entryDateTime!.month)
+                  .isAtSameMomentAs(DateTime(element1.year, element1.month))) {
+            print("today hour found");
+            if (element.transactionType!.contains("INCOME")) {
+              _currentHoursIncome.add(element);
+              print("income hour is  $element1 amount ${element.totalAmount}");
+              incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+              print("income hour is  $element1 amount $incomeTotalAmount");
 
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalIncome = mondayTotalIncome + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalIncome =
-                    wednesdayTotalIncome + element.totalAmount!;
-                break;
-              case 4:
-                thursdayTotalIncome =
-                    thursdayTotalIncome + element.totalAmount!;
-                break;
-              case 5:
-                fridayTotalIncome = fridayTotalIncome + element.totalAmount!;
-                break;
-              case 6:
-                saturdayTotalIncome =
-                    saturdayTotalIncome + element.totalAmount!;
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalIncome = mondayTotalIncome + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalIncome =
+                      wednesdayTotalIncome + element.totalAmount!;
+                  break;
+                case 4:
+                  thursdayTotalIncome =
+                      thursdayTotalIncome + element.totalAmount!;
+                  break;
+                case 5:
+                  fridayTotalIncome = fridayTotalIncome + element.totalAmount!;
+                  break;
+                case 6:
+                  saturdayTotalIncome =
+                      saturdayTotalIncome + element.totalAmount!;
+              }
+            } else {
+              _currentHoursExpenditure.add(element);
+              expenditureTotalAmount =
+                  expenditureTotalAmount + element.totalAmount ?? 0;
+              print(
+                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalExpenditure =
+                      sundayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalExpenditure =
+                      mondayTotalExpenditure + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalExpenditure =
+                      tuesdayTotalExpenditure + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalExpenditure =
+                      wednesdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 4:
+                  thursdayTotalExpenditure =
+                      thursdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 5:
+                  fridayTotalExpenditure =
+                      fridayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 6:
+                  saturdayTotalExpenditure =
+                      saturdayTotalExpenditure + element.totalAmount!;
+              }
             }
-          } else {
-            _currentHoursExpenditure.add(element);
-            expenditureTotalAmount =
-                expenditureTotalAmount + element.totalAmount ?? 0;
-            print(
-                "expenditure hour is  $element1 amount $expenditureTotalAmount");
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalExpenditure =
-                    sundayTotalExpenditure + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalExpenditure =
-                    mondayTotalExpenditure + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalExpenditure =
-                    tuesdayTotalExpenditure + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalExpenditure =
-                    wednesdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 4:
-                thursdayTotalExpenditure =
-                    thursdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 5:
-                fridayTotalExpenditure =
-                    fridayTotalExpenditure + element.totalAmount!;
-                break;
-              case 6:
-                saturdayTotalExpenditure =
-                    saturdayTotalExpenditure + element.totalAmount!;
-            }
+            currentTran.add(element);
           }
-          currentTran.add(element);
-        }
+        });
+        _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "MMM")!,
+            incomeTotalAmount, currentTran, _randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "MMM")!,
+            expenditureTotalAmount,
+            currentTran,
+            _randomColor.randomColor()));
       });
-      _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "MMM")!,
-          incomeTotalAmount, currentTran, _randomColor.randomColor()));
-      _hourExpenditureData.add(RecordsData(element1.formatDate(pattern: "MMM")!,
-          expenditureTotalAmount, currentTran, _randomColor.randomColor()));
-    });
+    }
+
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
     _pieIncome.add(
@@ -735,100 +738,101 @@ class TransactionRespository extends GetxController {
     dynamic saturdayTotalExpenditure = 0;
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
-    days.forEach((element1) {
-      dynamic incomeTotalAmount = 0;
-      dynamic expenditureTotalAmount = 0;
-      List<TransactionModel> currentTran = [];
-      if (todayTransaction.isEmpty)
-        print(" transactonlist is empty");
-      else
-        print("today transaction is not empty");
-      offlineTransactions.forEach((element) {
-        print(
-            "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
+    if (offlineTransactions.isNotEmpty) {
+      days.forEach((element1) {
+        dynamic incomeTotalAmount = 0;
+        dynamic expenditureTotalAmount = 0;
+        List<TransactionModel> currentTran = [];
+        offlineTransactions.forEach((element) {
+          print(
+              "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
-        if (element.entryDateTime != null &&
-            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,
-                    element.entryDateTime!.day)
-                .isAtSameMomentAs(
-                    DateTime(element1.year, element1.month, element1.day))) {
-          print("today hour found");
-          if (element.transactionType!.contains("INCOME")) {
-            _currentHoursIncome.add(element);
-            print("income hour is  $element1 amount ${element.totalAmount}");
-            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-            print("income hour is  $element1 amount $incomeTotalAmount");
+          if (element.entryDateTime != null &&
+              DateTime(element.entryDateTime!.year,
+                      element.entryDateTime!.month, element.entryDateTime!.day)
+                  .isAtSameMomentAs(
+                      DateTime(element1.year, element1.month, element1.day))) {
+            print("today hour found");
+            if (element.transactionType!.contains("INCOME")) {
+              _currentHoursIncome.add(element);
+              print("income hour is  $element1 amount ${element.totalAmount}");
+              incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+              print("income hour is  $element1 amount $incomeTotalAmount");
 
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalIncome = mondayTotalIncome + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalIncome =
-                    wednesdayTotalIncome + element.totalAmount;
-                break;
-              case 4:
-                thursdayTotalIncome = thursdayTotalIncome + element.totalAmount;
-                break;
-              case 5:
-                fridayTotalIncome = fridayTotalIncome + element.totalAmount;
-                break;
-              case 6:
-                saturdayTotalIncome = saturdayTotalIncome + element.totalAmount;
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalIncome = mondayTotalIncome + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalIncome =
+                      wednesdayTotalIncome + element.totalAmount;
+                  break;
+                case 4:
+                  thursdayTotalIncome =
+                      thursdayTotalIncome + element.totalAmount;
+                  break;
+                case 5:
+                  fridayTotalIncome = fridayTotalIncome + element.totalAmount;
+                  break;
+                case 6:
+                  saturdayTotalIncome =
+                      saturdayTotalIncome + element.totalAmount;
+              }
+            } else {
+              _currentHoursExpenditure.add(element);
+              expenditureTotalAmount =
+                  expenditureTotalAmount + element.totalAmount ?? 0;
+              print(
+                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalExpenditure =
+                      sundayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalExpenditure =
+                      mondayTotalExpenditure + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalExpenditure =
+                      tuesdayTotalExpenditure + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalExpenditure =
+                      wednesdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 4:
+                  thursdayTotalExpenditure =
+                      thursdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 5:
+                  fridayTotalExpenditure =
+                      fridayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 6:
+                  saturdayTotalExpenditure =
+                      saturdayTotalExpenditure + element.totalAmount!;
+              }
             }
-          } else {
-            _currentHoursExpenditure.add(element);
-            expenditureTotalAmount =
-                expenditureTotalAmount + element.totalAmount ?? 0;
-            print(
-                "expenditure hour is  $element1 amount $expenditureTotalAmount");
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalExpenditure =
-                    sundayTotalExpenditure + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalExpenditure =
-                    mondayTotalExpenditure + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalExpenditure =
-                    tuesdayTotalExpenditure + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalExpenditure =
-                    wednesdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 4:
-                thursdayTotalExpenditure =
-                    thursdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 5:
-                fridayTotalExpenditure =
-                    fridayTotalExpenditure + element.totalAmount!;
-                break;
-              case 6:
-                saturdayTotalExpenditure =
-                    saturdayTotalExpenditure + element.totalAmount!;
-            }
+            currentTran.add(element);
           }
-          currentTran.add(element);
-        }
+        });
+        _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "MMM,dd")!,
+            incomeTotalAmount, currentTran, _randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "MMM,dd")!,
+            expenditureTotalAmount,
+            currentTran,
+            _randomColor.randomColor()));
       });
-      _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "MMM,dd")!,
-          incomeTotalAmount, currentTran, _randomColor.randomColor()));
-      _hourExpenditureData.add(RecordsData(
-          element1.formatDate(pattern: "MMM,dd")!,
-          expenditureTotalAmount,
-          currentTran,
-          _randomColor.randomColor()));
-    });
+    }
+
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
 
@@ -875,43 +879,46 @@ class TransactionRespository extends GetxController {
     List<TransactionModel> _currentHoursExpenditure = [];
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
-
-    hours.forEach((element1) {
-      dynamic incomeTotalAmount = 0;
-      dynamic expenditureTotalAmount = 0;
-      List<TransactionModel> currentTran = [];
-      if (todayTransaction.isEmpty)
-        print("today transactonlist is empty");
-      else
-        print("today transaction is not empty");
-      todayTransaction.forEach((element) {
-        print(
-            "hour testing $element1 ${element.entryDateTime!.toIso8601String()}");
-
-        if (element.entryDateTime!.isAfter(DateTime(currentDate.year,
-                currentDate.month, currentDate.day, int.parse(element1), 00)) &&
-            element.entryDateTime!.isBefore(DateTime(currentDate.year,
-                currentDate.month, currentDate.day, int.parse(element1), 59))) {
-          print("today hour found");
-          if (element.transactionType!.contains("INCOME")) {
-            _currentHoursIncome.add(element);
-            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-            print("income hour is  $element1 amount $incomeTotalAmount");
-          } else {
-            _currentHoursExpenditure.add(element);
-            expenditureTotalAmount =
-                expenditureTotalAmount + element.totalAmount;
-            print(
-                "expenditure hour is  $element1 amount $expenditureTotalAmount");
+    if (todayTransaction.isNotEmpty) {
+      hours.forEach((element1) {
+        dynamic incomeTotalAmount = 0;
+        dynamic expenditureTotalAmount = 0;
+        List<TransactionModel> currentTran = [];
+        todayTransaction.forEach((element) {
+          if (element.entryDateTime!.isAfter(DateTime(
+                  currentDate.year,
+                  currentDate.month,
+                  currentDate.day,
+                  int.parse(element1),
+                  00)) &&
+              element.entryDateTime!.isBefore(DateTime(
+                  currentDate.year,
+                  currentDate.month,
+                  currentDate.day,
+                  int.parse(element1),
+                  59))) {
+            print("today hour found");
+            if (element.transactionType!.contains("INCOME")) {
+              _currentHoursIncome.add(element);
+              incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+              print("income hour is  $element1 amount $incomeTotalAmount");
+            } else {
+              _currentHoursExpenditure.add(element);
+              expenditureTotalAmount =
+                  expenditureTotalAmount + element.totalAmount;
+              print(
+                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
+            }
+            currentTran.add(element);
           }
-          currentTran.add(element);
-        }
+        });
+        _hourIncomeData.add(RecordsData(element1 + ":00", incomeTotalAmount,
+            currentTran, _randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(element1 + ":00",
+            expenditureTotalAmount, currentTran, _randomColor.randomColor()));
       });
-      _hourIncomeData.add(RecordsData(element1 + ":00", incomeTotalAmount,
-          currentTran, _randomColor.randomColor()));
-      _hourExpenditureData.add(RecordsData(element1 + ":00",
-          expenditureTotalAmount, currentTran, _randomColor.randomColor()));
-    });
+    }
+
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
     _allIncomeTransaction(_currentHoursIncome);
@@ -1009,102 +1016,100 @@ class TransactionRespository extends GetxController {
     dynamic saturdayTotalExpenditure = 0;
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
+    if (offlineTransactions.isNotEmpty) {
+      days.forEach((element1) {
+        dynamic incomeTotalAmount = 0;
+        dynamic expenditureTotalAmount = 0;
+        List<TransactionModel> currentTran = [];
+        offlineTransactions.forEach((element) {
+          print(
+              "data range testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
-    days.forEach((element1) {
-      dynamic incomeTotalAmount = 0;
-      dynamic expenditureTotalAmount = 0;
-      List<TransactionModel> currentTran = [];
-      if (todayTransaction.isEmpty)
-        print(" transactonlist is empty");
-      else
-        print("today transaction is not empty");
-      offlineTransactions.forEach((element) {
-        print(
-            "data range testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
-
-        if (element.entryDateTime != null &&
-            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,
-                    element.entryDateTime!.day)
-                .isAtSameMomentAs(
-                    DateTime(element1.year, element1.month, element1.day))) {
-          print("data range found");
-          if (element.transactionType!.contains("INCOME")) {
-            _currentHoursIncome.add(element);
-            print("income hour is  $element1 amount ${element.totalAmount}");
-            incomeTotalAmount = incomeTotalAmount + element.totalAmount;
-            print("income hour is  $element1 amount $incomeTotalAmount");
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalIncome = mondayTotalIncome + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalIncome =
-                    wednesdayTotalIncome + element.totalAmount!;
-                break;
-              case 4:
-                thursdayTotalIncome =
-                    thursdayTotalIncome + element.totalAmount!;
-                break;
-              case 5:
-                fridayTotalIncome = fridayTotalIncome + element.totalAmount!;
-                break;
-              case 6:
-                saturdayTotalIncome =
-                    saturdayTotalIncome + element.totalAmount!;
+          if (element.entryDateTime != null &&
+              DateTime(element.entryDateTime!.year,
+                      element.entryDateTime!.month, element.entryDateTime!.day)
+                  .isAtSameMomentAs(
+                      DateTime(element1.year, element1.month, element1.day))) {
+            print("data range found");
+            if (element.transactionType!.contains("INCOME")) {
+              _currentHoursIncome.add(element);
+              print("income hour is  $element1 amount ${element.totalAmount}");
+              incomeTotalAmount = incomeTotalAmount + element.totalAmount;
+              print("income hour is  $element1 amount $incomeTotalAmount");
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalIncome = mondayTotalIncome + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalIncome =
+                      wednesdayTotalIncome + element.totalAmount!;
+                  break;
+                case 4:
+                  thursdayTotalIncome =
+                      thursdayTotalIncome + element.totalAmount!;
+                  break;
+                case 5:
+                  fridayTotalIncome = fridayTotalIncome + element.totalAmount!;
+                  break;
+                case 6:
+                  saturdayTotalIncome =
+                      saturdayTotalIncome + element.totalAmount!;
+              }
+            } else {
+              _currentHoursExpenditure.add(element);
+              expenditureTotalAmount =
+                  expenditureTotalAmount + element.totalAmount ?? 0;
+              print(
+                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalExpenditure =
+                      sundayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalExpenditure =
+                      mondayTotalExpenditure + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalExpenditure =
+                      tuesdayTotalExpenditure + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalExpenditure =
+                      wednesdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 4:
+                  thursdayTotalExpenditure =
+                      thursdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 5:
+                  fridayTotalExpenditure =
+                      fridayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 6:
+                  saturdayTotalExpenditure =
+                      saturdayTotalExpenditure + element.totalAmount!;
+              }
             }
-          } else {
-            _currentHoursExpenditure.add(element);
-            expenditureTotalAmount =
-                expenditureTotalAmount + element.totalAmount ?? 0;
-            print(
-                "expenditure hour is  $element1 amount $expenditureTotalAmount");
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalExpenditure =
-                    sundayTotalExpenditure + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalExpenditure =
-                    mondayTotalExpenditure + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalExpenditure =
-                    tuesdayTotalExpenditure + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalExpenditure =
-                    wednesdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 4:
-                thursdayTotalExpenditure =
-                    thursdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 5:
-                fridayTotalExpenditure =
-                    fridayTotalExpenditure + element.totalAmount!;
-                break;
-              case 6:
-                saturdayTotalExpenditure =
-                    saturdayTotalExpenditure + element.totalAmount!;
-            }
+            currentTran.add(element);
           }
-          currentTran.add(element);
-        }
+        });
+        _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "yMMMd")!,
+            incomeTotalAmount, currentTran, _randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(
+            element1.formatDate(pattern: "yMMMd")!,
+            expenditureTotalAmount,
+            currentTran,
+            _randomColor.randomColor()));
       });
-      _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "yMMMd")!,
-          incomeTotalAmount, currentTran, _randomColor.randomColor()));
-      _hourExpenditureData.add(RecordsData(
-          element1.formatDate(pattern: "yMMMd")!,
-          expenditureTotalAmount,
-          currentTran,
-          _randomColor.randomColor()));
-    });
+    }
+
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
     _pieIncome.add(
@@ -1165,99 +1170,99 @@ class TransactionRespository extends GetxController {
     dynamic saturdayTotalExpenditure = 0;
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
-    days.forEach((element1) {
-      dynamic incomeTotalAmount = 0;
-      dynamic expenditureTotalAmount = 0;
-      List<TransactionModel> currentTran = [];
-      if (todayTransaction.isEmpty)
-        print("today transactonlist is empty");
-      else
-        print("today transaction is not empty");
-      offlineTransactions.forEach((element) {
-        print(
-            "weekly testing $element1 ${element.entryDateTime!.toIso8601String()}");
+    if (offlineTransactions.isNotEmpty) {
+      days.forEach((element1) {
+        dynamic incomeTotalAmount = 0;
+        dynamic expenditureTotalAmount = 0;
+        List<TransactionModel> currentTran = [];
 
-        if (element.entryDateTime != null &&
-            DateTime(element.entryDateTime!.year, element.entryDateTime!.month,
-                    element.entryDateTime!.day)
-                .isAtSameMomentAs(
-                    DateTime(element1.year, element1.month, element1.day))) {
-          print("today hour found");
-          if (element.transactionType!.contains("INCOME")) {
-            _currentHoursIncome.add(element);
-            print("income hour is  $element1 amount ${element.totalAmount}");
-            incomeTotalAmount = incomeTotalAmount + element.totalAmount ?? 0;
-            print("income hour is  $element1 amount $incomeTotalAmount");
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalIncome = mondayTotalIncome + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalIncome =
-                    wednesdayTotalIncome + element.totalAmount!;
-                break;
-              case 4:
-                thursdayTotalIncome =
-                    thursdayTotalIncome + element.totalAmount!;
-                break;
-              case 5:
-                fridayTotalIncome = fridayTotalIncome + element.totalAmount!;
-                break;
-              case 6:
-                saturdayTotalIncome =
-                    saturdayTotalIncome + element.totalAmount!;
+        offlineTransactions.forEach((element) {
+          print(
+              "weekly testing $element1 ${element.entryDateTime!.toIso8601String()}");
+
+          if (element.entryDateTime != null &&
+              DateTime(element.entryDateTime!.year,
+                      element.entryDateTime!.month, element.entryDateTime!.day)
+                  .isAtSameMomentAs(
+                      DateTime(element1.year, element1.month, element1.day))) {
+            print("today hour found");
+            if (element.transactionType!.contains("INCOME")) {
+              _currentHoursIncome.add(element);
+              print("income hour is  $element1 amount ${element.totalAmount}");
+              incomeTotalAmount = incomeTotalAmount + element.totalAmount ?? 0;
+              print("income hour is  $element1 amount $incomeTotalAmount");
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalIncome = sundayTotalIncome + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalIncome = mondayTotalIncome + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalIncome = tuesdayTotalIncome + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalIncome =
+                      wednesdayTotalIncome + element.totalAmount!;
+                  break;
+                case 4:
+                  thursdayTotalIncome =
+                      thursdayTotalIncome + element.totalAmount!;
+                  break;
+                case 5:
+                  fridayTotalIncome = fridayTotalIncome + element.totalAmount!;
+                  break;
+                case 6:
+                  saturdayTotalIncome =
+                      saturdayTotalIncome + element.totalAmount!;
+              }
+            } else {
+              _currentHoursExpenditure.add(element);
+              expenditureTotalAmount =
+                  expenditureTotalAmount + element.totalAmount ?? 0;
+              print(
+                  "expenditure hour is  $element1 amount $expenditureTotalAmount");
+              switch (element.entryDateTime!.weekday) {
+                case 7:
+                  sundayTotalExpenditure =
+                      sundayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 1:
+                  mondayTotalExpenditure =
+                      mondayTotalExpenditure + element.totalAmount;
+                  break;
+                case 2:
+                  tuesdayTotalExpenditure =
+                      tuesdayTotalExpenditure + element.totalAmount;
+                  break;
+                case 3:
+                  wednesdayTotalExpenditure =
+                      wednesdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 4:
+                  thursdayTotalExpenditure =
+                      thursdayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 5:
+                  fridayTotalExpenditure =
+                      fridayTotalExpenditure + element.totalAmount!;
+                  break;
+                case 6:
+                  saturdayTotalExpenditure =
+                      saturdayTotalExpenditure + element.totalAmount!;
+              }
             }
-          } else {
-            _currentHoursExpenditure.add(element);
-            expenditureTotalAmount =
-                expenditureTotalAmount + element.totalAmount ?? 0;
-            print(
-                "expenditure hour is  $element1 amount $expenditureTotalAmount");
-            switch (element.entryDateTime!.weekday) {
-              case 7:
-                sundayTotalExpenditure =
-                    sundayTotalExpenditure + element.totalAmount!;
-                break;
-              case 1:
-                mondayTotalExpenditure =
-                    mondayTotalExpenditure + element.totalAmount;
-                break;
-              case 2:
-                tuesdayTotalExpenditure =
-                    tuesdayTotalExpenditure + element.totalAmount;
-                break;
-              case 3:
-                wednesdayTotalExpenditure =
-                    wednesdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 4:
-                thursdayTotalExpenditure =
-                    thursdayTotalExpenditure + element.totalAmount!;
-                break;
-              case 5:
-                fridayTotalExpenditure =
-                    fridayTotalExpenditure + element.totalAmount!;
-                break;
-              case 6:
-                saturdayTotalExpenditure =
-                    saturdayTotalExpenditure + element.totalAmount!;
-            }
+
+            currentTran.add(element);
           }
-
-          currentTran.add(element);
-        }
+        });
+        _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "E")!,
+            incomeTotalAmount, currentTran, _randomColor.randomColor()));
+        _hourExpenditureData.add(RecordsData(element1.formatDate(pattern: "E")!,
+            expenditureTotalAmount, currentTran, _randomColor.randomColor()));
       });
-      _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "E")!,
-          incomeTotalAmount, currentTran, _randomColor.randomColor()));
-      _hourExpenditureData.add(RecordsData(element1.formatDate(pattern: "E")!,
-          expenditureTotalAmount, currentTran, _randomColor.randomColor()));
-    });
+    }
+
     _allIncomeHoursData(_hourIncomeData);
     _allExpenditureHoursData(_hourExpenditureData);
     _pieIncome.add(RecordsData(

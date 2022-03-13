@@ -254,113 +254,140 @@ class _RecordsState extends State<Records> {
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
                 child: Row(
+                  // start
                   children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().orangeBorderColor),
+                        Row(
+                          children: [
+                            Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColor().orangeBorderColor),
+                            ),
+                            SizedBox(width: 2),
+                            Text(
+                              'Money Out (${Utils.getCurrency()})',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'InterRegular',
+                                fontSize: 9,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Money Out (${Utils.getCurrency()})',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'InterRegular',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Row(
-                      children: [
-                        Container(
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor().blueColor),
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          'Money in (${Utils.getCurrency()})',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'InterRegular',
-                            fontSize: 9,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColor().blueColor),
+                            ),
+                            SizedBox(width: 2),
+                            Text(
+                              'Money in (${Utils.getCurrency()})',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: 'InterRegular',
+                                fontSize: 9,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                     Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(() => Insight());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppColor().backgroundColor,
+                        ),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Insights",
+                              style:
+                                  TextStyle(fontSize: 11, color: Colors.white),
+                            ),
+                            SizedBox(width: 4),
+                            SvgPicture.asset(
+                              'assets/images/graph.svg',
+                              color: Colors.white,
+                              height: 15,
+                              width: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
                               width: 2, color: AppColor().backgroundColor)),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: transactionController.value.value,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            size: 14,
-                            color: AppColor().backgroundColor,
-                          ),
-                          hint: Text(
-                            'This month',
-                            style: TextStyle(
-                                fontFamily: 'InterRegular',
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          isDense: true,
-                          items: recordFilter.map(buildDropDown).toList(),
-                          onChanged: (value) async {
-                            transactionController.value(value);
-                            if (transactionController.value.value
-                                .contains("This Year")) {
-                              transactionController.getYearRecord();
-                            } else if (transactionController.value.value
-                                .contains("Today")) {
-                              transactionController.splitCurrentTime();
-                            } else if (transactionController.value.value
-                                .contains("This Week")) {
-                              transactionController.getWeeklyRecordData();
-                            } else if (transactionController.value.value
-                                .contains("This month")) {
-                              transactionController.getMonthlyRecord();
-                            } else if (transactionController.value.value
-                                .contains("This Month")) {
-                              transactionController.getMonthlyRecord();
-                            } else if (transactionController.value.value
-                                .contains("All Time")) {
-                              transactionController.getAllTimeRecord();
-                            } else if (transactionController.value.value
-                                .contains("Custom date range")) {
-                              DateTimeRange? val =
-                                  await pickDateRanges(context);
-                              if (val != null) {
-                                transactionController.getDateRangeRecordData(
-                                    val.start, val.end);
-                              }
-                            }
-                          },
-                          onTap: () {
-                            // showModalBottomSheet(
-                            //     shape: RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.vertical(
-                            //             top: Radius.circular(20))),
-                            //     context: context,
-                            //     builder: (context) => buildCustomDate());
-                          },
+                      child: DropdownButton<String>(
+                        value: transactionController.value.value,
+                        icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 14,
+                          color: AppColor().backgroundColor,
                         ),
+                        isDense: true,
+                        items: recordFilter.map(buildDropDown).toList(),
+                        onChanged: (value) async {
+                          transactionController.value(value);
+                          if (transactionController.value.value
+                              .contains("This Year")) {
+                            transactionController.getYearRecord();
+                          } else if (transactionController.value.value
+                              .contains("Today")) {
+                            transactionController.splitCurrentTime();
+                          } else if (transactionController.value.value
+                              .contains("This Week")) {
+                            transactionController.getWeeklyRecordData();
+                          } else if (transactionController.value.value
+                              .contains("This month")) {
+                            transactionController.getMonthlyRecord();
+                          } else if (transactionController.value.value
+                              .contains("This Month")) {
+                            transactionController.getMonthlyRecord();
+                          } else if (transactionController.value.value
+                              .contains("All Time")) {
+                            transactionController.getAllTimeRecord();
+                          } else if (transactionController.value.value
+                              .contains("Custom date range")) {
+                            DateTimeRange? val = await pickDateRanges(context);
+                            if (val != null) {
+                              transactionController.getDateRangeRecordData(
+                                  val.start, val.end);
+                            }
+                          }
+                        },
+                        onTap: () {
+                          // showModalBottomSheet(
+                          //     shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.vertical(
+                          //             top: Radius.circular(20))),
+                          //     context: context,
+                          //     builder: (context) => buildCustomDate());
+                        },
                       ),
                     ),
                     // transactionController.value.toString() == 'Custom date range'
@@ -383,6 +410,8 @@ class _RecordsState extends State<Records> {
                 child: Container(
                   height: 200,
                   child: Obx(() {
+                    print(
+                        "TESTX: ${transactionController.allExpenditureHoursData.toList()}");
                     // item1=removeDoubleItem(transactionController.allIncomeHoursData);
                     // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                     return SfCartesianChart(
@@ -478,109 +507,40 @@ class _RecordsState extends State<Records> {
                       ],
                     ),
                     Spacer(),
-                    InkWell(
-                        onTap: () {
-                          Get.to(() => Insight());
-                        },
-                        child: SvgPicture.asset('assets/images/graph.svg')),
-                    SizedBox(width: 5),
-                    InkWell(
-                        onTap: () async {
-                          final date = DateTime.now();
-                          // ignore: unused_local_variable
-                          final recordsData =
-                              await DailyRecordPdfApi.generate();
-                          final dueDate = date.add(Duration(days: 7));
-                          // if (transactionController.value.value
-                          //     .contains("Today")) {
-                          //   final records = DailyRecordInvoice(
-                          //     items: [
-                          //       DailyRecordItem(
-                          //         date: 'Sept. 21,2021',
-                          //         time: '10:00PM',
-                          //         type: 'INCOME',
-                          //         itemName: 'Clothes',
-                          //         quantity: 7,
-                          //         mode: 'PART',
-                          //         customerName: 'JOSHUA OLAYEMI',
-                          //         amount: 10000,
-                          //       ),
-                          //       DailyRecordItem(
-                          //         date: 'Sept. 21,2021',
-                          //         time: '10:00PM',
-                          //         type: 'INCOME',
-                          //         itemName: 'Clothes',
-                          //         quantity: 8,
-                          //         mode: 'PART',
-                          //         customerName: 'JOSHUA OLAYEMI',
-                          //         amount: 10000,
-                          //       ),
-                          //       DailyRecordItem(
-                          //         date: 'Sept. 21,2021',
-                          //         time: '10:00PM',
-                          //         type: 'INCOME',
-                          //         itemName: 'Clothes',
-                          //         quantity: 7,
-                          //         mode: 'PART',
-                          //         customerName: 'JOSHUA OLAYEMI',
-                          //         amount: 10000,
-                          //       ),
-                          //       DailyRecordItem(
-                          //         date: 'Sept. 21,2021',
-                          //         time: '10:00PM',
-                          //         type: 'INCOME',
-                          //         itemName: 'Clothes',
-                          //         quantity: 6,
-                          //         mode: 'PART',
-                          //         customerName: 'JOSHUA OLAYEMI',
-                          //         amount: 10000,
-                          //       ),
-                          //     ],
-                          //   );
-
-                          //   final recordsData =
-                          //       await DailyRecordPdfApi.generate(records);
-                          //   Get.to(() => DownloadRecordReceipt(
-                          //         file: recordsData,
-                          //       ));
-                          // } else if (transactionController.value.value
-                          //     .contains("This month")) {
-                          //   final records = RecordInvoice(
-                          //     items: [
-                          //       RecordItem(
-                          //         date: 'Sept. 21,2021',
-                          //         moneyIn: 10000,
-                          //         moneyOut: 50000,
-                          //       ),
-                          //       RecordItem(
-                          //         date: 'Sept. 21,2021',
-                          //         moneyIn: 10000,
-                          //         moneyOut: 50000,
-                          //       ),
-                          //       RecordItem(
-                          //         date: 'Sept. 21,2021',
-                          //         moneyIn: 10000,
-                          //         moneyOut: 50000,
-                          //       ),
-                          //       RecordItem(
-                          //         date: 'Sept. 21,2021',
-                          //         moneyIn: 10000,
-                          //         moneyOut: 50000,
-                          //       ),
-                          //     ],
-                          //   );
-
-                          //   final recordsData =
-                          //       await RecordPdfApi.generate(records);
-                          //   Get.to(() => DownloadRecordReceipt(
-                          //         file: recordsData,
-                          //       ));
-                          // }
-                          Get.to(() => DownloadRecordReceipt(
-                                file: recordsData,
-                              ));
-                        },
-                        child: SvgPicture.asset('assets/images/download.svg'))
+                    GestureDetector(
+                      onTap: () async {
+                        final recordsData = await DailyRecordPdfApi.generate();
+                        Get.to(() => DownloadRecordReceipt(
+                              file: recordsData,
+                            ));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppColor().backgroundColor,
+                        ),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Download",
+                              style:
+                                  TextStyle(fontSize: 11, color: Colors.white),
+                            ),
+                            SizedBox(width: 4),
+                            SvgPicture.asset(
+                              'assets/images/download.svg',
+                              color: Colors.white,
+                              height: 15,
+                              width: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
