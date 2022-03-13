@@ -23,8 +23,6 @@ import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
 class DebtInformationDialog extends StatelessWidget {
-  const DebtInformationDialog({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,8 +48,6 @@ class DebtInformationDialog extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -63,14 +59,6 @@ class _HomeState extends State<Home> {
     decimal: 5,
   );
 
-  // currency(context) {
-  //   Locale locale = Localizations.localeOf(context);
-  //   var format =
-  //       NumberFormat.simpleCurrency(locale: Platform.localeName, name: 'NGN');
-  //   return format;
-  // }
-
-  final items = ['Huzz Technologies', 'Technologies'];
   String? value;
   final _transactionController = Get.find<TransactionRespository>();
   final _businessController = Get.find<BusinessRespository>();
@@ -428,7 +416,7 @@ class _HomeState extends State<Home> {
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           InkWell(
             onTap: () {
-              Get.to(DebtorsTab());
+              Get.to(() => DebtorsTab());
             },
             child: Container(
                 padding: EdgeInsets.symmetric(
@@ -503,9 +491,7 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          // ignore: unnecessary_null_comparison
                           "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
-
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),

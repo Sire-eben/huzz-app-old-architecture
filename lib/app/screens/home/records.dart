@@ -9,7 +9,6 @@ import 'package:huzz/model/recordData.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
 import '../../Utils/util.dart';
 import 'money_history.dart';
 import 'records/download_records.dart';
@@ -878,36 +877,13 @@ class _RecordsState extends State<Records> {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Total Money Out',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'InterRegular',
-                              fontSize: 10,
-                              color: AppColor().blackColor),
-                        ),
-                        Text(
-                          "${display(item1.value)}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'InterRegular',
-                              fontSize: 10,
-                              color: AppColor().orangeBorderColor),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    // alignment: Alignment.centerRight,
-                    child: Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Total Money In',
+                            'Total Money Out',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'InterRegular',
@@ -915,14 +891,43 @@ class _RecordsState extends State<Records> {
                                 color: AppColor().blackColor),
                           ),
                           Text(
-                            "${Utils.getCurrency()} ${display(item2.value)}",
+                            "${Utils.getCurrency()} ${display(item1.value)}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'InterRegular',
                                 fontSize: 10,
-                                color: AppColor().blueColor),
+                                color: AppColor().orangeBorderColor),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    // alignment: Alignment.centerRight,
+                    child: Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Total Money In',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'InterRegular',
+                                  fontSize: 10,
+                                  color: AppColor().blackColor),
+                            ),
+                            Text(
+                              "${Utils.getCurrency()} ${display(item2.value)}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'InterRegular',
+                                  fontSize: 10,
+                                  color: AppColor().blueColor),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

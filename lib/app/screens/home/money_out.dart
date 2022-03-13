@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,14 +16,36 @@ import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
 import '../../../colors.dart';
 import '../../Utils/util.dart';
 import 'itemCard.dart';
 
-class MoneyOut extends StatefulWidget {
-  const MoneyOut({Key? key}) : super(key: key);
+class MoneyOutInformationDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          'When you purchase some items or pay for some services, you can record it here.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
 
+class MoneyOut extends StatefulWidget {
   @override
   _MoneyOutState createState() => _MoneyOutState();
 }
@@ -158,29 +180,42 @@ class _MoneyOutState extends State<MoneyOut> {
               ),
             ),
             SizedBox(width: 4),
-
-            //Tool tip
-            Tooltip(
-              triggerMode: TooltipTriggerMode.tap,
-              padding: EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(color: Colors.black38, blurRadius: 10)
-                  ]),
-              textStyle: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'InterRegular',
-                  fontSize: 10,
-                  color: Colors.black),
-              preferBelow: false,
-              message:
-                  'When you purchase some\nitems or pay for some services,\nyou can record it here.',
-              child: SvgPicture.asset(
-                "assets/images/info.svg",
-                height: 20,
-                width: 20,
+            GestureDetector(
+              onTap: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: MoneyOutInformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: MoneyOutInformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4.0, top: 2.0),
+                child: SvgPicture.asset(
+                  "assets/images/info.svg",
+                  height: 20,
+                  width: 20,
+                ),
               ),
             ),
           ],

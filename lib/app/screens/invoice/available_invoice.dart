@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -7,6 +10,31 @@ import 'package:huzz/app/screens/invoice/available_invoice/overdue.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/paid.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/pending.dart';
 import 'package:huzz/colors.dart';
+
+class ManageInvoiceInformationDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          'This is where you can create new invoices for your customers or update payments for existing invoices.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class AvailableInvoice extends StatefulWidget {
   const AvailableInvoice({Key? key}) : super(key: key);
@@ -88,29 +116,42 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                               color: AppColor().backgroundColor),
                         ),
                         SizedBox(width: 4),
-
-                        //Tool tip
-                        Tooltip(
-                          triggerMode: TooltipTriggerMode.tap,
-                          padding: EdgeInsets.all(6),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(color: Colors.black38, blurRadius: 10)
-                              ]),
-                          textStyle: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'InterRegular',
-                              fontSize: 10,
-                              color: Colors.black),
-                          preferBelow: false,
-                          message:
-                              'This is where you can create new\ninvoices for your customers or\nupdate payments for existing invoices.',
-                          child: SvgPicture.asset(
-                            "assets/images/info.svg",
-                            height: 20,
-                            width: 20,
+                        GestureDetector(
+                          onTap: () {
+                            Platform.isIOS
+                                ? showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) => CupertinoAlertDialog(
+                                      content: ManageInvoiceInformationDialog(),
+                                      actions: [
+                                        CupertinoButton(
+                                          child: Text("OK"),
+                                          onPressed: () => Get.back(),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      content: ManageInvoiceInformationDialog(),
+                                      actions: [
+                                        CupertinoButton(
+                                          child: Text("OK"),
+                                          onPressed: () => Get.back(),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 4.0, top: 2.0),
+                            child: SvgPicture.asset(
+                              "assets/images/info.svg",
+                              height: 20,
+                              width: 20,
+                            ),
                           ),
                         ),
                       ],
