@@ -351,24 +351,34 @@ class CustomerRepository extends GetxController {
   }
 
   Future getOnlineCustomer(String businessId) async {
-    print("trying to get Customer online");
-    final response = await http.get(
-        Uri.parse(ApiLink.get_business_customer + "?businessId=" + businessId),
-        headers: {"Authorization": "Bearer ${_userController.token}"});
+    try {
+      _customerStatus(CustomerStatus.Loading);
+      print("trying to get Customer online");
+      final response = await http.get(
+          Uri.parse(
+              ApiLink.get_business_customer + "?businessId=" + businessId),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
 
-    print("result of get Customer online ${response.body}");
-    if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
-      if (json['success']) {
-        var result = List.from(json['data']['content'])
-            .map((e) => Customer.fromJson(e))
-            .toList();
-        _onlineBusinessCustomer(result);
-        print("Customer business lenght ${result.length}");
-        await getBusinessCustomerYetToBeSavedLocally();
-        checkIfUpdateAvailable();
-      }
-    } else {}
+      print("result of get Customer online ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+          var result = List.from(json['data']['content'])
+              .map((e) => Customer.fromJson(e))
+              .toList();
+          _onlineBusinessCustomer(result);
+          result.isNotEmpty
+              ? _customerStatus(CustomerStatus.Available)
+              : _customerStatus(CustomerStatus.Empty);
+          print("Customer business lenght ${result.length}");
+          await getBusinessCustomerYetToBeSavedLocally();
+          checkIfUpdateAvailable();
+        }
+      } else {}
+    } catch (error) {
+      _customerStatus(CustomerStatus.Error);
+      print(error.toString());
+    }
   }
 
   Future getBusinessCustomerYetToBeSavedLocally() async {
@@ -401,17 +411,25 @@ class CustomerRepository extends GetxController {
   }
 
   Future setCustomerDifferent() async {
-    List<Customer> customer = [];
-    List<Customer> merchant = [];
-    offlineBusinessCustomer.forEach((element) {
-      if (element.businessTransactionType == "INCOME") {
-        customer.add(element);
-      } else {
-        merchant.add(element);
-      }
-    });
-    _customerCustomer(customer);
-    _customerMerchant(merchant);
+    try {
+      _customerStatus(CustomerStatus.Loading);
+      List<Customer> customer = [];
+      List<Customer> merchant = [];
+      offlineBusinessCustomer.forEach((element) {
+        if (element.businessTransactionType == "INCOME") {
+          customer.add(element);
+        } else {
+          merchant.add(element);
+        }
+      });
+      _customerCustomer(customer);
+      _customerMerchant(merchant);
+      (customer.isNotEmpty && merchant.isNotEmpty)
+          ? _customerStatus(CustomerStatus.Available)
+          : _customerStatus(CustomerStatus.Empty);
+    } catch (error) {
+      _customerStatus(CustomerStatus.Error);
+    }
   }
 
   Future updatePendingJob() async {
