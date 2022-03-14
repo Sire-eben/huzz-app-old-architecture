@@ -115,7 +115,20 @@ class _InsightState extends State<Insight> {
   @override
   void initState() {
     super.initState();
-    // transactionController.splitCurrentTime();
+
+    if (transactionController.value.value.contains("This Year")) {
+      transactionController.getYearRecord();
+    } else if (transactionController.value.value.contains("Today")) {
+      transactionController.splitCurrentTime();
+    } else if (transactionController.value.value.contains("This Week")) {
+      transactionController.getWeeklyRecordData();
+    } else if (transactionController.value.value.contains("This month")) {
+      transactionController.getMonthlyRecord();
+    } else if (transactionController.value.value.contains("This Month")) {
+      transactionController.getMonthlyRecord();
+    } else if (transactionController.value.value.contains("All Time")) {
+      transactionController.getAllTimeRecord();
+    }
   }
 
   @override
