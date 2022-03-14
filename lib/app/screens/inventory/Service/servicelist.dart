@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Service/add_service.dart';
 import 'package:huzz/model/product.dart';
@@ -19,6 +20,7 @@ class ServiceListing extends StatefulWidget {
 class _ServiceListingState extends State<ServiceListing> {
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
+  final _businessController = Get.find<BusinessRespository>();
   final display = createDisplay(
       length: 5,
       decimal: 0,
@@ -43,229 +45,253 @@ class _ServiceListingState extends State<ServiceListing> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor().whiteColor,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          if (isDelete)
-            _displayDialog(context);
-          else
-            Get.to(AddService());
-        },
-        icon: (isDelete) ? Container() : Icon(Icons.add),
-        backgroundColor: AppColor().backgroundColor,
-        label: Text(
-          (isDelete) ? "Delete Service(s)" : 'New Service',
-          style: TextStyle(
-              fontFamily: 'InterRegular',
-              fontSize: 10,
-              color: Colors.white,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Obx(() {
-        return Stack(
-          children: [
-            //Service Count
-            Positioned(
-              top: 15,
-              left: 20,
-              right: 20,
-              child: productCount(context),
+    return Obx(() {
+      final value = _businessController.selectedBusiness.value;
+      return Scaffold(
+          backgroundColor: AppColor().whiteColor,
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              if (isDelete)
+                _displayDialog(context);
+              else
+                Get.to(AddService());
+            },
+            icon: (isDelete) ? Container() : Icon(Icons.add),
+            backgroundColor: AppColor().backgroundColor,
+            label: Text(
+              (isDelete) ? "Delete Service(s)" : 'New Service',
+              style: TextStyle(
+                  fontFamily: 'InterRegular',
+                  fontSize: 10,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
-            //Search
-            Positioned(
-              top: 125,
-              left: 20,
-              right: 20,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                height: 55,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Color(0xffE6F4F2),
-                  borderRadius: BorderRadius.circular(25),
+          ),
+          body: Stack(
+            children: [
+              //Service Count
+              Positioned(
+                top: 15,
+                left: 20,
+                right: 20,
+                child: productCount(context),
+              ),
+              //Search
+              Positioned(
+                top: 125,
+                left: 20,
+                right: 20,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  height: 55,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Color(0xffE6F4F2),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.search,
+                        color: AppColor().backgroundColor,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        height: 55,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: TextFormField(
+                          controller: textEditingController,
+                          // textInputAction: TextInputAction.none,
+                          onChanged: searchItem,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColor().backgroundColor,
+                                    width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            hintText: 'Search',
+                            hintStyle:
+                                Theme.of(context).textTheme.headline4!.copyWith(
+                                      fontFamily: 'InterRegular',
+                                      color: Colors.black26,
+                                      fontSize: 14,
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+              ),
+              //Add & Delete Button
+              Positioned(
+                top: 190,
+                left: 30,
+                right: 30,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.search,
-                      color: AppColor().backgroundColor,
+                    Text(
+                      'Services (${_productController.productServices.length})',
+                      style: TextStyle(
+                        color: AppColor().blackColor,
+                        fontFamily: 'InterRegular',
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    Spacer(),
                     SizedBox(
-                      width: 10,
+                      width: 5,
+                      height: 10,
                     ),
-                    Container(
-                      height: 55,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: TextFormField(
-                        controller: textEditingController,
-                        // textInputAction: TextInputAction.none,
-                        onChanged: searchItem,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColor().backgroundColor, width: 2),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          hintText: 'Search',
-                          hintStyle:
-                              Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontFamily: 'InterRegular',
-                                    color: Colors.black26,
-                                    fontSize: 14,
-                                    fontStyle: FontStyle.normal,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          isDelete = !isDelete;
+                        });
+                      },
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: AppColor().lightbackgroundColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.delete_outline_outlined,
+                          size: 20,
+                          color: AppColor().backgroundColor,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            //Add & Delete Button
-            Positioned(
-              top: 190,
-              left: 30,
-              right: 30,
-              child: Row(
-                children: [
-                  Text(
-                    'Services (${_productController.productServices.length})',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Spacer(),
-                  SizedBox(
-                    width: 5,
-                    height: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        isDelete = !isDelete;
-                      });
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: AppColor().lightbackgroundColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.delete_outline_outlined,
-                        size: 20,
-                        color: AppColor().backgroundColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
 
-            //ServiceList
-            Positioned(
-              top: 240,
-              bottom: 30,
-              left: 20,
-              right: 20,
-              child: (searchtext.isEmpty || searchResult.isNotEmpty)
-                  ? Obx(() {
-                      return ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: (searchtext.isEmpty)
-                              ? _productController.productServices.length
-                              : searchResult.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var item = searchtext.isEmpty
-                                ? _productController.productServices[index]
-                                : searchResult[index];
-                            return (isDelete)
-                                ? ListingServicesDelete(
-                                    item: item,
-                                  )
-                                : GestureDetector(
-                                    onTap: () {
-                                      _productController.setItem(item);
-                                      Get.to(AddService(
-                                        item: item,
-                                      ));
-                                    },
-                                    child: ListingServices(
-                                      item: item,
-                                    ),
-                                  );
-                          });
-                    })
-                  : Container(
-                      child: Center(
-                        child: Text("No Service Found"),
+              //ServiceList
+              Positioned(
+                top: 240,
+                bottom: 30,
+                left: 20,
+                right: 20,
+                child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                    ? Obx(() {
+                        return RefreshIndicator(
+                          onRefresh: () async {
+                            return Future.delayed(Duration(seconds: 1), () {
+                              _productController
+                                  .getOnlineProduct(value!.businessId!);
+                              _productController
+                                  .getOfflineProduct(value.businessId!);
+                            });
+                          },
+                          child: (_productController.productStatus ==
+                                  ProductStatus.Loading)
+                              ? Center(child: CircularProgressIndicator())
+                              : (_productController.productStatus ==
+                                      ProductStatus.Available)
+                                  ? ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: (searchtext.isEmpty)
+                                          ? _productController
+                                              .productServices.length
+                                          : searchResult.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        var item = searchtext.isEmpty
+                                            ? _productController
+                                                .productServices[index]
+                                            : searchResult[index];
+                                        return (isDelete)
+                                            ? ListingServicesDelete(
+                                                item: item,
+                                              )
+                                            : GestureDetector(
+                                                onTap: () {
+                                                  _productController
+                                                      .setItem(item);
+                                                  Get.to(AddService(
+                                                    item: item,
+                                                  ));
+                                                },
+                                                child: ListingServices(
+                                                  item: item,
+                                                ),
+                                              );
+                                      })
+                                  : (_productController.productStatus ==
+                                          ProductStatus.Empty)
+                                      ? Text('Not Item')
+                                      : Text('Empty'),
+                        );
+                      })
+                    : Container(
+                        child: Center(
+                          child: Text("No Service Found"),
+                        ),
                       ),
-                    ),
-            ),
-            // Positioned(
-            //   bottom: 10,
-            //   right: 30,
-            //   child: GestureDetector(
-            //     onTap: () {
-            //       if (isDelete)
-            //         _displayDialog(context);
-            //       else
-            //         Get.to(AddService());
-            //     },
-            //     child: Container(
-            //       padding: EdgeInsets.symmetric(
-            //         horizontal: 20,
-            //         vertical: 15,
-            //       ),
-            //       decoration: BoxDecoration(
-            //         color: AppColor().backgroundColor,
-            //         borderRadius: BorderRadius.circular(25),
-            //       ),
-            //       child: Row(
-            //         children: [
-            //           Icon(
-            //             Icons.add,
-            //             size: 18,
-            //             color: Colors.white,
-            //           ),
-            //           SizedBox(
-            //             width: 10,
-            //           ),
-            //           Text(
-            //             (isDelete) ? "Delete Service(s)" : 'New Service',
-            //             style: TextStyle(
-            //               color: AppColor().whiteColor,
-            //               fontFamily: 'InterRegular',
-            //               fontWeight: FontWeight.bold,
-            //               fontSize: 14,
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
-          ],
-        );
-      }),
-    );
+              ),
+              // Positioned(
+              //   bottom: 10,
+              //   right: 30,
+              //   child: GestureDetector(
+              //     onTap: () {
+              //       if (isDelete)
+              //         _displayDialog(context);
+              //       else
+              //         Get.to(AddService());
+              //     },
+              //     child: Container(
+              //       padding: EdgeInsets.symmetric(
+              //         horizontal: 20,
+              //         vertical: 15,
+              //       ),
+              //       decoration: BoxDecoration(
+              //         color: AppColor().backgroundColor,
+              //         borderRadius: BorderRadius.circular(25),
+              //       ),
+              //       child: Row(
+              //         children: [
+              //           Icon(
+              //             Icons.add,
+              //             size: 18,
+              //             color: Colors.white,
+              //           ),
+              //           SizedBox(
+              //             width: 10,
+              //           ),
+              //           Text(
+              //             (isDelete) ? "Delete Service(s)" : 'New Service',
+              //             style: TextStyle(
+              //               color: AppColor().whiteColor,
+              //               fontFamily: 'InterRegular',
+              //               fontWeight: FontWeight.bold,
+              //               fontSize: 14,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
+            ],
+          ));
+    });
   }
 
   _displayDialog(BuildContext context) async {

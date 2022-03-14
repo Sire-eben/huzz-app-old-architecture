@@ -20,7 +20,6 @@ import 'file_upload_respository.dart';
 enum AddingProductStatus { Loading, Error, Success, Empty }
 enum AddingServiceStatus { Loading, Error, Success, Empty }
 enum ProductStatus { Loading, Available, Error, Empty }
-enum ServiceStatus { Loading, Available, Error, Empty }
 
 class ProductRepository extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -38,12 +37,10 @@ class ProductRepository extends GetxController
   Rx<List<Product>> _productGoods = Rx([]);
   final isProductService = false.obs;
   final _productStatus = ProductStatus.Empty.obs;
-  final _serviceStatus = ServiceStatus.Empty.obs;
 
   List<Product> get productServices => _productService.value;
   List<Product> get productGoods => _productGoods.value;
   ProductStatus get productStatus => _productStatus.value;
-  ServiceStatus get serviceStatus => _serviceStatus.value;
 
   Rx<dynamic> MproductImage = Rx(null);
   dynamic get productImage => MproductImage.value;

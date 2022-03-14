@@ -33,28 +33,6 @@ class _RecordsState extends State<Records> {
     'Custom date range'
   ];
 
-  // String? value;
-  List<_SalesData> data = [
-    _SalesData('1pm', 35),
-    _SalesData('2pm', 28),
-    _SalesData('3pm', 34),
-    _SalesData('4pm', 32),
-    _SalesData('5pm', 40),
-    _SalesData('6pm', 28),
-    _SalesData('7pm', 34),
-    _SalesData('8pm', 32)
-  ];
-
-  List<_SalesData> data2 = [
-    _SalesData('1pm', 15),
-    _SalesData('2pm', 10),
-    _SalesData('3pm', 40),
-    _SalesData('4pm', 32),
-    _SalesData('5pm', 20),
-    _SalesData('6pm', 15),
-    _SalesData('7pm', 40),
-    _SalesData('8pm', 32)
-  ];
   final display = createDisplay(
     roundingType: RoundingType.floor,
     length: 15,
