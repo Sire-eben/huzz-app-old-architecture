@@ -1,8 +1,5 @@
-// ignore_for_file: unused_import, unused_field
-
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
@@ -12,32 +9,23 @@ import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/miscellaneous_respository.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
-import 'package:huzz/app/screens/invoice/invoice_pdf.dart';
 import 'package:huzz/app/screens/invoice/preview_invoice.dart';
-import 'package:huzz/main.dart';
 import 'package:huzz/model/bank.dart';
 import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/invoice.dart';
-import 'package:huzz/model/offline_business.dart';
 import 'package:huzz/model/payment_history.dart';
-// import 'package:huzz/model/payment_history_request.dart';
-// import 'package:huzz/model/payment_history_request.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:huzz/model/transaction_model.dart';
-// import 'package:huzz/model/records_model.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import 'package:path/path.dart' as path;
-
 import '../app/Utils/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
 
 enum AddingInvoiceStatus { Loading, Error, Success, Empty }
+enum InvoiceStatus { Loading, Error, Available, Empty }
 
 class InvoiceRespository extends GetxController {
   Rx<List<Invoice>> _offlineInvoices = Rx([]);
@@ -50,8 +38,10 @@ class InvoiceRespository extends GetxController {
   List<Invoice> pendingInvoice = [];
   Rx<List<PaymentItem>> _allPaymentItem = Rx([]);
   List<PaymentItem> get allPaymentItem => _allPaymentItem.value;
+
   final _userController = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
+
   final expenses = 0.obs;
   final income = 0.obs;
   final numberofincome = 0.obs;
@@ -85,10 +75,14 @@ class InvoiceRespository extends GetxController {
   final TextEditingController contactMail = TextEditingController();
   List<Invoice> deletedItem = [];
   final _addingInvoiceStatus = AddingInvoiceStatus.Empty.obs;
+  final _invoiceStatus = InvoiceStatus.Empty.obs;
+
   var uuid = Uuid();
   final _bankController = Get.find<BankAccountRepository>();
 // final _uploadFileController=Get.find<FileUploadRespository>();
   AddingInvoiceStatus get addingInvoiceStatus => _addingInvoiceStatus.value;
+  InvoiceStatus get invoiceStatus => _invoiceStatus.value;
+
   Product? selectedProduct;
   Bank? selectedBank;
   int? remain;
@@ -198,27 +192,45 @@ class InvoiceRespository extends GetxController {
   // }
 
   Future getOnlineInvoice(String businessId) async {
-    var response = await http.get(
-        Uri.parse(ApiLink.invoice_link + "?businessId=" + businessId),
-        headers: {"Authorization": "Bearer ${_userController.token}"});
-    var json = jsonDecode(response.body);
-    print("get online Invoice $json");
-    if (response.statusCode == 200) {
-      var result = List.from(json['data']).map((e) => Invoice.fromJson(e));
+    try {
+      _invoiceStatus(InvoiceStatus.Loading);
+      var response = await http.get(
+          Uri.parse(ApiLink.invoice_link + "?businessId=" + businessId),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
+      var json = jsonDecode(response.body);
+      print("get online Invoice $json");
+      if (response.statusCode == 200) {
+        var result = List.from(json['data']).map((e) => Invoice.fromJson(e));
 
-      OnlineInvoice.addAll(result);
-      print("online Invoice ${result.length}");
-      // getTodayInvoice();
-      getInvoiceYetToBeSavedLocally();
-    } else {}
+        OnlineInvoice.addAll(result);
+        print("online Invoice ${result.length}");
+        // getTodayInvoice();
+        getInvoiceYetToBeSavedLocally();
+        result.isNotEmpty
+            ? _invoiceStatus(InvoiceStatus.Available)
+            : _invoiceStatus(InvoiceStatus.Empty);
+      } else {}
+    } catch (error) {
+      print(error.toString());
+      _invoiceStatus(InvoiceStatus.Error);
+    }
   }
 
   Future GetOfflineInvoices(String id) async {
-    var results = await _businessController.sqliteDb.getOfflineInvovoices(id);
-    print("offline Invoice ${results.length}");
+    try {
+      _invoiceStatus(InvoiceStatus.Loading);
+      var results = await _businessController.sqliteDb.getOfflineInvovoices(id);
+      print("offline Invoice ${results.length}");
 
-    _offlineInvoices(results.reversed.toList());
-    categorizedInvoice();
+      _offlineInvoices(results.reversed.toList());
+      categorizedInvoice();
+      results.isNotEmpty
+          ? _invoiceStatus(InvoiceStatus.Available)
+          : _invoiceStatus(InvoiceStatus.Empty);
+    } catch (error) {
+      print(error.toString());
+      _invoiceStatus(InvoiceStatus.Error);
+    }
   }
 
   Future categorizedInvoice() async {
