@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/invoice_repository.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/all.dart';
@@ -6,6 +10,31 @@ import 'package:huzz/app/screens/invoice/available_invoice/overdue.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/paid.dart';
 import 'package:huzz/app/screens/invoice/available_invoice/pending.dart';
 import 'package:huzz/colors.dart';
+
+class ManageInvoiceInformationDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          'This is where you can create new invoices for your customers or update payments for existing invoices.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class AvailableInvoice extends StatefulWidget {
   const AvailableInvoice({Key? key}) : super(key: key);
@@ -76,13 +105,56 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Manage Invoices",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          fontFamily: 'InterRegular',
-                          color: AppColor().backgroundColor),
+                    Row(
+                      children: [
+                        Text(
+                          "Manage Invoices",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              fontFamily: 'InterRegular',
+                              color: AppColor().backgroundColor),
+                        ),
+                        SizedBox(width: 4),
+                        GestureDetector(
+                          onTap: () {
+                            Platform.isIOS
+                                ? showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) => CupertinoAlertDialog(
+                                      content: ManageInvoiceInformationDialog(),
+                                      actions: [
+                                        CupertinoButton(
+                                          child: Text("OK"),
+                                          onPressed: () => Get.back(),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      content: ManageInvoiceInformationDialog(),
+                                      actions: [
+                                        CupertinoButton(
+                                          child: Text("OK"),
+                                          onPressed: () => Get.back(),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 4.0, top: 2.0),
+                            child: SvgPicture.asset(
+                              "assets/images/info.svg",
+                              height: 20,
+                              width: 20,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Row(

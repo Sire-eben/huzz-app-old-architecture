@@ -6,7 +6,6 @@ import 'package:huzz/app/screens/inventory/Service/add_service.dart';
 import 'package:huzz/model/product.dart';
 import 'package:huzz/model/product_model.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../../../colors.dart';
 import '../../../Utils/util.dart';
 
@@ -53,7 +52,7 @@ class _ServiceListingState extends State<ServiceListing> {
           else
             Get.to(AddService());
         },
-        icon:(isDelete)?Container(): Icon(Icons.add),
+        icon: (isDelete) ? Container() : Icon(Icons.add),
         backgroundColor: AppColor().backgroundColor,
         label: Text(
           (isDelete) ? "Delete Service(s)" : 'New Service',
@@ -187,31 +186,33 @@ class _ServiceListingState extends State<ServiceListing> {
               left: 20,
               right: 20,
               child: (searchtext.isEmpty || searchResult.isNotEmpty)
-                  ? ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: (searchtext.isEmpty)
-                          ? _productController.productServices.length
-                          : searchResult.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var item = searchtext.isEmpty
-                            ? _productController.productServices[index]
-                            : searchResult[index];
-                        return (isDelete)
-                            ? ListingServicesDelete(
-                                item: item,
-                              )
-                            : GestureDetector(
-                                onTap: () {
-                                  _productController.setItem(item);
-                                  Get.to(AddService(
+                  ? Obx(() {
+                      return ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: (searchtext.isEmpty)
+                              ? _productController.productServices.length
+                              : searchResult.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            var item = searchtext.isEmpty
+                                ? _productController.productServices[index]
+                                : searchResult[index];
+                            return (isDelete)
+                                ? ListingServicesDelete(
                                     item: item,
-                                  ));
-                                },
-                                child: ListingServices(
-                                  item: item,
-                                ),
-                              );
-                      })
+                                  )
+                                : GestureDetector(
+                                    onTap: () {
+                                      _productController.setItem(item);
+                                      Get.to(AddService(
+                                        item: item,
+                                      ));
+                                    },
+                                    child: ListingServices(
+                                      item: item,
+                                    ),
+                                  );
+                          });
+                    })
                   : Container(
                       child: Center(
                         child: Text("No Service Found"),

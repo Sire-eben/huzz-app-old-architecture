@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/app/screens/customers/customers/add_customer.dart';
 import 'package:huzz/colors.dart';
@@ -21,6 +22,8 @@ class _CustomersState extends State<Customers> {
   final _customerController = Get.find<CustomerRepository>();
   String searchtext = "";
   List<Customer> searchResult = [];
+  final _businessController = Get.find<BusinessRespository>();
+
   void searchItem(String val) {
     print("search text $val");
     searchtext = val;
@@ -40,6 +43,7 @@ class _CustomersState extends State<Customers> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() {
+        final value = _businessController.selectedBusiness.value;
         return Container(
           padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
           width: MediaQuery.of(context).size.width,
@@ -94,99 +98,135 @@ class _CustomersState extends State<Customers> {
               Expanded(
                   child: Container(
                 padding: EdgeInsets.only(
-                    // left: MediaQuery.of(context).size.height * 0.02,
-                    // right: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.02),
                 child: (searchtext.isEmpty || searchResult.isNotEmpty)
                     ? (_customerController.customerCustomer.isNotEmpty)
-                        ? ListView.separated(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            separatorBuilder: (context, index) => Divider(),
-                            itemCount: (searchResult.isEmpty)
-                                ? _customerController.customerCustomer.length
-                                : searchResult.length,
-                            itemBuilder: (context, index) {
-                              var item = (searchResult.isEmpty)
-                                  ? _customerController.customerCustomer[index]
-                                  : searchResult[index];
-                              return Row(
-                                children: [
-                                  Expanded(
-                                      child: Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color:
-                                                  _randomColor.randomColor()),
-                                          child: Center(
-                                              child: Text(
-                                            item.name == null ||
-                                                    item.name!.isEmpty
-                                                ? ""
-                                                : '${item.name![0]}',
-                                            style: TextStyle(
-                                                fontSize: 30,
-                                                color: Colors.white,
-                                                fontFamily: 'InterRegular',
-                                                fontWeight: FontWeight.bold),
-                                          ))),
-                                    ),
-                                  )),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02),
-                                  Expanded(
-                                    flex: 3,
-                                    child: Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            item.name!,
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontFamily: 'InterRegular',
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          Text(
-                                            item.phone!,
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontFamily: 'InterRegular',
-                                                color: Colors.grey),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                      onTap: () {
-                                        _customerController.setItem(item);
-                                        Get.to(AddCustomer(
-                                          item: item,
-                                        ));
-                                      },
-                                      child: SvgPicture.asset(
-                                          'assets/images/edit.svg')),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  GestureDetector(
-                                      onTap: () {
-                                        _displayDialog(context, item);
-                                      },
-                                      child: SvgPicture.asset(
-                                          'assets/images/delete.svg')),
-                                ],
-                              );
+                        ? RefreshIndicator(
+                            onRefresh: () async {
+                              return Future.delayed(Duration(seconds: 1), () {
+                                _customerController
+                                    .getOnlineCustomer(value!.businessId!);
+                                _customerController
+                                    .getOfflineCustomer(value.businessId!);
+                              });
                             },
+                            child: (_customerController.customerStatus ==
+                                    CustomerStatus.Loading)
+                                ? Center(child: CircularProgressIndicator())
+                                : (_customerController.customerStatus ==
+                                        CustomerStatus.Available)
+                                    ? ListView.separated(
+                                        scrollDirection: Axis.vertical,
+                                        shrinkWrap: true,
+                                        separatorBuilder: (context, index) =>
+                                            Divider(),
+                                        itemCount: (searchResult.isEmpty)
+                                            ? _customerController
+                                                .customerCustomer.length
+                                            : searchResult.length,
+                                        itemBuilder: (context, index) {
+                                          var item = (searchResult.isEmpty)
+                                              ? _customerController
+                                                  .customerCustomer[index]
+                                              : searchResult[index];
+                                          return Row(
+                                            children: [
+                                              Expanded(
+                                                  child: Container(
+                                                margin:
+                                                    EdgeInsets.only(bottom: 10),
+                                                child: Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Container(
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: _randomColor
+                                                              .randomColor()),
+                                                      child: Center(
+                                                          child: Text(
+                                                        item.name == null ||
+                                                                item.name!
+                                                                    .isEmpty
+                                                            ? ""
+                                                            : '${item.name![0]}',
+                                                        style: TextStyle(
+                                                            fontSize: 30,
+                                                            color: Colors.white,
+                                                            fontFamily:
+                                                                'InterRegular',
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ))),
+                                                ),
+                                              )),
+                                              SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.02),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Container(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        item.name!,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'InterRegular',
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      ),
+                                                      Text(
+                                                        item.phone!,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'InterRegular',
+                                                            color: Colors.grey),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                  onTap: () {
+                                                    _customerController
+                                                        .setItem(item);
+                                                    Get.to(AddCustomer(
+                                                      item: item,
+                                                    ));
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                      'assets/images/edit.svg')),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              GestureDetector(
+                                                  onTap: () {
+                                                    _displayDialog(
+                                                        context, item);
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                      'assets/images/delete.svg')),
+                                            ],
+                                          );
+                                        },
+                                      )
+                                    : (_customerController.customerStatus ==
+                                            CustomerStatus.Empty)
+                                        ? Text('Not Item')
+                                        : Text('Empty'),
                           )
                         : Container(
                             padding: EdgeInsets.only(

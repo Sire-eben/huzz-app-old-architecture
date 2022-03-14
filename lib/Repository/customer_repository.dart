@@ -17,6 +17,7 @@ import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 
 enum AddingCustomerStatus { Loading, Error, Success, Empty }
+enum CustomerStatus { Loading, Available, Error, Empty }
 
 class CustomerRepository extends GetxController {
   final nameController = TextEditingController();
@@ -29,6 +30,7 @@ class CustomerRepository extends GetxController {
   final _userController = Get.find<AuthRepository>();
   final _addingCustomerStatus = AddingCustomerStatus.Empty.obs;
   var uuid = Uuid();
+
   Rx<List<Customer>> _onlineBusinessCustomer = Rx([]);
   Rx<List<Customer>> _offlineBusinessCustomer = Rx([]);
   List<Customer> get offlineBusinessCustomer => _offlineBusinessCustomer.value;
@@ -37,13 +39,20 @@ class CustomerRepository extends GetxController {
   AddingCustomerStatus get addingCustomerStatus => _addingCustomerStatus.value;
   TabController? tabController;
   Rx<List<Customer>> _deleteCustomerList = Rx([]);
+
   List<Customer> get deleteCustomerList => _deleteCustomerList.value;
   List<Customer> pendingUpdatedCustomerList = [];
+
   Rx<List<Customer>> _customerCustomer = Rx([]);
   Rx<List<Customer>> _customerMerchant = Rx([]);
+
   final isCustomerService = false.obs;
+  final _customerStatus = CustomerStatus.Empty.obs;
+
   List<Customer> get customerCustomer => _customerCustomer.value;
   List<Customer> get customerMerchant => _customerMerchant.value;
+  CustomerStatus get customerStatus => _customerStatus.value;
+
   List<Contact> contactList = [];
 
   Rx<File?> CustomerImage = Rx(null);
@@ -334,33 +343,52 @@ class CustomerRepository extends GetxController {
   }
 
   Future getOfflineCustomer(String businessId) async {
-    var result =
-        await _businessController.sqliteDb.getOfflineCustomers(businessId);
-    var list = result.where((c) => c.deleted == false).toList();
-    _offlineBusinessCustomer(list);
-    print("offline Customer found ${result.length}");
-    setCustomerDifferent();
+    try {
+      _customerStatus(CustomerStatus.Loading);
+      var result =
+          await _businessController.sqliteDb.getOfflineCustomers(businessId);
+      var list = result.where((c) => c.deleted == false).toList();
+      _offlineBusinessCustomer(list);
+      print("offline Customer found ${result.length}");
+      setCustomerDifferent();
+      list.isNotEmpty
+          ? _customerStatus(CustomerStatus.Available)
+          : _customerStatus(CustomerStatus.Empty);
+    } catch (error) {
+      _customerStatus(CustomerStatus.Error);
+      print(error.toString());
+    }
   }
 
   Future getOnlineCustomer(String businessId) async {
-    print("trying to get Customer online");
-    final response = await http.get(
-        Uri.parse(ApiLink.get_business_customer + "?businessId=" + businessId),
-        headers: {"Authorization": "Bearer ${_userController.token}"});
+    try {
+      _customerStatus(CustomerStatus.Loading);
+      print("trying to get Customer online");
+      final response = await http.get(
+          Uri.parse(
+              ApiLink.get_business_customer + "?businessId=" + businessId),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
 
-    print("result of get Customer online ${response.body}");
-    if (response.statusCode == 200) {
-      var json = jsonDecode(response.body);
-      if (json['success']) {
-        var result = List.from(json['data']['content'])
-            .map((e) => Customer.fromJson(e))
-            .toList();
-        _onlineBusinessCustomer(result);
-        print("Customer business lenght ${result.length}");
-        await getBusinessCustomerYetToBeSavedLocally();
-        checkIfUpdateAvailable();
-      }
-    } else {}
+      print("result of get Customer online ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+          var result = List.from(json['data']['content'])
+              .map((e) => Customer.fromJson(e))
+              .toList();
+          _onlineBusinessCustomer(result);
+          result.isNotEmpty
+              ? _customerStatus(CustomerStatus.Available)
+              : _customerStatus(CustomerStatus.Empty);
+          print("Customer business lenght ${result.length}");
+          await getBusinessCustomerYetToBeSavedLocally();
+          checkIfUpdateAvailable();
+        }
+      } else {}
+    } catch (error) {
+      _customerStatus(CustomerStatus.Error);
+      print(error.toString());
+    }
   }
 
   Future getBusinessCustomerYetToBeSavedLocally() async {
@@ -393,30 +421,42 @@ class CustomerRepository extends GetxController {
   }
 
   Future setCustomerDifferent() async {
-    List<Customer> customer = [];
-    List<Customer> merchant = [];
-    offlineBusinessCustomer.forEach((element) {
-      if (element.businessTransactionType == "INCOME") {
-        customer.add(element);
-      } else {
-        merchant.add(element);
-      }
-    });
-    _customerCustomer(customer);
-    _customerMerchant(merchant);
+    try {
+      _customerStatus(CustomerStatus.Loading);
+      List<Customer> customer = [];
+      List<Customer> merchant = [];
+      offlineBusinessCustomer.forEach((element) {
+        if (element.businessTransactionType == "INCOME") {
+          customer.add(element);
+        } else {
+          merchant.add(element);
+        }
+      });
+      _customerCustomer(customer);
+      _customerMerchant(merchant);
+      (customer.isNotEmpty && merchant.isNotEmpty)
+          ? _customerStatus(CustomerStatus.Available)
+          : _customerStatus(CustomerStatus.Empty);
+    } catch (error) {
+      _customerStatus(CustomerStatus.Error);
+    }
   }
 
   Future updatePendingJob() async {
-    if (pendingUpdatedCustomerList.isEmpty) {
-      return;
+    try {
+      if (pendingUpdatedCustomerList.isEmpty) {
+        return;
+      }
+      var updatednext = pendingUpdatedCustomerList.first;
+      await _businessController.sqliteDb.updateOfflineCustomer(updatednext);
+      pendingUpdatedCustomerList.remove(updatednext);
+      if (pendingUpdatedCustomerList.isNotEmpty) {
+        updatePendingJob();
+      }
+      getOfflineCustomer(updatednext.businessId!);
+    } catch (error) {
+      print(error.toString());
     }
-    var updatednext = pendingUpdatedCustomerList.first;
-    await _businessController.sqliteDb.updateOfflineCustomer(updatednext);
-    pendingUpdatedCustomerList.remove(updatednext);
-    if (pendingUpdatedCustomerList.isNotEmpty) {
-      updatePendingJob();
-    }
-    getOfflineCustomer(updatednext.businessId!);
   }
 
   Future savePendingJob() async {

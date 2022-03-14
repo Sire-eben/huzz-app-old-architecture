@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,9 +20,32 @@ import 'package:intl/intl.dart';
 import '../../Utils/util.dart';
 import 'itemCard.dart';
 
-class MoneyIn extends StatefulWidget {
-  const MoneyIn({Key? key}) : super(key: key);
+class MoneyInInformationDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          'This is where you can log your income for a product sold or service rendered.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
 
+class MoneyIn extends StatefulWidget {
   @override
   _MoneyInState createState() => _MoneyInState();
 }
@@ -142,15 +166,58 @@ class _MoneyInState extends State<MoneyIn> {
             Get.back();
           },
         ),
-        title: Text(
-          'Money In',
-          style: TextStyle(
-            color: AppColor().backgroundColor,
-            fontFamily: "InterRegular",
-            fontStyle: FontStyle.normal,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
+        title: Row(
+          children: [
+            Text(
+              'Money In',
+              style: TextStyle(
+                color: AppColor().backgroundColor,
+                fontFamily: "InterRegular",
+                fontStyle: FontStyle.normal,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(width: 4),
+            GestureDetector(
+              onTap: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: MoneyInInformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: MoneyInInformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4.0, top: 2.0),
+                child: SvgPicture.asset(
+                  "assets/images/info.svg",
+                  height: 20,
+                  width: 20,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       backgroundColor: Colors.white,

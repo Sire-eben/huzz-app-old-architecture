@@ -23,7 +23,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
-
 import '../app/Utils/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
@@ -256,17 +255,26 @@ class TransactionRespository extends GetxController {
   }
 
   Future getAllPaymentItem() async {
-    if (todayTransaction.isEmpty) {
-      _allPaymentItem([]);
-      return;
-    }
-    ;
-    List<PaymentItem> items = [];
-    todayTransaction.forEach((element) {
-      items.addAll(element.businessTransactionPaymentItemList!);
-    });
+    try {
+      _transactionStatus(TransactionStatus.Loading);
+      if (todayTransaction.isEmpty) {
+        _allPaymentItem([]);
+        return;
+      }
+
+      List<PaymentItem> items = [];
+      todayTransaction.forEach((element) {
+        items.addAll(element.businessTransactionPaymentItemList!);
+      });
 // items.reversed.toList
-    _allPaymentItem(items.reversed.toList());
+      _allPaymentItem(items.reversed.toList());
+      print(items);
+      items.isNotEmpty
+          ? _transactionStatus(TransactionStatus.Available)
+          : _transactionStatus(TransactionStatus.Empty);
+    } catch (error) {
+      _transactionStatus(TransactionStatus.Error);
+    }
   }
 
   Future getOnlineTransaction(String businessId) async {
