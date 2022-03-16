@@ -20,6 +20,7 @@ class PdfMoneyInOutApi {
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(
       TransactionModel transactionModel, PdfColor themeColor) async {
+    print(transactionModel.toJson());
     final pdf = Document();
     Customer? customer;
     if (transactionModel.customerId != null) {
@@ -45,8 +46,7 @@ class PdfMoneyInOutApi {
         buildMoneyInOutInvoice(
             transactionModel.businessTransactionPaymentItemList!, themeColor),
         SizedBox(height: 20),
-        buildTotal(
-            transactionModel.businessTransactionPaymentItemList!, themeColor),
+        buildTotal(transactionModel, themeColor),
         SizedBox(height: 2 * PdfPageFormat.cm),
         buildFooter(customer, huzzImgProvider, themeColor)
       ],
@@ -188,44 +188,91 @@ class PdfMoneyInOutApi {
     );
   }
 
-  static Widget buildTotal(List<PaymentItem> items, PdfColor themeColor) {
+  static Widget buildTotal(
+      TransactionModel transactionModel, PdfColor themeColor) {
     dynamic netTotal = 0;
     // items
     //     .map((item) => item.amount! * item.quality!)
     //     .reduce((item1, item2) => item1 + item2);
-    items.forEach((element) {
+    transactionModel.businessTransactionPaymentItemList!.forEach((element) {
       netTotal = netTotal + (element.amount! * element.quality!);
     });
 
     final total = netTotal;
+    final outstanding = transactionModel.balance;
+    final paid = total - outstanding;
 
     return Container(
       alignment: Alignment.centerRight,
-      child: Row(
-        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            color: PdfColors.orange,
-            child: Text(
-              'Total',
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              color: PdfColors.orange,
+              child: Text(
+                'Total',
+                style: TextStyle(
+                  color: PdfColors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Text(
+              Utils.formatPrice(total * 1.0),
               style: TextStyle(
-                color: PdfColors.white,
+                color: themeColor,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        ),
+        pw.SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'PARTLY PAID',
+              style: TextStyle(
+                color: PdfColors.black,
+                fontSize: 14,
+              ),
+            ),
+            Text(
+              Utils.formatPrice(paid * 1.0),
+              style: TextStyle(
+                color: PdfColors.black,
+                fontSize: 14,
+              ),
+            )
+          ],
+        ),
+        pw.SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Outstanding',
+              style: TextStyle(
+                color: themeColor,
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          Text(
-            Utils.formatPrice(total * 1.0),
-            style: TextStyle(
-              color: themeColor,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          )
-        ],
-      ),
+            Text(
+              Utils.formatPrice(outstanding * 1.0),
+              style: TextStyle(
+                color: PdfColors.orange,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        )
+      ]),
     );
   }
 
