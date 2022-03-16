@@ -425,12 +425,12 @@ class _PaidState extends State<Paid> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            if (_invoiceController.deletedItem.isEmpty) {
+            if (deleteItem) {
+              Get.to(() => CreateInvoice());
+            } else if (!deleteItem && _invoiceController.deletedItem.isEmpty) {
               Get.snackbar('Alert', 'No item selected');
-            } else {
-              deleteItem
-                  ? Get.to(() => CreateInvoice())
-                  : _displayDialog(context);
+            } else if (!deleteItem) {
+              _displayDialog(context);
             }
           },
           icon: (!deleteItem) ? Container() : Icon(Icons.add),
