@@ -69,9 +69,12 @@ class _AddProductState extends State<AddProduct> {
   //   'kilogram',
   //   'meters',
   // ];
-
-  String? value;
   int qty = 1;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -400,7 +403,10 @@ class _AddProductState extends State<AddProduct> {
                                 color: AppColor().backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        hintText: '$_counter',
+                        hintText: _productController
+                                .productQuantityController.text.isEmpty
+                            ? "0"
+                            : _productController.productQuantityController.text,
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
                                   fontFamily: 'InterRegular',
@@ -460,7 +466,7 @@ class _AddProductState extends State<AddProduct> {
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  value: value,
+                  value: _productController.selectedUnit.value,
                   focusColor: AppColor().whiteColor,
                   icon: Icon(
                     Icons.keyboard_arrow_down,
@@ -475,7 +481,8 @@ class _AddProductState extends State<AddProduct> {
                     ),
                   ),
                   items: _productController.units.map(buildMenuItem).toList(),
-                  onChanged: (value) => setState(() => this.value = value),
+                  onChanged: (value) =>
+                      setState(() => _productController.selectedUnit(value)),
                 ),
               ),
             ),

@@ -44,6 +44,115 @@ class _ProductListingState extends State<ProductListing> {
     _searchResult(list);
   }
 
+  _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 50,
+              vertical: 300,
+            ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'You are about to delete a product, Are you sure you want to continue?',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'InterRegular',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Center(
+              child: SvgPicture.asset(
+                'assets/images/polygon.svg',
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().whiteColor,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColor().backgroundColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () async {
+                          await _productController.deleteSelectedItem();
+                          setState(() {
+                            isDelete = false;
+                          });
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -242,112 +351,6 @@ class _ProductListingState extends State<ProductListing> {
         ),
       );
     });
-  }
-
-  _displayDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 300,
-            ),
-            title: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'You are about to delete a product, Are you sure you want to continue?',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
-                      fontWeight: FontWeight.normal,
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            content: Center(
-              child: SvgPicture.asset(
-                'assets/images/polygon.svg',
-              ),
-            ),
-            actions: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Container(
-                          height: 45,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
-                              border: Border.all(
-                                width: 2,
-                                color: AppColor().backgroundColor,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          _productController.deleteSelectedItem();
-                          Get.back();
-                        },
-                        child: Container(
-                          height: 45,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              'Delete',
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        });
   }
 
   Widget productCount(BuildContext context) => Container(
