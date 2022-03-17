@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,6 +21,31 @@ import 'package:huzz/model/product.dart';
 import 'package:intl/intl.dart';
 import 'package:random_color/random_color.dart';
 import '../../Utils/util.dart';
+
+class CreateInvoiceInformationDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          'When you`ve filled the customer, items and payment info, you can generate an invoice you can download and share to your customer.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class CreateInvoice extends StatefulWidget {
   const CreateInvoice({Key? key}) : super(key: key);
@@ -123,29 +149,42 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               ),
             ),
             SizedBox(width: 4),
-
-            //Tool tip
-            Tooltip(
-              triggerMode: TooltipTriggerMode.tap,
-              padding: EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(color: Colors.black38, blurRadius: 10)
-                  ]),
-              textStyle: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'InterRegular',
-                  fontSize: 10,
-                  color: Colors.black),
-              preferBelow: false,
-              message:
-                  'When you`ve filled the customer,\nitems and payment info, you can\ngenerate an invoice you can download\nand share to your customer.',
-              child: SvgPicture.asset(
-                "assets/images/info.svg",
-                height: 20,
-                width: 20,
+            GestureDetector(
+              onTap: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: CreateInvoiceInformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: CreateInvoiceInformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4.0, top: 2.0),
+                child: SvgPicture.asset(
+                  "assets/images/info.svg",
+                  height: 20,
+                  width: 20,
+                ),
               ),
             ),
           ],
@@ -160,9 +199,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               primarySwatch: Palette.primaryColor,
               canvasColor: Colors.white,
               shadowColor: Colors.white),
-          child:
-              // Container(),
-              Stepper(
+          child: Stepper(
             controlsBuilder:
                 (BuildContext context, ControlsDetails controlsDetails) {
               return Padding(
@@ -318,7 +355,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             },
             onStepCancel: () {
               currentStep == 0
-                  // ignore: unnecessary_statements
                   ? null
                   : setState(() {
                       currentStep -= 1;
