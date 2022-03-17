@@ -30,6 +30,7 @@ class ProductRepository extends GetxController
   List<Product> get onlineBusinessProduct => _onlineBusinessProduct.value;
   List<Product> pendingBusinessProduct = [];
   List<String> units = ['Box', 'feet', 'kilogram', 'meters'];
+  Rx<String?> selectedUnit = Rx(null);
 
   Product? selectedProduct;
   final _uploadImageController = Get.find<FileUploadRespository>();
@@ -273,11 +274,11 @@ class ProductRepository extends GetxController
   void clearValue() {
     MproductImage(Null);
     productNameController.text = "";
-    productQuantityController.text = "";
+    serviceDescription.text = "";
     productCostPriceController.clear();
     productSellingPriceController.clear();
-    productUnitController.text = "";
-    serviceDescription.text = "";
+    productQuantityController.clear();
+    selectedUnit.value = null;
   }
 
   Future updateBusinessProductOnline(Product product, String title) async {
@@ -315,12 +316,12 @@ class ProductRepository extends GetxController
         _addingProductStatus(AddingProductStatus.Success);
         getOnlineProduct(
             _businessController.selectedBusiness.value!.businessId!);
+        clearValue();
 
         Get.off(Confirmation(
           text: "Updated",
           title: title,
         ));
-        clearValue();
       } else {
         _addingProductStatus(AddingProductStatus.Error);
         Get.snackbar("Error", "Unable to update product");

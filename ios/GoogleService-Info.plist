@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>577328293988-mu2dmndfvss2hvtglp8l5c6coqg8oss3.apps.googleusercontent.com</string>
+	<string>577328293988-g6kkb8os7vi5t159t4kl52h9agbmglj7.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.577328293988-mu2dmndfvss2hvtglp8l5c6coqg8oss3</string>
+	<string>com.googleusercontent.apps.577328293988-g6kkb8os7vi5t159t4kl52h9agbmglj7</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBwccCCY5EBdTCviYDEx_AmYT6kWy4UkYY</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.huzz.africa.huzz</string>
+	<string>com.app.huzz</string>
 	<key>PROJECT_ID</key>
 	<string>huzz-apps</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:577328293988:ios:b8d85e69de531318845771</string>
+	<string>1:577328293988:ios:809097a62788ab84845771</string>
 </dict>
 </plist>

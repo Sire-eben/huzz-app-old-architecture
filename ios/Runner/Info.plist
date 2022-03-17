@@ -33,6 +33,11 @@
 	<string>Huzz need to access your contact. in order for you to use custom contact picker</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string> Huzz need to access your photo library to pick product image</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
