@@ -300,7 +300,7 @@ class ProductRepository extends GetxController
                   "name": productNameController.text,
                 "costPrice": productCostPriceController.numberValue,
                 "sellingPrice": productSellingPriceController.numberValue,
-// "quantity":productQuantityController.text,
+                "quantity": productQuantityController.text,
                 "businessId": product.businessId,
                 "productType": product.productType,
                 "productLogoFileStoreUrl": fileId,
@@ -422,6 +422,7 @@ class ProductRepository extends GetxController
   }
 
   Future setProductDifferent() async {
+    print('getting products');
     List<Product> goods = [];
     List<Product> services = [];
     dynamic totalproduct = 0.0;
@@ -431,7 +432,7 @@ class ProductRepository extends GetxController
         services.add(element);
         totalservice = totalservice + element.costPrice;
       } else {
-        totalproduct = totalproduct + element.sellingPrice;
+        totalproduct = totalproduct + element.sellingPrice * element.quantity;
         goods.add(element);
       }
     });
