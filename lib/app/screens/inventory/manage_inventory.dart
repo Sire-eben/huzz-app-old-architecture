@@ -1,8 +1,36 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:huzz/app/screens/inventory/Service/services.dart';
-
 import '../../../colors.dart';
 import 'Product/products.dart';
+
+class ManageInventoryInformationDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          'To make recording your sales easier, you can add all your products/services here.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class ManageInventory extends StatefulWidget {
   const ManageInventory({Key? key}) : super(key: key);
@@ -22,14 +50,57 @@ class _ManageInventoryState extends State<ManageInventory> {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Text(
-            'Manage Inventory',
-            style: TextStyle(
-              color: AppColor().backgroundColor,
-              fontFamily: 'InterRegular',
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+          title: Row(
+            children: [
+              Text(
+                'Manage Inventory',
+                style: TextStyle(
+                  color: AppColor().backgroundColor,
+                  fontFamily: 'InterRegular',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(width: 4),
+              GestureDetector(
+                onTap: () {
+                  Platform.isIOS
+                      ? showCupertinoDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (context) => CupertinoAlertDialog(
+                            content: ManageInventoryInformationDialog(),
+                            actions: [
+                              CupertinoButton(
+                                child: Text("OK"),
+                                onPressed: () => Get.back(),
+                              ),
+                            ],
+                          ),
+                        )
+                      : showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            content: ManageInventoryInformationDialog(),
+                            actions: [
+                              CupertinoButton(
+                                child: Text("OK"),
+                                onPressed: () => Get.back(),
+                              ),
+                            ],
+                          ),
+                        );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 4.0, top: 2.0),
+                  child: SvgPicture.asset(
+                    "assets/images/info.svg",
+                    height: 20,
+                    width: 20,
+                  ),
+                ),
+              ),
+            ],
           ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(55),
