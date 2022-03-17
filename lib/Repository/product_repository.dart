@@ -432,7 +432,7 @@ class ProductRepository extends GetxController
         services.add(element);
         totalservice = totalservice + element.costPrice;
       } else {
-        totalproduct = totalproduct + element.sellingPrice;
+        totalproduct = totalproduct + element.sellingPrice * element.quantity;
         goods.add(element);
       }
     });
