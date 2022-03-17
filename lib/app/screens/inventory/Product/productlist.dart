@@ -20,10 +20,11 @@ class ProductListing extends StatefulWidget {
 class _ProductListingState extends State<ProductListing> {
   final _businessController = Get.find<BusinessRespository>();
   final display = createDisplay(
-      length: 3,
-      decimal: 0,
-      placeholder: '${Utils.getCurrency()}',
+      roundingType: RoundingType.floor,
+      length: 15,
+      decimal: 5,
       units: ['K', 'M', 'B', 'T']);
+
   final TextEditingController textEditingController = TextEditingController();
   Rx<List<Product>> _searchResult = Rx([]);
   List<Product> get searchResult => _searchResult.value;

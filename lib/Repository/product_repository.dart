@@ -422,6 +422,7 @@ class ProductRepository extends GetxController
   }
 
   Future setProductDifferent() async {
+    print('getting products');
     List<Product> goods = [];
     List<Product> services = [];
     dynamic totalproduct = 0.0;

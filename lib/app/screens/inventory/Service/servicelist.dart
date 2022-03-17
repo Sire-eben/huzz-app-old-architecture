@@ -22,10 +22,12 @@ class _ServiceListingState extends State<ServiceListing> {
   final _productController = Get.find<ProductRepository>();
   final _businessController = Get.find<BusinessRespository>();
   final display = createDisplay(
-      length: 5,
-      decimal: 0,
+      roundingType: RoundingType.floor,
+      length: 15,
+      decimal: 5,
       placeholder: '${Utils.getCurrency()}',
       units: ['K', 'M', 'B', 'T']);
+
   bool isDelete = false;
   String searchtext = "";
   List<Product> searchResult = [];
