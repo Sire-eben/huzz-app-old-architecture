@@ -167,7 +167,7 @@ class _EnterOtpState extends State<EnterOtp> {
                   activeTextStyle: TextStyle(
                       color: AppColor().backgroundColor, fontSize: 12),
                   onPressed: () {
-                    _authController.sendVoiceOtp();
+                    _authController.sendSmsOtp();
                   },
                   buttonType: ButtonType.TextButton,
                   disabledColor: Colors.white,

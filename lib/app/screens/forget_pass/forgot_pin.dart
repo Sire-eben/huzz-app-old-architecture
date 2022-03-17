@@ -1,7 +1,4 @@
-// ignore_for_file: close_sinks, unused_field
-
 import 'dart:async';
-
 import 'package:country_currency_pickers/country_pickers.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
@@ -11,12 +8,9 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/home_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../../../colors.dart';
 
 class ForgotPIN extends StatefulWidget {
-  const ForgotPIN({Key? key}) : super(key: key);
-
   @override
   State<ForgotPIN> createState() => _ForgotPINState();
 }
@@ -141,7 +135,6 @@ class _ForgotPINState extends State<ForgotPIN> {
                                 right: BorderSide(
                                     color: AppColor().backgroundColor,
                                     width: 2)),
-                            // borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20))
                           ),
                           height: 50,
                           width: 80,
