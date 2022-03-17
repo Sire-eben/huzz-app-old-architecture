@@ -299,7 +299,7 @@ class ProductRepository extends GetxController
                   "name": productNameController.text,
                 "costPrice": productCostPriceController.numberValue,
                 "sellingPrice": productSellingPriceController.numberValue,
-// "quantity":productQuantityController.text,
+                "quantity": productQuantityController.text,
                 "businessId": product.businessId,
                 "productType": product.productType,
                 "productLogoFileStoreUrl": fileId,
