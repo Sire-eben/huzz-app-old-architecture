@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,6 @@ import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/product.dart';
 import 'package:intl/intl.dart';
 import 'package:random_color/random_color.dart';
-
 import '../../Utils/util.dart';
 
 class CreateInvoice extends StatefulWidget {
