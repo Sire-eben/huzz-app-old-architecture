@@ -256,6 +256,7 @@ class TransactionRespository extends GetxController {
 
   Future getAllPaymentItem() async {
     try {
+      print('getting all payment data');
       _transactionStatus(TransactionStatus.Loading);
       if (todayTransaction.isEmpty) {
         _allPaymentItem([]);

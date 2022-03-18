@@ -530,7 +530,10 @@ class _HomeState extends State<Home> {
               return RefreshIndicator(
                 onRefresh: () async {
                   return Future.delayed(Duration(seconds: 1), () {
+                    _debtorController.dispose();
+                    _transactionController.dispose();
                     _transactionController.getAllPaymentItem();
+                    _transactionController.allPaymentItem;
                   });
                 },
                 child: (_transactionController.transactionStatus ==
@@ -1247,6 +1250,7 @@ class _HomeState extends State<Home> {
 
                           // Get.delete(tag: "Debtors");
                           // Get.put(DebtorRepository,permanent: true);
+
                           _businessController.selectedBusiness(item.business);
 
                           Navigator.pop(context);
