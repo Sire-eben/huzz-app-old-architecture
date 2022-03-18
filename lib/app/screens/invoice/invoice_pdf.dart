@@ -444,7 +444,7 @@ class PdfInvoiceApi {
                       ),
                     ),
                     Text(
-                      e.paymentSource!,
+                      e.paymentSource ?? "CASH",
                       style: TextStyle(
                         fontSize: 10,
                       ),

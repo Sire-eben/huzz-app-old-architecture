@@ -26,7 +26,7 @@ class _OverdueState extends State<Overdue> {
   final _productController = Get.find<ProductRepository>();
   final _invoiceController = Get.find<InvoiceRespository>();
   final _customerController = Get.find<CustomerRepository>();
-  bool deleteItem = true;
+  bool deleteItem = false;
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
@@ -82,7 +82,7 @@ class _OverdueState extends State<Overdue> {
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.width * 0.02),
                         decoration: BoxDecoration(
-                            color: deleteItem
+                            color: !deleteItem
                                 ? Colors.transparent
                                 : AppColor().backgroundColor.withOpacity(0.2),
                             shape: BoxShape.circle),
@@ -99,7 +99,7 @@ class _OverdueState extends State<Overdue> {
                       _invoiceController.GetOfflineInvoices(value.businessId!);
                     });
                   },
-                  child: deleteItem
+                  child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
                           ? Center(child: CircularProgressIndicator())
@@ -447,18 +447,20 @@ class _OverdueState extends State<Overdue> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            if (_invoiceController.deletedItem.isEmpty) {
-              Get.snackbar('Alert', 'No item selected');
+            if (deleteItem) {
+              if (_invoiceController.deletedItem.isEmpty) {
+                Get.snackbar('Alert', 'No item selected');
+              } else {
+                _displayDialog(context);
+              }
             } else {
-              deleteItem
-                  ? Get.to(() => CreateInvoice())
-                  : _displayDialog(context);
+              Get.to(() => CreateInvoice());
             }
           },
           icon: (!deleteItem) ? Container() : Icon(Icons.add),
           backgroundColor: AppColor().backgroundColor,
           label: Text(
-            deleteItem ? 'New Invoice' : 'Delete Item',
+            deleteItem ? 'Delete Item' : 'New Invoice',
             style: TextStyle(
                 fontFamily: 'InterRegular',
                 fontSize: 10,
@@ -547,6 +549,10 @@ class _OverdueState extends State<Overdue> {
                       child: InkWell(
                         onTap: () {
                           _invoiceController.deleteItems();
+                          setState(() {
+                            deleteItem = false;
+                          });
+
                           Get.back();
                         },
                         child: Container(

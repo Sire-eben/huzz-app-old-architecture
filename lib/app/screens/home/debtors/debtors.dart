@@ -951,43 +951,37 @@ class _DebtorListingState extends State<DebtorListing> {
               ),
               Expanded(
                 child: GestureDetector(
-                    onTap: (){
-                        //  print(index);
-                                                    // item.businessTransactionId="6229ab581982280f4fd07cf5";
-                                                  print("business transaction id  is ${widget.item!.businessTransactionId}");
-                                                  if(widget.item!.businessTransactionId!=null &&widget.item!.businessTransactionId!.isNotEmpty){
-                                                 
-                                                  final _transactionController=Get.find<TransactionRespository>();
- final Titem=_transactionController.getTransactionById(widget.item!.businessTransactionId!);
- if(Titem!=null){
-                    //  Get.snackbar("Error","Going to transaction page");
-                                                      Get.to(() => MoneySummary(
-                              item: Titem.businessTransactionPaymentItemList![0],
-                            ));
- }
-                            else{
-                    Get.snackbar("Error", "Transaction is not found");
-
-
-                            }}
-                                                  
-                                                  else{
-                                                    showModalBottomSheet(
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius.vertical(
-                                                                    top: Radius
-                                                                        .circular(
-                                                                            20))),
-                                                        context: context,
-                                                        isScrollControlled:
-                                                            true,
-                                                        builder: (context) =>
-                                                           buildUpdatePayment(
-                                                                widget.item!));
-                                                  }
-                    }
-                    ,
+                    onTap: () {
+                      //  print(index);
+                      // item.businessTransactionId="6229ab581982280f4fd07cf5";
+                      print(
+                          "business transaction id  is ${widget.item!.businessTransactionId}");
+                      if (widget.item!.businessTransactionId != null &&
+                          widget.item!.businessTransactionId!.isNotEmpty) {
+                        final _transactionController =
+                            Get.find<TransactionRespository>();
+                        final Titem = _transactionController.getTransactionById(
+                            widget.item!.businessTransactionId!);
+                        if (Titem != null) {
+                          //  Get.snackbar("Error","Going to transaction page");
+                          Get.to(() => MoneySummary(
+                                item: Titem
+                                    .businessTransactionPaymentItemList![0],
+                              ));
+                        } else {
+                          Get.snackbar("Error", "Transaction is not found");
+                        }
+                      } else {
+                        showModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20))),
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) =>
+                                buildUpdatePayment(widget.item!));
+                      }
+                    },
                     child: SvgPicture.asset('assets/images/edit_pri.svg')),
               ),
               Expanded(
@@ -1005,16 +999,16 @@ class _DebtorListingState extends State<DebtorListing> {
                   ),
                 ),
               ),
-              // GestureDetector(
-              //   onTap: () async {
-              //     final debtor = widget.item!;
-              //     await _debtorController.deleteBusinessDebtor(debtor);
-              //   },
-              //   child: Icon(
-              //     Icons.delete_outline_rounded,
-              //     color: Colors.red,
-              //   ),
-              // ),
+              GestureDetector(
+                onTap: () async {
+                  final debtor = widget.item!;
+                  await _debtorController.deleteBusinessDebtor(debtor);
+                },
+                child: Icon(
+                  Icons.delete_outline_rounded,
+                  color: Colors.redAccent,
+                ),
+              ),
             ],
           );
   }
