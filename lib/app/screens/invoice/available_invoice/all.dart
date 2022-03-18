@@ -24,7 +24,7 @@ class _AllState extends State<All> {
   final _businessController = Get.find<BusinessRespository>();
   final _invoiceController = Get.find<InvoiceRespository>();
   final _customerController = Get.find<CustomerRepository>();
-  bool deleteItem = true;
+  bool deleteItem = false;
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
@@ -32,6 +32,119 @@ class _AllState extends State<All> {
     length: 10,
     decimal: 0,
   );
+
+  _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 50,
+              vertical: 300,
+            ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'You are about to delete this invoice(s). Are you sure you want to continue?',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'InterRegular',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Center(
+              child: SvgPicture.asset(
+                'assets/images/delete_alert.svg',
+                // fit: BoxFit.fitHeight,
+                height: 60,
+                width: 60,
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().whiteColor,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColor().backgroundColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          _invoiceController.deleteItems();
+                          setState(() {
+                            deleteItem = false;
+                          });
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -79,7 +192,7 @@ class _AllState extends State<All> {
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.width * 0.02),
                         decoration: BoxDecoration(
-                            color: deleteItem
+                            color: !deleteItem
                                 ? Colors.transparent
                                 : AppColor().backgroundColor.withOpacity(0.2),
                             shape: BoxShape.circle),
@@ -96,7 +209,7 @@ class _AllState extends State<All> {
                       _invoiceController.GetOfflineInvoices(value.businessId!);
                     });
                   },
-                  child: deleteItem
+                  child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
                           ? Center(child: CircularProgressIndicator())
@@ -430,17 +543,19 @@ class _AllState extends State<All> {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             if (deleteItem) {
+              if (_invoiceController.deletedItem.isEmpty) {
+                Get.snackbar('Alert', 'No item selected');
+              } else {
+                _displayDialog(context);
+              }
+            } else {
               Get.to(() => CreateInvoice());
-            } else if (!deleteItem && _invoiceController.deletedItem.isEmpty) {
-              Get.snackbar('Alert', 'No item selected');
-            } else if (!deleteItem) {
-              _displayDialog(context);
             }
           },
           icon: (!deleteItem) ? Container() : Icon(Icons.add),
           backgroundColor: AppColor().backgroundColor,
           label: Text(
-            deleteItem ? 'New Invoice' : 'Delete Item',
+            deleteItem ? 'Delete Item' : 'New Invoice',
             style: TextStyle(
                 fontFamily: 'InterRegular',
                 fontSize: 10,
@@ -450,114 +565,5 @@ class _AllState extends State<All> {
         ),
       );
     });
-  }
-
-  _displayDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 300,
-            ),
-            title: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'You are about to delete this invoice(s). Are you sure you want to continue?',
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
-                      fontWeight: FontWeight.normal,
-                      fontSize: 10,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            content: Center(
-              child: SvgPicture.asset(
-                'assets/images/delete_alert.svg',
-                // fit: BoxFit.fitHeight,
-                height: 60,
-                width: 60,
-              ),
-            ),
-            actions: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Container(
-                          height: 45,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
-                              border: Border.all(
-                                width: 2,
-                                color: AppColor().backgroundColor,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          _invoiceController.deleteItems();
-                          Get.back();
-                        },
-                        child: Container(
-                          height: 45,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Text(
-                              'Delete',
-                              style: TextStyle(
-                                color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        });
   }
 }

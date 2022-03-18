@@ -49,6 +49,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
   }
 
   void generatePdf(PdfColor color) async {
+    print("appLog: ${widget.invoice!.toJson()}");
     generatedInvoice = await PdfInvoiceApi.generate(widget.invoice!, color);
     setState(() {
       themeColor = color;
@@ -177,51 +178,60 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(20))),
-                                        context: context,
-                                        builder: (context) =>
-                                            buildUpdateSingleInvoice());
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.all(
-                                        MediaQuery.of(context).size.height *
-                                            0.015),
-                                    width: MediaQuery.of(context).size.height *
-                                        0.06,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.06,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: AppColor()
-                                            .backgroundColor
-                                            .withOpacity(0.2)),
-                                    child: SvgPicture.asset(
-                                        'assets/images/credit_card.svg'),
+                            if (widget.invoice!.businessInvoiceStatus !=
+                                "PAID") ...[
+                              Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                      top:
+                                                          Radius.circular(20))),
+                                          context: context,
+                                          builder: (context) =>
+                                              buildUpdateSingleInvoice());
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(
+                                          MediaQuery.of(context).size.height *
+                                              0.015),
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.06,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.06,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: AppColor()
+                                              .backgroundColor
+                                              .withOpacity(0.2)),
+                                      child: SvgPicture.asset(
+                                          'assets/images/credit_card.svg'),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.01),
-                                Text(
-                                  'Update Payment',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'InterRegular'),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.height * 0.1),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01),
+                                  Text(
+                                    'Update Payment',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'InterRegular'),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.height * 0.1),
+                            ],
                             Column(
                               children: [
                                 InkWell(

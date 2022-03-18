@@ -22,7 +22,7 @@ class _PaidState extends State<Paid> {
   final _businessController = Get.find<BusinessRespository>();
   final _invoiceController = Get.find<InvoiceRespository>();
   final _customerController = Get.find<CustomerRepository>();
-  bool deleteItem = true;
+  bool deleteItem = false;
   bool visible = true;
   List<Invoice> _items = [];
   List _selectedIndex = [];
@@ -77,7 +77,7 @@ class _PaidState extends State<Paid> {
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.width * 0.02),
                         decoration: BoxDecoration(
-                            color: deleteItem
+                            color: !deleteItem
                                 ? Colors.transparent
                                 : AppColor().backgroundColor.withOpacity(0.2),
                             shape: BoxShape.circle),
@@ -94,7 +94,7 @@ class _PaidState extends State<Paid> {
                     _invoiceController.GetOfflineInvoices(value.businessId!);
                   });
                 },
-                child: deleteItem
+                child: !deleteItem
                     ? (_invoiceController.invoiceStatus ==
                             InvoiceStatus.Loading)
                         ? Center(child: CircularProgressIndicator())
@@ -426,17 +426,19 @@ class _PaidState extends State<Paid> {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             if (deleteItem) {
+              if (_invoiceController.deletedItem.isEmpty) {
+                Get.snackbar('Alert', 'No item selected');
+              } else {
+                _displayDialog(context);
+              }
+            } else {
               Get.to(() => CreateInvoice());
-            } else if (!deleteItem && _invoiceController.deletedItem.isEmpty) {
-              Get.snackbar('Alert', 'No item selected');
-            } else if (!deleteItem) {
-              _displayDialog(context);
             }
           },
           icon: (!deleteItem) ? Container() : Icon(Icons.add),
           backgroundColor: AppColor().backgroundColor,
           label: Text(
-            deleteItem ? 'New Invoice' : 'Delete Item',
+            deleteItem ? 'Delete Item' : 'New Invoice',
             style: TextStyle(
                 fontFamily: 'InterRegular',
                 fontSize: 10,
@@ -525,6 +527,10 @@ class _PaidState extends State<Paid> {
                       child: InkWell(
                         onTap: () {
                           _invoiceController.deleteItems();
+                          setState(() {
+                            deleteItem = false;
+                          });
+
                           Get.back();
                         },
                         child: Container(

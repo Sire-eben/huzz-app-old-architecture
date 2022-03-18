@@ -85,6 +85,7 @@ class DebtorRepository extends GetxController
   dynamic get debtOwnedAmount => _debtOwnedAmount.value;
   bool get isTotalDebtNegative => (totalDebt as num).sign == -1;
   List<Debtor> get deleteDebtorList => _deleteDebtorList.value;
+  final isLoading = false.obs;
 
   final _addingDebtorStatus = AddingDebtorStatus.Empty.obs;
 
@@ -566,12 +567,12 @@ class DebtorRepository extends GetxController
   Future deleteBusinessDebtor(Debtor debtor) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       await deleteDebtorOnline(debtor);
+      await getOnlineDebtor(
+          _businessController.selectedBusiness.value!.businessId!);
     } else {
       await deleteBusinessDebtorOffline(debtor);
+      getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
     }
-    await getOnlineDebtor(
-        _businessController.selectedBusiness.value!.businessId!);
-    getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
   }
 
   Future deleteBusinessDebtorOffline(Debtor debtor) async {
