@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,7 +7,6 @@ import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/product.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../../../colors.dart';
 import '../../../Utils/util.dart';
 
@@ -63,12 +61,7 @@ class _AddProductState extends State<AddProduct> {
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
 
-  // final items = [
-  //   'Box',
-  //   'feet',
-  //   'kilogram',
-  //   'meters',
-  // ];
+  String? value;
   int qty = 1;
 
   @override

@@ -20,7 +20,7 @@ class ManageCustomerInformationDialog extends StatelessWidget {
         ),
         SizedBox(height: 7),
         Text(
-          'Your customers are the people you sell products or services to.',
+          'Your customers are the people you sell products or services to.\nWhile your merchants are the people you buy products or services from.',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 14,

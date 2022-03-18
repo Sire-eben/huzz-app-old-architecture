@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/app/screens/inventory/Product/productlist.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../../../colors.dart';
 import '../../../Utils/util.dart';
 import 'add_product.dart';

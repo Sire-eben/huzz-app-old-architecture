@@ -1,5 +1,3 @@
-// ignore_for_file: close_sinks
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

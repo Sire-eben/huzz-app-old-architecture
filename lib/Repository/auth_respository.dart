@@ -17,6 +17,7 @@ import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/app/screens/reg_home.dart';
 import 'package:huzz/app/screens/sign_in.dart';
 import 'package:huzz/app/screens/sign_up.dart';
+import 'package:huzz/colors.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/user.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
@@ -96,7 +97,7 @@ class AuthRepository extends GetxController {
   Business? business;
   SharePref? pref;
 
-  Rx<String> Mtoken =Rx("");
+  Rx<String> Mtoken = Rx("");
   String get token => Mtoken.value;
 
   SqliteDb sqliteDb = SqliteDb();
@@ -167,14 +168,46 @@ class AuthRepository extends GetxController {
       print("response is ${response.body}");
       if (response.statusCode == 200) {
         _Otpauthstatus(OtpAuthStatus.Success);
-        Get.snackbar("Success", "Otp sent successfully");
+        Get.snackbar("Success", "Otp sent successfully",
+            titleText: Text(
+              'Success',
+              style: TextStyle(
+                  fontFamily: 'InterRegular',
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            messageText: Text(
+              'Otp sent successfully',
+              style: TextStyle(
+                  fontFamily: 'InterRegular',
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal),
+            ),
+            icon: Icon(Icons.check, color: AppColor().backgroundColor));
+
         if (!isresend) Get.to(() => EnterOtp());
         // if (!isresend) _homeController.selectOnboardSelectedNext();
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
+        Get.snackbar("Error", "Unable to send Otp",
+            titleText: Text(
+              'Error',
+              style: TextStyle(
+                  fontFamily: 'InterRegular',
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            messageText: Text(
+              'Unable to send Otp',
+              style: TextStyle(
+                  fontFamily: 'InterRegular',
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal),
+            ),
+            icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
       }
     } catch (ex) {
-      print("errror otp send ${ex.toString()}");
+      print("error otp send ${ex.toString()}");
       _Otpauthstatus(OtpAuthStatus.Error);
     }
   }
@@ -197,9 +230,25 @@ class AuthRepository extends GetxController {
         });
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
+        Get.snackbar("Error", "User with phone number not found",
+            titleText: Text(
+              'Error',
+              style: TextStyle(
+                  fontFamily: 'InterRegular',
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            messageText: Text(
+              'User with phone number not found',
+              style: TextStyle(
+                  fontFamily: 'InterRegular',
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal),
+            ),
+            icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
       }
     } catch (ex) {
-      print("errror otp send ${ex.toString()}");
+      print("error otp send ${ex.toString()}");
       _Otpauthstatus(OtpAuthStatus.Error);
     }
   }
@@ -211,9 +260,39 @@ class AuthRepository extends GetxController {
         headers: {"Content-Type": "application/json"});
     print("otp sent voice ${response.body}");
     if (response.statusCode == 200) {
-      Get.snackbar("Success", "Otp sent successfully");
+      Get.snackbar("Success", "Otp sent successfully",
+          titleText: Text(
+            'Success',
+            style: TextStyle(
+                fontFamily: 'InterRegular',
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+          ),
+          messageText: Text(
+            'Otp sent successfully',
+            style: TextStyle(
+                fontFamily: 'InterRegular',
+                color: Colors.black,
+                fontWeight: FontWeight.normal),
+          ),
+          icon: Icon(Icons.check, color: AppColor().backgroundColor));
     } else {
-      Get.snackbar("Error", "Unable to send Otp");
+      Get.snackbar("Error", "Unable to send Otp",
+          titleText: Text(
+            'Error',
+            style: TextStyle(
+                fontFamily: 'InterRegular',
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+          ),
+          messageText: Text(
+            'Unable to send Otp',
+            style: TextStyle(
+                fontFamily: 'InterRegular',
+                color: Colors.black,
+                fontWeight: FontWeight.normal),
+          ),
+          icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
     }
   }
 
@@ -235,16 +314,62 @@ class AuthRepository extends GetxController {
           // _homeController.selectOnboardSelectedNext();
 
           _Otpverifystatus(OtpVerifyStatus.Success);
-          Get.snackbar("Success", "Otp verified successfully");
+          Get.snackbar("Success", "Otp sent successfully",
+              titleText: Text(
+                'Success',
+                style: TextStyle(
+                    fontFamily: 'InterRegular',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              messageText: Text(
+                'Otp sent successfully',
+                style: TextStyle(
+                    fontFamily: 'InterRegular',
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal),
+              ),
+              icon: Icon(Icons.check, color: AppColor().backgroundColor));
+
           getUser();
         } else {
           _Otpverifystatus(OtpVerifyStatus.Error);
-          Get.snackbar("Error", "Unable to verify Otp");
+          Get.snackbar("Error", "Unable to send Otp",
+              titleText: Text(
+                'Error',
+                style: TextStyle(
+                    fontFamily: 'InterRegular',
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              messageText: Text(
+                'Unable to send Otp',
+                style: TextStyle(
+                    fontFamily: 'InterRegular',
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal),
+              ),
+              icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
         }
       }
     } catch (ex) {
       print("error from verify otp ${ex.toString()}");
-      Get.snackbar("Error", "Error verifying Otp");
+      Get.snackbar("Error", "Error verifying Otp",
+          titleText: Text(
+            'Error',
+            style: TextStyle(
+                fontFamily: 'InterRegular',
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+          ),
+          messageText: Text(
+            'Error verifying Otp',
+            style: TextStyle(
+                fontFamily: 'InterRegular',
+                color: Colors.black,
+                fontWeight: FontWeight.normal),
+          ),
+          icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
       _Otpverifystatus(OtpVerifyStatus.Error);
     }
   }
@@ -254,7 +379,7 @@ class AuthRepository extends GetxController {
       _Otpforgotverifystatus(OtpForgotVerifyStatus.Loading);
       print("otp value ${otpController.text}");
 
-      final resposne = await http.put(Uri.parse(ApiLink.forget_pin),
+      final response = await http.put(Uri.parse(ApiLink.forget_pin),
           body: jsonEncode({
             "phoneNumber":
                 countryText + forgotPhoneNumberController.text.trim(),
@@ -268,9 +393,9 @@ class AuthRepository extends GetxController {
         }),
       );
 
-      print("response of verify forgot pass otp ${resposne.body}");
-      if (resposne.statusCode == 200) {
-        var json = jsonDecode(resposne.body);
+      print("response of verify forgot pass otp ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
         if (json['success']) {
           _Otpforgotverifystatus(OtpForgotVerifyStatus.Success);
           Get.snackbar(
@@ -497,7 +622,7 @@ class AuthRepository extends GetxController {
       final response = await http.post(Uri.parse(ApiLink.signin_user),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text.trim(),
-            "pin":pinController.text,
+            "pin": pinController.text,
             // "pin":"3152"
           }),
           headers: {"Content-Type": "application/json"});
@@ -509,25 +634,25 @@ class AuthRepository extends GetxController {
 
         var token = json['accessToken'];
         var user = User.fromJson(json);
-         print("token from mtoken is ${Mtoken}");
-       
+        print("token from mtoken is ${Mtoken}");
+
         pref!.saveToken(token);
         pref!.setUser(user);
         //  Mtoken=Rx(token);
-       
-            print("user to json ${user.toJson()}"); 
+
+        print("user to json ${user.toJson()}");
         this.user = user;
-    
+
         DateTime date = DateTime.now();
 
         DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
-       
+
         pref!.setDateTokenExpired(expireToken);
-      
+
         _authStatus(AuthStatus.Authenticated);
         final _businessController = Get.find<BusinessRespository>();
         _businessController.setBusinessList(user.businessList!);
-           Mtoken(token);
+        Mtoken(token);
         print("user business lenght ${user.businessList!.length}");
         if (user.businessList!.isEmpty) {
           Get.off(() => CreateBusiness());
@@ -651,8 +776,8 @@ class AuthRepository extends GetxController {
     Mtoken("0");
     pref!.logout();
     Get.offAll(Signin());
-    final businessController=Get.find<BusinessRespository>();
-      businessController.selectedBusiness=Rx(Business(businessId: null));
+    final businessController = Get.find<BusinessRespository>();
+    businessController.selectedBusiness = Rx(Business(businessId: null));
   }
 
   void clearDatabase() async {

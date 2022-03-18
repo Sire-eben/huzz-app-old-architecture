@@ -41,9 +41,10 @@ class Product {
       businessId: json['businessId'],
       costPrice: json['costPrice'],
       productName: json['name'],
-      sellingPrice: json['sellingPrice']==0?json['costPrice']:json['sellingPrice'],
+      sellingPrice:
+          json['sellingPrice'] == 0 ? json['costPrice'] : json['sellingPrice'],
       quantity: json['quantity'],
-      description: json['description']??"",
+      description: json['description'] ?? "",
       quantitySold: json['quantitySold'] ?? 0,
       quantityLeft: json['quantityLeft'] ?? 0,
       createdTime: DateTime.parse(json['createdDateTime']),
@@ -82,6 +83,6 @@ class Product {
         "isAddingPending": isAddingPending ?? false,
         "isUpdatePendig": isUpdatingPending ?? false,
         "productNameChanged": productNameChanged ?? false,
-        "description":description
+        "description": description
       };
 }
