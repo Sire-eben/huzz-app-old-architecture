@@ -1,5 +1,3 @@
-// ignore_for_file: close_sinks
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -167,7 +165,7 @@ class _EnterOtpState extends State<EnterOtp> {
                   activeTextStyle: TextStyle(
                       color: AppColor().backgroundColor, fontSize: 12),
                   onPressed: () {
-                    _authController.sendSmsOtp();
+                    _authController.sendVoiceOtp();
                   },
                   buttonType: ButtonType.TextButton,
                   disabledColor: Colors.white,
