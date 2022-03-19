@@ -854,30 +854,19 @@ class _MoneyOutState extends State<MoneyOut> {
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                            value: _transactionController.valuePaymentSource,
-                            icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: AppColor().backgroundColor,
-                            ),
-                            iconSize: 30,
-                            items: paymentSource.map(buildPaymentItem).toList(),
-                            onChanged: (value1) {
-                              setState(() {
-                                if (value1 == 'Cash') {
-                                  paymentSourceValue = 'CASH';
-                                } else if (value1 == 'POS') {
-                                  paymentSourceValue = 'POS';
-                                } else if (value1 == 'Transfer') {
-                                  paymentSourceValue = 'TRANSFER';
-                                }
-                                _transactionController.valuePaymentSource =
-                                    value1;
-                                _transactionController.selectedPaymentSource =
-                                    paymentSourceValue;
-                                print(_transactionController
-                                    .selectedPaymentSource);
-                              });
-                            }),
+                          value: _transactionController.selectedPaymentSource,
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColor().backgroundColor,
+                          ),
+                          iconSize: 30,
+                          items: _transactionController.paymentSource
+                              .map(buildPaymentItem)
+                              .toList(),
+                          onChanged: (value) => setState(() =>
+                              _transactionController.selectedPaymentSource =
+                                  value),
+                        ),
                       ),
                     ),
                   ],
