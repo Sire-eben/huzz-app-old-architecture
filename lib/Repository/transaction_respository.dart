@@ -93,11 +93,13 @@ class TransactionRespository extends GetxController {
   int customerType = 0;
   bool addCustomer = false;
   List<String> paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
+  String? valuePaymentSource;
   String? selectedPaymentSource;
   String? selectedCategoryExpenses;
   Rx<List<TransactionModel>> _allTransactionList = Rx([]);
   List<TransactionModel> get allTransactionList => _allTransactionList.value;
   List<String> paymentMode = ["FULLY_PAID", "DEPOSIT"];
+  String? valuePaymentMode;
   String? selectedPaymentMode;
   List<TransactionModel> pendingTransactionToBeAdded = [];
   List<TransactionModel> pendingJobToBeUpdated = [];
@@ -1853,6 +1855,8 @@ class TransactionRespository extends GetxController {
     selectedCustomer = null;
     selectedPaymentSource = null;
     selectedProduct = null;
+    valuePaymentMode = null;
+    valuePaymentSource = null;
     productList = [];
     selectedCategoryExpenses = null;
   }

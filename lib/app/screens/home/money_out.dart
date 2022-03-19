@@ -71,9 +71,9 @@ class _MoneyOutState extends State<MoneyOut> {
   final paymentMode = ['Yes', 'No'];
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Merchant 1', 'Merchant 2', 'Merchant 3'];
-  final paymentSource = ["POS", "CASH", "TRANSFER"];
+  final paymentSource = ["Cash", "POS", "Transfer"];
 
-  String? value;
+  String? value, paidInFullValue, value1, paymentSourceValue;
 
   String countryFlag = "NG";
   String countryCode = "234";
@@ -757,31 +757,6 @@ class _MoneyOutState extends State<MoneyOut> {
                     SizedBox(
                       height: 8,
                     ),
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width,
-                    //   padding:
-                    //       EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       border: Border.all(
-                    //           width: 2, color: AppColor().backgroundColor)),
-                    //   child: DropdownButtonHideUnderline(
-                    //     child: DropdownButton<String>(
-                    //       value: _transactionController.selectedPaymentMode,
-                    //       icon: Icon(
-                    //         Icons.keyboard_arrow_down,
-                    //         color: AppColor().backgroundColor,
-                    //       ),
-                    //       iconSize: 30,
-                    //       items: _transactionController.paymentMode
-                    //           .map(buildPaymentItem)
-                    //           .toList(),
-                    //       onChanged: (value) => setState(() =>
-                    //           _transactionController.selectedPaymentMode =
-                    //               value),
-                    //     ),
-                    //   ),
-                    // ),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       padding:
@@ -792,7 +767,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                            value: value,
+                            value: _transactionController.valuePaymentMode,
                             icon: Icon(
                               Icons.keyboard_arrow_down,
                               color: AppColor().backgroundColor,
@@ -802,12 +777,13 @@ class _MoneyOutState extends State<MoneyOut> {
                             onChanged: (value) {
                               setState(() {
                                 if (value == 'Yes') {
-                                  value = 'FULLY_PAID';
+                                  paidInFullValue = 'FULLY_PAID';
                                 } else {
-                                  value = 'DEPOSIT';
+                                  paidInFullValue = 'DEPOSIT';
                                 }
+                                _transactionController.valuePaymentMode = value;
                                 _transactionController.selectedPaymentMode =
-                                    value;
+                                    paidInFullValue;
                                 print(
                                     _transactionController.selectedPaymentMode);
                               });
@@ -878,19 +854,30 @@ class _MoneyOutState extends State<MoneyOut> {
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: _transactionController.selectedPaymentSource,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
-                          ),
-                          iconSize: 30,
-                          items: _transactionController.paymentSource
-                              .map(buildPaymentItem)
-                              .toList(),
-                          onChanged: (value) => setState(() =>
-                              _transactionController.selectedPaymentSource =
-                                  value),
-                        ),
+                            value: _transactionController.valuePaymentSource,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: AppColor().backgroundColor,
+                            ),
+                            iconSize: 30,
+                            items: paymentSource.map(buildPaymentItem).toList(),
+                            onChanged: (value1) {
+                              setState(() {
+                                if (value1 == 'Cash') {
+                                  paymentSourceValue = 'CASH';
+                                } else if (value1 == 'POS') {
+                                  paymentSourceValue = 'POS';
+                                } else if (value1 == 'Transfer') {
+                                  paymentSourceValue = 'TRANSFER';
+                                }
+                                _transactionController.valuePaymentSource =
+                                    value1;
+                                _transactionController.selectedPaymentSource =
+                                    paymentSourceValue;
+                                print(_transactionController
+                                    .selectedPaymentSource);
+                              });
+                            }),
                       ),
                     ),
                   ],
