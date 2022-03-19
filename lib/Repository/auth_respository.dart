@@ -224,9 +224,24 @@ class AuthRepository extends GetxController {
       print("response is ${response.body}");
       if (response.statusCode == 200) {
         _Otpauthstatus(OtpAuthStatus.Success);
-
+        Get.snackbar("Success", "Otp sent successfully",
+            titleText: Text(
+              'Success',
+              style: TextStyle(
+                  fontFamily: 'InterRegular',
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            messageText: Text(
+              'Otp sent successfully',
+              style: TextStyle(
+                  fontFamily: 'InterRegular',
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal),
+            ),
+            icon: Icon(Icons.check, color: AppColor().backgroundColor));
         Timer(Duration(milliseconds: 2000), () {
-          Get.to(EnterForgotPIN());
+          Get.off(EnterForgotPIN());
         });
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
@@ -775,6 +790,7 @@ class AuthRepository extends GetxController {
     clearDatabase();
     Mtoken("0");
     pref!.logout();
+    phoneNumberController.text = '';
     Get.offAll(Signin());
     final businessController = Get.find<BusinessRespository>();
     businessController.selectedBusiness = Rx(Business(businessId: null));
