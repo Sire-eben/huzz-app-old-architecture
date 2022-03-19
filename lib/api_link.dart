@@ -1,11 +1,10 @@
 class ApiLink {
   static String baseurl = "https://staging-api.huzz.africa//api/v1/";
+  static String v2baseurl = "https://staging-api.huzz.africa//api/v2/";
 // ignore: non_constant_identifier_names
-  static String send_smsOtp =
-      "https://staging-api.huzz.africa//api/v2/otp/send/sms";
+  static String send_smsOtp = v2baseurl + "otp/send/sms";
 // ignore: non_constant_identifier_names
-  static String send_voiceOtp =
-      "https://staging-api.huzz.africa//api/v2/otp/send/voice";
+  static String send_voiceOtp = v2baseurl + "otp/send/voice";
 // ignore: non_constant_identifier_names
   static String verify_otp = baseurl + "otp/verify";
 // ignore: non_constant_identifier_names
