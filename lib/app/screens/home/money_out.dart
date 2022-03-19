@@ -68,10 +68,10 @@ class _MoneyOutState extends State<MoneyOut> {
     super.initState();
   }
 
-  final paymentMode = ['FULLY_PAID', 'DEPOSIT'];
+  final paymentMode = ['Yes', 'No'];
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Merchant 1', 'Merchant 2', 'Merchant 3'];
-  final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
+  final paymentSource = ["POS", "CASH", "TRANSFER"];
 
   String? value;
 
@@ -435,6 +435,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
+                                height: 50,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 4),
                                 decoration: BoxDecoration(
@@ -735,7 +736,7 @@ class _MoneyOutState extends State<MoneyOut> {
                     Row(
                       children: [
                         Text(
-                          'Payment Mode',
+                          'Paid in full?',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
@@ -756,6 +757,31 @@ class _MoneyOutState extends State<MoneyOut> {
                     SizedBox(
                       height: 8,
                     ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width,
+                    //   padding:
+                    //       EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       border: Border.all(
+                    //           width: 2, color: AppColor().backgroundColor)),
+                    //   child: DropdownButtonHideUnderline(
+                    //     child: DropdownButton<String>(
+                    //       value: _transactionController.selectedPaymentMode,
+                    //       icon: Icon(
+                    //         Icons.keyboard_arrow_down,
+                    //         color: AppColor().backgroundColor,
+                    //       ),
+                    //       iconSize: 30,
+                    //       items: _transactionController.paymentMode
+                    //           .map(buildPaymentItem)
+                    //           .toList(),
+                    //       onChanged: (value) => setState(() =>
+                    //           _transactionController.selectedPaymentMode =
+                    //               value),
+                    //     ),
+                    //   ),
+                    // ),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       padding:
@@ -766,19 +792,26 @@ class _MoneyOutState extends State<MoneyOut> {
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: _transactionController.selectedPaymentMode,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
-                          ),
-                          iconSize: 30,
-                          items: _transactionController.paymentMode
-                              .map(buildPaymentItem)
-                              .toList(),
-                          onChanged: (value) => setState(() =>
-                              _transactionController.selectedPaymentMode =
-                                  value),
-                        ),
+                            value: value,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: AppColor().backgroundColor,
+                            ),
+                            iconSize: 30,
+                            items: paymentMode.map(buildPaymentItem).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                if (value == 'Yes') {
+                                  value = 'FULLY_PAID';
+                                } else {
+                                  value = 'DEPOSIT';
+                                }
+                                _transactionController.selectedPaymentMode =
+                                    value;
+                                print(
+                                    _transactionController.selectedPaymentMode);
+                              });
+                            }),
                       ),
                     ),
                   ],
@@ -814,7 +847,7 @@ class _MoneyOutState extends State<MoneyOut> {
                     Row(
                       children: [
                         Text(
-                          'Payment Source',
+                          'Payment Mode',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
@@ -1115,6 +1148,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                     Container(
                                         width:
                                             MediaQuery.of(context).size.width,
+                                        height: 50,
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 4),
                                         decoration: BoxDecoration(
@@ -1392,6 +1426,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
+                          height: 50,
                           padding:
                               EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                           decoration: BoxDecoration(

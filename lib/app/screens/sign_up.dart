@@ -112,22 +112,10 @@ class _SignUpState extends State<Signup> {
               SizedBox(
                 height: 3,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: CustomTextField(
-                  label: "Email",
-                  validate: (value) {
-                    if (value!.isEmpty) {
-                      return "Email is required";
-                    } else if (!value.isEmail) {
-                      return "Enter valid email address";
-                    } else {
-                      return null;
-                    }
-                  },
-                  validatorText: "Email is needed",
-                  textEditingController: _authController.emailController,
-                ),
+              CustomTextFieldOptional(
+                label: "Email",
+                validatorText: "Email is needed",
+                textEditingController: _authController.emailController,
               ),
               SizedBox(
                 height: 10,
