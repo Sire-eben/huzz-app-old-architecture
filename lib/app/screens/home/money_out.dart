@@ -68,12 +68,12 @@ class _MoneyOutState extends State<MoneyOut> {
     super.initState();
   }
 
-  final paymentMode = ['FULLY_PAID', 'DEPOSIT'];
+  final paymentMode = ['Yes', 'No'];
   final products = ['Shoe', 'Bag', 'Clothes'];
   final customers = ['Merchant 1', 'Merchant 2', 'Merchant 3'];
-  final paymentSource = ["POS", "CASH", "TRANSFER", "OTHERS"];
+  final paymentSource = ["Cash", "POS", "Transfer"];
 
-  String? value;
+  String? value, paidInFullValue, value1, paymentSourceValue;
 
   String countryFlag = "NG";
   String countryCode = "234";
@@ -435,6 +435,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
+                                height: 50,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 4),
                                 decoration: BoxDecoration(
@@ -735,7 +736,7 @@ class _MoneyOutState extends State<MoneyOut> {
                     Row(
                       children: [
                         Text(
-                          'Payment Mode',
+                          'Paid in full?',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
@@ -766,19 +767,27 @@ class _MoneyOutState extends State<MoneyOut> {
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: _transactionController.selectedPaymentMode,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
-                          ),
-                          iconSize: 30,
-                          items: _transactionController.paymentMode
-                              .map(buildPaymentItem)
-                              .toList(),
-                          onChanged: (value) => setState(() =>
-                              _transactionController.selectedPaymentMode =
-                                  value),
-                        ),
+                            value: _transactionController.valuePaymentMode,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: AppColor().backgroundColor,
+                            ),
+                            iconSize: 30,
+                            items: paymentMode.map(buildPaymentItem).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                if (value == 'Yes') {
+                                  paidInFullValue = 'FULLY_PAID';
+                                } else {
+                                  paidInFullValue = 'DEPOSIT';
+                                }
+                                _transactionController.valuePaymentMode = value;
+                                _transactionController.selectedPaymentMode =
+                                    paidInFullValue;
+                                print(
+                                    _transactionController.selectedPaymentMode);
+                              });
+                            }),
                       ),
                     ),
                   ],
@@ -814,7 +823,7 @@ class _MoneyOutState extends State<MoneyOut> {
                     Row(
                       children: [
                         Text(
-                          'Payment Source',
+                          'Payment Mode',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
@@ -845,19 +854,30 @@ class _MoneyOutState extends State<MoneyOut> {
                               width: 2, color: AppColor().backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: _transactionController.selectedPaymentSource,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
-                          ),
-                          iconSize: 30,
-                          items: _transactionController.paymentSource
-                              .map(buildPaymentItem)
-                              .toList(),
-                          onChanged: (value) => setState(() =>
-                              _transactionController.selectedPaymentSource =
-                                  value),
-                        ),
+                            value: _transactionController.valuePaymentSource,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: AppColor().backgroundColor,
+                            ),
+                            iconSize: 30,
+                            items: paymentSource.map(buildPaymentItem).toList(),
+                            onChanged: (value1) {
+                              setState(() {
+                                if (value1 == 'Cash') {
+                                  paymentSourceValue = 'CASH';
+                                } else if (value1 == 'POS') {
+                                  paymentSourceValue = 'POS';
+                                } else if (value1 == 'Transfer') {
+                                  paymentSourceValue = 'TRANSFER';
+                                }
+                                _transactionController.valuePaymentSource =
+                                    value1;
+                                _transactionController.selectedPaymentSource =
+                                    paymentSourceValue;
+                                print(_transactionController
+                                    .selectedPaymentSource);
+                              });
+                            }),
                       ),
                     ),
                   ],
@@ -1115,6 +1135,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                     Container(
                                         width:
                                             MediaQuery.of(context).size.width,
+                                        height: 50,
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 4),
                                         decoration: BoxDecoration(
@@ -1392,6 +1413,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
+                          height: 50,
                           padding:
                               EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                           decoration: BoxDecoration(
