@@ -48,6 +48,8 @@ class ApiLink {
   // ignore: non_constant_identifier_names
   static String delete_user = baseurl + "user/delete";
   // ignore: non_constant_identifier_names
+  static String user_referral = baseurl + "user/referral";
+  // ignore: non_constant_identifier_names
 
   // ignore: non_constant_identifier_names
   static String delete_business = baseurl + "business/";

@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
+import 'package:huzz/app/screens/settings/referral_bottomsheet.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/user.dart';
 import 'package:image_picker/image_picker.dart';
@@ -389,6 +391,62 @@ class _SettingsState extends State<Settings> {
                   SizedBox(
                     height: 20,
                   ),
+                  // Referral
+                  GestureDetector(
+                    onTap: () => showCupertinoModalPopup(
+                      context: context,
+                      builder: (context) => const ReferralBottomsheet(),
+                    ),
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      height: 55,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Color(0xffE6F4F2),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              color: AppColor().whiteColor,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColor().whiteColor,
+                              ),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                "assets/images/gift.png",
+                                height: 18,
+                                width: 18,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Referrals',
+                            style: TextStyle(
+                              color: AppColor().blackColor,
+                              fontFamily: 'InterRegular',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+
                   // LogOut
                   InkWell(
                     onTap: () {
