@@ -20,6 +20,7 @@ import 'package:huzz/app/screens/sign_up.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/user.dart';
+import 'package:huzz/model/user_referral_model.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,6 +54,7 @@ class AuthRepository extends GetxController {
 
   var otpController = TextEditingController();
   var pinController;
+  final referralCodeController = TextEditingController();
   late final emailController = TextEditingController();
   late final lastNameController = TextEditingController();
   late final firstNameController = TextEditingController();
@@ -96,6 +98,7 @@ class AuthRepository extends GetxController {
   User? user;
   Business? business;
   SharePref? pref;
+  Rx<UserReferralModel?> userReferral = Rx(null);
 
   Rx<String> Mtoken = Rx("");
   String get token => Mtoken.value;
@@ -586,14 +589,21 @@ class AuthRepository extends GetxController {
   Future signUp() async {
     try {
       _signupStatus(SignupStatus.Loading);
+      final signupDto = {
+        "firstName": firstNameController.text.trim(),
+        "lastName": lastNameController.text.trim(),
+        "email": emailController.text.trim(),
+        "pin": pinController.text,
+        "phoneNumber": countryText + phoneNumberController.text.trim()
+      };
+      if (referralCodeController.text.isNotEmpty) {
+        signupDto.putIfAbsent(
+          "referralCode",
+          () => referralCodeController.text.trim(),
+        );
+      }
       final response = await http.post(Uri.parse(ApiLink.signup_user),
-          body: jsonEncode({
-            "firstName": firstNameController.text.trim(),
-            "lastName": lastNameController.text.trim(),
-            "email": emailController.text.trim(),
-            "pin": pinController.text,
-            "phoneNumber": countryText + phoneNumberController.text.trim()
-          }),
+          body: jsonEncode(signupDto),
           headers: {"Content-Type": "application/json"});
       print("sign up response ${response.body} ${response.statusCode}");
       if (response.statusCode == 201) {
@@ -715,6 +725,28 @@ class AuthRepository extends GetxController {
       }
     } catch (ex) {
       _signinStatus(SigninStatus.Error);
+    }
+  }
+
+  Future<UserReferralModel?> getUserReferralData() async {
+    if (userReferral.value != null) return userReferral.value;
+    try {
+      final response = await http.get(Uri.parse(ApiLink.user_referral),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+
+      final json = jsonDecode(response.body);
+      if (response.statusCode != 200 || !json['status']) {
+        throw json['message'] ?? "Unexpected error occurred";
+      }
+      userReferral(UserReferralModel.fromMap(json['data']));
+      return userReferral.value;
+    } on SocketException catch (_) {
+      throw "Network not available, connect to the internet and try again";
+    } catch (e) {
+      throw e;
     }
   }
 

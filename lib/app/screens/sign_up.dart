@@ -209,6 +209,16 @@ class _SignUpState extends State<Signup> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomTextField(
+                  label: "Referral Code (Optional)",
+                  textEditingController: _authController.referralCodeController,
+                ),
+              ),
               Spacer(),
               InkWell(
                 onTap: () {
@@ -250,9 +260,7 @@ class _SignUpState extends State<Signup> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 50),
             ],
           ),
         ),
