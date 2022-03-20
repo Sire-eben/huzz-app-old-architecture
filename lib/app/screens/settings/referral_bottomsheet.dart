@@ -96,7 +96,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                           ),
                           SizedBox(height: 14),
                           Text(
-                            "Love Huzz? Spread the word and watch your referral count grow. Ask business owners you refer to enter your referral code when they sign up. In future, your referral count will contribute to your Huzz Loyalty points which can you use to earn awesome rewards.",
+                            "Love Huzz? Spread the word and watch your referral count grow. Ask business owners you refer to enter your referral code when they sign up. In the future, your referral count will contribute to your Huzz Loyalty points which you can use to earn awesome rewards.",
                             style: textTheme.caption!.copyWith(
                               fontSize: 14,
                               color: Colors.black87,
