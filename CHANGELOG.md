@@ -1,4 +1,10 @@
 ====================================================
+v1.11.1
+
+- Referral feature
+- Bug fixes and improvements
+
+====================================================
 v1.11.0
 
 - Improvements on insights/analytics, debt management and invoice/receipt pdf

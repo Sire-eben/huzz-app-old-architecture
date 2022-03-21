@@ -98,7 +98,6 @@ class AuthRepository extends GetxController {
   User? user;
   Business? business;
   SharePref? pref;
-  Rx<UserReferralModel?> userReferral = Rx(null);
 
   Rx<String> Mtoken = Rx("");
   String get token => Mtoken.value;
@@ -728,8 +727,7 @@ class AuthRepository extends GetxController {
     }
   }
 
-  Future<UserReferralModel?> getUserReferralData() async {
-    if (userReferral.value != null) return userReferral.value;
+  Future<UserReferralModel> getUserReferralData() async {
     try {
       final response = await http.get(Uri.parse(ApiLink.user_referral),
           headers: {
@@ -741,8 +739,7 @@ class AuthRepository extends GetxController {
       if (response.statusCode != 200 || !json['status']) {
         throw json['message'] ?? "Unexpected error occurred";
       }
-      userReferral(UserReferralModel.fromMap(json['data']));
-      return userReferral.value;
+      return UserReferralModel.fromMap(json['data']);
     } on SocketException catch (_) {
       throw "Network not available, connect to the internet and try again";
     } catch (e) {

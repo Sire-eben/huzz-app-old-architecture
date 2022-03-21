@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -999,16 +1000,21 @@ class _DebtorListingState extends State<DebtorListing> {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () async {
-                  final debtor = widget.item!;
-                  await _debtorController.deleteBusinessDebtor(debtor);
-                },
-                child: Icon(
-                  Icons.delete_outline_rounded,
-                  color: Colors.redAccent,
-                ),
-              ),
+
+              Obx(() => GestureDetector(
+                    onTap: () async {
+                      final debtor = widget.item!;
+                      await _debtorController.deleteBusinessDebtor(debtor);
+                    },
+                    child: _debtorController.deletingItem.value == widget.item
+                        ? CupertinoActivityIndicator(
+                            radius: 10,
+                          )
+                        : Icon(
+                            Icons.delete_outline_rounded,
+                            color: Colors.redAccent,
+                          ),
+                  )),
             ],
           );
   }
