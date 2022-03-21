@@ -42,6 +42,7 @@ class DebtorRepository extends GetxController
   Rx<List<Debtor>> _deleteDebtorList = Rx([]);
 
   final isDebtorService = false.obs;
+  Rx<Debtor?> deletingItem = Rx(null);
 
   List<Debtor> get DebtorServices => _DebtorService.value;
   List<Debtor> get DebtorGoods => _DebtorGoods.value;
@@ -531,7 +532,7 @@ class DebtorRepository extends GetxController
   bool checkifDebtorAvailable(String id) {
     bool result = false;
     offlineBusinessDebtor.forEach((element) {
-      print("checking transaction whether exist");
+      print("checking transaction whether exis\t");
       if (element.debtorId == id) {
         print("Debtor   found");
         result = true;
@@ -554,36 +555,27 @@ class DebtorRepository extends GetxController
   }
 
   Future deleteDebtorOnline(Debtor debtor) async {
-    var response = await http.delete(
+    await http.delete(
         Uri.parse(ApiLink.add_debtor +
             "/${debtor.debtorId}?businessId=${debtor.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
-    print("delete response ${response.body}");
-    if (response.statusCode == 200) {
-    } else {}
-    // _businessController.sqliteDb.deleteDebtor(debtor);
   }
 
   Future deleteBusinessDebtor(Debtor debtor) async {
+    deletingItem(debtor);
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       await deleteDebtorOnline(debtor);
       await getOnlineDebtor(
           _businessController.selectedBusiness.value!.businessId!);
-    } else {
-      await deleteBusinessDebtorOffline(debtor);
-      getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
     }
+    await deleteBusinessDebtorOffline(debtor);
+    getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
+    deletingItem(null);
   }
 
   Future deleteBusinessDebtorOffline(Debtor debtor) async {
     debtor.deleted = true;
-
-    if (!debtor.isPendingAdding!) {
-      _businessController.sqliteDb.updateOfflineDebtor(debtor);
-    } else {
-      _businessController.sqliteDb.deleteOfflineDebtor(debtor);
-      print("debtors deleted");
-    }
+    _businessController.sqliteDb.deleteOfflineDebtor(debtor);
     getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
   }
 
@@ -628,13 +620,10 @@ class DebtorRepository extends GetxController
   }
 
   Future checkPendingDebtorToBeAddedToSever() async {
-    var list = await _businessController.sqliteDb.getOfflineDebtors(
-        _businessController.selectedBusiness.value!.businessId!);
     offlineBusinessDebtor.forEach((element) {
-      // if (element.isAddingPending!) {
-      //   pendingToBeAddedDebtorToServer.add(element);
-      // }
-
+      if (element.isPendingAdding!) {
+        pendingToBeAddedDebtorToServer.add(element);
+      }
       print(
           "Debtor available for uploading to server ${pendingToBeAddedDebtorToServer.length}");
     });
