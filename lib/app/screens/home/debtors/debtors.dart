@@ -421,6 +421,8 @@ class _DebtorsState extends State<Debtors> {
               Obx(() {
                 return InkWell(
                   onTap: () async {
+                    print('Amount to be updated: ' +
+                        _debtorController.totalAmountController.text);
                     if (_debtorController.customerType == 0) {
                       if (_debtorController.selectedCustomer == null) {
                         Get.snackbar("Error", "Kindly Select a customer");
@@ -1478,28 +1480,31 @@ class _DebtorListingState extends State<DebtorListing> {
                               },
                               decoration: InputDecoration(
                                 isDense: true,
-
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColor().backgroundColor,
-                                        width: 2),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
+                                  borderSide: BorderSide(
+                                      color: AppColor().backgroundColor,
+                                      width: 2),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColor().backgroundColor,
-                                        width: 2),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
+                                  borderSide: BorderSide(
+                                      color: AppColor().backgroundColor,
+                                      width: 2),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
                                 border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColor().backgroundColor,
-                                        width: 2),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                // labelText: label,
-                                hintText: '${Utils.getCurrency()} 0.00',
-
+                                  borderSide: BorderSide(
+                                      color: AppColor().backgroundColor,
+                                      width: 2),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                hintText: '${Utils.getCurrency()}0.0',
                                 hintStyle: Theme.of(context)
                                     .textTheme
                                     .headline4!

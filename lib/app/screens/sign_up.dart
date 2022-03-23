@@ -112,10 +112,12 @@ class _SignUpState extends State<Signup> {
               SizedBox(
                 height: 3,
               ),
-              CustomTextFieldOptional(
-                label: "Email",
-                validatorText: "Email is needed",
-                textEditingController: _authController.emailController,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: CustomTextFieldInvoiceOptional(
+                  label: "Email",
+                  textEditingController: _authController.emailController,
+                ),
               ),
               SizedBox(
                 height: 10,
