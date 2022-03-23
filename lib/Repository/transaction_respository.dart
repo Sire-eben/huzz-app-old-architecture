@@ -1540,7 +1540,7 @@ class TransactionRespository extends GetxController {
               },
               body: body);
 
-      print({"creatng transaction response ${response.body}"});
+      print({"creating transaction response ${response.body}"});
       if (response.statusCode == 200) {
         _addingTransactionStatus(AddingTransactionStatus.Success);
         var json = jsonDecode(response.body);

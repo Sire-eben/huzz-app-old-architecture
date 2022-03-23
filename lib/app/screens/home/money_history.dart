@@ -1,21 +1,46 @@
-// ignore_for_file: must_be_immutable
-
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/Repository/transaction_respository.dart';
 import 'package:huzz/app/Utils/constants.dart';
-import 'package:huzz/app/screens/home/receipt/view_transactions_pdf.dart';
 import 'package:huzz/app/screens/home/reciept.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/model/customer_model.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:huzz/model/records_model.dart';
 import 'package:huzz/model/transaction_model.dart';
 import 'package:number_display/number_display.dart';
 import '../../Utils/util.dart';
+
+class TransactionHistoryInformationDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          "This is where you can get more information about a money in or money out transaction.",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class MoneySummary extends StatefulWidget {
   PaymentItem? item;
@@ -27,10 +52,12 @@ class MoneySummary extends StatefulWidget {
 class _MoneySummaryState extends State<MoneySummary> {
   final recordFilter = ['This month', 'Last month'];
   final _transactionController = Get.find<TransactionRespository>();
+  final _customerController = Get.find<CustomerRepository>();
   String? value;
   int paymentType = 0;
   int paymentMode = 0;
   TransactionModel? transactionModel;
+  Customer? customer;
   final display = createDisplay(
     length: 10,
     decimal: 0,
@@ -39,6 +66,13 @@ class _MoneySummaryState extends State<MoneySummary> {
   @override
   void initState() {
     super.initState();
+    // print("my customer id ${transactionModel!.customerId}");
+    // if (transactionModel!.customerId != null) {
+    //   print("my customer id ${transactionModel!.customerId}");
+    //   customer = _customerController
+    //       .checkifCustomerAvailableWithValue(transactionModel!.customerId!);
+    // }
+
     transactionModel = _transactionController
         .getTransactionById(widget.item!.businessTransactionId!);
     if (transactionModel != null) {
@@ -80,31 +114,44 @@ class _MoneySummaryState extends State<MoneySummary> {
                   ),
                 ),
                 SizedBox(width: 4),
-
-                //Tool tip
-                Tooltip(
-                  triggerMode: TooltipTriggerMode.tap,
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black38, blurRadius: 10)
-                      ]),
-                  textStyle: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'InterRegular',
-                      fontSize: 10,
-                      color: Colors.black),
-                  preferBelow: false,
-                  message:
-                      'This is where you can get more\ninformation about a money\nin or money out transaction',
-                  child: SvgPicture.asset(
-                    "assets/images/info.svg",
-                    height: 20,
-                    width: 20,
+                GestureDetector(
+                  onTap: () {
+                    Platform.isIOS
+                        ? showCupertinoDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (context) => CupertinoAlertDialog(
+                              content: TransactionHistoryInformationDialog(),
+                              actions: [
+                                CupertinoButton(
+                                  child: Text("OK"),
+                                  onPressed: () => Get.back(),
+                                ),
+                              ],
+                            ),
+                          )
+                        : showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              content: TransactionHistoryInformationDialog(),
+                              actions: [
+                                CupertinoButton(
+                                  child: Text("OK"),
+                                  onPressed: () => Get.back(),
+                                ),
+                              ],
+                            ),
+                          );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 4.0, top: 2.0),
+                    child: Icon(
+                      Icons.info_outline_rounded,
+                      size: 18,
+                      color: AppColor().backgroundColor,
+                    ),
                   ),
-                ),
+                )
               ],
             ),
             Column(
@@ -298,7 +345,112 @@ class _MoneySummaryState extends State<MoneySummary> {
                     ),
                   )
                 : Container(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            // transactionModel!.customerId == null
+            //     ?
+            Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.05,
+                  vertical: MediaQuery.of(context).size.height * 0.02),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Customer`s Name',
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: "InterRegular",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        'Items',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: "InterRegular",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Phone Number',
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: "InterRegular",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        'Items',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: "InterRegular",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Email',
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: "InterRegular",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        'Items',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: "InterRegular",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Transaction Image',
+                        style: TextStyle(
+                          color: AppColor().backgroundColor,
+                          fontFamily: "InterRegular",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        'Items',
+                        style: TextStyle(
+                          color: AppColor().blackColor,
+                          fontFamily: "InterRegular",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            )
+            // : Container()
+            ,
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -1095,7 +1247,8 @@ class _MoneySummaryState extends State<MoneySummary> {
                           ? TextInputType.numberWithOptions(
                               signed: true, decimal: true)
                           : TextInputType.number,
-                      textEditingController: _amountController,
+                      textEditingController:
+                          _transactionController.amountController!,
                     )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -1179,12 +1332,15 @@ class _MoneySummaryState extends State<MoneySummary> {
                   onTap: () async {
                     if (_transactionController.addingTransactionStatus !=
                         AddingTransactionStatus.Loading) {
+                      _amountController.text =
+                          _transactionController.amountController.toString();
+
                       var result =
                           await _transactionController.updateTransactionHistory(
                               transactionModel!.id!,
                               transactionModel!.businessId!,
                               (paymentType == 0)
-                                  ? int.parse(_amountController.text)
+                                  ? double.parse(_amountController.text)
                                   : (transactionModel!.balance ?? 0),
                               (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
 
