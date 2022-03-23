@@ -1241,14 +1241,13 @@ class _MoneySummaryState extends State<MoneySummary> {
               paymentType == 0
                   ? CustomTextFieldInvoiceOptional(
                       label: 'Amount',
-                      hint: '${Utils.getCurrency()}',
                       inputformater: [FilteringTextInputFormatter.digitsOnly],
                       keyType: Platform.isIOS
                           ? TextInputType.numberWithOptions(
                               signed: true, decimal: true)
                           : TextInputType.number,
                       textEditingController:
-                          _transactionController.amountController!,
+                          _transactionController.amountController,
                     )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -1332,15 +1331,21 @@ class _MoneySummaryState extends State<MoneySummary> {
                   onTap: () async {
                     if (_transactionController.addingTransactionStatus !=
                         AddingTransactionStatus.Loading) {
-                      _amountController.text =
-                          _transactionController.amountController.toString();
+                      // _amountController.text =
+                      //     _transactionController.amountController!.text;
+
+                      print('Amount to be updated: ' +
+                          _transactionController.amountController!.text
+                              .replaceAll('₦', ''));
 
                       var result =
                           await _transactionController.updateTransactionHistory(
                               transactionModel!.id!,
                               transactionModel!.businessId!,
                               (paymentType == 0)
-                                  ? double.parse(_amountController.text)
+                                  ? _transactionController
+                                      .amountController!.text
+                                      .replaceAll('₦', '')
                                   : (transactionModel!.balance ?? 0),
                               (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
 

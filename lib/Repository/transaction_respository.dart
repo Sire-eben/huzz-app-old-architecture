@@ -2009,6 +2009,7 @@ class TransactionRespository extends GetxController {
         transaction.businessTransactionPaymentHistoryList =
             transactionReponseList;
         updateTransaction(transaction);
+        amountController!.text = '';
         return transaction;
       } else {
         Get.snackbar("Error", "Unable to Update Transaction");
