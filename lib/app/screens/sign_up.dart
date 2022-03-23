@@ -209,17 +209,20 @@ class _SignUpState extends State<Signup> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: CustomTextField(
-                  label: "Referral Code (Optional)",
-                  textEditingController: _authController.referralCodeController,
+              if (!_authController.hasReferralDeeplink.value) ...[
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              Spacer(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: CustomTextField(
+                    label: "Referral Code (Optional)",
+                    textEditingController:
+                        _authController.referralCodeController,
+                  ),
+                ),
+              ],
+              SizedBox(height: 24),
               InkWell(
                 onTap: () {
                   if (_formKey.currentState!.validate())

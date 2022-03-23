@@ -84,6 +84,8 @@ class AuthRepository extends GetxController {
   OtpForgotVerifyStatus get Otpforgotverifystatus =>
       _Otpforgotverifystatus.value;
 
+  final hasReferralDeeplink = false.obs;
+
   final _connectionStatus = ConnectivityResult.none.obs;
   ConnectivityResult get connectionStatus => _connectionStatus.value;
 
@@ -149,13 +151,20 @@ class AuthRepository extends GetxController {
     final PendingDynamicLinkData? deepLink =
         await FirebaseDynamicLinks.instance.getInitialLink();
     if (deepLink != null) {
-      final String? refCode = deepLink.link.queryParameters['referralCode'];
-      if (refCode != null) referralCodeController.text = refCode;
+      checkIfReferralLinkIsAvailableFromDeeplink(deepLink);
     }
     FirebaseDynamicLinks.instance.onLink.listen((deepLink) {
-      final String? refCode = deepLink.link.queryParameters['referralCode'];
-      if (refCode != null) referralCodeController.text = refCode;
+      checkIfReferralLinkIsAvailableFromDeeplink(deepLink);
     });
+  }
+
+  void checkIfReferralLinkIsAvailableFromDeeplink(
+      PendingDynamicLinkData deepLink) {
+    final String? refCode = deepLink.link.queryParameters['referralCode'];
+    if (refCode != null) {
+      referralCodeController.text = refCode;
+      hasReferralDeeplink(true);
+    }
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {

@@ -108,7 +108,7 @@ class CustomerRepository extends GetxController {
         contactList = await FlutterContacts.getContacts(
             withProperties: true, withPhoto: false);
         print("phone contacts ${contactList.length}");
-      } else {}
+      } 
     } catch (ex) {
       print("contact error is ${ex.toString()}");
     }

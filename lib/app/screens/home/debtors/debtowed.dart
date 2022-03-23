@@ -566,7 +566,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.redAccent,
+                              color: AppColor().orangeBorderColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
@@ -1069,6 +1069,28 @@ class _DebtOwnedState extends State<DebtOwned> {
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(height: 10),
+                              GestureDetector(
+                                onTap: () {
+                                  _customerRepository
+                                      .showContactPicker(context);
+                                },
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/select_from_contact.svg',
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      "Select from Contact",
+                                      style: TextStyle(
+                                          color: AppColor().backgroundColor,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 10),
                               CustomTextFieldInvoiceOptional(
                                 label: 'Name',
                                 keyType: TextInputType.name,
