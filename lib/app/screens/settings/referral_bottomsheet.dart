@@ -1,9 +1,11 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/user_referral_model.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ReferralBottomsheet extends StatefulWidget {
   const ReferralBottomsheet({Key? key}) : super(key: key);
@@ -13,13 +15,39 @@ class ReferralBottomsheet extends StatefulWidget {
 }
 
 class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final controller = Get.find<AuthRepository>();
   late Future<UserReferralModel?> future;
+  bool isLoadingReferralLink = false;
 
   @override
   void initState() {
     future = controller.getUserReferralData();
     super.initState();
+  }
+
+  Future<void> shareReferralLink(String referralCode) async {
+    setState(() {
+      isLoadingReferralLink = true;
+    });
+    const appId = "com.app.huzz";
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      uriPrefix: 'https://huzz.page.link',
+      link: Uri.parse('https://huzz.africa?referralCode=$referralCode'),
+      androidParameters: AndroidParameters(
+        packageName: appId,
+        minimumVersion: 1,
+      ),
+      iosParameters: IOSParameters(
+        bundleId: appId,
+        minimumVersion: '1',
+      ),
+    );
+    final shortLink = await dynamicLinks.buildShortLink(parameters);
+    setState(() {
+      isLoadingReferralLink = false;
+    });
+    Share.share(shortLink.shortUrl.toString(), subject: 'Share referral link');
   }
 
   @override
@@ -191,6 +219,32 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                 ),
                               )
                             ],
+                          ),
+                          SizedBox(height: 24),
+                          InkWell(
+                            onTap: () =>
+                                shareReferralLink(referralData.referralCode),
+                            child: Container(
+                              height: 55,
+                              decoration: BoxDecoration(
+                                  color: AppColor().backgroundColor,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: isLoadingReferralLink
+                                    ? CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )
+                                    : Text(
+                                        'Share Referral Link',
+                                        style: TextStyle(
+                                          color: AppColor().whiteColor,
+                                          fontFamily: 'InterRegular',
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                              ),
+                            ),
                           ),
                           SizedBox(height: 32),
                         ],

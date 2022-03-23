@@ -411,12 +411,11 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                   child: SvgPicture.asset(
                                                       'assets/images/edit_pri.svg')),
                                             ),
+                                            SizedBox(width: 4),
                                             Obx(() => GestureDetector(
-                                                  onTap: () async {
-                                                    await _debtorRepository
-                                                        .deleteBusinessDebtor(
-                                                            item);
-                                                  },
+                                                  onTap: () =>
+                                                      _deleteDebtDialog(
+                                                          context, item),
                                                   child: _debtorRepository
                                                               .deletingItem
                                                               .value ==
@@ -424,11 +423,10 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       ? CupertinoActivityIndicator(
                                                           radius: 10,
                                                         )
-                                                      : Icon(
-                                                          Icons
-                                                              .delete_outline_rounded,
-                                                          color:
-                                                              Colors.redAccent,
+                                                      : SvgPicture.asset(
+                                                          "assets/images/delete.svg",
+                                                          height: 20,
+                                                          width: 20,
                                                         ),
                                                 )),
                                           ],
@@ -488,6 +486,108 @@ class _DebtOwnedState extends State<DebtOwned> {
           // ignore: dead_code
           : DebtorOwnedListing();
     });
+  }
+
+  _deleteDebtDialog(BuildContext context, Debtor debtor) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 50,
+            ),
+            title: Text(
+              'Delete Debt',
+              style: TextStyle(
+                color: AppColor().backgroundColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+              ),
+            ),
+            content: Text(
+              "You're about to delete this debt entry, click delete to proceed",
+              style: TextStyle(
+                color: AppColor().blackColor,
+                fontFamily: 'InterRegular',
+                fontWeight: FontWeight.normal,
+                fontSize: 12,
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColor().whiteColor,
+                              border: Border.all(
+                                width: 1.2,
+                                color: AppColor().backgroundColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: AppColor().backgroundColor,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () async {
+                          Get.back();
+                          await _debtorRepository.deleteBusinessDebtor(debtor);
+                        },
+                        child: Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.redAccent,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: AppColor().whiteColor,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   StatefulBuilder buildUpdatePayments(Debtor debtor) =>

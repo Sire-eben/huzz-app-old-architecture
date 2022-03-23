@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -144,6 +145,16 @@ class AuthRepository extends GetxController {
       _updateConnectionStatus(result);
 
       print("result is $result");
+    });
+    final PendingDynamicLinkData? deepLink =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+    if (deepLink != null) {
+      final String? refCode = deepLink.link.queryParameters['referralCode'];
+      if (refCode != null) referralCodeController.text = refCode;
+    }
+    FirebaseDynamicLinks.instance.onLink.listen((deepLink) {
+      final String? refCode = deepLink.link.queryParameters['referralCode'];
+      if (refCode != null) referralCodeController.text = refCode;
     });
   }
 
