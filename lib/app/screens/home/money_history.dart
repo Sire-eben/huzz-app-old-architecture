@@ -65,8 +65,10 @@ class _MoneySummaryState extends State<MoneySummary> {
   final _amountController = TextEditingController();
   @override
   void initState() {
+    // _customerController
+    //     .checkifCustomerAvailableWithValue(transactionModel!.customerId!);
     super.initState();
-    // print("my customer id ${transactionModel!.customerId}");
+    // print("my customerId: " + transactionModel!.customerId!.toString());
     // if (transactionModel!.customerId != null) {
     //   print("my customer id ${transactionModel!.customerId}");
     //   customer = _customerController
@@ -217,7 +219,10 @@ class _MoneySummaryState extends State<MoneySummary> {
                 ),
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(
+                height: (transactionModel!.balance == 0)
+                    ? 0
+                    : MediaQuery.of(context).size.height * 0.01),
             (transactionModel!.balance != 0)
                 ? Padding(
                     padding: EdgeInsets.symmetric(
@@ -312,7 +317,10 @@ class _MoneySummaryState extends State<MoneySummary> {
                     ),
                   )
                 : Container(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(
+                height: (transactionModel!.balance == 0)
+                    ? 0
+                    : MediaQuery.of(context).size.height * 0.01),
             (transactionModel!.balance != 0)
                 ? GestureDetector(
                     onTap: () {
@@ -345,112 +353,144 @@ class _MoneySummaryState extends State<MoneySummary> {
                     ),
                   )
                 : Container(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            // transactionModel!.customerId == null
-            //     ?
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.height * 0.05,
-                  vertical: MediaQuery.of(context).size.height * 0.02),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Customer`s Name',
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontFamily: "InterRegular",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                        ),
+            (transactionModel!.customerId != null)
+                ? Obx(() {
+                    if (transactionModel!.customerId != null) {
+                      print("my customer id ${transactionModel!.customerId}");
+                      customer =
+                          _customerController.checkifCustomerAvailableWithValue(
+                              transactionModel!.customerId!);
+                    }
+                    return Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.height * 0.05,
+                          vertical: MediaQuery.of(context).size.height * 0.02),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Customer`s Name',
+                                style: TextStyle(
+                                  color: AppColor().backgroundColor,
+                                  fontFamily: "InterRegular",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text(
+                                customer!.name!,
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: "InterRegular",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Phone Number',
+                                style: TextStyle(
+                                  color: AppColor().backgroundColor,
+                                  fontFamily: "InterRegular",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Text(
+                                customer!.phone!,
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: "InterRegular",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              height: (customer!.email == null ||
+                                      customer!.email == '')
+                                  ? 0
+                                  : 5),
+                          (customer!.email == null || customer!.email == '')
+                              ? Container()
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Email',
+                                      style: TextStyle(
+                                        color: AppColor().backgroundColor,
+                                        fontFamily: "InterRegular",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Text(
+                                      customer!.email!,
+                                      style: TextStyle(
+                                        color: AppColor().blackColor,
+                                        fontFamily: "InterRegular",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                          SizedBox(
+                              height: (transactionModel!
+                                              .businessTransactionFileStoreId ==
+                                          null ||
+                                      transactionModel!
+                                          .businessTransactionFileStoreId!
+                                          .isEmpty)
+                                  ? 0
+                                  : 5),
+                          (customer!.email == null || customer!.email == '')
+                              ? Container()
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Transaction Image',
+                                      style: TextStyle(
+                                        color: AppColor().backgroundColor,
+                                        fontFamily: "InterRegular",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    (transactionModel!
+                                                    .businessTransactionFileStoreId ==
+                                                null ||
+                                            transactionModel!
+                                                .businessTransactionFileStoreId!
+                                                .isEmpty)
+                                        ? Image.asset(
+                                            "assets/images/Rectangle 1015.png",
+                                            height: 50,
+                                          )
+                                        : Image.network(
+                                            transactionModel!
+                                                .businessTransactionFileStoreId!,
+                                            height: 50,
+                                          ),
+                                  ],
+                                )
+                        ],
                       ),
-                      Text(
-                        'Items',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: "InterRegular",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Phone Number',
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontFamily: "InterRegular",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        'Items',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: "InterRegular",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Email',
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontFamily: "InterRegular",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        'Items',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: "InterRegular",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Transaction Image',
-                        style: TextStyle(
-                          color: AppColor().backgroundColor,
-                          fontFamily: "InterRegular",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        'Items',
-                        style: TextStyle(
-                          color: AppColor().blackColor,
-                          fontFamily: "InterRegular",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )
-            // : Container()
-            ,
+                    );
+                  })
+                : Container(),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
@@ -1251,89 +1291,11 @@ class _MoneySummaryState extends State<MoneySummary> {
                     )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     InkWell(
-              //       onTap: () => myState(() => paymentMode = 0),
-              //       child: Row(
-              //         children: [
-              //           Radio<int>(
-              //               value: 0,
-              //               activeColor: AppColor().backgroundColor,
-              //               groupValue: paymentMode,
-              //               onChanged: (value) =>
-              //                   myState(() => paymentMode = 0)),
-              //           Text(
-              //             'Cash',
-              //             style: TextStyle(
-              //               color: AppColor().backgroundColor,
-              //               fontFamily: "InterRegular",
-              //               fontStyle: FontStyle.normal,
-              //               fontSize: 12,
-              //               fontWeight: FontWeight.w400,
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     InkWell(
-              //       onTap: () => myState(() => paymentMode = 1),
-              //       child: Row(
-              //         children: [
-              //           Radio<int>(
-              //               value: 1,
-              //               activeColor: AppColor().backgroundColor,
-              //               groupValue: paymentMode,
-              //               onChanged: (value) =>
-              //                   myState(() => paymentMode = 1)),
-              //           Text(
-              //             'POS',
-              //             style: TextStyle(
-              //               color: AppColor().backgroundColor,
-              //               fontFamily: "InterRegular",
-              //               fontStyle: FontStyle.normal,
-              //               fontSize: 12,
-              //               fontWeight: FontWeight.w400,
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     InkWell(
-              //       onTap: () => myState(() => paymentMode = 2),
-              //       child: Row(
-              //         children: [
-              //           Radio<int>(
-              //               value: 2,
-              //               activeColor: AppColor().backgroundColor,
-              //               groupValue: paymentMode,
-              //               onChanged: (value) =>
-              //                   myState(() => paymentMode = 2)),
-              //           Text(
-              //             'Transfer',
-              //             style: TextStyle(
-              //               color: AppColor().backgroundColor,
-              //               fontFamily: "InterRegular",
-              //               fontStyle: FontStyle.normal,
-              //               fontSize: 12,
-              //               fontWeight: FontWeight.w400,
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     )
-              //   ],
-              // ),
               Obx(() {
                 return InkWell(
                   onTap: () async {
                     if (_transactionController.addingTransactionStatus !=
                         AddingTransactionStatus.Loading) {
-                      // _amountController.text =
-                      //     _transactionController.amountController!.text;
-
                       print('Amount to be updated: ' +
                           _transactionController.amountController!.text
                               .replaceAll('₦', ''));

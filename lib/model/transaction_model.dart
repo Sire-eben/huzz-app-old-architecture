@@ -59,7 +59,7 @@ class TransactionModel {
           : DateTime.parse(json['entryDateTime']),
       transactionType: json['transactionType'],
       paymentSource: json['paymentSource'],
-      businessTransactionFileStoreId: json['businessTransactionFileStoreId'],
+      businessTransactionFileStoreId: json['businessTransactionFileStoreId'] ?? null,
       customerId: json['customerId'] ?? null,
       businessId: json['businessId'] ?? null,
       deleted: json['deleted'] ?? false,

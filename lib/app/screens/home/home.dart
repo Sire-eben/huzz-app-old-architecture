@@ -595,7 +595,7 @@ class _HomeState extends State<Home> {
                                       flex: 3,
                                       child: Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                              CrossAxisAlignment.end,
                                           children: [
                                             Text(
                                               "${Utils.getCurrency()}${display(item.totalAmount)}",
@@ -614,6 +614,9 @@ class _HomeState extends State<Home> {
                                             ),
                                           ]),
                                     ),
+                                    SizedBox(
+                                      width: 10,
+                                    )
                                   ],
                                 ),
                               );
