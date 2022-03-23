@@ -1017,7 +1017,7 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         Text(
-                          '${Utils.getCurrency()}${display(_debtorController.totalDebt)}',
+                          "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
                           style: TextStyle(
                               fontSize: 15,
                               color: Color(0xffF58D40),
