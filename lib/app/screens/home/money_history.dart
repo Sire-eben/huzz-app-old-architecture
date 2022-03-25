@@ -1308,6 +1308,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                   ? _transactionController
                                       .amountController!.text
                                       .replaceAll('₦', '')
+                                      .replaceAll(',', '')
                                   : (transactionModel!.balance ?? 0),
                               (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
 
