@@ -716,7 +716,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             ),
                             Expanded(
                               child: Text(
-                                '${Utils.getCurrency()} ${display(item.amountPaid)}',
+                                '${Utils.getCurrency()}${display(item.amountPaid)}',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
