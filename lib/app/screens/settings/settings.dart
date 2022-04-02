@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/app/screens/settings/businessInfo.dart';
 import 'package:huzz/app/screens/settings/referral_bottomsheet.dart';
 import 'package:huzz/colors.dart';
@@ -21,6 +22,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   final controller = Get.find<AuthRepository>();
+  final _businessController = Get.find<BusinessRespository>();
 
   late String email;
   late String phone;
@@ -310,20 +312,29 @@ class _SettingsState extends State<Settings> {
                         SizedBox(
                           width: 10,
                         ),
-                        InkWell(
-                          onTap: () {
-                            _displayBusinessDialog(
-                              context,
-                              'You are about to delete your Huzz account and all associated data. This is an irreversible action. Are you sure you want to continue?',
-                              () {},
-                            );
-                          },
-                          child: SvgPicture.asset(
-                            "assets/images/delete.svg",
-                            height: 20,
-                            width: 20,
-                          ),
-                        ),
+                        Obx(() {
+                          return InkWell(
+                            onTap: () {
+                              _displayBusinessDialog(
+                                context,
+                                'You are about to delete ${_businessController.selectedBusiness.value!.businessName} business and all associated data. This is an irreversible action. Are you sure you want to continue?',
+                                () {},
+                              );
+                            },
+                            child: controller.authStatus == AuthStatus.Loading
+                                ? Container(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                        color: AppColor().orangeBorderColor),
+                                  )
+                                : SvgPicture.asset(
+                                    "assets/images/delete.svg",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                          );
+                        }),
                       ],
                     ),
                   ),
@@ -713,8 +724,10 @@ class _SettingsState extends State<Settings> {
                 SizedBox(
                   height: 8,
                 ),
-                SvgPicture.asset(
-                  'assets/images/polygon.svg',
+                Expanded(
+                  child: SvgPicture.asset(
+                    'assets/images/polygon.svg',
+                  ),
                 ),
               ],
             ),
@@ -935,8 +948,10 @@ class _SettingsState extends State<Settings> {
                 SizedBox(
                   height: 8,
                 ),
-                SvgPicture.asset(
-                  'assets/images/polygon.svg',
+                Expanded(
+                  child: SvgPicture.asset(
+                    'assets/images/polygon.svg',
+                  ),
                 ),
               ],
             ),
@@ -1042,8 +1057,10 @@ class _SettingsState extends State<Settings> {
             ),
             content: Column(
               children: [
-                SvgPicture.asset(
-                  'assets/images/polygon.svg',
+                Expanded(
+                  child: SvgPicture.asset(
+                    'assets/images/polygon.svg',
+                  ),
                 ),
               ],
             ),
@@ -1088,8 +1105,10 @@ class _SettingsState extends State<Settings> {
                     ),
                     InkWell(
                       onTap: () {
+                        print('deleting business...');
                         controller.deleteBusinessAccounts();
                         onContinue();
+                        Get.back();
                       },
                       child: Container(
                         height: 45,

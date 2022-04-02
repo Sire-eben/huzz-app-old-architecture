@@ -99,7 +99,6 @@ class _HomeState extends State<Home> {
   //Transaction is available
   // ignore: non_constant_identifier_names
   Container TransactionAvailable(BuildContext context) {
-    final _tooltipKey = GlobalKey<State<Tooltip>>();
     return Container(
       padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
       width: MediaQuery.of(context).size.width,
@@ -1243,78 +1242,82 @@ class _HomeState extends State<Home> {
                   height:
                       (_businessController.offlineBusiness.length * 50) + 20,
                   width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      var item = _businessController.offlineBusiness[index];
-                      return GestureDetector(
-                        onTap: () {
-                          _debtorController.dispose();
-                          _transactionController.dispose();
+                  child: Obx(() {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        var item = _businessController.offlineBusiness[index];
+                        return GestureDetector(
+                          onTap: () {
+                            _debtorController.dispose();
+                            _transactionController.dispose();
 
-                          // Get.delete(tag: "Debtors");
-                          // Get.put(DebtorRepository,permanent: true);
+                            // Get.delete(tag: "Debtors");
+                            // Get.put(DebtorRepository,permanent: true);
 
-                          _businessController.selectedBusiness(item.business);
+                            _businessController.selectedBusiness(item.business);
 
-                          Navigator.pop(context);
-                        },
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Container(
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: _randomColor.randomColor()),
-                                    child: Center(
-                                        child: Text(
-                                      (item.business == null ||
-                                              item.business!.businessName!
-                                                  .isEmpty)
-                                          ? ''
-                                          : item.business!.businessName![0],
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontFamily: 'InterRegular',
-                                          fontWeight: FontWeight.bold),
-                                    ))),
-                              ),
-                            )),
-                            Expanded(
-                                flex: 2,
-                                child: Text(
-                                  '${item.business!.businessName!}',
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.black,
-                                      fontFamily: 'InterRegular',
-                                      fontWeight: FontWeight.bold),
-                                )),
-                            Expanded(
+                            Navigator.pop(context);
+                          },
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: Container(
+                                margin: EdgeInsets.only(bottom: 10),
                                 child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Radio<Business>(
-                                  value: item.business!,
-                                  activeColor: AppColor().backgroundColor,
-                                  groupValue: _businessController
-                                      .selectedBusiness.value,
-                                  onChanged: (value) {
-                                    _businessController.selectedBusiness(value);
-                                    _businessController.setLastBusiness(value!);
-                                    Navigator.pop(context);
-                                  }),
-                            )),
-                          ],
-                        ),
-                      );
-                    },
-                    itemCount: _businessController.offlineBusiness.length,
-                  ),
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: _randomColor.randomColor()),
+                                      child: Center(
+                                          child: Text(
+                                        (item.business == null ||
+                                                item.business!.businessName!
+                                                    .isEmpty)
+                                            ? ''
+                                            : item.business!.businessName![0],
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            fontFamily: 'InterRegular',
+                                            fontWeight: FontWeight.bold),
+                                      ))),
+                                ),
+                              )),
+                              Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    '${item.business!.businessName!}',
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.black,
+                                        fontFamily: 'InterRegular',
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                  child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Radio<Business>(
+                                    value: item.business!,
+                                    activeColor: AppColor().backgroundColor,
+                                    groupValue: _businessController
+                                        .selectedBusiness.value,
+                                    onChanged: (value) {
+                                      _businessController
+                                          .selectedBusiness(value);
+                                      _businessController
+                                          .setLastBusiness(value!);
+                                      Navigator.pop(context);
+                                    }),
+                              )),
+                            ],
+                          ),
+                        );
+                      },
+                      itemCount: _businessController.offlineBusiness.length,
+                    );
+                  }),
                 ),
               ),
               // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
