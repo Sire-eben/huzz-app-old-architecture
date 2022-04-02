@@ -817,17 +817,11 @@ class AuthRepository extends GetxController {
       if (response.statusCode == 200) {
         _authStatus(AuthStatus.Authenticated);
 
-        clearDatabase();
-        _businessController.OnlineBusiness();
-        _businessController.GetOfflineBusiness();
-
-        _businessController.selectedBusiness = Rx(Business(businessId: null));
-        _businessController.selectedBusiness();
         // ignore: unnecessary_null_comparison
         if (response != null) {
           Get.snackbar("Success", "Your Business account have been deleted.");
-          Get.offAll(() => Dashboard());
-          // logout();
+
+          logout();
         }
       } else {
         Get.snackbar("Error",
