@@ -17,7 +17,6 @@ import 'package:huzz/app/screens/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/app/screens/pin_successful.dart';
 import 'package:huzz/app/screens/reg_home.dart';
 import 'package:huzz/app/screens/sign_in.dart';
-import 'package:huzz/app/screens/sign_up.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/user.dart';
@@ -799,10 +798,13 @@ class AuthRepository extends GetxController {
   void deleteBusinessAccounts() async {
     _authStatus(AuthStatus.Loading);
     try {
+      final _businessController = Get.find<BusinessRespository>();
+      print(
+          'deleting business ${_businessController.selectedBusiness.value!.businessName}');
       final prefs = await SharedPreferences.getInstance();
       final key = 'token';
       final value = prefs.get(key) ?? 0;
-      String? id;
+      String? id = _businessController.selectedBusiness.value!.businessId;
 
       String myUrl = ApiLink.delete_business + '$id';
       var response = await http.delete(Uri.parse(myUrl), headers: {
@@ -811,13 +813,25 @@ class AuthRepository extends GetxController {
       });
 
       // ignore: unnecessary_null_comparison
+      print('deleting bussiness response: ' + response.body);
       if (response.statusCode == 200) {
+        _authStatus(AuthStatus.Authenticated);
+
+        clearDatabase();
+        _businessController.OnlineBusiness();
+        _businessController.GetOfflineBusiness();
+
+        _businessController.selectedBusiness = Rx(Business(businessId: null));
+        _businessController.selectedBusiness();
         // ignore: unnecessary_null_comparison
         if (response != null) {
           Get.snackbar("Success", "Your Business account have been deleted.");
+          Get.offAll(() => Dashboard());
           // logout();
         }
       } else {
+        Get.snackbar("Error",
+            "Error occurred while deleting your business, try again!.");
         _authStatus(AuthStatus.Empty);
       }
     } catch (error) {
