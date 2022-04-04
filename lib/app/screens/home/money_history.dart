@@ -716,7 +716,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             ),
                             Expanded(
                               child: Text(
-                                '${Utils.getCurrency()} ${display(item.amountPaid)}',
+                                '${Utils.getCurrency()}${display(item.amountPaid)}',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -1308,6 +1308,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                   ? _transactionController
                                       .amountController!.text
                                       .replaceAll('₦', '')
+                                      .replaceAll(',', '')
                                   : (transactionModel!.balance ?? 0),
                               (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
 
