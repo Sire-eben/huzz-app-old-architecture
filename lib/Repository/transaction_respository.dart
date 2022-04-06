@@ -85,7 +85,7 @@ class TransactionRespository extends GetxController {
   TransactionStatus get transactionStatus => _transactionStatus.value;
   Product? selectedProduct;
   int? remain;
-  Customer? selectedCustomer = null;
+  Customer? selectedCustomer;
   DateTime? date;
   TimeOfDay? time;
   File? image;
@@ -1486,7 +1486,7 @@ class TransactionRespository extends GetxController {
     try {
       _addingTransactionStatus(AddingTransactionStatus.Loading);
       String? fileid;
-      String? customerId = null;
+      String? customerId;
 
       if (quantityController.text.isEmpty) {
         quantityController.text = "1";
@@ -1585,7 +1585,7 @@ class TransactionRespository extends GetxController {
 
   Future createTransactionOffline(String type) async {
     String? fileid;
-    String? customerId = null;
+    String? customerId;
     File? outFile;
     if (image != null) {
       var list = await getApplicationDocumentsDirectory();
@@ -1595,7 +1595,7 @@ class TransactionRespository extends GetxController {
 
       String basename = path.basename(image!.path);
       var newPath = appDocPath + basename;
-      print("new file path is ${newPath}");
+      print("new file path is $newPath");
       outFile = File(newPath);
       image!.copySync(outFile.path);
     }
@@ -2170,6 +2170,7 @@ class TransactionRespository extends GetxController {
 
   Future deleteTransactionOnline(TransactionModel transactionModel) async {
     try {
+      _transactionStatus(TransactionStatus.Loading);
       print("deleting from online");
       var response = await http.delete(
           Uri.parse(
@@ -2181,6 +2182,7 @@ class TransactionRespository extends GetxController {
       print("transaction deletion detail response ${response.body}}");
 
       if (response.statusCode == 200) {
+        _transactionStatus(TransactionStatus.Available);
         await _businessController.sqliteDb
             .deleteOfflineTransaction(transactionModel);
         var debtor =
@@ -2192,6 +2194,7 @@ class TransactionRespository extends GetxController {
             _businessController.selectedBusiness.value!.businessId!);
         Get.back();
       } else if (response.statusCode == 404) {
+        _transactionStatus(TransactionStatus.Error);
         await _businessController.sqliteDb
             .deleteOfflineTransaction(transactionModel);
 
@@ -2207,8 +2210,10 @@ class TransactionRespository extends GetxController {
   }
 
   Future deleteTransactionOffline(TransactionModel transactionModel) async {
+    _transactionStatus(TransactionStatus.Loading);
     transactionModel.deleted = true;
     if (transactionModel.isPending) {
+      _transactionStatus(TransactionStatus.Available);
       _businessController.sqliteDb.deleteOfflineTransaction(transactionModel);
       await GetOfflineTransactions(
           _businessController.selectedBusiness.value!.businessId!);
@@ -2223,6 +2228,7 @@ class TransactionRespository extends GetxController {
       _debtorController.getOfflineDebtor(
           _businessController.selectedBusiness.value!.businessId!);
     }
+    _transactionStatus(TransactionStatus.Error);
     Get.back();
   }
 

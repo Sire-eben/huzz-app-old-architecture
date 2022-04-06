@@ -728,6 +728,8 @@ class _MoneySummaryState extends State<MoneySummary> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () async {
+                                  print(
+                                      "Payment Mode: ${transactionModel!.paymentMethod}");
                                   Get.to(() => IncomeReceipt(
                                       transaction: transactionModel!));
                                 },

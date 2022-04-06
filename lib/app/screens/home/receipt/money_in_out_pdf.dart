@@ -231,47 +231,52 @@ class PdfMoneyInOutApi {
           ],
         ),
         pw.SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'PARTLY PAID',
-              style: TextStyle(
-                color: PdfColors.black,
-                fontSize: 14,
-              ),
-            ),
-            Text(
-              Utils.formatPrice(paid * 1.0),
-              style: TextStyle(
-                color: PdfColors.black,
-                fontSize: 14,
-              ),
-            )
-          ],
-        ),
-        pw.SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Outstanding',
-              style: TextStyle(
-                color: themeColor,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              Utils.formatPrice(outstanding * 1.0),
-              style: TextStyle(
-                color: PdfColors.orange,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            )
-          ],
-        )
+        transactionModel.paymentMethod == 'DEPOSIT'
+            ? Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'PARTLY PAID',
+                    style: TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Text(
+                    Utils.formatPrice(paid * 1.0),
+                    style: TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 14,
+                    ),
+                  )
+                ],
+              )
+            : Container(),
+        pw.SizedBox(
+            height: transactionModel.paymentMethod == 'DEPOSIT' ? 10 : 0),
+        transactionModel.paymentMethod == 'DEPOSIT'
+            ? Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Outstanding',
+                    style: TextStyle(
+                      color: themeColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    Utils.formatPrice(outstanding * 1.0),
+                    style: TextStyle(
+                      color: PdfColors.orange,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ],
+              )
+            : Container()
       ]),
     );
   }
