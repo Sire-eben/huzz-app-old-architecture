@@ -36,12 +36,10 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
       uriPrefix: 'https://huzz.page.link',
       link: Uri.parse(url),
       androidParameters: AndroidParameters(
-        fallbackUrl: Uri.parse(url),
         packageName: appId,
         minimumVersion: 1,
       ),
       iosParameters: IOSParameters(
-        fallbackUrl: Uri.parse(url),
         bundleId: appId,
         appStoreId: "1596574133",
         minimumVersion: '1',
