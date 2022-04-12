@@ -2,8 +2,8 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/customer_repository.dart';
 import 'package:huzz/colors.dart';
-
 import '../widget/custom_form_field.dart';
 
 class AddMember extends StatefulWidget {
@@ -14,6 +14,7 @@ class AddMember extends StatefulWidget {
 }
 
 class _AddMemberState extends State<AddMember> {
+  final _customerController = Get.find<CustomerRepository>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController updatePhoneNumberController =
       TextEditingController();
@@ -58,6 +59,7 @@ class _AddMemberState extends State<AddMember> {
           ],
         ),
       ),
+      backgroundColor: AppColor().whiteColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -88,7 +90,11 @@ class _AddMemberState extends State<AddMember> {
                         children: [
                           Text(
                             'Phone Number',
-                            style: TextStyle(color: Colors.black, fontSize: 12),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'InterRegular',
+                            ),
                           ),
                         ],
                       ),
@@ -183,7 +189,11 @@ class _AddMemberState extends State<AddMember> {
               children: [
                 Text(
                   'Privilege',
-                  style: TextStyle(color: Colors.black, fontSize: 12),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontFamily: 'InterRegular',
+                  ),
                 ),
               ],
             ),
@@ -232,7 +242,7 @@ class _AddMemberState extends State<AddMember> {
             ),
             InkWell(
               onTap: () {
-                Get.to(AddMember());
+                _customerController.showContactPickerForTeams(context);
               },
               child: Container(
                 height: 55,
