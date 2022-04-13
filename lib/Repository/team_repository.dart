@@ -16,6 +16,8 @@ enum TeamStatus { Loading, Available, Error, Empty }
 class TeamRepository extends GetxController {
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final amountController = TextEditingController();
+  final totalAmountController = TextEditingController();
   final emailController = TextEditingController();
   final _userController = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
