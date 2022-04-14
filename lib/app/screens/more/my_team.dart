@@ -42,7 +42,7 @@ class _MyTeamState extends State<MyTeam> {
               'My Team',
               style: TextStyle(
                 color: AppColor().backgroundColor,
-                fontFamily: 'DMSans',
+                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -73,186 +73,53 @@ class _MyTeamState extends State<MyTeam> {
         ),
         child: Column(
           children: [
-            Container(
-              padding:
-                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.withOpacity(0.1),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColor().backgroundColor),
-                        child: Center(
-                          child: Text(
-                            'OA',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Olatunde Joshua',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          'Owner',
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                            isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20))),
-                            context: context,
-                            builder: (context) => buildEditTeam());
-                      },
-                      child: SvgPicture.asset('assets/images/edit.svg')),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        // _displayDialog(
-                        //     context, item);
-                      },
-                      child: SvgPicture.asset('assets/images/delete.svg')),
-                ],
+            TeamsWidget(
+              name: 'Olatunde Joshua',
+              position: 'Owner',
+              status: Container(),
+            ),
+            SizedBox(height: 10),
+            TeamsWidget(
+              name: 'Hassan Tunmise',
+              position: 'Admin',
+              status: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(80),
+                    border: Border.all(
+                        width: 1, color: AppColor().orangeBorderColor),
+                    color: AppColor().orangeBorderColor.withOpacity(0.2)),
+                child: Text(
+                  'Pending',
+                  style: TextStyle(
+                      fontSize: 6,
+                      color: AppColor().orangeBorderColor,
+                      fontFamily: 'InterRegular',
+                      fontWeight: FontWeight.w400),
+                ),
               ),
             ),
             SizedBox(height: 10),
-            Container(
-              padding:
-                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.withOpacity(0.1),
+            TeamsWidget(
+              name: 'Akinlose Damilare',
+              position: 'Writer',
+              status: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(80),
+                    border:
+                        Border.all(width: 1, color: AppColor().backgroundColor),
+                    color: AppColor().backgroundColor.withOpacity(0.2)),
+                child: Text(
+                  'Invited',
+                  style: TextStyle(
+                      fontSize: 6,
+                      color: AppColor().backgroundColor,
+                      fontFamily: 'InterRegular',
+                      fontWeight: FontWeight.w400),
+                ),
               ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColor().backgroundColor),
-                        child: Center(
-                          child: Text(
-                            'HA',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontFamily: 'DMSans',
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hassan Tunmise',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: AppColor().blackColor,
-                              fontFamily: 'DMSans',
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Text(
-                              'Owner',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: AppColor().blackColor,
-                                  fontFamily: 'DMSans',
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(width: 40),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(80),
-                                  border: Border.all(
-                                      width: 1,
-                                      color: AppColor().orangeBorderColor),
-                                  color: AppColor()
-                                      .orangeBorderColor
-                                      .withOpacity(0.2)),
-                              child: Text(
-                                'Pending',
-                                style: TextStyle(
-                                    fontSize: 6,
-                                    color: AppColor().orangeBorderColor,
-                                    fontFamily: 'DMSans',
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        // _customerController
-                        //     .setItem(item);
-                        // Get.to(AddCustomer(
-                        //   item: item,
-                        // ));
-                      },
-                      child: SvgPicture.asset('assets/images/edit.svg')),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        // _displayDialog(
-                        //     context, item);
-                      },
-                      child: SvgPicture.asset('assets/images/delete.svg')),
-                ],
-              ),
-            )
+            ),
           ],
         ),
       ),
@@ -452,7 +319,7 @@ class NoTeamWidget extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 13,
                     color: Colors.black,
-                    fontFamily: 'DMSans',
+                    fontFamily: 'InterRegular',
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -461,14 +328,16 @@ class NoTeamWidget extends StatelessWidget {
               Text(
                 'Invite team members to help',
                 style: TextStyle(
-                    fontSize: 10, color: Colors.black, fontFamily: 'DMSans'),
+                    fontSize: 10,
+                    color: Colors.black,
+                    fontFamily: 'InterRegular'),
               ),
               Text(
                 'you manage your business',
                 style: TextStyle(
                   fontSize: 10,
                   color: Colors.black,
-                  fontFamily: 'DMSans',
+                  fontFamily: 'InterRegular',
                 ),
               ),
               SizedBox(
@@ -490,7 +359,7 @@ class NoTeamWidget extends StatelessWidget {
                       'Add Members',
                       style: TextStyle(
                         fontSize: 13,
-                        fontFamily: 'DMSans',
+                        fontFamily: 'InterRegular',
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -501,6 +370,97 @@ class NoTeamWidget extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TeamsWidget extends StatelessWidget {
+  String? name, position;
+  Widget? status;
+  TeamsWidget({Key? key, this.name, this.position, this.status})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey.withOpacity(0.1),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: AppColor().backgroundColor),
+                child: Center(
+                  child: Text(
+                    name!.substring(0, 2).toUpperCase(),
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontFamily: 'InterRegular',
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name!,
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: AppColor().blackColor,
+                      fontFamily: 'InterRegular',
+                      fontWeight: FontWeight.w500),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text(
+                      position!,
+                      style: TextStyle(
+                          fontSize: 10,
+                          color: AppColor().blackColor,
+                          fontFamily: 'InterRegular',
+                          fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(width: 40),
+                    status!
+                  ],
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+              onTap: () {
+                // _customerController
+                //     .setItem(item);
+                // Get.to(AddCustomer(
+                //   item: item,
+                // ));
+              },
+              child: SvgPicture.asset('assets/images/edit.svg')),
+          SizedBox(
+            width: 10,
+          ),
+          GestureDetector(
+              onTap: () {
+                // _displayDialog(
+                //     context, item);
+              },
+              child: SvgPicture.asset('assets/images/delete.svg')),
+        ],
       ),
     );
   }

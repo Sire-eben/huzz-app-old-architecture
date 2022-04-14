@@ -74,6 +74,7 @@ dependencies:
   flutter_local_notifications: ^9.1.5
   currency_picker: ^2.0.8
   firebase_dynamic_links: ^4.1.1
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:

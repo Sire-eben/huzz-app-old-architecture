@@ -66,14 +66,14 @@ class Team {
 }
 
 List<Team> teamList = [
-  // Team(
-  //     name: 'Akinlose Damilare',
-  //     phone: '09038726495',
-  //     image: 'assets/images/cus1.png'),
-  // Team(
-  //     name: 'Olaitan Adetayo',
-  //     phone: '09038726495',
-  //     image: 'assets/images/cus2.png'),
+  Team(
+      name: 'Akinlose Damilare',
+      phone: '09038726495',
+      image: 'assets/images/cus1.png'),
+  Team(
+      name: 'Olaitan Adetayo',
+      phone: '09038726495',
+      image: 'assets/images/cus2.png'),
   // Team(
   //     name: 'Olatunde Joshua',
   //     phone: '09038726495',
