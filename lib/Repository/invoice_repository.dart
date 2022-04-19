@@ -86,7 +86,7 @@ class InvoiceRespository extends GetxController {
   Product? selectedProduct;
   Bank? selectedBank;
   int? remain;
-  Customer? selectedCustomer = null;
+  Customer? selectedCustomer;
   DateTime? date;
   TimeOfDay? time;
   File? image;
@@ -195,7 +195,7 @@ class InvoiceRespository extends GetxController {
     try {
       _invoiceStatus(InvoiceStatus.Loading);
       var response = await http.get(
-          Uri.parse(ApiLink.invoice_link + "?businessId=" + businessId),
+          Uri.parse(ApiLink.invoiceLink + "?businessId=" + businessId),
           headers: {"Authorization": "Bearer ${_userController.token}"});
       var json = jsonDecode(response.body);
       print("get online Invoice $json");
@@ -358,7 +358,7 @@ class InvoiceRespository extends GetxController {
     final date = "" + now.year.toString() + "-" + month + "-" + day;
     print("today date is $date");
     final response = await http.get(
-        Uri.parse(ApiLink.dashboard_overview +
+        Uri.parse(ApiLink.dashboardOverview +
             "?businessId=" +
             id +
             "&from=$date 00:00&to=$date 23:59"),
@@ -472,7 +472,7 @@ class InvoiceRespository extends GetxController {
     try {
       _addingInvoiceStatus(AddingInvoiceStatus.Loading);
       String? fileid;
-      String? customerId = null;
+      String? customerId;
 
       if (quantityController.text.isEmpty) {
         quantityController.text = "1";
@@ -526,7 +526,7 @@ class InvoiceRespository extends GetxController {
         "dueDateTime": date!.toIso8601String().split("T")[0] + " 00:00"
       });
       print("Invoice body $body");
-      final response = await http.post(Uri.parse(ApiLink.invoice_link),
+      final response = await http.post(Uri.parse(ApiLink.invoiceLink),
           headers: {
             "Authorization": "Bearer ${_userController.token}",
             "Content-Type": "application/json"
@@ -562,7 +562,7 @@ class InvoiceRespository extends GetxController {
 
   Future createInvoiceOffline() async {
     String? fileid;
-    String? customerId = null;
+    String? customerId;
 
     if (quantityController.text.isEmpty) {
       quantityController.text = "1";
@@ -716,7 +716,7 @@ class InvoiceRespository extends GetxController {
             savenext.dueDateTime!.toIso8601String().split("T")[0] + " 00:00"
       });
       print("Invoice body $body");
-      final response = await http.post(Uri.parse(ApiLink.invoice_link),
+      final response = await http.post(Uri.parse(ApiLink.invoiceLink),
           headers: {
             "Authorization": "Bearer ${_userController.token}",
             "Content-Type": "application/json"
@@ -779,7 +779,7 @@ class InvoiceRespository extends GetxController {
 
   Future deleteInvoiceOnline(Invoice invoice) async {
     var response = await http.delete(
-        Uri.parse(ApiLink.invoice_link +
+        Uri.parse(ApiLink.invoiceLink +
             "/${invoice.id}?businessId=${invoice.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     print("delete response ${response.body}");
@@ -962,7 +962,7 @@ class InvoiceRespository extends GetxController {
           .forEach((element) async {
         if (element.isPendingUpdating!) {
           var response = await http
-              .put(Uri.parse(ApiLink.invoice_link + "/" + updatedNext.id!),
+              .put(Uri.parse(ApiLink.invoiceLink + "/" + updatedNext.id!),
                   body: jsonEncode({
                     "businessInvoiceRequest": {
                       "businessId": updatedNext.businessId
@@ -996,7 +996,7 @@ class InvoiceRespository extends GetxController {
       updatedNext.businessTransaction!.businessTransactionPaymentHistoryList!
           .forEach((element) async {
         var response = await http.put(
-            Uri.parse(ApiLink.invoice_link + "/" + updatedNext.id!),
+            Uri.parse(ApiLink.invoiceLink + "/" + updatedNext.id!),
             body: jsonEncode({
               "businessInvoiceRequest": {"businessId": updatedNext.businessId},
               "paymentHistoryRequest": {
@@ -1024,7 +1024,7 @@ class InvoiceRespository extends GetxController {
       print("business id is $businessId");
       _addingInvoiceStatus(AddingInvoiceStatus.Loading);
       var response =
-          await http.put(Uri.parse(ApiLink.invoice_link + "/" + invoiceId),
+          await http.put(Uri.parse(ApiLink.invoiceLink + "/" + invoiceId),
               body: jsonEncode({
                 "businessTransactionRequest": {
                   "businessId":

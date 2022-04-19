@@ -284,8 +284,7 @@ class TransactionRespository extends GetxController {
     _transactionStatus(TransactionStatus.Loading);
     OnlineTransaction = [];
     var response = await http.get(
-        Uri.parse(
-            ApiLink.get_business_transaction + "?businessId=" + businessId),
+        Uri.parse(ApiLink.getBusinessTransaction + "?businessId=" + businessId),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     var json = jsonDecode(response.body);
     print("get online transaction $json");
@@ -1372,7 +1371,7 @@ class TransactionRespository extends GetxController {
     final date = "" + now.year.toString() + "-" + month + "-" + day;
     print("today date is $date");
     final response = await http.get(
-        Uri.parse(ApiLink.dashboard_overview +
+        Uri.parse(ApiLink.dashboardOverview +
             "?businessId=" +
             id +
             "&from=$date 00:00&to=$date 23:59"),
@@ -1533,7 +1532,7 @@ class TransactionRespository extends GetxController {
       });
       print("transaction body $body");
       final response =
-          await http.post(Uri.parse(ApiLink.get_business_transaction),
+          await http.post(Uri.parse(ApiLink.getBusinessTransaction),
               headers: {
                 "Authorization": "Bearer ${_userController.token}",
                 "Content-Type": "application/json"
@@ -1767,7 +1766,7 @@ class TransactionRespository extends GetxController {
       print(" transaction body $body");
 
       final response =
-          await http.post(Uri.parse(ApiLink.get_business_transaction),
+          await http.post(Uri.parse(ApiLink.getBusinessTransaction),
               headers: {
                 "Authorization": "Bearer ${_userController.token}",
                 "Content-Type": "application/json"
@@ -1981,7 +1980,7 @@ class TransactionRespository extends GetxController {
       print("business id is $businessId");
       _addingTransactionStatus(AddingTransactionStatus.Loading);
       var response = await http.put(
-          Uri.parse(ApiLink.get_business_transaction + "/" + transactionId),
+          Uri.parse(ApiLink.getBusinessTransaction + "/" + transactionId),
           body: jsonEncode({
             "businessTransactionRequest": {
               "businessId":
@@ -2105,8 +2104,7 @@ class TransactionRespository extends GetxController {
           .forEach((element) async {
         if (element.isPendingUpdating!) {
           var response = await http.put(
-              Uri.parse(
-                  ApiLink.get_business_transaction + "/" + updatedNext.id!),
+              Uri.parse(ApiLink.getBusinessTransaction + "/" + updatedNext.id!),
               body: jsonEncode({
                 "businessTransactionRequest": {
                   "businessId": updatedNext.businessId
@@ -2140,7 +2138,7 @@ class TransactionRespository extends GetxController {
       updatedNext.businessTransactionPaymentHistoryList!
           .forEach((element) async {
         var response = await http.put(
-            Uri.parse(ApiLink.get_business_transaction + "/" + updatedNext.id!),
+            Uri.parse(ApiLink.getBusinessTransaction + "/" + updatedNext.id!),
             body: jsonEncode({
               "businessTransactionRequest": {
                 "businessId": updatedNext.businessId
@@ -2174,7 +2172,7 @@ class TransactionRespository extends GetxController {
       print("deleting from online");
       var response = await http.delete(
           Uri.parse(
-              ApiLink.get_business_transaction + "/" + transactionModel.id!),
+              ApiLink.getBusinessTransaction + "/" + transactionModel.id!),
           headers: {
             "Authorization": "Bearer ${_userController.token}",
             "Content-Type": "application/json"
@@ -2261,7 +2259,7 @@ class TransactionRespository extends GetxController {
 
       var deleteNext = pendingJobToBeDelete[0];
       var response = await http.delete(
-          Uri.parse(ApiLink.get_business_transaction + "/" + deleteNext.id!),
+          Uri.parse(ApiLink.getBusinessTransaction + "/" + deleteNext.id!),
           headers: {
             "Authorization": "Bearer ${_userController.token}",
             "Content-Type": "application/json"

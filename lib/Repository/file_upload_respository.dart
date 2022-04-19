@@ -8,7 +8,7 @@ import 'package:http_parser/http_parser.dart';
 class FileUploadRespository extends GetxController {
   final _userController = Get.find<AuthRepository>();
   Future<String> uploadFile(String path) async {
-    var request = http.MultipartRequest("POST", Uri.parse(ApiLink.upload_file));
+    var request = http.MultipartRequest("POST", Uri.parse(ApiLink.uploadFile));
     request.headers
         .addAll({"Authorization": "Bearer ${_userController.token}"});
 

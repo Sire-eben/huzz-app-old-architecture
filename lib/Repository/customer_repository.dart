@@ -366,8 +366,7 @@ class CustomerRepository extends GetxController {
       _customerStatus(CustomerStatus.Loading);
       print("trying to get Customer online");
       final response = await http.get(
-          Uri.parse(
-              ApiLink.get_business_customer + "?businessId=" + businessId),
+          Uri.parse(ApiLink.getBusinessCustomer + "?businessId=" + businessId),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
       print("result of get Customer online ${response.body}");

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
@@ -162,7 +161,7 @@ class DebtorRepository extends GetxController
         if (selectedCustomer != null) customerId = selectedCustomer!.customerId;
       }
 
-      var response = await http.post(Uri.parse(ApiLink.add_debtor),
+      var response = await http.post(Uri.parse(ApiLink.addDebtor),
           body: jsonEncode({
             "balance": totalAmountController.numberValue - 0,
             "totalAmount": totalAmountController.numberValue,
@@ -338,10 +337,10 @@ class DebtorRepository extends GetxController
   Future updateBusinessDebtorOnline(Debtor debtor, dynamic amount) async {
     try {
       _addingDebtorStatus(AddingDebtorStatus.Loading);
-      String? fileId = null;
+      String? fileId;
 
       var response =
-          await http.put(Uri.parse(ApiLink.add_debtor + "/" + debtor.debtorId!),
+          await http.put(Uri.parse(ApiLink.addDebtor + "/" + debtor.debtorId!),
               body: jsonEncode({
                 "balance": debtor.balance! - amount,
                 "paid": debtor.balance! - amount == 0,
@@ -439,7 +438,7 @@ class DebtorRepository extends GetxController
   Future getOnlineDebtor(String businessId) async {
     print("trying to get Debtor online");
     final response = await http.get(
-        Uri.parse(ApiLink.add_debtor + "?businessId=" + businessId),
+        Uri.parse(ApiLink.addDebtor + "?businessId=" + businessId),
         headers: {"Authorization": "Bearer ${_userController.token}"});
 
     print("result of get Debtor online ${response.body}");
@@ -556,7 +555,7 @@ class DebtorRepository extends GetxController
 
   Future deleteDebtorOnline(Debtor debtor) async {
     await http.delete(
-        Uri.parse(ApiLink.add_debtor +
+        Uri.parse(ApiLink.addDebtor +
             "/${debtor.debtorId}?businessId=${debtor.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
   }
@@ -684,7 +683,7 @@ class DebtorRepository extends GetxController
       //   _file.deleteSync();
       // }
 
-      var response = await http.post(Uri.parse(ApiLink.add_debtor),
+      var response = await http.post(Uri.parse(ApiLink.addDebtor),
           body: jsonEncode(savenext.toJson()),
           headers: {
             "Content-Type": "application/json",
@@ -719,7 +718,7 @@ class DebtorRepository extends GetxController
       var updatenext = element;
 
       var response = await http.put(
-          Uri.parse(ApiLink.add_debtor + "/" + updatenext.debtorId!),
+          Uri.parse(ApiLink.addDebtor + "/" + updatenext.debtorId!),
           body: jsonEncode(updatenext.toJson()),
           headers: {
             "Content-Type": "application/json",
@@ -744,7 +743,7 @@ class DebtorRepository extends GetxController
     pendingDeletedDebtorToServer.forEach((element) async {
       var deletenext = element;
       var response = await http.delete(
-          Uri.parse(ApiLink.add_debtor +
+          Uri.parse(ApiLink.addDebtor +
               "/${deletenext.debtorId}?businessId=${deletenext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
       print("delete response ${response.body}");

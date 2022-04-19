@@ -1,11 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
+import 'package:huzz/api_link.dart';
 import 'package:huzz/model/team.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:uuid/uuid.dart';
@@ -42,7 +42,6 @@ class TeamRepository extends GetxController {
 
   List<Contact> contactList = [];
 
-  Rx<File?> CustomerImage = Rx(null);
   final _uploadFileController = Get.find<FileUploadRespository>();
   SqliteDb sqliteDb = SqliteDb();
   List<Team> pendingTeamMemberToBeAdded = [];
@@ -85,5 +84,13 @@ class TeamRepository extends GetxController {
     });
 
     // getPhoneContact();
+    Future addTeamOnline(String businessId) async {
+      try {
+        _addingTeamMemberStatus(AddingTeamStatus.Loading);
+        var response = await http.post(Uri.parse(ApiLink.addCustomer));
+      } catch (error) {
+        print('add team feature error ${error.toString()}');
+      }
+    }
   }
 }

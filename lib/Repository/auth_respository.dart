@@ -183,7 +183,7 @@ class AuthRepository extends GetxController {
     print("phone number ${user!.phoneNumber}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
-      final response = await http.post(Uri.parse(ApiLink.send_smsOtp),
+      final response = await http.post(Uri.parse(ApiLink.sendSmsOtp),
           body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
           headers: {"Content-Type": "application/json"});
       print("response is ${response.body}");
@@ -237,7 +237,7 @@ class AuthRepository extends GetxController {
     print("phone number ${countryText}${phoneNumberController.text}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
-      final response = await http.post(Uri.parse(ApiLink.send_smsOtp),
+      final response = await http.post(Uri.parse(ApiLink.sendSmsOtp),
           body: jsonEncode({
             "phoneNumber": countryText + forgotPhoneNumberController.text.trim()
           }),
@@ -291,7 +291,7 @@ class AuthRepository extends GetxController {
 
   Future sendVoiceOtp() async {
     // _Otpauthstatus(OtpAuthStatus.Loading);
-    final response = await http.post(Uri.parse(ApiLink.send_voiceOtp),
+    final response = await http.post(Uri.parse(ApiLink.sendVoiceOtp),
         body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
         headers: {"Content-Type": "application/json"});
     print("otp sent voice ${response.body}");
@@ -336,7 +336,7 @@ class AuthRepository extends GetxController {
     print("otp value ${otpController.text}");
     try {
       _Otpverifystatus(OtpVerifyStatus.Loading);
-      final resposne = await http.post(Uri.parse(ApiLink.verify_otp),
+      final resposne = await http.post(Uri.parse(ApiLink.verifyOtp),
           body: jsonEncode({
             "phoneNumber": "${user!.phoneNumber}",
             "otp": otpController.text
@@ -415,7 +415,7 @@ class AuthRepository extends GetxController {
       _Otpforgotverifystatus(OtpForgotVerifyStatus.Loading);
       print("otp value ${otpController.text}");
 
-      final response = await http.put(Uri.parse(ApiLink.forget_pin),
+      final response = await http.put(Uri.parse(ApiLink.forgetPin),
           body: jsonEncode({
             "phoneNumber":
                 countryText + forgotPhoneNumberController.text.trim(),
@@ -463,7 +463,7 @@ class AuthRepository extends GetxController {
         imageId = await uploadController.uploadFile(profileImage.value!.path);
       }
       print("image url is $imageId");
-      final resposne = await http.put(Uri.parse(ApiLink.update_profile),
+      final resposne = await http.put(Uri.parse(ApiLink.updateProfile),
           body: jsonEncode({
             // "profileImageFileStoreId": imageId,
             "profileImageUrl": imageId
@@ -523,7 +523,7 @@ class AuthRepository extends GetxController {
       if (profileImage.value != null) {
         imageId = await uploadController.uploadFile(profileImage.value!.path);
       }
-      final resposne = await http.put(Uri.parse(ApiLink.update_profile),
+      final resposne = await http.put(Uri.parse(ApiLink.updateProfile),
           body: jsonEncode({
             "firstName": firstNameController.text,
             "lastName": lastNameController.text,
@@ -620,7 +620,7 @@ class AuthRepository extends GetxController {
           () => referralCodeController.text.trim(),
         );
       }
-      final response = await http.post(Uri.parse(ApiLink.signup_user),
+      final response = await http.post(Uri.parse(ApiLink.signupUser),
           body: jsonEncode(signupDto),
           headers: {"Content-Type": "application/json"});
       print("sign up response ${response.body} ${response.statusCode}");
@@ -662,7 +662,7 @@ class AuthRepository extends GetxController {
     print("pin is ${pinController.text}");
     try {
       _signinStatus(SigninStatus.Loading);
-      final response = await http.post(Uri.parse(ApiLink.signin_user),
+      final response = await http.post(Uri.parse(ApiLink.signinUser),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text.trim(),
             "pin": pinController.text,
@@ -748,7 +748,7 @@ class AuthRepository extends GetxController {
 
   Future<UserReferralModel> getUserReferralData() async {
     try {
-      final response = await http.get(Uri.parse(ApiLink.user_referral),
+      final response = await http.get(Uri.parse(ApiLink.userReferral),
           headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer $token'
@@ -773,7 +773,7 @@ class AuthRepository extends GetxController {
       // final key = 'token';
       // final value = prefs.get(key) ?? 0;
 
-      String myUrl = ApiLink.delete_user;
+      String myUrl = ApiLink.deleteUser;
       var response = await http.delete(Uri.parse(myUrl), headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token'
@@ -806,7 +806,7 @@ class AuthRepository extends GetxController {
       final value = prefs.get(key) ?? 0;
       String? id = _businessController.selectedBusiness.value!.businessId;
 
-      String myUrl = ApiLink.delete_business + '$id';
+      String myUrl = ApiLink.deleteBusiness + '$id';
       var response = await http.delete(Uri.parse(myUrl), headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $value'
@@ -866,7 +866,7 @@ class AuthRepository extends GetxController {
   }
 
   void checkIfTokenStillValid() async {
-    var response = await http.get(Uri.parse(ApiLink.get_user_business),
+    var response = await http.get(Uri.parse(ApiLink.getUserBusiness),
         headers: {"Authorization": "Bearer ${token}"});
 
     print("online busines result ${response.body}");

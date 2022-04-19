@@ -141,7 +141,7 @@ class ProductRepository extends GetxController
         fileId = await _uploadFileController.uploadFile(productImage!.path);
       }
       print("image link is $fileId");
-      var response = await http.post(Uri.parse(ApiLink.add_product),
+      var response = await http.post(Uri.parse(ApiLink.addProduct),
           body: jsonEncode({
             "name": productNameController.text,
             "costPrice": productCostPriceController.numberValue,
@@ -293,7 +293,7 @@ class ProductRepository extends GetxController
         fileId = await _uploadFileController.uploadFile(productImage!.path);
       }
       var response = await http
-          .put(Uri.parse(ApiLink.add_product + "/" + product.productId!),
+          .put(Uri.parse(ApiLink.addProduct + "/" + product.productId!),
               body: jsonEncode({
                 if (!selectedProduct!.productName!
                     .contains(productNameController.text))
@@ -367,7 +367,7 @@ class ProductRepository extends GetxController
       _productStatus(ProductStatus.Loading);
       print("trying to get product online");
       final response = await http.get(
-          Uri.parse(ApiLink.get_business_product + "?businessId=" + businessId),
+          Uri.parse(ApiLink.getBusinessProduct + "?businessId=" + businessId),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
       print("result of get product online ${response.body}");
@@ -499,7 +499,7 @@ class ProductRepository extends GetxController
   Future deleteProductOnline(Product product) async {
     print("trying to delete online");
     var response = await http.delete(
-        Uri.parse(ApiLink.add_product +
+        Uri.parse(ApiLink.addProduct +
             "/${product.productId}?businessId=${product.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     print("delete response ${response.body}");
@@ -627,7 +627,7 @@ class ProductRepository extends GetxController
           _file.deleteSync();
         }
       }
-      var response = await http.post(Uri.parse(ApiLink.add_product),
+      var response = await http.post(Uri.parse(ApiLink.addProduct),
           body: jsonEncode(savenext.toJson()),
           headers: {
             "Content-Type": "application/json",
@@ -665,7 +665,7 @@ class ProductRepository extends GetxController
           !updatenext.productLogoFileStoreId!.contains("https://")) {}
 
       var response = await http
-          .put(Uri.parse(ApiLink.add_product + "/" + updatenext.productId!),
+          .put(Uri.parse(ApiLink.addProduct + "/" + updatenext.productId!),
               body: jsonEncode({
                 if (!updatenext.productNameChanged!)
                   "name": productNameController.text,
@@ -701,7 +701,7 @@ class ProductRepository extends GetxController
     pendingDeletedProductToServer.forEach((element) async {
       var deletenext = element;
       var response = await http.delete(
-          Uri.parse(ApiLink.add_product +
+          Uri.parse(ApiLink.addProduct +
               "/${deletenext.productId}?businessId=${deletenext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
       print("delete response ${response.body}");
