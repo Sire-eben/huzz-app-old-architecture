@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,10 @@ import 'app/screens/splashscreen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(HuzzApp());
+  runApp(DevicePreview(
+      enabled: true,
+      tools: [...DevicePreview.defaultTools],
+      builder: (context) => HuzzApp()));
 }
 
 class HuzzApp extends StatefulWidget {
@@ -25,6 +29,8 @@ class _HuzzAppState extends State<HuzzApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialBinding: AppBinding(),
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
       theme: ThemeData(
           fontFamily: 'InterRegular',
           primaryColor: AppColor().backgroundColor,

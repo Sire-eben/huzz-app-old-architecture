@@ -213,7 +213,7 @@ class _ProductListingState extends State<ProductListing> {
                     ),
                     Container(
                       height: 55,
-                      width: MediaQuery.of(context).size.width * 0.7,
+                      width: MediaQuery.of(context).size.width * 0.6,
                       child: TextFormField(
                         controller: textEditingController,
                         onChanged: searchItem,
@@ -365,13 +365,12 @@ class _ProductListingState extends State<ProductListing> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Text(
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
                     "Product Count",
                     style: TextStyle(
                       color: Colors.white,
@@ -379,9 +378,7 @@ class _ProductListingState extends State<ProductListing> {
                       fontSize: 12,
                     ),
                   ),
-                ),
-                Center(
-                  child: Text(
+                  Text(
                     "${_productController.productGoods.length}",
                     style: TextStyle(
                       color: Colors.white,
@@ -390,40 +387,39 @@ class _ProductListingState extends State<ProductListing> {
                       fontSize: 20,
                     ),
                   ),
-                ),
-              ],
-            ),
-            Container(
-              height: 95,
-              padding: EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                color: AppColor().secondbgColor,
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [
-                    0.1,
-                    0.6,
-                    0.8,
-                  ],
-                  colors: [
-                    Color(0xff0D8372),
-                    Color(0xff07A58E),
-                    AppColor().backgroundColor.withOpacity(0.5),
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
-                ),
+                ],
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 37),
+            ),
+            Expanded(
+              child: Container(
+                height: 95,
+                padding: EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                  color: AppColor().secondbgColor,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [
+                      0.1,
+                      0.6,
+                      0.8,
+                    ],
+                    colors: [
+                      Color(0xff0D8372),
+                      Color(0xff07A58E),
+                      AppColor().backgroundColor.withOpacity(0.5),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
                       child: Text(
                         "Total product value",
                         style: TextStyle(
@@ -433,22 +429,22 @@ class _ProductListingState extends State<ProductListing> {
                         ),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Text(
-                        "${Utils.getCurrency()}${display(_productController.totalProduct)}",
-                        style: TextStyle(
-                          fontFamily: 'InterRegular',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: Colors.white,
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: Text(
+                          "${Utils.getCurrency()}${display(_productController.totalProduct)}",
+                          style: TextStyle(
+                            fontFamily: 'InterRegular',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
