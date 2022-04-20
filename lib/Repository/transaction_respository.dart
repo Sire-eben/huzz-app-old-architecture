@@ -1562,11 +1562,13 @@ class TransactionRespository extends GetxController {
         _productController.getOnlineProduct(
             _businessController.selectedBusiness.value!.businessId!);
 
+        _productController.checkPendingProductToBeAddedToSever();
+
         Get.to(() => IncomeSuccess(
               transactionModel: result,
               title: "transaction",
             ));
-// getSpending(_businessController.selectedBusiness.value!.businessId!);
+
         clearValue();
       } else {
         _addingTransactionStatus(AddingTransactionStatus.Error);
@@ -1682,10 +1684,19 @@ class TransactionRespository extends GetxController {
     await _businessController.sqliteDb.insertTransaction(value);
     GetOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
+
+    _productController.getOfflineProduct(
+        _businessController.selectedBusiness.value!.businessId!);
+    _productController.getOnlineProduct(
+        _businessController.selectedBusiness.value!.businessId!);
+
+    _productController.checkPendingProductToBeAddedToSever();
+
     Get.to(() => IncomeSuccess(
           transactionModel: value!,
           title: "Transaction",
         ));
+
     clearValue();
   }
 
