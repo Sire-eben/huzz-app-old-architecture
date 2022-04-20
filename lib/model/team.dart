@@ -87,3 +87,63 @@ List<Team> teamList = [
   //     phone: '09038726495',
   //     image: 'assets/images/cus5.png'),
 ];
+
+class Teams {
+  String? id,
+      phoneNumber,
+      email,
+      teamId,
+      authoritySet,
+      nextExpirationDateForInviteLink,
+      teamMemberStatus;
+  List? roleSet;
+  DateTime? createdDateTime, updatedDateTime;
+  bool? deleted;
+
+  Teams({
+    this.id,
+    this.phoneNumber,
+    this.email,
+    this.teamId,
+    this.roleSet,
+    this.authoritySet,
+    this.teamMemberStatus,
+    this.deleted,
+    this.createdDateTime,
+    this.updatedDateTime,
+    this.nextExpirationDateForInviteLink,
+  });
+
+  factory Teams.fromJson(Map<String, dynamic> json) => Teams(
+        id: json["id"],
+        phoneNumber: json["phoneNumber"],
+        email: json["email"],
+        teamId: json["teamId"],
+        roleSet: json["roleSet"] == null ? [] : List.from(json["roleSet"]),
+        authoritySet: json["authoritySet"],
+        teamMemberStatus: json["teamMemberStatus"],
+        deleted: json["deleted"],
+        createdDateTime: DateTime.parse(json["createdDateTime"]),
+        updatedDateTime: json["updatedDateTime"],
+        nextExpirationDateForInviteLink:
+            json["nextExpirationDateForInviteLink"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "phoneNumber": phoneNumber,
+        "email": email,
+        "teamId": teamId,
+        "roleSet": (roleSet != null && roleSet!.isNotEmpty) ? this.roleSet : [],
+        "authoritySet": authoritySet,
+        "teamMemberStatus": teamMemberStatus,
+        "deleted": deleted,
+        "createdDateTime": createdDateTime == null
+            ? DateTime.now().toIso8601String()
+            : createdDateTime!.toIso8601String(),
+        "updatedDateTime": updatedDateTime == null
+            ? DateTime.now().toIso8601String()
+            : updatedDateTime!.toIso8601String(),
+        "nextExpirationDateForInviteLink": nextExpirationDateForInviteLink,
+      };
+}

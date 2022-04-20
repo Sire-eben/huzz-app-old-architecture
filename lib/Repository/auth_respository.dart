@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names, unused_field, must_call_super, unnecessary_brace_in_string_interps
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -234,7 +232,7 @@ class AuthRepository extends GetxController {
   }
 
   Future sendForgetOtp() async {
-    print("phone number ${countryText}${phoneNumberController.text}");
+    print("phone number $countryText${phoneNumberController.text}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
       final response = await http.post(Uri.parse(ApiLink.sendSmsOtp),
@@ -471,13 +469,13 @@ class AuthRepository extends GetxController {
           }),
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer ${token}"
+            "Authorization": "Bearer $token"
           });
 
       print("response of update personal profile info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
-        print("user detail ${json}");
+        print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
         this.user = user;
@@ -533,13 +531,13 @@ class AuthRepository extends GetxController {
           }),
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer ${token}"
+            "Authorization": "Bearer $token"
           });
 
       print("response of update personal info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
-        print("user detail ${json}");
+        print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
         this.user = user;
@@ -583,13 +581,13 @@ class AuthRepository extends GetxController {
 
       final response = await http.get(Uri.parse(ApiLink.getUser), headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer ${token}"
+        "Authorization": "Bearer $token"
       });
 
       print("response of update personal info ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        print("user detail ${json}");
+        print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
         this.user = user;
@@ -658,7 +656,7 @@ class AuthRepository extends GetxController {
 
   Future signIn() async {
     print(
-        "phone number ${phoneNumberController.text}  country code ${countryText}");
+        "phone number ${phoneNumberController.text}  country code $countryText");
     print("pin is ${pinController.text}");
     try {
       _signinStatus(SigninStatus.Loading);
@@ -677,7 +675,7 @@ class AuthRepository extends GetxController {
 
         var token = json['accessToken'];
         var user = User.fromJson(json);
-        print("token from mtoken is ${Mtoken}");
+        print("token from mtoken is $Mtoken");
 
         pref!.saveToken(token);
         pref!.setUser(user);
@@ -867,7 +865,7 @@ class AuthRepository extends GetxController {
 
   void checkIfTokenStillValid() async {
     var response = await http.get(Uri.parse(ApiLink.getUserBusiness),
-        headers: {"Authorization": "Bearer ${token}"});
+        headers: {"Authorization": "Bearer $token"});
 
     print("online busines result ${response.body}");
     if (response.statusCode == 401) {
