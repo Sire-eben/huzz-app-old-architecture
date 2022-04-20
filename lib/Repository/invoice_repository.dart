@@ -821,6 +821,7 @@ class InvoiceRespository extends GetxController {
     paymentSourceController.text = "";
     receiptFileController.text = "";
     amountPaidController.text = "";
+    noteController.text = '';
     date = null;
     image = null;
     selectedPaymentMode = null;
