@@ -694,14 +694,14 @@ class AuthRepository extends GetxController {
         final _businessController = Get.find<BusinessRespository>();
         _businessController.setBusinessList(user.businessList!);
         Mtoken(token);
-        print("user business lenght ${user.businessList!.length}");
-        if (user.businessList!.isEmpty) {
+        print("user business length ${user.businessList!.length}");
+        if (user.businessList!.isEmpty || user.businessList == null) {
           Get.off(() => CreateBusiness());
         } else {
           Get.offAll(() => Dashboard());
         }
       } else if (response.statusCode == 401) {
-        Get.snackbar("Login Error", "Invalid Crediential ");
+        Get.snackbar("Login Error", "Invalid Credential ");
         _signinStatus(SigninStatus.Error);
       } else {
         Get.snackbar(

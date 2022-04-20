@@ -11,10 +11,7 @@ import 'app/screens/splashscreen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(DevicePreview(
-      enabled: true,
-      tools: [...DevicePreview.defaultTools],
-      builder: (context) => HuzzApp()));
+  runApp(HuzzApp());
 }
 
 class HuzzApp extends StatefulWidget {

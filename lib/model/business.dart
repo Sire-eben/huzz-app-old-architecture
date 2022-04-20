@@ -17,7 +17,7 @@ class Business {
   String? businessRegistrationNumber;
   String? bankInfoId;
   String? teamId;
-  bool? team;
+  dynamic team;
 
   Business(
       {this.businessId,

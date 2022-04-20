@@ -1,9 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
 import 'package:huzz/app/screens/onboarding_main..dart';
 import 'package:huzz/app/screens/sign_in.dart';
@@ -18,7 +18,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // pref.init();
     startTime();
   }
 
@@ -28,14 +27,14 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   route() async {
-// Get.off(OnboardingMain());
-    // Get.off(AboutUs());
-
     if (_controller.authStatus == AuthStatus.IsFirstTime) {
       Get.off(() => OnboardingMain());
     } else if (_controller.authStatus == AuthStatus.Authenticated) {
-      // Get.off(() => UserNavScreen());
       Get.off(() => Dashboard());
+    } else if (_controller.authStatus == AuthStatus.Authenticated &&
+        _controller.user!.businessList!.isEmpty &&
+        _controller.user!.businessList == null) {
+      Get.off(() => CreateBusiness());
     } else {
       Get.off(() => Signin());
     }

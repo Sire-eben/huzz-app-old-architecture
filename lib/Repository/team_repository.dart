@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/api_link.dart';
+import 'package:huzz/app/screens/customers/confirmation.dart';
 import 'package:huzz/model/team.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:uuid/uuid.dart';
@@ -54,7 +55,7 @@ class TeamRepository extends GetxController {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
-          getOnlineTeam(value.businessId);
+          // getOnlineTeam(value.businessId);
           // getOnlineCustomer(value.businessId!);
           // getOfflineCustomer(value.businessId!);
         }
@@ -135,8 +136,8 @@ class TeamRepository extends GetxController {
         print("update team response ${response.body}");
         if (response.statusCode == 200) {
           _addingTeamMemberStatus(AddingTeamStatus.Success);
-          getOnlineTeam(
-              _businessController.selectedBusiness.value!.businessId!);
+          // getOnlineTeam(
+          //     _businessController.selectedBusiness.value!.businessId!);
 
           Get.to(ConfirmationCustomer(
             text: "Updated",
@@ -152,14 +153,14 @@ class TeamRepository extends GetxController {
     }
 
     Future updateTeamOffline(Teams teams) async {
-      team.isUpdatingPending = true;
-      customer.updatedTime = DateTime.now();
+      // team.isUpdatingPending = true;
+      // customer.updatedTime = DateTime.now();
 
-      await _businessController.sqliteDb.updateOfflineCustomer(customer);
+      // await _businessController.sqliteDb.updateOfflineCustomer(customer);
       Get.to(ConfirmationCustomer(
         text: "Updated",
       ));
-      getOfflineTeam(customer.businessId!);
+      // getOfflineTeam(customer.businessId!);
     }
 
     Future getOfflineTeam(String businessId) async {
