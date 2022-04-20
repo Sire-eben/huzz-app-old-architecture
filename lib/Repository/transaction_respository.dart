@@ -1544,25 +1544,21 @@ class TransactionRespository extends GetxController {
       print({"creating transaction response ${response.body}"});
       if (response.statusCode == 200) {
         _addingTransactionStatus(AddingTransactionStatus.Success);
+
         var json = jsonDecode(response.body);
         var result = TransactionModel.fromJson(json['data']);
 
         getOnlineTransaction(
             _businessController.selectedBusiness.value!.businessId!);
-
         GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
+
         _debtorController.getOfflineDebtor(
             _businessController.selectedBusiness.value!.businessId!);
         _debtorController.getOnlineDebtor(
             _businessController.selectedBusiness.value!.businessId!);
 
-        _productController.getOfflineProduct(
-            _businessController.selectedBusiness.value!.businessId!);
-        _productController.getOnlineProduct(
-            _businessController.selectedBusiness.value!.businessId!);
-
-        _productController.checkPendingProductToBeAddedToSever();
+        _userController.clearProduct();
 
         Get.to(() => IncomeSuccess(
               transactionModel: result,
@@ -1667,6 +1663,7 @@ class TransactionRespository extends GetxController {
     value.businessTransactionPaymentHistoryList = transactionList;
 
     print("offline saving to database ${value.toJson()}}");
+
     if (customerId != null) if (selectedPaymentMode == "DEPOSIT") {
       Debtor debtor = Debtor(
           businessTransactionId: value.id,
@@ -1681,16 +1678,15 @@ class TransactionRespository extends GetxController {
       _debtorController.getOfflineDebtor(
           _businessController.selectedBusiness.value!.businessId!);
     }
+
     await _businessController.sqliteDb.insertTransaction(value);
+
+    getOnlineTransaction(
+        _businessController.selectedBusiness.value!.businessId!);
     GetOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
 
-    _productController.getOfflineProduct(
-        _businessController.selectedBusiness.value!.businessId!);
-    _productController.getOnlineProduct(
-        _businessController.selectedBusiness.value!.businessId!);
-
-    _productController.checkPendingProductToBeAddedToSever();
+    _userController.clearProduct();
 
     Get.to(() => IncomeSuccess(
           transactionModel: value!,
@@ -2202,6 +2198,9 @@ class TransactionRespository extends GetxController {
         _transactionStatus(TransactionStatus.Available);
         await _businessController.sqliteDb
             .deleteOfflineTransaction(transactionModel);
+
+        _userController.clearProduct();
+
         var debtor =
             _debtorController.getDebtorByTransactionId(transactionModel.id!);
         if (debtor != null) _debtorController.deleteBusinessDebtor(debtor);
@@ -2209,6 +2208,7 @@ class TransactionRespository extends GetxController {
             _businessController.selectedBusiness.value!.businessId!);
         await GetOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
+
         Get.back();
       } else if (response.statusCode == 404) {
         _transactionStatus(TransactionStatus.Error);
@@ -2234,6 +2234,8 @@ class TransactionRespository extends GetxController {
       _businessController.sqliteDb.deleteOfflineTransaction(transactionModel);
       await GetOfflineTransactions(
           _businessController.selectedBusiness.value!.businessId!);
+
+      _userController.clearProduct();
     } else {
       updateTransaction(transactionModel);
     }

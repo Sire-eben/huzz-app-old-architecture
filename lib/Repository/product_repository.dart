@@ -110,7 +110,6 @@ class ProductRepository extends GetxController
                 precision: 1);
             print("business id ${p0.businessId}");
             _offlineBusinessProduct([]);
-
             _onlineBusinessProduct([]);
             _productService([]);
             _productGoods([]);
@@ -378,7 +377,7 @@ class ProductRepository extends GetxController
               .map((e) => Product.fromJson(e))
               .toList();
           _onlineBusinessProduct(result);
-          print("product business lenght ${result.length}");
+          print("product business length ${result.length}");
           await getBusinessProductYetToBeSavedLocally();
           checkIfUpdateAvailable();
           result.isNotEmpty
@@ -395,7 +394,7 @@ class ProductRepository extends GetxController
   Future getBusinessProductYetToBeSavedLocally() async {
     onlineBusinessProduct.forEach((element) {
       if (!checkifProductAvailable(element.productId!)) {
-        print("doesnt contain value");
+        print("does not contain value");
 
         pendingBusinessProduct.add(element);
       }
@@ -431,9 +430,10 @@ class ProductRepository extends GetxController
       if (element.productType == "SERVICES") {
         services.add(element);
         totalservice = totalservice + element.costPrice;
-      } else {
-        totalproduct = totalproduct + element.sellingPrice * element.quantity;
+      } else if (element.productType == "GOODS") {
         goods.add(element);
+        totalproduct =
+            totalproduct + element.sellingPrice * element.quantityLeft;
       }
     });
     _productGoods(goods);

@@ -313,7 +313,9 @@ class _ProductListingState extends State<ProductListing> {
                         },
                         child: (_productController.productStatus ==
                                 ProductStatus.Loading)
-                            ? Center(child: CircularProgressIndicator())
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                    color: AppColor().backgroundColor))
                             : (_productController.productStatus ==
                                     ProductStatus.Available)
                                 ? ListView.builder(
@@ -339,7 +341,10 @@ class _ProductListingState extends State<ProductListing> {
                                 : (_productController.productStatus ==
                                         ProductStatus.Empty)
                                     ? Text('Not Item')
-                                    : Text('Empty'),
+                                    : Center(
+                                        child: CircularProgressIndicator(
+                                            color: AppColor().backgroundColor),
+                                      ),
                       );
                     })
                   : Container(

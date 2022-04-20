@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
@@ -24,7 +25,6 @@ import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../app/screens/enter_otp.dart';
 import 'fingerprint_repository.dart';
-import 'home_respository.dart';
 
 enum SignupStatus { Empty, Loading, Error, Success }
 enum OtpAuthStatus { Empty, Loading, Error, Success }
@@ -48,7 +48,8 @@ enum AuthStatus {
 enum OnlineStatus { Onilne, Offline, Empty }
 
 class AuthRepository extends GetxController {
-  final _homeController = Get.find<HomeRespository>();
+  final _productController = Get.find<ProductRepository>();
+  final _businessController = Get.find<BusinessRespository>();
 
   var otpController = TextEditingController();
   var pinController;
@@ -783,6 +784,7 @@ class AuthRepository extends GetxController {
         // ignore: unnecessary_null_comparison
         if (response != null) {
           _authStatus(AuthStatus.Empty);
+          logout();
           accountDeletelogout();
         }
       } else {
@@ -861,6 +863,18 @@ class AuthRepository extends GetxController {
     await sqliteDb.deleteAllOfflineDebtors();
     await sqliteDb.deleteAllInvoice();
     await sqliteDb.deleteAllBanks();
+  }
+
+  void clearProduct() async {
+    print('clearing products...');
+    await sqliteDb.openDatabae();
+    await sqliteDb.deleteAllProducts();
+    print('products cleared!');
+
+    _productController.getOfflineProduct(
+        _businessController.selectedBusiness.value!.businessId!);
+    _productController.getOnlineProduct(
+        _businessController.selectedBusiness.value!.businessId!);
   }
 
   void checkIfTokenStillValid() async {

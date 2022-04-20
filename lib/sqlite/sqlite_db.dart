@@ -304,7 +304,7 @@ $businessId text not null)
     var result = await db.delete(productbusinessTable,
         where: '"$productId" = ?', whereArgs: [product.productId]);
 
-    print("result after delete ${result}");
+    print("result after delete $result");
   }
 
   Future deleteAllProducts() async {
@@ -362,7 +362,7 @@ $businessId text not null)
     var result = await db.delete(customerbusinessTable,
         where: '"$customerId" = ?', whereArgs: [customer.customerId]);
 
-    print("result after delete ${result}");
+    print("result after delete $result");
   }
 
   Future deleteAllCustomers() async {
@@ -418,7 +418,7 @@ $businessId text not null)
     var result = await db.delete(customerbusinessTable,
         where: '"$bankAccountId" = ?', whereArgs: [bank.id]);
 
-    print("result after delete ${result}");
+    print("result after delete $result");
   }
 
   Future deleteAllBanks() async {
@@ -473,7 +473,7 @@ $businessId text not null)
     var result = await db.delete(invoiceTableName,
         where: '"$invoiceId" = ?', whereArgs: [invoice.id]);
 
-    print("result after delete ${result}");
+    print("result after delete $result");
   }
 
   Future deleteAllInvoice() async {
