@@ -285,55 +285,71 @@ class PdfInvoiceApi {
     invoice.paymentItemRequestList!.forEach((element) {
       totalAmount = totalAmount + element.totalAmount!;
     });
-    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          'Sub-total',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          'Tax',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          'DIscount',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ]),
-      SizedBox(width: Get.width * 0.20),
-      Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-        Text(
-          "${Utils.formatPrice(totalAmount)}",
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          "${Utils.formatPrice(invoice.tax)}",
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          "${Utils.formatPrice(invoice.discountAmount)}",
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ])
-    ]);
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          (invoice.note == null || invoice.note == '')
+              ? Container()
+              : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    'Comment',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text("${invoice.note}"),
+                ]),
+          Spacer(),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(
+              'Sub-total',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              'Tax',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              'Discount',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ]),
+          SizedBox(width: Get.width * 0.20),
+          Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Text(
+              "${Utils.formatPrice(totalAmount)}",
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "${Utils.formatPrice(invoice.tax)}",
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "${Utils.formatPrice(invoice.discountAmount)}",
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ])
+        ]);
   }
 
   static Widget buildFooter(Customer? customer, Invoice invoice,

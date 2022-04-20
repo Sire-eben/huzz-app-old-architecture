@@ -243,49 +243,51 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         ),
                       ),
                     ),
-                    InkWell(
-                      onTap: controlsDetails.onStepContinue,
-                      child: Container(
-                        height: 40,
-                        width: 110,
-                        decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: (_invoiceController.addingInvoiceStatus ==
-                                AddingInvoiceStatus.Loading)
-                            ? Container(
-                                width: 30,
-                                height: 30,
-                                child: Center(
-                                    child: CircularProgressIndicator(
-                                        color: Colors.white)),
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Continue',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'InterRegular'),
-                                  ),
-                                  SizedBox(width: 4),
-                                  Container(
-                                    padding: EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle),
-                                    child: Icon(
-                                      Icons.arrow_forward,
-                                      color: AppColor().backgroundColor,
-                                      size: 15,
+                    Obx(() {
+                      return InkWell(
+                        onTap: controlsDetails.onStepContinue,
+                        child: Container(
+                          height: 40,
+                          width: 110,
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: (_invoiceController.addingInvoiceStatus ==
+                                  AddingInvoiceStatus.Loading)
+                              ? Container(
+                                  width: 30,
+                                  height: 30,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                          color: Colors.white)),
+                                )
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Continue',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'InterRegular'),
                                     ),
-                                  )
-                                ],
-                              ),
-                      ),
-                    ),
+                                    SizedBox(width: 4),
+                                    Container(
+                                      padding: EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle),
+                                      child: Icon(
+                                        Icons.arrow_forward,
+                                        color: AppColor().backgroundColor,
+                                        size: 15,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                        ),
+                      );
+                    }),
                   ],
                 ),
               );
@@ -950,7 +952,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           key: _customerKey,
           child: Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.00),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.0),
@@ -1085,7 +1086,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           ),
                   ],
                 ),
-              )
+              ),
+              SizedBox(height: 8),
+              CustomTextFieldInvoiceOptional(
+                label: "Invoice Description",
+                validatorText: "",
+                hint: 'Add a brief invoice description',
+                textEditingController: _invoiceController.noteController,
+              ),
             ],
           ),
         ),

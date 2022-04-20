@@ -185,7 +185,7 @@ class _ServiceListingState extends State<ServiceListing> {
                 top: 15,
                 left: 20,
                 right: 20,
-                child: productCount(context),
+                child: serviceCount(context),
               ),
               //Search
               Positioned(
@@ -212,7 +212,7 @@ class _ServiceListingState extends State<ServiceListing> {
                       ),
                       Container(
                         height: 55,
-                        width: MediaQuery.of(context).size.width * 0.7,
+                        width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
                           controller: textEditingController,
                           // textInputAction: TextInputAction.none,
@@ -405,7 +405,7 @@ class _ServiceListingState extends State<ServiceListing> {
     });
   }
 
-  Widget productCount(BuildContext context) => Container(
+  Widget serviceCount(BuildContext context) => Container(
         height: 95,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -417,13 +417,12 @@ class _ServiceListingState extends State<ServiceListing> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 37),
-                  child: Text(
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
                     "Services Count",
                     style: TextStyle(
                       color: Colors.white,
@@ -431,9 +430,7 @@ class _ServiceListingState extends State<ServiceListing> {
                       fontSize: 12,
                     ),
                   ),
-                ),
-                Center(
-                  child: Text(
+                  Text(
                     "${_productController.productServices.length}",
                     style: TextStyle(
                       color: Colors.white,
@@ -442,40 +439,39 @@ class _ServiceListingState extends State<ServiceListing> {
                       fontSize: 20,
                     ),
                   ),
-                ),
-              ],
-            ),
-            Container(
-              height: 95,
-              padding: EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                color: AppColor().secondbgColor,
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [
-                    0.1,
-                    0.6,
-                    0.8,
-                  ],
-                  colors: [
-                    Color(0xff0D8372),
-                    Color(0xff07A58E),
-                    AppColor().backgroundColor.withOpacity(0.5),
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
-                ),
+                ],
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 37),
+            ),
+            Expanded(
+              child: Container(
+                height: 95,
+                padding: EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                  color: AppColor().secondbgColor,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [
+                      0.1,
+                      0.6,
+                      0.8,
+                    ],
+                    colors: [
+                      Color(0xff0D8372),
+                      Color(0xff07A58E),
+                      AppColor().backgroundColor.withOpacity(0.5),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
                       child: Text(
                         "Total Services value",
                         style: TextStyle(
@@ -485,22 +481,22 @@ class _ServiceListingState extends State<ServiceListing> {
                         ),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Text(
-                        "${Utils.getCurrency()}${display(_productController.totalService)}",
-                        style: TextStyle(
-                          fontFamily: 'InterRegular',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: Colors.white,
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: Text(
+                          "${Utils.getCurrency()}${display(_productController.totalService)}",
+                          style: TextStyle(
+                            fontFamily: 'InterRegular',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

@@ -743,7 +743,7 @@ class _HomeState extends State<Home> {
                       height: 10,
                     ),
                     Text(
-                      '${Utils.getCurrency()}0.00',
+                      '${Utils.getCurrency()}0.0',
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'InterRegular',
@@ -876,7 +876,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "${Utils.getCurrency()}0.00",
+                      "${Utils.getCurrency()}0.0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'InterRegular',
@@ -919,7 +919,7 @@ class _HomeState extends State<Home> {
                     ),
                     Spacer(),
                     Text(
-                      "${Utils.getCurrency()}0.00",
+                      "${Utils.getCurrency()}0.0",
                       style: TextStyle(
                         color: AppColor().whiteColor,
                         fontFamily: 'InterRegular',

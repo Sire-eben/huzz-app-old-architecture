@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names, unused_field, must_call_super, unnecessary_brace_in_string_interps
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -10,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
+import 'package:huzz/Repository/product_repository.dart';
 import 'package:huzz/api_link.dart';
 import 'package:huzz/app/screens/create_business.dart';
 import 'package:huzz/app/screens/dashboard.dart';
@@ -26,7 +25,6 @@ import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../app/screens/enter_otp.dart';
 import 'fingerprint_repository.dart';
-import 'home_respository.dart';
 
 enum SignupStatus { Empty, Loading, Error, Success }
 enum OtpAuthStatus { Empty, Loading, Error, Success }
@@ -50,7 +48,8 @@ enum AuthStatus {
 enum OnlineStatus { Onilne, Offline, Empty }
 
 class AuthRepository extends GetxController {
-  final _homeController = Get.find<HomeRespository>();
+  final _productController = Get.find<ProductRepository>();
+  final _businessController = Get.find<BusinessRespository>();
 
   var otpController = TextEditingController();
   var pinController;
@@ -183,7 +182,7 @@ class AuthRepository extends GetxController {
     print("phone number ${user!.phoneNumber}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
-      final response = await http.post(Uri.parse(ApiLink.send_smsOtp),
+      final response = await http.post(Uri.parse(ApiLink.sendSmsOtp),
           body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
           headers: {"Content-Type": "application/json"});
       print("response is ${response.body}");
@@ -234,10 +233,10 @@ class AuthRepository extends GetxController {
   }
 
   Future sendForgetOtp() async {
-    print("phone number ${countryText}${phoneNumberController.text}");
+    print("phone number $countryText${phoneNumberController.text}");
     try {
       _Otpauthstatus(OtpAuthStatus.Loading);
-      final response = await http.post(Uri.parse(ApiLink.send_smsOtp),
+      final response = await http.post(Uri.parse(ApiLink.sendSmsOtp),
           body: jsonEncode({
             "phoneNumber": countryText + forgotPhoneNumberController.text.trim()
           }),
@@ -291,7 +290,7 @@ class AuthRepository extends GetxController {
 
   Future sendVoiceOtp() async {
     // _Otpauthstatus(OtpAuthStatus.Loading);
-    final response = await http.post(Uri.parse(ApiLink.send_voiceOtp),
+    final response = await http.post(Uri.parse(ApiLink.sendVoiceOtp),
         body: jsonEncode({"phoneNumber": "${user!.phoneNumber}"}),
         headers: {"Content-Type": "application/json"});
     print("otp sent voice ${response.body}");
@@ -336,7 +335,7 @@ class AuthRepository extends GetxController {
     print("otp value ${otpController.text}");
     try {
       _Otpverifystatus(OtpVerifyStatus.Loading);
-      final resposne = await http.post(Uri.parse(ApiLink.verify_otp),
+      final resposne = await http.post(Uri.parse(ApiLink.verifyOtp),
           body: jsonEncode({
             "phoneNumber": "${user!.phoneNumber}",
             "otp": otpController.text
@@ -415,7 +414,7 @@ class AuthRepository extends GetxController {
       _Otpforgotverifystatus(OtpForgotVerifyStatus.Loading);
       print("otp value ${otpController.text}");
 
-      final response = await http.put(Uri.parse(ApiLink.forget_pin),
+      final response = await http.put(Uri.parse(ApiLink.forgetPin),
           body: jsonEncode({
             "phoneNumber":
                 countryText + forgotPhoneNumberController.text.trim(),
@@ -463,7 +462,7 @@ class AuthRepository extends GetxController {
         imageId = await uploadController.uploadFile(profileImage.value!.path);
       }
       print("image url is $imageId");
-      final resposne = await http.put(Uri.parse(ApiLink.update_profile),
+      final resposne = await http.put(Uri.parse(ApiLink.updateProfile),
           body: jsonEncode({
             // "profileImageFileStoreId": imageId,
             "profileImageUrl": imageId
@@ -471,13 +470,13 @@ class AuthRepository extends GetxController {
           }),
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer ${token}"
+            "Authorization": "Bearer $token"
           });
 
       print("response of update personal profile info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
-        print("user detail ${json}");
+        print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
         this.user = user;
@@ -523,7 +522,7 @@ class AuthRepository extends GetxController {
       if (profileImage.value != null) {
         imageId = await uploadController.uploadFile(profileImage.value!.path);
       }
-      final resposne = await http.put(Uri.parse(ApiLink.update_profile),
+      final resposne = await http.put(Uri.parse(ApiLink.updateProfile),
           body: jsonEncode({
             "firstName": firstNameController.text,
             "lastName": lastNameController.text,
@@ -533,13 +532,13 @@ class AuthRepository extends GetxController {
           }),
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer ${token}"
+            "Authorization": "Bearer $token"
           });
 
       print("response of update personal info ${resposne.body}");
       if (resposne.statusCode == 200) {
         var json = jsonDecode(resposne.body);
-        print("user detail ${json}");
+        print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
         this.user = user;
@@ -583,13 +582,13 @@ class AuthRepository extends GetxController {
 
       final response = await http.get(Uri.parse(ApiLink.getUser), headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer ${token}"
+        "Authorization": "Bearer $token"
       });
 
       print("response of update personal info ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        print("user detail ${json}");
+        print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
         this.user = user;
@@ -620,7 +619,7 @@ class AuthRepository extends GetxController {
           () => referralCodeController.text.trim(),
         );
       }
-      final response = await http.post(Uri.parse(ApiLink.signup_user),
+      final response = await http.post(Uri.parse(ApiLink.signupUser),
           body: jsonEncode(signupDto),
           headers: {"Content-Type": "application/json"});
       print("sign up response ${response.body} ${response.statusCode}");
@@ -658,11 +657,11 @@ class AuthRepository extends GetxController {
 
   Future signIn() async {
     print(
-        "phone number ${phoneNumberController.text}  country code ${countryText}");
+        "phone number ${phoneNumberController.text}  country code $countryText");
     print("pin is ${pinController.text}");
     try {
       _signinStatus(SigninStatus.Loading);
-      final response = await http.post(Uri.parse(ApiLink.signin_user),
+      final response = await http.post(Uri.parse(ApiLink.signinUser),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text.trim(),
             "pin": pinController.text,
@@ -677,7 +676,7 @@ class AuthRepository extends GetxController {
 
         var token = json['accessToken'];
         var user = User.fromJson(json);
-        print("token from mtoken is ${Mtoken}");
+        print("token from mtoken is $Mtoken");
 
         pref!.saveToken(token);
         pref!.setUser(user);
@@ -696,14 +695,14 @@ class AuthRepository extends GetxController {
         final _businessController = Get.find<BusinessRespository>();
         _businessController.setBusinessList(user.businessList!);
         Mtoken(token);
-        print("user business lenght ${user.businessList!.length}");
-        if (user.businessList!.isEmpty) {
+        print("user business length ${user.businessList!.length}");
+        if (user.businessList!.isEmpty || user.businessList == null) {
           Get.off(() => CreateBusiness());
         } else {
           Get.offAll(() => Dashboard());
         }
       } else if (response.statusCode == 401) {
-        Get.snackbar("Login Error", "Invalid Crediential ");
+        Get.snackbar("Login Error", "Invalid Credential ");
         _signinStatus(SigninStatus.Error);
       } else {
         Get.snackbar(
@@ -748,7 +747,7 @@ class AuthRepository extends GetxController {
 
   Future<UserReferralModel> getUserReferralData() async {
     try {
-      final response = await http.get(Uri.parse(ApiLink.user_referral),
+      final response = await http.get(Uri.parse(ApiLink.userReferral),
           headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer $token'
@@ -773,7 +772,7 @@ class AuthRepository extends GetxController {
       // final key = 'token';
       // final value = prefs.get(key) ?? 0;
 
-      String myUrl = ApiLink.delete_user;
+      String myUrl = ApiLink.deleteUser;
       var response = await http.delete(Uri.parse(myUrl), headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token'
@@ -785,6 +784,7 @@ class AuthRepository extends GetxController {
         // ignore: unnecessary_null_comparison
         if (response != null) {
           _authStatus(AuthStatus.Empty);
+          logout();
           accountDeletelogout();
         }
       } else {
@@ -806,7 +806,7 @@ class AuthRepository extends GetxController {
       final value = prefs.get(key) ?? 0;
       String? id = _businessController.selectedBusiness.value!.businessId;
 
-      String myUrl = ApiLink.delete_business + '$id';
+      String myUrl = ApiLink.deleteBusiness + '$id';
       var response = await http.delete(Uri.parse(myUrl), headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer $value'
@@ -865,9 +865,21 @@ class AuthRepository extends GetxController {
     await sqliteDb.deleteAllBanks();
   }
 
+  void clearProduct() async {
+    print('clearing products...');
+    await sqliteDb.openDatabae();
+    await sqliteDb.deleteAllProducts();
+    print('products cleared!');
+
+    _productController.getOfflineProduct(
+        _businessController.selectedBusiness.value!.businessId!);
+    _productController.getOnlineProduct(
+        _businessController.selectedBusiness.value!.businessId!);
+  }
+
   void checkIfTokenStillValid() async {
-    var response = await http.get(Uri.parse(ApiLink.get_user_business),
-        headers: {"Authorization": "Bearer ${token}"});
+    var response = await http.get(Uri.parse(ApiLink.getUserBusiness),
+        headers: {"Authorization": "Bearer $token"});
 
     print("online busines result ${response.body}");
     if (response.statusCode == 401) {

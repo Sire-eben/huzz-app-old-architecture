@@ -78,7 +78,7 @@ class BusinessRespository extends GetxController {
     businessListFromServer.clear();
     offlineBusiness.clear();
     print("get online business is token ${_userController.token} ");
-    var response = await http.get(Uri.parse(ApiLink.get_user_business),
+    var response = await http.get(Uri.parse(ApiLink.getUserBusiness),
         headers: {"Authorization": "Bearer ${_userController.token}"});
 
     print("online busines result ${response.body}");
@@ -209,7 +209,7 @@ class BusinessRespository extends GetxController {
               _userController.countryCodeFLag)
           .currencyCode
           .toString();
-      final response = await http.post(Uri.parse(ApiLink.create_business),
+      final response = await http.post(Uri.parse(ApiLink.createBusiness),
           body: jsonEncode(
             {
               "name": businessName.text,
@@ -286,7 +286,7 @@ class BusinessRespository extends GetxController {
         itemsToUpdate.putIfAbsent("name", () => businessName.text);
       }
       final response = await http.put(
-          Uri.parse(ApiLink.update_business +
+          Uri.parse(ApiLink.updateBusiness +
               "/${selectedBusiness.value!.businessId}"),
           body: jsonEncode(itemsToUpdate),
           headers: {

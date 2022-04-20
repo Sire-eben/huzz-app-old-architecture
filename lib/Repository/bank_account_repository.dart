@@ -57,12 +57,12 @@ class BankAccountRepository extends GetxController {
     _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
-        if (value != null && value.businessId!=null) {
+        if (value != null && value.businessId != null) {
           getOnlineBank(value.businessId!);
           getOfflineBank(value.businessId!);
         }
         _businessController.selectedBusiness.listen((p0) {
-          if (p0 != null && p0.businessId!=null) {
+          if (p0 != null && p0.businessId != null) {
             print("business id ${p0.businessId}");
             _offlineBusinessBank([]);
 
@@ -125,7 +125,7 @@ class BankAccountRepository extends GetxController {
   Future addBusinessBankOnline() async {
     try {
       _addingBankStatus(AddingBankInfoStatus.Loading);
-      var response = await http.post(Uri.parse(ApiLink.add_bank_info),
+      var response = await http.post(Uri.parse(ApiLink.addBankInfo),
           body: jsonEncode({
             "businessId":
                 _businessController.selectedBusiness.value!.businessId,
@@ -166,7 +166,7 @@ class BankAccountRepository extends GetxController {
 
   Future<String?> addBusinessBankWithString() async {
     try {
-      var response = await http.post(Uri.parse(ApiLink.add_bank_info),
+      var response = await http.post(Uri.parse(ApiLink.addBankInfo),
           body: jsonEncode({
             "businessId":
                 _businessController.selectedBusiness.value!.businessId,
@@ -239,13 +239,13 @@ class BankAccountRepository extends GetxController {
   Future updateBankOnline(Bank bank) async {
     try {
       _addingBankStatus(AddingBankInfoStatus.Loading);
-      String? fileId = null;
+      String? fileId;
 
       if (BankImage.value != null) {
         fileId = await _uploadFileController.uploadFile(BankImage.value!.path);
       }
       var response =
-          await http.put(Uri.parse(ApiLink.add_bank_info + "/" + bank.id!),
+          await http.put(Uri.parse(ApiLink.addBankInfo + "/" + bank.id!),
               body: jsonEncode({
                 "businessId":
                     _businessController.selectedBusiness.value!.businessId,
@@ -299,7 +299,7 @@ class BankAccountRepository extends GetxController {
   Future getOnlineBank(String businessId) async {
     print("trying to get Bank online");
     final response = await http.get(
-        Uri.parse(ApiLink.add_bank_info + "?businessId=" + businessId),
+        Uri.parse(ApiLink.addBankInfo + "?businessId=" + businessId),
         headers: {"Authorization": "Bearer ${_userController.token}"});
 
     print("result of get Bank online ${response.body}");
@@ -412,8 +412,8 @@ class BankAccountRepository extends GetxController {
 
   Future deleteBankOnline(Bank bank) async {
     var response = await http.delete(
-        Uri.parse(ApiLink.add_bank_info +
-            "/${bank.id}?businessId=${bank.businessId}"),
+        Uri.parse(
+            ApiLink.addBankInfo + "/${bank.id}?businessId=${bank.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     print("delete response ${response.body}");
     if (response.statusCode == 200) {
@@ -516,7 +516,7 @@ class BankAccountRepository extends GetxController {
     }
     var savenext = pendingJobToBeAdded.first;
 
-    var response = await http.post(Uri.parse(ApiLink.add_bank_info),
+    var response = await http.post(Uri.parse(ApiLink.addBankInfo),
         body: jsonEncode({
           "businessId": savenext.businessId,
           "bankName": savenext.bankName,
@@ -552,8 +552,8 @@ class BankAccountRepository extends GetxController {
     pendingJobToBeUpdated.forEach((element) async {
       var updatenext = element;
 
-      var response = await http
-          .put(Uri.parse(ApiLink.add_bank_info + "/" + updatenext.id!),
+      var response =
+          await http.put(Uri.parse(ApiLink.addBankInfo + "/" + updatenext.id!),
               body: jsonEncode({
                 "businessId":
                     _businessController.selectedBusiness.value!.businessId,
@@ -584,7 +584,7 @@ class BankAccountRepository extends GetxController {
     pendingJobToBeDelete.forEach((element) async {
       var deletenext = pendingJobToBeDelete.first;
       var response = await http.delete(
-          Uri.parse(ApiLink.add_bank_info +
+          Uri.parse(ApiLink.addBankInfo +
               "/${deletenext.id}?businessId=${deletenext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
       print("previous deleted response ${response.body}");

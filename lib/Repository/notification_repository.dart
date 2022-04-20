@@ -107,7 +107,7 @@ class NotificationRepository extends GetxController {
     String? token = await messaging.getToken();
     print("user phone token $token");
 
-    final resposne = await http.put(Uri.parse(ApiLink.update_profile),
+    final resposne = await http.put(Uri.parse(ApiLink.updateProfile),
         body: jsonEncode({
           "firebaseToken": token,
           // "profileImageFileStoreId": imageId,
