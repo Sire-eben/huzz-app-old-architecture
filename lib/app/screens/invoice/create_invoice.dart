@@ -950,7 +950,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           key: _customerKey,
           child: Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.00),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.0),
@@ -1085,7 +1084,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           ),
                   ],
                 ),
-              )
+              ),
+              SizedBox(height: 8),
+              CustomTextFieldInvoiceOptional(
+                label: "Invoice Description",
+                validatorText: "",
+                hint: 'Add a brief invoice description',
+                textEditingController: _invoiceController.noteController,
+              ),
             ],
           ),
         ),

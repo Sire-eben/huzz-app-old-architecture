@@ -67,6 +67,7 @@ class InvoiceRespository extends GetxController {
       decimalSeparator: '.', thousandSeparator: ',', precision: 1);
   final taxController = TextEditingController();
   final discountController = TextEditingController();
+  final noteController = TextEditingController();
   Bank? invoiceBank;
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController timeController = TextEditingController();
@@ -512,7 +513,7 @@ class InvoiceRespository extends GetxController {
         bankselectedId = selectedBank!.id;
       }
       double newTotalAmount = totalAmount + tax - discount;
-// String? timeday=date!.toIso8601String();
+
       String body = jsonEncode({
         "paymentItemRequestList": productList.map((e) => e.toJson("")).toList(),
         "paymentSource": selectedPaymentSource,
@@ -520,6 +521,7 @@ class InvoiceRespository extends GetxController {
         "paymentMode": selectedPaymentMode,
         "customerId": customerId,
         "tax": tax,
+        "note": noteController.text,
         "discountAmount": discount,
         "totalAmount": newTotalAmount,
         "bankInfoId": bankselectedId,
@@ -547,10 +549,8 @@ class InvoiceRespository extends GetxController {
         GetOfflineInvoices(
             _businessController.selectedBusiness.value!.businessId!);
         _addingInvoiceStatus(AddingInvoiceStatus.Success);
-        Get.to(() => PreviewInvoice(invoice: result));
-
-// getSpending(_businessController.selectedBusiness.value!.businessId!);
         clearValue();
+        Get.to(() => PreviewInvoice(invoice: result));
       } else {
         _addingInvoiceStatus(AddingInvoiceStatus.Error);
       }
@@ -610,6 +610,7 @@ class InvoiceRespository extends GetxController {
         paymentItemRequestList: productList,
         isPending: true,
         tax: tax,
+        note: noteController.text,
         discountAmount: discount,
         bankId: bankselectedId,
         dueDateTime: date,

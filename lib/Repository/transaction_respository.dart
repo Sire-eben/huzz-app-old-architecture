@@ -32,18 +32,20 @@ enum AddingTransactionStatus { Loading, Error, Success, Empty }
 enum TransactionStatus { Loading, Available, Error, Empty }
 
 class TransactionRespository extends GetxController {
-  Rx<List<TransactionModel>> _offlineTransactions = Rx([]);
-  List<TransactionModel> get offlineTransactions => _offlineTransactions.value;
   final _uploadImageController = Get.find<FileUploadRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
   final _debtorController = Get.find<DebtorRepository>();
+  final _userController = Get.find<AuthRepository>();
+  final _businessController = Get.find<BusinessRespository>();
+
+  Rx<List<TransactionModel>> _offlineTransactions = Rx([]);
+  List<TransactionModel> get offlineTransactions => _offlineTransactions.value;
   List<TransactionModel> OnlineTransaction = [];
   List<TransactionModel> pendingTransaction = [];
   Rx<List<PaymentItem>> _allPaymentItem = Rx([]);
   List<PaymentItem> get allPaymentItem => _allPaymentItem.value;
-  final _userController = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+
   dynamic expenses = 0.0.obs;
   dynamic income = 0.0.obs;
   final numberofincome = 0.obs;
@@ -1544,10 +1546,6 @@ class TransactionRespository extends GetxController {
         _addingTransactionStatus(AddingTransactionStatus.Success);
         var json = jsonDecode(response.body);
         var result = TransactionModel.fromJson(json['data']);
-        Get.to(() => IncomeSuccess(
-              transactionModel: result,
-              title: "transaction",
-            ));
 
         getOnlineTransaction(
             _businessController.selectedBusiness.value!.businessId!);
@@ -1558,6 +1556,16 @@ class TransactionRespository extends GetxController {
             _businessController.selectedBusiness.value!.businessId!);
         _debtorController.getOnlineDebtor(
             _businessController.selectedBusiness.value!.businessId!);
+
+        _productController.getOfflineProduct(
+            _businessController.selectedBusiness.value!.businessId!);
+        _productController.getOnlineProduct(
+            _businessController.selectedBusiness.value!.businessId!);
+
+        Get.to(() => IncomeSuccess(
+              transactionModel: result,
+              title: "transaction",
+            ));
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         clearValue();
       } else {
