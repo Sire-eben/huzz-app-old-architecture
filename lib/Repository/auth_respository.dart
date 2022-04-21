@@ -48,9 +48,6 @@ enum AuthStatus {
 enum OnlineStatus { Onilne, Offline, Empty }
 
 class AuthRepository extends GetxController {
-  final _productController = Get.find<ProductRepository>();
-  final _businessController = Get.find<BusinessRespository>();
-
   var otpController = TextEditingController();
   var pinController;
   final referralCodeController = TextEditingController();
@@ -866,6 +863,9 @@ class AuthRepository extends GetxController {
   }
 
   void clearProduct() async {
+    final _productController = Get.find<ProductRepository>();
+    final _businessController = Get.find<BusinessRespository>();
+
     print('clearing products...');
     await sqliteDb.openDatabae();
     await sqliteDb.deleteAllProducts();
