@@ -760,7 +760,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                                 color: AppColor().backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        hintText: 'customer name',
+                        hintText: widget.hint,
                         prefixIcon: widget.prefixIcon,
                         suffixIcon: widget.suffixIcon,
                         hintStyle:

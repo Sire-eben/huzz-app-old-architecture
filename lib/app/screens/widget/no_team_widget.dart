@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/team_repository.dart';
 import 'package:huzz/colors.dart';
-import '../more/add_member.dart';
 
-class NoTeamWidget extends StatelessWidget {
+class NoTeamWidget extends GetView<TeamRepository> {
+  final _businessController = Get.find<BusinessRespository>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -59,30 +61,43 @@ class NoTeamWidget extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              InkWell(
-                onTap: () {
-                  Get.to(() => AddMember());
-                },
-                child: Container(
-                  height: 55,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Add Members',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontFamily: 'InterRegular',
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+              Obx(() {
+                return InkWell(
+                  onTap: () {
+                    final value = _businessController.selectedBusiness.value;
+                    print(value!.businessName!);
+                    controller.createTeam(value.businessId!);
+                  },
+                  child: Container(
+                    height: 55,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: AppColor().backgroundColor,
+                      borderRadius: BorderRadius.circular(5),
                     ),
+                    child: (controller.addingTeamMemberStatus ==
+                            AddingTeamStatus.Loading)
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            child: Center(
+                                child: CircularProgressIndicator(
+                                    color: Colors.white)),
+                          )
+                        : Center(
+                            child: Text(
+                              'Create Team',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontFamily: 'InterRegular',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                   ),
-                ),
-              ),
+                );
+              }),
             ],
           ),
         ),

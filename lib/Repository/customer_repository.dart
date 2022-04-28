@@ -746,17 +746,6 @@ class CustomerRepository extends GetxController {
         builder: (context) => buildSelectContact(context));
   }
 
-  Future showContactPickerForTeams(BuildContext context) async {
-    print("contact picker is selected");
-    _searchtext("");
-    _searchResult([]);
-    await showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-        context: context,
-        builder: (context) => buildSelectTeam(context));
-  }
-
   Rx<List<Contact>> _searchResult = Rx([]);
   Rx<String> _searchtext = Rx('');
   List<Contact> get searchResult => _searchResult.value;

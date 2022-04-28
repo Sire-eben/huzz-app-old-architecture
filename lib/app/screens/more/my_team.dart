@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/Repository/team_repository.dart';
+import 'package:huzz/app/screens/widget/no_team_widget.dart';
 import 'package:huzz/app/screens/widget/team_widget.dart';
 import 'package:huzz/colors.dart';
+import 'package:random_color/random_color.dart';
 import 'add_member.dart';
 
 class MyTeam extends StatefulWidget {
@@ -12,118 +17,157 @@ class MyTeam extends StatefulWidget {
 }
 
 class _MyTeamState extends State<MyTeam> {
+  final controller = Get.find<AuthRepository>();
+  final _teamController = Get.find<TeamRepository>();
+  final _businessController = Get.find<BusinessRespository>();
+  RandomColor _randomColor = RandomColor();
+
   final items = [
     'Owner',
     'Writer',
     'Admin',
   ];
 
-  String? value;
-  // final _teamController = Get.find<TeamRepository>();
+  String? values;
+  late String firstName, lastName;
+
+  @override
+  void initState() {
+    firstName = controller.user!.firstName!;
+    lastName = controller.user!.lastName!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: AppColor().backgroundColor,
+    return Obx(() {
+      final value = _businessController.selectedBusiness.value;
+
+      return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColor().backgroundColor,
+            ),
+            onPressed: () {
+              Get.back();
+            },
           ),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: Row(
-          children: [
-            Text(
-              'My Team',
-              style: TextStyle(
-                color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: AppColor().whiteColor,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Get.to(() => AddMember());
-        },
-        icon: Icon(Icons.add),
-        backgroundColor: AppColor().backgroundColor,
-        label: Text(
-          'Add new member',
-          style: TextStyle(
-              fontFamily: 'InterRegular',
-              fontSize: 10,
-              color: Colors.white,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 20,
-        ),
-        child: Column(
-          children: [
-            TeamsWidget(
-              name: 'Olatunde Joshua',
-              position: 'Owner',
-              status: Container(),
-            ),
-            SizedBox(height: 10),
-            TeamsWidget(
-              name: 'Hassan Tunmise',
-              position: 'Admin',
-              status: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(80),
-                    border: Border.all(
-                        width: 1, color: AppColor().orangeBorderColor),
-                    color: AppColor().orangeBorderColor.withOpacity(0.2)),
-                child: Text(
-                  'Pending',
-                  style: TextStyle(
-                      fontSize: 6,
-                      color: AppColor().orangeBorderColor,
-                      fontFamily: 'InterRegular',
-                      fontWeight: FontWeight.w400),
+          title: Row(
+            children: [
+              Text(
+                'My Team',
+                style: TextStyle(
+                  color: AppColor().backgroundColor,
+                  fontFamily: 'InterRegular',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
               ),
-            ),
-            SizedBox(height: 10),
-            TeamsWidget(
-              name: 'Akinlose Damilare',
-              position: 'Writer',
-              status: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(80),
-                    border:
-                        Border.all(width: 1, color: AppColor().backgroundColor),
-                    color: AppColor().backgroundColor.withOpacity(0.2)),
-                child: Text(
-                  'Invited',
+            ],
+          ),
+        ),
+        backgroundColor: AppColor().whiteColor,
+        floatingActionButton: value!.teamId == null
+            ? Container()
+            : FloatingActionButton.extended(
+                onPressed: () {
+                  Get.to(() => AddMember());
+                },
+                icon: Icon(Icons.add),
+                backgroundColor: AppColor().backgroundColor,
+                label: Text(
+                  'Add new member',
                   style: TextStyle(
-                      fontSize: 6,
-                      color: AppColor().backgroundColor,
                       fontFamily: 'InterRegular',
-                      fontWeight: FontWeight.w400),
+                      fontSize: 10,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+        body: value.teamId == null
+            ? NoTeamWidget()
+            : Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: _teamController.onlineBusinessTeam.length,
+                        itemBuilder: (context, index) {
+                          var item = _teamController.onlineBusinessTeam[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: TeamsWidget(
+                              name: item.email == null
+                                  ? '$firstName $lastName'
+                                  : item.email!,
+                              position: 'Owner',
+                              status: Container(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    // TeamsWidget(
+                    //   name: 'Olatunde Joshua',
+                    //   position: 'Owner',
+                    //   status: Container(),
+                    // ),
+                    // SizedBox(height: 10),
+                    // TeamsWidget(
+                    //   name: 'Hassan Tunmise',
+                    //   position: 'Admin',
+                    //   status: Container(
+                    //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    //     decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(80),
+                    //         border: Border.all(
+                    //             width: 1, color: AppColor().orangeBorderColor),
+                    //         color: AppColor().orangeBorderColor.withOpacity(0.2)),
+                    //     child: Text(
+                    //       'Pending',
+                    //       style: TextStyle(
+                    //           fontSize: 6,
+                    //           color: AppColor().orangeBorderColor,
+                    //           fontFamily: 'InterRegular',
+                    //           fontWeight: FontWeight.w400),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 10),
+                    // TeamsWidget(
+                    //   name: 'Akinlose Damilare',
+                    //   position: 'Writer',
+                    //   status: Container(
+                    //     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    //     decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(80),
+                    //         border: Border.all(
+                    //             width: 1, color: AppColor().backgroundColor),
+                    //         color: AppColor().backgroundColor.withOpacity(0.2)),
+                    //     child: Text(
+                    //       'Invited',
+                    //       style: TextStyle(
+                    //           fontSize: 6,
+                    //           color: AppColor().backgroundColor,
+                    //           fontFamily: 'InterRegular',
+                    //           fontWeight: FontWeight.w400),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
+              ),
+      );
+    });
   }
 
   Widget buildEditTeam() =>
@@ -190,7 +234,7 @@ class _MyTeamState extends State<MyTeam> {
                         width: 2, color: AppColor().backgroundColor)),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
-                    value: value,
+                    value: values,
                     icon: Icon(
                       Icons.keyboard_arrow_down,
                       color: AppColor().backgroundColor,
