@@ -99,22 +99,37 @@ class _MyTeamState extends State<MyTeam> {
                 child: Column(
                   children: [
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: _teamController.onlineBusinessTeam.length,
-                        itemBuilder: (context, index) {
-                          var item = _teamController.onlineBusinessTeam[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: TeamsWidget(
-                              name: item.email == null
-                                  ? '$firstName $lastName'
-                                  : item.email!,
-                              position: 'Owner',
-                              status: Container(),
+                      child: Obx(() {
+                        if (_teamController.teamStatus == TeamStatus.Loading) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: AppColor().backgroundColor,
                             ),
                           );
-                        },
-                      ),
+                        } else if (_teamController.teamStatus ==
+                            TeamStatus.Available) {
+                          return ListView.builder(
+                            itemCount:
+                                _teamController.onlineBusinessTeam.length,
+                            itemBuilder: (context, index) {
+                              var item =
+                                  _teamController.onlineBusinessTeam[index];
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: TeamsWidget(
+                                  name: item.email == null
+                                      ? '$firstName $lastName'
+                                      : item.email!,
+                                  position: 'Owner',
+                                  status: Container(),
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return Container();
+                        }
+                      }),
                     ),
                     // TeamsWidget(
                     //   name: 'Olatunde Joshua',
