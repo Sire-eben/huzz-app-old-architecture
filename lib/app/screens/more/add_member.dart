@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/team_repository.dart';
 import 'package:huzz/app/screens/widget/expandable_widget.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/model/roles_model.dart';
 import '../widget/custom_form_field.dart';
 
 class AddMember extends StatefulWidget {
@@ -15,6 +16,13 @@ class AddMember extends StatefulWidget {
 }
 
 class _AddMemberState extends State<AddMember> {
+  List _authoritySet = [];
+  List _roleSet = [];
+  List _selectedIndex = [];
+  List _selectedViewIndex = [];
+  List _selectedCreateIndex = [];
+  List _selectedUpdateIndex = [];
+  List _selectedDeleteIndex = [];
   final _teamController = Get.find<TeamRepository>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController updatePhoneNumberController =
@@ -45,6 +53,8 @@ class _AddMemberState extends State<AddMember> {
             color: AppColor().backgroundColor,
           ),
           onPressed: () {
+            _teamController.nameController.clear();
+            _teamController.phoneNumberController.clear();
             Get.back();
           },
         ),
@@ -69,7 +79,7 @@ class _AddMemberState extends State<AddMember> {
             SizedBox(
               height: 10,
             ),
-            CustomTextFieldWithImage(
+            CustomAddMemberTextField(
               contactName: _teamController.nameController,
               contactPhone: _teamController.phoneNumberController,
               contactMail: _teamController.emailController,
@@ -104,54 +114,204 @@ class _AddMemberState extends State<AddMember> {
             SizedBox(
               height: 5,
             ),
-            ExpandableWidget(
-              name: 'MANAGE CUSTOMERS',
-              tL: 10,
-              tR: 10,
-              bL: 0,
-              bR: 0,
-            ),
-            ExpandableWidget(
-              name: 'MANAGE INVENTORY',
-              tL: 0,
-              tR: 0,
-              bL: 0,
-              bR: 0,
-            ),
-            ExpandableWidget(
-              name: 'MANAGE BUSINESS TRANSACTION',
-              tL: 0,
-              tR: 0,
-              bL: 0,
-              bR: 0,
-            ),
-            ExpandableWidget(
-              name: 'MANAGE BANK INFO',
-              tL: 0,
-              tR: 0,
-              bL: 0,
-              bR: 0,
-            ),
-            ExpandableWidget(
-              name: 'MANAGE TEAM',
-              tL: 0,
-              tR: 0,
-              bL: 0,
-              bR: 0,
-            ),
-            ExpandableWidget(
-              name: 'MANAGE REMINDER',
-              tL: 0,
-              tR: 0,
-              bL: 0,
-              bR: 0,
-            ),
-            ExpandableWidget(
-              name: 'MANAGE BUSINESS INVOICE',
-              tL: 0,
-              tR: 0,
-              bL: 10,
-              bR: 10,
+            Container(
+              height: 500,
+              padding: EdgeInsets.all(2),
+              child: ListView.builder(
+                  itemCount: roleSet.length,
+                  itemBuilder: (context, index) {
+                    RoleSet item = roleSet[index];
+                    final _isSelected = _selectedIndex.contains(index);
+                    final _isSelectedView = _selectedViewIndex.contains(index);
+                    final _isSelectedCreate =
+                        _selectedCreateIndex.contains(index);
+                    final _isSelectedUpdate =
+                        _selectedUpdateIndex.contains(index);
+                    final _isSelectedDelete =
+                        _selectedDeleteIndex.contains(index);
+                    return ExpandableWidget(
+                      manageChild: InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (_isSelected) {
+                              _selectedIndex.remove(index);
+
+                              if (_roleSet.contains(item.titleName)) {
+                                _roleSet.remove(item.titleName);
+
+                                print(index);
+                                print('RoleSet: $_roleSet');
+                                print('AuthoritySet: $_authoritySet');
+                              }
+                            } else {
+                              _selectedIndex.add(index);
+                              _roleSet.add(item.titleName);
+
+                              print(index);
+                              print('RoleSet: $_roleSet');
+                              print('AuthoritySet: $_authoritySet');
+                            }
+                          });
+                        },
+                        child: _isSelected
+                            ? Icon(
+                                Icons.check_box,
+                                color: AppColor().backgroundColor,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank,
+                                color: AppColor().backgroundColor,
+                              ),
+                      ),
+                      view: InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (_isSelectedView) {
+                              _selectedViewIndex.remove(index);
+
+                              if (_authoritySet
+                                  .contains(item.authoritySet![1])) {
+                                _authoritySet.remove(item.authoritySet![1]);
+
+                                print(index);
+                                print('RoleSet: $_roleSet');
+                                print('AuthoritySet: $_authoritySet');
+                              }
+                            } else {
+                              _selectedViewIndex.add(index);
+                              _authoritySet.add(item.authoritySet![1]);
+
+                              print(index);
+                              print('RoleSet: $_roleSet');
+                              print('AuthoritySet: $_authoritySet');
+                            }
+                          });
+                        },
+                        child: _isSelectedView
+                            ? Icon(
+                                Icons.check_box,
+                                color: AppColor().blackColor,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank,
+                                color: AppColor().blackColor,
+                              ),
+                      ),
+                      create: InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (_isSelectedCreate) {
+                              _selectedCreateIndex.remove(index);
+
+                              if (_authoritySet
+                                  .contains(item.authoritySet![2])) {
+                                _authoritySet.remove(item.authoritySet![2]);
+
+                                print(index);
+                                print('RoleSet: $_roleSet');
+                                print('AuthoritySet: $_authoritySet');
+                              }
+                            } else {
+                              _selectedCreateIndex.add(index);
+                              _authoritySet.add(item.authoritySet![2]);
+
+                              print(index);
+                              print('RoleSet: $_roleSet');
+                              print('AuthoritySet: $_authoritySet');
+                            }
+                          });
+                        },
+                        child: _isSelectedCreate
+                            ? Icon(
+                                Icons.check_box,
+                                color: AppColor().blackColor,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank,
+                                color: AppColor().blackColor,
+                              ),
+                      ),
+                      update: InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (_isSelectedUpdate) {
+                              _selectedUpdateIndex.remove(index);
+
+                              if (_authoritySet
+                                  .contains(item.authoritySet![3])) {
+                                _authoritySet.remove(item.authoritySet![3]);
+
+                                print(index);
+                                print('RoleSet: $_roleSet');
+                                print('AuthoritySet: $_authoritySet');
+                              }
+                            } else {
+                              _selectedUpdateIndex.add(index);
+                              _authoritySet.add(item.authoritySet![3]);
+
+                              print(index);
+                              print('RoleSet: $_roleSet');
+                              print('AuthoritySet: $_authoritySet');
+                            }
+                          });
+                        },
+                        child: _isSelectedUpdate
+                            ? Icon(
+                                Icons.check_box,
+                                color: AppColor().blackColor,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank,
+                                color: AppColor().blackColor,
+                              ),
+                      ),
+                      delete: InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (_isSelectedDelete) {
+                              _selectedDeleteIndex.remove(index);
+
+                              if (_authoritySet
+                                  .contains(item.authoritySet![4])) {
+                                _authoritySet.remove(item.authoritySet![4]);
+
+                                print(index);
+                                print('RoleSet: $_roleSet');
+                                print('AuthoritySet: $_authoritySet');
+                              }
+                            } else {
+                              _selectedDeleteIndex.add(index);
+                              _authoritySet.add(item.authoritySet![4]);
+
+                              print(index);
+                              print('RoleSet: $_roleSet');
+                              print('AuthoritySet: $_authoritySet');
+                            }
+                          });
+                        },
+                        child: _isSelectedDelete
+                            ? Icon(
+                                Icons.check_box,
+                                color: AppColor().blackColor,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank,
+                                color: AppColor().blackColor,
+                              ),
+                      ),
+                      name: item.name,
+                      titleName: item.titleName,
+                      viewName: item.authoritySet![1],
+                      createName: item.authoritySet![2],
+                      updateName: item.authoritySet![3],
+                      deleteName: item.authoritySet![4],
+                      tL: item.tL,
+                      tR: item.tR,
+                      bL: item.bL,
+                      bR: item.bR,
+                      role: manageCustomer,
+                    );
+                  }),
             ),
             SizedBox(height: 20),
             InkWell(

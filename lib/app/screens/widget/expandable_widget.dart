@@ -4,17 +4,35 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:huzz/colors.dart';
 
 class ExpandableWidget extends StatefulWidget {
-  final String? name;
+  final String? name, titleName, viewName, createName, updateName, deleteName;
   final double? tL, tR, bL, bR;
-  ExpandableWidget({Key? key, this.name, this.tL, this.tR, this.bL, this.bR})
-      : super(key: key);
+  final bool? role;
+  final Widget? manageChild, view, create, update, delete;
+  ExpandableWidget({
+    Key? key,
+    this.name,
+    this.titleName,
+    this.viewName,
+    this.createName,
+    this.updateName,
+    this.deleteName,
+    this.tL,
+    this.tR,
+    this.bL,
+    this.bR,
+    this.role,
+    this.manageChild,
+    this.view,
+    this.create,
+    this.update,
+    this.delete,
+  }) : super(key: key);
 
   @override
   State<ExpandableWidget> createState() => _ExpandableWidgetState();
 }
 
 class _ExpandableWidgetState extends State<ExpandableWidget> {
-  bool manageCustomer = false;
   bool view = false, create = false, update = false, delete = false;
   @override
   Widget build(BuildContext context) {
@@ -39,105 +57,147 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
           collapsed: Container(),
           expanded: Column(
             children: [
-              SizedBox(
-                height: 30,
-                child: CheckboxListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    "View",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'InterRegular',
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "View",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'InterRegular',
+                      ),
                     ),
-                  ),
-                  value: view,
-                  onChanged: (newValue) {
-                    setState(() {
-                      view = newValue!;
-                    });
-                  },
+                    Container(child: widget.view)
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 30,
-                child: CheckboxListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    "Create",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'InterRegular',
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Create",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'InterRegular',
+                      ),
                     ),
-                  ),
-                  value: create,
-                  onChanged: (newValue) {
-                    setState(() {
-                      create = newValue!;
-                    });
-                  },
+                    Container(child: widget.create)
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 30,
-                child: CheckboxListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    "Update",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'InterRegular',
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Update",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'InterRegular',
+                      ),
                     ),
-                  ),
-                  value: update,
-                  onChanged: (newValue) {
-                    setState(() {
-                      update = newValue!;
-                    });
-                  },
+                    Container(child: widget.update)
+                  ],
                 ),
               ),
-              CheckboxListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  "Delete",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'InterRegular',
-                  ),
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Delete",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'InterRegular',
+                      ),
+                    ),
+                    Container(child: widget.delete)
+                  ],
                 ),
-                value: delete,
-                onChanged: (newValue) {
-                  setState(() {
-                    delete = newValue!;
-                  });
-                },
-              )
+              ),
+              // SizedBox(
+              //   height: 30,
+              //   child: CheckboxListTile(
+              //     contentPadding: EdgeInsets.zero,
+              //     title: Text(
+              //       "Create",
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //         fontSize: 12,
+              //         fontWeight: FontWeight.w400,
+              //         fontFamily: 'InterRegular',
+              //       ),
+              //     ),
+              //     value: create,
+              //     onChanged: (newValue) {
+              //       setState(() {
+              //         create = newValue!;
+              //       });
+              //     },
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 30,
+              //   child: CheckboxListTile(
+              //     contentPadding: EdgeInsets.zero,
+              //     title: Text(
+              //       "Update",
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //         fontSize: 12,
+              //         fontWeight: FontWeight.w400,
+              //         fontFamily: 'InterRegular',
+              //       ),
+              //     ),
+              //     value: update,
+              //     onChanged: (newValue) {
+              //       setState(() {
+              //         update = newValue!;
+              //       });
+              //     },
+              //   ),
+              // ),
+              // CheckboxListTile(
+              //   contentPadding: EdgeInsets.zero,
+              //   title: Text(
+              //     "Delete",
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //       fontSize: 12,
+              //       fontWeight: FontWeight.w400,
+              //       fontFamily: 'InterRegular',
+              //     ),
+              //   ),
+              //   value: delete,
+              //   onChanged: (newValue) {
+              //     setState(() {
+              //       delete = newValue!;
+              //     });
+              //   },
+              // )
             ],
           ),
           header: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 20,
-                child: Checkbox(
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  activeColor: AppColor().backgroundColor,
-                  value: manageCustomer,
-                  onChanged: (value) {
-                    setState(() {
-                      manageCustomer = value!;
-                    });
-                  },
-                ),
-              ),
+              SizedBox(width: 20, child: widget.manageChild),
               SizedBox(width: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
