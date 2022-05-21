@@ -8,7 +8,7 @@ import 'package:huzz/app/screens/invoice/empty_invoice.dart';
 import 'package:huzz/app/screens/more/more.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-
+import 'package:new_version/new_version.dart';
 import 'customers/customer_tabView.dart';
 import 'home/home.dart';
 import 'inventory/manage_inventory.dart';
@@ -36,6 +36,44 @@ class _DashboardState extends State<Dashboard> {
     setState(() {
       selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final newVersion = NewVersion(
+      iOSId: 'com.app.huzz',
+      androidId: 'com.app.huzz',
+    );
+
+    const simpleBehavior = true;
+
+    if (simpleBehavior) {
+      basicStatusCheck(newVersion);
+    } else {
+      advancedStatusCheck(newVersion);
+    }
+  }
+
+  basicStatusCheck(NewVersion newVersion) {
+    newVersion.showAlertIfNecessary(context: context);
+  }
+
+  advancedStatusCheck(NewVersion newVersion) async {
+    final status = await newVersion.getVersionStatus();
+    if (status != null) {
+      debugPrint(status.releaseNotes);
+      debugPrint(status.appStoreLink);
+      debugPrint(status.localVersion);
+      debugPrint(status.storeVersion);
+      debugPrint(status.canUpdate.toString());
+      newVersion.showUpdateDialog(
+        context: context,
+        versionStatus: status,
+        dialogTitle: 'Custom Title',
+        dialogText: 'Custom Text',
+      );
+    }
   }
 
   final inactiveColor = Colors.grey;

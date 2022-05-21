@@ -31,5 +31,6 @@ class ApiLink {
   static String miscellaneous = baseurl + "miscellaneous";
   static String createTeam = baseurl + 'business/team/';
   static String getTeamMember = baseurl + 'business/team-member/all';
+  static String inviteTeamMember = baseurl + 'business/team-member';
   static String updateInviteTeamStatus = baseurl + 'business/team-member';
 }

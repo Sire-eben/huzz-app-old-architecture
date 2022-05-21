@@ -523,10 +523,10 @@ class TeamRepository extends GetxController {
     }
   }
 
-  Future inviteTeamOnline(String teamId) async {
+  Future inviteTeamMember(String teamId) async {
     try {
       _teamStatus(TeamStatus.Loading);
-      print("trying to get team members online");
+      print("trying to invite team members");
       var response = await http.post(
           Uri.parse(ApiLink.getTeamMember + '/$teamId'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
