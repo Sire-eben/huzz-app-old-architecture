@@ -88,6 +88,7 @@ class BusinessRespository extends GetxController {
         var result = List.from(json['data']).map((e) => Business.fromJson(e));
         businessListFromServer.addAll(result);
         print("online data business lenght ${result.length}");
+
         getBusinessYetToBeSavedLocally();
         checkIfUpdateAvailable();
       }
