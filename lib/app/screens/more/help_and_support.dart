@@ -468,7 +468,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
             ),
             content: Container(
               child: Text(
-                'Please click continue if you want to proceed',
+                AppStrings.continueToProceed,
                 style: TextStyle(
                   color: AppColor().blackColor,
                   fontFamily: 'InterRegular',
@@ -519,7 +519,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     InkWell(
                       onTap: () {
                         launch(
-                            'https://api.whatsapp.com/send?phone=+2348132894616');
+                            AppStrings.huzzWhatsAppContactURI);
                       },
                       child: Container(
                         height: 45,
