@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/privacy_policy.dart';
 import 'package:huzz/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../terms_of_condition.dart';
 import 'faq_webview.dart';
 
 class HelpsAndSupport extends StatefulWidget {
@@ -62,61 +64,196 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // FAQ
-                  InkWell(
-                    onTap: () {
-                      Get.to(FaqWeb());
-                    },
-                    child: Container(
-                      padding:
+                  //PRIVACY
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material(
+                      child: InkWell(
+                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                        onTap: () {
+                          Get.to(Privacy());
+                        },
+                        child: Ink(
+                          padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      height: 55,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
-                        borderRadius: BorderRadius.circular(15),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Image(image: AssetImage('assets/images/privacy_policy1.png'), width: 20, height: 20),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'Privacy Policy',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'InterRegular',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                "assets/images/chevron-right.svg",
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
-                              border: Border.all(
-                                width: 2,
-                                color: AppColor().whiteColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  //TERMS OF USE
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material(
+                      child: InkWell(
+                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                        onTap: () {
+                          Get.to(TermsOfUse());
+                        },
+                        child: Ink(
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Image(image: AssetImage('assets/images/privacy_policy1.png'), width: 20, height: 20),
+                                ),
                               ),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                "assets/images/faq.svg",
-                                height: 15,
-                                width: 15,
+                              SizedBox(
+                                width: 10,
                               ),
-                            ),
+                              Text(
+                                'Terms Of Use',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'InterRegular',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                "assets/images/chevron-right.svg",
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 10,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // FAQ
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material( 
+                      child: InkWell(
+                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                        onTap: () {
+                          Get.to(FaqWeb());
+                        },
+                        child: Ink(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          Text(
-                            'FAQ',
-                            style: TextStyle(
-                              color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    "assets/images/faq.svg",
+                                    height: 15,
+                                    width: 15,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                'FAQ',
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'InterRegular',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                "assets/images/chevron-right.svg",
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
                           ),
-                          Spacer(),
-                          SvgPicture.asset(
-                            "assets/images/chevron-right.svg",
-                            height: 20,
-                            width: 20,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
