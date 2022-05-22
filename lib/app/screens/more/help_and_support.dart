@@ -3,8 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/app/screens/privacy_policy.dart';
 import 'package:huzz/colors.dart';
+import 'package:huzz/core/constants/app_icons.dart';
+import 'package:huzz/core/constants/app_strings.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../terms_of_condition.dart';
 import 'faq_webview.dart';
 
 class HelpsAndSupport extends StatefulWidget {
@@ -39,7 +43,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
         title: Row(
           children: [
             Text(
-              'Help and Support',
+              AppStrings.helpAndSupport,
               style: TextStyle(
                 color: AppColor().backgroundColor,
                 fontFamily: 'InterRegular',
@@ -62,61 +66,196 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // FAQ
-                  InkWell(
-                    onTap: () {
-                      Get.to(FaqWeb());
-                    },
-                    child: Container(
-                      padding:
+                  //PRIVACY
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material(
+                      child: InkWell(
+                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                        onTap: () {
+                          Get.to(Privacy());
+                        },
+                        child: Ink(
+                          padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      height: 55,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
-                        borderRadius: BorderRadius.circular(15),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Image(image: AssetImage(AppIcons.privacyPolicy), width: 20, height: 20),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                AppStrings.privacyPolicy,
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'InterRegular',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                AppIcons.chevronRight,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
-                              border: Border.all(
-                                width: 2,
-                                color: AppColor().whiteColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  //TERMS OF USE
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material(
+                      child: InkWell(
+                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                        onTap: () {
+                          Get.to(TermsOfUse());
+                        },
+                        child: Ink(
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Image(image: AssetImage(AppIcons.privacyPolicy), width: 20, height: 20),
+                                ),
                               ),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                "assets/images/faq.svg",
-                                height: 15,
-                                width: 15,
+                              SizedBox(
+                                width: 10,
                               ),
-                            ),
+                              Text(
+                                AppStrings.termsOfUse,
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'InterRegular',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                AppIcons.chevronRight,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 10,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // FAQ
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material( 
+                      child: InkWell(
+                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                        onTap: () {
+                          Get.to(FaqWeb());
+                        },
+                        child: Ink(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          Text(
-                            'FAQ',
-                            style: TextStyle(
-                              color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    AppIcons.faq,
+                                    height: 15,
+                                    width: 15,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                AppStrings.faq,
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'InterRegular',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                AppIcons.chevronRight,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
                           ),
-                          Spacer(),
-                          SvgPicture.asset(
-                            "assets/images/chevron-right.svg",
-                            height: 20,
-                            width: 20,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -124,73 +263,80 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     height: 20,
                   ),
                   // Mail
-                  InkWell(
-                    onTap: () async {
-                      final toEmail = 'info@huzz.africa';
-                      final subject = emailSubject;
-                      final messageBody = emailMessage;
-                      final url =
-                          'mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(messageBody)}';
-                      if (await canLaunch(url)) {
-                        launch(url);
-                        // final action = await AlertDialogs.yesCancelDialog(
-                        //     context, 'Open Gmail', 'Click confirm to proceed');
-                        // if (action == DialogsAction.yes) {
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material(
+                      child: InkWell(
+                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                        onTap: () async {
+                          final toEmail = 'info@huzz.africa';
+                          final subject = emailSubject;
+                          final messageBody = emailMessage;
+                          final url =
+                              'mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(messageBody)}';
+                          if (await canLaunch(url)) {
+                            launch(url);
+                            // final action = await AlertDialogs.yesCancelDialog(
+                            //     context, 'Open Gmail', 'Click confirm to proceed');
+                            // if (action == DialogsAction.yes) {
 
-                        // } else {
-                        //   return null;
-                      }
-                    },
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      height: 55,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
-                              border: Border.all(
-                                width: 2,
-                                color: AppColor().whiteColor,
+                            // } else {
+                            //   return null;
+                          }
+                        },
+                        child: Ink(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    AppIcons.mail,
+                                    height: 18,
+                                    width: 18,
+                                  ),
+                                ),
                               ),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                "assets/images/mail.svg",
-                                height: 18,
-                                width: 18,
+                              SizedBox(
+                                width: 10,
                               ),
-                            ),
+                              Text(
+                                AppStrings.mail,
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'InterRegular',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                AppIcons.chevronRight,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Mail',
-                            style: TextStyle(
-                              color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Spacer(),
-                          SvgPicture.asset(
-                            "assets/images/chevron-right.svg",
-                            height: 20,
-                            width: 20,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -198,68 +344,75 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     height: 20,
                   ),
                   // WhatsApp Connect
-                  InkWell(
-                    onTap: () async {
-                      // final action = await AlertDialogs.yesCancelDialog(
-                      //     context, 'Open WhatsApp', 'Click confirm to proceed');
-                      // if (action == DialogsAction.yes) {
-                      //   launch(
-                      //       'https://api.whatsapp.com/send?phone=+2348133258252');
-                      // } else {
-                      //   return null;
-                      // }
-                      _displayDialog(context);
-                    },
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      height: 55,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
-                              border: Border.all(
-                                width: 2,
-                                color: AppColor().whiteColor,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material(
+                      child: InkWell(
+                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                        onTap: () async {
+                          // final action = await AlertDialogs.yesCancelDialog(
+                          //     context, 'Open WhatsApp', 'Click confirm to proceed');
+                          // if (action == DialogsAction.yes) {
+                          //   launch(
+                          //       'https://api.whatsapp.com/send?phone=+2348133258252');
+                          // } else {
+                          //   return null;
+                          // }
+                          _displayDialog(context);
+                        },
+                        child: Ink(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    AppIcons.whatsapp,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                ),
                               ),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                "assets/images/whatsapp.svg",
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                AppStrings.connectOnWhatsApp,
+                                style: TextStyle(
+                                  color: AppColor().blackColor,
+                                  fontFamily: 'InterRegular',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                AppIcons.chevronRight,
                                 height: 20,
                                 width: 20,
                               ),
-                            ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Connect on WhatsApp',
-                            style: TextStyle(
-                              color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Spacer(),
-                          SvgPicture.asset(
-                            "assets/images/chevron-right.svg",
-                            height: 20,
-                            width: 20,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -315,7 +468,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
             ),
             content: Container(
               child: Text(
-                'Please click continue if you want to proceed',
+                AppStrings.continueToProceed,
                 style: TextStyle(
                   color: AppColor().blackColor,
                   fontFamily: 'InterRegular',
@@ -366,7 +519,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     InkWell(
                       onTap: () {
                         launch(
-                            'https://api.whatsapp.com/send?phone=+2348132894616');
+                            AppStrings.huzzWhatsAppContactURI);
                       },
                       child: Container(
                         height: 45,
