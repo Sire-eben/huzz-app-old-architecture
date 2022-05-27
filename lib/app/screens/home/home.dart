@@ -412,114 +412,114 @@ class _HomeState extends State<Home> {
               ),
             );
           }),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          Obx(() {
-            return Container(
-              padding: EdgeInsets.all(12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
-                    style: TextStyle(
-                      color: AppColor().whiteColor,
-                      fontFamily: 'InterRegular',
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.to(() => Records());
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Color(0xff056B5C),
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "All Records",
-                            style: TextStyle(
-                              color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(width: 5),
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.arrow_forward_outlined,
-                              color: Color(0xff056B5C),
-                              size: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 7),
-                  InkWell(
-                    onTap: () {
-                      Get.to(() => Insight());
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Color(0xff056B5C),
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Insights",
-                            style: TextStyle(
-                              color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(width: 5),
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: SvgPicture.asset(
-                              'assets/images/graph.svg',
-                              height: 14,
-                              width: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              height: 60,
-              decoration: BoxDecoration(
-                color: AppColor().backgroundColor,
-                borderRadius: BorderRadius.circular(12),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/home_rectangle.png"),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            );
-          }),
+          // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          // Obx(() {
+          //   return Container(
+          //     padding: EdgeInsets.all(12),
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       children: [
+          //         Text(
+          //           "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+          //           style: TextStyle(
+          //             color: AppColor().whiteColor,
+          //             fontFamily: 'InterRegular',
+          //             fontSize: 20,
+          //             fontWeight: FontWeight.bold,
+          //           ),
+          //         ),
+          //         InkWell(
+          //           onTap: () {
+          //             Get.to(() => Records());
+          //           },
+          //           child: Container(
+          //             padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+          //             decoration: BoxDecoration(
+          //               color: Color(0xff056B5C),
+          //               borderRadius: BorderRadius.circular(24),
+          //             ),
+          //             child: Row(
+          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //               children: [
+          //                 Text(
+          //                   "All Records",
+          //                   style: TextStyle(
+          //                     color: AppColor().whiteColor,
+          //                     fontFamily: 'InterRegular',
+          //                     fontSize: 10,
+          //                     fontWeight: FontWeight.w600,
+          //                   ),
+          //                 ),
+          //                 SizedBox(width: 5),
+          //                 Container(
+          //                   padding: EdgeInsets.all(2),
+          //                   decoration: BoxDecoration(
+          //                     color: Colors.white,
+          //                     shape: BoxShape.circle,
+          //                   ),
+          //                   child: Icon(
+          //                     Icons.arrow_forward_outlined,
+          //                     color: Color(0xff056B5C),
+          //                     size: 14,
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //         SizedBox(width: 7),
+          //         InkWell(
+          //           onTap: () {
+          //             Get.to(() => Insight());
+          //           },
+          //           child: Container(
+          //             padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+          //             decoration: BoxDecoration(
+          //               color: Color(0xff056B5C),
+          //               borderRadius: BorderRadius.circular(24),
+          //             ),
+          //             child: Row(
+          //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //               children: [
+          //                 Text(
+          //                   "Insights",
+          //                   style: TextStyle(
+          //                     color: AppColor().whiteColor,
+          //                     fontFamily: 'InterRegular',
+          //                     fontSize: 10,
+          //                     fontWeight: FontWeight.w600,
+          //                   ),
+          //                 ),
+          //                 SizedBox(width: 5),
+          //                 Container(
+          //                   padding: EdgeInsets.all(2),
+          //                   decoration: BoxDecoration(
+          //                     color: Colors.white,
+          //                     shape: BoxShape.circle,
+          //                   ),
+          //                   child: SvgPicture.asset(
+          //                     'assets/images/graph.svg',
+          //                     height: 14,
+          //                     width: 14,
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         )
+          //       ],
+          //     ),
+          //     height: 60,
+          //     decoration: BoxDecoration(
+          //       color: AppColor().backgroundColor,
+          //       borderRadius: BorderRadius.circular(12),
+          //       image: DecorationImage(
+          //         image: AssetImage("assets/images/home_rectangle.png"),
+          //         fit: BoxFit.fill,
+          //       ),
+          //     ),
+          //   );
+          // }),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           InkWell(
             onTap: () {
