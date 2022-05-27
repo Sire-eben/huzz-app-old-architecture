@@ -71,6 +71,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   final TextEditingController accountName = TextEditingController();
   final TextEditingController accountNo = TextEditingController();
   final TextEditingController _searchcontroller = TextEditingController();
+  ScrollController _scrollController = ScrollController();
 
   final payments = ['Select payment mode', 'item1', 'item2'];
   String? value;
@@ -192,176 +193,181 @@ class _CreateInvoiceState extends State<CreateInvoice> {
       ),
       backgroundColor: Colors.white,
       body: Obx(() {
-        return Theme(
-          data: ThemeData(
-              colorScheme: Theme.of(context).colorScheme.copyWith(
-                  onSurface: Colors.transparent, primary: Palette.primaryColor),
-              primarySwatch: Palette.primaryColor,
-              canvasColor: Colors.white,
-              shadowColor: Colors.white),
-          child: Stepper(
-            controlsBuilder:
-                (BuildContext context, ControlsDetails controlsDetails) {
-              return Padding(
-                padding: EdgeInsets.only(top: 40),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: controlsDetails.onStepCancel,
-                      child: Container(
-                        height: 40,
-                        width: 110,
-                        decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
-                            border: Border.all(
-                                width: 2, color: AppColor().backgroundColor),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                  color: AppColor().backgroundColor,
-                                  shape: BoxShape.circle),
-                              child: Icon(
-                                Icons.arrow_back,
-                                color: AppColor().whiteColor,
-                                size: 15,
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              'Back',
-                              style: TextStyle(
-                                  color: AppColor().backgroundColor,
-                                  fontFamily: 'InterRegular'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Obx(() {
-                      return InkWell(
-                        onTap: controlsDetails.onStepContinue,
+        return Scrollbar(
+          controller: _scrollController,
+          child: Theme(
+            data: ThemeData(
+                colorScheme: Theme.of(context).colorScheme.copyWith(
+                    onSurface: Colors.transparent,
+                    primary: Palette.primaryColor),
+                primarySwatch: Palette.primaryColor,
+                canvasColor: Colors.white,
+                shadowColor: Colors.white),
+            child: Stepper(
+              controlsBuilder:
+                  (BuildContext context, ControlsDetails controlsDetails) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: controlsDetails.onStepCancel,
                         child: Container(
                           height: 40,
                           width: 110,
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColor().whiteColor,
+                              border: Border.all(
+                                  width: 2, color: AppColor().backgroundColor),
                               borderRadius: BorderRadius.circular(10)),
-                          child: (_invoiceController.addingInvoiceStatus ==
-                                  AddingInvoiceStatus.Loading)
-                              ? Container(
-                                  width: 30,
-                                  height: 30,
-                                  child: Center(
-                                      child: CircularProgressIndicator(
-                                          color: Colors.white)),
-                                )
-                              : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Continue',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: 'InterRegular'),
-                                    ),
-                                    SizedBox(width: 4),
-                                    Container(
-                                      padding: EdgeInsets.all(2),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle),
-                                      child: Icon(
-                                        Icons.arrow_forward,
-                                        color: AppColor().backgroundColor,
-                                        size: 15,
-                                      ),
-                                    )
-                                  ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    color: AppColor().backgroundColor,
+                                    shape: BoxShape.circle),
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  color: AppColor().whiteColor,
+                                  size: 15,
                                 ),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Back',
+                                style: TextStyle(
+                                    color: AppColor().backgroundColor,
+                                    fontFamily: 'InterRegular'),
+                              ),
+                            ],
+                          ),
                         ),
-                      );
-                    }),
-                  ],
-                ),
-              );
-            },
-            elevation: 0,
-            physics: NeverScrollableScrollPhysics(),
-            type: StepperType.horizontal,
-            steps: getSteps(),
-            currentStep: currentStep,
-            onStepContinue: () async {
-              final isLastStep = currentStep == getSteps().length - 1;
+                      ),
+                      Obx(() {
+                        return InkWell(
+                          onTap: controlsDetails.onStepContinue,
+                          child: Container(
+                            height: 40,
+                            width: 110,
+                            decoration: BoxDecoration(
+                                color: AppColor().backgroundColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: (_invoiceController.addingInvoiceStatus ==
+                                    AddingInvoiceStatus.Loading)
+                                ? Container(
+                                    width: 30,
+                                    height: 30,
+                                    child: Center(
+                                        child: CircularProgressIndicator(
+                                            color: Colors.white)),
+                                  )
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Continue',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'InterRegular'),
+                                      ),
+                                      SizedBox(width: 4),
+                                      Container(
+                                        padding: EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.circle),
+                                        child: Icon(
+                                          Icons.arrow_forward,
+                                          color: AppColor().backgroundColor,
+                                          size: 15,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
+                );
+              },
+              elevation: 0,
+              physics: ScrollPhysics(),
+              type: StepperType.horizontal,
+              steps: getSteps(),
+              currentStep: currentStep,
+              onStepContinue: () async {
+                final isLastStep = currentStep == getSteps().length - 1;
 
-              if (isLastStep) {
-                final date = DateTime.now();
-                final dueDate = date.add(Duration(days: 7));
-                if (_invoiceController.paymentValue == 1) {
-                  if (_bankKey.currentState!.validate()) {
-                    if (_invoiceController.productList.isEmpty)
-                      _invoiceController.addMoreProduct();
-                    _invoiceController.createBusinessInvoice();
-                    setState(() {});
+                if (isLastStep) {
+                  final date = DateTime.now();
+                  final dueDate = date.add(Duration(days: 7));
+                  if (_invoiceController.paymentValue == 1) {
+                    if (_bankKey.currentState!.validate()) {
+                      if (_invoiceController.productList.isEmpty)
+                        _invoiceController.addMoreProduct();
+                      _invoiceController.createBusinessInvoice();
+                      setState(() {});
+                    }
+                  } else {
+                    if (_invoiceController.selectedBank != null) {
+                      if (_invoiceController.productList.isEmpty)
+                        _invoiceController.addMoreProduct();
+                      _invoiceController.createBusinessInvoice();
+                    }
                   }
                 } else {
-                  if (_invoiceController.selectedBank != null) {
-                    if (_invoiceController.productList.isEmpty)
-                      _invoiceController.addMoreProduct();
-                    _invoiceController.createBusinessInvoice();
-                  }
-                }
-              } else {
-                if (currentStep == 1) {
-                  if (_invoiceController.productList.isEmpty) {
-                    if (_invoiceController.selectedValue == 1) {
-                      if (_productKey.currentState!.validate()) {
+                  if (currentStep == 1) {
+                    if (_invoiceController.productList.isEmpty) {
+                      if (_invoiceController.selectedValue == 1) {
+                        if (_productKey.currentState!.validate()) {
+                          setState(() {
+                            currentStep += 1;
+                          });
+                        }
+                      } else {
+                        if (_invoiceController.selectedProduct != null) {
+                          setState(() {
+                            currentStep += 1;
+                          });
+                        }
+                      }
+                    } else {
+                      setState(() {
+                        currentStep += 1;
+                      });
+                    }
+                  } else if (currentStep == 0) {
+                    if (_invoiceController.customerType == 1) {
+                      if (_customerKey.currentState!.validate()) {
                         setState(() {
                           currentStep += 1;
                         });
                       }
                     } else {
-                      if (_invoiceController.selectedProduct != null) {
+                      if (_invoiceController.selectedCustomer != null) {
                         setState(() {
                           currentStep += 1;
                         });
                       }
                     }
-                  } else {
-                    setState(() {
-                      currentStep += 1;
-                    });
-                  }
-                } else if (currentStep == 0) {
-                  if (_invoiceController.customerType == 1) {
-                    if (_customerKey.currentState!.validate()) {
-                      setState(() {
-                        currentStep += 1;
-                      });
-                    }
-                  } else {
-                    if (_invoiceController.selectedCustomer != null) {
-                      setState(() {
-                        currentStep += 1;
-                      });
-                    }
                   }
                 }
-              }
-            },
-            onStepCancel: () {
-              currentStep == 0
-                  ? null
-                  : setState(() {
-                      currentStep -= 1;
-                    });
-            },
+              },
+              onStepCancel: () {
+                currentStep == 0
+                    ? null
+                    : setState(() {
+                        currentStep -= 1;
+                      });
+              },
+            ),
           ),
         );
       }),
@@ -552,8 +558,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   StatefulBuilder ItemInfo() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
         ScrollController? controller;
-        return SingleChildScrollView(
-            physics: ScrollPhysics(),
+        return Scrollbar(
+            // physics: ScrollPhysics(),
             controller: controller,
             child: Container(
                 child: Column(
@@ -1483,33 +1489,38 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   Widget showAllItems() {
     return Container(
         width: MediaQuery.of(context).size.width,
-        height: _invoiceController.productList.length * 100,
-        child: ListView.builder(
-            itemCount: _invoiceController.productList.length,
-            itemBuilder: (context, index) => ItemCard(
-                  item: _invoiceController.productList[index],
-                  onDelete: () {
-                    var item = _invoiceController.productList[index];
-                    _invoiceController.productList.remove(item);
-                    if (_invoiceController.productList.length == 1) {
-                      _invoiceController
-                          .setValue(_invoiceController.productList.first);
-                    }
-                    setState(() {});
-                  },
-                  onEdit: () {
-                    _invoiceController
-                        .selectEditValue(_invoiceController.productList[index]);
+        height: _invoiceController.productList.length * 80,
+        child: Scrollbar(
+          controller: _scrollController,
+          child: ListView.separated(
+              physics: ScrollPhysics(),
+              separatorBuilder: (context, index) => SizedBox(height: 10),
+              itemCount: _invoiceController.productList.length,
+              itemBuilder: (context, index) => ItemCard(
+                    item: _invoiceController.productList[index],
+                    onDelete: () {
+                      var item = _invoiceController.productList[index];
+                      _invoiceController.productList.remove(item);
+                      if (_invoiceController.productList.length == 1) {
+                        _invoiceController
+                            .setValue(_invoiceController.productList.first);
+                      }
+                      setState(() {});
+                    },
+                    onEdit: () {
+                      _invoiceController.selectEditValue(
+                          _invoiceController.productList[index]);
 
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20))),
-                        context: context,
-                        builder: (context) => buildEditItem(
-                            _invoiceController.productList[index], index));
-                  },
-                )));
+                      showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          context: context,
+                          builder: (context) => buildEditItem(
+                              _invoiceController.productList[index], index));
+                    },
+                  )),
+        ));
   }
 
   Widget buildEditItem(PaymentItem item, int index) =>

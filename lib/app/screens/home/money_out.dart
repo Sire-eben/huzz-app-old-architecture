@@ -54,6 +54,7 @@ class _MoneyOutState extends State<MoneyOut> {
   final _transactionController = Get.find<TransactionRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
+  ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     _transactionController.clearValue();
@@ -225,9 +226,9 @@ class _MoneyOutState extends State<MoneyOut> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: Scrollbar(
+          controller: _scrollController,
+          child: ListView(
             children: [
               (_transactionController.productList.length < 2)
                   ? Padding(
@@ -543,7 +544,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   : Container(),
               SizedBox(
                   height: _transactionController.productList.length >= 2
-                      ? MediaQuery.of(context).size.height * 0.02
+                      ? MediaQuery.of(context).size.height * 0.01
                       : 0),
               GestureDetector(
                 onTap: () {
@@ -608,6 +609,10 @@ class _MoneyOutState extends State<MoneyOut> {
                   ),
                 ),
               ),
+              SizedBox(
+                  height: _transactionController.productList.length >= 2
+                      ? MediaQuery.of(context).size.height * 0.01
+                      : 0),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
@@ -1546,35 +1551,41 @@ class _MoneyOutState extends State<MoneyOut> {
   Widget showAllItems() {
     return Container(
         margin: EdgeInsets.only(top: 20),
-        width: MediaQuery.of(context).size.width,
-        height: _transactionController.productList.length * 100,
-        child: ListView.builder(
-            itemCount: _transactionController.productList.length,
-            itemBuilder: (context, index) => ItemCard(
-                  item: _transactionController.productList[index],
-                  onDelete: () {
-                    var item = _transactionController.productList[index];
-                    _transactionController.productList.remove(item);
-                    if (_transactionController.productList.length == 1) {
-                      _transactionController
-                          .setValue(_transactionController.productList.first);
-                    }
-                    setState(() {});
-                  },
-                  onEdit: () {
-                    _transactionController.selectEditValue(
-                        _transactionController.productList[index]);
+        width: double.infinity,
+        height: _transactionController.productList.length * 80,
+        child: Scrollbar(
+          controller: _scrollController,
+          child: ListView.separated(
+              physics: ScrollPhysics(),
+              separatorBuilder: (context, index) => SizedBox(height: 10),
+              itemCount: _transactionController.productList.length,
+              itemBuilder: (context, index) => ItemCard(
+                    item: _transactionController.productList[index],
+                    onDelete: () {
+                      var item = _transactionController.productList[index];
+                      _transactionController.productList.remove(item);
+                      if (_transactionController.productList.length == 1) {
+                        _transactionController
+                            .setValue(_transactionController.productList.first);
+                      }
+                      setState(() {});
+                    },
+                    onEdit: () {
+                      _transactionController.selectEditValue(
+                          _transactionController.productList[index]);
 
-                    showModalBottomSheet(
-                        isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20))),
-                        context: context,
-                        builder: (context) => buildEditItem(
-                            _transactionController.productList[index], index));
-                  },
-                )));
+                      showModalBottomSheet(
+                          isScrollControlled: true,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          context: context,
+                          builder: (context) => buildEditItem(
+                              _transactionController.productList[index],
+                              index));
+                    },
+                  )),
+        ));
   }
 
   Widget buildEditItem(PaymentItem item, int index) =>
