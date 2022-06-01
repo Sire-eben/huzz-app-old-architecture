@@ -857,6 +857,7 @@ class AuthRepository extends GetxController {
     await sqliteDb.deleteAllOfflineTransaction();
     await sqliteDb.deleteAllProducts();
     await sqliteDb.deleteAllCustomers();
+    // await sqliteDb.deleteAllTeam();
     await sqliteDb.deleteAllOfflineDebtors();
     await sqliteDb.deleteAllInvoice();
     await sqliteDb.deleteAllBanks();

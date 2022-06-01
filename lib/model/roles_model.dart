@@ -1,0 +1,137 @@
+class RoleSet {
+  String? name, titleName;
+  double? tL, tR, bL, bR;
+  List? authoritySet = [];
+  RoleSet({
+    this.name,
+    this.titleName,
+    this.tL,
+    this.tR,
+    this.bL,
+    this.bR,
+    this.authoritySet,
+  });
+}
+
+List<RoleSet> roleSet = [
+  RoleSet(
+    name: 'MANAGE CUSTOMERS',
+    titleName: 'MANAGE_CUSTOMERS',
+    tL: 10,
+    tR: 10,
+    bL: 0,
+    bR: 0,
+    authoritySet: [
+      "ALL_CUSTOMERS_OPERATIONS",
+      "VIEW_CUSTOMER",
+      "CREATE_CUSTOMER",
+      "UPDATE_CUSTOMER",
+      "DELETE_CUSTOMER",
+    ],
+  ),
+  RoleSet(
+    name: 'MANAGE PRODUCT',
+    titleName: 'MANAGE_PRODUCT',
+    tL: 0,
+    tR: 0,
+    bL: 0,
+    bR: 0,
+    authoritySet: [
+      "ALL_PRODUCT_OPERATIONS",
+      "VIEW_PRODUCT",
+      "CREATE_PRODUCT",
+      "UPDATE_PRODUCT",
+      "DELETE_PRODUCT",
+    ],
+  ),
+  RoleSet(
+    name: 'MANAGE BUSINESS TRANSACTION',
+    titleName: 'MANAGE_BUSINESS_TRANSACTION',
+    tL: 0,
+    tR: 0,
+    bL: 0,
+    bR: 0,
+    authoritySet: [
+      "ALL_BUSINESS_TRANSACTION_OPERATIONS",
+      "VIEW_BUSINESS_TRANSACTION",
+      "CREATE_BUSINESS_TRANSACTION",
+      "UPDATE_BUSINESS_TRANSACTION",
+      "DELETE_BUSINESS_TRANSACTION",
+    ],
+  ),
+  RoleSet(
+    name: 'MANAGE BANK INFO',
+    titleName: 'MANAGE_BANK_INFO',
+    tL: 0,
+    tR: 0,
+    bL: 0,
+    bR: 0,
+    authoritySet: [
+      "ALL_BANK_INFO_OPERATIONS",
+      "VIEW_BANK_INFO",
+      "CREATE_BANK_INFO",
+      "UPDATE_BANK_INFO",
+      "DELETE_BANK_INFO",
+    ],
+  ),
+  RoleSet(
+    name: 'MANAGE REMINDERS',
+    titleName: 'MANAGE_REMINDERS',
+    tL: 0,
+    tR: 0,
+    bL: 0,
+    bR: 0,
+    authoritySet: [
+      "ALL_REMINDER_OPERATIONS",
+      "VIEW_REMINDER_MEMBER",
+      "CREATE_REMINDER_MEMBER",
+      "UPDATE_REMINDER_MEMBER",
+      "DELETE_REMINDER_MEMBER",
+    ],
+  ),
+  RoleSet(
+    name: 'MANAGE TEAM',
+    titleName: 'MANAGE_TEAM',
+    tL: 0,
+    tR: 0,
+    bL: 0,
+    bR: 0,
+    authoritySet: [
+      "ALL_TEAM_OPERATIONS",
+      "VIEW_TEAM_MEMBER",
+      "CREATE_TEAM_MEMBER",
+      "UPDATE_TEAM_MEMBER",
+      "DELETE_TEAM_MEMBER",
+    ],
+  ),
+  RoleSet(
+    name: 'MANAGE DEBTOR',
+    titleName: 'MANAGE_DEBTOR',
+    tL: 0,
+    tR: 0,
+    bL: 0,
+    bR: 0,
+    authoritySet: [
+      "ALL_DEBTORS_OPERATIONS",
+      "VIEW_DEBTOR",
+      "CREATE_DEBTOR",
+      "UPDATE_DEBTOR",
+      "DELETE_DEBTOR",
+    ],
+  ),
+  RoleSet(
+    name: 'MANAGE BUSINESS INVOICE',
+    titleName: 'MANAGE_BUSINESS_INVOICE',
+    tL: 0,
+    tR: 0,
+    bL: 10,
+    bR: 10,
+    authoritySet: [
+      "ALL_BUSINESS_INVOICE_OPERATIONS",
+      "VIEW_BUSINESS_INVOICE",
+      "CREATE_BUSINESS_INVOICE",
+      "UPDATE_BUSINESS_INVOICE",
+      "DELETE_BUSINESS_INVOICE",
+    ],
+  ),
+];

@@ -51,6 +51,7 @@ class MoneyIn extends StatefulWidget {
 }
 
 class _MoneyInState extends State<MoneyIn> {
+  ScrollController _scrollController = ScrollController();
   final _transactionController = Get.find<TransactionRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
@@ -224,9 +225,9 @@ class _MoneyInState extends State<MoneyIn> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: Scrollbar(
+          controller: _scrollController,
+          child: ListView(
             children: [
               (_transactionController.productList.length < 2)
                   ? Padding(
@@ -1490,34 +1491,38 @@ class _MoneyInState extends State<MoneyIn> {
   Widget showAllItems() {
     return Container(
         margin: EdgeInsets.only(top: 20),
-        width: MediaQuery.of(context).size.width,
-        height: _transactionController.productList.length * 100,
-        child: ListView.builder(
-            itemCount: _transactionController.productList.length,
-            itemBuilder: (context, index) => ItemCard(
-                  item: _transactionController.productList[index],
-                  onDelete: () {
-                    var item = _transactionController.productList[index];
-                    _transactionController.productList.remove(item);
-                    if (_transactionController.productList.length == 1) {
-                      _transactionController
-                          .setValue(_transactionController.productList.first);
-                    }
-                    setState(() {});
-                  },
-                  onEdit: () {
-                    _transactionController.selectEditValue(
-                        _transactionController.productList[index]);
+        width: double.infinity,
+        height: _transactionController.productList.length * 80,
+        child: Scrollbar(
+          controller: _scrollController,
+          child: ListView.builder(
+              itemCount: _transactionController.productList.length,
+              itemBuilder: (context, index) => ItemCard(
+                    item: _transactionController.productList[index],
+                    onDelete: () {
+                      var item = _transactionController.productList[index];
+                      _transactionController.productList.remove(item);
+                      if (_transactionController.productList.length == 1) {
+                        _transactionController
+                            .setValue(_transactionController.productList.first);
+                      }
+                      setState(() {});
+                    },
+                    onEdit: () {
+                      _transactionController.selectEditValue(
+                          _transactionController.productList[index]);
 
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20))),
-                        context: context,
-                        builder: (context) => buildEditItem(
-                            _transactionController.productList[index], index));
-                  },
-                )));
+                      showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          context: context,
+                          builder: (context) => buildEditItem(
+                              _transactionController.productList[index],
+                              index));
+                    },
+                  )),
+        ));
   }
 
   Widget buildEditItem(PaymentItem item, int index) =>

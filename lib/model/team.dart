@@ -74,37 +74,25 @@ List<Team> teamList = [
       name: 'Olaitan Adetayo',
       phone: '09038726495',
       image: 'assets/images/cus2.png'),
-  // Team(
-  //     name: 'Olatunde Joshua',
-  //     phone: '09038726495',
-  //     image: 'assets/images/cus3.png'),
-  // Team(
-  //     name: 'Akinlose Joshua',
-  //     phone: '09038726495',
-  //     image: 'assets/images/cus4.png'),
-  // Team(
-  //     name: 'Olatunde Damilare',
-  //     phone: '09038726495',
-  //     image: 'assets/images/cus5.png'),
 ];
 
 class Teams {
-  String? id,
+  String? teamId,
       phoneNumber,
       email,
-      teamId,
-      authoritySet,
+      businessId,
       nextExpirationDateForInviteLink,
       teamMemberStatus;
   List? roleSet;
   DateTime? createdDateTime, updatedDateTime;
   bool? deleted;
+  List? authoritySet;
 
   Teams({
-    this.id,
+    this.teamId,
     this.phoneNumber,
     this.email,
-    this.teamId,
+    this.businessId,
     this.roleSet,
     this.authoritySet,
     this.teamMemberStatus,
@@ -115,12 +103,13 @@ class Teams {
   });
 
   factory Teams.fromJson(Map<String, dynamic> json) => Teams(
-        id: json["id"],
+        teamId: json["id"],
         phoneNumber: json["phoneNumber"],
         email: json["email"],
-        teamId: json["teamId"],
+        businessId: json["teamId"],
         roleSet: json["roleSet"] == null ? [] : List.from(json["roleSet"]),
-        authoritySet: json["authoritySet"],
+        authoritySet:
+            json["authoritySet"] == null ? [] : List.from(json["authoritySet"]),
         teamMemberStatus: json["teamMemberStatus"],
         deleted: json["deleted"],
         createdDateTime: DateTime.parse(json["createdDateTime"]),
@@ -130,10 +119,10 @@ class Teams {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "id": teamId,
         "phoneNumber": phoneNumber,
         "email": email,
-        "teamId": teamId,
+        "teamId": businessId,
         "roleSet": (roleSet != null && roleSet!.isNotEmpty) ? this.roleSet : [],
         "authoritySet": authoritySet,
         "teamMemberStatus": teamMemberStatus,

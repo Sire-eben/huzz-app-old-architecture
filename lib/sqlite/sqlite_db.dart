@@ -12,15 +12,19 @@ import 'package:sqflite/sqflite.dart';
 class SqliteDb {
   late Database db;
   static String databaseName = "HuzzOffline.db";
+
   static String businessTableName = "Business";
   static String businessId = "BusinessId";
   static String businessJson = "BusinessJson";
+
   static String transactionId = "TransactionId";
   static String transactionJson = "TransactionJson";
   static String transactionTableName = "Transactions";
+
   static String productbusinessTable = "ProductBusinessTable";
   static String productId = "ProductId";
   static String productJson = "ProductJson";
+
   static String bankAccountTable = "BankAccount";
   static String bankAccountId = "BankAccountId";
   static String bankAccountJson = "BankAccountJson";
@@ -28,9 +32,15 @@ class SqliteDb {
   static String customerbusinessTable = "CustomerBusinessTable";
   static String customerId = "CustomerId";
   static String customerJson = "CustomerJson";
+
+  // static String teambusinessTable = "TeamBusinessTable";
+  // static String teamId = "TeamId";
+  // static String teamJson = "TeamJson";
+
   static String invoiceTableName = "Invoice";
   static String invoiceJson = "InvoiceJson";
   static String invoiceId = "InvoiceId";
+
   static String debtorbusinessTable = "DebtorBusinessTable";
   static String debtorJson = "debtorJson";
   static String debtorId = "debtorId";
@@ -66,6 +76,13 @@ $customerId text primary key,
 $customerJson text not null,
 $businessId text not null) 
 ''');
+
+//       await db.execute('''create table $teambusinessTable (
+// $teamId text primary key,
+// $teamJson text not null,
+// $businessId text not null)
+// ''');
+
       await db.execute('''create table $bankAccountTable (
 $bankAccountId text primary key,
 $bankAccountJson text not null,
@@ -369,6 +386,57 @@ $businessId text not null)
     db.delete(customerbusinessTable);
   }
 
+  //Team SQL Db Logic
+  // Future insertTeam(Teams teams) async {
+  //   var value = jsonEncode(teams.toJson());
+  //   var result = db.insert(teambusinessTable, {
+  //     teamId: teams.teamId,
+  //     businessId: teams.businessId,
+  //     teamJson: value,
+  //   });
+  // }
+
+  // Future<List<Teams>> getOfflineTeams(String id) async {
+  //   var result = await db
+  //       .query(teambusinessTable, where: '"$businessId" = ?', whereArgs: [id]);
+  //   var offlineTeams = result
+  //       .map((e) => Teams.fromJson(jsonDecode(e[teamJson].toString())))
+  //       .toList();
+  //   return offlineTeams;
+  // }
+
+  // Future<Teams?> getOfflineTeam(String id) async {
+  //   var result = await db
+  //       .query(teambusinessTable, where: '"$teamId" = ?', whereArgs: [id]);
+  //   if (result.length > 0) {
+  //     var json = result.first;
+  //     return Teams.fromJson(jsonDecode(result.first[teamJson].toString()));
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
+  // Future updateOfflineTeam(Teams teams) async {
+  //   var value = jsonEncode(teams.toJson());
+  //   var result = await db.update(teambusinessTable,
+  //       {teamId: teams.teamId, businessId: teams.businessId, teamJson: value},
+  //       where: '"$teamId" = ?', whereArgs: [teams.teamId]);
+
+  //   print("updated $result");
+  // }
+
+  // Future deleteTeam(Teams teams) async {
+  //   var result = await db.delete(teambusinessTable,
+  //       where: '"$teamId" = ?', whereArgs: [teams.teamId]);
+
+  //   print("result after delete $result");
+  // }
+
+  // Future deleteAllTeam() async {
+  //   db.delete(teambusinessTable);
+  // }
+
+//Bank SQL DB Logic
   Future insertBankAccount(Bank bank) async {
     var value = jsonEncode(bank.toJson());
     var result = db.insert(bankAccountTable, {

@@ -15,7 +15,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.height * 0.03, vertical: 10),
+          horizontal: MediaQuery.of(context).size.height * 0.03, vertical: 1),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.08,
         width: MediaQuery.of(context).size.width,
