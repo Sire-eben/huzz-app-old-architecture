@@ -266,6 +266,7 @@ class BankAccountRepository extends GetxController {
         // Get.to(ConfirmationBank(
         //   text: "Updated",
         // ));
+        Get.back();
         clearValue();
       } else {
         _addingBankStatus(AddingBankInfoStatus.Error);

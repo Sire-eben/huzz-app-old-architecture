@@ -18,6 +18,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../colors.dart';
+import 'bankCard.dart';
 
 class BusinessInfo extends StatefulWidget {
   BusinessInfo({Key? key});
@@ -447,14 +448,17 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   // Spacer(),
                   if (bankInfoController.offlineBusinessBank.isNotEmpty)
                     ...bankInfoController.offlineBusinessBank
-                        .map((e) => ItemCard(
+                        .map((e) => BankCard(
                             item: e,
                             onDelete: () {
+                              print('deleting bank account...');
                               bankInfoController.addToDeleteList(e);
                             },
                             onEdit: () {
+                              print('edit bank account');
                               bankInfoController.setItem(e);
                               showModalBottomSheet(
+                                  isScrollControlled: true,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
                                           top: Radius.circular(20))),
@@ -800,8 +804,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
     });
   }
 
-  Widget EditBankAccount(Bank item) => SingleChildScrollView(
-        child: Container(
+  Widget EditBankAccount(Bank item) =>
+      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
+        return Container(
           margin: EdgeInsets.only(
             left: MediaQuery.of(context).size.width * 0.04,
             right: MediaQuery.of(context).size.width * 0.04,
@@ -810,50 +815,20 @@ class _BusinessInfoState extends State<BusinessInfo> {
           child: Form(
             key: addAccountKey,
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Center(
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
                   child: Container(
                     margin: EdgeInsets.only(top: 10),
-                    height: 3,
-                    width: 70,
+                    height: 6,
+                    width: 80,
                     decoration: BoxDecoration(
                       color: Colors.black,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Color(0xffE6F4F2),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.close,
-                          color: AppColor().backgroundColor,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Text(
-                  'Add Bank Account',
-                  style: TextStyle(
-                    color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
                   ),
                 ),
                 SizedBox(height: 10),
@@ -874,7 +849,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     validatorText: "Bank name required",
                     textEditingController:
                         bankInfoController.bankNameController),
-                Spacer(),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Obx(() {
                   return GestureDetector(
                     onTap: () {
@@ -886,19 +861,21 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       }
                     },
                     child: Container(
-                      height: 55,
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 15,
-                      ),
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           color: AppColor().backgroundColor,
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: (bankInfoController.addingBankStatus ==
                                 AddingBankInfoStatus.Loading)
-                            ? CircularProgressIndicator(color: Colors.white)
+                            ? Container(
+                                height: 30,
+                                width: 30,
+                                child: CircularProgressIndicator(
+                                    color: Colors.white))
                             : Text(
-                                'Edit Bank Account',
+                                'Update Bank Account',
                                 style: TextStyle(
                                   color: AppColor().whiteColor,
                                   fontFamily: 'InterRegular',
@@ -915,8 +892,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
               ],
             ),
           ),
-        ),
-      );
+        );
+      });
   // ignore: unused_element
   _displayDialog(BuildContext context) async {
     return showDialog(
