@@ -115,9 +115,10 @@ class _AddMemberState extends State<AddMember> {
               height: 5,
             ),
             Container(
-              height: 500,
+              height: roleSet.length * 60,
               padding: EdgeInsets.all(2),
               child: ListView.builder(
+                  physics: ScrollPhysics(),
                   itemCount: roleSet.length,
                   itemBuilder: (context, index) {
                     RoleSet item = roleSet[index];

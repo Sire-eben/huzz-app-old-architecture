@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/payment_item.dart';
 import 'package:number_display/number_display.dart';
-
 import '../../Utils/util.dart';
 
 // ignore: must_be_immutable
