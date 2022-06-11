@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/team_repository.dart';
 import 'package:huzz/app/screens/widget/expandable_widget.dart';
 import 'package:huzz/colors.dart';
@@ -24,6 +27,7 @@ class _AddMemberState extends State<AddMember> {
   List _selectedUpdateIndex = [];
   List _selectedDeleteIndex = [];
   final _teamController = Get.find<TeamRepository>();
+  final _businessController = Get.find<BusinessRespository>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController updatePhoneNumberController =
       TextEditingController();
@@ -115,7 +119,7 @@ class _AddMemberState extends State<AddMember> {
               height: 5,
             ),
             Container(
-              height: roleSet.length * 60,
+              height: roleSet.length * 55,
               padding: EdgeInsets.all(2),
               child: ListView.builder(
                   physics: ScrollPhysics(),
@@ -141,7 +145,7 @@ class _AddMemberState extends State<AddMember> {
                                 _roleSet.remove(item.titleName);
 
                                 print(index);
-                                print('RoleSet: $_roleSet');
+                                print('RoleSet: ${_roleSet.toString()}');
                                 print('AuthoritySet: $_authoritySet');
                               }
                             } else {
@@ -317,7 +321,21 @@ class _AddMemberState extends State<AddMember> {
             SizedBox(height: 20),
             InkWell(
               onTap: () {
-                _teamController.showContactPickerForTeams(context);
+                final value =
+                    _businessController.selectedBusiness.value!.businessId;
+
+                final inviteTeamMemberData = {
+                  "phoneNumber":
+                      _teamController.phoneNumberController.text.trim(),
+                  "teamId": _businessController.selectedBusiness.value!.teamId,
+                  "email": _teamController.emailController.text.trim(),
+                  "roleSet": _roleSet,
+                  "authoritySet": _authoritySet
+                };
+                print(
+                    'BusinessId: $value, Team member: ${jsonEncode(inviteTeamMemberData)}');
+
+                _teamController.inviteTeamMember(value!, inviteTeamMemberData);
               },
               child: Container(
                 height: 55,
@@ -326,7 +344,7 @@ class _AddMemberState extends State<AddMember> {
                 padding: EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
                   color: AppColor().backgroundColor,
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
                   child: Text(
