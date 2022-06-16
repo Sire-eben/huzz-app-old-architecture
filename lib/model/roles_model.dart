@@ -15,8 +15,8 @@ class RoleSet {
 
 List<RoleSet> roleSet = [
   RoleSet(
-    name: 'MANAGE CUSTOMERS',
-    titleName: 'MANAGE_CUSTOMERS',
+    name: 'MANAGE CUSTOMER',
+    titleName: "MANAGE_CUSTOMER",
     tL: 10,
     tR: 10,
     bL: 0,
@@ -45,8 +45,8 @@ List<RoleSet> roleSet = [
     ],
   ),
   RoleSet(
-    name: 'MANAGE BUSINESS TRANSACTION',
-    titleName: 'MANAGE_BUSINESS_TRANSACTION',
+    name: 'MANAGE BUSINESS TRANSACTIONS',
+    titleName: 'MANAGE_BUSINESS_TRANSACTIONS',
     tL: 0,
     tR: 0,
     bL: 0,

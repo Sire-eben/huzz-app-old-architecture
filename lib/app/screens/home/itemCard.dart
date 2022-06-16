@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/payment_item.dart';
-
+import 'package:number_display/number_display.dart';
 import '../../Utils/util.dart';
 
 // ignore: must_be_immutable
@@ -13,6 +13,11 @@ class ItemCard extends StatelessWidget {
   ItemCard({required this.item, this.onDelete, this.onEdit});
   @override
   Widget build(BuildContext context) {
+    final display = createDisplay(
+      roundingType: RoundingType.floor,
+      length: 15,
+      decimal: 5,
+    );
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.height * 0.03, vertical: 1),
@@ -24,6 +29,7 @@ class ItemCard extends StatelessWidget {
             color: AppColor().backgroundColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10)),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               flex: 6,
@@ -31,6 +37,7 @@ class ItemCard extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       item.itemName!,
@@ -41,7 +48,7 @@ class ItemCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${Utils.getCurrency()} ${item.amount}',
+                      '${Utils.getCurrency()}${display(item.amount)}',
                       style: TextStyle(
                         fontFamily: "InterRegular",
                         fontSize: 10,

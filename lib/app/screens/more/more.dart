@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/app/screens/more/my_team.dart';
 import 'package:huzz/app/screens/widget/more_widget.dart';
 import 'package:huzz/colors.dart';
+import '../team/my_team.dart';
 import 'help_and_support.dart';
 
 class More extends StatefulWidget {
