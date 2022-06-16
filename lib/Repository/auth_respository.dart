@@ -674,7 +674,7 @@ class AuthRepository extends GetxController {
         var token = json['accessToken'];
         var user = User.fromJson(json);
         print("token from mtoken is $Mtoken");
-
+        Mtoken(token);
         pref!.saveToken(token);
         pref!.setUser(user);
         //  Mtoken=Rx(token);
@@ -706,6 +706,69 @@ class AuthRepository extends GetxController {
             "Login Error", "Something have occurred try again later.. ");
         _signinStatus(SigninStatus.Error);
       }
+    } catch (ex) {
+      _signinStatus(SigninStatus.Error);
+      print("Sign in Error ${ex.toString()}");
+    }
+  }
+
+  Future getUserData() async {
+    print(
+        "phone number ${phoneNumberController.text}  country code $countryText");
+    print("pin is ${pinController.text}");
+    try {
+      // _signinStatus(SigninStatus.Loading);
+      final response = await http.post(Uri.parse(ApiLink.signinUser),
+          body: jsonEncode({
+            "phoneNumber": countryText + phoneNumberController.text.trim(),
+            "pin": pinController.text,
+            // "pin":"3152"
+          }),
+          headers: {"Content-Type": "application/json"});
+      print("sign in response ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+
+        // _signinStatus(SigninStatus.Success);
+
+        var token = json['accessToken'];
+        var user = User.fromJson(json);
+        print("token from mtoken is $Mtoken");
+        Mtoken(token);
+        pref!.saveToken(token);
+        pref!.setUser(user);
+        //  Mtoken=Rx(token);
+
+        print("user to json ${user.toJson()}");
+        this.user = user;
+
+        // DateTime date = DateTime.now();
+
+        // DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
+
+        // pref!.setDateTokenExpired(expireToken);
+
+        // _authStatus(AuthStatus.Authenticated);
+
+        // final _businessController = Get.find<BusinessRespository>();
+        // _businessController.setBusinessList(user.businessList!);
+        // Mtoken(token);
+        // print("user business length ${user.businessList!.length}");
+        // if (user.businessList!.isEmpty || user.businessList == null) {
+        //   Get.off(() => CreateBusiness());
+        // } else {
+        //   Get.offAll(() => Dashboard());
+        // }
+      }
+
+      // else if (response.statusCode == 401) {
+      //   Get.snackbar("Login Error", "Invalid Credential ");
+      //   _signinStatus(SigninStatus.Error);
+      // } else {
+      //   Get.snackbar(
+      //       "Login Error", "Something have occurred try again later.. ");
+      //   _signinStatus(SigninStatus.Error);
+      // }
     } catch (ex) {
       _signinStatus(SigninStatus.Error);
       print("Sign in Error ${ex.toString()}");

@@ -91,7 +91,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 100,
+                    height: 120,
                     child: CustomTextField(
                       label: "Phone Number",
                       validatorText: "Phone Number is needed",
@@ -118,7 +118,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
 
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 110,
+                    height: 115,
                     child: CustomTextField(
                       enabled: false,
                       hint: "Select Currency",
@@ -161,7 +161,6 @@ class _CreateBusinessState extends State<CreateBusiness> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Get.to(Signin());
                       if (_businessController.businessCurrency.text.isEmpty) {
                         Get.snackbar(
                             "Error", "Kindly select currency to proceed");
