@@ -1,6 +1,6 @@
 class Team {
   String? name, phone, image;
-  String? customerId, businessId, businessTransactionType, email;
+  String? teamMemberId, businessId, businessTransactionType, email;
   DateTime? createdTime, updatedTime;
   bool? isAddingPending;
   bool? isUpdatingPending;
@@ -12,7 +12,7 @@ class Team {
       {this.image,
       this.name,
       this.phone,
-      this.customerId,
+      this.teamMemberId,
       this.businessId,
       this.businessTransactionType,
       this.createdTime,
@@ -29,7 +29,7 @@ class Team {
       name: json['name'],
       phone: json['phone'],
       email: json['email'],
-      customerId: json['id'],
+      teamMemberId: json['id'],
       businessId: json['businessId'],
       businessTransactionType: json['businessTransactionType'],
       createdTime: DateTime.parse(json['createdDateTime']),
@@ -47,7 +47,7 @@ class Team {
         "name": this.name,
         "phone": this.phone,
         "email": this.email,
-        "id": this.customerId,
+        "id": this.teamMemberId,
         "businessId": this.businessId,
         "businessTransactionType": this.businessTransactionType,
         "createdDateTime": createdTime == null

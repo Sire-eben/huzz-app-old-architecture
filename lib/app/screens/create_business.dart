@@ -42,7 +42,11 @@ class _CreateBusinessState extends State<CreateBusiness> {
               color: AppColor().backgroundColor,
             ),
             onPressed: () {
-              Get.back();
+              // Get.back();
+              _displayLogoutDialog(
+                  context, "Are you sure you want to log out.?", () {
+                // controller.logout();
+              });
             },
           ),
           title: Text(
@@ -87,7 +91,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 100,
+                    height: 120,
                     child: CustomTextField(
                       label: "Phone Number",
                       validatorText: "Phone Number is needed",
@@ -114,7 +118,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
 
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 110,
+                    height: 115,
                     child: CustomTextField(
                       enabled: false,
                       hint: "Select Currency",
@@ -157,7 +161,6 @@ class _CreateBusinessState extends State<CreateBusiness> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Get.to(Signin());
                       if (_businessController.businessCurrency.text.isEmpty) {
                         Get.snackbar(
                             "Error", "Kindly select currency to proceed");
@@ -223,6 +226,118 @@ class _CreateBusinessState extends State<CreateBusiness> {
         ),
       );
     });
+  }
+
+  _displayLogoutDialog(
+      BuildContext context, String title, VoidCallback onContinue) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 55,
+              vertical: 250,
+            ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '$title',
+                    style: TextStyle(
+                      color: AppColor().blackColor,
+                      fontFamily: 'InterRegular',
+                      fontWeight: FontWeight.normal,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Column(
+              children: [
+                SizedBox(
+                  height: 8,
+                ),
+                Expanded(
+                  child: SvgPicture.asset(
+                    'assets/images/polygon.svg',
+                  ),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().backgroundColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: AppColor().backgroundColor,
+                              fontFamily: 'InterRegular',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    InkWell(
+                      onTap: () {
+                        _userController.logout();
+                        onContinue();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().backgroundColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(
+                              color: AppColor().whiteColor,
+                              fontFamily: 'InterRegular',
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
 

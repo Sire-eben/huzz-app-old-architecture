@@ -29,12 +29,14 @@ class _SplashScreenState extends State<SplashScreen> {
   route() async {
     if (_controller.authStatus == AuthStatus.IsFirstTime) {
       Get.off(() => OnboardingMain());
-    } else if (_controller.authStatus == AuthStatus.Authenticated &&
-        (_controller.user!.businessList!.isEmpty ||
-            _controller.user!.businessList!.length == 0)) {
-      Get.off(() => CreateBusiness());
     } else if (_controller.authStatus == AuthStatus.Authenticated) {
-      Get.off(() => Dashboard());
+      if (_controller.user!.businessList!.isEmpty ||
+          _controller.user!.businessList!.length == 0) {
+        print('Business List: ${_controller.user!.businessList!.length}');
+        Get.off(() => CreateBusiness());
+      } else {
+        Get.off(() => Dashboard());
+      }
     } else {
       Get.off(() => Signin());
     }

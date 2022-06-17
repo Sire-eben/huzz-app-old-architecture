@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
@@ -15,6 +16,7 @@ import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 
 enum AddingTeamStatus { Loading, Error, Success, Empty }
+enum DeleteTeamStatus { Loading, Error, Success, Empty }
 enum TeamStatus { Loading, Available, Error, Empty }
 
 class TeamRepository extends GetxController {
@@ -29,6 +31,7 @@ class TeamRepository extends GetxController {
   var uuid = Uuid();
 
   final _addingTeamMemberStatus = AddingTeamStatus.Empty.obs;
+  final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
   final _teamStatus = TeamStatus.Empty.obs;
 
   Rx<List<Teams>> _onlineBusinessTeam = Rx([]);
@@ -40,6 +43,7 @@ class TeamRepository extends GetxController {
   List<Teams> get onlineBusinessTeam => _onlineBusinessTeam.value;
   List<Teams> pendingBusinessTeam = [];
   AddingTeamStatus get addingTeamMemberStatus => _addingTeamMemberStatus.value;
+  DeleteTeamStatus get deleteTeamMemberStatus => _deleteTeamMemberStatus.value;
   List<Teams> get deleteTeamMemberList => _deleteTeamMemberList.value;
   List<Teams> get team => _team.value;
   TeamStatus get teamStatus => _teamStatus.value;
@@ -496,16 +500,12 @@ class TeamRepository extends GetxController {
 
       // print("result of create team ${response.body}");
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('success 1');
+        print("result of create team ${response.body}");
         var json = jsonDecode(response.body);
 
-        print('success 2');
-        print("result of create team ${response.body}");
         _businessController.OnlineBusiness();
         _businessController.updateBusiness(
             _businessController.selectedBusiness.value!.businessCurrency!);
-
-        print('success 3');
 
         var value = _businessController.selectedBusiness.value;
         print(value!.teamId);
@@ -523,33 +523,49 @@ class TeamRepository extends GetxController {
     }
   }
 
-  Future inviteTeamMember(String teamId) async {
-    try {
-      _teamStatus(TeamStatus.Loading);
-      print("trying to invite team members");
-      var response = await http.post(
-          Uri.parse(ApiLink.getTeamMember + '/$teamId'),
-          headers: {"Authorization": "Bearer ${_userController.token}"});
+  Future inviteTeamMember(String businessId, Map<String, dynamic> item) async {
+    if (_userController.onlineStatus == OnlineStatus.Onilne) {
+      inviteTeamMemberOnline(businessId, item);
+    }
+  }
 
-      print("result of get teams online ${response.body}");
+  Future inviteTeamMemberOnline(
+      String? businessId, Map<String, dynamic> item) async {
+    try {
+      _addingTeamMemberStatus(AddingTeamStatus.Loading);
+      var value = _businessController.selectedBusiness.value;
+      print("trying to invite team members: ${jsonEncode(item)}");
+      var response = await http.post(
+          Uri.parse(ApiLink.inviteTeamMember + '/${value!.businessId}'),
+          body: json.encode(item),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+
+      print("result of invite team member online: ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
+        Get.snackbar('Success', json['message']);
         if (json['success']) {
-          var result = List.from(json['data']['content'])
-              .map((e) => Teams.fromJson(e))
-              .toList();
+          print(value.teamId);
+          getOnlineTeam(value.teamId!);
+          clearValue();
 
-          _onlineBusinessTeam(result);
-          result.isNotEmpty
-              ? _teamStatus(TeamStatus.Available)
-              : _teamStatus(TeamStatus.Empty);
-          print("Teams member length ${result.length}");
+          _addingTeamMemberStatus(AddingTeamStatus.Success);
+          Timer(Duration(seconds: 2), () {
+            Get.back();
+          });
+
           // await getBusinessCustomerYetToBeSavedLocally();
           // checkIfUpdateAvailable();
         }
-      } else {}
+      } else {
+        var json = jsonDecode(response.body);
+        Get.snackbar('Error', json['message']);
+      }
     } catch (error) {
-      _teamStatus(TeamStatus.Error);
+      _addingTeamMemberStatus(AddingTeamStatus.Error);
       print('add team feature error ${error.toString()}');
     }
   }
@@ -616,7 +632,7 @@ class TeamRepository extends GetxController {
     // }
   }
 
-  Future getOnlineTeam(String businessId) async {
+  Future getOnlineTeam(String? businessId) async {
     try {
       _teamStatus(TeamStatus.Loading);
       print("trying to get team members online");
@@ -728,5 +744,54 @@ class TeamRepository extends GetxController {
       }
     });
     return item;
+  }
+
+  Future deleteTeamMember(Teams item) async {
+    if (_userController.onlineStatus == OnlineStatus.Onilne) {
+      await deleteTeamMemberOnline(item);
+      // await getOnlineTeam(
+      //     _businessController.selectedBusiness.value!.businessId!);
+    }
+    await deleteTeamMemberOffline(item);
+    // getOfflineDebtor(_businessController.selectedBusiness.value!.businessId!);
+  }
+
+  Future deleteTeamMemberOnline(Teams teams) async {
+    try {
+      _deleteTeamMemberStatus(DeleteTeamStatus.Loading);
+      print(teams.teamId);
+      var response = await http.delete(
+          Uri.parse(ApiLink.deleteTeamMember + "/${teams.teamId}"),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
+
+      print("delete response ${response.body}");
+      if (response.statusCode == 200) {
+        _deleteTeamMemberStatus(DeleteTeamStatus.Success);
+        getOnlineTeam(teams.businessId);
+        // _businessController.sqliteDb.deleteCustomer(customer);
+        // getOfflineCustomer(
+        //     _businessController.selectedBusiness.value!.businessId!);
+      } else {
+        _deleteTeamMemberStatus(DeleteTeamStatus.Success);
+        getOnlineTeam(teams.businessId);
+        // _businessController.sqliteDb.deleteCustomer(customer);
+        // getOfflineCustomer(
+        //     _businessController.selectedBusiness.value!.businessId!);
+      }
+    } catch (error) {
+      _deleteTeamMemberStatus(DeleteTeamStatus.Error);
+      print('delete online team member error: ' + error.toString());
+    }
+  }
+
+  Future deleteTeamMemberOffline(Teams teams) async {
+    // await http.delete(Uri.parse(ApiLink.deleteTeamMember + "${teams.teamId}"),
+    //     headers: {"Authorization": "Bearer ${_userController.token}"});
+  }
+
+  void clearValue() {
+    nameController.text = "";
+    emailController.text = "";
+    phoneNumberController.text = "";
   }
 }

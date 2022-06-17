@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class ApiLink {
   static String baseurl = "https://staging-api.huzz.africa//api/v1/";
   static String v2baseurl = "https://staging-api.huzz.africa//api/v2/";
@@ -20,7 +22,6 @@ class ApiLink {
   static String addProduct = baseurl + "business/product";
   static String getBusinessCustomer = baseurl + "business/customer";
   static String add_customer = baseurl + "business/customer";
-// ignore: non_constant_identifier_names
   static String addBankInfo = baseurl + "bank-info";
   static String addDebtor = baseurl + "business/debtor";
   static String forgetPin = baseurl + "user/forgot-pin";
@@ -33,4 +34,5 @@ class ApiLink {
   static String getTeamMember = baseurl + 'business/team-member/all';
   static String inviteTeamMember = baseurl + 'business/team-member';
   static String updateInviteTeamStatus = baseurl + 'business/team-member';
+  static String deleteTeamMember = baseurl + 'business/team-member';
 }

@@ -242,7 +242,7 @@ class BusinessRespository extends GetxController {
           OnlineBusiness();
 
           _createBusinessStatus(CreateBusinessStatus.Success);
-
+          _userController.getUserData();
           Get.offAll(() => BusinessCreatedSuccesful());
         } else {}
       } else {

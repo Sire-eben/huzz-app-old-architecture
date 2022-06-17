@@ -11,6 +11,9 @@ class Business {
   bool? deleted;
   DateTime? createdTime;
   DateTime? updatedTime;
+  String? state;
+  String? country;
+  String? yearFounded;
   String? businessDescription;
   bool? businessRegistered;
   String? businessRegistrationType;
@@ -32,6 +35,9 @@ class Business {
       this.deleted,
       this.createdTime,
       this.updatedTime,
+      this.state,
+      this.country,
+      this.yearFounded,
       this.businessDescription,
       this.businessRegistered,
       this.businessRegistrationType,
@@ -55,6 +61,9 @@ class Business {
       updatedTime: json['timeUpdated'] != null
           ? DateTime.tryParse(json['timeUpdated'])
           : DateTime.parse(json['timeCreated']),
+      state: json['state'],
+      country: json['country'],
+      yearFounded: json['yearFounded'],
       businessDescription: json['businessDescription'],
       businessRegistered: json['businessRegistered'],
       businessRegistrationType: json['businessRegistrationType'],
@@ -76,6 +85,9 @@ class Business {
         "timeCreated": createdTime!.toIso8601String(),
         "timeUpdated":
             updatedTime == null ? null : updatedTime!.toIso8601String(),
+        "state": state,
+        "country": country,
+        "yearFounded": yearFounded,
         "businessDescription": businessDescription,
         "businessRegistered": businessRegistered,
         "businessRegistrationType": businessRegistrationType,
