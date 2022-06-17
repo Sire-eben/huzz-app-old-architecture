@@ -18,10 +18,8 @@ class LocalAuthApi {
     if (!isAvailable) return false;
     try {
       // ignore: deprecated_member_use
-      return await _auth.authenticateWithBiometrics(
+      return await _auth.authenticate(
         localizedReason: 'Scan Fingerprint to Authenticate',
-        useErrorDialogs: true,
-        stickyAuth: true,
       );
     } on PlatformException catch (e) {
       print(e);
