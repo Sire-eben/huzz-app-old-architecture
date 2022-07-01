@@ -57,6 +57,9 @@ class TeamRepository extends GetxController {
   List<Teams> pendingTeamMemberToBeUpdated = [];
   List<Teams> pendingTeamMemberToBeDelete = [];
 
+  String countryText = "234";
+  String countryCodeFLag = "NG";
+
   @override
   void onInit() {
     _userController.Mtoken.listen((p0) {
@@ -547,22 +550,22 @@ class TeamRepository extends GetxController {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         Get.snackbar('Success', json['message']);
+        Get.back();
         if (json['success']) {
           print(value.teamId);
           getOnlineTeam(value.teamId!);
           clearValue();
 
           _addingTeamMemberStatus(AddingTeamStatus.Success);
-          Timer(Duration(seconds: 2), () {
-            Get.back();
-          });
 
+          print('invite sent successfully');
           // await getBusinessCustomerYetToBeSavedLocally();
           // checkIfUpdateAvailable();
         }
       } else {
         var json = jsonDecode(response.body);
         Get.snackbar('Error', json['message']);
+        _addingTeamMemberStatus(AddingTeamStatus.Error);
       }
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);

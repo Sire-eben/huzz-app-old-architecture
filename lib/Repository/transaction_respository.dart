@@ -340,6 +340,7 @@ class TransactionRespository extends GetxController {
   }
 
   Future GetOfflineTransactions(String id) async {
+    _transactionStatus(TransactionStatus.Loading);
     var results = await _businessController.sqliteDb.getOfflineTransactions(id);
     print("offline transaction ${results.length}");
 
@@ -1309,6 +1310,7 @@ class TransactionRespository extends GetxController {
   }
 
   Future getTodayTransaction() async {
+    _transactionStatus(TransactionStatus.Loading);
     List<TransactionModel> _todayTransaction = [];
     final date = DateTime.now();
     offlineTransactions.forEach((element) {
@@ -1324,6 +1326,7 @@ class TransactionRespository extends GetxController {
     todayTransaction = _todayTransaction;
     await getAllPaymentItem();
     calculateOverView();
+    _transactionStatus(TransactionStatus.Available);
   }
 
   Future getTransactionYetToBeSavedLocally() async {
