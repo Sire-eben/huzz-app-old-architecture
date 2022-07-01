@@ -887,12 +887,12 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                       enabled: widget.enabled,
                       keyboardType: this.widget.keyType,
                       textInputAction: this.widget.keyAction,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return widget.validatorText;
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return widget.validatorText;
+                      //   }
+                      //   return null;
+                      // },
                       initialValue: this.widget.initialValue,
                       decoration: InputDecoration(
                         isDense: true,

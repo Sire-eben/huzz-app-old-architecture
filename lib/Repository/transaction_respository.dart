@@ -1566,6 +1566,7 @@ class TransactionRespository extends GetxController {
         Get.to(() => IncomeSuccess(
               transactionModel: result,
               title: "transaction",
+              status: type,
             ));
 
         clearValue();
@@ -1694,6 +1695,7 @@ class TransactionRespository extends GetxController {
     Get.to(() => IncomeSuccess(
           transactionModel: value!,
           title: "Transaction",
+          status: type,
         ));
 
     clearValue();

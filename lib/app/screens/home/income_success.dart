@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/app/screens/dashboard.dart';
-import 'package:huzz/app/screens/home/receipt/money_in_out_pdf.dart';
 import 'package:huzz/app/screens/home/reciept.dart';
 import 'package:huzz/model/money_reciept_model.dart';
 import 'package:huzz/model/transaction_model.dart';
@@ -12,7 +11,12 @@ import '../../../colors.dart';
 class IncomeSuccess extends StatelessWidget {
   TransactionModel transactionModel;
   String title;
-  IncomeSuccess({Key? key, required this.transactionModel, required this.title})
+  String status;
+  IncomeSuccess(
+      {Key? key,
+      required this.transactionModel,
+      required this.title,
+      required this.status})
       : super(key: key);
 
   @override
@@ -96,76 +100,80 @@ class IncomeSuccess extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  InkWell(
-                    onTap: () async {
-                      final date = DateTime.now();
-                      final dueDate = date.add(Duration(days: 7));
+                  status == "EXPENDITURE"
+                      ? Container()
+                      : InkWell(
+                          onTap: () async {
+                            final date = DateTime.now();
+                            final dueDate = date.add(Duration(days: 7));
 
-                      // ignore: unused_local_variable
-                      final moneyInvoice = MoneyInOutInvoice(
-                        supplier: Supplier(
-                          name: 'Business Name',
-                          mail: 'tunmisehassan@gmail.com',
-                          phone: '+234 8123 456 789',
-                        ),
-                        customer: Customer(
-                          name: 'Joshua Olatunde',
-                          phone: '+234 903 872 6495',
-                        ),
-                        info: InvoiceInfo(
-                          date: date,
-                          dueDate: dueDate,
-                          description: 'My description...',
-                          number: '${DateTime.now().year}-9999',
-                        ),
-                        items: [
-                          InvoiceItem(
-                            item: 'MacBook',
-                            quantity: 3,
-                            amount: 500000,
+                            // ignore: unused_local_variable
+                            final moneyInvoice = MoneyInOutInvoice(
+                              supplier: Supplier(
+                                name: 'Business Name',
+                                mail: 'tunmisehassan@gmail.com',
+                                phone: '+234 8123 456 789',
+                              ),
+                              customer: Customer(
+                                name: 'Joshua Olatunde',
+                                phone: '+234 903 872 6495',
+                              ),
+                              info: InvoiceInfo(
+                                date: date,
+                                dueDate: dueDate,
+                                description: 'My description...',
+                                number: '${DateTime.now().year}-9999',
+                              ),
+                              items: [
+                                InvoiceItem(
+                                  item: 'MacBook',
+                                  quantity: 3,
+                                  amount: 500000,
+                                ),
+                                InvoiceItem(
+                                  item: 'MacBook',
+                                  quantity: 3,
+                                  amount: 500000,
+                                ),
+                                InvoiceItem(
+                                  item: 'MacBook',
+                                  quantity: 3,
+                                  amount: 500000,
+                                ),
+                                InvoiceItem(
+                                  item: 'MacBook',
+                                  quantity: 3,
+                                  amount: 500000,
+                                ),
+                              ],
+                            );
+                            Get.to(() =>
+                                IncomeReceipt(transaction: transactionModel));
+                            // PdfApi.openFile(invoiceReceipt);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.height * 0.03),
+                            height: 50,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: AppColor().backgroundColor,
+                                    width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Center(
+                              child: Text(
+                                'View Receipt',
+                                style: TextStyle(
+                                    color: AppColor().backgroundColor,
+                                    fontSize: 18,
+                                    fontFamily: 'InterRegular'),
+                              ),
+                            ),
                           ),
-                          InvoiceItem(
-                            item: 'MacBook',
-                            quantity: 3,
-                            amount: 500000,
-                          ),
-                          InvoiceItem(
-                            item: 'MacBook',
-                            quantity: 3,
-                            amount: 500000,
-                          ),
-                          InvoiceItem(
-                            item: 'MacBook',
-                            quantity: 3,
-                            amount: 500000,
-                          ),
-                        ],
-                      );
-                      Get.to(
-                          () => IncomeReceipt(transaction: transactionModel));
-                      // PdfApi.openFile(invoiceReceipt);
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
-                      height: 50,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: AppColor().backgroundColor, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Center(
-                        child: Text(
-                          'View Receipt',
-                          style: TextStyle(
-                              color: AppColor().backgroundColor,
-                              fontSize: 18,
-                              fontFamily: 'InterRegular'),
                         ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ],
