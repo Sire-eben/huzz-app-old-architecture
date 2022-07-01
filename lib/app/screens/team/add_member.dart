@@ -59,6 +59,7 @@ class _AddMemberState extends State<AddMember> {
           onPressed: () {
             _teamController.nameController.clear();
             _teamController.phoneNumberController.clear();
+            _teamController.emailController.clear();
             Get.back();
           },
         ),
@@ -319,46 +320,58 @@ class _AddMemberState extends State<AddMember> {
                   }),
             ),
             SizedBox(height: 20),
-            InkWell(
-              onTap: () {
-                final value =
-                    _businessController.selectedBusiness.value!.businessId;
+            Obx(() {
+              return InkWell(
+                onTap: () {
+                  final value =
+                      _businessController.selectedBusiness.value!.businessId;
 
-                final inviteTeamMemberData = {
-                  "phoneNumber":
-                      _teamController.phoneNumberController.text.trim(),
-                  "teamId": _businessController.selectedBusiness.value!.teamId,
-                  "email": _teamController.emailController.text.trim(),
-                  "roleSet": _roleSet,
-                  "authoritySet": _authoritySet
-                };
-                print(
-                    'BusinessId: $value, Team member: ${jsonEncode(inviteTeamMemberData)}');
+                  final inviteTeamMemberData = {
+                    "phoneNumber": _teamController.countryText +
+                        _teamController.phoneNumberController.text.trim(),
+                    "teamId":
+                        _businessController.selectedBusiness.value!.teamId,
+                    "email": _teamController.emailController.text.trim(),
+                    "roleSet": _roleSet,
+                    "authoritySet": _authoritySet
+                  };
+                  print(
+                      'BusinessId: $value, Team member: ${jsonEncode(inviteTeamMemberData)}');
 
-                _teamController.inviteTeamMember(value!, inviteTeamMemberData);
-              },
-              child: Container(
-                height: 55,
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                  color: AppColor().backgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Text(
-                    'Invite Member',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontFamily: 'InterRegular',
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  _teamController.inviteTeamMember(
+                      value!, inviteTeamMemberData);
+                },
+                child: Container(
+                  height: 55,
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                    color: AppColor().backgroundColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: (_teamController.addingTeamMemberStatus ==
+                            AddingTeamStatus.Loading)
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            child:
+                                CircularProgressIndicator(color: Colors.white),
+                          )
+                        : Text(
+                            'Invite Member',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontFamily: 'InterRegular',
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
             SizedBox(height: 20),
           ],
         ),

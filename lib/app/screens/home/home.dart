@@ -645,7 +645,9 @@ class _HomeState extends State<Home> {
                 },
                 child: (_transactionController.transactionStatus ==
                         TransactionStatus.Loading)
-                    ? Center(child: CircularProgressIndicator())
+                    ? Obx(() {
+                        return Center(child: CircularProgressIndicator());
+                      })
                     : (_transactionController.transactionStatus ==
                             TransactionStatus.Available)
                         ? ListView.separated(

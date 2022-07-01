@@ -18,6 +18,7 @@ class AddCustomer extends StatefulWidget {
 }
 
 class _AddCustomerState extends State<AddCustomer> {
+  GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController contactName = TextEditingController();
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
@@ -87,63 +88,73 @@ class _AddCustomerState extends State<AddCustomer> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                CustomTextFieldWithImage(
-                  contactName: _customerController.nameController,
-                  contactPhone: _customerController.phoneNumberController,
-                  contactMail: _customerController.emailController,
-                  label: "Customer name",
-                  validatorText: "Customer name is needed",
-                  hint: 'customer name',
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                InkWell(
-                  onTap: () {
-                    // Get.to(() => IncomeSuccess());
-                    if (_customerController.addingCustomerStatus !=
-                        AddingCustomerStatus.Loading) {
-                      if (widget.item == null)
-                        _customerController.addBusinnessCustomer(
-                            "INCOME", 'Customer');
-                      else
-                        _customerController
-                            .updateBusinesscustomer(widget.item!);
-                    }
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.03),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_customerController.addingCustomerStatus ==
-                            AddingCustomerStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          )
-                        : Center(
-                            child: Text(
-                              (widget.item == null) ? 'Save' : "Update",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontFamily: 'InterRegular'),
-                            ),
-                          ),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  CustomTextFieldWithImage(
+                    contactName: _customerController.nameController,
+                    contactPhone: _customerController.phoneNumberController,
+                    contactMail: _customerController.emailController,
+                    label: "Customer name",
+                    validatorText: "Customer name is needed",
+                    hint: 'customer name',
                   ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              ],
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  InkWell(
+                    onTap: () {
+                      if (_formKey.currentState!.validate() &&
+                          _customerController.addingCustomerStatus !=
+                              AddingCustomerStatus.Loading) {
+                        if (_customerController.phoneNumberController.text ==
+                            '') {
+                          Get.snackbar(
+                              'Alert', 'Select phone number from your contact');
+                        } else {
+                          if (widget.item == null)
+                            _customerController.addBusinnessCustomer(
+                                "INCOME", 'Customer');
+                          else
+                            _customerController
+                                .updateBusinesscustomer(widget.item!);
+                        }
+                      }
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.03),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: AppColor().backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: (_customerController.addingCustomerStatus ==
+                              AddingCustomerStatus.Loading)
+                          ? Container(
+                              width: 30,
+                              height: 30,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.white)),
+                            )
+                          : Center(
+                              child: Text(
+                                (widget.item == null) ? 'Save' : "Update",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'InterRegular'),
+                              ),
+                            ),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                ],
+              ),
             ),
           ),
         );
