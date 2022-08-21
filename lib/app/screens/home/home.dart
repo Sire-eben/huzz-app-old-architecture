@@ -15,7 +15,6 @@ import 'package:huzz/app/screens/home/money_out.dart';
 import 'package:huzz/app/screens/home/records.dart';
 import 'package:huzz/app/screens/settings/notification.dart';
 import 'package:huzz/app/screens/settings/settings.dart';
-import 'package:huzz/app/screens/wallet/wallet.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/business.dart';
 import 'package:number_display/number_display.dart';
@@ -1068,103 +1067,103 @@ class _HomeState extends State<Home> {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-          InkWell(
-            onTap: () {
-              Get.to(Wallet());
-            },
-            child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.02),
-                decoration: BoxDecoration(
-                  color: AppColor().backgroundColor,
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/home_rectangle.png"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'WEMA BANK #23456789',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Platform.isIOS
-                                    ? showCupertinoDialog(
-                                        context: context,
-                                        barrierDismissible: true,
-                                        builder: (context) =>
-                                            CupertinoAlertDialog(
-                                          content: DebtInformationDialog(),
-                                          actions: [
-                                            CupertinoButton(
-                                              child: Text("OK"),
-                                              onPressed: () => Get.back(),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    : showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          content: DebtInformationDialog(),
-                                          actions: [
-                                            CupertinoButton(
-                                              child: Text("OK"),
-                                              onPressed: () => Get.back(),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 4.0, top: 2.0),
-                                child: Icon(
-                                  Icons.info_outline_rounded,
-                                  size: 12,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          '${Utils.getCurrency()}0.0',
-                          style: TextStyle(
-                            color: AppColor().whiteColor,
-                            fontFamily: 'InterRegular',
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      width: MediaQuery.of(context).size.width * 0.08,
-                      padding: EdgeInsets.all(
-                          MediaQuery.of(context).size.width * 0.015),
-                      decoration: BoxDecoration(
-                          color: Color(0xff056B5C), shape: BoxShape.circle),
-                      child: Icon(Icons.arrow_forward, color: Colors.white),
-                    ),
-                  ],
-                )),
-          ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          // InkWell(
+          // onTap: () {
+          // Get.to(Wallet());
+          // },
+          // child: Container(
+          // padding: EdgeInsets.symmetric(
+          // horizontal: MediaQuery.of(context).size.height * 0.02),
+          // decoration: BoxDecoration(
+          // color: AppColor().backgroundColor,
+          // borderRadius: BorderRadius.circular(10),
+          // image: DecorationImage(
+          // image: AssetImage("assets/images/home_rectangle.png"),
+          // fit: BoxFit.cover,
+          // ),
+          // ),
+          // child: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // children: [
+          // Column(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          // children: [
+          // Row(
+          // children: [
+          // Text(
+          // 'WEMA BANK #23456789',
+          // style: TextStyle(
+          // fontSize: 12,
+          // color: Colors.white,
+          // fontWeight: FontWeight.w600),
+          // ),
+          // GestureDetector(
+          // onTap: () {
+          // Platform.isIOS
+          // ? showCupertinoDialog(
+          // context: context,
+          // barrierDismissible: true,
+          // builder: (context) =>
+          // CupertinoAlertDialog(
+          // content: DebtInformationDialog(),
+          // actions: [
+          // CupertinoButton(
+          // child: Text("OK"),
+          // onPressed: () => Get.back(),
+          // ),
+          // ],
+          // ),
+          // )
+          // : showDialog(
+          // context: context,
+          // builder: (context) => AlertDialog(
+          // content: DebtInformationDialog(),
+          // actions: [
+          // CupertinoButton(
+          // child: Text("OK"),
+          // onPressed: () => Get.back(),
+          // ),
+          // ],
+          // ),
+          // );
+          // },
+          // child: Padding(
+          // padding:
+          // const EdgeInsets.only(left: 4.0, top: 2.0),
+          // child: Icon(
+          // Icons.info_outline_rounded,
+          // size: 12,
+          // color: Colors.white,
+          // ),
+          // ),
+          // )
+          // ],
+          // ),
+          // SizedBox(height: 5),
+          // Text(
+          // '${Utils.getCurrency()}0.0',
+          // style: TextStyle(
+          // color: AppColor().whiteColor,
+          // fontFamily: 'InterRegular',
+          // fontSize: 24,
+          // fontWeight: FontWeight.bold,
+          // ),
+          // ),
+          // ],
+          // ),
+          // Container(
+          // height: MediaQuery.of(context).size.height * 0.08,
+          // width: MediaQuery.of(context).size.width * 0.08,
+          // padding: EdgeInsets.all(
+          // MediaQuery.of(context).size.width * 0.015),
+          // decoration: BoxDecoration(
+          // color: Color(0xff056B5C), shape: BoxShape.circle),
+          // child: Icon(Icons.arrow_forward, color: Colors.white),
+          // ),
+          // ],
+          // )),
+          // ),
+          // SizedBox(height: MediaQuery.of(context).size.height * 0.015),
           InkWell(
             onTap: () {
               Get.to(DebtorsTab());
