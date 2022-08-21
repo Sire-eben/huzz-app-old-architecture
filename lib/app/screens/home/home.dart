@@ -175,7 +175,7 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Obx(() {
             return Container(
               padding: EdgeInsets.all(12),
@@ -595,25 +595,34 @@ class _HomeState extends State<Home> {
                         )
                       ],
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Color(0xffF58D40),
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'InterRegular'),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 15,
-                          color: Color(0xffF58D40),
-                        ),
-                      ],
-                    ),
+                    (_debtorController.totalDebt as num).abs() == 0
+                        ? Text(
+                            "No debtors yet",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Color(0xffF58D40),
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'InterRegular'),
+                          )
+                        : Row(
+                            children: [
+                              Text(
+                                "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color(0xffF58D40),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 15,
+                                color: Color(0xffF58D40),
+                              ),
+                            ],
+                          ),
                   ],
                 )),
           ),
@@ -757,7 +766,6 @@ class _HomeState extends State<Home> {
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.04),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
                 onTap: () {
@@ -769,8 +777,8 @@ class _HomeState extends State<Home> {
                       builder: (context) => buildSelectBusiness());
                 },
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  width: MediaQuery.of(context).size.width * 0.65,
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
@@ -797,32 +805,39 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              Container(
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(Notifications());
-                      },
-                      child: SvgPicture.asset(
-                        'assets/images/bell.svg',
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(Settings());
-                      },
-                      child: SvgPicture.asset(
-                        'assets/images/settings.svg',
-                      ),
-                    ),
-                  ],
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Get.to(Notifications());
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(6)),
+                  padding: EdgeInsets.all(10),
+                  child: SvgPicture.asset(
+                    'assets/images/bell.svg',
+                  ),
+                ),
+              ),
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Get.to(Settings());
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: AppColor().backgroundColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(6)),
+                  padding: EdgeInsets.all(10),
+                  child: SvgPicture.asset(
+                    'assets/images/settings.svg',
+                  ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Container(
             padding: EdgeInsets.all(12),
             child: Row(
@@ -837,7 +852,7 @@ class _HomeState extends State<Home> {
                           EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                       decoration: BoxDecoration(
                         color: AppColor().whiteColor,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
                         "Today's BALANCE",
@@ -873,7 +888,7 @@ class _HomeState extends State<Home> {
                                 horizontal: 7, vertical: 4),
                             decoration: BoxDecoration(
                               color: Color(0xff056B5C),
-                              borderRadius: BorderRadius.circular(24),
+                              borderRadius: BorderRadius.circular(6),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -914,7 +929,7 @@ class _HomeState extends State<Home> {
                                 horizontal: 7, vertical: 4),
                             decoration: BoxDecoration(
                               color: Color(0xff056B5C),
-                              borderRadius: BorderRadius.circular(24),
+                              borderRadius: BorderRadius.circular(6),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1051,7 +1066,104 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          // InkWell(
+          // onTap: () {
+          // Get.to(Wallet());
+          // },
+          // child: Container(
+          // padding: EdgeInsets.symmetric(
+          // horizontal: MediaQuery.of(context).size.height * 0.02),
+          // decoration: BoxDecoration(
+          // color: AppColor().backgroundColor,
+          // borderRadius: BorderRadius.circular(10),
+          // image: DecorationImage(
+          // image: AssetImage("assets/images/home_rectangle.png"),
+          // fit: BoxFit.cover,
+          // ),
+          // ),
+          // child: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // children: [
+          // Column(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          // children: [
+          // Row(
+          // children: [
+          // Text(
+          // 'WEMA BANK #23456789',
+          // style: TextStyle(
+          // fontSize: 12,
+          // color: Colors.white,
+          // fontWeight: FontWeight.w600),
+          // ),
+          // GestureDetector(
+          // onTap: () {
+          // Platform.isIOS
+          // ? showCupertinoDialog(
+          // context: context,
+          // barrierDismissible: true,
+          // builder: (context) =>
+          // CupertinoAlertDialog(
+          // content: DebtInformationDialog(),
+          // actions: [
+          // CupertinoButton(
+          // child: Text("OK"),
+          // onPressed: () => Get.back(),
+          // ),
+          // ],
+          // ),
+          // )
+          // : showDialog(
+          // context: context,
+          // builder: (context) => AlertDialog(
+          // content: DebtInformationDialog(),
+          // actions: [
+          // CupertinoButton(
+          // child: Text("OK"),
+          // onPressed: () => Get.back(),
+          // ),
+          // ],
+          // ),
+          // );
+          // },
+          // child: Padding(
+          // padding:
+          // const EdgeInsets.only(left: 4.0, top: 2.0),
+          // child: Icon(
+          // Icons.info_outline_rounded,
+          // size: 12,
+          // color: Colors.white,
+          // ),
+          // ),
+          // )
+          // ],
+          // ),
+          // SizedBox(height: 5),
+          // Text(
+          // '${Utils.getCurrency()}0.0',
+          // style: TextStyle(
+          // color: AppColor().whiteColor,
+          // fontFamily: 'InterRegular',
+          // fontSize: 24,
+          // fontWeight: FontWeight.bold,
+          // ),
+          // ),
+          // ],
+          // ),
+          // Container(
+          // height: MediaQuery.of(context).size.height * 0.08,
+          // width: MediaQuery.of(context).size.width * 0.08,
+          // padding: EdgeInsets.all(
+          // MediaQuery.of(context).size.width * 0.015),
+          // decoration: BoxDecoration(
+          // color: Color(0xff056B5C), shape: BoxShape.circle),
+          // child: Icon(Icons.arrow_forward, color: Colors.white),
+          // ),
+          // ],
+          // )),
+          // ),
+          // SizedBox(height: MediaQuery.of(context).size.height * 0.015),
           InkWell(
             onTap: () {
               Get.to(DebtorsTab());
@@ -1080,11 +1192,11 @@ class _HomeState extends State<Home> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
                         Text(
-                          'Total debts',
+                          'Debtors',
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -1126,24 +1238,34 @@ class _HomeState extends State<Home> {
                         )
                       ],
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Color(0xffF58D40),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 15,
-                          color: Color(0xffF58D40),
-                        ),
-                      ],
-                    ),
+                    (_debtorController.totalDebt as num).abs() == 0
+                        ? Text(
+                            "No debtors yet",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Color(0xffF58D40),
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'InterRegular'),
+                          )
+                        : Row(
+                            children: [
+                              Text(
+                                "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color(0xffF58D40),
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 15,
+                                color: Color(0xffF58D40),
+                              ),
+                            ],
+                          ),
                   ],
                 )),
           ),

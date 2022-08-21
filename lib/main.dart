@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +26,6 @@ class _HuzzAppState extends State<HuzzApp> {
     return GetMaterialApp(
       initialBinding: AppBinding(),
       useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
       theme: ThemeData(
           fontFamily: 'InterRegular',
           primaryColor: AppColor().backgroundColor,

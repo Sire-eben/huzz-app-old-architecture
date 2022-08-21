@@ -282,8 +282,10 @@ class PdfInvoiceApi {
 
   static Widget buildSubTotal(Invoice invoice) {
     dynamic totalAmount = 0;
+    dynamic totalQty = 0;
     invoice.paymentItemRequestList!.forEach((element) {
       totalAmount = totalAmount + element.totalAmount!;
+      totalQty = totalQty + element.quality!;
     });
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -324,6 +326,13 @@ class PdfInvoiceApi {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            Text(
+              'Total Quantity',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ]),
           SizedBox(width: Get.width * 0.20),
           Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -343,6 +352,13 @@ class PdfInvoiceApi {
             ),
             Text(
               "${Utils.formatPrice(invoice.discountAmount)}",
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              totalQty.toString(),
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,

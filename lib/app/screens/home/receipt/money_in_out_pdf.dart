@@ -191,16 +191,19 @@ class PdfMoneyInOutApi {
   static Widget buildTotal(
       TransactionModel transactionModel, PdfColor themeColor) {
     dynamic netTotal = 0;
+    dynamic qtyTotal = 0;
     // items
     //     .map((item) => item.amount! * item.quality!)
     //     .reduce((item1, item2) => item1 + item2);
     transactionModel.businessTransactionPaymentItemList!.forEach((element) {
       netTotal = netTotal + (element.amount! * element.quality!);
+      qtyTotal = qtyTotal + element.quality!;
     });
 
     final total = netTotal;
     final outstanding = transactionModel.balance;
     final paid = total - outstanding;
+    final qty = qtyTotal;
 
     return Container(
       alignment: Alignment.centerRight,
@@ -220,6 +223,17 @@ class PdfMoneyInOutApi {
                 ),
               ),
             ),
+            Row(children: [
+              SizedBox(width: 50),
+              Text(
+                qty.toString(),
+                style: TextStyle(
+                  color: themeColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ]),
             Text(
               Utils.formatPrice(total * 1.0),
               style: TextStyle(
