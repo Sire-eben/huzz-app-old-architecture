@@ -313,13 +313,6 @@ class PdfInvoiceApi {
               ),
             ),
             Text(
-              'Total Quantity',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
               'Tax',
               style: TextStyle(
                 fontSize: 12,
@@ -328,6 +321,13 @@ class PdfInvoiceApi {
             ),
             Text(
               'Discount',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              'Total Quantity',
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
@@ -344,13 +344,6 @@ class PdfInvoiceApi {
               ),
             ),
             Text(
-              totalQty.toString(),
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
               "${Utils.formatPrice(invoice.tax)}",
               style: TextStyle(
                 fontSize: 12,
@@ -359,6 +352,13 @@ class PdfInvoiceApi {
             ),
             Text(
               "${Utils.formatPrice(invoice.discountAmount)}",
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              totalQty.toString(),
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
