@@ -32,6 +32,8 @@ enum AddingTransactionStatus { Loading, Error, Success, Empty }
 
 enum TransactionStatus { Loading, Available, Error, Empty }
 
+enum GetTransactionStatus { Loading, Available, Error, Empty }
+
 class TransactionRespository extends GetxController {
   final _uploadImageController = Get.find<FileUploadRespository>();
   final _customerController = Get.find<CustomerRepository>();
@@ -51,6 +53,8 @@ class TransactionRespository extends GetxController {
   dynamic income = 0.0.obs;
   final numberofincome = 0.obs;
   final numberofexpenses = 0.obs;
+  dynamic totalOnlineRecords = 0.obs;
+  dynamic totalOfflineRecords = 0.obs;
   dynamic totalbalance = 0.0.obs;
   bool isBusyAdding = false;
   bool isBusyUpdating = false;
@@ -272,9 +276,10 @@ class TransactionRespository extends GetxController {
       todayTransaction.forEach((element) {
         items.addAll(element.businessTransactionPaymentItemList!);
       });
-// items.reversed.toList
+
       _allPaymentItem(items.reversed.toList());
       print(items);
+      totalOfflineRecords(items.length);
       items.isNotEmpty
           ? _transactionStatus(TransactionStatus.Available)
           : _transactionStatus(TransactionStatus.Empty);
@@ -297,6 +302,7 @@ class TransactionRespository extends GetxController {
 
       OnlineTransaction.addAll(result);
       print("online transaction ${result.length}");
+      totalOnlineRecords(result.length);
       // getTodayTransaction();
       getTransactionYetToBeSavedLocally();
       checkIfUpdateAvailable();
