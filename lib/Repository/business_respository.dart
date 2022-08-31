@@ -19,6 +19,7 @@ import '../app/screens/create_business.dart';
 import 'auth_respository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }
+
 enum UpdateBusinessStatus { Loading, Empty, Error, Success }
 
 class BusinessRespository extends GetxController {
@@ -246,9 +247,11 @@ class BusinessRespository extends GetxController {
           Get.offAll(() => BusinessCreatedSuccesful());
         } else {}
       } else {
+        Get.snackbar("Error", "Error creating business, try again!");
         _createBusinessStatus(CreateBusinessStatus.Error);
       }
     } catch (ex) {
+      Get.snackbar("Error", "Error creating business, try again!");
       _createBusinessStatus(CreateBusinessStatus.Error);
     }
   }

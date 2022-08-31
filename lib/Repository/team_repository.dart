@@ -16,7 +16,9 @@ import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 
 enum AddingTeamStatus { Loading, Error, Success, Empty }
+
 enum DeleteTeamStatus { Loading, Error, Success, Empty }
+
 enum TeamStatus { Loading, Available, Error, Empty }
 
 class TeamRepository extends GetxController {
@@ -519,7 +521,10 @@ class TeamRepository extends GetxController {
         );
 
         _addingTeamMemberStatus(AddingTeamStatus.Success);
-      } else {}
+      } else {
+        Get.snackbar("Error", "Error creating team, try again!");
+        _addingTeamMemberStatus(AddingTeamStatus.Error);
+      }
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
       print('creating team feature error ${error.toString()}');
@@ -569,6 +574,7 @@ class TeamRepository extends GetxController {
       }
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
+      Get.snackbar("Error", "Error inviting team, try again!");
       print('add team feature error ${error.toString()}');
     }
   }
@@ -603,6 +609,7 @@ class TeamRepository extends GetxController {
         Get.snackbar("Error", "Unable to update team");
       }
     } catch (ex) {
+      Get.snackbar("Error", "Error updating team, try again!");
       _addingTeamMemberStatus(AddingTeamStatus.Error);
     }
   }

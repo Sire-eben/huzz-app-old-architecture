@@ -29,6 +29,7 @@ import 'customer_repository.dart';
 import 'miscellaneous_respository.dart';
 
 enum AddingTransactionStatus { Loading, Error, Success, Empty }
+
 enum TransactionStatus { Loading, Available, Error, Empty }
 
 class TransactionRespository extends GetxController {
@@ -1571,10 +1572,12 @@ class TransactionRespository extends GetxController {
 
         clearValue();
       } else {
+        Get.snackbar("Error", "Unable to save transaction, try again!");
         _addingTransactionStatus(AddingTransactionStatus.Error);
       }
     } catch (ex) {
       print("error occurred here ${ex.toString()}");
+      Get.snackbar("Error", "Error occurred here ${ex.toString()}");
       _addingTransactionStatus(AddingTransactionStatus.Error);
     }
   }
@@ -2216,6 +2219,7 @@ class TransactionRespository extends GetxController {
 
         Get.back();
       } else if (response.statusCode == 404) {
+        Get.snackbar("Error", "Error deleting transaction, try again!");
         _transactionStatus(TransactionStatus.Error);
         await _businessController.sqliteDb
             .deleteOfflineTransaction(transactionModel);
