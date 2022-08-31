@@ -420,7 +420,9 @@ class BankAccountRepository extends GetxController {
     if (response.statusCode == 200) {
       _businessController.sqliteDb.deleteBank(bank);
       getOfflineBank(_businessController.selectedBusiness.value!.businessId!);
-    } else {}
+    } else {
+      Get.snackbar("Error", "Error deleting bank, try again!");
+    }
   }
 
   Future deleteBankOffline(Bank bank) async {

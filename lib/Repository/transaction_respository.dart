@@ -29,7 +29,10 @@ import 'customer_repository.dart';
 import 'miscellaneous_respository.dart';
 
 enum AddingTransactionStatus { Loading, Error, Success, Empty }
+
 enum TransactionStatus { Loading, Available, Error, Empty }
+
+enum GetTransactionStatus { Loading, Available, Error, Empty }
 
 class TransactionRespository extends GetxController {
   final _uploadImageController = Get.find<FileUploadRespository>();
@@ -50,6 +53,8 @@ class TransactionRespository extends GetxController {
   dynamic income = 0.0.obs;
   final numberofincome = 0.obs;
   final numberofexpenses = 0.obs;
+  dynamic totalOnlineRecords = 0.obs;
+  dynamic totalOfflineRecords = 0.obs;
   dynamic totalbalance = 0.0.obs;
   bool isBusyAdding = false;
   bool isBusyUpdating = false;
@@ -271,9 +276,10 @@ class TransactionRespository extends GetxController {
       todayTransaction.forEach((element) {
         items.addAll(element.businessTransactionPaymentItemList!);
       });
-// items.reversed.toList
+
       _allPaymentItem(items.reversed.toList());
       print(items);
+      totalOfflineRecords(items.length);
       items.isNotEmpty
           ? _transactionStatus(TransactionStatus.Available)
           : _transactionStatus(TransactionStatus.Empty);
@@ -296,6 +302,7 @@ class TransactionRespository extends GetxController {
 
       OnlineTransaction.addAll(result);
       print("online transaction ${result.length}");
+      totalOnlineRecords(result.length);
       // getTodayTransaction();
       getTransactionYetToBeSavedLocally();
       checkIfUpdateAvailable();
@@ -1571,10 +1578,12 @@ class TransactionRespository extends GetxController {
 
         clearValue();
       } else {
+        Get.snackbar("Error", "Unable to save transaction, try again!");
         _addingTransactionStatus(AddingTransactionStatus.Error);
       }
     } catch (ex) {
       print("error occurred here ${ex.toString()}");
+      Get.snackbar("Error", "Error occurred here ${ex.toString()}");
       _addingTransactionStatus(AddingTransactionStatus.Error);
     }
   }
@@ -2216,6 +2225,7 @@ class TransactionRespository extends GetxController {
 
         Get.back();
       } else if (response.statusCode == 404) {
+        Get.snackbar("Error", "Error deleting transaction, try again!");
         _transactionStatus(TransactionStatus.Error);
         await _businessController.sqliteDb
             .deleteOfflineTransaction(transactionModel);

@@ -535,7 +535,7 @@ class InvoiceRespository extends GetxController {
           },
           body: body);
 
-      print({"creatng Invoice response ${response.body}"});
+      print({"creating Invoice response ${response.body}"});
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         var result = Invoice.fromJson(json['data']);
@@ -552,6 +552,7 @@ class InvoiceRespository extends GetxController {
         clearValue();
         Get.to(() => PreviewInvoice(invoice: result));
       } else {
+         Get.snackbar("Error", "Error creating invoice, try again!");
         _addingInvoiceStatus(AddingInvoiceStatus.Error);
       }
     } catch (ex) {

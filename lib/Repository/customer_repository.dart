@@ -18,6 +18,7 @@ import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 
 enum AddingCustomerStatus { Loading, Error, Success, Empty }
+
 enum CustomerStatus { Loading, Available, Error, Empty }
 
 class CustomerRepository extends GetxController {
@@ -508,6 +509,7 @@ class CustomerRepository extends GetxController {
       getOfflineCustomer(
           _businessController.selectedBusiness.value!.businessId!);
     } else {
+      Get.snackbar("Error", "Error deleting customer, try again!");
       _businessController.sqliteDb.deleteCustomer(customer);
       getOfflineCustomer(
           _businessController.selectedBusiness.value!.businessId!);

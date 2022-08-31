@@ -504,7 +504,9 @@ class ProductRepository extends GetxController
         headers: {"Authorization": "Bearer ${_userController.token}"});
     print("delete response ${response.body}");
     if (response.statusCode == 200) {
-    } else {}
+    } else {
+       Get.snackbar("Error", "Error deleting product, try again!");
+    }
     _businessController.sqliteDb.deleteProduct(product);
     await getOfflineProduct(product.businessId!);
   }
