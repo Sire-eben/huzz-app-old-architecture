@@ -159,42 +159,42 @@ class _EnterOtpState extends State<EnterOtp> {
                 //       style: TextStyle(
                 //           color: AppColor().backgroundColor, fontSize: 12),
                 //     )),
-                // TimerButton(
-                //   label: "Send as Voice Call",
-                //   timeOutInSeconds: 20,
-                //   activeTextStyle: TextStyle(
-                //       color: AppColor().backgroundColor, fontSize: 12),
-                //   onPressed: () {
-                //     _authController.sendVoiceOtp();
-                //   },
-                //   buttonType: ButtonType.TextButton,
-                //   disabledColor: Colors.white,
-                //   color: Colors.transparent,
-                // ),
-                // SizedBox(
-                //   height: 20,
-                // ),
+                TimerButton(
+                  label: "Send as Voice Call",
+                  timeOutInSeconds: 20,
+                  activeTextStyle: TextStyle(
+                      color: AppColor().backgroundColor, fontSize: 12),
+                  onPressed: () {
+                    _authController.sendVoiceOtp();
+                  },
+                  buttonType: ButtonType.TextButton,
+                  disabledColor: Colors.white,
+                  color: Colors.transparent,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
 
-                // TimerButton(
-                //   label: "Resend via sms",
-                //   timeOutInSeconds: 20,
-                //   activeTextStyle:
-                //       TextStyle(color: Color(0xffEF6500), fontSize: 12),
-                //   onPressed: () {
-                //     _authController.sendSmsOtp(isresend: true);
-                //   },
-                //   buttonType: ButtonType.TextButton,
-                //   disabledColor: Colors.white,
-                //   color: Colors.transparent,
-                // ),
-                // GestureDetector(
-                //     onTap: () {
-                //       _authController.sendSmsOtp();
-                //     },
-                //     child: Text(
-                //       "Resend via sms",
-                //       style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
-                //     )),
+                TimerButton(
+                  label: "Resend via sms",
+                  timeOutInSeconds: 20,
+                  activeTextStyle:
+                      TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                  onPressed: () {
+                    _authController.sendSmsOtp(isresend: true);
+                  },
+                  buttonType: ButtonType.TextButton,
+                  disabledColor: Colors.white,
+                  color: Colors.transparent,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      _authController.sendSmsOtp();
+                    },
+                    child: Text(
+                      "Resend via sms",
+                      style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                    )),
                 Spacer(),
                 GestureDetector(
                   onTap: () {

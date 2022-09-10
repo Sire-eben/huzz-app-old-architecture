@@ -366,30 +366,30 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   appContext: context,
                 ),
               ),
-              // TimerButton(
-              //   label: "Send as Voice Call",
-              //   timeOutInSeconds: 20,
-              //   activeTextStyle:
-              //       TextStyle(color: AppColor().backgroundColor, fontSize: 12),
-              //   onPressed: () {
-              //     _controller.sendVoiceOtp();
-              //   },
-              //   buttonType: ButtonType.TextButton,
-              //   disabledColor: Colors.white,
-              //   color: Colors.transparent,
-              // ),
-              // TimerButton(
-              //   label: "Resend via sms",
-              //   timeOutInSeconds: 20,
-              //   activeTextStyle:
-              //       TextStyle(color: Color(0xffEF6500), fontSize: 12),
-              //   onPressed: () {
-              //     _controller.sendSmsOtp(isresend: true);
-              //   },
-              //   buttonType: ButtonType.TextButton,
-              //   disabledColor: Colors.white,
-              //   color: Colors.transparent,
-              // ),
+              TimerButton(
+                label: "Send as Voice Call",
+                timeOutInSeconds: 20,
+                activeTextStyle:
+                    TextStyle(color: AppColor().backgroundColor, fontSize: 12),
+                onPressed: () {
+                  _controller.sendVoiceOtp();
+                },
+                buttonType: ButtonType.TextButton,
+                disabledColor: Colors.white,
+                color: Colors.transparent,
+              ),
+              TimerButton(
+                label: "Resend via sms",
+                timeOutInSeconds: 20,
+                activeTextStyle:
+                    TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                onPressed: () {
+                  _controller.sendSmsOtp(isresend: true);
+                },
+                buttonType: ButtonType.TextButton,
+                disabledColor: Colors.white,
+                color: Colors.transparent,
+              ),
             ]),
             actions: <Widget>[
               Padding(
