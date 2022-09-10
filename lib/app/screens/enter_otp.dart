@@ -5,7 +5,12 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+<<<<<<< HEAD
 // import 'package:timer_button/timer_button.dart';
+=======
+
+import '../../util/timer_button.dart';
+>>>>>>> dev
 
 class EnterOtp extends StatefulWidget {
   _EnterOtpState createState() => _EnterOtpState();

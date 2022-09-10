@@ -7,9 +7,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+<<<<<<< HEAD
 // import 'package:timer_button/timer_button.dart';
+=======
+>>>>>>> dev
 
 import '../../../colors.dart';
+import '../../../util/timer_button.dart';
 
 class EnterForgotPIN extends StatefulWidget {
   const EnterForgotPIN({Key? key}) : super(key: key);

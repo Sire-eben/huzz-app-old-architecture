@@ -9,9 +9,13 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/user.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+<<<<<<< HEAD
 // import 'package:timer_button/timer_button.dart';
+=======
+>>>>>>> dev
 
 import '../../../colors.dart';
+import '../../../util/timer_button.dart';
 
 class PersonalInfo extends StatefulWidget {
   PersonalInfo({Key? key});
