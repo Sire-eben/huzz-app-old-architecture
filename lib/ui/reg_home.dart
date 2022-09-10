@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/home_respository.dart';
+import 'package:huzz/data/repository/home_respository.dart';
 import 'package:huzz/ui/create_pin.dart';
 import 'package:huzz/ui/enter_otp.dart';
 import 'package:huzz/ui/sign_up.dart';

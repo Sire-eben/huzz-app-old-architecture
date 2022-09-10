@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:huzz/model/notification_model.dart';
+import 'package:huzz/data/model/notification_model.dart';
 import 'package:random_color/random_color.dart';
 
 class Notifications extends StatefulWidget {

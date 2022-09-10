@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
+import '../../data/Repository/business_respository.dart';
 
-import '../../../Repository/business_respository.dart';
 class Utils {
   static final display = createDisplay(
     roundingType: RoundingType.floor,

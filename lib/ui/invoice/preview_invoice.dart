@@ -8,7 +8,7 @@ import 'package:huzz/ui/dashboard.dart';
 import 'package:huzz/ui/invoice/invoice_pdf.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_colors.dart';
-import 'package:huzz/model/invoice.dart';
+import 'package:huzz/data/model/invoice.dart';
 import 'package:pdf/pdf.dart';
 import 'package:share_plus/share_plus.dart';
 

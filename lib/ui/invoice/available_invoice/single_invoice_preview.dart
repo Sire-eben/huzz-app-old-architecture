@@ -9,14 +9,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pdf/pdf.dart';
 import 'package:share_plus/share_plus.dart';
 
-import 'package:huzz/Repository/invoice_repository.dart';
+import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/ui/invoice/invoice_pdf.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_colors.dart';
-import 'package:huzz/model/invoice.dart';
+import 'package:huzz/data/model/invoice.dart';
 
-import '../../../Utils/util.dart';
+import '../../../util/util.dart';
 
 class PreviewSingleInvoice extends StatefulWidget {
   final Invoice? invoice;

@@ -2,11 +2,11 @@ import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/widget/custom_drop_field.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/util/colors.dart';
-import '../../Repository/auth_respository.dart';
+import '../data/Repository/auth_respository.dart';
 import 'dashboard.dart';
 
 class CreateBusiness extends StatefulWidget {

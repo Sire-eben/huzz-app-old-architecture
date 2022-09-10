@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/home/wordclass.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/recordData.dart';

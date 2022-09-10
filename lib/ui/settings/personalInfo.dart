@@ -6,9 +6,9 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/model/user.dart';
+import 'package:huzz/data/model/user.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../util/colors.dart';

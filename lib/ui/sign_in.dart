@@ -4,7 +4,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'forget_pass/forgot_pin.dart';

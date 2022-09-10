@@ -6,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/bank_account_repository.dart';
-import 'package:huzz/Repository/customer_repository.dart';
-import 'package:huzz/Repository/invoice_repository.dart';
-import 'package:huzz/Repository/product_repository.dart';
+import 'package:huzz/data/repository/bank_account_repository.dart';
+import 'package:huzz/data/repository/customer_repository.dart';
+import 'package:huzz/data/repository/invoice_repository.dart';
+import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/home/itemCard.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
-import 'package:huzz/model/bank.dart';
-import 'package:huzz/model/customer_model.dart';
-import 'package:huzz/model/payment_item.dart';
-import 'package:huzz/model/product.dart';
+import 'package:huzz/data/model/bank.dart';
+import 'package:huzz/data/model/customer_model.dart';
+import 'package:huzz/data/model/payment_item.dart';
+import 'package:huzz/data/model/product.dart';
 import 'package:intl/intl.dart';
 import 'package:random_color/random_color.dart';
-import '../../Utils/util.dart';
+import '../../util/util.dart';
 
 class CreateInvoiceInformationDialog extends StatelessWidget {
   @override

@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/reg_home.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/onboarding_model.dart';

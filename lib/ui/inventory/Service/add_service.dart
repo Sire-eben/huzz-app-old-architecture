@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/app/screens/widget/custom_form_field.dart';
+import 'package:huzz/data/repository/product_repository.dart';
+import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:huzz/model/product.dart';
+import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../../Utils/util.dart';
+import '../../../util/util.dart';
 
 // ignore: must_be_immutable
 class AddService extends StatefulWidget {

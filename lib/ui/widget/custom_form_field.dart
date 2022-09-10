@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/customer_repository.dart';
-import 'package:huzz/Repository/team_repository.dart';
+import 'package:huzz/data/repository/customer_repository.dart';
+import 'package:huzz/data/repository/team_repository.dart';
 // import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:huzz/util/colors.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
 
 class NotificationSettings extends StatefulWidget {

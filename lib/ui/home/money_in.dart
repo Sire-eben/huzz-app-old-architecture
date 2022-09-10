@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/customer_repository.dart';
-import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/Repository/transaction_respository.dart';
+import 'package:huzz/data/repository/customer_repository.dart';
+import 'package:huzz/data/repository/product_repository.dart';
+import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/customer_model.dart';
@@ -17,7 +17,7 @@ import 'package:huzz/data/model/payment_item.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import '../../Utils/util.dart';
+import '../../util/util.dart';
 import 'itemCard.dart';
 
 class MoneyInInformationDialog extends StatelessWidget {

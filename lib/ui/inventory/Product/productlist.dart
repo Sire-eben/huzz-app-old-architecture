@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/business_respository.dart';
-import 'package:huzz/Repository/product_repository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/inventory/Product/add_product.dart';
 import 'package:huzz/ui/inventory/Service/servicelist.dart';
 import 'package:huzz/data/model/product.dart';

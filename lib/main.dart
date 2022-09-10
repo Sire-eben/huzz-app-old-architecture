@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/core/di/appbinding.dart';
+import 'package:huzz/di/appbinding.dart';
 import 'package:huzz/ui/onboarding_module/splash_screen.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';

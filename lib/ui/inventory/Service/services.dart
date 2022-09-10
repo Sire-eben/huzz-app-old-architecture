@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/app/screens/inventory/Service/servicelist.dart';
+import 'package:huzz/data/repository/product_repository.dart';
+import 'package:huzz/ui/inventory/Service/servicelist.dart';
 import '../../../util/colors.dart';
 import 'add_service.dart';
 

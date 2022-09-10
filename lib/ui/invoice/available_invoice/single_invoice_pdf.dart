@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:huzz/ui/widget/util.dart';
-import 'package:huzz/model/invoice_receipt_model.dart';
+import 'package:huzz/data/model/invoice_receipt_model.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';

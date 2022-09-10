@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/product_repository.dart';
+import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:number_display/number_display.dart';
 

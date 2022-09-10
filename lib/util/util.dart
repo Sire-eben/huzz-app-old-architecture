@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
 import 'package:intl/intl.dart';
 
 class Utils {

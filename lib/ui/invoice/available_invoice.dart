@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/invoice_repository.dart';
+import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/ui/invoice/available_invoice/all.dart';
 import 'package:huzz/ui/invoice/available_invoice/overdue.dart';
 import 'package:huzz/ui/invoice/available_invoice/paid.dart';

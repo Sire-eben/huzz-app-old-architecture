@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/bank_account_repository.dart';
-import 'package:huzz/Repository/business_respository.dart';
-import 'package:huzz/Repository/customer_repository.dart';
+import 'package:huzz/data/repository/bank_account_repository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/widget/util.dart';
+import 'package:huzz/util/constants.dart';
 import 'package:huzz/util/util.dart' as utils;
 import 'package:huzz/data/model/bank.dart';
 import 'package:huzz/data/model/business.dart';

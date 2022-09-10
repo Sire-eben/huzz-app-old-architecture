@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/business_respository.dart';
-import 'package:huzz/Repository/team_repository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/util/colors.dart';
 
 class NoTeamWidget extends GetView<TeamRepository> {

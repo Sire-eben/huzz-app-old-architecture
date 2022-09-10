@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/business_respository.dart';
-import 'package:huzz/Repository/product_repository.dart';
-import 'package:huzz/app/screens/inventory/Service/add_service.dart';
-import 'package:huzz/model/product.dart';
-import 'package:huzz/model/product_model.dart';
+import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/product_repository.dart';
+import 'package:huzz/ui/inventory/Service/add_service.dart';
+import 'package:huzz/data/model/product.dart';
+import 'package:huzz/data/model/product_model.dart';
 import 'package:number_display/number_display.dart';
 import '../../../util/colors.dart';
-import '../../../Utils/util.dart';
+import '../../../util/util.dart';
 
 class ServiceListing extends StatefulWidget {
   const ServiceListing({Key? key}) : super(key: key);

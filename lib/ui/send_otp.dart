@@ -3,11 +3,11 @@ import 'package:flag/flag.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/sign_in.dart';
 import 'package:huzz/ui/terms_of_condition.dart';
 import 'package:huzz/util/colors.dart';
-import '../../Repository/home_respository.dart';
+import '../data/Repository/home_respository.dart';
 import 'privacy_policy.dart';
 import 'sign_up.dart';
 

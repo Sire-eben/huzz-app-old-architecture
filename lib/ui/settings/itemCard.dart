@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:huzz/model/bank.dart';
+import 'package:huzz/data/model/bank.dart';
 
 class ItemCard extends StatelessWidget {
   Bank item;

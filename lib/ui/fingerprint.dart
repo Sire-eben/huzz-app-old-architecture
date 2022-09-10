@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/auth_respository.dart';
-import 'package:huzz/Repository/fingerprint_repository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/fingerprint_repository.dart';
 
 import '../util/colors.dart';
 import 'sign_in.dart';

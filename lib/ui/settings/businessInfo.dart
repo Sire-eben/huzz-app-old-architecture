@@ -7,12 +7,12 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/auth_respository.dart';
-import 'package:huzz/Repository/bank_account_repository.dart';
-import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/bank_account_repository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/model/bank.dart';
-import 'package:huzz/model/business.dart';
+import 'package:huzz/data/model/bank.dart';
+import 'package:huzz/data/model/business.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
