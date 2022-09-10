@@ -3,8 +3,8 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_svg/svg.dart';
 // import 'package:get/get.dart';
-// import 'package:huzz/Repository/auth_respository.dart';
-// import 'package:huzz/Repository/home_respository.dart';
+// import 'package:huzz/repository/auth_respository.dart';
+// import 'package:huzz/repository/home_respository.dart';
 // import 'package:pin_code_fields/pin_code_fields.dart';
 
 // import '../../../colors.dart';
