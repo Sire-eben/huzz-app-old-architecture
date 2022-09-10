@@ -12,7 +12,7 @@ import 'package:huzz/data/model/user.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../util/colors.dart';
-import '../../../util/timer_button.dart';
+import '../widget/timer_button.dart';
 
 class PersonalInfo extends StatefulWidget {
   PersonalInfo({Key? key});
