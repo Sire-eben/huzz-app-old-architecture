@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/api_link.dart';
-import 'package:huzz/sharepreference/sharepref.dart';
+import 'package:huzz/data/api_link.dart';
+import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'auth_respository.dart';
 
 class MiscellaneousRepository extends GetxController {

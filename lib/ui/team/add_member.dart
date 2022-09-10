@@ -8,7 +8,7 @@ import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:huzz/model/roles_model.dart';
+import 'package:huzz/data/model/roles_model.dart';
 import '../widget/custom_form_field.dart';
 
 class AddMember extends StatefulWidget {

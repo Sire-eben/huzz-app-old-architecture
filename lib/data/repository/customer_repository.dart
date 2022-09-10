@@ -9,11 +9,11 @@ import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/Repository/business_respository.dart';
 import 'package:huzz/Repository/file_upload_respository.dart';
-import 'package:huzz/api_link.dart';
-import 'package:huzz/app/screens/customers/confirmation.dart';
+import 'package:huzz/data/api_link.dart';
+import 'package:huzz/ui/customers/confirmation.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:huzz/model/customer_model.dart';
-import 'package:huzz/sqlite/sqlite_db.dart';
+import 'package:huzz/data/model/customer_model.dart';
+import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 

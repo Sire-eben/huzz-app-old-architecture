@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/ui/reg_home.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:huzz/model/onboarding_model.dart';
+import 'package:huzz/data/model/onboarding_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class OnboardingMain extends StatefulWidget {

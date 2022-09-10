@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:huzz/app/onboarding_module/splash_screen.dart';
+import 'package:huzz/ui/onboarding_module/splash_screen.dart';
 
 import 'app_routes.dart';
 

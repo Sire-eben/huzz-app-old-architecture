@@ -10,12 +10,12 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/file_upload_respository.dart';
 import 'package:huzz/Repository/miscellaneous_respository.dart';
-import 'package:huzz/api_link.dart';
-import 'package:huzz/model/business.dart';
-import 'package:huzz/model/offline_business.dart';
-import 'package:huzz/sharepreference/sharepref.dart';
-import 'package:huzz/sqlite/sqlite_db.dart';
-import '../app/screens/create_business.dart';
+import 'package:huzz/data/api_link.dart';
+import 'package:huzz/data/model/business.dart';
+import 'package:huzz/data/model/offline_business.dart';
+import 'package:huzz/data/sharepreference/sharepref.dart';
+import 'package:huzz/data/sqlite/sqlite_db.dart';
+import '../ui/create_business.dart';
 import 'auth_respository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }

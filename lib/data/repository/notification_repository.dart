@@ -5,7 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/Repository/auth_respository.dart';
-import 'package:huzz/api_link.dart';
+import 'package:huzz/data/api_link.dart';
 
 class NotificationRepository extends GetxController {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
