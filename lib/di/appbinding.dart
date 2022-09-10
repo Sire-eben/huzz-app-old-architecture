@@ -1,17 +1,19 @@
 import 'package:get/get.dart';
-import 'package:huzz/data/Repository/auth_respository.dart';
-import 'package:huzz/data/Repository/bank_account_repository.dart';
-import 'package:huzz/data/Repository/business_respository.dart';
-import 'package:huzz/data/Repository/customer_repository.dart';
-import 'package:huzz/data/Repository/debtors_repository.dart';
-import 'package:huzz/data/Repository/file_upload_respository.dart';
-import 'package:huzz/data/Repository/home_respository.dart';
-import 'package:huzz/data/Repository/invoice_repository.dart';
-import 'package:huzz/data/Repository/miscellaneous_respository.dart';
-import 'package:huzz/data/Repository/notification_repository.dart';
-import 'package:huzz/data/Repository/product_repository.dart';
-import 'package:huzz/data/Repository/team_repository.dart';
-import 'package:huzz/data/Repository/transaction_respository.dart';
+
+import '../data/Repository/auth_respository.dart';
+import '../data/Repository/bank_account_repository.dart';
+import '../data/Repository/business_respository.dart';
+import '../data/Repository/customer_repository.dart';
+import '../data/Repository/debtors_repository.dart';
+import '../data/Repository/file_upload_respository.dart';
+import '../data/Repository/home_respository.dart';
+import '../data/Repository/invoice_repository.dart';
+import '../data/Repository/miscellaneous_respository.dart';
+import '../data/Repository/notification_repository.dart';
+import '../data/Repository/product_repository.dart';
+import '../data/Repository/team_repository.dart';
+import '../data/Repository/transaction_respository.dart';
+
 
 class AppBinding extends Bindings {
   @override
