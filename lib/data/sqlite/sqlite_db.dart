@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:huzz/model/bank.dart';
-import 'package:huzz/model/customer_model.dart';
-import 'package:huzz/model/debtor.dart';
-import 'package:huzz/model/invoice.dart';
-import 'package:huzz/model/offline_business.dart';
-import 'package:huzz/model/product.dart';
-import 'package:huzz/model/transaction_model.dart';
+import 'package:huzz/data/model/bank.dart';
+import 'package:huzz/data/model/customer_model.dart';
+import 'package:huzz/data/model/debtor.dart';
+import 'package:huzz/data/model/invoice.dart';
+import 'package:huzz/data/model/offline_business.dart';
+import 'package:huzz/data/model/product.dart';
+import 'package:huzz/data/model/transaction_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

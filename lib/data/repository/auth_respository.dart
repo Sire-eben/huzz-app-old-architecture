@@ -6,9 +6,9 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/Repository/business_respository.dart';
-import 'package:huzz/Repository/file_upload_respository.dart';
-import 'package:huzz/Repository/product_repository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/file_upload_respository.dart';
+import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/ui/create_business.dart';
 import 'package:huzz/ui/dashboard.dart';
@@ -23,7 +23,7 @@ import 'package:huzz/data/model/user_referral_model.dart';
 import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../ui/enter_otp.dart';
+import '../../ui/enter_otp.dart';
 import 'fingerprint_repository.dart';
 
 enum SignupStatus { Empty, Loading, Error, Success }

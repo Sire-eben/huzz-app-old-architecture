@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/Repository/business_respository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/debtor.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:uuid/uuid.dart';
-
-import '../util/util.dart';
+import '../../util/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
 import 'file_upload_respository.dart';

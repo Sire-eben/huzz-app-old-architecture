@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/customer_repository.dart';
+import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/customer_model.dart';
 

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:huzz/model/user.dart';
+import 'package:huzz/data/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharePref {

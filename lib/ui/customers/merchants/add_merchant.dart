@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:huzz/Repository/customer_repository.dart';
+import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/customer_model.dart';

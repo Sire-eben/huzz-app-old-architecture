@@ -8,14 +8,14 @@ import 'package:country_currency_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/Repository/file_upload_respository.dart';
-import 'package:huzz/Repository/miscellaneous_respository.dart';
+import 'package:huzz/data/repository/file_upload_respository.dart';
+import 'package:huzz/data/repository/miscellaneous_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/data/model/offline_business.dart';
 import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
-import '../ui/create_business.dart';
+import '../../ui/create_business.dart';
 import 'auth_respository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }
