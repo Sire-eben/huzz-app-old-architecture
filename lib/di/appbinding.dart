@@ -1,18 +1,18 @@
 import 'package:get/get.dart';
 
-import '../data/Repository/auth_respository.dart';
-import '../data/Repository/bank_account_repository.dart';
-import '../data/Repository/business_respository.dart';
-import '../data/Repository/customer_repository.dart';
-import '../data/Repository/debtors_repository.dart';
-import '../data/Repository/file_upload_respository.dart';
-import '../data/Repository/home_respository.dart';
-import '../data/Repository/invoice_repository.dart';
-import '../data/Repository/miscellaneous_respository.dart';
-import '../data/Repository/notification_repository.dart';
-import '../data/Repository/product_repository.dart';
-import '../data/Repository/team_repository.dart';
-import '../data/Repository/transaction_respository.dart';
+import '../data/repository/auth_respository.dart';
+import '../data/repository/bank_account_repository.dart';
+import '../data/repository/business_respository.dart';
+import '../data/repository/customer_repository.dart';
+import '../data/repository/debtors_repository.dart';
+import '../data/repository/file_upload_respository.dart';
+import '../data/repository/home_respository.dart';
+import '../data/repository/invoice_repository.dart';
+import '../data/repository/miscellaneous_respository.dart';
+import '../data/repository/notification_repository.dart';
+import '../data/repository/product_repository.dart';
+import '../data/repository/team_repository.dart';
+import '../data/repository/transaction_respository.dart';
 
 
 class AppBinding extends Bindings {
