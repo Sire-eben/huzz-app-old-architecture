@@ -1,7 +1,6 @@
 // ignore_for_file: close_sinks
 
 import 'dart:async';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import 'package:huzz/Repository/auth_respository.dart';
 import 'package:huzz/app/screens/widget/custom_form_field.dart';
 import 'package:huzz/model/user.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:timer_button/timer_button.dart';
+// import 'package:timer_button/timer_button.dart';
 
 import '../../../colors.dart';
 
@@ -368,30 +367,30 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   appContext: context,
                 ),
               ),
-              TimerButton(
-                label: "Send as Voice Call",
-                timeOutInSeconds: 20,
-                activeTextStyle:
-                    TextStyle(color: AppColor().backgroundColor, fontSize: 12),
-                onPressed: () {
-                  _controller.sendVoiceOtp();
-                },
-                buttonType: ButtonType.TextButton,
-                disabledColor: Colors.white,
-                color: Colors.transparent,
-              ),
-              TimerButton(
-                label: "Resend via sms",
-                timeOutInSeconds: 20,
-                activeTextStyle:
-                    TextStyle(color: Color(0xffEF6500), fontSize: 12),
-                onPressed: () {
-                  _controller.sendSmsOtp(isresend: true);
-                },
-                buttonType: ButtonType.TextButton,
-                disabledColor: Colors.white,
-                color: Colors.transparent,
-              ),
+              // TimerButton(
+              //   label: "Send as Voice Call",
+              //   timeOutInSeconds: 20,
+              //   activeTextStyle:
+              //       TextStyle(color: AppColor().backgroundColor, fontSize: 12),
+              //   onPressed: () {
+              //     _controller.sendVoiceOtp();
+              //   },
+              //   buttonType: ButtonType.TextButton,
+              //   disabledColor: Colors.white,
+              //   color: Colors.transparent,
+              // ),
+              // TimerButton(
+              //   label: "Resend via sms",
+              //   timeOutInSeconds: 20,
+              //   activeTextStyle:
+              //       TextStyle(color: Color(0xffEF6500), fontSize: 12),
+              //   onPressed: () {
+              //     _controller.sendSmsOtp(isresend: true);
+              //   },
+              //   buttonType: ButtonType.TextButton,
+              //   disabledColor: Colors.white,
+              //   color: Colors.transparent,
+              // ),
             ]),
             actions: <Widget>[
               Padding(
