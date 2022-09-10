@@ -48,7 +48,6 @@ dependencies:
   auto_size_text: ^3.0.0
   uuid: ^3.0.5
   connectivity_plus: ^2.1.0
-  timer_button: ^2.0.0
   syncfusion_flutter_charts: ^19.4.40
   path: ^1.8.0
   syncfusion_flutter_datepicker: ^19.4.40
@@ -63,10 +62,10 @@ dependencies:
   currency_picker: ^2.0.8
   firebase_dynamic_links: ^4.1.1
   expandable: ^5.0.1
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 flutter_icons:
   image_path: "assets/images/huzz_logo.png"
