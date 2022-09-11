@@ -18,7 +18,7 @@ import 'package:huzz/data/model/user.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../../data/Repository/transaction_respository.dart';
+import '../../../data/repository/transaction_respository.dart';
 import '../../../util/colors.dart';
 import '../../../util/util.dart';
 import '../money_history.dart';

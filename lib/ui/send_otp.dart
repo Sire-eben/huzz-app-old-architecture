@@ -7,7 +7,7 @@ import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/sign_in.dart';
 import 'package:huzz/ui/terms_of_condition.dart';
 import 'package:huzz/util/colors.dart';
-import '../data/Repository/home_respository.dart';
+import '../data/repository/home_respository.dart';
 import 'privacy_policy.dart';
 import 'sign_up.dart';
 
