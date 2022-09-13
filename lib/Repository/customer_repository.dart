@@ -74,7 +74,7 @@ class CustomerRepository extends GetxController {
           getOnlineCustomer(value.businessId!);
           getOfflineCustomer(value.businessId!);
         }
-        _businessController.selectedBusiness.listen((p0) {
+        _businessController.selectedBusiness.listen((p0) async {
           if (p0 != null && p0.businessId != null) {
             print("business id ${p0.businessId}");
             _offlineBusinessCustomer([]);
@@ -82,8 +82,8 @@ class CustomerRepository extends GetxController {
             _onlineBusinessCustomer([]);
             _customerCustomer([]);
             _customerMerchant([]);
+            await getOfflineCustomer(p0.businessId!);
             getOnlineCustomer(p0.businessId!);
-            getOfflineCustomer(p0.businessId!);
           }
         });
       }
@@ -365,23 +365,40 @@ class CustomerRepository extends GetxController {
   Future getOnlineCustomer(String businessId) async {
     try {
       _customerStatus(CustomerStatus.Loading);
-      print("trying to get Customer online");
+      print("trying to get Customer online for $businessId");
+
       final response = await http.get(
-          Uri.parse(ApiLink.getBusinessCustomer + "?businessId=" + businessId),
+          Uri.parse(ApiLink.getBusinessCustomer +
+              "?businessId=" +
+              businessId +
+              '&businessTransactionType=INCOME'),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
+
+      final response1 = await http.get(
+          Uri.parse(ApiLink.getBusinessCustomer +
+              "?businessId=" +
+              businessId +
+              '&businessTransactionType=EXPENDITURE'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
       print("result of get Customer online ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
+        var json1 = jsonDecode(response1.body);
         if (json['success']) {
-          var result = List.from(json['data']['content'])
+          final result = List.from(json['data']['content'])
               .map((e) => Customer.fromJson(e))
               .toList();
+          final result1 = List.from(json1['data']['content'])
+              .map((e) => Customer.fromJson(e))
+              .toList();
+          result.addAll(result1.toList());
           _onlineBusinessCustomer(result);
+
           result.isNotEmpty
               ? _customerStatus(CustomerStatus.Available)
               : _customerStatus(CustomerStatus.Empty);
-          print("Customer business lenght ${result.length}");
+          debugPrint("Customer business length ${result.length}");
           await getBusinessCustomerYetToBeSavedLocally();
           checkIfUpdateAvailable();
         }
@@ -394,6 +411,7 @@ class CustomerRepository extends GetxController {
 
   Future getBusinessCustomerYetToBeSavedLocally() async {
     onlineBusinessCustomer.forEach((element) {
+      print("value is customer id is${element.customerId}");
       if (!checkifCustomerAvailable(element.customerId!)) {
         print("doesnt contain value");
 
@@ -489,10 +507,12 @@ class CustomerRepository extends GetxController {
     Customer? item;
 
     offlineBusinessCustomer.forEach((element) {
-      print("checking transaction whether exist");
+      print("checking customer whether exist");
       if (element.customerId == id) {
         print("Customer   found");
         item = element;
+      } else {
+        print("customer not found");
       }
     });
     return item;

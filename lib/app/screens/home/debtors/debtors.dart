@@ -295,6 +295,8 @@ class _DebtorsState extends State<Debtors> {
                                   var customer = _customerController
                                       .checkifCustomerAvailableWithValue(
                                           item.customerId ?? "");
+                                  print(
+                                      'Debtors: ${_debtorController.debtorsList.length}, Name: ${item.customerId}');
                                   return (customer != null)
                                       ? DebtorListing(
                                           item: item,
@@ -857,9 +859,7 @@ class _DebtorListingState extends State<DebtorListing> {
   RandomColor _randomColor = RandomColor();
   final _key = GlobalKey<FormState>();
   final TextEditingController textEditingController = TextEditingController();
-
   bool _isEditingText = false;
-
   late String? phone;
   late String? product;
   late String? firstName;
@@ -885,7 +885,7 @@ class _DebtorListingState extends State<DebtorListing> {
   Widget build(BuildContext context) {
     var customer = _customerController
         .checkifCustomerAvailableWithValue(widget.item!.customerId!);
-
+    print('Debtors: ${customer!.toJson()}');
     // ignore: unnecessary_null_comparison
     if (customer == null) {
       return Container();
