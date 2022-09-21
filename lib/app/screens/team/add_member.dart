@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:country_picker/country_picker.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,8 @@ import 'package:huzz/Repository/team_repository.dart';
 import 'package:huzz/app/screens/widget/expandable_widget.dart';
 import 'package:huzz/colors.dart';
 import 'package:huzz/model/roles_model.dart';
+import 'package:huzz/model/user_teamInvite_model.dart';
+import 'package:share_plus/share_plus.dart';
 import '../widget/custom_form_field.dart';
 
 class AddMember extends StatefulWidget {
@@ -19,6 +22,7 @@ class AddMember extends StatefulWidget {
 }
 
 class _AddMemberState extends State<AddMember> {
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   List _authoritySet = [];
   List _roleSet = [];
   List _selectedIndex = [];
@@ -43,6 +47,35 @@ class _AddMemberState extends State<AddMember> {
   String? value;
   bool manageCustomer = false;
   bool view = false, create = false, update = false, delete = false;
+  late Future<UserTeamInviteModel?> future;
+  bool isLoadingReferralLink = false;
+
+  Future<void> shareBusinessIdLink(String businessId) async {
+    setState(() {
+      isLoadingReferralLink = true;
+    });
+    final appId = "com.app.huzz";
+    final url = "https://huzz.africa?businessId=$businessId";
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      uriPrefix: 'https://huzz.page.link',
+      link: Uri.parse(url),
+      androidParameters: AndroidParameters(
+        packageName: appId,
+        minimumVersion: 1,
+      ),
+      iosParameters: IOSParameters(
+        bundleId: appId,
+        appStoreId: "1596574133",
+        minimumVersion: '1',
+      ),
+    );
+    final shortLink = await dynamicLinks.buildShortLink(parameters);
+    setState(() {
+      isLoadingReferralLink = false;
+    });
+    Share.share(shortLink.shortUrl.toString(),
+        subject: 'Share team invite link');
+  }
 
   @override
   Widget build(BuildContext context) {

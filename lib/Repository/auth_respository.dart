@@ -20,6 +20,7 @@ import 'package:huzz/colors.dart';
 import 'package:huzz/model/business.dart';
 import 'package:huzz/model/user.dart';
 import 'package:huzz/model/user_referral_model.dart';
+import 'package:huzz/model/user_teamInvite_model.dart';
 import 'package:huzz/sharepreference/sharepref.dart';
 import 'package:huzz/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,11 +28,17 @@ import '../app/screens/enter_otp.dart';
 import 'fingerprint_repository.dart';
 
 enum SignupStatus { Empty, Loading, Error, Success }
+
 enum OtpAuthStatus { Empty, Loading, Error, Success }
+
 enum OtpVerifyStatus { Empty, Loading, Error, Success }
+
 enum UpdateProfileStatus { Empty, Loading, Error, Success }
+
 enum OtpForgotVerifyStatus { Empty, Loading, Error, Success }
+
 enum SigninStatus { Empty, Loading, Error, Success, InvalidPinOrPhoneNumber }
+
 enum AuthStatus {
   Loading,
   Authenticated,
@@ -45,6 +52,7 @@ enum AuthStatus {
   USERNAME_EXISTED,
   TOKEN_EXISTED
 }
+
 enum OnlineStatus { Onilne, Offline, Empty }
 
 class AuthRepository extends GetxController {
@@ -818,6 +826,26 @@ class AuthRepository extends GetxController {
         throw json['message'] ?? "Unexpected error occurred";
       }
       return UserReferralModel.fromMap(json['data']);
+    } on SocketException catch (_) {
+      throw "Network not available, connect to the internet and try again";
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<UserTeamInviteModel> getUserTeamInviteData() async {
+    try {
+      final response = await http.get(Uri.parse(ApiLink.userReferral),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+
+      final json = jsonDecode(response.body);
+      if (response.statusCode != 200 || !json['status']) {
+        throw json['message'] ?? "Unexpected error occurred";
+      }
+      return UserTeamInviteModel.fromMap(json['data']);
     } on SocketException catch (_) {
       throw "Network not available, connect to the internet and try again";
     } catch (e) {
