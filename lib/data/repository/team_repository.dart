@@ -162,7 +162,6 @@ class TeamRepository extends GetxController {
                   color: Colors.black, borderRadius: BorderRadius.circular(4)),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
             TextField(
               onChanged: searchItem,
               style: TextStyle(
@@ -207,10 +206,8 @@ class TeamRepository extends GetxController {
                 ),
               ),
             ),
-
             SizedBox(height: 20),
             Expanded(
-              // width: MediaQuery.of(context).size.width,
               child: (searchtext.isEmpty || searchResult.isNotEmpty)
                   ? ListView.builder(
                       itemBuilder: (context, index) {
@@ -228,7 +225,6 @@ class TeamRepository extends GetxController {
                               if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
-                              //  Navigator.pop(context);
                             },
                             child: Row(
                               children: [
@@ -301,9 +297,6 @@ class TeamRepository extends GetxController {
                       ),
                     ),
             ),
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           ],
         ),
       );
@@ -329,7 +322,6 @@ class TeamRepository extends GetxController {
                   color: Colors.black, borderRadius: BorderRadius.circular(4)),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
             TextField(
               onChanged: searchItem,
               style: TextStyle(
@@ -374,7 +366,6 @@ class TeamRepository extends GetxController {
                 ),
               ),
             ),
-
             SizedBox(height: 20),
             Expanded(
               child: (searchtext.isEmpty || searchResult.isNotEmpty)
@@ -486,9 +477,6 @@ class TeamRepository extends GetxController {
                       ),
                     ),
             ),
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           ],
         ),
       );
