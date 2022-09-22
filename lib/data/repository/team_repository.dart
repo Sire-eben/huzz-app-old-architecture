@@ -35,6 +35,7 @@ class TeamRepository extends GetxController {
   final _addingTeamMemberStatus = AddingTeamStatus.Empty.obs;
   final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
   final _teamStatus = TeamStatus.Empty.obs;
+  final hasTeamInviteDeeplink = false.obs;
 
   Rx<List<Teams>> _onlineBusinessTeam = Rx([]);
   Rx<List<Teams>> _offlineBusinessTeam = Rx([]);
@@ -328,7 +329,6 @@ class TeamRepository extends GetxController {
                   fontWeight: FontWeight.w400,
                   color: AppColor().backgroundColor,
                   fontFamily: 'InterRegular'),
-              // controller: _searchcontroller,
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
@@ -386,7 +386,6 @@ class TeamRepository extends GetxController {
                               if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
-                              //  Navigator.pop(context);
                             },
                             child: Row(
                               children: [
@@ -542,14 +541,14 @@ class TeamRepository extends GetxController {
       print("result of invite team member online: ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        Get.snackbar('Success', json['message']);
+
         Get.back();
         if (json['success']) {
+          Get.snackbar('Success', json['message']);
+          _addingTeamMemberStatus(AddingTeamStatus.Success);
           print(value.teamId);
           getOnlineTeam(value.teamId!);
           clearValue();
-
-          _addingTeamMemberStatus(AddingTeamStatus.Success);
 
           print('invite sent successfully');
           // await getBusinessCustomerYetToBeSavedLocally();
@@ -764,12 +763,14 @@ class TeamRepository extends GetxController {
 
       print("delete response ${response.body}");
       if (response.statusCode == 200) {
+        Get.snackbar('Success', 'Team member deleted successfully');
         _deleteTeamMemberStatus(DeleteTeamStatus.Success);
         getOnlineTeam(teams.businessId);
         // _businessController.sqliteDb.deleteCustomer(customer);
         // getOfflineCustomer(
         //     _businessController.selectedBusiness.value!.businessId!);
       } else {
+        Get.snackbar('Error', 'Error deleting team member, try again!');
         _deleteTeamMemberStatus(DeleteTeamStatus.Success);
         getOnlineTeam(teams.businessId);
         // _businessController.sqliteDb.deleteCustomer(customer);

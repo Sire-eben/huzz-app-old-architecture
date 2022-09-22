@@ -59,6 +59,7 @@ class AuthRepository extends GetxController {
   var otpController = TextEditingController();
   var pinController;
   final referralCodeController = TextEditingController();
+  final teamInviteCodeController = TextEditingController();
   late final emailController = TextEditingController();
   late final lastNameController = TextEditingController();
   late final firstNameController = TextEditingController();
@@ -88,6 +89,7 @@ class AuthRepository extends GetxController {
       _Otpforgotverifystatus.value;
 
   final hasReferralDeeplink = false.obs;
+  final hasTeamInviteDeeplink = false.obs;
 
   final _connectionStatus = ConnectivityResult.none.obs;
   ConnectivityResult get connectionStatus => _connectionStatus.value;
@@ -159,6 +161,15 @@ class AuthRepository extends GetxController {
     FirebaseDynamicLinks.instance.onLink.listen((deepLink) {
       checkIfReferralLinkIsAvailableFromDeeplink(deepLink);
     });
+
+    final PendingDynamicLinkData? teamInviteDeepLink =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+    if (teamInviteDeepLink != null) {
+      checkIfTeamInviteLinkIsAvailableFromDeeplink(teamInviteDeepLink);
+    }
+    FirebaseDynamicLinks.instance.onLink.listen((teamInviteDeepLink) {
+      checkIfTeamInviteLinkIsAvailableFromDeeplink(teamInviteDeepLink);
+    });
   }
 
   void checkIfReferralLinkIsAvailableFromDeeplink(
@@ -167,6 +178,15 @@ class AuthRepository extends GetxController {
     if (refCode != null) {
       referralCodeController.text = refCode;
       hasReferralDeeplink(true);
+    }
+  }
+
+  void checkIfTeamInviteLinkIsAvailableFromDeeplink(
+      PendingDynamicLinkData deepLink) {
+    final String? teamInviteCode = deepLink.link.queryParameters['businessId'];
+    if (teamInviteCode != null) {
+      teamInviteCodeController.text = teamInviteCode;
+      hasTeamInviteDeeplink(true);
     }
   }
 

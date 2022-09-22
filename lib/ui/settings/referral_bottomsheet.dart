@@ -46,6 +46,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
       ),
     );
     final shortLink = await dynamicLinks.buildShortLink(parameters);
+    print('referral Link: ${shortLink.shortUrl.toString()}');
     setState(() {
       isLoadingReferralLink = false;
     });

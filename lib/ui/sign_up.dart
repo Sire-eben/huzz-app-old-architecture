@@ -24,6 +24,9 @@ class _SignUpState extends State<Signup> {
   @override
   void initState() {
     super.initState();
+    print('Referral deeplink: ${_authController.hasReferralDeeplink.value}');
+    print(
+        'Team Invite deeplink: ${_authController.hasTeamInviteDeeplink.value}');
     _authController.countryText = countryCode;
   }
 

@@ -320,7 +320,7 @@ class BankAccountRepository extends GetxController {
   Future getBusinessBankYetToBeSavedLocally() async {
     onlineBusinessBank.forEach((element) {
       if (!checkifBankAvailable(element.id!)) {
-        print("doesnt contain value");
+        print("does not contain value");
 
         pendingBusinessBank.add(element);
       }
