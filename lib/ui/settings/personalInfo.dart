@@ -39,7 +39,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     errorController = StreamController<ErrorAnimationType>();
     otpErrorController = StreamController<ErrorAnimationType>();
 
-    email = _controller.user!.email!;
+    email = _controller.user!.email ?? '';
     firstName = _controller.user!.firstName!;
     lastName = _controller.user!.lastName!;
     phone = _controller.user!.phoneNumber!;

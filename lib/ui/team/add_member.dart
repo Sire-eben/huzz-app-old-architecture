@@ -9,6 +9,7 @@ import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/roles_model.dart';
+import '../../data/repository/auth_respository.dart';
 import '../../model/user_teamInvite_model.dart';
 import '../widget/custom_form_field.dart';
 
@@ -28,6 +29,7 @@ class _AddMemberState extends State<AddMember> {
   List _selectedCreateIndex = [];
   List _selectedUpdateIndex = [];
   List _selectedDeleteIndex = [];
+  final controller = Get.find<AuthRepository>();
   final _teamController = Get.find<TeamRepository>();
   final _businessController = Get.find<BusinessRespository>();
   final TextEditingController emailController = TextEditingController();
@@ -49,6 +51,8 @@ class _AddMemberState extends State<AddMember> {
 
   @override
   void initState() {
+    controller.checkTeamInvite();
+
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
     print('BusinessId: $value');
@@ -58,24 +62,30 @@ class _AddMemberState extends State<AddMember> {
   }
 
   Future<void> shareBusinessIdLink(String businessId) async {
-    final appId = "com.app.huzz";
-    final url = "https://huzz.africa?businessId=$businessId";
-    final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: 'https://huzz.page.link',
-      link: Uri.parse(url),
-      androidParameters: AndroidParameters(
-        packageName: appId,
-        minimumVersion: 1,
-      ),
-      iosParameters: IOSParameters(
-        bundleId: appId,
-        appStoreId: "1596574133",
-        minimumVersion: '1',
-      ),
-    );
-    final shortLink = await dynamicLinks.buildShortLink(parameters);
-    teamInviteLink = shortLink.shortUrl.toString();
-    print('invite link: $teamInviteLink');
+    if (controller.onlineStatus == OnlineStatus.Onilne) {
+      try {
+        final appId = "com.app.huzz";
+        final url = "https://huzz.africa?businessId=$businessId";
+        final DynamicLinkParameters parameters = DynamicLinkParameters(
+          uriPrefix: 'https://huzz.page.link',
+          link: Uri.parse(url),
+          androidParameters: AndroidParameters(
+            packageName: appId,
+            minimumVersion: 1,
+          ),
+          iosParameters: IOSParameters(
+            bundleId: appId,
+            appStoreId: "1596574133",
+            minimumVersion: '1',
+          ),
+        );
+        final shortLink = await dynamicLinks.buildShortLink(parameters);
+        teamInviteLink = shortLink.shortUrl.toString();
+        print('invite link: $teamInviteLink');
+      } catch (error) {
+        print(error.toString());
+      }
+    }
   }
 
   @override
@@ -350,24 +360,49 @@ class _AddMemberState extends State<AddMember> {
             Obx(() {
               return InkWell(
                 onTap: () {
-                  final value =
-                      _businessController.selectedBusiness.value!.businessId;
-
-                  final inviteTeamMemberData = {
-                    "phoneNumber": _teamController.countryText +
-                        _teamController.phoneNumberController.text.trim(),
-                    "teamId":
-                        _businessController.selectedBusiness.value!.teamId,
-                    "email": _teamController.emailController.text.trim(),
-                    "teamInviteUrl": teamInviteLink,
-                    "roleSet": _roleSet,
-                    "authoritySet": _authoritySet
-                  };
+                  int phoneLength =
+                      _teamController.phoneNumberController.text.length;
+                  print('phone length: $phoneLength');
                   print(
-                      'BusinessId: $value, Team member: ${jsonEncode(inviteTeamMemberData)}');
+                      'isEmail: ${GetUtils.isEmail(_teamController.emailController.text)}');
+                  if (_teamController.phoneNumberController.text == '' ||
+                      _teamController.emailController.text == '') {
+                    Get.snackbar('Alert', 'Enter your details to continue!',
+                        titleText: Text('Alert'),
+                        messageText: Text('Enter your details to continue!'),
+                        icon: Icon(Icons.info,
+                            color: AppColor().orangeBorderColor));
+                  } else if (_teamController.phoneNumberController.text == '') {
+                    Get.snackbar(
+                        'Alert', 'Enter your phone number to continue!',
+                        titleText: Text('Alert'),
+                        messageText:
+                            Text('Enter your phone number to continue!'),
+                        icon: Icon(Icons.info,
+                            color: AppColor().orangeBorderColor));
+                  } else if (GetUtils.isEmail(
+                          _teamController.emailController.text) ==
+                      false) {
+                  } else {
+                    final value =
+                        _businessController.selectedBusiness.value!.businessId;
 
-                  _teamController.inviteTeamMember(
-                      value!, inviteTeamMemberData);
+                    final inviteTeamMemberData = {
+                      "phoneNumber": _teamController.countryText +
+                          _teamController.phoneNumberController.text.trim(),
+                      "teamId":
+                          _businessController.selectedBusiness.value!.teamId,
+                      "email": _teamController.emailController.text.trim(),
+                      "teamInviteUrl": teamInviteLink,
+                      "roleSet": _roleSet,
+                      "authoritySet": _authoritySet
+                    };
+                    print(
+                        'BusinessId: $value, Team member: ${jsonEncode(inviteTeamMemberData)}');
+
+                    _teamController.inviteTeamMemberOnline(
+                        value!, inviteTeamMemberData);
+                  }
                 },
                 child: Container(
                   height: 55,

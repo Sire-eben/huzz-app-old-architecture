@@ -113,7 +113,7 @@ class Teams {
         teamMemberStatus: json["teamMemberStatus"],
         deleted: json["deleted"],
         createdDateTime: DateTime.parse(json["createdDateTime"]),
-        updatedDateTime: json["updatedDateTime"],
+        // updatedDateTime: DateTime.parse(json["updatedDateTime"]),
         nextExpirationDateForInviteLink:
             json["nextExpirationDateForInviteLink"],
       );
@@ -130,9 +130,9 @@ class Teams {
         "createdDateTime": createdDateTime == null
             ? DateTime.now().toIso8601String()
             : createdDateTime!.toIso8601String(),
-        "updatedDateTime": updatedDateTime == null
-            ? DateTime.now().toIso8601String()
-            : updatedDateTime!.toIso8601String(),
+        // "updatedDateTime": updatedDateTime == null
+        // ? DateTime.now().toIso8601String()
+        // : updatedDateTime!.toIso8601String(),
         "nextExpirationDateForInviteLink": nextExpirationDateForInviteLink,
       };
 }

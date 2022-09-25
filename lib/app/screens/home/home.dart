@@ -63,6 +63,7 @@ class _HomeState extends State<Home> {
   final _transactionController = Get.find<TransactionRespository>();
   final _businessController = Get.find<BusinessRespository>();
   final _debtorController = Get.find<DebtorRepository>();
+  // final _authController = Get.find<AuthRepository>();
   int selectedValue = 0;
   final transactionList = [];
   RandomColor _randomColor = RandomColor();
@@ -70,6 +71,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      // print(
+      // 'Team Invite deeplink: ${_authController.hasTeamInviteDeeplink.value}');
+      // if (!_authController.hasTeamInviteDeeplink.value) {
+      // Get.reset();
+      // }
       return Scaffold(
         body: Container(
           padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -892,6 +893,7 @@ class AuthRepository extends GetxController {
         // ignore: unnecessary_null_comparison
         if (response != null) {
           _authStatus(AuthStatus.Empty);
+          Get.snackbar("Success", "Your account have been deleted");
           logout();
           accountDeletelogout();
         }
@@ -927,7 +929,7 @@ class AuthRepository extends GetxController {
 
         // ignore: unnecessary_null_comparison
         if (response != null) {
-          Get.snackbar("Success", "Your Business account have been deleted.");
+          Get.snackbar("Success", "Your Business account have been deleted");
 
           logout();
         }
@@ -947,6 +949,47 @@ class AuthRepository extends GetxController {
     clearDatabase();
     pref!.logout();
     Get.offAll(() => RegHome());
+  }
+
+  void checkTeamInvite() {
+    if (onlineStatus == OnlineStatus.Onilne) {
+      try {
+        final _businessController = Get.find<BusinessRespository>();
+        if (kDebugMode) {
+          print('Team Invite deeplink: ${hasTeamInviteDeeplink.value}');
+        }
+        if (hasTeamInviteDeeplink.value == true) {
+          _businessController.OnlineBusiness();
+          hasTeamInviteDeeplink(false);
+        }
+      } catch (error) {
+        if (kDebugMode) {
+          print('Team Invite error: $error');
+        }
+      }
+    }
+  }
+
+  void checkDeletedTeamBusiness() async {
+    try {
+      final _businessController = Get.find<BusinessRespository>();
+      // _businessController.checkOnlineBusiness();
+      if (kDebugMode) {
+        print(
+            'Online business: ${_businessController.onlineBusinessLength.value}');
+        print(
+            'Offline business: ${_businessController.offlineBusinessLength.value}');
+      }
+      if (_businessController.onlineBusinessLength.value !=
+          _businessController.offlineBusinessLength.value) {
+        print('update business...');
+        // logout();
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print('check deleted business: $error');
+      }
+    }
   }
 
   void logout() {

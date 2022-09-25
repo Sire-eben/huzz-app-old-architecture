@@ -8,6 +8,7 @@ import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_icons.dart';
 import 'package:huzz/core/constants/app_strings.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../data/repository/auth_respository.dart';
 import '../terms_of_condition.dart';
 import 'faq_webview.dart';
 
@@ -19,8 +20,15 @@ class HelpsAndSupport extends StatefulWidget {
 }
 
 class _HelpsAndSupportState extends State<HelpsAndSupport> {
+  final _authController = Get.put(AuthRepository());
   String emailSubject = '';
   String emailMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _authController.checkTeamInvite();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,14 +79,15 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     borderRadius: BorderRadius.circular(15),
                     child: Material(
                       child: InkWell(
-                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        highlightColor:
+                            AppColor().backgroundColor.withOpacity(0.3),
                         splashColor: AppColor().secondbgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(Privacy());
                         },
                         child: Ink(
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
@@ -100,7 +109,10 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: Center(
-                                  child: Image(image: AssetImage(AppIcons.privacyPolicy), width: 20, height: 20),
+                                  child: Image(
+                                      image: AssetImage(AppIcons.privacyPolicy),
+                                      width: 20,
+                                      height: 20),
                                 ),
                               ),
                               SizedBox(
@@ -135,14 +147,15 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     borderRadius: BorderRadius.circular(15),
                     child: Material(
                       child: InkWell(
-                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        highlightColor:
+                            AppColor().backgroundColor.withOpacity(0.3),
                         splashColor: AppColor().secondbgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(TermsOfUse());
                         },
                         child: Ink(
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
@@ -164,7 +177,10 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: Center(
-                                  child: Image(image: AssetImage(AppIcons.privacyPolicy), width: 20, height: 20),
+                                  child: Image(
+                                      image: AssetImage(AppIcons.privacyPolicy),
+                                      width: 20,
+                                      height: 20),
                                 ),
                               ),
                               SizedBox(
@@ -197,16 +213,17 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                   // FAQ
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
-                    child: Material( 
+                    child: Material(
                       child: InkWell(
-                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        highlightColor:
+                            AppColor().backgroundColor.withOpacity(0.3),
                         splashColor: AppColor().secondbgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(FaqWeb());
                         },
                         child: Ink(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
@@ -267,27 +284,31 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     borderRadius: BorderRadius.circular(15),
                     child: Material(
                       child: InkWell(
-                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        highlightColor:
+                            AppColor().backgroundColor.withOpacity(0.3),
                         splashColor: AppColor().secondbgColor.withOpacity(0.3),
                         onTap: () async {
-                          final toEmail = 'info@huzz.africa';
-                          final subject = emailSubject;
-                          final messageBody = emailMessage;
-                          final url =
-                              'mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(messageBody)}';
-                          if (await canLaunch(url)) {
-                            launch(url);
-                            // final action = await AlertDialogs.yesCancelDialog(
-                            //     context, 'Open Gmail', 'Click confirm to proceed');
-                            // if (action == DialogsAction.yes) {
+                          if (_authController.onlineStatus ==
+                              OnlineStatus.Onilne) {
+                            final toEmail = 'info@huzz.africa';
+                            final subject = emailSubject;
+                            final messageBody = emailMessage;
+                            final url =
+                                'mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(messageBody)}';
+                            if (await canLaunch(url)) {
+                              launch(url);
+                              // final action = await AlertDialogs.yesCancelDialog(
+                              //     context, 'Open Gmail', 'Click confirm to proceed');
+                              // if (action == DialogsAction.yes) {
 
-                            // } else {
-                            //   return null;
+                              // } else {
+                              //   return null;
+                            }
                           }
                         },
                         child: Ink(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
@@ -348,7 +369,8 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     borderRadius: BorderRadius.circular(15),
                     child: Material(
                       child: InkWell(
-                        highlightColor: AppColor().backgroundColor.withOpacity(0.3),
+                        highlightColor:
+                            AppColor().backgroundColor.withOpacity(0.3),
                         splashColor: AppColor().secondbgColor.withOpacity(0.3),
                         onTap: () async {
                           // final action = await AlertDialogs.yesCancelDialog(
@@ -362,8 +384,8 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                           _displayDialog(context);
                         },
                         child: Ink(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
@@ -518,8 +540,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     ),
                     InkWell(
                       onTap: () {
-                        launch(
-                            AppStrings.huzzWhatsAppContactURI);
+                        launch(AppStrings.huzzWhatsAppContactURI);
                       },
                       child: Container(
                         height: 45,

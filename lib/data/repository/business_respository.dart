@@ -36,6 +36,8 @@ class BusinessRespository extends GetxController {
   final businessAddressController = TextEditingController();
   final businessCurrency = TextEditingController();
   final _userController = Get.find<AuthRepository>();
+  final onlineBusinessLength = 0.obs;
+  final offlineBusinessLength = 0.obs;
 
   final _updateBusinessStatus = UpdateBusinessStatus.Empty.obs;
   final _createBusinessStatus = CreateBusinessStatus.Empty.obs;
@@ -89,11 +91,29 @@ class BusinessRespository extends GetxController {
         var result = List.from(json['data']).map((e) => Business.fromJson(e));
         businessListFromServer.addAll(result);
         print("online data business lenght ${result.length}");
-
+        onlineBusinessLength(result.length);
         getBusinessYetToBeSavedLocally();
         checkIfUpdateAvailable();
       }
     } else {}
+  }
+
+  Future checkOnlineBusiness() async {
+    try {
+      var response = await http.get(Uri.parse(ApiLink.getUserBusiness),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+          var result = List.from(json['data']).map((e) => Business.fromJson(e));
+          print("online data business length ${result.length}");
+          onlineBusinessLength(result.length);
+        }
+      }
+    } catch (error) {
+      print(error.toString());
+    }
   }
 
   bool checkifBusinessAvailable(String id) {
@@ -163,7 +183,7 @@ class BusinessRespository extends GetxController {
 
     businessListFromServer.forEach((element) {
       if (!checkifBusinessAvailable(element.businessId!)) {
-        print("doesnt contain value");
+        print("does not contain value");
         var re =
             OfflineBusiness(businessId: element.businessId, business: element);
         pendingJob.add(re);
@@ -189,7 +209,7 @@ class BusinessRespository extends GetxController {
   Future GetOfflineBusiness() async {
     var results = await sqliteDb.getOfflineBusinesses();
     print("offline business ${results.length}");
-
+    offlineBusinessLength(results.length);
     print("selected business is ${selectedBusiness.value}");
     _offlineBusiness(results);
     if (selectedBusiness.value == null ||

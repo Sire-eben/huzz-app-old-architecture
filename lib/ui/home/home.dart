@@ -19,6 +19,7 @@ import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
+import '../../data/repository/auth_respository.dart';
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
@@ -60,9 +61,11 @@ class _HomeState extends State<Home> {
   );
 
   String? value;
+  final _authController = Get.put(AuthRepository());
   final _transactionController = Get.find<TransactionRespository>();
   final _businessController = Get.find<BusinessRespository>();
   final _debtorController = Get.find<DebtorRepository>();
+
   int selectedValue = 0;
   final transactionList = [];
   RandomColor _randomColor = RandomColor();
@@ -70,6 +73,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      _authController.checkTeamInvite();
+      _authController.checkDeletedTeamBusiness();
       return Scaffold(
         body: Container(
           padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,31 @@ import 'package:huzz/util/colors.dart';
 import 'package:random_color/random_color.dart';
 import 'add_member.dart';
 
+class NoAccessDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          "You are not authorized to perform this action",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class MyTeam extends StatefulWidget {
   const MyTeam({Key? key}) : super(key: key);
 
@@ -20,8 +46,8 @@ class MyTeam extends StatefulWidget {
 
 class _MyTeamState extends State<MyTeam> {
   final controller = Get.find<AuthRepository>();
-  final _teamController = Get.find<TeamRepository>();
   final _businessController = Get.find<BusinessRespository>();
+  final _teamController = Get.find<TeamRepository>();
   RandomColor _randomColor = RandomColor();
 
   final items = [
@@ -37,6 +63,8 @@ class _MyTeamState extends State<MyTeam> {
   void initState() {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
+
+    controller.checkTeamInvite();
     super.initState();
   }
 
@@ -44,7 +72,10 @@ class _MyTeamState extends State<MyTeam> {
   Widget build(BuildContext context) {
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
-      // _teamController.getOnlineTeam(value!.teamId);
+      if (kDebugMode) {
+        print(
+            'Team member length: ${_teamController.onlineBusinessTeam.length}');
+      }
       return RefreshIndicator(
         onRefresh: () async {
           return Future.delayed(Duration(seconds: 1), () {
@@ -130,8 +161,8 @@ class _MyTeamState extends State<MyTeam> {
                                         ? '$firstName $lastName'
                                         : item.email!,
                                     position: item.teamMemberStatus != "CREATOR"
-                                        ? "Writer"
-                                        : 'Owner',
+                                        ? "Member"
+                                        : 'Admin',
                                     status: item.teamMemberStatus == "CREATOR"
                                         ? Container()
                                         : (item.teamMemberStatus != "CREATOR" &&
@@ -439,7 +470,7 @@ class _MyTeamState extends State<MyTeam> {
                       child: InkWell(
                         onTap: () {
                           Get.back();
-                          _teamController.deleteTeamMember(item);
+                          _teamController.deleteTeamMemberOnline(item);
                         },
                         child: Container(
                           height: 45,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/ui/widget/more_widget.dart';
 import 'package:huzz/util/colors.dart';
+import '../../data/repository/auth_respository.dart';
 import '../team/my_team.dart';
 import 'help_and_support.dart';
 
@@ -14,6 +15,14 @@ class More extends StatefulWidget {
 }
 
 class _MoreState extends State<More> {
+  final _authController = Get.put(AuthRepository());
+
+  @override
+  void initState() {
+    super.initState();
+    _authController.checkTeamInvite();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
