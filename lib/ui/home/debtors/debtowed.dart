@@ -383,11 +383,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                                   item.businessTransactionId!);
                                                       if (Titem != null) {
                                                         //  Get.snackbar("Error","Going to transaction page");
-                                                        Get.to(
-                                                            () => MoneySummary(
-                                                                  item: Titem
-                                                                      .businessTransactionPaymentItemList![0],
-                                                                ));
+                                                        Get.to(() =>
+                                                            MoneySummary(
+                                                              item: Titem
+                                                                  .businessTransactionPaymentItemList![0],
+                                                              pageCheck: false,
+                                                            ));
                                                       } else {
                                                         Get.snackbar("Error",
                                                             "Transaction is not found");
@@ -777,6 +778,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 } else if (int.parse(value) > debtor.balance) {
                                   return "Amount must be between the range of balance";
                                 }
+                                return null;
                               },
                               decoration: InputDecoration(
                                 isDense: true,
@@ -1632,6 +1634,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                       debtor.balance) {
                                     return "Amount must be between the range of balance";
                                   }
+                                  return null;
                                 },
                                 decoration: InputDecoration(
                                   isDense: true,

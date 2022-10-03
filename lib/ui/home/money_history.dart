@@ -44,7 +44,8 @@ class TransactionHistoryInformationDialog extends StatelessWidget {
 
 class MoneySummary extends StatefulWidget {
   PaymentItem? item;
-  MoneySummary({this.item});
+  bool? pageCheck;
+  MoneySummary({this.item, this.pageCheck});
   @override
   _MoneySummaryState createState() => _MoneySummaryState();
 }
@@ -731,7 +732,9 @@ class _MoneySummaryState extends State<MoneySummary> {
                                   print(
                                       "Payment Mode: ${transactionModel!.paymentMethod}");
                                   Get.to(() => IncomeReceipt(
-                                      transaction: transactionModel!));
+                                        transaction: transactionModel!,
+                                        pageCheck: widget.pageCheck,
+                                      ));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,

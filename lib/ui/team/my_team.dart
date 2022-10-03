@@ -50,6 +50,7 @@ class _MyTeamState extends State<MyTeam> {
   final controller = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
   final _teamController = Get.find<TeamRepository>();
+  bool isLoadingTeamInviteLink = false;
 
   final items = [
     'Owner',
@@ -77,6 +78,9 @@ class _MyTeamState extends State<MyTeam> {
   Future<void> shareBusinessIdLink(String businessId) async {
     if (controller.onlineStatus == OnlineStatus.Onilne) {
       try {
+        setState(() {
+          isLoadingTeamInviteLink = true;
+        });
         final appId = "com.app.huzz";
         final url = "https://huzz.africa?businessId=$businessId";
         final DynamicLinkParameters parameters = DynamicLinkParameters(
@@ -95,8 +99,14 @@ class _MyTeamState extends State<MyTeam> {
         final shortLink = await dynamicLinks.buildShortLink(parameters);
         teamInviteLink = shortLink.shortUrl.toString();
         print('invite link: $teamInviteLink');
+        setState(() {
+          isLoadingTeamInviteLink = false;
+        });
       } catch (error) {
         print(error.toString());
+        setState(() {
+          isLoadingTeamInviteLink = false;
+        });
       }
     }
   }
@@ -170,9 +180,6 @@ class _MyTeamState extends State<MyTeam> {
                   ),
                   child: Column(
                     children: [
-                      // Obx(() {
-                      // return
-
                       InkWell(
                         onTap: () {
                           Share.share(teamInviteLink!,
@@ -187,21 +194,22 @@ class _MyTeamState extends State<MyTeam> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Center(
-                            child: Text(
-                              'Share team invite link',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontFamily: 'InterRegular',
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: isLoadingTeamInviteLink
+                                ? CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : Text(
+                                    'Share team invite link',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontFamily: 'InterRegular',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
                         ),
-                      )
-                      // ;
-                      // })
-                      ,
+                      ),
                       SizedBox(height: 20),
                       Expanded(
                         child: Obx(() {

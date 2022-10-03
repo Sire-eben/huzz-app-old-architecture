@@ -224,7 +224,6 @@ class PdfMoneyInOutApi {
               ),
             ),
             Row(children: [
-              SizedBox(width: 50),
               Text(
                 qty.toString(),
                 style: TextStyle(

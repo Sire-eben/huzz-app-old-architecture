@@ -13,8 +13,10 @@ import 'receipt/money_in_out_pdf.dart';
 
 class IncomeReceipt extends StatefulWidget {
   final TransactionModel transaction;
+  final bool? pageCheck;
 
-  const IncomeReceipt({Key? key, required this.transaction}) : super(key: key);
+  const IncomeReceipt({Key? key, required this.transaction, this.pageCheck})
+      : super(key: key);
 
   @override
   _IncomeReceiptState createState() => _IncomeReceiptState();
@@ -191,7 +193,9 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                           height: MediaQuery.of(context).size.height * 0.02),
                       InkWell(
                         onTap: () {
-                          Get.offAll(Dashboard());
+                          widget.pageCheck == false
+                              ? Get.back()
+                              : Get.offAll(Dashboard());
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,

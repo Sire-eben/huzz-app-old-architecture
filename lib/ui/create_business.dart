@@ -42,11 +42,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
               color: AppColor().backgroundColor,
             ),
             onPressed: () {
-              // Get.back();
-              _displayLogoutDialog(
-                  context, "Are you sure you want to log out.?", () {
-                // controller.logout();
-              });
+              Get.back();
             },
           ),
           title: Text(

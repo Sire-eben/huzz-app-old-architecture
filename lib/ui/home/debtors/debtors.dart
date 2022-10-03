@@ -991,6 +991,7 @@ class _DebtorListingState extends State<DebtorListing> {
                           Get.to(() => MoneySummary(
                                 item: Titem
                                     .businessTransactionPaymentItemList![0],
+                                pageCheck: false,
                               ));
                         } else {
                           Get.snackbar("Error", "Transaction is not found");

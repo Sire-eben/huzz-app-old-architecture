@@ -921,10 +921,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     Expanded(
                       child: CustomTextFieldInvoiceOptional(
                           label: 'Tax(%)',
-                          hint: '0',
-                          inputformater: [
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
+                          hint: '${Utils.getCurrency()} 0.00',
+                          // inputformater: [
+                          // FilteringTextInputFormatter.digitsOnly
+                          // ],
                           keyType: Platform.isIOS
                               ? TextInputType.numberWithOptions(
                                   signed: true, decimal: true)

@@ -659,6 +659,7 @@ class _HomeState extends State<Home> {
                                           "item payment transaction id is ${item.businessTransactionId}");
                                       Get.to(() => MoneySummary(
                                             item: item,
+                                            pageCheck: true,
                                           ));
                                     },
                                     child: Row(
@@ -1381,9 +1382,7 @@ class _HomeState extends State<Home> {
                                 onTap: () {
                                   print(
                                       "item payment transaction id is ${item.businessTransactionId}");
-                                  Get.to(() => MoneySummary(
-                                        item: item,
-                                      ));
+                                  Get.to(() => MoneySummary(item: item));
                                 },
                                 child: Row(
                                   mainAxisAlignment:
@@ -2269,7 +2268,7 @@ class _HomeState extends State<Home> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    // Get.to(() => AddNewSale());
+                    Get.back();
                     Get.to(CreateBusiness());
                   },
                   child: Container(
