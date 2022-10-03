@@ -183,9 +183,21 @@ class _AddMemberState extends State<AddMember> {
                         setState(() {
                           if (_isSelected) {
                             _selectedIndex.remove(index);
+                            _selectedViewIndex.remove(index);
+                            _selectedCreateIndex.remove(index);
+                            _selectedUpdateIndex.remove(index);
+                            _selectedDeleteIndex.remove(index);
 
-                            if (_roleSet.contains(item.titleName)) {
+                            if (_roleSet.contains(item.titleName) ||
+                                _authoritySet.contains(item.authoritySet![1]) ||
+                                _authoritySet.contains(item.authoritySet![2]) ||
+                                _authoritySet.contains(item.authoritySet![3]) ||
+                                _authoritySet.contains(item.authoritySet![4])) {
                               _roleSet.remove(item.titleName);
+                              _authoritySet.remove(item.authoritySet![1]);
+                              _authoritySet.remove(item.authoritySet![2]);
+                              _authoritySet.remove(item.authoritySet![3]);
+                              _authoritySet.remove(item.authoritySet![4]);
 
                               print(index);
                               print('RoleSet: ${_roleSet.toString()}');
@@ -194,6 +206,14 @@ class _AddMemberState extends State<AddMember> {
                           } else {
                             _selectedIndex.add(index);
                             _roleSet.add(item.titleName);
+                            _selectedViewIndex.add(index);
+                            _authoritySet.add(item.authoritySet![1]);
+                            _selectedCreateIndex.add(index);
+                            _authoritySet.add(item.authoritySet![2]);
+                            _selectedUpdateIndex.add(index);
+                            _authoritySet.add(item.authoritySet![3]);
+                            _selectedDeleteIndex.add(index);
+                            _authoritySet.add(item.authoritySet![4]);
 
                             print(index);
                             print('RoleSet: $_roleSet');

@@ -961,6 +961,7 @@ class AuthRepository extends GetxController {
         if (hasTeamInviteDeeplink.value == true) {
           _businessController.OnlineBusiness();
           hasTeamInviteDeeplink(false);
+          Get.snackbar("Success", "You've been invited to a team successfully");
         }
       } catch (error) {
         if (kDebugMode) {

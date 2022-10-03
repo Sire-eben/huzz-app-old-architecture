@@ -1,3 +1,4 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/no_team_widget.dart';
 import 'package:huzz/ui/widget/team_widget.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:random_color/random_color.dart';
+import 'package:share_plus/share_plus.dart';
 import 'add_member.dart';
 
 class NoAccessDialog extends StatelessWidget {
@@ -45,10 +46,10 @@ class MyTeam extends StatefulWidget {
 }
 
 class _MyTeamState extends State<MyTeam> {
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final controller = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
   final _teamController = Get.find<TeamRepository>();
-  RandomColor _randomColor = RandomColor();
 
   final items = [
     'Owner',
@@ -56,7 +57,7 @@ class _MyTeamState extends State<MyTeam> {
     'Admin',
   ];
 
-  String? values;
+  String? values, teamInviteLink;
   late String firstName, lastName;
 
   @override
@@ -66,6 +67,38 @@ class _MyTeamState extends State<MyTeam> {
 
     controller.checkTeamInvite();
     super.initState();
+    final value = _businessController.selectedBusiness.value!.businessId;
+    print('BusinessId: $value');
+    final teamId = _businessController.selectedBusiness.value!.teamId;
+    print('Business TeamId: $teamId');
+    shareBusinessIdLink(value.toString());
+  }
+
+  Future<void> shareBusinessIdLink(String businessId) async {
+    if (controller.onlineStatus == OnlineStatus.Onilne) {
+      try {
+        final appId = "com.app.huzz";
+        final url = "https://huzz.africa?businessId=$businessId";
+        final DynamicLinkParameters parameters = DynamicLinkParameters(
+          uriPrefix: 'https://huzz.page.link',
+          link: Uri.parse(url),
+          androidParameters: AndroidParameters(
+            packageName: appId,
+            minimumVersion: 1,
+          ),
+          iosParameters: IOSParameters(
+            bundleId: appId,
+            appStoreId: "1596574133",
+            minimumVersion: '1',
+          ),
+        );
+        final shortLink = await dynamicLinks.buildShortLink(parameters);
+        teamInviteLink = shortLink.shortUrl.toString();
+        print('invite link: $teamInviteLink');
+      } catch (error) {
+        print(error.toString());
+      }
+    }
   }
 
   @override
@@ -137,6 +170,39 @@ class _MyTeamState extends State<MyTeam> {
                   ),
                   child: Column(
                     children: [
+                      // Obx(() {
+                      // return
+
+                      InkWell(
+                        onTap: () {
+                          Share.share(teamInviteLink!,
+                              subject: 'Share team invite link');
+                        },
+                        child: Container(
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: AppColor().orangeBorderColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Share team invite link',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontFamily: 'InterRegular',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                      // ;
+                      // })
+                      ,
+                      SizedBox(height: 20),
                       Expanded(
                         child: Obx(() {
                           if (_teamController.teamStatus ==
