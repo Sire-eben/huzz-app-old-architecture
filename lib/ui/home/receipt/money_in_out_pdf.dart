@@ -158,8 +158,8 @@ class PdfMoneyInOutApi {
         item.itemName,
         '${item.quality}',
         // unit.toString().replaceAll('.0', ''),
-        '${Utils.formatPrice(item.amount / item.quality)}',
-        '${Utils.formatPrice(item.amount)}',
+        '${Utils.formatPrice(item.totalAmount / item.quality)}',
+        '${Utils.formatPrice(item.totalAmount)}',
       ];
     }).toList();
 
