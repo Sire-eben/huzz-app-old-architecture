@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:share_plus/share_plus.dart';
-import '../records.dart';
 import 'records_pdf.dart';
 
 class DownloadRecordReceipt extends StatefulWidget {
@@ -120,7 +119,7 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
                 onTap: () {
-                  Get.to(() => Records());
+                  Get.back();
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,

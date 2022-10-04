@@ -20,7 +20,6 @@ import '../../../util/util.dart';
 
 class PreviewSingleInvoice extends StatefulWidget {
   final Invoice? invoice;
-
   PreviewSingleInvoice({
     Key? key,
     this.invoice,

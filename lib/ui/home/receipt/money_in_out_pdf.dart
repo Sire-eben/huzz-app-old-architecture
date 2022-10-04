@@ -146,15 +146,19 @@ class PdfMoneyInOutApi {
     final headers = [
       'Item',
       'Qty',
+      'Unit',
       'Amount',
     ];
     final data = items.map((item) {
       // ignore: unused_local_variable
       final total = item.totalAmount;
+      final unit = item.amount / item.quality;
 
       return [
         item.itemName,
         '${item.quality}',
+        // unit.toString().replaceAll('.0', ''),
+        '${Utils.formatPrice(item.amount / item.quality)}',
         '${Utils.formatPrice(item.amount)}',
       ];
     }).toList();
@@ -165,7 +169,7 @@ class PdfMoneyInOutApi {
       border: null,
       cellStyle: TextStyle(fontSize: 15),
       headerStyle: TextStyle(
-          fontWeight: FontWeight.bold, color: themeColor, fontSize: 20),
+          fontWeight: FontWeight.bold, color: themeColor, fontSize: 17),
       cellHeight: 38,
       cellDecoration: (r, __, c) {
         return c == data.length
@@ -192,9 +196,7 @@ class PdfMoneyInOutApi {
       TransactionModel transactionModel, PdfColor themeColor) {
     dynamic netTotal = 0;
     dynamic qtyTotal = 0;
-    // items
-    //     .map((item) => item.amount! * item.quality!)
-    //     .reduce((item1, item2) => item1 + item2);
+
     transactionModel.businessTransactionPaymentItemList!.forEach((element) {
       netTotal = netTotal + (element.amount! * element.quality!);
       qtyTotal = qtyTotal + element.quality!;
@@ -223,9 +225,25 @@ class PdfMoneyInOutApi {
                 ),
               ),
             ),
-            Row(children: [
+            Column(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
+              Row(children: [
+                Text(
+                  'Total Qty: ',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  qty.toString(),
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]),
               Text(
-                qty.toString(),
+                Utils.formatPrice(total * 1.0),
                 style: TextStyle(
                   color: themeColor,
                   fontSize: 14,
@@ -233,14 +251,6 @@ class PdfMoneyInOutApi {
                 ),
               ),
             ]),
-            Text(
-              Utils.formatPrice(total * 1.0),
-              style: TextStyle(
-                color: themeColor,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            )
           ],
         ),
         pw.SizedBox(height: 20),
