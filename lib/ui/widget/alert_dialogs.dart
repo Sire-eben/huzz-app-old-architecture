@@ -20,8 +20,7 @@ class AlertDialogs {
           title: Text(title),
           content: Text(body),
           actions: <Widget>[
-            // ignore: deprecated_member_use
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.of(context).pop(DialogsAction.cancel),
               child: Text(
                 'Cancel',
@@ -31,8 +30,7 @@ class AlertDialogs {
                 ),
               ),
             ),
-            // ignore: deprecated_member_use
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.of(context).pop(DialogsAction.yes),
               child: Text(
                 'Confirm',

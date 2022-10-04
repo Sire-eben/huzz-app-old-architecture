@@ -246,7 +246,7 @@ class SingleInvoicePdf {
             ),
           ),
           Text(
-            'DIscount',
+            'Discount',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,

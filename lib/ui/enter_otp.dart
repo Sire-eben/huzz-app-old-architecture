@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import 'widget/timer_button.dart';
 
 class EnterOtp extends StatefulWidget {
@@ -188,14 +187,14 @@ class _EnterOtpState extends State<EnterOtp> {
                   disabledColor: Colors.white,
                   color: Colors.transparent,
                 ),
-                // GestureDetector(
-                //     onTap: () {
-                //       _authController.sendSmsOtp();
-                //     },
-                //     child: Text(
-                //       "Resend via sms",
-                //       style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
-                //     )),
+                GestureDetector(
+                    onTap: () {
+                      _authController.sendSmsOtp();
+                    },
+                    child: Text(
+                      "Resend via sms",
+                      style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                    )),
                 Spacer(),
                 GestureDetector(
                   onTap: () {

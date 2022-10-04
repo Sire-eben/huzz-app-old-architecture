@@ -1,13 +1,11 @@
 // ignore_for_file: unused_field, close_sinks
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../../util/colors.dart';
 import '../widget/timer_button.dart';
 

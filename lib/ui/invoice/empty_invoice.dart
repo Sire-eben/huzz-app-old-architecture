@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/ui/invoice/create_invoice.dart';
 import 'package:huzz/util/colors.dart';
+import '../../data/repository/auth_respository.dart';
 
 class EmptyInvoice extends StatefulWidget {
   const EmptyInvoice({Key? key}) : super(key: key);
@@ -12,6 +13,13 @@ class EmptyInvoice extends StatefulWidget {
 }
 
 class _InvoiceState extends State<EmptyInvoice> {
+  final _authController = Get.put(AuthRepository());
+  @override
+  void initState() {
+    super.initState();
+    _authController.checkTeamInvite();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -10,6 +10,8 @@ import 'package:huzz/ui/invoice/available_invoice/paid.dart';
 import 'package:huzz/ui/invoice/available_invoice/pending.dart';
 import 'package:huzz/util/colors.dart';
 
+import '../../data/repository/auth_respository.dart';
+
 class ManageInvoiceInformationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,11 +48,16 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
     with SingleTickerProviderStateMixin {
   ScrollController? _scrollController;
   TabController? _tabController;
+
+  final _authController = Get.put(AuthRepository());
   final _invoiceRepository = Get.find<InvoiceRespository>();
+
   bool? fixedScroll;
 
   @override
   void initState() {
+    _authController.checkTeamInvite();
+
     _scrollController = ScrollController();
     _scrollController!.addListener(_scrollListener);
     _tabController = TabController(length: 4, vsync: this);

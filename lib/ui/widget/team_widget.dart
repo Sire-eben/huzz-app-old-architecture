@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huzz/util/colors.dart';
+import 'package:random_color/random_color.dart';
 
 class TeamsWidget extends StatelessWidget {
   final String? name, position;
@@ -17,6 +18,7 @@ class TeamsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RandomColor _randomColor = RandomColor();
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: MediaQuery.of(context).size.height * 0.02,
@@ -34,7 +36,7 @@ class TeamsWidget extends StatelessWidget {
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: AppColor().backgroundColor),
+                    shape: BoxShape.circle, color: _randomColor.randomColor()),
                 child: Center(
                   child: Text(
                     name!.substring(0, 2).toUpperCase(),

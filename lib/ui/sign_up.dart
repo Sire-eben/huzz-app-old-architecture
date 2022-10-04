@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/data/repository/home_respository.dart';
 import 'package:huzz/ui/create_pin.dart';
 import 'package:huzz/util/colors.dart';
 import 'widget/custom_form_field.dart';
@@ -14,18 +13,11 @@ class Signup extends StatefulWidget {
 }
 
 class _SignUpState extends State<Signup> {
-  final _homeController = Get.find<HomeRespository>();
   final _authController = Get.find<AuthRepository>();
-// ignore: unused_field
+
   final _formKey = GlobalKey<FormState>();
   String countryFlag = "NG";
   String countryCode = "234";
-
-  @override
-  void initState() {
-    super.initState();
-    _authController.countryText = countryCode;
-  }
 
   @override
   Widget build(BuildContext context) {

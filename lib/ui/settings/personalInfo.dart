@@ -1,7 +1,6 @@
 // ignore_for_file: close_sinks
 
 import 'dart:async';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/data/model/user.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 import '../../util/colors.dart';
 import '../widget/timer_button.dart';
 
@@ -41,7 +39,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     errorController = StreamController<ErrorAnimationType>();
     otpErrorController = StreamController<ErrorAnimationType>();
 
-    email = _controller.user!.email!;
+    email = _controller.user!.email ?? '';
     firstName = _controller.user!.firstName!;
     lastName = _controller.user!.lastName!;
     phone = _controller.user!.phoneNumber!;

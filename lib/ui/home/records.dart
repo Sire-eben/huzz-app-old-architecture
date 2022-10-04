@@ -1029,6 +1029,7 @@ class _RecordsState extends State<Records> {
                               Get.back();
                               Get.to(() => MoneySummary(
                                     item: item,
+                                    pageCheck: false,
                                   ));
                             },
                             child: Icon(

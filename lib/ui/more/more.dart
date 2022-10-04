@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/ui/widget/more_widget.dart';
 import 'package:huzz/util/colors.dart';
+import '../../data/repository/auth_respository.dart';
+import '../team/my_team.dart';
 import 'help_and_support.dart';
 
 class More extends StatefulWidget {
@@ -13,6 +15,14 @@ class More extends StatefulWidget {
 }
 
 class _MoreState extends State<More> {
+  final _authController = Get.put(AuthRepository());
+
+  @override
+  void initState() {
+    super.initState();
+    _authController.checkTeamInvite();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,15 +50,15 @@ class _MoreState extends State<More> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Image.asset('assets/images/my_team.png'),
-            ),
-            SizedBox(
-              height: 10,
-            ),
+            // Container(
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(15),
+            //   ),
+            //   child: Image.asset('assets/images/my_team.png'),
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
             // Container(
             //   decoration: BoxDecoration(
             //     borderRadius: BorderRadius.circular(15),
@@ -66,19 +76,19 @@ class _MoreState extends State<More> {
             // ),
 
             //my team features
-            // InkWell(
-            //   onTap: (() {
-            //     Get.to(() => MyTeam());
-            //   }),
-            //   child: MoreWidget(
-            // image: 'assets/images/team 1.png',
-            //     title: 'My Team',
-            //     description: 'Collaborate with coworkers',
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
+            InkWell(
+              onTap: (() {
+                Get.to(() => MyTeam());
+              }),
+              child: MoreWidget(
+                image: 'assets/images/team 1.png',
+                title: 'My Team',
+                description: 'Collaborate with coworkers',
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
 
             // InkWell(
             //   onTap: (() {

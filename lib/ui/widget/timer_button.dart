@@ -2,7 +2,6 @@ library timer_button;
 
 import 'dart:async';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 enum ButtonType {
@@ -113,13 +112,13 @@ class _TimerButtonState extends State<TimerButton> {
     return Container(
       child: timeUpFlag
           ? Text(
-        widget.label,
-        style: activeTextStyle,
-      )
+              widget.label,
+              style: activeTextStyle,
+            )
           : Text(
-        widget.label + labelSplitter + _timerText,
-        style: widget.disabledTextStyle,
-      ),
+              widget.label + labelSplitter + _timerText,
+              style: widget.disabledTextStyle,
+            ),
     );
   }
 
@@ -142,22 +141,22 @@ class _TimerButtonState extends State<TimerButton> {
   @override
   Widget build(BuildContext context) {
     switch (widget.buttonType) {
-    //RaisedButton is deprecated, use ElevatedButton instead
+      //RaisedButton is deprecated, use ElevatedButton instead
       case ButtonType.RaisedButton:
-      //TODO: (Ajay) Remove deprecated members
-      // ignore: deprecated_member_use
-        return RaisedButton(
-          disabledColor: widget.disabledColor,
-          color: timeUpFlag ? widget.color : widget.disabledColor,
+        //TODO: (Ajay) Remove deprecated members
+        // ignore: deprecated_member_use
+        return ElevatedButton(
+          // disabledColor: widget.disabledColor,
+          // color: timeUpFlag ? widget.color : widget.disabledColor,
           onPressed: _onPressed,
           child: _buildChild(),
         );
-    //FlatButton is deprecated, use TextButton instead
+      //FlatButton is deprecated, use TextButton instead
       case ButtonType.FlatButton:
-      // ignore: deprecated_member_use
-        return FlatButton(
-          color: timeUpFlag ? widget.color : widget.disabledColor,
-          disabledColor: widget.disabledColor,
+        // ignore: deprecated_member_use
+        return TextButton(
+          // color: timeUpFlag ? widget.color : widget.disabledColor,
+          // disabledColor: widget.disabledColor,
           onPressed: _onPressed,
           child: _buildChild(),
         );
@@ -166,7 +165,7 @@ class _TimerButtonState extends State<TimerButton> {
             onPressed: _onPressed,
             child: _buildChild(),
             style: ElevatedButton.styleFrom(
-              primary: timeUpFlag ? widget.color : widget.disabledColor,
+              backgroundColor: timeUpFlag ? widget.color : widget.disabledColor,
             ));
       case ButtonType.TextButton:
         return TextButton(

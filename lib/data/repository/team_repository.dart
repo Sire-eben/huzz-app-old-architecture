@@ -8,12 +8,13 @@ import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/ui/customers/confirmation.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../ui/team/confirmation.dart';
 
 enum AddingTeamStatus { Loading, Error, Success, Empty }
 
@@ -35,6 +36,7 @@ class TeamRepository extends GetxController {
   final _addingTeamMemberStatus = AddingTeamStatus.Empty.obs;
   final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
   final _teamStatus = TeamStatus.Empty.obs;
+  final hasTeamInviteDeeplink = false.obs;
 
   Rx<List<Teams>> _onlineBusinessTeam = Rx([]);
   Rx<List<Teams>> _offlineBusinessTeam = Rx([]);
@@ -162,7 +164,6 @@ class TeamRepository extends GetxController {
                   color: Colors.black, borderRadius: BorderRadius.circular(4)),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
             TextField(
               onChanged: searchItem,
               style: TextStyle(
@@ -207,10 +208,8 @@ class TeamRepository extends GetxController {
                 ),
               ),
             ),
-
             SizedBox(height: 20),
             Expanded(
-              // width: MediaQuery.of(context).size.width,
               child: (searchtext.isEmpty || searchResult.isNotEmpty)
                   ? ListView.builder(
                       itemBuilder: (context, index) {
@@ -228,7 +227,6 @@ class TeamRepository extends GetxController {
                               if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
-                              //  Navigator.pop(context);
                             },
                             child: Row(
                               children: [
@@ -301,9 +299,6 @@ class TeamRepository extends GetxController {
                       ),
                     ),
             ),
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           ],
         ),
       );
@@ -329,14 +324,12 @@ class TeamRepository extends GetxController {
                   color: Colors.black, borderRadius: BorderRadius.circular(4)),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
             TextField(
               onChanged: searchItem,
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: AppColor().backgroundColor,
                   fontFamily: 'InterRegular'),
-              // controller: _searchcontroller,
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
@@ -374,7 +367,6 @@ class TeamRepository extends GetxController {
                 ),
               ),
             ),
-
             SizedBox(height: 20),
             Expanded(
               child: (searchtext.isEmpty || searchResult.isNotEmpty)
@@ -395,7 +387,6 @@ class TeamRepository extends GetxController {
                               if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
-                              //  Navigator.pop(context);
                             },
                             child: Row(
                               children: [
@@ -486,9 +477,6 @@ class TeamRepository extends GetxController {
                       ),
                     ),
             ),
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           ],
         ),
       );
@@ -540,6 +528,10 @@ class TeamRepository extends GetxController {
   Future inviteTeamMemberOnline(
       String? businessId, Map<String, dynamic> item) async {
     try {
+      print('Team Member Phone: ${item['phoneNumber']}');
+      print('Team Member TeamId: ${item['teamId']}');
+      print('Team Member Email: ${item['email']}');
+      print('Team Member Invite Link: ${item['teamInviteUrl']}');
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
       var value = _businessController.selectedBusiness.value;
       print("trying to invite team members: ${jsonEncode(item)}");
@@ -554,14 +546,17 @@ class TeamRepository extends GetxController {
       print("result of invite team member online: ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        Get.snackbar('Success', json['message']);
+
         Get.back();
         if (json['success']) {
-          print(value.teamId);
-          getOnlineTeam(value.teamId!);
-          clearValue();
-
+          Get.snackbar('Success', json['message']);
           _addingTeamMemberStatus(AddingTeamStatus.Success);
+          print(value.teamId);
+          // getOnlineTeam(value.teamId!);
+          var teamMemberId = json['data']['id'];
+          print('Added Member MemberId: ${json['data']['id']}');
+          updateTeamOnline(teamMemberId, item);
+          clearValue();
 
           print('invite sent successfully');
           // await getBusinessCustomerYetToBeSavedLocally();
@@ -579,16 +574,18 @@ class TeamRepository extends GetxController {
     }
   }
 
-  Future updateTeamOnline(Teams team) async {
+  Future updateTeamOnline(
+      String teamMemberId, Map<String, dynamic> item) async {
     try {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
+      var value = _businessController.selectedBusiness.value;
 
       var response = await http
-          .put(Uri.parse(ApiLink.updateInviteTeamStatus + "/" + team.teamId!),
+          .put(Uri.parse(ApiLink.updateInviteTeamStatus + '/$teamMemberId'),
               body: jsonEncode({
-                "teamMemberStatus": emailController.text,
-                "phoneNumber": phoneNumberController.text,
-                "teamId": nameController.text,
+                "teamMemberStatus": 'ACCEPTED',
+                "phoneNumber": item['phoneNumber'],
+                "teamId": item['teamId'],
               }),
               headers: {
             "Content-Type": "application/json",
@@ -598,12 +595,9 @@ class TeamRepository extends GetxController {
       print("update team response ${response.body}");
       if (response.statusCode == 200) {
         _addingTeamMemberStatus(AddingTeamStatus.Success);
-        getOnlineTeam(_businessController.selectedBusiness.value!.businessId!);
+        getOnlineTeam(value!.teamId!);
 
-        Get.to(ConfirmationCustomer(
-          text: "Updated",
-        ));
-        // clearValue();
+        Get.to(TeamConfirmation());
       } else {
         _addingTeamMemberStatus(AddingTeamStatus.Error);
         Get.snackbar("Error", "Unable to update team");
@@ -654,9 +648,10 @@ class TeamRepository extends GetxController {
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
+          print('here 1');
           var result =
               List.from(json['data']).map((e) => Teams.fromJson(e)).toList();
-
+          print('here 2');
           _onlineBusinessTeam(result);
           result.isNotEmpty
               ? _teamStatus(TeamStatus.Available)
@@ -757,6 +752,7 @@ class TeamRepository extends GetxController {
   }
 
   Future deleteTeamMember(Teams item) async {
+    print('deleting team member...');
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       await deleteTeamMemberOnline(item);
       // await getOnlineTeam(
@@ -768,6 +764,7 @@ class TeamRepository extends GetxController {
 
   Future deleteTeamMemberOnline(Teams teams) async {
     try {
+      print('deleting team member online...');
       _deleteTeamMemberStatus(DeleteTeamStatus.Loading);
       print(teams.teamId);
       var response = await http.delete(
@@ -776,12 +773,14 @@ class TeamRepository extends GetxController {
 
       print("delete response ${response.body}");
       if (response.statusCode == 200) {
+        Get.snackbar('Success', 'Team member deleted successfully');
         _deleteTeamMemberStatus(DeleteTeamStatus.Success);
         getOnlineTeam(teams.businessId);
         // _businessController.sqliteDb.deleteCustomer(customer);
         // getOfflineCustomer(
         //     _businessController.selectedBusiness.value!.businessId!);
       } else {
+        Get.snackbar('Error', 'Error deleting team member, try again!');
         _deleteTeamMemberStatus(DeleteTeamStatus.Success);
         getOnlineTeam(teams.businessId);
         // _businessController.sqliteDb.deleteCustomer(customer);

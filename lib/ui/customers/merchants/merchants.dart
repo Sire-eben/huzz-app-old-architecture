@@ -129,92 +129,112 @@ class _MerchantsState extends State<Merchants> {
                                               ? _customerController
                                                   .customerMerchant[index]
                                               : searchResult[index];
-                                          return Row(
+                                          print(
+                                              'merchant: ${item.name}, ${item.customerId}');
+                                          return Column(
                                             children: [
-                                              Expanded(
-                                                  child: Container(
-                                                margin:
-                                                    EdgeInsets.only(bottom: 10),
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Container(
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          color: _randomColor
-                                                              .randomColor()),
-                                                      child: Center(
-                                                          child: Text(
-                                                        '${item.name![0]}',
-                                                        style: TextStyle(
-                                                            fontSize: 30,
-                                                            color: Colors.white,
-                                                            fontFamily:
-                                                                'InterRegular',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ))),
-                                                ),
-                                              )),
-                                              SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.02),
-                                              Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        item.name!,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'InterRegular',
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
+                                              if (item.name == null ||
+                                                  item.name == '')
+                                                ...[]
+                                              else ...[
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                        child: Container(
+                                                      margin: EdgeInsets.only(
+                                                          bottom: 10),
+                                                      child: Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Container(
+                                                            height: 50,
+                                                            decoration: BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color: _randomColor
+                                                                    .randomColor()),
+                                                            child: Center(
+                                                                child: Text(
+                                                              (item.name ==
+                                                                          null ||
+                                                                      item.name ==
+                                                                          '')
+                                                                  ? '0'
+                                                                  : '${item.name![0]}',
+                                                              style: TextStyle(
+                                                                  fontSize: 30,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily:
+                                                                      'InterRegular',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ))),
                                                       ),
-                                                      Text(
-                                                        item.phone!,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            fontFamily:
-                                                                'InterRegular',
-                                                            color: Colors.grey),
+                                                    )),
+                                                    SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.02),
+                                                    Expanded(
+                                                      flex: 3,
+                                                      child: Container(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              item.name!,
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  fontFamily:
+                                                                      'InterRegular',
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400),
+                                                            ),
+                                                            Text(
+                                                              item.phone!,
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  fontFamily:
+                                                                      'InterRegular',
+                                                                  color: Colors
+                                                                      .grey),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    GestureDetector(
+                                                        onTap: () {
+                                                          _customerController
+                                                              .setItem(item);
+                                                          Get.to(AddMerchant(
+                                                            item: item,
+                                                          ));
+                                                        },
+                                                        child: SvgPicture.asset(
+                                                            'assets/images/edit.svg')),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    GestureDetector(
+                                                        onTap: () {
+                                                          _displayDialog(
+                                                              context, item);
+                                                        },
+                                                        child: SvgPicture.asset(
+                                                            'assets/images/delete.svg')),
+                                                  ],
                                                 ),
-                                              ),
-                                              GestureDetector(
-                                                  onTap: () {
-                                                    _customerController
-                                                        .setItem(item);
-                                                    Get.to(AddMerchant(
-                                                      item: item,
-                                                    ));
-                                                  },
-                                                  child: SvgPicture.asset(
-                                                      'assets/images/edit.svg')),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              GestureDetector(
-                                                  onTap: () {
-                                                    _displayDialog(
-                                                        context, item);
-                                                  },
-                                                  child: SvgPicture.asset(
-                                                      'assets/images/delete.svg')),
+                                              ]
                                             ],
                                           );
                                         },

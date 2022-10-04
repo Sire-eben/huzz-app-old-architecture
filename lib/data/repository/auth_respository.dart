@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -23,15 +24,22 @@ import 'package:huzz/data/model/user_referral_model.dart';
 import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../model/user_teamInvite_model.dart';
 import '../../ui/enter_otp.dart';
 import 'fingerprint_repository.dart';
 
 enum SignupStatus { Empty, Loading, Error, Success }
+
 enum OtpAuthStatus { Empty, Loading, Error, Success }
+
 enum OtpVerifyStatus { Empty, Loading, Error, Success }
+
 enum UpdateProfileStatus { Empty, Loading, Error, Success }
+
 enum OtpForgotVerifyStatus { Empty, Loading, Error, Success }
+
 enum SigninStatus { Empty, Loading, Error, Success, InvalidPinOrPhoneNumber }
+
 enum AuthStatus {
   Loading,
   Authenticated,
@@ -45,12 +53,14 @@ enum AuthStatus {
   USERNAME_EXISTED,
   TOKEN_EXISTED
 }
+
 enum OnlineStatus { Onilne, Offline, Empty }
 
 class AuthRepository extends GetxController {
   var otpController = TextEditingController();
   var pinController;
   final referralCodeController = TextEditingController();
+  final teamInviteCodeController = TextEditingController();
   late final emailController = TextEditingController();
   late final lastNameController = TextEditingController();
   late final firstNameController = TextEditingController();
@@ -80,6 +90,7 @@ class AuthRepository extends GetxController {
       _Otpforgotverifystatus.value;
 
   final hasReferralDeeplink = false.obs;
+  final hasTeamInviteDeeplink = false.obs;
 
   final _connectionStatus = ConnectivityResult.none.obs;
   ConnectivityResult get connectionStatus => _connectionStatus.value;
@@ -151,6 +162,15 @@ class AuthRepository extends GetxController {
     FirebaseDynamicLinks.instance.onLink.listen((deepLink) {
       checkIfReferralLinkIsAvailableFromDeeplink(deepLink);
     });
+
+    final PendingDynamicLinkData? teamInviteDeepLink =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+    if (teamInviteDeepLink != null) {
+      checkIfTeamInviteLinkIsAvailableFromDeeplink(teamInviteDeepLink);
+    }
+    FirebaseDynamicLinks.instance.onLink.listen((teamInviteDeepLink) {
+      checkIfTeamInviteLinkIsAvailableFromDeeplink(teamInviteDeepLink);
+    });
   }
 
   void checkIfReferralLinkIsAvailableFromDeeplink(
@@ -159,6 +179,15 @@ class AuthRepository extends GetxController {
     if (refCode != null) {
       referralCodeController.text = refCode;
       hasReferralDeeplink(true);
+    }
+  }
+
+  void checkIfTeamInviteLinkIsAvailableFromDeeplink(
+      PendingDynamicLinkData deepLink) {
+    final String? teamInviteCode = deepLink.link.queryParameters['businessId'];
+    if (teamInviteCode != null) {
+      teamInviteCodeController.text = teamInviteCode;
+      hasTeamInviteDeeplink(true);
     }
   }
 
@@ -825,6 +854,26 @@ class AuthRepository extends GetxController {
     }
   }
 
+  Future<UserTeamInviteModel> getUserTeamInviteData() async {
+    try {
+      final response = await http.get(Uri.parse(ApiLink.userReferral),
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+
+      final json = jsonDecode(response.body);
+      if (response.statusCode != 200 || !json['status']) {
+        throw json['message'] ?? "Unexpected error occurred";
+      }
+      return UserTeamInviteModel.fromMap(json['data']);
+    } on SocketException catch (_) {
+      throw "Network not available, connect to the internet and try again";
+    } catch (e) {
+      throw e;
+    }
+  }
+
   void deleteUsersAccounts() async {
     _authStatus(AuthStatus.Loading);
     try {
@@ -844,6 +893,7 @@ class AuthRepository extends GetxController {
         // ignore: unnecessary_null_comparison
         if (response != null) {
           _authStatus(AuthStatus.Empty);
+          Get.snackbar("Success", "Your account have been deleted");
           logout();
           accountDeletelogout();
         }
@@ -879,7 +929,7 @@ class AuthRepository extends GetxController {
 
         // ignore: unnecessary_null_comparison
         if (response != null) {
-          Get.snackbar("Success", "Your Business account have been deleted.");
+          Get.snackbar("Success", "Your Business account have been deleted");
 
           logout();
         }
@@ -899,6 +949,48 @@ class AuthRepository extends GetxController {
     clearDatabase();
     pref!.logout();
     Get.offAll(() => RegHome());
+  }
+
+  void checkTeamInvite() {
+    if (onlineStatus == OnlineStatus.Onilne) {
+      try {
+        final _businessController = Get.find<BusinessRespository>();
+        if (kDebugMode) {
+          print('Team Invite deeplink: ${hasTeamInviteDeeplink.value}');
+        }
+        if (hasTeamInviteDeeplink.value == true) {
+          _businessController.OnlineBusiness();
+          hasTeamInviteDeeplink(false);
+          Get.snackbar("Success", "You've been invited to a team successfully");
+        }
+      } catch (error) {
+        if (kDebugMode) {
+          print('Team Invite error: $error');
+        }
+      }
+    }
+  }
+
+  void checkDeletedTeamBusiness() async {
+    try {
+      final _businessController = Get.find<BusinessRespository>();
+      // _businessController.checkOnlineBusiness();
+      if (kDebugMode) {
+        print(
+            'Online business: ${_businessController.onlineBusinessLength.value}');
+        print(
+            'Offline business: ${_businessController.offlineBusinessLength.value}');
+      }
+      if (_businessController.onlineBusinessLength.value !=
+          _businessController.offlineBusinessLength.value) {
+        print('update business...');
+        // logout();
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print('check deleted business: $error');
+      }
+    }
   }
 
   void logout() {

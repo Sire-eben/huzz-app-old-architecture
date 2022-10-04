@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/ui/customers/merchants/merchants.dart';
+import '../../data/repository/auth_respository.dart';
 import '../../util/colors.dart';
 import 'customer/customers.dart';
 
@@ -53,10 +54,13 @@ class CustomerTabView extends StatefulWidget {
 class _CustomerTabViewState extends State<CustomerTabView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final _authController = Get.put(AuthRepository());
 
   @override
   void initState() {
     super.initState();
+    _authController.checkTeamInvite();
+
     _tabController = TabController(length: 2, vsync: this)
       ..addListener(() {
         setState(() {});

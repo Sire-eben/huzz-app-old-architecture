@@ -3,25 +3,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/data/repository/business_respository.dart';
-import 'package:huzz/data/repository/debtors_repository.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/util/constants.dart';
-import 'package:huzz/util/util.dart';
-import 'package:huzz/ui/create_business.dart';
-import 'package:huzz/ui/home/insight.dart';
-import 'package:huzz/ui/home/money_in.dart';
-import 'package:huzz/ui/home/money_out.dart';
-import 'package:huzz/ui/home/records.dart';
-import 'package:huzz/ui/settings/notification.dart';
-import 'package:huzz/ui/settings/settings.dart';
-import 'package:huzz/util/colors.dart';
-import 'package:huzz/data/model/business.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
-import '../../data/repository/auth_respository.dart';
-import 'debtors/debtorstab.dart';
-import 'money_history.dart';
+import '../../../data/model/business.dart';
+import '../../../data/model/notification_model.dart';
+import '../../../data/repository/business_respository.dart';
+import '../../../data/repository/debtors_repository.dart';
+import '../../../data/repository/transaction_respository.dart';
+import '../../../ui/create_business.dart';
+import '../../../ui/home/debtors/debtorstab.dart';
+import '../../../ui/home/insight.dart';
+import '../../../ui/home/money_history.dart';
+import '../../../ui/home/money_in.dart';
+import '../../../ui/home/money_out.dart';
+import '../../../ui/home/records.dart';
+import '../../../ui/settings/settings.dart';
+import '../../../util/colors.dart';
+import '../../../util/util.dart';
 
 class DebtInformationDialog extends StatelessWidget {
   @override
@@ -61,11 +60,10 @@ class _HomeState extends State<Home> {
   );
 
   String? value;
-  final _authController = Get.put(AuthRepository());
   final _transactionController = Get.find<TransactionRespository>();
   final _businessController = Get.find<BusinessRespository>();
   final _debtorController = Get.find<DebtorRepository>();
-
+  // final _authController = Get.find<AuthRepository>();
   int selectedValue = 0;
   final transactionList = [];
   RandomColor _randomColor = RandomColor();
@@ -73,8 +71,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      _authController.checkTeamInvite();
-      _authController.checkDeletedTeamBusiness();
+      // print(
+      // 'Team Invite deeplink: ${_authController.hasTeamInviteDeeplink.value}');
+      // if (!_authController.hasTeamInviteDeeplink.value) {
+      // Get.reset();
+      // }
       return Scaffold(
         body: Container(
           padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
@@ -659,7 +660,6 @@ class _HomeState extends State<Home> {
                                           "item payment transaction id is ${item.businessTransactionId}");
                                       Get.to(() => MoneySummary(
                                             item: item,
-                                            pageCheck: true,
                                           ));
                                     },
                                     child: Row(
@@ -1382,7 +1382,9 @@ class _HomeState extends State<Home> {
                                 onTap: () {
                                   print(
                                       "item payment transaction id is ${item.businessTransactionId}");
-                                  Get.to(() => MoneySummary(item: item));
+                                  Get.to(() => MoneySummary(
+                                        item: item,
+                                      ));
                                 },
                                 child: Row(
                                   mainAxisAlignment:
@@ -2268,7 +2270,7 @@ class _HomeState extends State<Home> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    Get.back();
+                    // Get.to(() => AddNewSale());
                     Get.to(CreateBusiness());
                   },
                   child: Container(

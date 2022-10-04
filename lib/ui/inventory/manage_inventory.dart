@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/ui/inventory/Service/services.dart';
+import '../../data/repository/auth_respository.dart';
+import '../../data/repository/business_respository.dart';
 import '../../util/colors.dart';
 import 'Product/products.dart';
 
@@ -40,6 +43,21 @@ class ManageInventory extends StatefulWidget {
 }
 
 class _ManageInventoryState extends State<ManageInventory> {
+  final _authController = Get.put(AuthRepository());
+  final _businessController = Get.find<BusinessRespository>();
+  @override
+  void initState() {
+    super.initState();
+    if (kDebugMode) {
+      print(
+          'Team Invite deeplink: ${_authController.hasTeamInviteDeeplink.value}');
+    }
+    if (_authController.hasTeamInviteDeeplink.value == true) {
+      _businessController.OnlineBusiness();
+      _authController.hasTeamInviteDeeplink(false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

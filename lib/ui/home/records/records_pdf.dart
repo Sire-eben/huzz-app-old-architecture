@@ -305,11 +305,13 @@ class DailyRecordPdfApi {
           data.add([
             '${element.entryDateTime!.formatDate(pattern: "dd, MMM y")} ${element.entryDateTime!.formatDate(pattern: "hh:mm a")}',
             // element.entryDateTime!.formatDate(pattern: "hh:mm a"),
-            element1.transactionType,
+            element1.transactionType == 'EXPENDITURE'
+                ? 'Expenditure'
+                : 'Income',
             element1.itemName ?? "",
             '${element1.quality}',
             '${Utils.formatPrice(element1.amount)}',
-            element1.isFullyPaid! ? "FULL PAYMENT" : "PART PAYMENT",
+            element1.isFullyPaid! ? "Full Payment" : "Part Payment",
           ]);
         });
       });
@@ -354,7 +356,7 @@ class DailyRecordPdfApi {
       headerStyle: TextStyle(
         fontWeight: FontWeight.bold,
         color: PdfColors.white,
-        fontSize: 14,
+        fontSize: 12,
         font: font,
       ),
       cellStyle: TextStyle(
@@ -373,7 +375,7 @@ class DailyRecordPdfApi {
           width: 1.2,
         )),
       ),
-      cellHeight: 40,
+      cellHeight: 30,
       cellAlignments: {
         0: Alignment.centerLeft,
         1: Alignment.centerRight,

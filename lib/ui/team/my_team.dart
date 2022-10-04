@@ -1,4 +1,6 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -8,8 +10,33 @@ import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/no_team_widget.dart';
 import 'package:huzz/ui/widget/team_widget.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:random_color/random_color.dart';
+import 'package:share_plus/share_plus.dart';
 import 'add_member.dart';
+
+class NoAccessDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          "You are not authorized to perform this action",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: "InterRegular",
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class MyTeam extends StatefulWidget {
   const MyTeam({Key? key}) : super(key: key);
@@ -19,10 +46,11 @@ class MyTeam extends StatefulWidget {
 }
 
 class _MyTeamState extends State<MyTeam> {
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final controller = Get.find<AuthRepository>();
-  final _teamController = Get.find<TeamRepository>();
   final _businessController = Get.find<BusinessRespository>();
-  RandomColor _randomColor = RandomColor();
+  final _teamController = Get.find<TeamRepository>();
+  bool isLoadingTeamInviteLink = false;
 
   final items = [
     'Owner',
@@ -30,21 +58,67 @@ class _MyTeamState extends State<MyTeam> {
     'Admin',
   ];
 
-  String? values;
+  String? values, teamInviteLink;
   late String firstName, lastName;
 
   @override
   void initState() {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
+
+    controller.checkTeamInvite();
     super.initState();
+    final value = _businessController.selectedBusiness.value!.businessId;
+    print('BusinessId: $value');
+    final teamId = _businessController.selectedBusiness.value!.teamId;
+    print('Business TeamId: $teamId');
+    shareBusinessIdLink(value.toString());
+  }
+
+  Future<void> shareBusinessIdLink(String businessId) async {
+    if (controller.onlineStatus == OnlineStatus.Onilne) {
+      try {
+        setState(() {
+          isLoadingTeamInviteLink = true;
+        });
+        final appId = "com.app.huzz";
+        final url = "https://huzz.africa?businessId=$businessId";
+        final DynamicLinkParameters parameters = DynamicLinkParameters(
+          uriPrefix: 'https://huzz.page.link',
+          link: Uri.parse(url),
+          androidParameters: AndroidParameters(
+            packageName: appId,
+            minimumVersion: 1,
+          ),
+          iosParameters: IOSParameters(
+            bundleId: appId,
+            appStoreId: "1596574133",
+            minimumVersion: '1',
+          ),
+        );
+        final shortLink = await dynamicLinks.buildShortLink(parameters);
+        teamInviteLink = shortLink.shortUrl.toString();
+        print('invite link: $teamInviteLink');
+        setState(() {
+          isLoadingTeamInviteLink = false;
+        });
+      } catch (error) {
+        print(error.toString());
+        setState(() {
+          isLoadingTeamInviteLink = false;
+        });
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
-
+      if (kDebugMode) {
+        print(
+            'Team member length: ${_teamController.onlineBusinessTeam.length}');
+      }
       return RefreshIndicator(
         onRefresh: () async {
           return Future.delayed(Duration(seconds: 1), () {
@@ -106,6 +180,37 @@ class _MyTeamState extends State<MyTeam> {
                   ),
                   child: Column(
                     children: [
+                      InkWell(
+                        onTap: () {
+                          Share.share(teamInviteLink!,
+                              subject: 'Share team invite link');
+                        },
+                        child: Container(
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: AppColor().orangeBorderColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: isLoadingTeamInviteLink
+                                ? CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : Text(
+                                    'Share team invite link',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontFamily: 'InterRegular',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
                       Expanded(
                         child: Obx(() {
                           if (_teamController.teamStatus ==
@@ -130,8 +235,8 @@ class _MyTeamState extends State<MyTeam> {
                                         ? '$firstName $lastName'
                                         : item.email!,
                                     position: item.teamMemberStatus != "CREATOR"
-                                        ? "Writer"
-                                        : 'Owner',
+                                        ? "Member"
+                                        : 'Admin',
                                     status: item.teamMemberStatus == "CREATOR"
                                         ? Container()
                                         : (item.teamMemberStatus != "CREATOR" &&
@@ -439,7 +544,7 @@ class _MyTeamState extends State<MyTeam> {
                       child: InkWell(
                         onTap: () {
                           Get.back();
-                          _teamController.deleteTeamMember(item);
+                          _teamController.deleteTeamMemberOnline(item);
                         },
                         child: Container(
                           height: 45,
