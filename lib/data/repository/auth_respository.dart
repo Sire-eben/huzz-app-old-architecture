@@ -966,6 +966,7 @@ class AuthRepository extends GetxController {
       } catch (error) {
         if (kDebugMode) {
           print('Team Invite error: $error');
+          //  Get.snackbar("Error", "An error occurred ");
         }
       }
     }
