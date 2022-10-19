@@ -3,7 +3,7 @@ description: A new Flutter project.https://github.com/project-huzz/huzz-app/blob
 
 publish_to: "none"
 
-version: 1.11.9+25
+version: 1.12.0+26
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
