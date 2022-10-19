@@ -5,7 +5,6 @@ import 'package:huzz/di/appbinding.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/core/routes/app_router.dart';
-
 import 'ui/splashscreen.dart';
 
 void main() async {

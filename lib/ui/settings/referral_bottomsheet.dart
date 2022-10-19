@@ -31,7 +31,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
       isLoadingReferralLink = true;
     });
     final appId = "com.app.huzz";
-    final url = "https://huzz.africa?referralCode=$referralCode";
+    final url = "https://huzz.africa/referralCode=$referralCode";
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: 'https://huzz.page.link',
       link: Uri.parse(url),
