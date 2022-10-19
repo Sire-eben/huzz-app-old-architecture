@@ -165,7 +165,7 @@ class _TimerButtonState extends State<TimerButton> {
             onPressed: _onPressed,
             child: _buildChild(),
             style: ElevatedButton.styleFrom(
-              backgroundColor: timeUpFlag ? widget.color : widget.disabledColor,
+              primary: timeUpFlag ? widget.color : widget.disabledColor,
             ));
       case ButtonType.TextButton:
         return TextButton(
