@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:huzz/core/config/model/result_model.dart';
 
 class BaseRepositoryImpl implements BaseRepository {

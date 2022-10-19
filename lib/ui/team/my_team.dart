@@ -82,7 +82,7 @@ class _MyTeamState extends State<MyTeam> {
           isLoadingTeamInviteLink = true;
         });
         final appId = "com.app.huzz";
-        final url = "https://huzz.africa?businessId=$businessId";
+        final url = "https://huzz.africa/businessId=$businessId";
         final DynamicLinkParameters parameters = DynamicLinkParameters(
           uriPrefix: 'https://huzz.page.link',
           link: Uri.parse(url),
