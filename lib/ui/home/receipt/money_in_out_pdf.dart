@@ -146,19 +146,18 @@ class PdfMoneyInOutApi {
     final headers = [
       'Item',
       'Qty',
-      'Unit',
+      'Unit Price',
       'Amount',
     ];
     final data = items.map((item) {
       // ignore: unused_local_variable
       final total = item.totalAmount;
-      final unit = item.amount / item.quality;
+      final unit = item.totalAmount / item.quality;
 
       return [
         item.itemName,
         '${item.quality}',
-        // unit.toString().replaceAll('.0', ''),
-        '${Utils.formatPrice(item.totalAmount / item.quality)}',
+        '${Utils.formatPrice(unit)}',
         '${Utils.formatPrice(item.totalAmount)}',
       ];
     }).toList();

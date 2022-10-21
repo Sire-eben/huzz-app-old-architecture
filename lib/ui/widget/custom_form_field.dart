@@ -73,7 +73,7 @@ class CustomTextField extends StatelessWidget {
                     style: TextStyle(color: Colors.black, fontSize: 12),
                   ),
                   SizedBox(
-                    width: 5,
+                    width: 1,
                   ),
                   (validatorText != null && validatorText!.isNotEmpty)
                       ? Container(

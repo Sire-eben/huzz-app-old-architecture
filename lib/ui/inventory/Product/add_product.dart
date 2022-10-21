@@ -180,7 +180,7 @@ class _AddProductState extends State<AddProduct> {
                                     color: Colors.black, fontSize: 12),
                               ),
                               SizedBox(
-                                width: 5,
+                                width: 1,
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 5),
@@ -256,7 +256,7 @@ class _AddProductState extends State<AddProduct> {
                                     color: Colors.black, fontSize: 12),
                               ),
                               SizedBox(
-                                width: 5,
+                                width: 1,
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 5),
@@ -339,7 +339,7 @@ class _AddProductState extends State<AddProduct> {
                           style: TextStyle(color: Colors.black, fontSize: 12),
                         ),
                         SizedBox(
-                          width: 5,
+                          width: 1,
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 5),

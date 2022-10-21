@@ -18,7 +18,9 @@ import 'auth_respository.dart';
 import 'file_upload_respository.dart';
 
 enum AddingProductStatus { Loading, Error, Success, Empty }
+
 enum AddingServiceStatus { Loading, Error, Success, Empty }
+
 enum ProductStatus { Loading, Available, Error, Empty }
 
 class ProductRepository extends GetxController
@@ -29,7 +31,7 @@ class ProductRepository extends GetxController
   List<Product> get offlineBusinessProduct => _offlineBusinessProduct.value;
   List<Product> get onlineBusinessProduct => _onlineBusinessProduct.value;
   List<Product> pendingBusinessProduct = [];
-  List<String> units = ['Box', 'feet', 'kilogram', 'meters'];
+  List<String> units = ['Box', 'feet', 'kilogram', 'meters', 'pcs'];
   Rx<String?> selectedUnit = Rx(null);
 
   Product? selectedProduct;
@@ -505,7 +507,7 @@ class ProductRepository extends GetxController
     print("delete response ${response.body}");
     if (response.statusCode == 200) {
     } else {
-       Get.snackbar("Error", "Error deleting product, try again!");
+      Get.snackbar("Error", "Error deleting product, try again!");
     }
     _businessController.sqliteDb.deleteProduct(product);
     await getOfflineProduct(product.businessId!);

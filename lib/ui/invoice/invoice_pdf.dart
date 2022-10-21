@@ -209,13 +209,16 @@ class PdfInvoiceApi {
     final headers = [
       'Item',
       'Qty',
+      'Unit Price',
       'Amount',
     ];
     final data = invoice.paymentItemRequestList!.map((item) {
+      final unit = item.totalAmount / item.quality;
       print("item name ${item.itemName}");
       return [
         '${item.itemName}',
         '${item.quality}',
+        '${Utils.formatPrice(unit)}',
         '${Utils.formatPrice(item.totalAmount)}',
       ];
     }).toList();
