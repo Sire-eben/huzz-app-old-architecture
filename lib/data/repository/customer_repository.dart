@@ -874,7 +874,6 @@ class CustomerRepository extends GetxController {
                               if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
-                              //  Navigator.pop(context);
                             },
                             child: Row(
                               children: [
@@ -932,6 +931,15 @@ class CustomerRepository extends GetxController {
                                     ),
                                   ),
                                 ),
+                                Expanded(
+                                    child: Container(
+                                  margin: EdgeInsets.only(bottom: 10),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: SvgPicture.asset(
+                                        'assets/images/plus-circle.svg'),
+                                  ),
+                                )),
                               ],
                             ),
                           ),
