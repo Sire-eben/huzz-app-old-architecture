@@ -4,18 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:huzz/util/colors.dart';
 
 class ExpandableWidget extends StatefulWidget {
-  final String? name, titleName, viewName, createName, updateName, deleteName;
+  final String? name;
   final double? tL, tR, bL, bR;
   final bool? role;
   final Widget? manageChild, view, create, update, delete;
   ExpandableWidget({
     Key? key,
     this.name,
-    this.titleName,
-    this.viewName,
-    this.createName,
-    this.updateName,
-    this.deleteName,
     this.tL,
     this.tR,
     this.bL,

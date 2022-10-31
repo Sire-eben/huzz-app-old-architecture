@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
+import 'package:huzz/ui/team/team_updated_confirmation.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
@@ -17,6 +18,8 @@ import 'package:uuid/uuid.dart';
 import '../../ui/team/confirmation.dart';
 
 enum AddingTeamStatus { Loading, Error, Success, Empty }
+
+enum UpdateTeamStatus { Loading, Error, Success, Empty }
 
 enum DeleteTeamStatus { Loading, Error, Success, Empty }
 
@@ -35,6 +38,7 @@ class TeamRepository extends GetxController {
 
   final _addingTeamMemberStatus = AddingTeamStatus.Empty.obs;
   final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
+  final _updatingTeamMemberStatus = UpdateTeamStatus.Empty.obs;
   final _teamStatus = TeamStatus.Empty.obs;
   final hasTeamInviteDeeplink = false.obs;
 
@@ -48,6 +52,8 @@ class TeamRepository extends GetxController {
   List<Teams> pendingBusinessTeam = [];
   AddingTeamStatus get addingTeamMemberStatus => _addingTeamMemberStatus.value;
   DeleteTeamStatus get deleteTeamMemberStatus => _deleteTeamMemberStatus.value;
+  UpdateTeamStatus get updatingTeamMemberStatus =>
+      _updatingTeamMemberStatus.value;
   List<Teams> get deleteTeamMemberList => _deleteTeamMemberList.value;
   List<Teams> get team => _team.value;
   TeamStatus get teamStatus => _teamStatus.value;
@@ -381,9 +387,20 @@ class TeamRepository extends GetxController {
                           child: GestureDetector(
                             onTap: () {
                               Get.back();
+                              if (item.phones.first.number.length == 11) {
+                                var no = item.phones.first.number
+                                    .replaceFirst('0', '');
+                                print('contact selected $no');
+                                phoneNumberController.text = no;
+                              } else {
+                                var no = item.phones.first.number
+                                    .replaceAll('+', '')
+                                    .replaceAll('234', '')
+                                    .replaceAll('+234', '');
+                                print('contact selected $no');
+                                phoneNumberController.text = no;
+                              }
                               nameController.text = item.displayName;
-                              phoneNumberController.text =
-                                  item.phones.first.number;
                               if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
@@ -555,7 +572,7 @@ class TeamRepository extends GetxController {
           // getOnlineTeam(value.teamId!);
           var teamMemberId = json['data']['id'];
           print('Added Member MemberId: ${json['data']['id']}');
-          updateTeamOnline(teamMemberId, item);
+          updateTeamInviteStatusOnline(teamMemberId, item);
           clearValue();
 
           print('invite sent successfully');
@@ -574,7 +591,50 @@ class TeamRepository extends GetxController {
     }
   }
 
-  Future updateTeamOnline(
+  Future updateTeamMember(String? id, Map<String, dynamic> item) async {
+    try {
+      print('Team Member TeamId: ${item['teamId']}');
+      print('Team Member Id: $id');
+
+      _updatingTeamMemberStatus(UpdateTeamStatus.Loading);
+      var value = _businessController.selectedBusiness.value;
+      print("trying to update team members: ${jsonEncode(item)}");
+      var response = await http.put(
+          Uri.parse(ApiLink.updateInviteTeamStatus + '/$id'),
+          body: json.encode(item),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+
+      print("result of update team member: ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+
+        Get.back();
+        if (json['success']) {
+          Get.snackbar('Success', json['message']);
+          _updatingTeamMemberStatus(UpdateTeamStatus.Success);
+          print(value!.teamId);
+          getOnlineTeam(value.teamId!);
+
+          clearValue();
+          print('team member updated successfully');
+          Get.to(TeamMemberConfirmation());
+        }
+      } else {
+        var json = jsonDecode(response.body);
+        Get.snackbar('Error', json['message']);
+        _updatingTeamMemberStatus(UpdateTeamStatus.Error);
+      }
+    } catch (error) {
+      _updatingTeamMemberStatus(UpdateTeamStatus.Error);
+      Get.snackbar("Error", "Error updating team member, try again!");
+      print('update team member error ${error.toString()}');
+    }
+  }
+
+  Future updateTeamInviteStatusOnline(
       String teamMemberId, Map<String, dynamic> item) async {
     try {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);

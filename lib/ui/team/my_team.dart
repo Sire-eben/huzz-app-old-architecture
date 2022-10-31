@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
+import 'package:huzz/ui/team/update_member.dart';
 import 'package:huzz/ui/widget/no_team_widget.dart';
 import 'package:huzz/ui/widget/team_widget.dart';
 import 'package:huzz/util/colors.dart';
@@ -46,7 +47,6 @@ class MyTeam extends StatefulWidget {
 }
 
 class _MyTeamState extends State<MyTeam> {
-  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final controller = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
   final _teamController = Get.find<TeamRepository>();
@@ -72,43 +72,6 @@ class _MyTeamState extends State<MyTeam> {
     print('BusinessId: $value');
     final teamId = _businessController.selectedBusiness.value!.teamId;
     print('Business TeamId: $teamId');
-    shareBusinessIdLink(value.toString());
-  }
-
-  Future<void> shareBusinessIdLink(String businessId) async {
-    if (controller.onlineStatus == OnlineStatus.Onilne) {
-      try {
-        setState(() {
-          isLoadingTeamInviteLink = true;
-        });
-        final appId = "com.app.huzz";
-        final url = "https://huzz.africa/businessId=$businessId";
-        final DynamicLinkParameters parameters = DynamicLinkParameters(
-          uriPrefix: 'https://huzz.page.link',
-          link: Uri.parse(url),
-          androidParameters: AndroidParameters(
-            packageName: appId,
-            minimumVersion: 1,
-          ),
-          iosParameters: IOSParameters(
-            bundleId: appId,
-            appStoreId: "1596574133",
-            minimumVersion: '1',
-          ),
-        );
-        final shortLink = await dynamicLinks.buildShortLink(parameters);
-        teamInviteLink = shortLink.shortUrl.toString();
-        print('invite link: $teamInviteLink');
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      } catch (error) {
-        print(error.toString());
-        setState(() {
-          isLoadingTeamInviteLink = false;
-        });
-      }
-    }
   }
 
   @override
@@ -180,37 +143,6 @@ class _MyTeamState extends State<MyTeam> {
                   ),
                   child: Column(
                     children: [
-                      InkWell(
-                        onTap: () {
-                          Share.share(teamInviteLink!,
-                              subject: 'Share team invite link');
-                        },
-                        child: Container(
-                          height: 55,
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: AppColor().orangeBorderColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: isLoadingTeamInviteLink
-                                ? CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )
-                                : Text(
-                                    'Share team invite link',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontFamily: 'InterRegular',
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20),
                       Expanded(
                         child: Obx(() {
                           if (_teamController.teamStatus ==
@@ -256,17 +188,8 @@ class _MyTeamState extends State<MyTeam> {
                                         item.teamMemberStatus != 'CREATOR'
                                             ? GestureDetector(
                                                 onTap: () {
-                                                  showModalBottomSheet(
-                                                      isScrollControlled: true,
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.vertical(
-                                                                  top: Radius
-                                                                      .circular(
-                                                                          20))),
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          buildEditTeam());
+                                                  Get.to(() =>
+                                                      UpdateMember(team: item));
                                                 },
                                                 child: SvgPicture.asset(
                                                   'assets/images/edit.svg',
