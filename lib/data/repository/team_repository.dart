@@ -23,7 +23,7 @@ enum UpdateTeamStatus { Loading, Error, Success, Empty }
 
 enum DeleteTeamStatus { Loading, Error, Success, Empty }
 
-enum TeamStatus { Loading, Available, Error, Empty }
+enum TeamStatus { Loading, Available, Error, Empty, UnAuthorized }
 
 class TeamRepository extends GetxController {
   RandomColor _randomColor = RandomColor();
@@ -720,7 +720,11 @@ class TeamRepository extends GetxController {
           // await getBusinessTeamYetToBeSavedLocally();
           // checkAvailableTeamToUpdate();
         }
-      } else {}
+      } else if (response.statusCode == 500) {
+        _teamStatus(TeamStatus.UnAuthorized);
+      } else {
+        _teamStatus(TeamStatus.Error);
+      }
     } catch (error) {
       _teamStatus(TeamStatus.Error);
       print('add team feature error ${error.toString()}');

@@ -1,9 +1,9 @@
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
@@ -11,7 +11,7 @@ import 'package:huzz/ui/team/update_member.dart';
 import 'package:huzz/ui/widget/no_team_widget.dart';
 import 'package:huzz/ui/widget/team_widget.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:intl/intl.dart';
 import 'add_member.dart';
 
 class NoAccessDialog extends StatelessWidget {
@@ -50,28 +50,28 @@ class _MyTeamState extends State<MyTeam> {
   final controller = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
   final _teamController = Get.find<TeamRepository>();
-  bool isLoadingTeamInviteLink = false;
 
-  final items = [
-    'Owner',
-    'Writer',
-    'Admin',
-  ];
-
-  String? values, teamInviteLink;
-  late String firstName, lastName;
+  String? values, date;
+  late String firstName, lastName, phone;
 
   @override
   void initState() {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
+    phone = controller.user!.phoneNumber!;
+    print(phone);
 
     controller.checkTeamInvite();
     super.initState();
-    final value = _businessController.selectedBusiness.value!.businessId;
-    print('BusinessId: $value');
-    final teamId = _businessController.selectedBusiness.value!.teamId;
-    print('Business TeamId: $teamId');
+
+    List<Teams> team = _teamController.onlineBusinessTeam
+        .where((element) => element.phoneNumber == phone)
+        .toList();
+
+    for (var i in team) {
+      var getDate = i.createdDateTime!.toLocal();
+      date = DateFormat("yMMMEd").format(getDate);
+    }
   }
 
   @override
@@ -117,7 +117,8 @@ class _MyTeamState extends State<MyTeam> {
             ),
           ),
           backgroundColor: AppColor().whiteColor,
-          floatingActionButton: value!.teamId == null
+          floatingActionButton: (value!.teamId == null ||
+                  phone != _teamController.onlineBusinessTeam.first.phoneNumber)
               ? Container()
               : FloatingActionButton.extended(
                   onPressed: () {
@@ -143,92 +144,123 @@ class _MyTeamState extends State<MyTeam> {
                   ),
                   child: Column(
                     children: [
-                      Expanded(
-                        child: Obx(() {
-                          if (_teamController.teamStatus ==
-                              TeamStatus.Loading) {
-                            return Center(
-                              child: CircularProgressIndicator(
-                                color: AppColor().backgroundColor,
-                              ),
-                            );
-                          } else if (_teamController.teamStatus ==
-                              TeamStatus.Available) {
-                            return ListView.builder(
-                              itemCount:
-                                  _teamController.onlineBusinessTeam.length,
-                              itemBuilder: (context, index) {
-                                var item =
-                                    _teamController.onlineBusinessTeam[index];
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: TeamsWidget(
-                                    name: item.email == null
-                                        ? '$firstName $lastName'
-                                        : item.email!,
-                                    position: item.teamMemberStatus != "CREATOR"
-                                        ? "Member"
-                                        : 'Admin',
-                                    status: item.teamMemberStatus == "CREATOR"
-                                        ? Container()
-                                        : (item.teamMemberStatus != "CREATOR" &&
-                                                item.teamMemberStatus ==
-                                                    "INVITE_LINK_SENT")
-                                            ? StatusWidget(
-                                                color:
-                                                    AppColor().backgroundColor,
-                                                text: "Pending",
-                                              )
-                                            : StatusWidget(
-                                                color: AppColor()
-                                                    .orangeBorderColor,
-                                                text: "Invited",
-                                              ),
-                                    editAction:
-                                        item.teamMemberStatus != 'CREATOR'
-                                            ? GestureDetector(
-                                                onTap: () {
-                                                  Get.to(() =>
-                                                      UpdateMember(team: item));
-                                                },
-                                                child: SvgPicture.asset(
-                                                  'assets/images/edit.svg',
-                                                  height: 20,
-                                                  width: 20,
-                                                ))
-                                            : Container(),
-                                    deleteAction: item.teamMemberStatus !=
-                                            "CREATOR"
-                                        ? Obx(() {
-                                            return GestureDetector(
-                                                onTap: () {
-                                                  print(
-                                                      'deleting team member: ${item.toJson()}');
-                                                  _deleteTeamMemberDialog(
-                                                      context, item);
-                                                },
-                                                child: _teamController
-                                                            .deleteTeamMemberStatus ==
-                                                        DeleteTeamStatus.Loading
-                                                    ? CupertinoActivityIndicator(
-                                                        radius: 10,
-                                                      )
-                                                    : SvgPicture.asset(
-                                                        'assets/images/delete.svg',
-                                                        height: 20,
-                                                        width: 20,
-                                                      ));
-                                          })
-                                        : Container(),
-                                  ),
-                                );
-                              },
-                            );
-                          } else {
-                            return Container();
-                          }
-                        }),
-                      ),
+                      if (phone ==
+                          _teamController
+                              .onlineBusinessTeam.first.phoneNumber) ...[
+                        Expanded(
+                          child: Obx(() {
+                            if (_teamController.teamStatus ==
+                                TeamStatus.Loading) {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColor().backgroundColor,
+                                ),
+                              );
+                            } else if (_teamController.teamStatus ==
+                                TeamStatus.Available) {
+                              // if(phone.length ==11){}
+                              return ListView.builder(
+                                itemCount:
+                                    _teamController.onlineBusinessTeam.length,
+                                itemBuilder: (context, index) {
+                                  var item =
+                                      _teamController.onlineBusinessTeam[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: TeamsWidget(
+                                      name: item.email == null
+                                          ? '$firstName $lastName'
+                                          : item.email!,
+                                      position:
+                                          item.teamMemberStatus != "CREATOR"
+                                              ? "Member"
+                                              : 'Admin',
+                                      status: item.teamMemberStatus == "CREATOR"
+                                          ? Container()
+                                          : (item.teamMemberStatus !=
+                                                      "CREATOR" &&
+                                                  item.teamMemberStatus ==
+                                                      "INVITE_LINK_SENT")
+                                              ? StatusWidget(
+                                                  color: AppColor()
+                                                      .backgroundColor,
+                                                  text: "Pending",
+                                                )
+                                              : StatusWidget(
+                                                  color: AppColor()
+                                                      .orangeBorderColor,
+                                                  text: "Invited",
+                                                ),
+                                      editAction: item.teamMemberStatus !=
+                                              'CREATOR'
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                Get.to(() =>
+                                                    UpdateMember(team: item));
+                                              },
+                                              child: SvgPicture.asset(
+                                                'assets/images/edit.svg',
+                                                height: 20,
+                                                width: 20,
+                                              ))
+                                          : Container(),
+                                      deleteAction:
+                                          item.teamMemberStatus != "CREATOR"
+                                              ? Obx(() {
+                                                  return GestureDetector(
+                                                      onTap: () {
+                                                        print(
+                                                            'deleting team member: ${item.toJson()}');
+                                                        _deleteTeamMemberDialog(
+                                                            context, item);
+                                                      },
+                                                      child: _teamController
+                                                                  .deleteTeamMemberStatus ==
+                                                              DeleteTeamStatus
+                                                                  .Loading
+                                                          ? CupertinoActivityIndicator(
+                                                              radius: 10,
+                                                            )
+                                                          : SvgPicture.asset(
+                                                              'assets/images/delete.svg',
+                                                              height: 20,
+                                                              width: 20,
+                                                            ));
+                                                })
+                                              : Container(),
+                                    ),
+                                  );
+                                },
+                              );
+                            } else if (_teamController
+                                    .onlineBusinessTeam.length ==
+                                0) {
+                              return NoTeamWidget();
+                            } else {
+                              return Container();
+                            }
+                          }),
+                        ),
+                      ] else ...[
+                        Center(
+                          child: Text(
+                            'You joined the ${value.businessName} team on\n$date',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: AppColor().blackColor,
+                              fontFamily: 'InterRegular',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        NoTeamsWidget(
+                          fName: firstName,
+                          lName: lastName,
+                          position: "Member",
+                        ),
+                      ]
                     ],
                   ),
                 ),
@@ -236,166 +268,6 @@ class _MyTeamState extends State<MyTeam> {
       );
     });
   }
-
-  Widget buildEditTeam() =>
-      StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
-        return Container(
-          margin: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.04,
-            right: MediaQuery.of(context).size.width * 0.04,
-          ),
-          padding: MediaQuery.of(context).viewInsets,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: 6,
-                    width: 80,
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Edit Team',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: "InterRegular",
-                    fontStyle: FontStyle.normal,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              SizedBox(height: 40),
-              Text(
-                'Select Item',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontFamily: 'InterRegular'),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        width: 2, color: AppColor().backgroundColor)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: values,
-                    icon: Icon(
-                      Icons.keyboard_arrow_down,
-                      color: AppColor().backgroundColor,
-                    ),
-                    iconSize: 30,
-                    items: items.map(buildEditItem).toList(),
-                    onChanged: (value) => myState(() {
-                      values = value;
-                      print(value);
-                    }),
-                  ),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              InkWell(
-                onTap: () async {
-                  print('Editing team member details');
-                  Get.back();
-                  // if (_transactionController.addingTransactionStatus !=
-                  //     AddingTransactionStatus.Loading) {
-                  //   print('Amount to be updated: ' +
-                  //       _transactionController.amountController!.text
-                  //           .replaceAll('₦', ''));
-
-                  //   var result =
-                  //       await _transactionController.updateTransactionHistory(
-                  //           transactionModel!.id!,
-                  //           transactionModel!.businessId!,
-                  //           (paymentType == 0)
-                  //               ? _transactionController
-                  //                   .amountController!.text
-                  //                   .replaceAll('₦', '')
-                  //                   .replaceAll(',', '')
-                  //               : (transactionModel!.balance ?? 0),
-                  //           (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
-
-                  //   if (result != null) {
-                  //     print("result is not null");
-                  //     transactionModel = result;
-                  //     setState(() {});
-                  //   } else {
-                  //     print("result is null");
-                  //   }
-                  //   transactionModel =
-                  //       _transactionController.getTransactionById(
-                  //           widget.item!.businessTransactionId!);
-                  //   setState(() {});
-                  // }
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.01),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child:
-                      // (_team.addingTransactionStatus ==
-                      //         AddingTransactionStatus.Loading)
-                      //     ? Container(
-                      //         width: 30,
-                      //         height: 30,
-                      //         child: Center(
-                      //             child: CircularProgressIndicator(
-                      //                 color: Colors.white)),
-                      //       )
-                      //     :
-                      Center(
-                    child: Text(
-                      'Save',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'InterRegular'),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
-        );
-      });
-
-  DropdownMenuItem<String> buildEditItem(String item) => DropdownMenuItem(
-        value: item,
-        child: Text(
-          item,
-          style: TextStyle(fontSize: 14),
-        ),
-      );
 
   _deleteTeamMemberDialog(BuildContext context, var item) async {
     return showDialog(

@@ -235,8 +235,10 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                           ),
                           SizedBox(height: 24),
                           InkWell(
-                            onTap: () =>
-                                shareReferralLink(referralData.referralCode)
+                            onTap: () {
+                              print(referralData.referralCode);
+                              shareReferralLink(referralData.referralCode);
+                            }
                             //     {
                             //   Share.share(referralLink!,
                             //       subject: 'Share referral link');

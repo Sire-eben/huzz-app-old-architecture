@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:huzz/ui/widget/more_widget.dart';
 import 'package:huzz/util/colors.dart';
 import '../../data/repository/auth_respository.dart';
+import '../../data/repository/team_repository.dart';
 import '../team/my_team.dart';
+import '../team/no_permission_team.dart';
 import 'help_and_support.dart';
 
 class More extends StatefulWidget {
@@ -16,6 +18,7 @@ class More extends StatefulWidget {
 
 class _MoreState extends State<More> {
   final _authController = Get.put(AuthRepository());
+  final _teamController = Get.find<TeamRepository>();
 
   @override
   void initState() {
@@ -78,7 +81,9 @@ class _MoreState extends State<More> {
             //my team features
             InkWell(
               onTap: (() {
-                Get.to(() => MyTeam());
+                _teamController.teamStatus == TeamStatus.UnAuthorized
+                    ? Get.to(() => NoPermissionTeam())
+                    : Get.to(() => MyTeam());
               }),
               child: MoreWidget(
                 image: 'assets/images/team 1.png',

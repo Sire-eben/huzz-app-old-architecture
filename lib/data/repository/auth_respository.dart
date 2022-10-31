@@ -957,6 +957,7 @@ class AuthRepository extends GetxController {
         final _businessController = Get.find<BusinessRespository>();
         if (kDebugMode) {
           print('Team Invite deeplink: ${hasTeamInviteDeeplink.value}');
+          print('Referral Invite deeplink: ${hasReferralDeeplink.value}');
         }
         if (hasTeamInviteDeeplink.value == true) {
           _businessController.OnlineBusiness();
