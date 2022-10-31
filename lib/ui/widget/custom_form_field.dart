@@ -125,14 +125,9 @@ class CustomTextField extends StatelessWidget {
                         borderSide: BorderSide(
                             color: AppColor().backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    // labelText: label,
                     hintText: hint,
                     prefixIcon: prefixIcon,
                     suffixIcon: suffixIcon,
-                    // labelStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                    //     color: AppColors.secondary,
-                    //     fontFamily: FontFamily.sofiaPro,
-                    //     fontSize: 14),
                     hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
                           color: colors ?? Colors.black26,
                           fontFamily: 'InterRegular',
@@ -141,7 +136,6 @@ class CustomTextField extends StatelessWidget {
                           fontWeight: FontWeight.normal,
                         ),
                   ),
-                  // validator: validate,
                   onFieldSubmitted: onSubmited),
             ),
           )

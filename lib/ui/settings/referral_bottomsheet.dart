@@ -19,6 +19,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
   final controller = Get.find<AuthRepository>();
   late Future<UserReferralModel?> future;
   bool isLoadingReferralLink = false;
+  String? referralLink;
 
   @override
   void initState() {
@@ -27,30 +28,39 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
   }
 
   Future<void> shareReferralLink(String referralCode) async {
-    setState(() {
-      isLoadingReferralLink = true;
-    });
-    final appId = "com.app.huzz";
-    final url = "https://huzz.africa/referralCode=$referralCode";
-    final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: 'https://huzz.page.link',
-      link: Uri.parse(url),
-      androidParameters: AndroidParameters(
-        packageName: appId,
-        minimumVersion: 1,
-      ),
-      iosParameters: IOSParameters(
-        bundleId: appId,
-        appStoreId: "1596574133",
-        minimumVersion: '1',
-      ),
-    );
-    final shortLink = await dynamicLinks.buildShortLink(parameters);
-    print('referral Link: ${shortLink.shortUrl.toString()}');
-    setState(() {
-      isLoadingReferralLink = false;
-    });
-    Share.share(shortLink.shortUrl.toString(), subject: 'Share referral link');
+    try {
+      setState(() {
+        isLoadingReferralLink = true;
+      });
+      final appId = "com.app.huzz";
+      final url = "https://huzz.africa/referralCode=$referralCode";
+      final DynamicLinkParameters parameters = DynamicLinkParameters(
+        uriPrefix: 'https://huzz.page.link',
+        link: Uri.parse(url),
+        androidParameters: AndroidParameters(
+          packageName: appId,
+          minimumVersion: 1,
+        ),
+        iosParameters: IOSParameters(
+          bundleId: appId,
+          appStoreId: "1596574133",
+          minimumVersion: '1',
+        ),
+      );
+      final shortLink = await dynamicLinks.buildShortLink(parameters);
+      referralLink = shortLink.shortUrl.toString();
+      print('referral Link: ${shortLink.shortUrl.toString()}');
+      setState(() {
+        isLoadingReferralLink = false;
+      });
+      Share.share(shortLink.shortUrl.toString(),
+          subject: 'Share referral link');
+    } catch (error) {
+      print(error.toString());
+      setState(() {
+        isLoadingReferralLink = false;
+      });
+    }
   }
 
   @override
@@ -226,7 +236,12 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                           SizedBox(height: 24),
                           InkWell(
                             onTap: () =>
-                                shareReferralLink(referralData.referralCode),
+                                shareReferralLink(referralData.referralCode)
+                            //     {
+                            //   Share.share(referralLink!,
+                            //       subject: 'Share referral link');
+                            // }
+                            ,
                             child: Container(
                               height: 55,
                               decoration: BoxDecoration(
