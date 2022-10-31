@@ -86,7 +86,7 @@ class _MoreState extends State<More> {
                     : Get.to(() => MyTeam());
               }),
               child: MoreWidget(
-                image: 'assets/images/team 1.png',
+                image: 'assets/images/team.png',
                 title: 'My Team',
                 description: 'Collaborate with coworkers',
               ),
@@ -138,7 +138,7 @@ class _MoreState extends State<More> {
                 Get.to(() => HelpsAndSupport());
               }),
               child: MoreWidget(
-                image: 'assets/images/image 3.png',
+                image: 'assets/images/call.png',
                 title: 'Help and Support',
                 description: '',
               ),
