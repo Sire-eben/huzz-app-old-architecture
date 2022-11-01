@@ -812,7 +812,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     Expanded(
                                       child: CustomTextField(
                                         label: "Amount",
-                                        hint: '${Utils.getCurrency()} 0.00',
+                                        hint: '${Utils.getCurrency()}',
                                         validatorText: "Amount is needed",
                                         textEditingController:
                                             _invoiceController.amountController,
@@ -949,7 +949,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             )));
       });
 
-//
   // ignore: non_constant_identifier_names
   Container CustomerInfo() {
     return Container(
@@ -1099,6 +1098,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 validatorText: "",
                 hint: 'Add a brief invoice description',
                 textEditingController: _invoiceController.noteController,
+                keyType: Platform.isIOS
+                    ? TextInputType.numberWithOptions(
+                        signed: true, decimal: true)
+                    : TextInputType.number,
               ),
             ],
           ),

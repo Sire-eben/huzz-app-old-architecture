@@ -125,14 +125,9 @@ class CustomTextField extends StatelessWidget {
                         borderSide: BorderSide(
                             color: AppColor().backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    // labelText: label,
                     hintText: hint,
                     prefixIcon: prefixIcon,
                     suffixIcon: suffixIcon,
-                    // labelStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                    //     color: AppColors.secondary,
-                    //     fontFamily: FontFamily.sofiaPro,
-                    //     fontSize: 14),
                     hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
                           color: colors ?? Colors.black26,
                           fontFamily: 'InterRegular',
@@ -141,7 +136,6 @@ class CustomTextField extends StatelessWidget {
                           fontWeight: FontWeight.normal,
                         ),
                   ),
-                  // validator: validate,
                   onFieldSubmitted: onSubmited),
             ),
           )
@@ -1206,20 +1200,27 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                       Expanded(
                         child: TextFormField(
                           controller: widget.contactPhone,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'InterRegular',
+                            fontWeight: FontWeight.w500,
+                          ),
                           decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "9034678966",
-                              hintStyle: TextStyle(
-                                  color: Colors.black.withOpacity(0.5),
-                                  fontSize: 14,
-                                  fontFamily: 'InterRegular',
-                                  fontWeight: FontWeight.w500),
-                              prefixText: "+$countryCode ",
-                              prefixStyle: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'InterRegular',
-                                  color: Colors.black)),
+                            border: InputBorder.none,
+                            hintText: "9034678966",
+                            hintStyle: TextStyle(
+                                color: Colors.black.withOpacity(0.5),
+                                fontSize: 14,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.w500),
+                            prefixText: "+$countryCode ",
+                            prefixStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'InterRegular',
+                                color: Colors.black),
+                          ),
                         ),
                       ),
                       SizedBox(

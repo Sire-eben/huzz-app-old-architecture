@@ -4,9 +4,13 @@ import 'package:get/get.dart';
 import 'package:huzz/ui/create_business.dart';
 import 'package:huzz/util/colors.dart';
 
+import '../data/repository/auth_respository.dart';
+import 'dashboard.dart';
+
 class PinSuccesful extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _authController = Get.find<AuthRepository>();
     return Scaffold(
         body: Container(
       width: MediaQuery.of(context).size.width,
@@ -55,7 +59,9 @@ class PinSuccesful extends StatelessWidget {
           Spacer(),
           GestureDetector(
             onTap: () {
-              Get.to(CreateBusiness());
+              _authController.hasTeamInviteDeeplink.value == true
+                  ? Get.offAll(() => Dashboard())
+                  : Get.to(CreateBusiness());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,

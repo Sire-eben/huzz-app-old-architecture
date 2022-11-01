@@ -65,7 +65,7 @@ class _AddMemberState extends State<AddMember> {
     if (controller.onlineStatus == OnlineStatus.Onilne) {
       try {
         final appId = "com.app.huzz";
-        final url = "https://huzz.africa?businessId=$businessId";
+        final url = "https://huzz.africa/businessId=$businessId";
         final DynamicLinkParameters parameters = DynamicLinkParameters(
           uriPrefix: 'https://huzz.page.link',
           link: Uri.parse(url),
@@ -364,11 +364,6 @@ class _AddMemberState extends State<AddMember> {
                             ),
                     ),
                     name: item.name,
-                    titleName: item.titleName,
-                    viewName: item.authoritySet![1],
-                    createName: item.authoritySet![2],
-                    updateName: item.authoritySet![3],
-                    deleteName: item.authoritySet![4],
                     tL: item.tL,
                     tR: item.tR,
                     bL: item.bL,
