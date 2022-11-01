@@ -25,7 +25,8 @@ import 'auth_respository.dart';
 import 'customer_repository.dart';
 
 enum AddingInvoiceStatus { Loading, Error, Success, Empty }
-enum InvoiceStatus { Loading, Error, Available, Empty }
+
+enum InvoiceStatus { Loading, Error, Available, Empty, UnAuthorized }
 
 class InvoiceRespository extends GetxController {
   Rx<List<Invoice>> _offlineInvoices = Rx([]);
@@ -210,7 +211,11 @@ class InvoiceRespository extends GetxController {
         result.isNotEmpty
             ? _invoiceStatus(InvoiceStatus.Available)
             : _invoiceStatus(InvoiceStatus.Empty);
-      } else {}
+      } else if (response.statusCode == 500) {
+        _invoiceStatus(InvoiceStatus.UnAuthorized);
+      } else {
+        _invoiceStatus(InvoiceStatus.Error);
+      }
     } catch (error) {
       print(error.toString());
       _invoiceStatus(InvoiceStatus.Error);
@@ -552,7 +557,7 @@ class InvoiceRespository extends GetxController {
         clearValue();
         Get.to(() => PreviewInvoice(invoice: result));
       } else {
-         Get.snackbar("Error", "Error creating invoice, try again!");
+        Get.snackbar("Error", "Error creating invoice, try again!");
         _addingInvoiceStatus(AddingInvoiceStatus.Error);
       }
     } catch (ex) {
