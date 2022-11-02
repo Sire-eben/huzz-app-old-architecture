@@ -14,7 +14,7 @@ import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 
-enum AddingBankInfoStatus { Loading, Error, Success, Empty }
+enum AddingBankInfoStatus { Loading, Error, Success, Empty, UnAuthorized }
 
 class BankAccountRepository extends GetxController {
   final bankAccountNameController = TextEditingController();
@@ -298,6 +298,7 @@ class BankAccountRepository extends GetxController {
   }
 
   Future getOnlineBank(String businessId) async {
+    _addingBankStatus(AddingBankInfoStatus.Loading);
     print("trying to get Bank online");
     final response = await http.get(
         Uri.parse(ApiLink.addBankInfo + "?businessId=" + businessId),
@@ -305,6 +306,7 @@ class BankAccountRepository extends GetxController {
 
     print("result of get Bank online ${response.body}");
     if (response.statusCode == 200) {
+      _addingBankStatus(AddingBankInfoStatus.Loading);
       var json = jsonDecode(response.body);
       if (json['success']) {
         var result =
@@ -314,7 +316,11 @@ class BankAccountRepository extends GetxController {
         await getBusinessBankYetToBeSavedLocally();
         checkIfUpdateAvailable();
       }
-    } else {}
+    } else if (response.statusCode == 500) {
+      _addingBankStatus(AddingBankInfoStatus.UnAuthorized);
+    } else {
+      _addingBankStatus(AddingBankInfoStatus.Error);
+    }
   }
 
   Future getBusinessBankYetToBeSavedLocally() async {

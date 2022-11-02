@@ -25,32 +25,43 @@ class _ProductsState extends State<Products> {
   Widget build(BuildContext context) {
     return (_productController.productGoods.isEmpty)
         ? Scaffold(
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {
-                Get.to(AddProduct());
-              },
-              icon: Icon(Icons.add),
-              backgroundColor: AppColor().backgroundColor,
-              label: Text(
-                'New Product',
-                style: TextStyle(
-                    fontFamily: 'InterRegular',
-                    fontSize: 10,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+            floatingActionButton:
+                (_productController.productStatus == ProductStatus.UnAuthorized)
+                    ? Container()
+                    : FloatingActionButton.extended(
+                        onPressed: () {
+                          Get.to(AddProduct());
+                        },
+                        icon: Icon(Icons.add),
+                        backgroundColor: AppColor().backgroundColor,
+                        label: Text(
+                          'New Product',
+                          style: TextStyle(
+                              fontFamily: 'InterRegular',
+                              fontSize: 10,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
             body: Stack(
               children: [
-                Positioned(
-                  top: 30,
-                  left: 20,
-                  right: 20,
-                  child: productCount(context),
-                ),
+                if (_productController.productStatus ==
+                    ProductStatus.UnAuthorized) ...[
+                  Container(),
+                ] else ...[
+                  Positioned(
+                    top: 30,
+                    left: 20,
+                    right: 20,
+                    child: productCount(context),
+                  ),
+                ],
                 Positioned(
                   bottom: 30,
-                  top: 150,
+                  top: (_productController.productStatus ==
+                          ProductStatus.UnAuthorized)
+                      ? 30
+                      : 150,
                   left: 20,
                   right: 20,
                   child: Container(
@@ -72,83 +83,58 @@ class _ProductsState extends State<Products> {
                           height: 50,
                           color: AppColor().backgroundColor,
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 5),
                         Text(
-                          'Add Product',
+                          'Product',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'InterRegular',
-                            fontSize: 16,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 5),
                         Text(
-                          "Your products will show here. Click the",
+                          (_productController.productStatus !=
+                                  ProductStatus.UnAuthorized)
+                              ? "Your products will show here. Click the"
+                              : "Your products will show here.",
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'InterRegular',
-                            fontSize: 11,
+                            fontSize: 10,
                             fontWeight: FontWeight.normal,
                           ),
                         ),
-                        Text(
-                          "New Product button to add your first product",
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'InterRegular',
-                            fontSize: 11,
-                            fontWeight: FontWeight.normal,
+                        if (_productController.productStatus !=
+                            ProductStatus.UnAuthorized) ...[
+                          Text(
+                            "New Product button to add your first product",
+                            style: TextStyle(
+                              color: AppColor().blackColor,
+                              fontFamily: 'InterRegular',
+                              fontSize: 10,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
-                        ),
+                        ],
+                        SizedBox(height: 20),
+                        if (_productController.productStatus ==
+                            ProductStatus.UnAuthorized) ...[
+                          Text(
+                            'You have no permission\nto view this module',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: AppColor().orangeBorderColor,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ]
                       ],
                     ),
                   ),
                 ),
-                // Positioned(
-                //   bottom: 10,
-                //   right: 30,
-                //   child: InkWell(
-                //     onTap: () {
-                //       Get.to(AddProduct());
-                //     },
-                //     child: Container(
-                //       padding: EdgeInsets.symmetric(
-                //         horizontal: 20,
-                //         vertical: 15,
-                //       ),
-                //       decoration: BoxDecoration(
-                //         color: AppColor().backgroundColor,
-                //         borderRadius: BorderRadius.circular(25),
-                //       ),
-                //       child: Row(
-                //         children: [
-                //           Icon(
-                //             Icons.add,
-                //             size: 18,
-                //             color: Colors.white,
-                //           ),
-                //           SizedBox(
-                //             width: 10,
-                //           ),
-                //           Text(
-                //             'New Products',
-                //             style: TextStyle(
-                //               color: AppColor().whiteColor,
-                //               fontFamily: 'InterRegular',
-                //               fontWeight: FontWeight.bold,
-                //               fontSize: 14,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           )

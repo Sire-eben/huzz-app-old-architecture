@@ -260,6 +260,9 @@ class _MyTeamState extends State<MyTeam> {
                           lName: lastName,
                           position: "Member",
                         ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * .1),
+                        Image.asset('assets/images/my_teams.png'),
                       ]
                     ],
                   ),

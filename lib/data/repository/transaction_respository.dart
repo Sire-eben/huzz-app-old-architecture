@@ -30,7 +30,7 @@ import 'miscellaneous_respository.dart';
 
 enum AddingTransactionStatus { Loading, Error, Success, Empty }
 
-enum TransactionStatus { Loading, Available, Error, Empty }
+enum TransactionStatus { Loading, Available, Error, Empty, UnAuthorized }
 
 enum GetTransactionStatus { Loading, Available, Error, Empty }
 
@@ -304,6 +304,9 @@ class TransactionRespository extends GetxController {
       print("online transaction ${result.length}");
       totalOnlineRecords(result.length);
       // getTodayTransaction();
+      result.isNotEmpty
+          ? _transactionStatus(TransactionStatus.Available)
+          : _transactionStatus(TransactionStatus.Empty);
       getTransactionYetToBeSavedLocally();
       checkIfUpdateAvailable();
     } else if (response.statusCode == 401) {
@@ -311,7 +314,11 @@ class TransactionRespository extends GetxController {
         _userController.tokenExpired = true;
         // Get.offAll(Signin());
       }
-    } else {}
+    } else if (response.statusCode == 500) {
+      _transactionStatus(TransactionStatus.UnAuthorized);
+    } else {
+      _transactionStatus(TransactionStatus.Error);
+    }
   }
 
   Future checkIfUpdateAvailable() async {

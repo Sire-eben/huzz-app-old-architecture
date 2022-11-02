@@ -21,7 +21,7 @@ enum AddingProductStatus { Loading, Error, Success, Empty }
 
 enum AddingServiceStatus { Loading, Error, Success, Empty }
 
-enum ProductStatus { Loading, Available, Error, Empty }
+enum ProductStatus { Loading, Available, Error, Empty, UnAuthorized }
 
 class ProductRepository extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -386,7 +386,11 @@ class ProductRepository extends GetxController
               ? _productStatus(ProductStatus.Available)
               : _productStatus(ProductStatus.Empty);
         }
-      } else {}
+      } else if (response.statusCode == 500) {
+        _productStatus(ProductStatus.UnAuthorized);
+      } else {
+        _productStatus(ProductStatus.Error);
+      }
     } catch (error) {
       print(error.toString());
       _productStatus(ProductStatus.Error);

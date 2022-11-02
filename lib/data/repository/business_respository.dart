@@ -20,6 +20,8 @@ import 'auth_respository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }
 
+enum BusinessStatus { Loading, Empty, Error, Available, UnAuthorized }
+
 enum UpdateBusinessStatus { Loading, Empty, Error, Success }
 
 class BusinessRespository extends GetxController {
@@ -41,6 +43,7 @@ class BusinessRespository extends GetxController {
 
   final _updateBusinessStatus = UpdateBusinessStatus.Empty.obs;
   final _createBusinessStatus = CreateBusinessStatus.Empty.obs;
+  final _businessStatus = BusinessStatus.Empty.obs;
   Rx<Business?> selectedBusiness = Rx(null);
   SqliteDb sqliteDb = SqliteDb();
   SharePref? pref;
@@ -48,6 +51,7 @@ class BusinessRespository extends GetxController {
   final _miscellaneousController = Get.find<MiscellaneousRepository>();
   CreateBusinessStatus get createBusinessStatus => _createBusinessStatus.value;
   UpdateBusinessStatus get updateBusinessStatus => _updateBusinessStatus.value;
+  BusinessStatus get businessStatus => _businessStatus.value;
 
   @override
   void onInit() async {
@@ -78,6 +82,7 @@ class BusinessRespository extends GetxController {
   }
 
   Future OnlineBusiness() async {
+    _businessStatus(BusinessStatus.Loading);
     businessListFromServer.clear();
     offlineBusiness.clear();
     print("get online business is token ${_userController.token} ");
@@ -92,10 +97,18 @@ class BusinessRespository extends GetxController {
         businessListFromServer.addAll(result);
         print("online data business lenght ${result.length}");
         onlineBusinessLength(result.length);
+        result.isNotEmpty
+            ? _businessStatus(BusinessStatus.Available)
+            : _businessStatus(BusinessStatus.Empty);
+        ;
         getBusinessYetToBeSavedLocally();
         checkIfUpdateAvailable();
       }
-    } else {}
+    } else if (response.statusCode == 500) {
+      _businessStatus(BusinessStatus.UnAuthorized);
+    } else {
+      _businessStatus(BusinessStatus.Error);
+    }
   }
 
   Future checkOnlineBusiness() async {

@@ -144,12 +144,14 @@ class _DashboardState extends State<Dashboard> {
       case 2:
         return ManageInventory();
       case 3:
-        return (_invoiceRepository.InvoicePendingList.length == 0 &&
-                _invoiceRepository.InvoiceDueList.length == 0 &&
-                _invoiceRepository.InvoiceDepositList.length == 0 &&
-                _invoiceRepository.paidInvoiceList.length == 0)
-            ? EmptyInvoice()
-            : AvailableInvoice();
+        return _invoiceRepository.invoiceStatus == InvoiceStatus.UnAuthorized
+            ? InvoiceNotAuthorized()
+            : (_invoiceRepository.InvoicePendingList.length == 0 &&
+                    _invoiceRepository.InvoiceDueList.length == 0 &&
+                    _invoiceRepository.InvoiceDepositList.length == 0 &&
+                    _invoiceRepository.paidInvoiceList.length == 0)
+                ? EmptyInvoice()
+                : AvailableInvoice();
       case 4:
       default:
         return More();

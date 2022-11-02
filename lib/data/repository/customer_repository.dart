@@ -19,7 +19,7 @@ import 'package:uuid/uuid.dart';
 
 enum AddingCustomerStatus { Loading, Error, Success, Empty }
 
-enum CustomerStatus { Loading, Available, Error, Empty }
+enum CustomerStatus { Loading, Available, Error, Empty, UnAuthorized }
 
 class CustomerRepository extends GetxController {
   final nameController = TextEditingController();
@@ -402,7 +402,11 @@ class CustomerRepository extends GetxController {
           await getBusinessCustomerYetToBeSavedLocally();
           checkIfUpdateAvailable();
         }
-      } else {}
+      } else if (response.statusCode == 500) {
+        _customerStatus(CustomerStatus.UnAuthorized);
+      } else {
+        _customerStatus(CustomerStatus.Error);
+      }
     } catch (error) {
       _customerStatus(CustomerStatus.Error);
       print(error.toString());

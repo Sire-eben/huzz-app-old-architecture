@@ -744,9 +744,7 @@ class _HomeState extends State<Home> {
                                   children: [
                                     SvgPicture.asset(
                                         'assets/images/empty_transaction.svg'),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
+                                    SizedBox(height: 5),
                                     Text(
                                       'Record a transaction',
                                       style: TextStyle(
@@ -755,23 +753,43 @@ class _HomeState extends State<Home> {
                                           fontFamily: 'InterRegular',
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
+                                    SizedBox(height: 5),
                                     Text(
-                                      'Your recent transactions will show here. Click the',
+                                      (_transactionController
+                                                  .transactionStatus !=
+                                              TransactionStatus.UnAuthorized)
+                                          ? 'Your recent transactions will show here. Click the'
+                                          : 'Your recent transactions will show here.',
                                       style: TextStyle(
                                           fontSize: 10,
                                           color: Colors.black,
                                           fontFamily: 'InterRegular'),
                                     ),
-                                    Text(
-                                      'Add transaction button to record your first transaction.',
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          fontFamily: 'InterRegular'),
-                                    ),
+                                    if (_transactionController
+                                            .transactionStatus !=
+                                        TransactionStatus.UnAuthorized) ...[
+                                      Text(
+                                        'Add transaction button to record your first transaction.',
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.black,
+                                            fontFamily: 'InterRegular'),
+                                      ),
+                                    ],
+                                    SizedBox(height: 20),
+                                    if (_transactionController
+                                            .transactionStatus ==
+                                        TransactionStatus.UnAuthorized) ...[
+                                      Text(
+                                        'You have no permission\nto view this module',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: AppColor().orangeBorderColor,
+                                            fontFamily: 'InterRegular',
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ]
                                   ],
                                 ),
                               ),
@@ -787,24 +805,27 @@ class _HomeState extends State<Home> {
         //     : TransactionNotAvailable(context)
 
         ,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => showModalBottomSheet(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(20))),
-              context: context,
-              builder: (context) => buildAddTransaction()),
-          icon: Icon(Icons.add),
-          backgroundColor: AppColor().backgroundColor,
-          label: Text(
-            'Add transaction',
-            style: TextStyle(
-                fontFamily: 'InterRegular',
-                fontSize: 10,
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
+        floatingActionButton: _transactionController.transactionStatus ==
+                TransactionStatus.UnAuthorized
+            ? Container()
+            : FloatingActionButton.extended(
+                onPressed: () => showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20))),
+                    context: context,
+                    builder: (context) => buildAddTransaction()),
+                icon: Icon(Icons.add),
+                backgroundColor: AppColor().backgroundColor,
+                label: Text(
+                  'Add transaction',
+                  style: TextStyle(
+                      fontFamily: 'InterRegular',
+                      fontSize: 10,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
       );
     });
   }

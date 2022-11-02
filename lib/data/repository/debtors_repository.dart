@@ -17,6 +17,8 @@ import 'file_upload_respository.dart';
 
 enum AddingDebtorStatus { Loading, Error, Success, Empty }
 
+enum DebtorStatus { Loading, Error, Available, Empty, UnAuthorized }
+
 class DebtorRepository extends GetxController
     with GetSingleTickerProviderStateMixin {
   final _userController = Get.find<AuthRepository>();
@@ -85,6 +87,9 @@ class DebtorRepository extends GetxController
   final isLoading = false.obs;
 
   final _addingDebtorStatus = AddingDebtorStatus.Empty.obs;
+  final _debtorStatus = DebtorStatus.Empty.obs;
+
+  DebtorStatus get debtorStatus => _debtorStatus.value;
 
   var uuid = Uuid();
   // ignore: avoid_init_to_null
@@ -433,6 +438,7 @@ class DebtorRepository extends GetxController
   }
 
   Future getOnlineDebtor(String businessId) async {
+    _debtorStatus(DebtorStatus.Loading);
     print("trying to get Debtor online");
     final response = await http.get(
         Uri.parse(ApiLink.addDebtor + "?businessId=" + businessId),
@@ -447,10 +453,17 @@ class DebtorRepository extends GetxController
             .toList();
         _onlineBusinessDebtor(result);
         print("Debtor business lenght ${result.length}");
+        result.isNotEmpty
+            ? _debtorStatus(DebtorStatus.Available)
+            : _debtorStatus(DebtorStatus.Empty);
         await getBusinessDebtorYetToBeSavedLocally();
         checkIfUpdateAvailable();
       }
-    } else {}
+    } else if ((response.statusCode == 500)) {
+      _debtorStatus(DebtorStatus.UnAuthorized);
+    } else {
+      _debtorStatus(DebtorStatus.Error);
+    }
   }
 
   Future getBusinessDebtorYetToBeSavedLocally() async {

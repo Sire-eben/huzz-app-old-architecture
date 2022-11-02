@@ -19,33 +19,44 @@ class _ServicesState extends State<Services> {
     return (_productController.productServices.isNotEmpty)
         ? ServiceListing()
         : Scaffold(
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {
-                Get.to(AddService());
-              },
-              icon: Icon(Icons.add),
-              backgroundColor: AppColor().backgroundColor,
-              label: Text(
-                'New Service',
-                style: TextStyle(
-                    fontFamily: 'InterRegular',
-                    fontSize: 10,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+            floatingActionButton:
+                (_productController.productStatus == ProductStatus.UnAuthorized)
+                    ? Container()
+                    : FloatingActionButton.extended(
+                        onPressed: () {
+                          Get.to(AddService());
+                        },
+                        icon: Icon(Icons.add),
+                        backgroundColor: AppColor().backgroundColor,
+                        label: Text(
+                          'New Service',
+                          style: TextStyle(
+                              fontFamily: 'InterRegular',
+                              fontSize: 10,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
             body: Stack(
               children: [
                 //Service Count
-                Positioned(
-                  top: 30,
-                  left: 20,
-                  right: 20,
-                  child: serviceCount(context),
-                ),
+                if (_productController.productStatus ==
+                    ProductStatus.UnAuthorized) ...[
+                  Container(),
+                ] else ...[
+                  Positioned(
+                    top: 30,
+                    left: 20,
+                    right: 20,
+                    child: serviceCount(context),
+                  ),
+                ],
                 Positioned(
                   bottom: 30,
-                  top: 150,
+                  top: (_productController.productStatus ==
+                          ProductStatus.UnAuthorized)
+                      ? 30
+                      : 150,
                   left: 20,
                   right: 20,
                   child: Container(
@@ -67,39 +78,54 @@ class _ServicesState extends State<Services> {
                           height: 50,
                           color: AppColor().backgroundColor,
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 5),
                         Text(
-                          'Add service',
+                          'Service',
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'InterRegular',
-                            fontSize: 16,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 5),
                         Text(
-                          "Your services will show here. Click the",
+                          (_productController.productStatus !=
+                                  ProductStatus.UnAuthorized)
+                              ? "Your services will show here. Click the"
+                              : "Your services will show here.",
                           style: TextStyle(
                             color: AppColor().blackColor,
                             fontFamily: 'InterRegular',
-                            fontSize: 11,
+                            fontSize: 10,
                             fontWeight: FontWeight.normal,
                           ),
                         ),
-                        Text(
-                          "New Service button to add your first service",
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'InterRegular',
-                            fontSize: 11,
-                            fontWeight: FontWeight.normal,
+                        if (_productController.productStatus !=
+                            ProductStatus.UnAuthorized) ...[
+                          Text(
+                            "New Service button to add your first service",
+                            style: TextStyle(
+                              color: AppColor().blackColor,
+                              fontFamily: 'InterRegular',
+                              fontSize: 10,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
-                        ),
+                        ],
+                        SizedBox(height: 20),
+                        if (_productController.productStatus ==
+                            ProductStatus.UnAuthorized) ...[
+                          Text(
+                            'You have no permission\nto view this module',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: AppColor().orangeBorderColor,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ]
                       ],
                     ),
                   ),

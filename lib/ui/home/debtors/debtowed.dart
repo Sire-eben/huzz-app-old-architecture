@@ -68,129 +68,132 @@ class _DebtOwnedState extends State<DebtOwned> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Container(
-                        height: 95,
-                        decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Number Of Debts Owed",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'InterRegular',
-                                      fontSize: 12,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      "${_debtorRepository.debtOwnedList.length}",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'InterRegular',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                      if (_debtorRepository.debtorStatus ==
+                          DebtorStatus.UnAuthorized) ...[
+                        Container(),
+                      ] else ...[
+                        Container(
+                          height: 95,
+                          decoration: BoxDecoration(
+                            color: AppColor().backgroundColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
                             ),
-                            Expanded(
-                              child: Container(
-                                height: 95,
-                                decoration: BoxDecoration(
-                                  color: AppColor().secondbgColor,
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    stops: [
-                                      0.1,
-                                      0.6,
-                                      0.8,
-                                    ],
-                                    colors: [
-                                      Color(0xff0D8372),
-                                      Color(0xff07A58E),
-                                      AppColor()
-                                          .backgroundColor
-                                          .withOpacity(0.5),
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    bottomRight: Radius.circular(15),
-                                  ),
-                                ),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Total Debts Owed",
+                                      "Number Of Debts Owed",
                                       style: TextStyle(
-                                        fontFamily: 'InterRegular',
                                         color: Colors.white,
+                                        fontFamily: 'InterRegular',
                                         fontSize: 12,
                                       ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    Text(
-                                      "${Utils.getCurrency()}${display(_debtorRepository.debtOwnedAmount)}",
-                                      style: TextStyle(
-                                        fontFamily: 'InterRegular',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20,
-                                        color: Colors.white,
+                                    Center(
+                                      child: Text(
+                                        "${_debtorRepository.debtOwnedList.length}",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'InterRegular',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 14),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                                width: 2, color: AppColor().backgroundColor)),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: value,
-                            icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 14,
-                              color: AppColor().backgroundColor,
-                            ),
-                            hint: Text(
-                              'Pending',
-                              style: TextStyle(
-                                  fontFamily: 'InterRegular',
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            isDense: true,
-                            items: debtStatus.map(buildDropDown).toList(),
-                            onChanged: (value) =>
-                                setState(() => this.value = value),
+                              Expanded(
+                                child: Container(
+                                  height: 95,
+                                  decoration: BoxDecoration(
+                                    color: AppColor().secondbgColor,
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      stops: [
+                                        0.1,
+                                        0.6,
+                                        0.8,
+                                      ],
+                                      colors: [
+                                        Color(0xff0D8372),
+                                        Color(0xff07A58E),
+                                        AppColor()
+                                            .backgroundColor
+                                            .withOpacity(0.5),
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(15),
+                                      bottomRight: Radius.circular(15),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Total Debts Owed",
+                                        style: TextStyle(
+                                          fontFamily: 'InterRegular',
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${Utils.getCurrency()}${display(_debtorRepository.debtOwnedAmount)}",
+                                        style: TextStyle(
+                                          fontFamily: 'InterRegular',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                        SizedBox(height: 14),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                  width: 2, color: AppColor().backgroundColor)),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: value,
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                size: 14,
+                                color: AppColor().backgroundColor,
+                              ),
+                              hint: Text(
+                                'Pending',
+                                style: TextStyle(
+                                    fontFamily: 'InterRegular',
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              isDense: true,
+                              items: debtStatus.map(buildDropDown).toList(),
+                              onChanged: (value) =>
+                                  setState(() => this.value = value),
+                            ),
+                          ),
+                        ),
+                      ],
+                      SizedBox(height: 20),
                       Expanded(
                         child: ((value == "Pending")
                                 ? (_debtorRepository.debtOwnedList.isEmpty)
@@ -213,34 +216,50 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         width: 50,
                                         color: AppColor().backgroundColor,
                                       ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
+                                      SizedBox(height: 5),
                                       Text(
                                         'Add Debt Owed',
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 13,
                                             color: Colors.black,
                                             fontFamily: 'InterRegular',
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
+                                      SizedBox(height: 5),
                                       Text(
-                                        'Your debts will show here. Click the ',
+                                        _debtorRepository.debtorStatus !=
+                                                DebtorStatus.UnAuthorized
+                                            ? 'Your debts will show here. Click the'
+                                            : 'Your debts will show here.',
                                         style: TextStyle(
-                                            fontSize: 11,
+                                            fontSize: 10,
                                             color: Colors.black,
                                             fontFamily: 'InterRegular'),
                                       ),
-                                      Text(
-                                        'Add New Debt Owed button to add your first debt',
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            color: Colors.black,
-                                            fontFamily: 'InterRegular'),
-                                      ),
+                                      if (_debtorRepository.debtorStatus !=
+                                          DebtorStatus.UnAuthorized) ...[
+                                        Text(
+                                          'Add New Debt Owed button to add your first debt',
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.black,
+                                              fontFamily: 'InterRegular'),
+                                        ),
+                                      ],
+                                      SizedBox(height: 20),
+                                      if (_debtorRepository.debtorStatus ==
+                                          DebtorStatus.UnAuthorized) ...[
+                                        Text(
+                                          'You have no permission\nto view this module',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color:
+                                                  AppColor().orangeBorderColor,
+                                              fontFamily: 'InterRegular',
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ]
                                     ],
                                   ),
                                 ),
@@ -434,51 +453,52 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         );
                                 }),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      InkWell(
-                        onTap: () => showModalBottomSheet(
-                            isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20))),
-                            context: context,
-                            builder: (context) => buildAddDebtor()),
-                        child: Container(
-                          height: 55,
-                          decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                size: 22,
-                                color: AppColor().whiteColor,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Center(
-                                child: Text(
-                                  'Add New Debt Owed',
-                                  style: TextStyle(
-                                    color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
+                      SizedBox(height: 20),
+                      if (_debtorRepository.debtorStatus ==
+                          DebtorStatus.UnAuthorized) ...[
+                        Container(),
+                      ] else ...[
+                        InkWell(
+                          onTap: () => showModalBottomSheet(
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))),
+                              context: context,
+                              builder: (context) => buildAddDebtor()),
+                          child: Container(
+                            height: 55,
+                            decoration: BoxDecoration(
+                                color: AppColor().backgroundColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  size: 22,
+                                  color: AppColor().whiteColor,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Center(
+                                  child: Text(
+                                    'Add New Debt Owed',
+                                    style: TextStyle(
+                                      color: AppColor().whiteColor,
+                                      fontFamily: 'InterRegular',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      ],
+                      SizedBox(height: 10),
                     ],
                   ),
                 ),
