@@ -50,51 +50,56 @@ class _MerchantsState extends State<Merchants> {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              TextField(
-                style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: AppColor().backgroundColor,
-                    fontFamily: 'InterRegular'),
-                controller: _searchcontroller,
-                cursorColor: Colors.white,
-                autofocus: false,
-                onChanged: searchItem,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: AppColor().backgroundColor,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(0),
-                    borderSide: BorderSide(color: Colors.black12),
-                  ),
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Search Merchant',
-                  hintStyle: TextStyle(
-                      fontSize: 12,
+              if (_customerController.customerStatus ==
+                  CustomerStatus.UnAuthorized) ...[
+                Container(),
+              ] else ...[
+                TextField(
+                  style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      color: Colors.grey,
+                      color: AppColor().backgroundColor,
                       fontFamily: 'InterRegular'),
-                  contentPadding:
-                      EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      width: 2,
+                  controller: _searchcontroller,
+                  cursorColor: Colors.white,
+                  autofocus: false,
+                  onChanged: searchItem,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.search,
                       color: AppColor().backgroundColor,
                     ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: AppColor().backgroundColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0),
+                      borderSide: BorderSide(color: Colors.black12),
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Search Merchant',
+                    hintStyle: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey,
+                        fontFamily: 'InterRegular'),
+                    contentPadding:
+                        EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: AppColor().backgroundColor,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: AppColor().backgroundColor,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+              ],
               Expanded(
                   child: Container(
                 padding: EdgeInsets.only(
@@ -265,6 +270,7 @@ class _MerchantsState extends State<Merchants> {
                                 children: [
                                   SvgPicture.asset(
                                       'assets/images/customers.svg'),
+                                  SizedBox(height: 5),
                                   Text(
                                     'Merchant',
                                     style: TextStyle(
@@ -273,20 +279,40 @@ class _MerchantsState extends State<Merchants> {
                                         fontFamily: 'InterRegular',
                                         fontWeight: FontWeight.bold),
                                   ),
+                                  SizedBox(height: 5),
                                   Text(
-                                    'Your merchants will show here. Click the',
+                                    _customerController.customerStatus !=
+                                            CustomerStatus.UnAuthorized
+                                        ? 'Your merchants will show here. Click the'
+                                        : 'Your merchants will show here.',
                                     style: TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 10,
                                         color: Colors.black,
                                         fontFamily: 'InterRegular'),
                                   ),
-                                  Text(
-                                    'Add merchant button to add your first merchant',
-                                    style: TextStyle(
-                                        fontSize: 8,
-                                        color: Colors.black,
-                                        fontFamily: 'InterRegular'),
-                                  ),
+                                  if (_customerController.customerStatus !=
+                                      CustomerStatus.UnAuthorized) ...[
+                                    Text(
+                                      'Add merchant button to add your first merchant',
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.black,
+                                          fontFamily: 'InterRegular'),
+                                    ),
+                                  ],
+                                  SizedBox(height: 20),
+                                  if (_customerController.customerStatus ==
+                                      CustomerStatus.UnAuthorized) ...[
+                                    Text(
+                                      'You have no permission\nto view this module',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: AppColor().orangeBorderColor,
+                                          fontFamily: 'InterRegular',
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ]
                                 ],
                               ),
                             ),
@@ -301,21 +327,24 @@ class _MerchantsState extends State<Merchants> {
           ),
         );
       }),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Get.to(() => AddMerchant());
-        },
-        icon: Icon(Icons.add),
-        backgroundColor: AppColor().backgroundColor,
-        label: Text(
-          'Add Merchant',
-          style: TextStyle(
-              fontFamily: 'InterRegular',
-              fontSize: 10,
-              color: Colors.white,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
+      floatingActionButton:
+          (_customerController.customerStatus == CustomerStatus.UnAuthorized)
+              ? Container()
+              : FloatingActionButton.extended(
+                  onPressed: () {
+                    Get.to(() => AddMerchant());
+                  },
+                  icon: Icon(Icons.add),
+                  backgroundColor: AppColor().backgroundColor,
+                  label: Text(
+                    'Add Merchant',
+                    style: TextStyle(
+                        fontFamily: 'InterRegular',
+                        fontSize: 10,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
     );
   }
 
