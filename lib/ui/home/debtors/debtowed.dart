@@ -250,7 +250,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       if (_debtorRepository.debtorStatus ==
                                           DebtorStatus.UnAuthorized) ...[
                                         Text(
-                                          'You have no permission\nto view this module',
+                                          'You need to be authorized\nto view this module',
                                           style: TextStyle(
                                               fontSize: 14,
                                               color:

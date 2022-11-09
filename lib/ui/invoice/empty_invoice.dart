@@ -209,7 +209,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                         ),
                         SizedBox(height: 20),
                         Text(
-                          'You have no permission\nto view this module',
+                          'You need to be authorized\nto view this module',
                           style: TextStyle(
                               fontSize: 14,
                               color: AppColor().orangeBorderColor,

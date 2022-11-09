@@ -304,7 +304,7 @@ class _MerchantsState extends State<Merchants> {
                                   if (_customerController.customerStatus ==
                                       CustomerStatus.UnAuthorized) ...[
                                     Text(
-                                      'You have no permission\nto view this module',
+                                      'You need to be authorized\nto view this module',
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: AppColor().orangeBorderColor,

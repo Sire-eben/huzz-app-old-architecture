@@ -50,7 +50,6 @@ class _DebtorsState extends State<Debtors> {
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
   final amountPaidController = TextEditingController();
-
   final TextEditingController textEditingController = TextEditingController();
 
   final debtStatus = ['Pending', 'Fully Paid'];
@@ -67,22 +66,8 @@ class _DebtorsState extends State<Debtors> {
     'meters',
   ];
 
-  final drugs = [
-    'Vitamin C',
-    'Flagyl',
-    'Paracentamol',
-    'Panadol',
-  ];
-
   String? value = "Pending";
   String? values;
-
-  final customers = [
-    'Folakemi Ajao',
-    'Mr Bayo Akintan',
-    'Mr Akintan Bayo ',
-    'Mr Ojo Dada',
-  ];
 
   String countryFlag = "NG";
   String countryCode = "234";
@@ -91,6 +76,8 @@ class _DebtorsState extends State<Debtors> {
   int currentStep = 0;
   int customerValue = 0;
   int quantityValue = 0;
+
+  late String firstName, lastName, phone;
 
   @override
   Widget build(BuildContext context) {
@@ -287,7 +274,7 @@ class _DebtorsState extends State<Debtors> {
                                       if (_debtorController.debtorStatus ==
                                           DebtorStatus.UnAuthorized) ...[
                                         Text(
-                                          'You have no permission\nto view this module',
+                                          'You need to be authorized\nto view this module',
                                           style: TextStyle(
                                               fontSize: 14,
                                               color:

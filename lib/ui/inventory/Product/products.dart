@@ -122,7 +122,7 @@ class _ProductsState extends State<Products> {
                         if (_productController.productStatus ==
                             ProductStatus.UnAuthorized) ...[
                           Text(
-                            'You have no permission\nto view this module',
+                            'You need to be authorized\nto view this module',
                             style: TextStyle(
                                 fontSize: 14,
                                 color: AppColor().orangeBorderColor,
