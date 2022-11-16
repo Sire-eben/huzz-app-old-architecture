@@ -42,6 +42,9 @@ class TeamRepository extends GetxController {
   final _teamStatus = TeamStatus.Empty.obs;
   final hasTeamInviteDeeplink = false.obs;
 
+  final teamMemberData = Rx(Teams());
+  Teams get teamMember => teamMemberData.value;
+
   Rx<List<Teams>> _onlineBusinessTeam = Rx([]);
   Rx<List<Teams>> _offlineBusinessTeam = Rx([]);
   Rx<List<Teams>> _deleteTeamMemberList = Rx([]);
@@ -77,6 +80,7 @@ class TeamRepository extends GetxController {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.teamId != null) {
           getOnlineTeam(value.teamId!);
+          getOnlineTeamMember(value.teamId);
           // getOfflineTeam(value.teamId!);
         }
         _businessController.selectedBusiness.listen((p0) {
@@ -86,6 +90,7 @@ class TeamRepository extends GetxController {
             _onlineBusinessTeam([]);
             _team([]);
             getOnlineTeam(p0.teamId!);
+            getOnlineTeamMember(p0.teamId!);
             // getOfflineTeam(p0.teamId!);
           }
         });
@@ -617,6 +622,7 @@ class TeamRepository extends GetxController {
           _updatingTeamMemberStatus(UpdateTeamStatus.Success);
           print(value!.teamId);
           getOnlineTeam(value.teamId!);
+          getOnlineTeamMember(value.teamId!);
 
           clearValue();
           print('team member updated successfully');
@@ -656,6 +662,7 @@ class TeamRepository extends GetxController {
       if (response.statusCode == 200) {
         _addingTeamMemberStatus(AddingTeamStatus.Success);
         getOnlineTeam(value!.teamId!);
+        getOnlineTeamMember(value.teamId!);
 
         Get.to(TeamConfirmation());
       } else {
@@ -728,6 +735,34 @@ class TeamRepository extends GetxController {
     } catch (error) {
       _teamStatus(TeamStatus.Error);
       print('add team feature error ${error.toString()}');
+    }
+  }
+
+  Future getOnlineTeamMember(String? businessId) async {
+    try {
+      _teamStatus(TeamStatus.Loading);
+      print("trying to get team member data online");
+      var response = await http.get(
+          Uri.parse(ApiLink.getTeamMemberData +
+              '/$businessId' +
+              '/${_userController.user!.phoneNumber}'),
+          headers: {"Authorization": "Bearer ${_userController.token}"});
+
+      print("result of get team member data ${response.body}");
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        if (json['success']) {
+          var teamMember = Teams.fromJson(json['data']);
+          teamMemberData(teamMember);
+        }
+      } else if (response.statusCode == 500) {
+        _teamStatus(TeamStatus.UnAuthorized);
+      } else {
+        _teamStatus(TeamStatus.Error);
+      }
+    } catch (error) {
+      _teamStatus(TeamStatus.Error);
+      print('team member data error ${error.toString()}');
     }
   }
 
@@ -840,6 +875,7 @@ class TeamRepository extends GetxController {
         Get.snackbar('Success', 'Team member deleted successfully');
         _deleteTeamMemberStatus(DeleteTeamStatus.Success);
         getOnlineTeam(teams.businessId);
+        getOnlineTeamMember(teams.businessId);
         // _businessController.sqliteDb.deleteCustomer(customer);
         // getOfflineCustomer(
         //     _businessController.selectedBusiness.value!.businessId!);
@@ -847,6 +883,7 @@ class TeamRepository extends GetxController {
         Get.snackbar('Error', 'Error deleting team member, try again!');
         _deleteTeamMemberStatus(DeleteTeamStatus.Success);
         getOnlineTeam(teams.businessId);
+        getOnlineTeamMember(teams.businessId);
         // _businessController.sqliteDb.deleteCustomer(customer);
         // getOfflineCustomer(
         //     _businessController.selectedBusiness.value!.businessId!);

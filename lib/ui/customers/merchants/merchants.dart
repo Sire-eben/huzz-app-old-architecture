@@ -8,6 +8,8 @@ import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:random_color/random_color.dart';
 
+import '../../../data/repository/team_repository.dart';
+
 class Merchants extends StatefulWidget {
   final String? pageName;
   const Merchants({Key? key, this.pageName}) : super(key: key);
@@ -20,6 +22,7 @@ class _MerchantsState extends State<Merchants> {
   final _searchcontroller = TextEditingController();
   RandomColor _randomColor = RandomColor();
   final _customerController = Get.find<CustomerRepository>();
+  final teamController = Get.find<TeamRepository>();
   String searchtext = "";
   List<Customer> searchResult = [];
   final _businessController = Get.find<BusinessRespository>();
@@ -100,198 +103,261 @@ class _MerchantsState extends State<Merchants> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               ],
-              Expanded(
+              if (_customerController.customerStatus ==
+                  CustomerStatus.UnAuthorized) ...[
+                Expanded(
                   child: Container(
-                padding: EdgeInsets.only(
-                    // left: MediaQuery.of(context).size.height * 0.02,
-                    // right: MediaQuery.of(context).size.height * 0.02,
-                    bottom: MediaQuery.of(context).size.height * 0.02),
-                child: (searchtext.isEmpty || searchResult.isNotEmpty)
-                    ? (_customerController.customerMerchant.isNotEmpty)
-                        ? RefreshIndicator(
-                            onRefresh: () async {
-                              return Future.delayed(Duration(seconds: 1), () {
-                                _customerController
-                                    .getOnlineCustomer(value!.businessId!);
-                              });
-                            },
-                            child: (_customerController.customerStatus ==
-                                    CustomerStatus.Loading)
-                                ? Center(child: CircularProgressIndicator())
-                                : (_customerController.customerStatus ==
-                                        CustomerStatus.Available)
-                                    ? ListView.separated(
-                                        scrollDirection: Axis.vertical,
-                                        shrinkWrap: true,
-                                        separatorBuilder: (context, index) =>
-                                            Divider(),
-                                        itemCount: (searchResult.isEmpty)
-                                            ? _customerController
-                                                .customerMerchant.length
-                                            : searchResult.length,
-                                        itemBuilder: (context, index) {
-                                          var item = (searchResult.isEmpty)
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.height * 0.02,
+                        right: MediaQuery.of(context).size.height * 0.02,
+                        bottom: MediaQuery.of(context).size.height * 0.02),
+                    decoration: BoxDecoration(
+                      color: Color(0xffF5F5F5),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          width: 2, color: Colors.grey.withOpacity(0.2)),
+                    ),
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/images/customers.svg'),
+                          SizedBox(height: 5),
+                          Text(
+                            'Merchant',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            'Your merchants will show here.',
+                            style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.black,
+                                fontFamily: 'InterRegular'),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            'You need to be authorized\nto view this module',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: AppColor().orangeBorderColor,
+                                fontFamily: 'InterRegular',
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ] else ...[
+                Expanded(
+                    child: Container(
+                  padding: EdgeInsets.only(
+                      // left: MediaQuery.of(context).size.height * 0.02,
+                      // right: MediaQuery.of(context).size.height * 0.02,
+                      bottom: MediaQuery.of(context).size.height * 0.02),
+                  child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                      ? (_customerController.customerMerchant.isNotEmpty)
+                          ? RefreshIndicator(
+                              onRefresh: () async {
+                                return Future.delayed(Duration(seconds: 1), () {
+                                  _customerController
+                                      .getOnlineCustomer(value!.businessId!);
+                                });
+                              },
+                              child: (_customerController.customerStatus ==
+                                      CustomerStatus.Loading)
+                                  ? Center(child: CircularProgressIndicator())
+                                  : (_customerController.customerStatus ==
+                                          CustomerStatus.Available)
+                                      ? ListView.separated(
+                                          scrollDirection: Axis.vertical,
+                                          shrinkWrap: true,
+                                          separatorBuilder: (context, index) =>
+                                              Divider(),
+                                          itemCount: (searchResult.isEmpty)
                                               ? _customerController
-                                                  .customerMerchant[index]
-                                              : searchResult[index];
-                                          print(
-                                              'merchant: ${item.name}, ${item.customerId}');
-                                          return Column(
-                                            children: [
-                                              if (item.name == null ||
-                                                  item.name == '')
-                                                ...[]
-                                              else ...[
-                                                Row(
-                                                  children: [
-                                                    Expanded(
+                                                  .customerMerchant.length
+                                              : searchResult.length,
+                                          itemBuilder: (context, index) {
+                                            var item = (searchResult.isEmpty)
+                                                ? _customerController
+                                                    .customerMerchant[index]
+                                                : searchResult[index];
+                                            print(
+                                                'merchant: ${item.name}, ${item.customerId}');
+                                            return Column(
+                                              children: [
+                                                if (item.name == null ||
+                                                    item.name == '')
+                                                  ...[]
+                                                else ...[
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                          child: Container(
+                                                        margin: EdgeInsets.only(
+                                                            bottom: 10),
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Container(
+                                                              height: 50,
+                                                              decoration: BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  color: _randomColor
+                                                                      .randomColor()),
+                                                              child: Center(
+                                                                  child: Text(
+                                                                (item.name ==
+                                                                            null ||
+                                                                        item.name ==
+                                                                            '')
+                                                                    ? '0'
+                                                                    : '${item.name![0]}',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        30,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontFamily:
+                                                                        'InterRegular',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ))),
+                                                        ),
+                                                      )),
+                                                      SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.02),
+                                                      Expanded(
+                                                        flex: 3,
                                                         child: Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: 10),
-                                                      child: Align(
-                                                        alignment: Alignment
-                                                            .centerLeft,
-                                                        child: Container(
-                                                            height: 50,
-                                                            decoration: BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                                color: _randomColor
-                                                                    .randomColor()),
-                                                            child: Center(
-                                                                child: Text(
-                                                              (item.name ==
-                                                                          null ||
-                                                                      item.name ==
-                                                                          '')
-                                                                  ? '0'
-                                                                  : '${item.name![0]}',
-                                                              style: TextStyle(
-                                                                  fontSize: 30,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontFamily:
-                                                                      'InterRegular',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ))),
-                                                      ),
-                                                    )),
-                                                    SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.02),
-                                                    Expanded(
-                                                      flex: 3,
-                                                      child: Container(
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              item.name!,
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontFamily:
-                                                                      'InterRegular',
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400),
-                                                            ),
-                                                            Text(
-                                                              item.phone!,
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontFamily:
-                                                                      'InterRegular',
-                                                                  color: Colors
-                                                                      .grey),
-                                                            ),
-                                                          ],
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                item.name!,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontFamily:
+                                                                        'InterRegular',
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400),
+                                                              ),
+                                                              Text(
+                                                                item.phone!,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontFamily:
+                                                                        'InterRegular',
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    GestureDetector(
-                                                        onTap: () {
-                                                          _customerController
-                                                              .setItem(item);
-                                                          Get.to(AddMerchant(
-                                                            item: item,
-                                                          ));
-                                                        },
-                                                        child: SvgPicture.asset(
-                                                            'assets/images/edit.svg')),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    GestureDetector(
-                                                        onTap: () {
-                                                          _displayDialog(
-                                                              context, item);
-                                                        },
-                                                        child: SvgPicture.asset(
-                                                            'assets/images/delete.svg')),
-                                                  ],
-                                                ),
-                                              ]
-                                            ],
-                                          );
-                                        },
-                                      )
-                                    : (_customerController.customerStatus ==
-                                            CustomerStatus.Empty)
-                                        ? Text('Not Item')
-                                        : Text('Empty'),
-                          )
-                        : Container(
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.height * 0.02,
-                                right:
-                                    MediaQuery.of(context).size.height * 0.02,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            decoration: BoxDecoration(
-                              color: Color(0xffF5F5F5),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  width: 2,
-                                  color: Colors.grey.withOpacity(0.2)),
-                            ),
-                            child: Center(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                      'assets/images/customers.svg'),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    'Merchant',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.black,
-                                        fontFamily: 'InterRegular',
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    _customerController.customerStatus !=
-                                            CustomerStatus.UnAuthorized
-                                        ? 'Your merchants will show here. Click the'
-                                        : 'Your merchants will show here.',
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.black,
-                                        fontFamily: 'InterRegular'),
-                                  ),
-                                  if (_customerController.customerStatus !=
-                                      CustomerStatus.UnAuthorized) ...[
+                                                      GestureDetector(
+                                                          onTap: () {
+                                                            _customerController
+                                                                .setItem(item);
+                                                            Get.to(AddMerchant(
+                                                              item: item,
+                                                            ));
+                                                          },
+                                                          child: SvgPicture.asset(
+                                                              'assets/images/edit.svg')),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      GestureDetector(
+                                                          onTap: () {
+                                                            if (teamController
+                                                                .teamMember
+                                                                .authoritySet!
+                                                                .contains(
+                                                                    'DELETE_CUSTOMER')) {
+                                                              _displayDialog(
+                                                                  context,
+                                                                  item);
+                                                            } else {
+                                                              Get.snackbar(
+                                                                  'Alert',
+                                                                  'You need to be authorized to perform this operation');
+                                                            }
+                                                          },
+                                                          child: SvgPicture.asset(
+                                                              'assets/images/delete.svg')),
+                                                    ],
+                                                  ),
+                                                ]
+                                              ],
+                                            );
+                                          },
+                                        )
+                                      : (_customerController.customerStatus ==
+                                              CustomerStatus.Empty)
+                                          ? Text('Not Item')
+                                          : Text('Empty'),
+                            )
+                          : Container(
+                              padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                  right:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                  bottom: MediaQuery.of(context).size.height *
+                                      0.02),
+                              decoration: BoxDecoration(
+                                color: Color(0xffF5F5F5),
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    width: 2,
+                                    color: Colors.grey.withOpacity(0.2)),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                        'assets/images/customers.svg'),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      'Merchant',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontFamily: 'InterRegular',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      'Your merchants will show here. Click the',
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.black,
+                                          fontFamily: 'InterRegular'),
+                                    ),
                                     Text(
                                       'Add merchant button to add your first merchant',
                                       style: TextStyle(
@@ -300,29 +366,16 @@ class _MerchantsState extends State<Merchants> {
                                           fontFamily: 'InterRegular'),
                                     ),
                                   ],
-                                  SizedBox(height: 20),
-                                  if (_customerController.customerStatus ==
-                                      CustomerStatus.UnAuthorized) ...[
-                                    Text(
-                                      'You need to be authorized\nto view this module',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: AppColor().orangeBorderColor,
-                                          fontFamily: 'InterRegular',
-                                          fontWeight: FontWeight.bold),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ]
-                                ],
+                                ),
                               ),
-                            ),
-                          )
-                    : Container(
-                        child: Center(
-                          child: Text("No Merchant Found"),
+                            )
+                      : Container(
+                          child: Center(
+                            child: Text("No Merchant Found"),
+                          ),
                         ),
-                      ),
-              ))
+                ))
+              ],
             ],
           ),
         );
@@ -332,7 +385,13 @@ class _MerchantsState extends State<Merchants> {
               ? Container()
               : FloatingActionButton.extended(
                   onPressed: () {
-                    Get.to(() => AddMerchant());
+                    if (teamController.teamMember.authoritySet!
+                        .contains('CREATE_CUSTOMER')) {
+                      Get.to(() => AddMerchant());
+                    } else {
+                      Get.snackbar('Alert',
+                          'You need to be authorized to perform this operation');
+                    }
                   },
                   icon: Icon(Icons.add),
                   backgroundColor: AppColor().backgroundColor,
