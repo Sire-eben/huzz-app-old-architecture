@@ -320,53 +320,50 @@ class _DebtorsState extends State<Debtors> {
                           DebtorStatus.UnAuthorized) ...[
                         Container(),
                       ] else ...[
-                        InkWell(
-                          onTap: () {
-                            if (teamController.teamMember.authoritySet!
-                                .contains('CREATE_DEBTOR')) {
-                              showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(20))),
-                                  context: context,
-                                  builder: (context) => buildAddDebtor());
-                            } else {
-                              Get.snackbar('Alert',
-                                  'You need to be authorized to perform this operation');
-                            }
-                          },
-                          child: Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                                color: AppColor().backgroundColor,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  size: 22,
-                                  color: AppColor().whiteColor,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Center(
-                                  child: Text(
-                                    'Add New Debtor',
-                                    style: TextStyle(
-                                      color: AppColor().whiteColor,
-                                      fontFamily: 'InterRegular',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                        (teamController.teamMember.authoritySet!
+                                .contains('CREATE_DEBTOR'))
+                            ? InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(20))),
+                                      context: context,
+                                      builder: (context) => buildAddDebtor());
+                                },
+                                child: Container(
+                                  height: 55,
+                                  decoration: BoxDecoration(
+                                      color: AppColor().backgroundColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.add,
+                                        size: 22,
+                                        color: AppColor().whiteColor,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          'Add New Debtor',
+                                          style: TextStyle(
+                                            color: AppColor().whiteColor,
+                                            fontFamily: 'InterRegular',
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
+                              )
+                            : Container(),
                       ],
                       SizedBox(
                         height: 10,
@@ -997,46 +994,44 @@ class _DebtorListingState extends State<DebtorListing> {
                 ),
               ),
               Expanded(
-                child: GestureDetector(
-                    onTap: () {
-                      //  print(index);
-                      // item.businessTransactionId="6229ab581982280f4fd07cf5";
-                      print(
-                          "business transaction id  is ${widget.item!.businessTransactionId}");
-                      if (widget.item!.businessTransactionId != null &&
-                          widget.item!.businessTransactionId!.isNotEmpty) {
-                        final _transactionController =
-                            Get.find<TransactionRespository>();
-                        final Titem = _transactionController.getTransactionById(
-                            widget.item!.businessTransactionId!);
-                        if (Titem != null) {
-                          //  Get.snackbar("Error","Going to transaction page");
-                          Get.to(() => MoneySummary(
-                                item: Titem
-                                    .businessTransactionPaymentItemList![0],
-                                pageCheck: false,
-                              ));
-                        } else {
-                          Get.snackbar("Error", "Transaction is not found");
-                        }
-                      } else {
-                        if (teamController.teamMember.authoritySet!
-                            .contains('UPDATE_DEBTOR')) {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              isScrollControlled: true,
-                              builder: (context) =>
-                                  buildUpdatePayment(widget.item!));
-                        } else {
-                          Get.snackbar('Alert',
-                              'You need to be authorized to perform this operation');
-                        }
-                      }
-                    },
-                    child: SvgPicture.asset('assets/images/edit_pri.svg')),
+                child: (teamController.teamMember.authoritySet!
+                        .contains('UPDATE_DEBTOR'))
+                    ? GestureDetector(
+                        onTap: () {
+                          //  print(index);
+                          // item.businessTransactionId="6229ab581982280f4fd07cf5";
+                          print(
+                              "business transaction id  is ${widget.item!.businessTransactionId}");
+                          if (widget.item!.businessTransactionId != null &&
+                              widget.item!.businessTransactionId!.isNotEmpty) {
+                            final _transactionController =
+                                Get.find<TransactionRespository>();
+                            final Titem =
+                                _transactionController.getTransactionById(
+                                    widget.item!.businessTransactionId!);
+                            if (Titem != null) {
+                              //  Get.snackbar("Error","Going to transaction page");
+                              Get.to(() => MoneySummary(
+                                    item: Titem
+                                        .businessTransactionPaymentItemList![0],
+                                    pageCheck: false,
+                                  ));
+                            } else {
+                              Get.snackbar("Error", "Transaction is not found");
+                            }
+                          } else {
+                            showModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) =>
+                                    buildUpdatePayment(widget.item!));
+                          }
+                        },
+                        child: SvgPicture.asset('assets/images/edit_pri.svg'))
+                    : Container(),
               ),
               SizedBox(width: 4),
 
@@ -1056,26 +1051,24 @@ class _DebtorListingState extends State<DebtorListing> {
                 ),
               ),
               SizedBox(width: 4),
-              Obx(() => GestureDetector(
-                    onTap: () {
-                      if (teamController.teamMember.authoritySet!
-                          .contains('DELETE_DEBTOR')) {
-                        _deleteDebtDialog(context);
-                      } else {
-                        Get.snackbar('Alert',
-                            'You need to be authorized to perform this operation');
-                      }
-                    },
-                    child: _debtorController.deletingItem.value == widget.item
-                        ? CupertinoActivityIndicator(
-                            radius: 10,
-                          )
-                        : SvgPicture.asset(
-                            "assets/images/delete.svg",
-                            height: 20,
-                            width: 20,
-                          ),
-                  )),
+              (teamController.teamMember.authoritySet!
+                      .contains('DELETE_DEBTOR'))
+                  ? Obx(() => GestureDetector(
+                        onTap: () {
+                          _deleteDebtDialog(context);
+                        },
+                        child:
+                            _debtorController.deletingItem.value == widget.item
+                                ? CupertinoActivityIndicator(
+                                    radius: 10,
+                                  )
+                                : SvgPicture.asset(
+                                    "assets/images/delete.svg",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                      ))
+                  : Container(),
             ],
           );
   }

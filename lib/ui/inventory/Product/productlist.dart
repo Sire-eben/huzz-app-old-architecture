@@ -285,26 +285,29 @@ class _ProductListingState extends State<ProductListing> {
                   SizedBox(
                     width: 5,
                   ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        isDelete = !isDelete;
-                      });
-                    },
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: AppColor().lightbackgroundColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.delete_outline_outlined,
-                        size: 20,
-                        color: AppColor().backgroundColor,
-                      ),
-                    ),
-                  ),
+                  (teamController.teamMember.authoritySet!
+                          .contains('DELETE_PRODUCT'))
+                      ? InkWell(
+                          onTap: () {
+                            setState(() {
+                              isDelete = !isDelete;
+                            });
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              color: AppColor().lightbackgroundColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.delete_outline_outlined,
+                              size: 20,
+                              color: AppColor().backgroundColor,
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
             ),
@@ -848,54 +851,51 @@ class _ListingProductState extends State<ListingProduct> {
               Expanded(
                 child: SizedBox(),
               ),
-              GestureDetector(
-                onTap: () {
-                  if (teamController.teamMember.authoritySet!
-                      .contains('UPDATE_PRODUCT')) {
-                    _productController.setItem(widget.item!);
-                    Get.to(AddProduct(
-                      item: widget.item!,
-                    ));
-                  } else {
-                    Get.snackbar('Alert',
-                        'You need to be authorized to perform this operation');
-                  }
-                },
-                child: Container(
-                  height: 40,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Color(0xffF4D8C4),
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                      color: Color(0xffEF6500),
-                    ),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.edit,
-                        size: 20,
-                        color: AppColor().orangeBorderColor,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        'Edit',
-                        style: TextStyle(
-                          color: AppColor().orangeBorderColor,
-                          fontFamily: 'InterRegular',
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
+              (teamController.teamMember.authoritySet!
+                      .contains('UPDATE_PRODUCT'))
+                  ? GestureDetector(
+                      onTap: () {
+                        _productController.setItem(widget.item!);
+                        Get.to(AddProduct(
+                          item: widget.item!,
+                        ));
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Color(0xffF4D8C4),
+                          borderRadius: BorderRadius.circular(18),
+                          border: Border.all(
+                            color: Color(0xffEF6500),
+                          ),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              size: 20,
+                              color: AppColor().orangeBorderColor,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'Edit',
+                              style: TextStyle(
+                                color: AppColor().orangeBorderColor,
+                                fontFamily: 'InterRegular',
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    )
+                  : Container(),
             ],
           ),
         ),

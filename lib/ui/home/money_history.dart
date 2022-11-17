@@ -189,17 +189,20 @@ class _MoneySummaryState extends State<MoneySummary> {
           ],
         ),
         actions: [
-          GestureDetector(
-              onTap: () {
-                if (teamController.teamMember.authoritySet!
-                    .contains('DELETE_BUSINESS_TRANSACTION')) {
-                  _displayDialog(context);
-                } else {
-                  Get.snackbar('Alert',
-                      'You need to be authorized to perform this operation');
-                }
-              },
-              child: SvgPicture.asset('assets/images/delete.svg')),
+          (teamController.teamMember.authoritySet!
+                  .contains('DELETE_BUSINESS_TRANSACTION'))
+              ? GestureDetector(
+                  onTap: () {
+                    if (teamController.teamMember.authoritySet!
+                        .contains('DELETE_BUSINESS_TRANSACTION')) {
+                      _displayDialog(context);
+                    } else {
+                      Get.snackbar('Alert',
+                          'You need to be authorized to perform this operation');
+                    }
+                  },
+                  child: SvgPicture.asset('assets/images/delete.svg'))
+              : Container(),
           SizedBox(
             width: MediaQuery.of(context).size.height * 0.02,
           )
@@ -331,36 +334,40 @@ class _MoneySummaryState extends State<MoneySummary> {
                     ? 0
                     : MediaQuery.of(context).size.height * 0.01),
             (transactionModel!.balance != 0)
-                ? GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          isScrollControlled: true,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20))),
-                          context: context,
-                          builder: (context) => buildSaveInvoice());
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: AppColor().backgroundColor.withOpacity(0.2)),
-                      child: Center(
-                        child: Text(
-                          'Update payment',
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: "InterRegular",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
+                ? teamController.teamMember.authoritySet!
+                        .contains('UPDATE_BUSINESS_TRANSACTION')
+                    ? GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))),
+                              context: context,
+                              builder: (context) => buildSaveInvoice());
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color:
+                                  AppColor().backgroundColor.withOpacity(0.2)),
+                          child: Center(
+                            child: Text(
+                              'Update payment',
+                              style: TextStyle(
+                                color: AppColor().blackColor,
+                                fontFamily: "InterRegular",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  )
+                      )
+                    : Container()
                 : Container(),
             (transactionModel!.customerId != null)
                 ? Obx(() {
@@ -1224,73 +1231,76 @@ class _MoneySummaryState extends State<MoneySummary> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      myState(() {
-                        paymentType = 1;
-                      });
-                    },
-                    child: Row(
+              teamController.teamMember.authoritySet!
+                      .contains('UPDATE_BUSINESS_TRANSACTION')
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Radio<int>(
-                          value: 1,
-                          activeColor: AppColor().backgroundColor,
-                          groupValue: paymentType,
-                          onChanged: (value) {
+                        InkWell(
+                          onTap: () {
                             myState(() {
                               paymentType = 1;
                             });
                           },
-                        ),
-                        Text(
-                          'Paying Fully',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "InterRegular",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
+                          child: Row(
+                            children: [
+                              Radio<int>(
+                                value: 1,
+                                activeColor: AppColor().backgroundColor,
+                                groupValue: paymentType,
+                                onChanged: (value) {
+                                  myState(() {
+                                    paymentType = 1;
+                                  });
+                                },
+                              ),
+                              Text(
+                                'Paying Fully',
+                                style: TextStyle(
+                                  color: AppColor().backgroundColor,
+                                  fontFamily: "InterRegular",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      myState(() {
-                        paymentType = 0;
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        Radio<int>(
-                            value: 0,
-                            activeColor: AppColor().backgroundColor,
-                            groupValue: paymentType,
-                            onChanged: (value) {
-                              myState(() {
-                                value = 0;
-                                paymentType = 0;
-                              });
-                            }),
-                        Text(
-                          'Paying Partly',
-                          style: TextStyle(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "InterRegular",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
+                        InkWell(
+                          onTap: () {
+                            myState(() {
+                              paymentType = 0;
+                            });
+                          },
+                          child: Row(
+                            children: [
+                              Radio<int>(
+                                  value: 0,
+                                  activeColor: AppColor().backgroundColor,
+                                  groupValue: paymentType,
+                                  onChanged: (value) {
+                                    myState(() {
+                                      value = 0;
+                                      paymentType = 0;
+                                    });
+                                  }),
+                              Text(
+                                'Paying Partly',
+                                style: TextStyle(
+                                  color: AppColor().backgroundColor,
+                                  fontFamily: "InterRegular",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
+                        )
                       ],
-                    ),
-                  )
-                ],
-              ),
+                    )
+                  : Container(),
               paymentType == 0
                   ? CustomTextFieldInvoiceOptional(
                       label: 'Amount',
