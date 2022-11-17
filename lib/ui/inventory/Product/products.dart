@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/inventory/Product/productlist.dart';
 import 'package:number_display/number_display.dart';
+import '../../../data/repository/team_repository.dart';
 import '../../../util/colors.dart';
 import '../../../util/util.dart';
 import 'add_product.dart';
@@ -16,6 +17,7 @@ class Products extends StatefulWidget {
 
 class _ProductsState extends State<Products> {
   final _productController = Get.find<ProductRepository>();
+  final teamController = Get.find<TeamRepository>();
   final display = createDisplay(
       length: 5,
       decimal: 0,
@@ -30,7 +32,13 @@ class _ProductsState extends State<Products> {
                     ? Container()
                     : FloatingActionButton.extended(
                         onPressed: () {
-                          Get.to(AddProduct());
+                          if (teamController.teamMember.authoritySet!
+                              .contains('CREATE_PRODUCT')) {
+                            Get.to(() => AddProduct());
+                          } else {
+                            Get.snackbar('Alert',
+                                'You need to be authorized to perform this operation');
+                          }
                         },
                         icon: Icon(Icons.add),
                         backgroundColor: AppColor().backgroundColor,

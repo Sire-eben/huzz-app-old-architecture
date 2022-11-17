@@ -13,7 +13,6 @@ import 'package:uuid/uuid.dart';
 import '../../util/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
-import 'file_upload_respository.dart';
 
 enum AddingDebtorStatus { Loading, Error, Success, Empty }
 
@@ -24,8 +23,6 @@ class DebtorRepository extends GetxController
   final _userController = Get.find<AuthRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _businessController = Get.find<BusinessRespository>();
-  final _uploadFileController = Get.find<FileUploadRespository>();
-  final _uploadImageController = Get.find<FileUploadRespository>();
 
   Rx<List<Debtor>> _onlineBusinessDebtor = Rx([]);
   Rx<List<Debtor>> _offlineBusinessDebtor = Rx([]);
