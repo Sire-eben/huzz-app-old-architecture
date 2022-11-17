@@ -9,8 +9,8 @@ import 'package:huzz/ui/invoice/available_invoice/overdue.dart';
 import 'package:huzz/ui/invoice/available_invoice/paid.dart';
 import 'package:huzz/ui/invoice/available_invoice/pending.dart';
 import 'package:huzz/util/colors.dart';
-
 import '../../data/repository/auth_respository.dart';
+import '../../data/repository/team_repository.dart';
 
 class ManageInvoiceInformationDialog extends StatelessWidget {
   @override
@@ -51,6 +51,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
 
   final _authController = Get.put(AuthRepository());
   final _invoiceRepository = Get.find<InvoiceRespository>();
+  final teamController = Get.find<TeamRepository>();
 
   bool? fixedScroll;
 

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
+import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/inventory/Product/add_product.dart';
 import 'package:huzz/ui/inventory/Service/servicelist.dart';
 import 'package:huzz/data/model/product.dart';
@@ -19,6 +20,7 @@ class ProductListing extends StatefulWidget {
 
 class _ProductListingState extends State<ProductListing> {
   final _businessController = Get.find<BusinessRespository>();
+  final teamController = Get.find<TeamRepository>();
   final display = createDisplay(
       roundingType: RoundingType.floor,
       length: 15,
@@ -162,10 +164,23 @@ class _ProductListingState extends State<ProductListing> {
         backgroundColor: AppColor().whiteColor,
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            if (isDelete)
-              _displayDialog(context);
-            else
-              Get.to(AddProduct());
+            if (isDelete) {
+              if (teamController.teamMember.authoritySet!
+                  .contains('DELETE_PRODUCT')) {
+                _displayDialog(context);
+              } else {
+                Get.snackbar('Alert',
+                    'You need to be authorized to perform this operation');
+              }
+            } else {
+              if (teamController.teamMember.authoritySet!
+                  .contains('CREATE_PRODUCT')) {
+                Get.to(AddProduct());
+              } else {
+                Get.snackbar('Alert',
+                    'You need to be authorized to perform this operation');
+              }
+            }
           },
           icon: (isDelete) ? Container() : Icon(Icons.add),
           backgroundColor: AppColor().backgroundColor,
@@ -741,6 +756,7 @@ class _ListingProductState extends State<ListingProduct> {
     decimal: 0,
   );
   final _productController = Get.find<ProductRepository>();
+  final teamController = Get.find<TeamRepository>();
   @override
   Widget build(BuildContext context) {
     // print("image ${widget.item!.productLogoFileStoreId}");
@@ -834,10 +850,16 @@ class _ListingProductState extends State<ListingProduct> {
               ),
               GestureDetector(
                 onTap: () {
-                  _productController.setItem(widget.item!);
-                  Get.to(AddProduct(
-                    item: widget.item!,
-                  ));
+                  if (teamController.teamMember.authoritySet!
+                      .contains('UPDATE_PRODUCT')) {
+                    _productController.setItem(widget.item!);
+                    Get.to(AddProduct(
+                      item: widget.item!,
+                    ));
+                  } else {
+                    Get.snackbar('Alert',
+                        'You need to be authorized to perform this operation');
+                  }
                 },
                 child: Container(
                   height: 40,

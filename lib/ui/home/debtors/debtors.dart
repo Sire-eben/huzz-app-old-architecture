@@ -18,6 +18,7 @@ import 'package:huzz/data/model/user.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../../data/repository/team_repository.dart';
 import '../../../data/repository/transaction_respository.dart';
 import '../../../util/colors.dart';
 import '../../../util/util.dart';
@@ -41,6 +42,7 @@ class _DebtorsState extends State<Debtors> {
   // ignore: unused_field
   final _debtorController = Get.find<DebtorRepository>();
   final _customerController = Get.find<CustomerRepository>();
+  final teamController = Get.find<TeamRepository>();
   final itemNameController = TextEditingController();
   final amountController = TextEditingController();
   final quantityController = TextEditingController();
@@ -50,7 +52,6 @@ class _DebtorsState extends State<Debtors> {
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
   final amountPaidController = TextEditingController();
-
   final TextEditingController textEditingController = TextEditingController();
 
   final debtStatus = ['Pending', 'Fully Paid'];
@@ -67,22 +68,8 @@ class _DebtorsState extends State<Debtors> {
     'meters',
   ];
 
-  final drugs = [
-    'Vitamin C',
-    'Flagyl',
-    'Paracentamol',
-    'Panadol',
-  ];
-
   String? value = "Pending";
   String? values;
-
-  final customers = [
-    'Folakemi Ajao',
-    'Mr Bayo Akintan',
-    'Mr Akintan Bayo ',
-    'Mr Ojo Dada',
-  ];
 
   String countryFlag = "NG";
   String countryCode = "234";
@@ -91,6 +78,8 @@ class _DebtorsState extends State<Debtors> {
   int currentStep = 0;
   int customerValue = 0;
   int quantityValue = 0;
+
+  late String firstName, lastName, phone;
 
   @override
   Widget build(BuildContext context) {
@@ -287,7 +276,7 @@ class _DebtorsState extends State<Debtors> {
                                       if (_debtorController.debtorStatus ==
                                           DebtorStatus.UnAuthorized) ...[
                                         Text(
-                                          'You have no permission\nto view this module',
+                                          'You need to be authorized\nto view this module',
                                           style: TextStyle(
                                               fontSize: 14,
                                               color:
@@ -332,13 +321,21 @@ class _DebtorsState extends State<Debtors> {
                         Container(),
                       ] else ...[
                         InkWell(
-                          onTap: () => showModalBottomSheet(
-                              isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => buildAddDebtor()),
+                          onTap: () {
+                            if (teamController.teamMember.authoritySet!
+                                .contains('CREATE_DEBTOR')) {
+                              showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(20))),
+                                  context: context,
+                                  builder: (context) => buildAddDebtor());
+                            } else {
+                              Get.snackbar('Alert',
+                                  'You need to be authorized to perform this operation');
+                            }
+                          },
                           child: Container(
                             height: 55,
                             decoration: BoxDecoration(
@@ -880,6 +877,7 @@ class _DebtorListingState extends State<DebtorListing> {
 
   int statusType = 0;
   final _debtorController = Get.find<DebtorRepository>();
+  final teamController = Get.find<TeamRepository>();
 
   RandomColor _randomColor = RandomColor();
   final _key = GlobalKey<FormState>();
@@ -1022,14 +1020,20 @@ class _DebtorListingState extends State<DebtorListing> {
                           Get.snackbar("Error", "Transaction is not found");
                         }
                       } else {
-                        showModalBottomSheet(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20))),
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) =>
-                                buildUpdatePayment(widget.item!));
+                        if (teamController.teamMember.authoritySet!
+                            .contains('UPDATE_DEBTOR')) {
+                          showModalBottomSheet(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))),
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (context) =>
+                                  buildUpdatePayment(widget.item!));
+                        } else {
+                          Get.snackbar('Alert',
+                              'You need to be authorized to perform this operation');
+                        }
                       }
                     },
                     child: SvgPicture.asset('assets/images/edit_pri.svg')),
@@ -1053,7 +1057,15 @@ class _DebtorListingState extends State<DebtorListing> {
               ),
               SizedBox(width: 4),
               Obx(() => GestureDetector(
-                    onTap: () => _deleteDebtDialog(context),
+                    onTap: () {
+                      if (teamController.teamMember.authoritySet!
+                          .contains('DELETE_DEBTOR')) {
+                        _deleteDebtDialog(context);
+                      } else {
+                        Get.snackbar('Alert',
+                            'You need to be authorized to perform this operation');
+                      }
+                    },
                     child: _debtorController.deletingItem.value == widget.item
                         ? CupertinoActivityIndicator(
                             radius: 10,

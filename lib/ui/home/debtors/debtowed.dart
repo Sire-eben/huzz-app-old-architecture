@@ -13,6 +13,7 @@ import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/debtor.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
+import '../../../data/repository/team_repository.dart';
 import '../../../util/colors.dart';
 import '../../../util/util.dart';
 import '../money_history.dart';
@@ -29,6 +30,7 @@ class DebtOwned extends StatefulWidget {
 class _DebtOwnedState extends State<DebtOwned> {
   final _debtorRepository = Get.find<DebtorRepository>();
   final _customerRepository = Get.find<CustomerRepository>();
+  final teamController = Get.find<TeamRepository>();
 
   RandomColor _randomColor = RandomColor();
   final itemNameController = TextEditingController();
@@ -250,7 +252,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       if (_debtorRepository.debtorStatus ==
                                           DebtorStatus.UnAuthorized) ...[
                                         Text(
-                                          'You have no permission\nto view this module',
+                                          'You need to be authorized\nto view this module',
                                           style: TextStyle(
                                               fontSize: 14,
                                               color:
@@ -413,19 +415,27 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                             "Transaction is not found");
                                                       }
                                                     } else {
-                                                      showModalBottomSheet(
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius.vertical(
-                                                                      top: Radius
-                                                                          .circular(
-                                                                              20))),
-                                                          context: context,
-                                                          isScrollControlled:
-                                                              true,
-                                                          builder: (context) =>
-                                                              buildUpdatePayments(
-                                                                  item));
+                                                      if (teamController
+                                                          .teamMember
+                                                          .authoritySet!
+                                                          .contains(
+                                                              'UPDATE_DEBTOR')) {
+                                                        showModalBottomSheet(
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.vertical(
+                                                                    top: Radius
+                                                                        .circular(
+                                                                            20))),
+                                                            context: context,
+                                                            isScrollControlled:
+                                                                true,
+                                                            builder: (context) =>
+                                                                buildUpdatePayments(
+                                                                    item));
+                                                      } else {
+                                                        Get.snackbar('Alert',
+                                                            'You need to be authorized to perform this operation');
+                                                      }
                                                     }
                                                   },
                                                   child: SvgPicture.asset(
@@ -433,9 +443,19 @@ class _DebtOwnedState extends State<DebtOwned> {
                                             ),
                                             SizedBox(width: 4),
                                             Obx(() => GestureDetector(
-                                                  onTap: () =>
+                                                  onTap: () {
+                                                    if (teamController
+                                                        .teamMember
+                                                        .authoritySet!
+                                                        .contains(
+                                                            'DELETE_DEBTOR')) {
                                                       _deleteDebtDialog(
-                                                          context, item),
+                                                          context, item);
+                                                    } else {
+                                                      Get.snackbar('Alert',
+                                                          'You need to be authorized to perform this operation');
+                                                    }
+                                                  },
                                                   child: _debtorRepository
                                                               .deletingItem
                                                               .value ==
@@ -459,13 +479,21 @@ class _DebtOwnedState extends State<DebtOwned> {
                         Container(),
                       ] else ...[
                         InkWell(
-                          onTap: () => showModalBottomSheet(
-                              isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => buildAddDebtor()),
+                          onTap: () {
+                            if (teamController.teamMember.authoritySet!
+                                .contains('CREATE_DEBTOR')) {
+                              showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(20))),
+                                  context: context,
+                                  builder: (context) => buildAddDebtor());
+                            } else {
+                              Get.snackbar('Alert',
+                                  'You need to be authorized to perform this operation');
+                            }
+                          },
                           child: Container(
                             height: 55,
                             decoration: BoxDecoration(

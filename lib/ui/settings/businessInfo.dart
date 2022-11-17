@@ -15,7 +15,7 @@ import 'package:huzz/data/model/bank.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
+import '../../data/repository/team_repository.dart';
 import '../../util/colors.dart';
 import 'bankCard.dart';
 
@@ -30,6 +30,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
   final controller = Get.find<AuthRepository>();
   final businessController = Get.find<BusinessRespository>();
   final bankInfoController = Get.find<BankAccountRepository>();
+  final teamController = Get.find<TeamRepository>();
 
   final TextEditingController textEditingController = TextEditingController();
 
@@ -108,299 +109,203 @@ class _BusinessInfoState extends State<BusinessInfo> {
         ),
         elevation: 0,
       ),
-      body: Obx(() {
-        return SingleChildScrollView(
-          child: Container(
-            // width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () => showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20))),
-                        context: context,
-                        builder: (context) => buildAddImage()),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          return Future.delayed(Duration(seconds: 1), () {
+            businessController.OnlineBusiness();
+          });
+        },
+        child: Obx(() {
+          return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Container(
+              // width: MediaQuery.of(context).size.width,
+              // height: MediaQuery.of(context).size.height,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () => showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20))),
+                          context: context,
+                          builder: (context) => buildAddImage()),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // ignore: unnecessary_null_comparison
+                            (businessController.businessImage.value != null)
+                                ? Image.file(
+                                    businessController.businessImage.value!,
+                                    width: 100,
+                                    height: 100,
+                                  )
+                                : businessController.selectedBusiness.value!
+                                            .buisnessLogoFileStoreId ==
+                                        null
+                                    ? Image.asset(
+                                        'assets/images/Group 3647.png',
+                                      )
+                                    : CircleAvatar(
+                                        radius: 50.0,
+                                        backgroundImage: NetworkImage(
+                                            "${businessController.selectedBusiness.value!.buisnessLogoFileStoreId}"),
+                                        backgroundColor: Colors.transparent,
+                                      )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                        child: Text(
+                      "Business Logo",
+                      style: TextStyle(
+                        color: AppColor().blackColor,
+                        fontSize: 12,
+                      ),
+                    )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    CustomTextField(
+                      label: "Business Name",
+                      validatorText: "Business Name required",
+                      colors: AppColor().blackColor,
+                      hint:
+                          "${businessController.selectedBusiness.value!.businessName}",
+                      textEditingController: businessController.businessName,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // ignore: unnecessary_null_comparison
-                          (businessController.businessImage.value != null)
-                              ? Image.file(
-                                  businessController.businessImage.value!,
-                                  width: 100,
-                                  height: 100,
-                                )
-                              : businessController.selectedBusiness.value!
-                                          .buisnessLogoFileStoreId ==
-                                      null
-                                  ? Image.asset(
-                                      'assets/images/Group 3647.png',
-                                    )
-                                  : CircleAvatar(
-                                      radius: 50.0,
-                                      backgroundImage: NetworkImage(
-                                          "${businessController.selectedBusiness.value!.buisnessLogoFileStoreId}"),
-                                      backgroundColor: Colors.transparent,
-                                    )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Phone Number',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Text(
+                                  "*",
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 12),
+                                ),
+                              ),
+                            ],
+                          )
+                        ]),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                            color: AppColor().backgroundColor, width: 2.0),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              showCountryCode(context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                    right: BorderSide(
+                                        color: AppColor().backgroundColor,
+                                        width: 2)),
+                              ),
+                              height: 50,
+                              width: 80,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(width: 10),
+                                  Flag.fromString(countryFlag,
+                                      height: 30, width: 30),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    size: 24,
+                                    color: AppColor()
+                                        .backgroundColor
+                                        .withOpacity(0.5),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                              enabled: false,
+                              controller:
+                                  businessController.businessPhoneNumber,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText:
+                                      "${businessController.selectedBusiness.value!.businessPhoneNumber}",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                  prefixText: "+$countryCode ",
+                                  prefixStyle: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black)),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                      child: Text(
-                    "Business Logo",
-                    style: TextStyle(
-                      color: AppColor().blackColor,
-                      fontSize: 12,
+                    SizedBox(
+                      height: 5,
                     ),
-                  )),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomTextField(
-                    label: "Business Name",
-                    validatorText: "Business Name required",
-                    colors: AppColor().blackColor,
-                    hint:
-                        "${businessController.selectedBusiness.value!.businessName}",
-                    textEditingController: businessController.businessName,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Phone Number',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 5),
-                              child: Text(
-                                "*",
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 12),
-                              ),
-                            ),
-                          ],
-                        )
-                      ]),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          color: AppColor().backgroundColor, width: 2.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            showCountryCode(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  right: BorderSide(
-                                      color: AppColor().backgroundColor,
-                                      width: 2)),
-                            ),
-                            height: 50,
-                            width: 80,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(width: 10),
-                                Flag.fromString(countryFlag,
-                                    height: 30, width: 30),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(
-                                  Icons.arrow_drop_down,
-                                  size: 24,
-                                  color: AppColor()
-                                      .backgroundColor
-                                      .withOpacity(0.5),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            enabled: false,
-                            controller: businessController.businessPhoneNumber,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText:
-                                    "${businessController.selectedBusiness.value!.businessPhoneNumber}",
-                                hintStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
-                                prefixText: "+$countryCode ",
-                                prefixStyle: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black)),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: 30,
-                    margin: EdgeInsets.only(
-                      right: 20,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Email',
-                          style: TextStyle(color: Colors.black, fontSize: 12),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                      ],
-                    ),
-                  ),
-                  TextFormField(
-                    controller: businessController.businessEmail,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      hintText:
-                          "${businessController.selectedBusiness.value!.businessEmail}",
-                      hintStyle:
-                          Theme.of(context).textTheme.headline4!.copyWith(
-                                fontFamily: 'InterRegular',
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontStyle: FontStyle.normal,
-                                fontWeight: FontWeight.normal,
-                              ),
-                    ),
-                  ),
-                  CustomTextField(
-                    label: "Address",
-                    validatorText: "Address is needed",
-                    colors: AppColor().blackColor,
-                    hint:
-                        "${businessController.selectedBusiness.value!.businessAddress}",
-                    textEditingController:
-                        businessController.businessAddressController,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Currency',
-                        style: TextStyle(color: Colors.black, fontSize: 12),
+                    Container(
+                      height: 30,
+                      margin: EdgeInsets.only(
+                        right: 20,
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '*',
-                        style: TextStyle(color: Colors.red, fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 1,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 2, color: AppColor().backgroundColor),
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: value,
-                        focusColor: AppColor().whiteColor,
-                        icon: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: AppColor().backgroundColor,
-                        ),
-                        iconSize: 30,
-                        items: items.map(buildMenuItem).toList(),
-                        onChanged: (value) =>
-                            setState(() => this.value = value),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Bank Accounts',
+                            'Email',
                             style: TextStyle(color: Colors.black, fontSize: 12),
                           ),
                           SizedBox(
@@ -408,152 +313,264 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          bankInfoController.clearValue();
-                          showModalBottomSheet(
-                              isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => addBusiness());
-                        },
-                        child: Row(
+                    ),
+                    TextFormField(
+                      controller: businessController.businessEmail,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor().backgroundColor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor().backgroundColor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppColor().backgroundColor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        hintText:
+                            "${businessController.selectedBusiness.value!.businessEmail}",
+                        hintStyle:
+                            Theme.of(context).textTheme.headline4!.copyWith(
+                                  fontFamily: 'InterRegular',
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                      ),
+                    ),
+                    CustomTextField(
+                      label: "Address",
+                      validatorText: "Address is needed",
+                      colors: AppColor().blackColor,
+                      hint:
+                          "${businessController.selectedBusiness.value!.businessAddress}",
+                      textEditingController:
+                          businessController.businessAddressController,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Currency',
+                          style: TextStyle(color: Colors.black, fontSize: 12),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 1,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            width: 2, color: AppColor().backgroundColor),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: value,
+                          focusColor: AppColor().whiteColor,
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColor().backgroundColor,
+                          ),
+                          iconSize: 30,
+                          items: items.map(buildMenuItem).toList(),
+                          onChanged: (value) =>
+                              setState(() => this.value = value),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
-                            Container(
-                              child: Image.asset(
-                                'assets/images/Group 3890.png',
-                                scale: 1.2,
-                              ),
+                            Text(
+                              'Bank Accounts',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 12),
                             ),
                             SizedBox(
                               width: 5,
                             ),
-                            Text(
-                              'Add Bank Account',
-                              style: TextStyle(
-                                  color: AppColor().backgroundColor,
-                                  fontSize: 12),
-                            ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  // Spacer(),
-                  if (bankInfoController.offlineBusinessBank.isNotEmpty)
-                    ...bankInfoController.offlineBusinessBank
-                        .map((e) => BankCard(
-                            item: e,
-                            onDelete: () {
-                              print('deleting bank account...');
-                              bankInfoController.addToDeleteList(e);
-                            },
-                            onEdit: () {
-                              print('edit bank account');
-                              bankInfoController.setItem(e);
+                        GestureDetector(
+                          onTap: () {
+                            if (teamController.teamMember.authoritySet!
+                                .contains('CREATE_BANK_INFO')) {
+                              bankInfoController.clearValue();
                               showModalBottomSheet(
                                   isScrollControlled: true,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
                                           top: Radius.circular(20))),
                                   context: context,
-                                  builder: (context) => EditBankAccount(e));
-                            }))
-                        .toList(),
-                  // Container(
-                  //    height: 150.0* bankInfoController.offlineBusinessBank.length,
-                  //     child: ListView.builder(
-                  //         shrinkWrap: true,
-                  //         controller: _scrollController,
-                  //         itemCount: bankInfoController
-                  //             .offlineBusinessBank.length,
-                  //         itemBuilder: (_, index) {
-                  //           var ite = bankInfoController
-                  //               .offlineBusinessBank[index];
-                  //           return ItemCard(
-                  //               item: ite,
-                  //               onDelete: () {
-                  //                 bankInfoController.addToDeleteList(ite);
-                  //               },
-                  //               onEdit: () {
-                  //                 bankInfoController.setItem(ite);
-                  //                 showModalBottomSheet(
-                  //                     shape: RoundedRectangleBorder(
-                  //                         borderRadius:
-                  //                             BorderRadius.vertical(
-                  //                                 top: Radius.circular(
-                  //                                     20))),
-                  //                     context: context,
-                  //                     builder: (context) =>
-                  //                         EditBankAccount(ite));
-                  //               });
-                  //         }))
-                  if (bankInfoController.offlineBusinessBank.isEmpty)
-                    Center(
-                      child: Text(
-                        'No bank account has been added yet',
-                        style: TextStyle(
-                          color: AppColor().hintColor,
-                          fontSize: 10,
+                                  builder: (context) => addBusiness());
+                            } else {
+                              Get.snackbar('Alert',
+                                  'You need to be authorized to perform this operation');
+                            }
+                          },
+                          child: Row(
+                            children: [
+                              Container(
+                                child: Image.asset(
+                                  'assets/images/Group 3890.png',
+                                  scale: 1.2,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Add Bank Account',
+                                style: TextStyle(
+                                    color: AppColor().backgroundColor,
+                                    fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    if (bankInfoController.addingBankStatus ==
+                        AddingBankInfoStatus.UnAuthorized) ...[
+                      Center(
+                        child: Text(
+                          'You need to be authorized\nto view this module',
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: AppColor().orangeBorderColor,
+                              fontFamily: 'InterRegular',
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
                       ),
+                    ] else ...[
+                      if (bankInfoController.offlineBusinessBank.isNotEmpty)
+                        ...bankInfoController.offlineBusinessBank
+                            .map((e) => BankCard(
+                                item: e,
+                                onDelete: () {
+                                  if (teamController.teamMember.authoritySet!
+                                      .contains('DELETE_BANK_INFO')) {
+                                    print('deleting bank account...');
+                                    bankInfoController.addToDeleteList(e);
+                                  } else {
+                                    Get.snackbar('Alert',
+                                        'You need to be authorized to perform this operation');
+                                  }
+                                },
+                                onEdit: () {
+                                  if (teamController.teamMember.authoritySet!
+                                      .contains('UPDATE_BANK_INFO')) {
+                                    print('edit bank account');
+                                    bankInfoController.setItem(e);
+                                    showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(20))),
+                                        context: context,
+                                        builder: (context) =>
+                                            EditBankAccount(e));
+                                  } else {
+                                    Get.snackbar('Alert',
+                                        'You need to be authorized to perform this operation');
+                                  }
+                                }))
+                            .toList(),
+                      if (bankInfoController.offlineBusinessBank.isEmpty)
+                        Center(
+                          child: Text(
+                            'No bank account has been added yet',
+                            style: TextStyle(
+                              color: AppColor().hintColor,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                    ],
+                    SizedBox(
+                      height: 10,
                     ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Obx(() {
-                    return InkWell(
-                      onTap: () {
-                        if (businessController.updateBusinessStatus !=
-                            UpdateBusinessStatus.Loading)
-                          businessController.updateBusiness(value!);
-                      },
-                      child: Container(
-                        height: 50,
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: (businessController.updateBusinessStatus ==
-                                UpdateBusinessStatus.Loading)
-                            ? Center(
-                                child: Container(
-                                  width: 30,
-                                  height: 30,
-                                  child: Center(
-                                      child: CircularProgressIndicator(
-                                          color: Colors.white)),
-                                ),
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Save',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 18),
+                    Obx(() {
+                      return InkWell(
+                        onTap: () {
+                          if (businessController.updateBusinessStatus !=
+                              UpdateBusinessStatus.Loading)
+                            businessController.updateBusiness(value!);
+                        },
+                        child: Container(
+                          height: 50,
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                              color: AppColor().backgroundColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: (businessController.updateBusinessStatus ==
+                                  UpdateBusinessStatus.Loading)
+                              ? Center(
+                                  child: Container(
+                                    width: 30,
+                                    height: 30,
+                                    child: Center(
+                                        child: CircularProgressIndicator(
+                                            color: Colors.white)),
                                   ),
-                                ],
-                              ),
-                      ),
-                    );
-                  }),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
+                                )
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Save',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      );
+                    }),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 

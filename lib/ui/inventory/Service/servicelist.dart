@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
+import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/inventory/Service/add_service.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:huzz/data/model/product_model.dart';
@@ -21,6 +22,7 @@ class _ServiceListingState extends State<ServiceListing> {
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
   final _businessController = Get.find<BusinessRespository>();
+  final teamController = Get.find<TeamRepository>();
   final display = createDisplay(
       roundingType: RoundingType.floor,
       length: 15,
@@ -162,10 +164,23 @@ class _ServiceListingState extends State<ServiceListing> {
           backgroundColor: AppColor().whiteColor,
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              if (isDelete)
-                _displayDialog(context);
-              else
-                Get.to(AddService());
+              if (isDelete) {
+                if (teamController.teamMember.authoritySet!
+                    .contains('DELETE_PRODUCT')) {
+                  _displayDialog(context);
+                } else {
+                  Get.snackbar('Alert',
+                      'You need to be authorized to perform this operation');
+                }
+              } else {
+                if (teamController.teamMember.authoritySet!
+                    .contains('CREATE_PRODUCT')) {
+                  Get.to(() => AddService());
+                } else {
+                  Get.snackbar('Alert',
+                      'You need to be authorized to perform this operation');
+                }
+              }
             },
             icon: (isDelete) ? Container() : Icon(Icons.add),
             backgroundColor: AppColor().backgroundColor,
@@ -334,11 +349,19 @@ class _ServiceListingState extends State<ServiceListing> {
                                               )
                                             : GestureDetector(
                                                 onTap: () {
-                                                  _productController
-                                                      .setItem(item);
-                                                  Get.to(AddService(
-                                                    item: item,
-                                                  ));
+                                                  if (teamController
+                                                      .teamMember.authoritySet!
+                                                      .contains(
+                                                          'UPDATE_PRODUCT')) {
+                                                    _productController
+                                                        .setItem(item);
+                                                    Get.to(AddService(
+                                                      item: item,
+                                                    ));
+                                                  } else {
+                                                    Get.snackbar('Alert',
+                                                        'You need to be authorized to perform this operation');
+                                                  }
                                                 },
                                                 child: ListingServices(
                                                   item: item,
@@ -357,49 +380,6 @@ class _ServiceListingState extends State<ServiceListing> {
                         ),
                       ),
               ),
-              // Positioned(
-              //   bottom: 10,
-              //   right: 30,
-              //   child: GestureDetector(
-              //     onTap: () {
-              //       if (isDelete)
-              //         _displayDialog(context);
-              //       else
-              //         Get.to(AddService());
-              //     },
-              //     child: Container(
-              //       padding: EdgeInsets.symmetric(
-              //         horizontal: 20,
-              //         vertical: 15,
-              //       ),
-              //       decoration: BoxDecoration(
-              //         color: AppColor().backgroundColor,
-              //         borderRadius: BorderRadius.circular(25),
-              //       ),
-              //       child: Row(
-              //         children: [
-              //           Icon(
-              //             Icons.add,
-              //             size: 18,
-              //             color: Colors.white,
-              //           ),
-              //           SizedBox(
-              //             width: 10,
-              //           ),
-              //           Text(
-              //             (isDelete) ? "Delete Service(s)" : 'New Service',
-              //             style: TextStyle(
-              //               color: AppColor().whiteColor,
-              //               fontFamily: 'InterRegular',
-              //               fontWeight: FontWeight.bold,
-              //               fontSize: 14,
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ],
           ));
     });
@@ -790,6 +770,7 @@ class _ListingServicesState extends State<ListingServices> {
   );
   // ignore: unused_field
   final _productController = Get.find<ProductRepository>();
+  final teamController = Get.find<TeamRepository>();
   @override
   Widget build(BuildContext context) {
     return Padding(

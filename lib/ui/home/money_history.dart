@@ -15,6 +15,7 @@ import 'package:huzz/data/model/records_model.dart';
 import 'package:huzz/data/model/transaction_model.dart';
 import 'package:huzz/util/constants.dart';
 import 'package:number_display/number_display.dart';
+import '../../data/repository/team_repository.dart';
 import '../../util/util.dart';
 
 class TransactionHistoryInformationDialog extends StatelessWidget {
@@ -54,6 +55,7 @@ class _MoneySummaryState extends State<MoneySummary> {
   final recordFilter = ['This month', 'Last month'];
   final _transactionController = Get.find<TransactionRespository>();
   final _customerController = Get.find<CustomerRepository>();
+  final teamController = Get.find<TeamRepository>();
   String? value;
   int paymentType = 0;
   int paymentMode = 0;
@@ -189,7 +191,13 @@ class _MoneySummaryState extends State<MoneySummary> {
         actions: [
           GestureDetector(
               onTap: () {
-                _displayDialog(context);
+                if (teamController.teamMember.authoritySet!
+                    .contains('DELETE_BUSINESS_TRANSACTION')) {
+                  _displayDialog(context);
+                } else {
+                  Get.snackbar('Alert',
+                      'You need to be authorized to perform this operation');
+                }
               },
               child: SvgPicture.asset('assets/images/delete.svg')),
           SizedBox(

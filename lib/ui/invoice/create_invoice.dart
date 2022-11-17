@@ -259,8 +259,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             child: (_invoiceController.addingInvoiceStatus ==
                                     AddingInvoiceStatus.Loading)
                                 ? Container(
-                                    width: 30,
-                                    height: 30,
+                                    width: 25,
+                                    height: 25,
                                     child: Center(
                                         child: CircularProgressIndicator(
                                             color: Colors.white)),

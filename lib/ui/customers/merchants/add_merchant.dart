@@ -7,6 +7,7 @@ import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../data/repository/team_repository.dart';
 
 // ignore: must_be_immutable
 class AddMerchant extends StatefulWidget {
@@ -23,6 +24,7 @@ class _AddMerchantState extends State<AddMerchant> {
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
   final _customerController = Get.find<CustomerRepository>();
+  final teamController = Get.find<TeamRepository>();
   File? image;
   Future pickImageFromGallery() async {
     try {
@@ -117,9 +119,16 @@ class _AddMerchantState extends State<AddMerchant> {
                           if (widget.item == null)
                             _customerController.addBusinnessCustomer(
                                 "EXPENDITURE", 'Merchant');
-                          else
-                            _customerController
-                                .updateBusinesscustomer(widget.item!);
+                          else {
+                            if (teamController.teamMember.authoritySet!
+                                .contains('UPDATE_CUSTOMER')) {
+                              _customerController
+                                  .updateBusinesscustomer(widget.item!);
+                            } else {
+                              Get.snackbar('Alert',
+                                  'You need to be authorized to perform this operation');
+                            }
+                          }
                         }
                       }
                     },
