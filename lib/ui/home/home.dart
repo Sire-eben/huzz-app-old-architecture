@@ -20,6 +20,7 @@ import 'package:huzz/data/model/business.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
+import '../../data/repository/team_repository.dart';
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
@@ -65,6 +66,7 @@ class _HomeState extends State<Home> {
   final _transactionController = Get.find<TransactionRespository>();
   final _businessController = Get.find<BusinessRespository>();
   final _debtorController = Get.find<DebtorRepository>();
+  final teamController = Get.find<TeamRepository>();
 
   int selectedValue = 0;
   final transactionList = [];
@@ -805,16 +807,17 @@ class _HomeState extends State<Home> {
         //     : TransactionNotAvailable(context)
 
         ,
-        floatingActionButton: _transactionController.transactionStatus ==
-                TransactionStatus.UnAuthorized
+        floatingActionButton: (_transactionController.transactionStatus ==
+                TransactionStatus.UnAuthorized)
             ? Container()
             : FloatingActionButton.extended(
                 onPressed: () => showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20))),
-                    context: context,
-                    builder: (context) => buildAddTransaction()),
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20))),
+                  context: context,
+                  builder: (context) => buildAddTransaction(),
+                ),
                 icon: Icon(Icons.add),
                 backgroundColor: AppColor().backgroundColor,
                 label: Text(

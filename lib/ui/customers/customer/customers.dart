@@ -178,6 +178,8 @@ class _CustomersState extends State<Customers> {
                                           CustomerStatus.Available)
                                       ? ListView.separated(
                                           scrollDirection: Axis.vertical,
+                                          physics:
+                                              AlwaysScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           separatorBuilder: (context, index) =>
                                               Divider(),
