@@ -33,27 +33,24 @@ class _ProductsState extends State<Products> {
             floatingActionButton:
                 (_productController.productStatus == ProductStatus.UnAuthorized)
                     ? Container()
-                    : FloatingActionButton.extended(
-                        onPressed: () {
-                          if (teamController.teamMember.authoritySet!
-                              .contains('CREATE_PRODUCT')) {
-                            Get.to(() => AddProduct());
-                          } else {
-                            Get.snackbar('Alert',
-                                'You need to be authorized to perform this operation');
-                          }
-                        },
-                        icon: Icon(Icons.add),
-                        backgroundColor: AppColor().backgroundColor,
-                        label: Text(
-                          'New Product',
-                          style: TextStyle(
-                              fontFamily: 'InterRegular',
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
+                    : (teamController.teamMember.authoritySet!
+                            .contains('CREATE_PRODUCT'))
+                        ? FloatingActionButton.extended(
+                            onPressed: () {
+                              Get.to(() => AddProduct());
+                            },
+                            icon: Icon(Icons.add),
+                            backgroundColor: AppColor().backgroundColor,
+                            label: Text(
+                              'New Product',
+                              style: TextStyle(
+                                  fontFamily: 'InterRegular',
+                                  fontSize: 10,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        : Container(),
             body: RefreshIndicator(
               onRefresh: () async {
                 return Future.delayed(Duration(seconds: 1), () {

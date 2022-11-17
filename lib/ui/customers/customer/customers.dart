@@ -266,35 +266,42 @@ class _CustomersState extends State<Customers> {
                                                     ),
                                                   ),
                                                 ),
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      _customerController
-                                                          .setItem(item);
-                                                      Get.to(AddCustomer(
-                                                        item: item,
-                                                      ));
-                                                    },
-                                                    child: SvgPicture.asset(
-                                                        'assets/images/edit.svg')),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      if (teamController
-                                                          .teamMember
-                                                          .authoritySet!
-                                                          .contains(
-                                                              'DELETE_CUSTOMER')) {
-                                                        _displayDialog(
-                                                            context, item);
-                                                      } else {
-                                                        Get.snackbar('Alert',
-                                                            'You need to be authorized to perform this operation');
-                                                      }
-                                                    },
-                                                    child: SvgPicture.asset(
-                                                        'assets/images/delete.svg')),
+                                                (teamController.teamMember
+                                                        .authoritySet!
+                                                        .contains(
+                                                            'UPDATE_CUSTOMER'))
+                                                    ? GestureDetector(
+                                                        onTap: () {
+                                                          _customerController
+                                                              .setItem(item);
+                                                          Get.to(AddCustomer(
+                                                            item: item,
+                                                          ));
+                                                        },
+                                                        child: SvgPicture.asset(
+                                                            'assets/images/edit.svg'))
+                                                    : Container(),
+                                                (teamController.teamMember
+                                                        .authoritySet!
+                                                        .contains(
+                                                            'DELETE_CUSTOMER'))
+                                                    ? Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          GestureDetector(
+                                                              onTap: () {
+                                                                _displayDialog(
+                                                                    context,
+                                                                    item);
+                                                              },
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                      'assets/images/delete.svg')),
+                                                        ],
+                                                      )
+                                                    : Container(),
                                               ],
                                             );
                                           },
@@ -368,27 +375,24 @@ class _CustomersState extends State<Customers> {
       floatingActionButton:
           (_customerController.customerStatus == CustomerStatus.UnAuthorized)
               ? Container()
-              : FloatingActionButton.extended(
-                  onPressed: () {
-                    if (teamController.teamMember.authoritySet!
-                        .contains('CREATE_CUSTOMER')) {
-                      Get.to(() => AddCustomer());
-                    } else {
-                      Get.snackbar('Alert',
-                          'You need to be authorized to perform this operation');
-                    }
-                  },
-                  icon: Icon(Icons.add),
-                  backgroundColor: AppColor().backgroundColor,
-                  label: Text(
-                    'Add Customer',
-                    style: TextStyle(
-                        fontFamily: 'InterRegular',
-                        fontSize: 10,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+              : (teamController.teamMember.authoritySet!
+                      .contains('CREATE_CUSTOMER'))
+                  ? FloatingActionButton.extended(
+                      onPressed: () {
+                        Get.to(() => AddCustomer());
+                      },
+                      icon: Icon(Icons.add),
+                      backgroundColor: AppColor().backgroundColor,
+                      label: Text(
+                        'Add Customer',
+                        style: TextStyle(
+                            fontFamily: 'InterRegular',
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  : Container(),
     );
   }
 

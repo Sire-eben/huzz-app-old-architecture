@@ -285,26 +285,29 @@ class _ServiceListingState extends State<ServiceListing> {
                       width: 5,
                       height: 10,
                     ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          isDelete = !isDelete;
-                        });
-                      },
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: AppColor().lightbackgroundColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.delete_outline_outlined,
-                          size: 20,
-                          color: AppColor().backgroundColor,
-                        ),
-                      ),
-                    ),
+                    (teamController.teamMember.authoritySet!
+                            .contains('DELETE_PRODUCT'))
+                        ? InkWell(
+                            onTap: () {
+                              setState(() {
+                                isDelete = !isDelete;
+                              });
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                color: AppColor().lightbackgroundColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.delete_outline_outlined,
+                                size: 20,
+                                color: AppColor().backgroundColor,
+                              ),
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
               ),

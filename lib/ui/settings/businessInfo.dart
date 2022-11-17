@@ -406,60 +406,63 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Bank Accounts',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            if (teamController.teamMember.authoritySet!
-                                .contains('CREATE_BANK_INFO')) {
-                              bankInfoController.clearValue();
-                              showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(20))),
-                                  context: context,
-                                  builder: (context) => addBusiness());
-                            } else {
-                              Get.snackbar('Alert',
-                                  'You need to be authorized to perform this operation');
-                            }
-                          },
-                          child: Row(
+                    teamController.teamMember.authoritySet!
+                            .contains('VIEW_BANK_INFO')
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                child: Image.asset(
-                                  'assets/images/Group 3890.png',
-                                  scale: 1.2,
+                              Row(
+                                children: [
+                                  Text(
+                                    'Bank Accounts',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 12),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  if (teamController.teamMember.authoritySet!
+                                      .contains('CREATE_BANK_INFO')) {
+                                    bankInfoController.clearValue();
+                                    showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(20))),
+                                        context: context,
+                                        builder: (context) => addBusiness());
+                                  } else {
+                                    Get.snackbar('Alert',
+                                        'You need to be authorized to perform this operation');
+                                  }
+                                },
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      child: Image.asset(
+                                        'assets/images/Group 3890.png',
+                                        scale: 1.2,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      'Add Bank Account',
+                                      style: TextStyle(
+                                          color: AppColor().backgroundColor,
+                                          fontSize: 12),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Add Bank Account',
-                                style: TextStyle(
-                                    color: AppColor().backgroundColor,
-                                    fontSize: 12),
-                              ),
                             ],
-                          ),
-                        ),
-                      ],
-                    ),
+                          )
+                        : Container(),
                     SizedBox(height: 20),
                     if (bankInfoController.addingBankStatus ==
                         AddingBankInfoStatus.UnAuthorized) ...[

@@ -182,46 +182,54 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                 "PAID") ...[
                               Column(
                                 children: [
-                                  InkWell(
-                                    onTap: () {
-                                      if (teamController
-                                          .teamMember.authoritySet!
-                                          .contains(
-                                              'UPDATE_BUSINESS_INVOICE')) {
-                                        showModalBottomSheet(
-                                            shape: RoundedRectangleBorder(
+                                  (teamController.teamMember.authoritySet!
+                                          .contains('UPDATE_BUSINESS_INVOICE'))
+                                      ? InkWell(
+                                          onTap: () {
+                                            if (teamController
+                                                .teamMember.authoritySet!
+                                                .contains(
+                                                    'UPDATE_BUSINESS_INVOICE')) {
+                                              showModalBottomSheet(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.vertical(
+                                                              top: Radius
+                                                                  .circular(
+                                                                      20))),
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      buildUpdateSingleInvoice());
+                                            } else {
+                                              Get.snackbar('Alert',
+                                                  'You need to be authorized to perform this operation');
+                                            }
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.all(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.015),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.06,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.06,
+                                            decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.vertical(
-                                                        top: Radius.circular(
-                                                            20))),
-                                            context: context,
-                                            builder: (context) =>
-                                                buildUpdateSingleInvoice());
-                                      } else {
-                                        Get.snackbar('Alert',
-                                            'You need to be authorized to perform this operation');
-                                      }
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(
-                                          MediaQuery.of(context).size.height *
-                                              0.015),
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.06,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.06,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: AppColor()
-                                              .backgroundColor
-                                              .withOpacity(0.2)),
-                                      child: SvgPicture.asset(
-                                          'assets/images/credit_card.svg'),
-                                    ),
-                                  ),
+                                                    BorderRadius.circular(10),
+                                                color: AppColor()
+                                                    .backgroundColor
+                                                    .withOpacity(0.2)),
+                                            child: SvgPicture.asset(
+                                                'assets/images/credit_card.svg'),
+                                          ),
+                                        )
+                                      : Container(),
                                   SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
