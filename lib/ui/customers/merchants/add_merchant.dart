@@ -119,13 +119,15 @@ class _AddMerchantState extends State<AddMerchant> {
                           if (widget.item == null)
                             _customerController.addBusinnessCustomer(
                                 "EXPENDITURE", 'Merchant');
-                          else if (teamController.teamMember.authoritySet!
-                              .contains('UPDATE_CUSTOMER')) {
-                            _customerController
-                                .updateBusinesscustomer(widget.item!);
-                          } else {
-                            Get.snackbar('Alert',
-                                'You need to be authorized to perform this operation');
+                          else {
+                            if (teamController.teamMember.authoritySet!
+                                .contains('UPDATE_CUSTOMER')) {
+                              _customerController
+                                  .updateBusinesscustomer(widget.item!);
+                            } else {
+                              Get.snackbar('Alert',
+                                  'You need to be authorized to perform this operation');
+                            }
                           }
                         }
                       }

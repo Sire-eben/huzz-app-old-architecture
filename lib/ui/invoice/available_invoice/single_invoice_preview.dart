@@ -15,6 +15,7 @@ import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_colors.dart';
 import 'package:huzz/data/model/invoice.dart';
 
+import '../../../data/repository/team_repository.dart';
 import '../../../util/util.dart';
 
 class PreviewSingleInvoice extends StatefulWidget {
@@ -38,6 +39,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
   File? generatedInvoice;
   final _invoiceController = Get.find<InvoiceRespository>();
   final _amountController = TextEditingController();
+  final teamController = Get.find<TeamRepository>();
   PdfColor themeColor = themeColors.first;
 
   @override
@@ -182,15 +184,23 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      showModalBottomSheet(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.vertical(
-                                                      top:
-                                                          Radius.circular(20))),
-                                          context: context,
-                                          builder: (context) =>
-                                              buildUpdateSingleInvoice());
+                                      if (teamController
+                                          .teamMember.authoritySet!
+                                          .contains(
+                                              'UPDATE_BUSINESS_INVOICE')) {
+                                        showModalBottomSheet(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.vertical(
+                                                        top: Radius.circular(
+                                                            20))),
+                                            context: context,
+                                            builder: (context) =>
+                                                buildUpdateSingleInvoice());
+                                      } else {
+                                        Get.snackbar('Alert',
+                                            'You need to be authorized to perform this operation');
+                                      }
                                     },
                                     child: Container(
                                       padding: EdgeInsets.all(

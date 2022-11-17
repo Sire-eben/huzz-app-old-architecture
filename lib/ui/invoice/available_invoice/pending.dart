@@ -9,6 +9,7 @@ import 'package:huzz/ui/invoice/available_invoice/single_invoice_preview.dart';
 import 'package:huzz/data/model/invoice.dart';
 import 'package:huzz/util/constants.dart';
 import 'package:number_display/number_display.dart';
+import '../../../data/repository/team_repository.dart';
 import '../../../util/colors.dart';
 import '../../../util/util.dart';
 import '../create_invoice.dart';
@@ -24,6 +25,7 @@ class _PendingState extends State<Pending> {
   final _businessController = Get.find<BusinessRespository>();
   final _invoiceController = Get.find<InvoiceRespository>();
   final _customerController = Get.find<CustomerRepository>();
+  final teamController = Get.find<TeamRepository>();
   bool deleteItem = false;
   bool visible = true;
   List<Invoice> _items = [];
@@ -445,10 +447,22 @@ class _PendingState extends State<Pending> {
               if (_invoiceController.deletedItem.isEmpty) {
                 Get.snackbar('Alert', 'No item selected');
               } else {
-                _displayDialog(context);
+                if (teamController.teamMember.authoritySet!
+                    .contains('DELETE_BUSINESS_INVOICE')) {
+                  _displayDialog(context);
+                } else {
+                  Get.snackbar('Alert',
+                      'You need to be authorized to perform this operation');
+                }
               }
             } else {
-              Get.to(() => CreateInvoice());
+              if (teamController.teamMember.authoritySet!
+                  .contains('CREATE_BUSINESS_INVOICE')) {
+                Get.to(() => CreateInvoice());
+              } else {
+                Get.snackbar('Alert',
+                    'You need to be authorized to perform this operation');
+              }
             }
           },
           icon: (!deleteItem) ? Container() : Icon(Icons.add),
