@@ -165,16 +165,18 @@ class _ProductListingState extends State<ProductListing> {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             if (isDelete) {
-              if (teamController.teamMember.authoritySet!
-                  .contains('DELETE_PRODUCT')) {
+              if (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                  teamController.teamMember.authoritySet!
+                      .contains('DELETE_PRODUCT')) {
                 _displayDialog(context);
               } else {
                 Get.snackbar('Alert',
                     'You need to be authorized to perform this operation');
               }
             } else {
-              if (teamController.teamMember.authoritySet!
-                  .contains('CREATE_PRODUCT')) {
+              if (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                  teamController.teamMember.authoritySet!
+                      .contains('CREATE_PRODUCT')) {
                 Get.to(AddProduct());
               } else {
                 Get.snackbar('Alert',
@@ -285,8 +287,9 @@ class _ProductListingState extends State<ProductListing> {
                   SizedBox(
                     width: 5,
                   ),
-                  (teamController.teamMember.authoritySet!
-                          .contains('DELETE_PRODUCT'))
+                  (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                          teamController.teamMember.authoritySet!
+                              .contains('DELETE_PRODUCT'))
                       ? InkWell(
                           onTap: () {
                             setState(() {
@@ -851,8 +854,9 @@ class _ListingProductState extends State<ListingProduct> {
               Expanded(
                 child: SizedBox(),
               ),
-              (teamController.teamMember.authoritySet!
-                      .contains('UPDATE_PRODUCT'))
+              (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                      teamController.teamMember.authoritySet!
+                          .contains('UPDATE_PRODUCT'))
                   ? GestureDetector(
                       onTap: () {
                         _productController.setItem(widget.item!);

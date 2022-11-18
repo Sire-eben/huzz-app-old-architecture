@@ -385,10 +385,13 @@ class _DebtOwnedState extends State<DebtOwned> {
                                               ),
                                             ),
                                             Expanded(
-                                              child: (teamController
-                                                      .teamMember.authoritySet!
-                                                      .contains(
-                                                          'UPDATE_DEBTOR'))
+                                              child: (teamController.teamMember
+                                                              .teamMemberStatus ==
+                                                          'CREATOR' ||
+                                                      teamController.teamMember
+                                                          .authoritySet!
+                                                          .contains(
+                                                              'UPDATE_DEBTOR'))
                                                   ? InkWell(
                                                       onTap: () {
                                                         print(index);
@@ -440,9 +443,13 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                   : Container(),
                                             ),
                                             SizedBox(width: 4),
-                                            (teamController
-                                                    .teamMember.authoritySet!
-                                                    .contains('DELETE_DEBTOR'))
+                                            (teamController.teamMember
+                                                            .teamMemberStatus ==
+                                                        'CREATOR' ||
+                                                    teamController.teamMember
+                                                        .authoritySet!
+                                                        .contains(
+                                                            'DELETE_DEBTOR'))
                                                 ? Obx(() => GestureDetector(
                                                       onTap: () {
                                                         _deleteDebtDialog(
@@ -471,8 +478,10 @@ class _DebtOwnedState extends State<DebtOwned> {
                           DebtorStatus.UnAuthorized) ...[
                         Container(),
                       ] else ...[
-                        (teamController.teamMember.authoritySet!
-                                .contains('CREATE_DEBTOR'))
+                        (teamController.teamMember.teamMemberStatus ==
+                                    'CREATOR' ||
+                                teamController.teamMember.authoritySet!
+                                    .contains('CREATE_DEBTOR'))
                             ? InkWell(
                                 onTap: () {
                                   showModalBottomSheet(

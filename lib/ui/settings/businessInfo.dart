@@ -406,8 +406,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     SizedBox(
                       height: 10,
                     ),
-                    teamController.teamMember.authoritySet!
-                            .contains('VIEW_BANK_INFO')
+                    teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                            teamController.teamMember.authoritySet!
+                                .contains('VIEW_BANK_INFO')
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -425,8 +426,11 @@ class _BusinessInfoState extends State<BusinessInfo> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  if (teamController.teamMember.authoritySet!
-                                      .contains('CREATE_BANK_INFO')) {
+                                  if (teamController
+                                              .teamMember.teamMemberStatus ==
+                                          'CREATOR' ||
+                                      teamController.teamMember.authoritySet!
+                                          .contains('CREATE_BANK_INFO')) {
                                     bankInfoController.clearValue();
                                     showModalBottomSheet(
                                         isScrollControlled: true,
@@ -483,8 +487,11 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             .map((e) => BankCard(
                                 item: e,
                                 onDelete: () {
-                                  if (teamController.teamMember.authoritySet!
-                                      .contains('DELETE_BANK_INFO')) {
+                                  if (teamController
+                                              .teamMember.teamMemberStatus ==
+                                          'CREATOR' ||
+                                      teamController.teamMember.authoritySet!
+                                          .contains('DELETE_BANK_INFO')) {
                                     print('deleting bank account...');
                                     bankInfoController.addToDeleteList(e);
                                   } else {
@@ -493,8 +500,11 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                   }
                                 },
                                 onEdit: () {
-                                  if (teamController.teamMember.authoritySet!
-                                      .contains('UPDATE_BANK_INFO')) {
+                                  if (teamController
+                                              .teamMember.teamMemberStatus ==
+                                          'CREATOR' ||
+                                      teamController.teamMember.authoritySet!
+                                          .contains('UPDATE_BANK_INFO')) {
                                     print('edit bank account');
                                     bankInfoController.setItem(e);
                                     showModalBottomSheet(

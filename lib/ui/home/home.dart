@@ -197,98 +197,93 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             Spacer(),
-                            teamController.teamMember.authoritySet!
-                                    .contains('VIEW_BUSINESS_TRANSACTION')
-                                ? Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Get.to(() => Records());
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 7, vertical: 4),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xff056B5C),
-                                            borderRadius:
-                                                BorderRadius.circular(24),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "All Records",
-                                                style: TextStyle(
-                                                  color: AppColor().whiteColor,
-                                                  fontFamily: 'InterRegular',
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              SizedBox(width: 5),
-                                              Container(
-                                                padding: EdgeInsets.all(2),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Icon(
-                                                  Icons.arrow_forward_outlined,
-                                                  color: Color(0xff056B5C),
-                                                  size: 14,
-                                                ),
-                                              ),
-                                            ],
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Get.to(() => Records());
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 7, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff056B5C),
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "All Records",
+                                          style: TextStyle(
+                                            color: AppColor().whiteColor,
+                                            fontFamily: 'InterRegular',
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(width: 7),
-                                      InkWell(
-                                        onTap: () {
-                                          Get.to(() => Insight());
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 7, vertical: 4),
+                                        SizedBox(width: 5),
+                                        Container(
+                                          padding: EdgeInsets.all(2),
                                           decoration: BoxDecoration(
-                                            color: Color(0xff056B5C),
-                                            borderRadius:
-                                                BorderRadius.circular(24),
+                                            color: Colors.white,
+                                            shape: BoxShape.circle,
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Insights",
-                                                style: TextStyle(
-                                                  color: AppColor().whiteColor,
-                                                  fontFamily: 'InterRegular',
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              SizedBox(width: 5),
-                                              Container(
-                                                padding: EdgeInsets.all(2),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: SvgPicture.asset(
-                                                  'assets/images/graph.svg',
-                                                  height: 14,
-                                                  width: 14,
-                                                ),
-                                              ),
-                                            ],
+                                          child: Icon(
+                                            Icons.arrow_forward_outlined,
+                                            color: Color(0xff056B5C),
+                                            size: 14,
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  )
-                                : Container(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 7),
+                                InkWell(
+                                  onTap: () {
+                                    Get.to(() => Insight());
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 7, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff056B5C),
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Insights",
+                                          style: TextStyle(
+                                            color: AppColor().whiteColor,
+                                            fontFamily: 'InterRegular',
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Container(
+                                          padding: EdgeInsets.all(2),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: SvgPicture.asset(
+                                            'assets/images/graph.svg',
+                                            height: 14,
+                                            width: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ],
                         ),
                         Column(
@@ -508,8 +503,9 @@ class _HomeState extends State<Home> {
                 //   );
                 // }),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                (teamController.teamMember.authoritySet!
-                        .contains('VIEW_DEBTOR'))
+                (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                        teamController.teamMember.authoritySet!
+                            .contains('VIEW_DEBTOR'))
                     ? InkWell(
                         onTap: () {
                           Get.to(() => DebtorsTab());
@@ -836,8 +832,9 @@ class _HomeState extends State<Home> {
           floatingActionButton: (_transactionController.transactionStatus ==
                   TransactionStatus.UnAuthorized)
               ? Container()
-              : teamController.teamMember.authoritySet!
-                      .contains('CREATE_BUSINESS_TRANSACTION')
+              : (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                      teamController.teamMember.authoritySet!
+                          .contains('CREATE_BUSINESS_TRANSACTION'))
                   ? FloatingActionButton.extended(
                       onPressed: () => showModalBottomSheet(
                         shape: RoundedRectangleBorder(

@@ -277,9 +277,13 @@ class _MerchantsState extends State<Merchants> {
                                                         ),
                                                       ),
                                                       (teamController.teamMember
-                                                              .authoritySet!
-                                                              .contains(
-                                                                  'UPDATE_CUSTOMER'))
+                                                                      .teamMemberStatus ==
+                                                                  'CREATOR' ||
+                                                              teamController
+                                                                  .teamMember
+                                                                  .authoritySet!
+                                                                  .contains(
+                                                                      'UPDATE_CUSTOMER'))
                                                           ? GestureDetector(
                                                               onTap: () {
                                                                 _customerController
@@ -295,9 +299,13 @@ class _MerchantsState extends State<Merchants> {
                                                                       'assets/images/edit.svg'))
                                                           : Container(),
                                                       (teamController.teamMember
-                                                              .authoritySet!
-                                                              .contains(
-                                                                  'DELETE_CUSTOMER'))
+                                                                      .teamMemberStatus ==
+                                                                  'CREATOR' ||
+                                                              teamController
+                                                                  .teamMember
+                                                                  .authoritySet!
+                                                                  .contains(
+                                                                      'DELETE_CUSTOMER'))
                                                           ? Row(
                                                               children: [
                                                                 SizedBox(
@@ -391,12 +399,15 @@ class _MerchantsState extends State<Merchants> {
       floatingActionButton:
           (_customerController.customerStatus == CustomerStatus.UnAuthorized)
               ? Container()
-              : (teamController.teamMember.authoritySet!
-                      .contains('CREATE_CUSTOMER'))
+              : (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                      teamController.teamMember.authoritySet!
+                          .contains('CREATE_CUSTOMER'))
                   ? FloatingActionButton.extended(
                       onPressed: () {
-                        if (teamController.teamMember.authoritySet!
-                            .contains('CREATE_CUSTOMER')) {
+                        if (teamController.teamMember.teamMemberStatus ==
+                                'CREATOR' ||
+                            teamController.teamMember.authoritySet!
+                                .contains('CREATE_CUSTOMER')) {
                           Get.to(() => AddMerchant());
                         } else {
                           Get.snackbar('Alert',
