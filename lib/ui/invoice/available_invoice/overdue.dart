@@ -73,8 +73,9 @@ class _OverdueState extends State<Overdue> {
                       ),
                     ],
                   ),
-                  (teamController.teamMember.authoritySet!
-                          .contains('DELETE_BUSINESS_INVOICE'))
+                  (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                          teamController.teamMember.authoritySet!
+                              .contains('DELETE_BUSINESS_INVOICE'))
                       ? InkWell(
                           onTap: () {
                             setState(() {
@@ -453,32 +454,34 @@ class _OverdueState extends State<Overdue> {
             ],
           ),
         ),
-        floatingActionButton: (teamController.teamMember.authoritySet!
-                .contains('CREATE_BUSINESS_INVOICE'))
-            ? FloatingActionButton.extended(
-                onPressed: () {
-                  if (deleteItem) {
-                    if (_invoiceController.deletedItem.isEmpty) {
-                      Get.snackbar('Alert', 'No item selected');
-                    } else {
-                      _displayDialog(context);
-                    }
-                  } else {
-                    Get.to(() => CreateInvoice());
-                  }
-                },
-                icon: (!deleteItem) ? Container() : Icon(Icons.add),
-                backgroundColor: AppColor().backgroundColor,
-                label: Text(
-                  deleteItem ? 'Delete Item' : 'New Invoice',
-                  style: TextStyle(
-                      fontFamily: 'InterRegular',
-                      fontSize: 10,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              )
-            : Container(),
+        floatingActionButton:
+            (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                    teamController.teamMember.authoritySet!
+                        .contains('CREATE_BUSINESS_INVOICE'))
+                ? FloatingActionButton.extended(
+                    onPressed: () {
+                      if (deleteItem) {
+                        if (_invoiceController.deletedItem.isEmpty) {
+                          Get.snackbar('Alert', 'No item selected');
+                        } else {
+                          _displayDialog(context);
+                        }
+                      } else {
+                        Get.to(() => CreateInvoice());
+                      }
+                    },
+                    icon: (!deleteItem) ? Container() : Icon(Icons.add),
+                    backgroundColor: AppColor().backgroundColor,
+                    label: Text(
+                      deleteItem ? 'Delete Item' : 'New Invoice',
+                      style: TextStyle(
+                          fontFamily: 'InterRegular',
+                          fontSize: 10,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                : Container(),
       );
     });
   }

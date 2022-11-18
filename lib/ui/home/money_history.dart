@@ -189,12 +189,15 @@ class _MoneySummaryState extends State<MoneySummary> {
           ],
         ),
         actions: [
-          (teamController.teamMember.authoritySet!
-                  .contains('DELETE_BUSINESS_TRANSACTION'))
+          (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                  teamController.teamMember.authoritySet!
+                      .contains('DELETE_BUSINESS_TRANSACTION'))
               ? GestureDetector(
                   onTap: () {
-                    if (teamController.teamMember.authoritySet!
-                        .contains('DELETE_BUSINESS_TRANSACTION')) {
+                    if (teamController.teamMember.teamMemberStatus ==
+                            'CREATOR' ||
+                        teamController.teamMember.authoritySet!
+                            .contains('DELETE_BUSINESS_TRANSACTION')) {
                       _displayDialog(context);
                     } else {
                       Get.snackbar('Alert',
@@ -334,8 +337,9 @@ class _MoneySummaryState extends State<MoneySummary> {
                     ? 0
                     : MediaQuery.of(context).size.height * 0.01),
             (transactionModel!.balance != 0)
-                ? teamController.teamMember.authoritySet!
-                        .contains('UPDATE_BUSINESS_TRANSACTION')
+                ? (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                        teamController.teamMember.authoritySet!
+                            .contains('UPDATE_BUSINESS_TRANSACTION'))
                     ? GestureDetector(
                         onTap: () {
                           showModalBottomSheet(
@@ -1231,8 +1235,9 @@ class _MoneySummaryState extends State<MoneySummary> {
                   ),
                 ),
               ),
-              teamController.teamMember.authoritySet!
-                      .contains('UPDATE_BUSINESS_TRANSACTION')
+              (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                      teamController.teamMember.authoritySet!
+                          .contains('UPDATE_BUSINESS_TRANSACTION'))
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

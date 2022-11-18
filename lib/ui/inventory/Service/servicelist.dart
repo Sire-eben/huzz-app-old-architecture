@@ -165,16 +165,18 @@ class _ServiceListingState extends State<ServiceListing> {
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               if (isDelete) {
-                if (teamController.teamMember.authoritySet!
-                    .contains('DELETE_PRODUCT')) {
+                if (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                    teamController.teamMember.authoritySet!
+                        .contains('DELETE_PRODUCT')) {
                   _displayDialog(context);
                 } else {
                   Get.snackbar('Alert',
                       'You need to be authorized to perform this operation');
                 }
               } else {
-                if (teamController.teamMember.authoritySet!
-                    .contains('CREATE_PRODUCT')) {
+                if (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                    teamController.teamMember.authoritySet!
+                        .contains('CREATE_PRODUCT')) {
                   Get.to(() => AddService());
                 } else {
                   Get.snackbar('Alert',
@@ -285,8 +287,9 @@ class _ServiceListingState extends State<ServiceListing> {
                       width: 5,
                       height: 10,
                     ),
-                    (teamController.teamMember.authoritySet!
-                            .contains('DELETE_PRODUCT'))
+                    (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                            teamController.teamMember.authoritySet!
+                                .contains('DELETE_PRODUCT'))
                         ? InkWell(
                             onTap: () {
                               setState(() {
@@ -352,10 +355,13 @@ class _ServiceListingState extends State<ServiceListing> {
                                               )
                                             : GestureDetector(
                                                 onTap: () {
-                                                  if (teamController
-                                                      .teamMember.authoritySet!
-                                                      .contains(
-                                                          'UPDATE_PRODUCT')) {
+                                                  if (teamController.teamMember
+                                                              .teamMemberStatus ==
+                                                          'CREATOR' ||
+                                                      teamController.teamMember
+                                                          .authoritySet!
+                                                          .contains(
+                                                              'UPDATE_PRODUCT')) {
                                                     _productController
                                                         .setItem(item);
                                                     Get.to(AddService(

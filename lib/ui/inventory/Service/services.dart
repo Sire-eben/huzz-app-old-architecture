@@ -23,27 +23,28 @@ class _ServicesState extends State<Services> {
     return (_productController.productServices.isNotEmpty)
         ? ServiceListing()
         : Scaffold(
-            floatingActionButton:
-                (_productController.productStatus == ProductStatus.UnAuthorized)
-                    ? Container()
-                    : (teamController.teamMember.authoritySet!
+            floatingActionButton: (_productController.productStatus ==
+                    ProductStatus.UnAuthorized)
+                ? Container()
+                : (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                        teamController.teamMember.authoritySet!
                             .contains('CREATE_PRODUCT'))
-                        ? FloatingActionButton.extended(
-                            onPressed: () {
-                              Get.to(() => AddService());
-                            },
-                            icon: Icon(Icons.add),
-                            backgroundColor: AppColor().backgroundColor,
-                            label: Text(
-                              'New Service',
-                              style: TextStyle(
-                                  fontFamily: 'InterRegular',
-                                  fontSize: 10,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        : Container(),
+                    ? FloatingActionButton.extended(
+                        onPressed: () {
+                          Get.to(() => AddService());
+                        },
+                        icon: Icon(Icons.add),
+                        backgroundColor: AppColor().backgroundColor,
+                        label: Text(
+                          'New Service',
+                          style: TextStyle(
+                              fontFamily: 'InterRegular',
+                              fontSize: 10,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    : Container(),
             body: RefreshIndicator(
               onRefresh: () async {
                 return Future.delayed(Duration(seconds: 1), () {
