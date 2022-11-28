@@ -30,7 +30,6 @@ class ManageInvoiceInformationDialog extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontSize: 14,
-            
           ),
         ),
       ],
@@ -120,7 +119,6 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                           style: GoogleFonts.inter(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
-                              
                               color: AppColor().backgroundColor),
                         ),
                         SizedBox(width: 4),
@@ -209,22 +207,18 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       controller: _tabController,
                       labelColor: AppColor().backgroundColor,
                       unselectedLabelColor: Colors.grey,
-                      labelStyle:
-                          Theme.of(context).textTheme.headline2!.copyWith(
-                                color: Colors.black,
-                                
-                                fontStyle: FontStyle.normal,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                      unselectedLabelStyle:
-                          Theme.of(context).textTheme.headline2!.copyWith(
-                                color: AppColor().backgroundColor,
-                                
-                                fontStyle: FontStyle.normal,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
+                      labelStyle: GoogleFonts.inter(
+                        color: Colors.black,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      unselectedLabelStyle: GoogleFonts.inter(
+                        color: AppColor().backgroundColor,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                       indicatorSize: TabBarIndicatorSize.label,
                       indicatorColor: AppColor().backgroundColor,
                       tabs: [
@@ -269,7 +263,6 @@ class DashboardDetails extends StatelessWidget {
               name!,
               style: GoogleFonts.inter(
                   fontWeight: FontWeight.bold,
-                  
                   fontSize: 12,
                   color: Colors.black),
             ),
@@ -277,7 +270,6 @@ class DashboardDetails extends StatelessWidget {
               no!.toString(),
               style: GoogleFonts.inter(
                   fontWeight: FontWeight.bold,
-                  
                   fontSize: 18,
                   color: AppColor().backgroundColor),
             )
