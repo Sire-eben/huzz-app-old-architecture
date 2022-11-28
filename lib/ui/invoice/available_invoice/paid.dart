@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
@@ -51,18 +52,18 @@ class _PaidState extends State<Paid> {
                     children: [
                       Text(
                         'Invoices',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 14,
                             color: Colors.black),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(
                         '(${_invoiceController.paidInvoiceList.length})',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -153,25 +154,17 @@ class _PaidState extends State<Paid> {
                                                     customer == null
                                                         ? ""
                                                         : customer.name!,
-                                                    style: TextStyle(
+                                                    style: GoogleFonts.inter(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontFamily:
-                                                            'InterRegular',
+                                                        
                                                         fontSize: 16,
                                                         color: Colors.black),
                                                   ),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
-                                                  //   Text(
-                                                  //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
-                                                  //     style: TextStyle(
-                                                  //         fontWeight: FontWeight.bold,
-                                                  //         fontFamily: 'InterRegular',
-                                                  //         fontSize: 14,
-                                                  //         color: Colors.black),
-                                                  //   ),
+                                                 
                                                   SizedBox(
                                                       height:
                                                           MediaQuery.of(context)
@@ -185,22 +178,20 @@ class _PaidState extends State<Paid> {
                                                     children: [
                                                       Text(
                                                         "${Utils.getCurrency()}${display(item.totalAmount)}",
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 14,
                                                             color: Color(
                                                                 0xffEF6500)),
                                                       ),
                                                       Text(
                                                         "",
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 14,
                                                             color:
                                                                 Colors.black),
@@ -208,11 +199,10 @@ class _PaidState extends State<Paid> {
                                                       Text(
                                                         item.createdDateTime!
                                                             .formatDate()!,
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 14,
                                                             color:
                                                                 Colors.black),
@@ -296,30 +286,17 @@ class _PaidState extends State<Paid> {
                                                     customer == null
                                                         ? ""
                                                         : customer.name!,
-                                                    style: TextStyle(
+                                                    style: GoogleFonts.inter(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontFamily:
-                                                            'InterRegular',
+                                                        
                                                         fontSize: 16,
                                                         color: Colors.black),
                                                   ),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
-                                                  // Text(
-                                                  // item.paymentItemRequestList!.first.itemName!,
-                                                  //   style: TextStyle(
-                                                  //       fontWeight: FontWeight.bold,
-                                                  //       fontFamily: 'InterRegular',
-                                                  //       fontSize: 14,
-                                                  //       color: Colors.black),
-                                                  // ),
-                                                  // SizedBox(
-                                                  //     height: MediaQuery.of(context)
-                                                  //             .size
-                                                  //             .width *
-                                                  //         0.02),
+                                                 
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -327,22 +304,20 @@ class _PaidState extends State<Paid> {
                                                     children: [
                                                       Text(
                                                         "${Utils.getCurrency()}${display(item.totalAmount)}",
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 14,
                                                             color: Color(
                                                                 0xffEF6500)),
                                                       ),
                                                       Text(
                                                         "",
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 14,
                                                             color:
                                                                 Colors.black),
@@ -350,11 +325,10 @@ class _PaidState extends State<Paid> {
                                                       Text(
                                                         item.createdDateTime!
                                                             .formatDate()!,
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 14,
                                                             color:
                                                                 Colors.black),
@@ -369,11 +343,7 @@ class _PaidState extends State<Paid> {
                                                         .size
                                                         .height *
                                                     0.05),
-                                            // _isSelected
-                                            //     ? SvgPicture.asset(
-                                            //         'assets/images/circle.svg')
-                                            //     : SvgPicture.asset(
-                                            //         'assets/images/selectedItem.svg')
+                                            
                                             GestureDetector(
                                               onTap: () {
                                                 if (_invoiceController
@@ -452,8 +422,8 @@ class _PaidState extends State<Paid> {
                     backgroundColor: AppColor().backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
-                      style: TextStyle(
-                          fontFamily: 'InterRegular',
+                      style: GoogleFonts.inter(
+                          
                           fontSize: 10,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
@@ -478,9 +448,9 @@ class _PaidState extends State<Paid> {
                 Expanded(
                   child: Text(
                     'You are about to delete  invoice(s). Are you sure you want to continue?',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -525,9 +495,9 @@ class _PaidState extends State<Paid> {
                           child: Center(
                             child: Text(
                               'Cancel',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -558,9 +528,9 @@ class _PaidState extends State<Paid> {
                           child: Center(
                             child: Text(
                               'Delete',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

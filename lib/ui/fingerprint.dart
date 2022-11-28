@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/fingerprint_repository.dart';
 
@@ -36,9 +37,9 @@ class FingerPrint extends StatelessWidget {
           Center(
             child: Text(
               'Sign in with',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -47,9 +48,9 @@ class FingerPrint extends StatelessWidget {
           Center(
             child: Text(
               'your fingerprint',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
+               
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -87,9 +88,9 @@ class FingerPrint extends StatelessWidget {
           Center(
             child: Text(
               'Please place your finger',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().blackColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.normal,
                 fontSize: 14,
               ),
@@ -105,9 +106,9 @@ class FingerPrint extends StatelessWidget {
             child: Center(
               child: Text(
                 'OR SIGN IN WITH PIN',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().orangeBorderColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),

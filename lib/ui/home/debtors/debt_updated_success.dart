@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/dashboard.dart';
 import 'package:huzz/util/colors.dart';
 
@@ -41,9 +42,9 @@ class DebtUpdatedSuccess extends StatelessWidget {
                     Text(
                       'Transaction Updated Successfully',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
-                        fontFamily: "InterRegular",
+                        
                         fontSize: 24,
                         fontWeight: FontWeight.w500,
                       ),
@@ -72,10 +73,10 @@ class DebtUpdatedSuccess extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Proceed',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               color: Colors.white,
                               fontSize: 18,
-                              fontFamily: 'InterRegular'),
+                             ),
                         ),
                       ),
                     ),

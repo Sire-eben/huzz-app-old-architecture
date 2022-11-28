@@ -4,6 +4,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
@@ -222,9 +223,9 @@ class _UpdateMemberState extends State<UpdateMember> {
           children: [
             Text(
               'Edit Privilege',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -255,10 +256,10 @@ class _UpdateMemberState extends State<UpdateMember> {
                 children: [
                   Text(
                     'Privilege',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: Colors.black,
                       fontSize: 12,
-                      fontFamily: 'InterRegular',
+                      
                     ),
                   ),
                   SizedBox(width: 5),
@@ -1721,9 +1722,9 @@ class _UpdateMemberState extends State<UpdateMember> {
                           )
                         : Text(
                             'Update Privilege',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               fontSize: 13,
-                              fontFamily: 'InterRegular',
+                              
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -1756,18 +1757,18 @@ class EditDetails extends StatelessWidget {
         children: [
           Text(
             name!,
-            style: TextStyle(
+            style: GoogleFonts.inter(
               color: AppColor().blackColor,
-              fontFamily: 'InterRegular',
+              
               fontSize: 12,
             ),
           ),
           SizedBox(width: 10),
           Text(
             value!,
-            style: TextStyle(
+            style: GoogleFonts.inter(
               color: AppColor().blackColor,
-              fontFamily: 'InterRegular',
+              
               fontWeight: FontWeight.bold,
               fontSize: 12,
             ),

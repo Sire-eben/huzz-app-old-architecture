@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -75,7 +76,7 @@ class _EnterOtpState extends State<EnterOtp> {
                 ),
                 Center(
                   child: Text('Enter OTP',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           color: AppColor().backgroundColor,
                           fontSize: 28,
                           fontWeight: FontWeight.w500)),
@@ -87,14 +88,14 @@ class _EnterOtpState extends State<EnterOtp> {
                   child: Text(
                     'Enter the four digit code we sent to your phone number',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                    style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                 ),
                 Spacer(),
                 Center(
                     child: Text(
                   "Enter OTP sent to your phone",
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: Colors.black,
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -156,13 +157,13 @@ class _EnterOtpState extends State<EnterOtp> {
                 //     },
                 //     child: Text(
                 //       "Send as Voice Call",
-                //       style: TextStyle(
+                //       style: GoogleFonts.inter(
                 //           color: AppColor().backgroundColor, fontSize: 12),
                 //     )),
                 TimerButton(
                   label: "Send as Voice Call",
                   timeOutInSeconds: 20,
-                  activeTextStyle: TextStyle(
+                  activeTextStyle: GoogleFonts.inter(
                       color: AppColor().backgroundColor, fontSize: 12),
                   onPressed: () {
                     _authController.sendVoiceOtp();
@@ -179,7 +180,7 @@ class _EnterOtpState extends State<EnterOtp> {
                   label: "Resend via sms",
                   timeOutInSeconds: 20,
                   activeTextStyle:
-                      TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                      GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
                   onPressed: () {
                     _authController.sendSmsOtp(isresend: true);
                   },
@@ -193,7 +194,7 @@ class _EnterOtpState extends State<EnterOtp> {
                     },
                     child: Text(
                       "Resend via sms",
-                      style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                      style: GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
                     )),
                 Spacer(),
                 GestureDetector(
@@ -222,7 +223,7 @@ class _EnterOtpState extends State<EnterOtp> {
                             children: [
                               Text(
                                 'Continue',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     color: Colors.white, fontSize: 18),
                               ),
                               SizedBox(

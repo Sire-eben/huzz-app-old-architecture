@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/dashboard.dart';
 
 import '../../util/colors.dart';
@@ -35,9 +36,9 @@ class ConfirmationCustomer extends StatelessWidget {
           Center(
             child: Text(
               text + ' Successfully',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -46,9 +47,9 @@ class ConfirmationCustomer extends StatelessWidget {
           Center(
             child: Text(
               'Added',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -80,9 +81,9 @@ class ConfirmationCustomer extends StatelessWidget {
               child: Center(
                 child: Text(
                   'Continue',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().whiteColor,
-                    fontFamily: 'InterRegular',
+                   
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../util/colors.dart';
 import 'debtors.dart';
@@ -34,9 +35,9 @@ class _DebtorsTabState extends State<DebtorsTab> {
           ),
           title: Text(
             'Debt Management',
-            style: TextStyle(
+            style: GoogleFonts.inter(
               color: AppColor().backgroundColor,
-              fontFamily: 'InterRegular',
+              
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),

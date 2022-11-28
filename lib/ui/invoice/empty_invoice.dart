@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/invoice/create_invoice.dart';
 import 'package:huzz/util/colors.dart';
@@ -42,10 +43,10 @@ class _InvoiceState extends State<EmptyInvoice> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 Text(
                   "Manage Invoices",
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      fontFamily: 'InterRegular',
+                      
                       color: AppColor().backgroundColor),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -79,26 +80,26 @@ class _InvoiceState extends State<EmptyInvoice> {
                                 SizedBox(height: 5),
                                 Text(
                                   'Invoice',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontSize: 13,
                                       color: Colors.black,
-                                      fontFamily: 'InterRegular',
+                                      
                                       fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   'Your invoices will show here. Click the',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontSize: 10,
                                       color: Colors.black,
-                                      fontFamily: 'InterRegular'),
+                                      ),
                                 ),
                                 Text(
                                   'Create invoice button to add your first invoice',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontSize: 10,
                                       color: Colors.black,
-                                      fontFamily: 'InterRegular'),
+                                      ),
                                 ),
                                 SizedBox(
                                     height: MediaQuery.of(context).size.height *
@@ -121,10 +122,10 @@ class _InvoiceState extends State<EmptyInvoice> {
                                     child: Center(
                                       child: Text(
                                         'Create Invoice',
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                             color: Colors.white,
                                             fontSize: 18,
-                                            fontFamily: 'InterRegular'),
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -170,10 +171,10 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.04),
             Text(
               "Manage Invoices",
-              style: TextStyle(
+              style: GoogleFonts.inter(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  fontFamily: 'InterRegular',
+                  
                   color: AppColor().backgroundColor),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -205,27 +206,27 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                         SvgPicture.asset('assets/images/invoice.svg'),
                         Text(
                           'Invoice',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontSize: 14,
                               color: Colors.black,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 5),
                         Text(
                           'Your invoices will show here.',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontSize: 10,
                               color: Colors.black,
-                              fontFamily: 'InterRegular'),
+                              ),
                         ),
                         SizedBox(height: 20),
                         Text(
                           'You need to be authorized\nto view this module',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontSize: 14,
                               color: AppColor().orangeBorderColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),

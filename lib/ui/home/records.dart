@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/home/insight.dart';
 import 'package:huzz/util/colors.dart';
@@ -101,9 +102,9 @@ class _RecordsState extends State<Records> {
         ),
         title: Text(
           'Records',
-          style: TextStyle(
+          style: GoogleFonts.inter(
             color: AppColor().backgroundColor,
-            fontFamily: "InterRegular",
+           
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -149,18 +150,18 @@ class _RecordsState extends State<Records> {
                               children: [
                                 Text(
                                   "Money In",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 Text(
                                   "${Utils.getCurrency()}${display(transactionController.recordMoneyIn)}",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -178,18 +179,18 @@ class _RecordsState extends State<Records> {
                               children: [
                                 Text(
                                   "Balance",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 Text(
                                   "${Utils.getCurrency()}${display(transactionController.recordBalance)}",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -207,18 +208,18 @@ class _RecordsState extends State<Records> {
                               children: [
                                 Text(
                                   "Money Out",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 Text(
                                   "${Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -252,9 +253,9 @@ class _RecordsState extends State<Records> {
                                 SizedBox(width: 2),
                                 Text(
                                   'Money Out (${Utils.getCurrency()})',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().blackColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 9,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -274,9 +275,9 @@ class _RecordsState extends State<Records> {
                                 SizedBox(width: 2),
                                 Text(
                                   'Money in (${Utils.getCurrency()})',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().blackColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 9,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -303,7 +304,7 @@ class _RecordsState extends State<Records> {
                               children: [
                                 Text(
                                   "Insights",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontSize: 11, color: Colors.white),
                                 ),
                                 SizedBox(width: 4),
@@ -401,7 +402,7 @@ class _RecordsState extends State<Records> {
                               // labelFormat: "${ Utils.getCurrency()}"
                               axisLabelFormatter: (s) => ChartAxisLabel(
                                   "${Utils.getCurrency()}${display(s.value)}",
-                                  TextStyle(fontSize: 10)),
+                                  GoogleFonts.inter(fontSize: 10)),
                             ),
                             primaryXAxis: CategoryAxis(),
                             onTooltipRender: (s) {
@@ -466,9 +467,9 @@ class _RecordsState extends State<Records> {
                           children: [
                             Text(
                               'Transactions',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -479,9 +480,9 @@ class _RecordsState extends State<Records> {
                                       .contains("Custom date range"))
                                   ? transactionController.customText
                                   : '${transactionController.value.value}',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 9,
                                 fontWeight: FontWeight.w400,
                               ),
@@ -510,7 +511,7 @@ class _RecordsState extends State<Records> {
                               children: [
                                 Text(
                                   "Download",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontSize: 11, color: Colors.white),
                                 ),
                                 SizedBox(width: 4),
@@ -542,9 +543,9 @@ class _RecordsState extends State<Records> {
                           Expanded(
                             child: Text(
                               'DATE',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 9,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -555,9 +556,9 @@ class _RecordsState extends State<Records> {
                               alignment: Alignment.center,
                               child: Text(
                                 'MONEY OUT(${Utils.getCurrency()})',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().backgroundColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 9,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -569,9 +570,9 @@ class _RecordsState extends State<Records> {
                               alignment: Alignment.centerRight,
                               child: Text(
                                 'MONEY IN(${Utils.getCurrency()})',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().backgroundColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 9,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -601,9 +602,9 @@ class _RecordsState extends State<Records> {
                                   ),
                                   Text(
                                     'Oh, snap. No transactions to show',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                       color: AppColor().blackColor,
-                                      fontFamily: 'InterRegular',
+                                      
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -679,22 +680,20 @@ class _RecordsState extends State<Records> {
                                                     children: [
                                                       Text(
                                                         item1.label,
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 10,
                                                             color: AppColor()
                                                                 .blackColor),
                                                       ),
                                                       Text(
                                                         '',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 10,
                                                             color: AppColor()
                                                                 .backgroundColor),
@@ -710,22 +709,20 @@ class _RecordsState extends State<Records> {
                                                     children: [
                                                       Text(
                                                         "${Utils.getCurrency()}${display(item1.value)}",
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 10,
                                                             color: AppColor()
                                                                 .orangeBorderColor),
                                                       ),
                                                       Text(
                                                         '',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                           
                                                             fontSize: 10,
                                                             color: AppColor()
                                                                 .backgroundColor),
@@ -742,22 +739,20 @@ class _RecordsState extends State<Records> {
                                                     children: [
                                                       Text(
                                                         "${Utils.getCurrency()}${display(item2.value)}",
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                           
                                                             fontSize: 10,
                                                             color: AppColor()
                                                                 .blueColor),
                                                       ),
                                                       Text(
                                                         'View',
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                            
                                                             fontSize: 10,
                                                             color: AppColor()
                                                                 .backgroundColor),
@@ -827,9 +822,9 @@ class _RecordsState extends State<Records> {
             children: [
               Text(
                 '${item1.label}',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontFamily: "InterRegular",
+                  
                   fontStyle: FontStyle.normal,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -873,17 +868,17 @@ class _RecordsState extends State<Records> {
                       children: [
                         Text(
                           'Date',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
                         Text(
                           item1.label,
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -898,17 +893,17 @@ class _RecordsState extends State<Records> {
                         children: [
                           Text(
                             'Total Money Out',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 10,
                                 color: AppColor().blackColor),
                           ),
                           Text(
                             "${Utils.getCurrency()} ${display(item1.value)}",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 10,
                                 color: AppColor().orangeBorderColor),
                           ),
@@ -926,17 +921,17 @@ class _RecordsState extends State<Records> {
                           children: [
                             Text(
                               'Total Money In',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
                             Text(
                               "${Utils.getCurrency()} ${display(item2.value)}",
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blueColor),
                             ),
@@ -982,17 +977,17 @@ class _RecordsState extends State<Records> {
                               children: [
                                 Text(
                                   item.itemName!,
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'InterRegular',
+                                      
                                       fontSize: 10,
                                       color: AppColor().blackColor),
                                 ),
                                 Text(
                                   item.createdTime!.formatDate()!,
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'InterRegular',
+                                      
                                       fontSize: 10,
                                       color: AppColor().blackColor),
                                 ),
@@ -1005,9 +1000,9 @@ class _RecordsState extends State<Records> {
                               children: [
                                 Text(
                                   "${Utils.getCurrency()}${display(item.totalAmount)}",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'InterRegular',
+                                      
                                       fontSize: 10,
                                       color: AppColor().blackColor),
                                 ),
@@ -1015,9 +1010,9 @@ class _RecordsState extends State<Records> {
                                   item.isFullyPaid!
                                       ? "Fully Paid"
                                       : "Partially",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'InterRegular',
+                                      
                                       fontSize: 10,
                                       color: AppColor().blackColor),
                                 ),
@@ -1087,9 +1082,9 @@ class _RecordsState extends State<Records> {
                     Expanded(
                       child: Text(
                         'Date',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 10,
                             color: AppColor().blackColor),
                       ),
@@ -1097,9 +1092,9 @@ class _RecordsState extends State<Records> {
                     Expanded(
                       child: Text(
                         'Money Out',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 10,
                             color: AppColor().blackColor),
                       ),
@@ -1123,11 +1118,11 @@ class _RecordsState extends State<Records> {
                 child: Center(
                   child: Text(
                     'Filter',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
-                        fontFamily: 'InterRegular'),
+                        ),
                   ),
                 ),
               ),
@@ -1140,8 +1135,8 @@ class _RecordsState extends State<Records> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(
-              fontFamily: 'InterRegular',
+          style: GoogleFonts.inter(
+              
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),

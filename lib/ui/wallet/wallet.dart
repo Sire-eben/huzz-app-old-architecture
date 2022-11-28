@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/util.dart';
 import 'package:huzz/util/colors.dart';
 
@@ -22,9 +23,9 @@ class WalletInInformationDialog extends StatelessWidget {
         Text(
           'This is where you can have access to your wallet.',
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 14,
-            fontFamily: "InterRegular",
+            
           ),
         ),
       ],
@@ -60,9 +61,9 @@ class _WalletState extends State<Wallet> {
           children: [
             Text(
               'My Wallet',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: "InterRegular",
+                
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -130,18 +131,18 @@ class _WalletState extends State<Wallet> {
                         children: [
                           Text(
                             "WEMA BANK",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
                             "3066856680",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
@@ -150,9 +151,9 @@ class _WalletState extends State<Wallet> {
                       ),
                       Text(
                         "JOSHUA OLATUNDE",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
@@ -170,9 +171,9 @@ class _WalletState extends State<Wallet> {
                   Center(
                     child: Text(
                       '${Utils.getCurrency()}0.0',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        fontFamily: 'InterRegular',
+                        
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -259,9 +260,9 @@ class WalletOption extends StatelessWidget {
             SizedBox(width: 6),
             Text(
               name!,
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().whiteColor,
-                fontFamily: 'InterRegular',
+                
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
               ),

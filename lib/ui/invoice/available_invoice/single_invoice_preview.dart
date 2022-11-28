@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pdf/pdf.dart';
 import 'package:share_plus/share_plus.dart';
@@ -106,9 +107,9 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
           ),
           title: Text(
             'View Invoice',
-            style: TextStyle(
+            style: GoogleFonts.inter(
               color: AppColor().backgroundColor,
-              fontFamily: "InterRegular",
+              
               fontStyle: FontStyle.normal,
               fontSize: 18,
               fontWeight: FontWeight.w500,
@@ -165,7 +166,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                             ),
                             Text(
                               'Change invoice theme',
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.inter(fontSize: 12),
                             )
                           ],
                         ),
@@ -236,11 +237,11 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                               0.01),
                                   Text(
                                     'Update Payment',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: Colors.black,
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
-                                        fontFamily: 'InterRegular'),
+                                        ),
                                   ),
                                 ],
                               ),
@@ -276,11 +277,11 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                         0.01),
                                 Text(
                                   'Download',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.black,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w400,
-                                      fontFamily: 'InterRegular'),
+                                      ),
                                 ),
                               ],
                             ),
@@ -316,11 +317,11 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                               0.01),
                                   Text(
                                     'Share',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: Colors.black,
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
-                                        fontFamily: 'InterRegular'),
+                                        ),
                                   ),
                                 ],
                               ),
@@ -347,10 +348,10 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           child: Center(
                             child: Text(
                               'Go back',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   color: Colors.white,
                                   fontSize: 18,
-                                  fontFamily: 'InterRegular'),
+                                  ),
                             ),
                           ),
                         ),
@@ -413,9 +414,9 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Update Payment',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
-                        fontFamily: "InterRegular",
+                        
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -445,9 +446,9 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                             ),
                             Text(
                               'Paying Fully',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "InterRegular",
+                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -476,9 +477,9 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                 }),
                             Text(
                               'Paying Partly',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "InterRegular",
+                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -571,11 +572,11 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                   //                 : 'Add any supporting image (Optional)',
                   //             maxLines: 1,
                   //             overflow: TextOverflow.ellipsis,
-                  //             style: TextStyle(
+                  //             style: GoogleFonts.inter(
                   //                 color: image != null ? Colors.black : Colors.grey,
                   //                 fontSize: 12,
                   //                 fontWeight: FontWeight.w400,
-                  //                 fontFamily: 'InterRegular'),
+                  //                 ),
                   //           ),
                   //         ),
                   //         image != null
@@ -618,9 +619,9 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                     myState(() => paymentMode = 0)),
                             Text(
                               'Cash',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "InterRegular",
+                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -641,9 +642,9 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                     myState(() => paymentMode = 1)),
                             Text(
                               'POS',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "InterRegular",
+                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -664,9 +665,9 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                     myState(() => paymentMode = 2)),
                             Text(
                               'Transfer',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "InterRegular",
+                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -721,10 +722,10 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           : Center(
                               child: Text(
                                 'Save',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     color: Colors.white,
                                     fontSize: 18,
-                                    fontFamily: 'InterRegular'),
+                                    ),
                               ),
                             ),
                     ),

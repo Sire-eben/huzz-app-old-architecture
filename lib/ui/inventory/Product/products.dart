@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/inventory/Product/productlist.dart';
 import 'package:number_display/number_display.dart';
@@ -44,8 +45,8 @@ class _ProductsState extends State<Products> {
                         backgroundColor: AppColor().backgroundColor,
                         label: Text(
                           'New Product',
-                          style: TextStyle(
-                              fontFamily: 'InterRegular',
+                          style: GoogleFonts.inter(
+                              
                               fontSize: 10,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
@@ -101,9 +102,9 @@ class _ProductsState extends State<Products> {
                           SizedBox(height: 5),
                           Text(
                             'Product',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
                             ),
@@ -114,9 +115,9 @@ class _ProductsState extends State<Products> {
                                     ProductStatus.UnAuthorized)
                                 ? "Your products will show here. Click the"
                                 : "Your products will show here.",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 10,
                               fontWeight: FontWeight.normal,
                             ),
@@ -125,9 +126,9 @@ class _ProductsState extends State<Products> {
                               ProductStatus.UnAuthorized) ...[
                             Text(
                               "New Product button to add your first product",
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 10,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -138,10 +139,10 @@ class _ProductsState extends State<Products> {
                               ProductStatus.UnAuthorized) ...[
                             Text(
                               'You need to be authorized\nto view this module',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontSize: 14,
                                   color: AppColor().orangeBorderColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
@@ -177,9 +178,9 @@ class _ProductsState extends State<Products> {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Text(
                     "Product Count",
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: Colors.white,
-                      fontFamily: 'InterRegular',
+                      
                       fontSize: 12,
                     ),
                   ),
@@ -187,9 +188,9 @@ class _ProductsState extends State<Products> {
                 Center(
                   child: Text(
                     "0",
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: Colors.white,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
@@ -230,8 +231,8 @@ class _ProductsState extends State<Products> {
                       padding: const EdgeInsets.symmetric(horizontal: 37),
                       child: Text(
                         "Total product value",
-                        style: TextStyle(
-                          fontFamily: 'InterRegular',
+                        style: GoogleFonts.inter(
+                          
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -243,8 +244,8 @@ class _ProductsState extends State<Products> {
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
                         "${Utils.getCurrency()}0.0",
-                        style: TextStyle(
-                          fontFamily: 'InterRegular',
+                        style: GoogleFonts.inter(
+                          
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
                           color: Colors.white,

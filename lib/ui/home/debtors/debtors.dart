@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
@@ -116,9 +117,9 @@ class _DebtorsState extends State<Debtors> {
                                   children: [
                                     Text(
                                       "Number Of Debts",
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                         color: Colors.white,
-                                        fontFamily: 'InterRegular',
+                                        
                                         fontSize: 12,
                                       ),
                                       textAlign: TextAlign.center,
@@ -126,9 +127,9 @@ class _DebtorsState extends State<Debtors> {
                                     Center(
                                       child: Text(
                                         "${_debtorController.debtorsList.length}",
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                           color: Colors.white,
-                                          fontFamily: 'InterRegular',
+                                          
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
                                         ),
@@ -168,16 +169,16 @@ class _DebtorsState extends State<Debtors> {
                                     children: [
                                       Text(
                                         "Total Debts",
-                                        style: TextStyle(
-                                          fontFamily: 'InterRegular',
+                                        style: GoogleFonts.inter(
+                                          
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
                                       ),
                                       Text(
                                         "${Utils.getCurrency()}${display(_debtorController.debtorAmount)}",
-                                        style: TextStyle(
-                                          fontFamily: 'InterRegular',
+                                        style: GoogleFonts.inter(
+                                          
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
                                           color: Colors.white,
@@ -207,8 +208,8 @@ class _DebtorsState extends State<Debtors> {
                               ),
                               hint: Text(
                                 'Pending',
-                                style: TextStyle(
-                                    fontFamily: 'InterRegular',
+                                style: GoogleFonts.inter(
+                                    
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -245,10 +246,10 @@ class _DebtorsState extends State<Debtors> {
                                       SizedBox(height: 5),
                                       Text(
                                         'Add Debtors',
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                             fontSize: 13,
                                             color: Colors.black,
-                                            fontFamily: 'InterRegular',
+                                            
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(height: 5),
@@ -257,19 +258,19 @@ class _DebtorsState extends State<Debtors> {
                                                 DebtorStatus.UnAuthorized
                                             ? 'Your debtors will show here. Click the'
                                             : 'Your debtors will show here.',
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                             fontSize: 10,
                                             color: Colors.black,
-                                            fontFamily: 'InterRegular'),
+                                            ),
                                       ),
                                       if (_debtorController.debtorStatus !=
                                           DebtorStatus.UnAuthorized) ...[
                                         Text(
                                           'Add New Debtors button to add your first debtor',
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                               fontSize: 10,
                                               color: Colors.black,
-                                              fontFamily: 'InterRegular'),
+                                              ),
                                         ),
                                       ],
                                       SizedBox(height: 20),
@@ -277,11 +278,11 @@ class _DebtorsState extends State<Debtors> {
                                           DebtorStatus.UnAuthorized) ...[
                                         Text(
                                           'You need to be authorized\nto view this module',
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                               fontSize: 14,
                                               color:
                                                   AppColor().orangeBorderColor,
-                                              fontFamily: 'InterRegular',
+                                              
                                               fontWeight: FontWeight.bold),
                                           textAlign: TextAlign.center,
                                         ),
@@ -353,9 +354,9 @@ class _DebtorsState extends State<Debtors> {
                                       Center(
                                         child: Text(
                                           'Add New Debtor',
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                             color: AppColor().whiteColor,
-                                            fontFamily: 'InterRegular',
+                                            
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -384,8 +385,8 @@ class _DebtorsState extends State<Debtors> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(
-              fontFamily: 'InterRegular',
+          style: GoogleFonts.inter(
+              
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),
@@ -422,9 +423,9 @@ class _DebtorsState extends State<Debtors> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     'Add Debtor',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -500,9 +501,9 @@ class _DebtorsState extends State<Debtors> {
                               Center(
                                 child: Text(
                                   'Add Debtor',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -549,9 +550,9 @@ class _DebtorsState extends State<Debtors> {
                                         _debtorController.customerType = 1)),
                                 Text(
                                   'New Customer',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().backgroundColor,
-                                    fontFamily: "InterRegular",
+                                    
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -573,9 +574,9 @@ class _DebtorsState extends State<Debtors> {
                                         _debtorController.customerType = 0)),
                                 Text(
                                   'Existing Customers',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().backgroundColor,
-                                    fontFamily: "InterRegular",
+                                    
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -605,7 +606,7 @@ class _DebtorsState extends State<Debtors> {
                                       SizedBox(width: 5),
                                       Text(
                                         "Select from Contact",
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                             color: AppColor().backgroundColor,
                                             fontSize: 12),
                                       ),
@@ -663,20 +664,20 @@ class _DebtorsState extends State<Debtors> {
                                   children: [
                                     Text(
                                       'Select Customer',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           color: Colors.black,
                                           fontSize: 12,
-                                          fontFamily: 'InterRegular'),
+                                          ),
                                     ),
                                     SizedBox(
                                       width: 5,
                                     ),
                                     Text(
                                       "*",
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           color: Colors.red,
                                           fontSize: 12,
-                                          fontFamily: 'InterRegular'),
+                                          ),
                                     )
                                   ],
                                 ),
@@ -764,7 +765,7 @@ class _DebtorsState extends State<Debtors> {
                 ),
                 child: Center(
                   child: Text('F',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
@@ -777,7 +778,7 @@ class _DebtorsState extends State<Debtors> {
               Center(
                 child: Text(
                   item,
-                  style: TextStyle(fontSize: 12),
+                  style: GoogleFonts.inter(fontSize: 12),
                 ),
               ),
               SizedBox(
@@ -786,7 +787,7 @@ class _DebtorsState extends State<Debtors> {
               Center(
                 child: Text(
                   '09038726495',
-                  style: TextStyle(fontSize: 12),
+                  style: GoogleFonts.inter(fontSize: 12),
                 ),
               ),
             ],
@@ -846,10 +847,10 @@ class _DebtorsState extends State<Debtors> {
                   child: Center(
                     child: Text(
                       'Add Debtors',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: 'InterRegular'),
+                          ),
                     ),
                   ),
                 ),
@@ -936,10 +937,10 @@ class _DebtorListingState extends State<DebtorListing> {
                         customer.name == null || customer.name!.isEmpty
                             ? ""
                             : '${customer.name![0]}',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontSize: 30,
                             color: Colors.white,
-                            fontFamily: 'InterRegular',
+                            
                             fontWeight: FontWeight.normal),
                       ))),
                 ),
@@ -953,17 +954,17 @@ class _DebtorListingState extends State<DebtorListing> {
                     children: [
                       Text(
                         customer.name!,
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontSize: 12,
-                            fontFamily: 'InterRegular',
+                            
                             color: Colors.black,
                             fontWeight: FontWeight.w400),
                       ),
                       Text(
                         customer.phone!,
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontSize: 12,
-                            fontFamily: 'InterRegular',
+                            
                             color: Colors.grey),
                       ),
                     ],
@@ -978,17 +979,17 @@ class _DebtorListingState extends State<DebtorListing> {
                     children: [
                       Text(
                         "Balance: ${Utils.getCurrency()}${display(widget.item!.balance!)}",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontSize: 13,
-                            fontFamily: 'InterRegular',
+                            
                             color: AppColor().backgroundColor,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "Paid: ${Utils.getCurrency()}${display((widget.item!.totalAmount! - widget.item!.balance!))}",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontSize: 11,
-                            fontFamily: 'InterRegular',
+                            
                             color: Colors.grey),
                       ),
                     ],
@@ -1088,7 +1089,7 @@ class _DebtorListingState extends State<DebtorListing> {
             ),
             title: Text(
               'Delete Debt',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
@@ -1096,9 +1097,9 @@ class _DebtorListingState extends State<DebtorListing> {
             ),
             content: Text(
               "You're about to delete this debt entry, click delete to proceed",
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().blackColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
               ),
@@ -1132,9 +1133,9 @@ class _DebtorListingState extends State<DebtorListing> {
                           child: Center(
                             child: Text(
                               'Cancel',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -1162,9 +1163,9 @@ class _DebtorListingState extends State<DebtorListing> {
                           child: Center(
                             child: Text(
                               'Delete',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -1203,9 +1204,9 @@ class _DebtorListingState extends State<DebtorListing> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Send Reminder to debtor',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -1223,7 +1224,7 @@ class _DebtorListingState extends State<DebtorListing> {
                   children: [
                     Text(
                       'Message',
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                     ),
                     SizedBox(
                       width: 5,
@@ -1232,7 +1233,7 @@ class _DebtorListingState extends State<DebtorListing> {
                       margin: EdgeInsets.only(top: 5),
                       child: Text(
                         "*",
-                        style: TextStyle(color: Colors.red, fontSize: 12),
+                        style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
                       ),
                     ),
                   ],
@@ -1266,7 +1267,7 @@ class _DebtorListingState extends State<DebtorListing> {
                       flex: 5,
                       child: Text(
                         "Send Options",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().blackColor,
                           fontSize: 14,
                         ),
@@ -1316,7 +1317,7 @@ class _DebtorListingState extends State<DebtorListing> {
       },
       child: Text(
         initialText!,
-        style: TextStyle(
+        style: GoogleFonts.inter(
           color: Colors.black,
           fontSize: 16,
         ),
@@ -1357,9 +1358,9 @@ class _DebtorListingState extends State<DebtorListing> {
                 ),
                 Text(
                   'Update Payment',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -1389,8 +1390,8 @@ class _DebtorListingState extends State<DebtorListing> {
                             ),
                             Text(
                               'Paying Fully',
-                              style: TextStyle(
-                                fontFamily: "InterRegular",
+                              style: GoogleFonts.inter(
+                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1419,8 +1420,8 @@ class _DebtorListingState extends State<DebtorListing> {
                                 }),
                             Text(
                               'Paying Partly',
-                              style: TextStyle(
-                                fontFamily: "InterRegular",
+                              style: GoogleFonts.inter(
+                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1446,10 +1447,10 @@ class _DebtorListingState extends State<DebtorListing> {
                                   children: [
                                     Text(
                                       'Amount',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                         color: Colors.black,
                                         fontSize: 16,
-                                        fontFamily: 'InterRegular',
+                                        
                                         fontStyle: FontStyle.normal,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -1461,7 +1462,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                       margin: EdgeInsets.only(top: 5),
                                       child: Text(
                                         "*",
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                             color: Colors.red, fontSize: 12),
                                       ),
                                     ),
@@ -1472,8 +1473,8 @@ class _DebtorListingState extends State<DebtorListing> {
                                   children: [
                                     Text(
                                       'Balance: ${Utils.getCurrency()}${display(debtor.balance)}',
-                                      style: TextStyle(
-                                        fontFamily: "InterRegular",
+                                      style: GoogleFonts.inter(
+                                        
                                         color: AppColor().orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
@@ -1483,8 +1484,8 @@ class _DebtorListingState extends State<DebtorListing> {
                                     Text(
                                       // debtOwnedModel.balance!,
                                       '',
-                                      style: TextStyle(
-                                        fontFamily: "InterRegular",
+                                      style: GoogleFonts.inter(
+                                        
                                         color: AppColor().orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
@@ -1543,7 +1544,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                     .textTheme
                                     .headline4!
                                     .copyWith(
-                                      fontFamily: 'InterRegular',
+                                      
                                       color: Colors.black26,
                                       fontSize: 14,
                                       fontStyle: FontStyle.normal,
@@ -1592,10 +1593,10 @@ class _DebtorListingState extends State<DebtorListing> {
                               )
                             : Text(
                                 'Save',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     color: Colors.white,
                                     fontSize: 18,
-                                    fontFamily: 'InterRegular'),
+                                    ),
                               ),
                       ),
                     );
@@ -1628,9 +1629,9 @@ class _DebtorListingState extends State<DebtorListing> {
                   child: Center(
                     child: Text(
                       'This will send a direct sms to the debtor.',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().blackColor,
-                        fontFamily: 'InterRegular',
+                        
                         fontWeight: FontWeight.normal,
                         fontSize: 11,
                       ),
@@ -1644,7 +1645,7 @@ class _DebtorListingState extends State<DebtorListing> {
                 child: Container(
                   child: Text(
                     'Continue?',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -1682,9 +1683,9 @@ class _DebtorListingState extends State<DebtorListing> {
                         child: Center(
                           child: Text(
                             'Cancel',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1708,9 +1709,9 @@ class _DebtorListingState extends State<DebtorListing> {
                         child: Center(
                           child: Text(
                             'Continue',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),

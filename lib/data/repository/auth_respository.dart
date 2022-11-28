@@ -6,6 +6,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/file_upload_respository.dart';
@@ -217,15 +218,15 @@ class AuthRepository extends GetxController {
         Get.snackbar("Success", "Otp sent successfully",
             titleText: Text(
               'Success',
-              style: TextStyle(
-                  fontFamily: 'InterRegular',
+              style: GoogleFonts.inter(
+                 
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
             messageText: Text(
               'Otp sent successfully',
-              style: TextStyle(
-                  fontFamily: 'InterRegular',
+              style: GoogleFonts.inter(
+                  
                   color: Colors.black,
                   fontWeight: FontWeight.normal),
             ),
@@ -238,15 +239,15 @@ class AuthRepository extends GetxController {
         Get.snackbar("Error", "Unable to send Otp",
             titleText: Text(
               'Error',
-              style: TextStyle(
-                  fontFamily: 'InterRegular',
+              style: GoogleFonts.inter(
+                  
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
             messageText: Text(
               'Unable to send Otp',
-              style: TextStyle(
-                  fontFamily: 'InterRegular',
+              style: GoogleFonts.inter(
+                  
                   color: Colors.black,
                   fontWeight: FontWeight.normal),
             ),
@@ -273,15 +274,15 @@ class AuthRepository extends GetxController {
         Get.snackbar("Success", "Otp sent successfully",
             titleText: Text(
               'Success',
-              style: TextStyle(
-                  fontFamily: 'InterRegular',
+              style: GoogleFonts.inter(
+                 
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
             messageText: Text(
               'Otp sent successfully',
-              style: TextStyle(
-                  fontFamily: 'InterRegular',
+              style: GoogleFonts.inter(
+                  
                   color: Colors.black,
                   fontWeight: FontWeight.normal),
             ),
@@ -294,15 +295,15 @@ class AuthRepository extends GetxController {
         Get.snackbar("Error", "User with phone number not found",
             titleText: Text(
               'Error',
-              style: TextStyle(
-                  fontFamily: 'InterRegular',
+              style: GoogleFonts.inter(
+                  
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
             messageText: Text(
               'User with phone number not found',
-              style: TextStyle(
-                  fontFamily: 'InterRegular',
+              style: GoogleFonts.inter(
+                  
                   color: Colors.black,
                   fontWeight: FontWeight.normal),
             ),
@@ -324,15 +325,15 @@ class AuthRepository extends GetxController {
       Get.snackbar("Success", "Otp sent successfully",
           titleText: Text(
             'Success',
-            style: TextStyle(
-                fontFamily: 'InterRegular',
+            style: GoogleFonts.inter(
+                
                 color: Colors.black,
                 fontWeight: FontWeight.bold),
           ),
           messageText: Text(
             'Otp sent successfully',
-            style: TextStyle(
-                fontFamily: 'InterRegular',
+            style: GoogleFonts.inter(
+                
                 color: Colors.black,
                 fontWeight: FontWeight.normal),
           ),
@@ -341,15 +342,15 @@ class AuthRepository extends GetxController {
       Get.snackbar("Error", "Unable to send Otp",
           titleText: Text(
             'Error',
-            style: TextStyle(
-                fontFamily: 'InterRegular',
+            style: GoogleFonts.inter(
+                
                 color: Colors.black,
                 fontWeight: FontWeight.bold),
           ),
           messageText: Text(
             'Unable to send Otp',
-            style: TextStyle(
-                fontFamily: 'InterRegular',
+            style: GoogleFonts.inter(
+                
                 color: Colors.black,
                 fontWeight: FontWeight.normal),
           ),
@@ -378,15 +379,15 @@ class AuthRepository extends GetxController {
           Get.snackbar("Success", "Otp sent successfully",
               titleText: Text(
                 'Success',
-                style: TextStyle(
-                    fontFamily: 'InterRegular',
+                style: GoogleFonts.inter(
+                    
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),
               messageText: Text(
                 'Otp sent successfully',
-                style: TextStyle(
-                    fontFamily: 'InterRegular',
+                style: GoogleFonts.inter(
+                    
                     color: Colors.black,
                     fontWeight: FontWeight.normal),
               ),
@@ -398,15 +399,15 @@ class AuthRepository extends GetxController {
           Get.snackbar("Error", "Unable to send Otp",
               titleText: Text(
                 'Error',
-                style: TextStyle(
-                    fontFamily: 'InterRegular',
+                style: GoogleFonts.inter(
+                    
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),
               messageText: Text(
                 'Unable to send Otp',
-                style: TextStyle(
-                    fontFamily: 'InterRegular',
+                style: GoogleFonts.inter(
+                    
                     color: Colors.black,
                     fontWeight: FontWeight.normal),
               ),
@@ -418,15 +419,15 @@ class AuthRepository extends GetxController {
       Get.snackbar("Error", "Error verifying Otp",
           titleText: Text(
             'Error',
-            style: TextStyle(
-                fontFamily: 'InterRegular',
+            style: GoogleFonts.inter(
+                
                 color: Colors.black,
                 fontWeight: FontWeight.bold),
           ),
           messageText: Text(
             'Error verifying Otp',
-            style: TextStyle(
-                fontFamily: 'InterRegular',
+            style: GoogleFonts.inter(
+                
                 color: Colors.black,
                 fontWeight: FontWeight.normal),
           ),

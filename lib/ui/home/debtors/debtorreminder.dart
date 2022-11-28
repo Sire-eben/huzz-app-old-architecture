@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../util/colors.dart';
 import 'debtorstab.dart';
@@ -33,9 +34,9 @@ class DebtorsConfirmation extends StatelessWidget {
           Center(
             child: Text(
               'Your reminder has been',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -44,9 +45,9 @@ class DebtorsConfirmation extends StatelessWidget {
           Center(
             child: Text(
               'sent successfully',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
+               
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -76,9 +77,9 @@ class DebtorsConfirmation extends StatelessWidget {
               child: Center(
                 child: Text(
                   'Proceed',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().whiteColor,
-                    fontFamily: 'InterRegular',
+                   
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),

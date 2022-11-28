@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/records_model.dart';
@@ -42,9 +43,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
           children: [
             Text(
               'Transaction',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: "InterRegular",
+                
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -55,9 +56,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               children: [
                 Text(
                   '10, NOV. 2021',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: "InterRegular",
+                    
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.bold,
@@ -65,9 +66,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 ),
                 Text(
                   '10:00 AM',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: "InterRegular",
+                    
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.bold,
@@ -102,9 +103,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   color: AppColor().backgroundColor.withOpacity(0.2)),
               child: Text(
                 widget.recordSummary!.detail!,
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontFamily: "InterRegular",
+                  
                   fontStyle: FontStyle.normal,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
@@ -114,9 +115,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             Text(
               'Total Amount',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().blackColor,
-                fontFamily: "InterRegular",
+                
                 fontStyle: FontStyle.normal,
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
@@ -125,9 +126,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             Text(
               widget.recordSummary!.price!,
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: "InterRegular",
+                
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -141,9 +142,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     horizontal: MediaQuery.of(context).size.height * 0.03),
                 child: Text(
                   'Items',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: "InterRegular",
+                    
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -167,25 +168,25 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   children: [
                     Text(
                       'Item',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
                     Text(
                       'Qty',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
                     Text(
                       'Amount',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
@@ -211,25 +212,25 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           children: [
                             Text(
                               item.name!,
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
                             Text(
                               item.quantity!,
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
                             Text(
                               item.price!,
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -247,9 +248,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     horizontal: MediaQuery.of(context).size.height * 0.03),
                 child: Text(
                   'Payment History',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: "InterRegular",
+                    
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -273,25 +274,25 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   children: [
                     Text(
                       'Date',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
                     Text(
                       'Amount',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
                     Text(
                       '',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           color: AppColor().whiteColor),
                     ),
@@ -317,17 +318,17 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           children: [
                             Text(
                               item.date!,
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
                             Text(
                               item.price!,
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -335,9 +336,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               children: [
                                 Text(
                                   'View Receipt',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'InterRegular',
+                                      
                                       fontSize: 10,
                                       color: AppColor().backgroundColor),
                                 ),
@@ -380,9 +381,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 Expanded(
                   child: Text(
                     'You are about to delete you want to delete this transaction. Are you sure you want to continue?',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -425,9 +426,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           child: Center(
                             child: Text(
                               'Cancel',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -455,9 +456,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           child: Center(
                             child: Text(
                               'Delete',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -502,9 +503,9 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 children: [
                   Text(
                     '10, Nov. 2021',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: "InterRegular",
+                      
                       fontStyle: FontStyle.normal,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -549,17 +550,17 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           children: [
                             Text(
                               'Date',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
                             Text(
                               recordModel.date!,
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -572,17 +573,17 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           children: [
                             Text(
                               'Money Out',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
                             Text(
                               recordModel.moneyOut!,
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontSize: 10,
                                   color: AppColor().orangeBorderColor),
                             ),
@@ -597,17 +598,17 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                             children: [
                               Text(
                                 'Money In',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
                               Text(
                                 recordModel.moneyIn!,
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 10,
                                     color: AppColor().blueColor),
                               ),
@@ -644,17 +645,17 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                   children: [
                                     Text(
                                       item.name!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'InterRegular',
+                                          
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
                                     Text(
                                       item.time!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'InterRegular',
+                                          
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -667,17 +668,17 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                   children: [
                                     Text(
                                       item.price!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'InterRegular',
+                                          
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
                                     Text(
                                       item.detail!,
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'InterRegular',
+                                          
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -704,8 +705,8 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(
-              fontFamily: 'InterRegular',
+          style: GoogleFonts.inter(
+              
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),

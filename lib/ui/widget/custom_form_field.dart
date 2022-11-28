@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 // import 'package:fluttercontactpicker/fluttercontactpicker.dart';
@@ -70,7 +71,7 @@ class CustomTextField extends StatelessWidget {
                 children: [
                   Text(
                     label!,
-                    style: TextStyle(color: Colors.black, fontSize: 12),
+                    style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                   ),
                   SizedBox(
                     width: 1,
@@ -80,7 +81,7 @@ class CustomTextField extends StatelessWidget {
                           margin: EdgeInsets.only(top: 5),
                           child: Text(
                             "*",
-                            style: TextStyle(color: Colors.red, fontSize: 12),
+                            style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
                           ))
                       : Container()
                 ],
@@ -198,7 +199,7 @@ class CustomTextFieldOptional extends StatelessWidget {
               margin: EdgeInsets.only(left: 20, right: 20, top: 9),
               child: Text(
                 label!,
-                style: TextStyle(color: Colors.black, fontSize: 12),
+                style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
               )),
           GestureDetector(
             onTap: () {
@@ -398,7 +399,7 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
               margin: EdgeInsets.only(top: 10),
               child: Text(
                 label!,
-                style: TextStyle(color: Colors.black, fontSize: 12),
+                style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
               )),
           GestureDetector(
             onTap: () {
@@ -510,12 +511,12 @@ class CustomTextFieldOption extends StatelessWidget {
                 children: [
                   Text(
                     label!,
-                    style: TextStyle(color: Colors.black, fontSize: 12),
+                    style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                   ),
                   SizedBox(width: 4),
                   Text(
                     '(Optional)',
-                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                    style: GoogleFonts.inter(color: Colors.grey, fontSize: 12),
                   ),
                 ],
               )),
@@ -644,7 +645,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                 children: [
                   Text(
                     widget.label!,
-                    style: TextStyle(color: Colors.black, fontSize: 12),
+                    style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                   ),
                   SizedBox(
                     width: 5,
@@ -657,7 +658,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                                 margin: EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.red, fontSize: 12),
                                 )),
                             SizedBox(width: 8),
@@ -665,7 +666,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                                 child: Text(
                               "OR",
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                                  GoogleFonts.inter(color: Colors.black, fontSize: 12),
                             )),
                             SizedBox(width: 8),
                             InkWell(
@@ -704,7 +705,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                                   margin: EdgeInsets.only(top: 5),
                                   child: Text(
                                     "Select from Contact",
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: AppColor().backgroundColor,
                                         fontSize: 12),
                                   )),
@@ -823,16 +824,16 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "9034678966",
-                              hintStyle: TextStyle(
+                              hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.w500),
                               prefixText: "+$countryCode ",
-                              prefixStyle: TextStyle(
+                              prefixStyle: GoogleFonts.inter(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: 'InterRegular',
+                                  
                                   color: Colors.black)),
                         ),
                       ),
@@ -849,7 +850,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                     children: [
                       Text(
                         'Email',
-                        style: TextStyle(color: Colors.black, fontSize: 12),
+                        style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                       ),
                       SizedBox(
                         width: 5,
@@ -862,7 +863,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                       //               margin: EdgeInsets.only(top: 5),
                       //               child: Text(
                       //                 "*",
-                      //                 style: TextStyle(
+                      //                 style: GoogleFonts.inter(
                       //                     color: Colors.red, fontSize: 12),
                       //               )),
                       //           SizedBox(width: 8),
@@ -1022,7 +1023,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                 children: [
                   Text(
                     widget.label!,
-                    style: TextStyle(color: Colors.black, fontSize: 12),
+                    style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                   ),
                   SizedBox(
                     width: 5,
@@ -1035,7 +1036,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                                 margin: EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.red, fontSize: 12),
                                 )),
                             SizedBox(width: 8),
@@ -1043,7 +1044,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                                 child: Text(
                               "OR",
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                                  GoogleFonts.inter(color: Colors.black, fontSize: 12),
                             )),
                             SizedBox(width: 8),
                             InkWell(
@@ -1084,7 +1085,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                                   margin: EdgeInsets.only(top: 5),
                                   child: Text(
                                     "Select from Contact",
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: AppColor().backgroundColor,
                                         fontSize: 12),
                                   )),
@@ -1200,25 +1201,25 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                       Expanded(
                         child: TextFormField(
                           controller: widget.contactPhone,
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             color: Colors.black,
                             fontSize: 14,
-                            fontFamily: 'InterRegular',
+                            
                             fontWeight: FontWeight.w500,
                           ),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "9034678966",
-                            hintStyle: TextStyle(
+                            hintStyle: GoogleFonts.inter(
                                 color: Colors.black.withOpacity(0.5),
                                 fontSize: 14,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.w500),
                             prefixText: "+$countryCode ",
-                            prefixStyle: TextStyle(
+                            prefixStyle: GoogleFonts.inter(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                fontFamily: 'InterRegular',
+                                
                                 color: Colors.black),
                           ),
                         ),
@@ -1236,7 +1237,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                     children: [
                       Text(
                         'Email',
-                        style: TextStyle(color: Colors.black, fontSize: 12),
+                        style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                       ),
                       SizedBox(
                         width: 5,
@@ -1249,7 +1250,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                                     margin: EdgeInsets.only(top: 5),
                                     child: Text(
                                       "*",
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           color: Colors.red, fontSize: 12),
                                     )),
                                 SizedBox(width: 8),
@@ -1416,7 +1417,7 @@ class _CustomTextFieldWithImageTransactionState
             children: [
               Text(
                 widget.label!,
-                style: TextStyle(color: Colors.black, fontSize: 12),
+                style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
               ),
               SizedBox(
                 width: 5,
@@ -1428,13 +1429,13 @@ class _CustomTextFieldWithImageTransactionState
                             margin: EdgeInsets.only(top: 5),
                             child: Text(
                               "*",
-                              style: TextStyle(color: Colors.red, fontSize: 12),
+                              style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
                             )),
                         SizedBox(width: 8),
                         Container(
                             child: Text(
                           "OR",
-                          style: TextStyle(color: Colors.black, fontSize: 12),
+                          style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                         )),
                         SizedBox(width: 8),
                         SvgPicture.asset(
@@ -1450,7 +1451,7 @@ class _CustomTextFieldWithImageTransactionState
                               margin: EdgeInsets.only(top: 5),
                               child: Text(
                                 "Select from Contact",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     color: AppColor().backgroundColor,
                                     fontSize: 12),
                               )),
@@ -1574,16 +1575,16 @@ class _CustomTextFieldWithImageTransactionState
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "9034678966",
-                              hintStyle: TextStyle(
+                              hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.w500),
                               prefixText: "+$countryCode ",
-                              prefixStyle: TextStyle(
+                              prefixStyle: GoogleFonts.inter(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: 'InterRegular',
+                                  
                                   color: Colors.black)),
                         ),
                       ),
@@ -1598,7 +1599,7 @@ class _CustomTextFieldWithImageTransactionState
                   children: [
                     Text(
                       'Email',
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                     ),
                     SizedBox(
                       width: 5,
@@ -1611,7 +1612,7 @@ class _CustomTextFieldWithImageTransactionState
                     //               margin: EdgeInsets.only(top: 5),
                     //               child: Text(
                     //                 "*",
-                    //                 style: TextStyle(
+                    //                 style: GoogleFonts.inter(
                     //                     color: Colors.red, fontSize: 12),
                     //               )),
                     //           SizedBox(width: 8),
@@ -1764,7 +1765,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
             children: [
               Text(
                 widget.label!,
-                style: TextStyle(color: Colors.black, fontSize: 12),
+                style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
               ),
               SizedBox(
                 width: 5,
@@ -1776,7 +1777,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         Container(
                             child: Text(
                           "OR",
-                          style: TextStyle(color: Colors.black, fontSize: 12),
+                          style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                         )),
                         SizedBox(width: 8),
                         InkWell(
@@ -1817,7 +1818,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                               margin: EdgeInsets.only(top: 5),
                               child: Text(
                                 "Select from Contact",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     color: AppColor().backgroundColor,
                                     fontSize: 12),
                               )),
@@ -1935,16 +1936,16 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "9034678966",
-                              hintStyle: TextStyle(
+                              hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.w500),
                               prefixText: "+$countryCode ",
-                              prefixStyle: TextStyle(
+                              prefixStyle: GoogleFonts.inter(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: 'InterRegular',
+                                  
                                   color: Colors.black)),
                         ),
                       ),
@@ -1960,7 +1961,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                   child: Container(
                     child: Text(
                       'Email',
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                     ),
                   ),
                 ),
@@ -2064,14 +2065,14 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                   children: [
                     Text(
                       'Address',
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
                       "(Optional)",
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      style: GoogleFonts.inter(color: Colors.grey, fontSize: 12),
                     )
                   ],
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/customers/merchants/add_merchant.dart';
@@ -58,10 +59,10 @@ class _MerchantsState extends State<Merchants> {
                 Container(),
               ] else ...[
                 TextField(
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: AppColor().backgroundColor,
-                      fontFamily: 'InterRegular'),
+                  style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w400,
+                    color: AppColor().backgroundColor,
+                  ),
                   controller: _searchcontroller,
                   cursorColor: Colors.white,
                   autofocus: false,
@@ -78,11 +79,11 @@ class _MerchantsState extends State<Merchants> {
                     fillColor: Colors.white,
                     filled: true,
                     hintText: 'Search Merchant',
-                    hintStyle: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
-                        fontFamily: 'InterRegular'),
+                    hintStyle: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey,
+                    ),
                     contentPadding:
                         EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                     enabledBorder: OutlineInputBorder(
@@ -126,27 +127,25 @@ class _MerchantsState extends State<Merchants> {
                           SizedBox(height: 5),
                           Text(
                             'Merchant',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                                 fontSize: 14,
                                 color: Colors.black,
-                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 5),
                           Text(
                             'Your merchants will show here.',
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                                fontFamily: 'InterRegular'),
+                            style: GoogleFonts.inter(
+                              fontSize: 10,
+                              color: Colors.black,
+                            ),
                           ),
                           SizedBox(height: 20),
                           Text(
                             'You need to be authorized\nto view this module',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                                 fontSize: 14,
                                 color: AppColor().orangeBorderColor,
-                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
@@ -222,13 +221,11 @@ class _MerchantsState extends State<Merchants> {
                                                                             '')
                                                                     ? '0'
                                                                     : '${item.name![0]}',
-                                                                style: TextStyle(
+                                                                style: GoogleFonts.inter(
                                                                     fontSize:
                                                                         30,
                                                                     color: Colors
                                                                         .white,
-                                                                    fontFamily:
-                                                                        'InterRegular',
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold),
@@ -251,11 +248,9 @@ class _MerchantsState extends State<Merchants> {
                                                             children: [
                                                               Text(
                                                                 item.name!,
-                                                                style: TextStyle(
+                                                                style: GoogleFonts.inter(
                                                                     fontSize:
                                                                         12,
-                                                                    fontFamily:
-                                                                        'InterRegular',
                                                                     color: Colors
                                                                         .black,
                                                                     fontWeight:
@@ -264,11 +259,9 @@ class _MerchantsState extends State<Merchants> {
                                                               ),
                                                               Text(
                                                                 item.phone!,
-                                                                style: TextStyle(
+                                                                style: GoogleFonts.inter(
                                                                     fontSize:
                                                                         12,
-                                                                    fontFamily:
-                                                                        'InterRegular',
                                                                     color: Colors
                                                                         .grey),
                                                               ),
@@ -360,26 +353,25 @@ class _MerchantsState extends State<Merchants> {
                                     SizedBox(height: 5),
                                     Text(
                                       'Merchant',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           fontSize: 14,
                                           color: Colors.black,
-                                          fontFamily: 'InterRegular',
                                           fontWeight: FontWeight.bold),
                                     ),
                                     SizedBox(height: 5),
                                     Text(
                                       'Your merchants will show here. Click the',
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          fontFamily: 'InterRegular'),
+                                      style: GoogleFonts.inter(
+                                        fontSize: 10,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                     Text(
                                       'Add merchant button to add your first merchant',
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          fontFamily: 'InterRegular'),
+                                      style: GoogleFonts.inter(
+                                        fontSize: 10,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -418,8 +410,7 @@ class _MerchantsState extends State<Merchants> {
                       backgroundColor: AppColor().backgroundColor,
                       label: Text(
                         'Add Merchant',
-                        style: TextStyle(
-                            fontFamily: 'InterRegular',
+                        style: GoogleFonts.inter(
                             fontSize: 10,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
@@ -443,9 +434,8 @@ class _MerchantsState extends State<Merchants> {
                 Expanded(
                   child: Text(
                     'You are about to delete a merchant, Are you sure you want to continue?',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -488,9 +478,8 @@ class _MerchantsState extends State<Merchants> {
                           child: Center(
                             child: Text(
                               'Cancel',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -517,9 +506,8 @@ class _MerchantsState extends State<Merchants> {
                           child: Center(
                             child: Text(
                               'Delete',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

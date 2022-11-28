@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
@@ -58,10 +59,10 @@ class _CustomersState extends State<Customers> {
                 Container(),
               ] else ...[
                 TextField(
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: AppColor().backgroundColor,
-                      fontFamily: 'InterRegular'),
+                  style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w400,
+                    color: AppColor().backgroundColor,
+                  ),
                   controller: _searchcontroller,
                   cursorColor: Colors.white,
                   autofocus: false,
@@ -78,11 +79,11 @@ class _CustomersState extends State<Customers> {
                     fillColor: Colors.white,
                     filled: true,
                     hintText: 'Search Customers',
-                    hintStyle: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
-                        fontFamily: 'InterRegular'),
+                    hintStyle: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey,
+                    ),
                     contentPadding:
                         EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                     enabledBorder: OutlineInputBorder(
@@ -126,27 +127,25 @@ class _CustomersState extends State<Customers> {
                           SizedBox(height: 5),
                           Text(
                             'Customer',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                                 fontSize: 13,
                                 color: Colors.black,
-                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 5),
                           Text(
                             'Your customers will show here.',
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                                fontFamily: 'InterRegular'),
+                            style: GoogleFonts.inter(
+                              fontSize: 10,
+                              color: Colors.black,
+                            ),
                           ),
                           SizedBox(height: 20),
                           Text(
                             'You need to be authorized\nto view this module',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                                 fontSize: 14,
                                 color: AppColor().orangeBorderColor,
-                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
@@ -215,15 +214,14 @@ class _CustomersState extends State<Customers> {
                                                                       .isEmpty
                                                               ? ""
                                                               : '${item.name![0]}',
-                                                          style: TextStyle(
-                                                              fontSize: 30,
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily:
-                                                                  'InterRegular',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                          style:
+                                                              GoogleFonts.inter(
+                                                                  fontSize: 30,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                         ))),
                                                   ),
                                                 )),
@@ -243,24 +241,22 @@ class _CustomersState extends State<Customers> {
                                                       children: [
                                                         Text(
                                                           item.name!,
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontFamily:
-                                                                  'InterRegular',
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
+                                                          style:
+                                                              GoogleFonts.inter(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400),
                                                         ),
                                                         Text(
                                                           item.phone!,
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontFamily:
-                                                                  'InterRegular',
-                                                              color:
-                                                                  Colors.grey),
+                                                          style:
+                                                              GoogleFonts.inter(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .grey),
                                                         ),
                                                       ],
                                                     ),
@@ -344,26 +340,25 @@ class _CustomersState extends State<Customers> {
                                     SizedBox(height: 5),
                                     Text(
                                       'Customer',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           fontSize: 13,
                                           color: Colors.black,
-                                          fontFamily: 'InterRegular',
                                           fontWeight: FontWeight.bold),
                                     ),
                                     SizedBox(height: 5),
                                     Text(
                                       'Your customers will show here. Click the',
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          fontFamily: 'InterRegular'),
+                                      style: GoogleFonts.inter(
+                                        fontSize: 10,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                     Text(
                                       'Add customers button to add your first customer',
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          fontFamily: 'InterRegular'),
+                                      style: GoogleFonts.inter(
+                                        fontSize: 10,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -394,8 +389,7 @@ class _CustomersState extends State<Customers> {
                       backgroundColor: AppColor().backgroundColor,
                       label: Text(
                         'Add Customer',
-                        style: TextStyle(
-                            fontFamily: 'InterRegular',
+                        style: GoogleFonts.inter(
                             fontSize: 10,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
@@ -419,9 +413,8 @@ class _CustomersState extends State<Customers> {
                 Expanded(
                   child: Text(
                     'You are about to delete a customer, Are you sure you want to continue?',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -465,9 +458,8 @@ class _CustomersState extends State<Customers> {
                           child: Center(
                             child: Text(
                               'Cancel',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -494,9 +486,8 @@ class _CustomersState extends State<Customers> {
                           child: Center(
                             child: Text(
                               'Delete',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

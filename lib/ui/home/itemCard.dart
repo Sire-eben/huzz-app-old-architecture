@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/payment_item.dart';
 import 'package:number_display/number_display.dart';
@@ -41,16 +42,16 @@ class ItemCard extends StatelessWidget {
                   children: [
                     Text(
                       item.itemName!,
-                      style: TextStyle(
-                        fontFamily: "InterRegular",
+                      style: GoogleFonts.inter(
+                        
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       '${Utils.getCurrency()}${display(item.amount)}',
-                      style: TextStyle(
-                        fontFamily: "InterRegular",
+                      style: GoogleFonts.inter(
+                        
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
@@ -62,8 +63,8 @@ class ItemCard extends StatelessWidget {
             Expanded(
               child: Text(
                 'Qty: ${item.quality}',
-                style: TextStyle(
-                  fontFamily: "InterRegular",
+                style: GoogleFonts.inter(
+                  
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),

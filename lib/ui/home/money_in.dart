@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
@@ -35,9 +36,9 @@ class MoneyInInformationDialog extends StatelessWidget {
         Text(
           'This is where you can log your income for a product sold or service rendered.',
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 14,
-            fontFamily: "InterRegular",
+            
           ),
         ),
       ],
@@ -171,9 +172,9 @@ class _MoneyInState extends State<MoneyIn> {
           children: [
             Text(
               'Money In',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: "InterRegular",
+                
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -267,9 +268,9 @@ class _MoneyInState extends State<MoneyIn> {
                                     }),
                                 Text(
                                   'Enter Item',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().backgroundColor,
-                                    fontFamily: "InterRegular",
+                                    
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -308,9 +309,9 @@ class _MoneyInState extends State<MoneyIn> {
                                     }),
                                 Text(
                                   'Select Item',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().backgroundColor,
-                                    fontFamily: "InterRegular",
+                                    
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -418,20 +419,20 @@ class _MoneyInState extends State<MoneyIn> {
                                 children: [
                                   Text(
                                     'Select product/services',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: Colors.black,
                                         fontSize: 12,
-                                        fontFamily: 'InterRegular'),
+                                        ),
                                   ),
                                   SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     "*",
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: Colors.red,
                                         fontSize: 12,
-                                        fontFamily: 'InterRegular'),
+                                        ),
                                   )
                                 ],
                               ),
@@ -598,8 +599,8 @@ class _MoneyInState extends State<MoneyIn> {
                             width: MediaQuery.of(context).size.width * 0.02),
                         Text(
                           'Add another item',
-                          style: TextStyle(
-                              fontFamily: 'InterRegular',
+                          style: GoogleFonts.inter(
+                             
                               fontSize: 10,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
@@ -678,20 +679,20 @@ class _MoneyInState extends State<MoneyIn> {
                       children: [
                         Text(
                           'Paid in full?',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               color: Colors.black,
                               fontSize: 12,
-                              fontFamily: 'InterRegular'),
+                              ),
                         ),
                         SizedBox(
                           width: 5,
                         ),
                         Text(
                           "*",
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               color: Colors.red,
                               fontSize: 12,
-                              fontFamily: 'InterRegular'),
+                              ),
                         )
                       ],
                     ),
@@ -765,20 +766,20 @@ class _MoneyInState extends State<MoneyIn> {
                       children: [
                         Text(
                           'Payment Mode',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               color: Colors.black,
                               fontSize: 12,
-                              fontFamily: 'InterRegular'),
+                              ),
                         ),
                         SizedBox(
                           width: 5,
                         ),
                         Text(
                           "*",
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               color: Colors.red,
                               fontSize: 12,
-                              fontFamily: 'InterRegular'),
+                              ),
                         )
                       ],
                     ),
@@ -898,13 +899,13 @@ class _MoneyInState extends State<MoneyIn> {
                                   : 'Add any supporting image (Optional)',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   color: _transactionController.image != null
                                       ? Colors.black
                                       : Colors.grey,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  fontFamily: 'InterRegular'),
+                                  ),
                             ),
                           ),
                           _transactionController.image != null
@@ -943,13 +944,13 @@ class _MoneyInState extends State<MoneyIn> {
                   children: [
                     Text(
                       'Add Customer',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           color: _transactionController.addCustomer == true
                               ? AppColor().backgroundColor
                               : Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'InterRegular'),
+                          ),
                     ),
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
@@ -984,9 +985,9 @@ class _MoneyInState extends State<MoneyIn> {
                                                 .customerType = 1)),
                                     Text(
                                       'New Customer',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                         color: AppColor().backgroundColor,
-                                        fontFamily: "InterRegular",
+                                        
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -1010,9 +1011,9 @@ class _MoneyInState extends State<MoneyIn> {
                                                 .customerType = 0)),
                                     Text(
                                       'Existing Customer',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                         color: AppColor().backgroundColor,
-                                        fontFamily: "InterRegular",
+                                        
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -1042,20 +1043,20 @@ class _MoneyInState extends State<MoneyIn> {
                                       children: [
                                         Text(
                                           'Select Customer',
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                               color: Colors.black,
                                               fontSize: 12,
-                                              fontFamily: 'InterRegular'),
+                                              ),
                                         ),
                                         SizedBox(
                                           width: 5,
                                         ),
                                         Text(
                                           "*",
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                               color: Colors.red,
                                               fontSize: 12,
-                                              fontFamily: 'InterRegular'),
+                                              ),
                                         )
                                       ],
                                     ),
@@ -1164,10 +1165,10 @@ class _MoneyInState extends State<MoneyIn> {
                         : Center(
                             child: Text(
                               'Save',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   color: Colors.white,
                                   fontSize: 18,
-                                  fontFamily: 'InterRegular'),
+                                  ),
                             ),
                           ),
                   ),
@@ -1229,9 +1230,9 @@ class _MoneyInState extends State<MoneyIn> {
                           ),
                           Text(
                             'Enter Item',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              fontFamily: "InterRegular",
+                              
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1260,9 +1261,9 @@ class _MoneyInState extends State<MoneyIn> {
                               }),
                           Text(
                             'Select product/services',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              fontFamily: "InterRegular",
+                              
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1330,10 +1331,10 @@ class _MoneyInState extends State<MoneyIn> {
                         children: [
                           Text(
                             'Select Item',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                                 color: Colors.black,
                                 fontSize: 12,
-                                fontFamily: 'InterRegular'),
+                                ),
                           ),
                           SizedBox(
                             height: 8,
@@ -1447,10 +1448,10 @@ class _MoneyInState extends State<MoneyIn> {
                     child: Center(
                       child: Text(
                         'Save',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             color: Colors.white,
                             fontSize: 18,
-                            fontFamily: 'InterRegular'),
+                            ),
                       ),
                     ),
                   ),
@@ -1468,7 +1469,7 @@ class _MoneyInState extends State<MoneyIn> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(fontSize: 14, fontFamily: 'InterRegular'),
+          style: GoogleFonts.inter(fontSize: 14, ),
         ),
       );
 
@@ -1611,10 +1612,10 @@ class _MoneyInState extends State<MoneyIn> {
                     child: Center(
                       child: Text(
                         'Update',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             color: Colors.white,
                             fontSize: 18,
-                            fontFamily: 'InterRegular'),
+                            ),
                       ),
                     ),
                   ),

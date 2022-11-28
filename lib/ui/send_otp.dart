@@ -3,6 +3,7 @@ import 'package:flag/flag.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/sign_in.dart';
 import 'package:huzz/ui/terms_of_condition.dart';
@@ -49,7 +50,7 @@ class _SendOtpState extends State<SendOtp> {
                     ),
                     child: Text(
                       "Phone Number",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -114,12 +115,12 @@ class _SendOtpState extends State<SendOtp> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "9034678966",
-                              hintStyle: TextStyle(
+                              hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                               prefixText: "+$countryCode ",
-                              prefixStyle: TextStyle(
+                              prefixStyle: GoogleFonts.inter(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black)),
@@ -145,14 +146,14 @@ class _SendOtpState extends State<SendOtp> {
                   child: Center(
                     child: RichText(
                       text: TextSpan(
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
                             color: Colors.black,
                           ),
                           text: "Already have an account? ",
                           children: [
                             TextSpan(
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 fontSize: 12,
                                 color: AppColor().backgroundColor,
                               ),
@@ -169,14 +170,14 @@ class _SendOtpState extends State<SendOtp> {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                             text: "By clicking Continue, you agree to our ",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                                 fontSize: 12,
                                 color: Colors.black,
                                 letterSpacing: 1),
                             children: [
                               TextSpan(
                                 text: "Terms of use ",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   fontSize: 12,
                                   color: AppColor().backgroundColor,
                                   letterSpacing: 0.5,
@@ -186,14 +187,14 @@ class _SendOtpState extends State<SendOtp> {
                               ),
                               TextSpan(
                                 text: "and ",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     fontSize: 12,
                                     color: Colors.black,
                                     letterSpacing: 1),
                               ),
                               TextSpan(
                                 text: "and Privacy policy",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     fontSize: 12,
                                     color: AppColor().backgroundColor,
                                     letterSpacing: 0.5),
@@ -260,7 +261,7 @@ class _SendOtpState extends State<SendOtp> {
                               children: [
                                 Text(
                                   'Continue',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.white, fontSize: 18),
                                 ),
                                 SizedBox(

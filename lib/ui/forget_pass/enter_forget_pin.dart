@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../util/colors.dart';
@@ -73,7 +74,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   ),
                 ),
                 Text('Enter OTP & PIN',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                         color: AppColor().orangeBorderColor,
                         fontSize: 28,
                         fontWeight: FontWeight.w500)),
@@ -85,7 +86,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   child: Text(
                     'Enter  the four digit code we sent to your phone number',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                    style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                 ),
                 SizedBox(
@@ -98,7 +99,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                     ),
                     child: Text(
                       "Enter OTP sent to your phone",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -157,7 +158,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                 TimerButton(
                   label: "Send as Voice Call",
                   timeOutInSeconds: 20,
-                  activeTextStyle: TextStyle(
+                  activeTextStyle: GoogleFonts.inter(
                       color: AppColor().backgroundColor, fontSize: 12),
                   onPressed: () {
                     _authController.sendVoiceOtp();
@@ -170,7 +171,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   label: "Resend via sms",
                   timeOutInSeconds: 20,
                   activeTextStyle:
-                      TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                      GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
                   onPressed: () {
                     _authController.sendSmsOtp(isresend: true);
                   },
@@ -187,7 +188,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                     ),
                     child: Text(
                       "Create a 4-digit PIN",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -270,7 +271,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                               children: [
                                 Text(
                                   'Continue',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.white, fontSize: 18),
                                 ),
                                 SizedBox(

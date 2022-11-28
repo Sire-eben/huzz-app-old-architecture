@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/colors.dart';
 
 class MoreWidget extends StatelessWidget {
@@ -44,19 +45,19 @@ class MoreWidget extends StatelessWidget {
             children: [
               Text(
                 title!,
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.normal,
-                  fontFamily: 'InterRegular',
+                  
                   fontSize: 16,
                 ),
               ),
               Text(
                 description!,
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   fontWeight: FontWeight.normal,
                   fontStyle: FontStyle.normal,
-                  fontFamily: 'InterRegular',
+                  
                   fontSize: 12,
                 ),
               ),

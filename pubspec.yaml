@@ -93,4 +93,4 @@ flutter:
 
     - family: InterRegular
       fonts:
-        - asset: assets/fontFamily/Inter-Regulars.ttf
+        - asset: assets/fontFamily/Inter-Regular.ttf

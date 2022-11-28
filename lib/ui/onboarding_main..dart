@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/reg_home.dart';
 import 'package:huzz/util/colors.dart';
@@ -62,7 +63,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                         },
                         child: Text(
                           "Skip",
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+                          style: GoogleFonts.inter(color: Colors.black, fontSize: 16),
                         ),
                       ),
                     ),
@@ -87,10 +88,10 @@ class _OnboardingMainState extends State<OnboardingMain> {
                 child: AutoSizeText(
                   boards[selectedIndex].title!,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     fontWeight: FontWeight.w600,
                     fontSize: 24,
-                    fontFamily: 'InterRegular',
+                    
                     color: Colors.black,
                   ),
                   maxLines: 1,
@@ -104,8 +105,8 @@ class _OnboardingMainState extends State<OnboardingMain> {
                 child: AutoSizeText(
                   boards[selectedIndex].body!,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'InterRegular',
+                  style: GoogleFonts.inter(
+                    
                     color: Colors.black,
                     fontSize: 12,
                     letterSpacing: 0.5,
@@ -194,7 +195,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                             Text(
                               'Start Using Huzz',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                                  GoogleFonts.inter(color: Colors.white, fontSize: 18),
                             ),
                             SizedBox(
                               width: 10,

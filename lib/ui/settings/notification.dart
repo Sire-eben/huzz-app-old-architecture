@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/notification_model.dart';
@@ -36,9 +37,9 @@ class _NotificationsState extends State<Notifications> {
           ),
           title: Text(
             'Notifications',
-            style: TextStyle(
+            style: GoogleFonts.inter(
               color: AppColor().backgroundColor,
-              fontFamily: 'InterRegular',
+              
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -57,10 +58,10 @@ class _NotificationsState extends State<Notifications> {
                     SizedBox(height: 10),
                     Text(
                       'Messages',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontSize: 13,
                           color: Colors.black,
-                          fontFamily: 'InterRegular',
+                          
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
@@ -68,10 +69,10 @@ class _NotificationsState extends State<Notifications> {
                     ),
                     Text(
                       'Your notifications will appear here',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontSize: 10,
                           color: Colors.black,
-                          fontFamily: 'InterRegular'),
+                          ),
                     ),
                   ],
                 ),
@@ -103,9 +104,9 @@ class _NotificationsState extends State<Notifications> {
                               Expanded(
                                 child: Text(
                                   item.message!,
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'InterRegular',
+                                      
                                       fontSize: 10),
                                 ),
                               ),
@@ -113,9 +114,9 @@ class _NotificationsState extends State<Notifications> {
                                 children: [
                                   Text(
                                     item.time!,
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'InterRegular',
+                                        
                                         color: AppColor()
                                             .blackColor
                                             .withOpacity(0.5),
@@ -123,9 +124,9 @@ class _NotificationsState extends State<Notifications> {
                                   ),
                                   Text(
                                     item.time!,
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'InterRegular',
+                                        
                                         color: AppColor()
                                             .blackColor
                                             .withOpacity(0.5),

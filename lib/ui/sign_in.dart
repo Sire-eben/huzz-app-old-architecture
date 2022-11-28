@@ -4,6 +4,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -69,7 +70,7 @@ class _SiginState extends State<Signin> {
             Center(
                 child: Text(
               "Welcome back",
-              style: TextStyle(
+              style: GoogleFonts.inter(
                   fontWeight: FontWeight.w500,
                   fontSize: 24,
                   color: AppColor().backgroundColor),
@@ -80,7 +81,7 @@ class _SiginState extends State<Signin> {
             Center(
                 child: Text(
               "Keep your business going with Huzz",
-              style: TextStyle(
+              style: GoogleFonts.inter(
                   color: Colors.black,
                   fontSize: 12,
                   fontWeight: FontWeight.w400),
@@ -94,7 +95,7 @@ class _SiginState extends State<Signin> {
                 ),
                 child: Text(
                   "Phone Number",
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: Colors.black,
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -157,12 +158,12 @@ class _SiginState extends State<Signin> {
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "9034678966",
-                          hintStyle: TextStyle(
+                          hintStyle: GoogleFonts.inter(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: 14,
                               fontWeight: FontWeight.w500),
                           prefixText: "+$countryCode ",
-                          prefixStyle: TextStyle(
+                          prefixStyle: GoogleFonts.inter(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: Colors.black)),
@@ -182,7 +183,7 @@ class _SiginState extends State<Signin> {
               margin: EdgeInsets.only(left: 20),
               child: Text(
                 "Enter your 4 digits PIN",
-                style: TextStyle(
+                style: GoogleFonts.inter(
                     fontSize: 12,
                     color: Colors.black,
                     fontWeight: FontWeight.w400),
@@ -255,7 +256,7 @@ class _SiginState extends State<Signin> {
             //         ),
             //         Text(
             //           "SIGN IN WITH YOUR FINGERPRINT",
-            //           style: TextStyle(
+            //           style: GoogleFonts.inter(
             //             color: AppColor().backgroundColor,
             //             fontSize: 12,
             //             fontWeight: FontWeight.w700,
@@ -279,7 +280,7 @@ class _SiginState extends State<Signin> {
                   child: Container(
                     child: Text(
                       "Forgot PIN?",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().orangeBorderColor,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -297,7 +298,7 @@ class _SiginState extends State<Signin> {
                   child: Container(
                     child: Text(
                       "Sign up",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -350,7 +351,7 @@ class _SiginState extends State<Signin> {
                             Text(
                               'Login',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                                  GoogleFonts.inter(color: Colors.white, fontSize: 18),
                             ),
                           ],
                         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:share_plus/share_plus.dart';
 import 'records_pdf.dart';
@@ -71,11 +72,11 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
                             height: MediaQuery.of(context).size.height * 0.01),
                         Text(
                           'Download',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               color: Colors.black,
                               fontSize: 10,
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'InterRegular'),
+                              ),
                         ),
                       ],
                     ),
@@ -104,11 +105,11 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
                                   MediaQuery.of(context).size.height * 0.01),
                           Text(
                             'Share',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                                 color: Colors.black,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w400,
-                                fontFamily: 'InterRegular'),
+                                ),
                           ),
                         ],
                       ),
@@ -132,10 +133,10 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
                   child: Center(
                     child: Text(
                       'Continue',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: 'InterRegular'),
+                          ),
                     ),
                   ),
                 ),

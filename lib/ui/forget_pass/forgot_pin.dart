@@ -5,6 +5,7 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/home_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -79,7 +80,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                 ),
                 Center(
                   child: Text('Forgot Pin',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           color: AppColor().orangeBorderColor,
                           fontSize: 28,
                           fontWeight: FontWeight.w500)),
@@ -92,7 +93,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                   child: Text(
                     'To make sure it’s really you, we’ll send a secret code to your phone number via SMS',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                    style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                 ),
                 SizedBox(
@@ -105,7 +106,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                     ),
                     child: Text(
                       "Phone Number",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -170,12 +171,12 @@ class _ForgotPINState extends State<ForgotPIN> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "9034678966",
-                              hintStyle: TextStyle(
+                              hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                               prefixText: "+$countryCode ",
-                              prefixStyle: TextStyle(
+                              prefixStyle: GoogleFonts.inter(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black)),
@@ -218,7 +219,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                               children: [
                                 Text(
                                   'Continue',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.white, fontSize: 18),
                                 ),
                                 SizedBox(

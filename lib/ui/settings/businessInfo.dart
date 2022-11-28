@@ -7,6 +7,7 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
@@ -102,7 +103,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         ),
         title: Text(
           "Business account settings",
-          style: TextStyle(
+          style: GoogleFonts.inter(
             color: AppColor().backgroundColor,
             fontSize: 18,
           ),
@@ -170,7 +171,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     Center(
                         child: Text(
                       "Business Logo",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().blackColor,
                         fontSize: 12,
                       ),
@@ -198,7 +199,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             children: [
                               Text(
                                 'Phone Number',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     color: Colors.black, fontSize: 12),
                               ),
                               SizedBox(
@@ -208,7 +209,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                 margin: EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.red, fontSize: 12),
                                 ),
                               ),
@@ -276,12 +277,12 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                   border: InputBorder.none,
                                   hintText:
                                       "${businessController.selectedBusiness.value!.businessPhoneNumber}",
-                                  hintStyle: TextStyle(
+                                  hintStyle: GoogleFonts.inter(
                                       color: Colors.black,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500),
                                   prefixText: "+$countryCode ",
-                                  prefixStyle: TextStyle(
+                                  prefixStyle: GoogleFonts.inter(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.black)),
@@ -306,7 +307,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         children: [
                           Text(
                             'Email',
-                            style: TextStyle(color: Colors.black, fontSize: 12),
+                            style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                           ),
                           SizedBox(
                             width: 5,
@@ -338,7 +339,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             "${businessController.selectedBusiness.value!.businessEmail}",
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontFamily: 'InterRegular',
+                                  
                                   color: Colors.black,
                                   fontSize: 14,
                                   fontStyle: FontStyle.normal,
@@ -364,14 +365,14 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       children: [
                         Text(
                           'Currency',
-                          style: TextStyle(color: Colors.black, fontSize: 12),
+                          style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                         ),
                         SizedBox(
                           width: 5,
                         ),
                         Text(
                           '*',
-                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
                         ),
                       ],
                     ),
@@ -416,7 +417,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                 children: [
                                   Text(
                                     'Bank Accounts',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: Colors.black, fontSize: 12),
                                   ),
                                   SizedBox(
@@ -457,7 +458,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                     ),
                                     Text(
                                       'Add Bank Account',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           color: AppColor().backgroundColor,
                                           fontSize: 12),
                                     ),
@@ -473,10 +474,10 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       Center(
                         child: Text(
                           'You need to be authorized\nto view this module',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontSize: 14,
                               color: AppColor().orangeBorderColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
@@ -525,7 +526,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         Center(
                           child: Text(
                             'No bank account has been added yet',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().hintColor,
                               fontSize: 10,
                             ),
@@ -566,7 +567,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                   children: [
                                     Text(
                                       'Save',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                           color: Colors.white, fontSize: 18),
                                     ),
                                   ],
@@ -634,9 +635,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
               SizedBox(height: 5),
               Text(
                 'Upload Image',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -672,9 +673,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
               Center(
                 child: Text(
                   'Select from Device',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -696,9 +697,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   child: Center(
                     child: Text(
                       'Done',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        fontFamily: 'InterRegular',
+                        
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -762,9 +763,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 ),
                 Text(
                   'Add Bank Account',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                   ),
@@ -812,9 +813,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             ? CircularProgressIndicator(color: Colors.white)
                             : Text(
                                 'Add Bank Account',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().whiteColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -905,9 +906,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                     color: Colors.white))
                             : Text(
                                 'Update Bank Account',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().whiteColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -938,9 +939,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 Expanded(
                   child: Text(
                     'We will send a one-time password to verify it\'s really you',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().orangeBorderColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -959,7 +960,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   Container(
                     child: Text(
                       'Enter New Number',
-                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                     ),
                   ),
                   SizedBox(
@@ -1019,12 +1020,12 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "9034678966",
-                                hintStyle: TextStyle(
+                                hintStyle: GoogleFonts.inter(
                                     color: Colors.black.withOpacity(0.5),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500),
                                 prefixText: "+$countryCode ",
-                                prefixStyle: TextStyle(
+                                prefixStyle: GoogleFonts.inter(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black)),
@@ -1068,9 +1069,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         child: Center(
                           child: Text(
                             'Cancel',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1094,9 +1095,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         child: Center(
                           child: Text(
                             'Continue',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1142,9 +1143,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 Expanded(
                   child: Text(
                     'We will send a one-time password to verify it\'s really you',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().orangeBorderColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -1161,7 +1162,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 ),
                 child: Text(
                   "Enter OTP sent to your phone",
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: Colors.black,
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -1218,14 +1219,14 @@ class _BusinessInfoState extends State<BusinessInfo> {
               Text(
                 "Send as Voice Call",
                 style:
-                    TextStyle(color: AppColor().backgroundColor, fontSize: 12),
+                    GoogleFonts.inter(color: AppColor().backgroundColor, fontSize: 12),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
                 "Resend via sms",
-                style: TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                style: GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
               ),
             ]),
             actions: <Widget>[
@@ -1254,9 +1255,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         child: Center(
                           child: Text(
                             'Cancel',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1280,9 +1281,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         child: Center(
                           child: Text(
                             'Continue',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1310,9 +1311,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
             title: Center(
               child: Text(
                 'Phone Number successfully Changed',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
                 ),
@@ -1343,9 +1344,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     child: Center(
                       child: Text(
                         'Continue',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          fontFamily: 'InterRegular',
+                          
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),
@@ -1369,7 +1370,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
           child: Center(
             child: Text(
               item,
-              style: TextStyle(fontSize: 14),
+              style: GoogleFonts.inter(fontSize: 14),
             ),
           ),
         ),

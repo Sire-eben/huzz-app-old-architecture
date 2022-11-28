@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -73,7 +74,7 @@ class _CreatePinState extends State<CreatePin> {
               ),
               Center(
                 child: Text('Set Your PIN',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
                         fontSize: 28,
                         fontWeight: FontWeight.w500)),
@@ -85,7 +86,7 @@ class _CreatePinState extends State<CreatePin> {
                 child: Text(
                   'Set a 4-digit PIN for subsequent logins',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                  style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
               SizedBox(
@@ -94,7 +95,7 @@ class _CreatePinState extends State<CreatePin> {
               Center(
                   child: Text(
                 "Create a 4 digit pin",
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: Colors.black,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -152,7 +153,7 @@ class _CreatePinState extends State<CreatePin> {
               Center(
                   child: Text(
                 "Confirm a 4 digit pin",
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: Colors.black,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -251,7 +252,7 @@ class _CreatePinState extends State<CreatePin> {
                                 children: [
                                   Text(
                                     'Create User',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: Colors.white, fontSize: 18),
                                   ),
                                   SizedBox(

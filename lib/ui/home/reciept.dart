@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/dashboard.dart';
 import 'package:huzz/core/constants/app_colors.dart';
 import 'package:huzz/data/model/transaction_model.dart';
@@ -96,7 +97,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                             ),
                             Text(
                               'Change receipt theme',
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.inter(fontSize: 12),
                             )
                           ],
                         ),
@@ -137,11 +138,11 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                                         0.01),
                                 Text(
                                   'Download',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.black,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w400,
-                                      fontFamily: 'InterRegular'),
+                                      ),
                                 ),
                               ],
                             ),
@@ -177,11 +178,11 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                                               0.01),
                                   Text(
                                     'Share',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: Colors.black,
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
-                                        fontFamily: 'InterRegular'),
+                                        ),
                                   ),
                                 ],
                               ),
@@ -210,10 +211,10 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                           child: Center(
                             child: Text(
                               'Continue',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   color: Colors.white,
                                   fontSize: 18,
-                                  fontFamily: 'InterRegular'),
+                                  ),
                             ),
                           ),
                         ),

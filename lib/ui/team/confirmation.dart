@@ -1,6 +1,7 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
@@ -97,9 +98,9 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
               Center(
                 child: Text(
                   'Team Member Successfully',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().backgroundColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
@@ -108,9 +109,9 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
               Center(
                 child: Text(
                   'Added',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().backgroundColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
@@ -146,8 +147,8 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                           )
                         : Text(
                             'Share invite link',
-                            style: TextStyle(
-                              fontFamily: 'InterRegular',
+                            style: GoogleFonts.inter(
+                              
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -170,9 +171,9 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   child: Center(
                     child: Text(
                       'Proceed',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
-                        fontFamily: 'InterRegular',
+                        
                         fontWeight: FontWeight.bold,
                       ),
                     ),

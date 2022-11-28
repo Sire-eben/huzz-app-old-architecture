@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/customers/merchants/merchants.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../util/colors.dart';
@@ -26,7 +27,7 @@ class ManageCustomerInformationDialog extends StatelessWidget {
         if (tabIndex == 0)
           Text(
             'Your customers are the people you sell products or services to.',
-            style: TextStyle(
+            style: GoogleFonts.inter(
               fontSize: 15,
               fontWeight: FontWeight.w500,
               color: Colors.black,
@@ -36,9 +37,8 @@ class ManageCustomerInformationDialog extends StatelessWidget {
           Text(
             'Your merchants are the people you buy products or services from.',
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: GoogleFonts.inter(
               fontSize: 14,
-              fontFamily: "InterRegular",
             ),
           ),
       ],
@@ -79,9 +79,8 @@ class _CustomerTabViewState extends State<CustomerTabView>
           children: [
             Text(
               'Manage ${_tabController.index == 0 ? 'Customers' : 'Merchants'}',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),

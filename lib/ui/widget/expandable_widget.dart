@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/colors.dart';
 
 class ExpandableWidget extends StatefulWidget {
@@ -59,11 +60,11 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                   children: [
                     Text(
                       "View",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'InterRegular',
+                        
                       ),
                     ),
                     Container(child: widget.view)
@@ -78,11 +79,11 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                   children: [
                     Text(
                       "Create",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'InterRegular',
+                        
                       ),
                     ),
                     Container(child: widget.create)
@@ -97,11 +98,11 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                   children: [
                     Text(
                       "Update",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'InterRegular',
+                        
                       ),
                     ),
                     Container(child: widget.update)
@@ -116,11 +117,11 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                   children: [
                     Text(
                       "Delete",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'InterRegular',
+                        
                       ),
                     ),
                     Container(child: widget.delete)
@@ -133,11 +134,11 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
               //     contentPadding: EdgeInsets.zero,
               //     title: Text(
               //       "Create",
-              //       style: TextStyle(
+              //       style: GoogleFonts.inter(
               //         color: Colors.black,
               //         fontSize: 12,
               //         fontWeight: FontWeight.w400,
-              //         fontFamily: 'InterRegular',
+              //         
               //       ),
               //     ),
               //     value: create,
@@ -154,11 +155,11 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
               //     contentPadding: EdgeInsets.zero,
               //     title: Text(
               //       "Update",
-              //       style: TextStyle(
+              //       style: GoogleFonts.inter(
               //         color: Colors.black,
               //         fontSize: 12,
               //         fontWeight: FontWeight.w400,
-              //         fontFamily: 'InterRegular',
+              //         
               //       ),
               //     ),
               //     value: update,
@@ -173,11 +174,11 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
               //   contentPadding: EdgeInsets.zero,
               //   title: Text(
               //     "Delete",
-              //     style: TextStyle(
+              //     style: GoogleFonts.inter(
               //       color: Colors.black,
               //       fontSize: 12,
               //       fontWeight: FontWeight.w400,
-              //       fontFamily: 'InterRegular',
+              //       
               //     ),
               //   ),
               //   value: delete,

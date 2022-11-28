@@ -3,6 +3,7 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/create_pin.dart';
 import 'package:huzz/util/colors.dart';
@@ -64,7 +65,7 @@ class _SignUpState extends State<Signup> {
               ),
               Center(
                 child: Text('Personal Details',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
                         fontSize: 28,
                         fontWeight: FontWeight.w500)),
@@ -76,7 +77,7 @@ class _SignUpState extends State<Signup> {
                 child: Text(
                   'let’s get to know you better',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                  style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
               SizedBox(
@@ -118,7 +119,7 @@ class _SignUpState extends State<Signup> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
                   "Phone Number",
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: Colors.black,
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -185,12 +186,12 @@ class _SignUpState extends State<Signup> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "9034678966",
-                              hintStyle: TextStyle(
+                              hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                               prefixText: "+$countryCode ",
-                              prefixStyle: TextStyle(
+                              prefixStyle: GoogleFonts.inter(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black)),
@@ -236,7 +237,7 @@ class _SignUpState extends State<Signup> {
                     children: [
                       Text(
                         'Continue',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        style: GoogleFonts.inter(color: Colors.white, fontSize: 18),
                       ),
                       SizedBox(
                         width: 10,

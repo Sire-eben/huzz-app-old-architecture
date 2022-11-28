@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
@@ -815,10 +816,10 @@ class CustomerRepository extends GetxController {
 
             TextField(
               onChanged: searchItem,
-              style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: AppColor().backgroundColor,
-                  fontFamily: 'InterRegular'),
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                color: AppColor().backgroundColor,
+              ),
               // controller: _searchcontroller,
               cursorColor: Colors.white,
               autofocus: false,
@@ -834,11 +835,11 @@ class CustomerRepository extends GetxController {
                 fillColor: Colors.white,
                 filled: true,
                 hintText: 'Search Customers',
-                hintStyle: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                    fontFamily: 'InterRegular'),
+                hintStyle: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey,
+                ),
                 contentPadding:
                     EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
@@ -896,10 +897,9 @@ class CustomerRepository extends GetxController {
                                           item.displayName.isEmpty
                                               ? ""
                                               : '${item.displayName[0]}',
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
-                                              fontFamily: 'InterRegular',
                                               fontWeight: FontWeight.bold),
                                         ))),
                                   ),
@@ -916,9 +916,8 @@ class CustomerRepository extends GetxController {
                                       children: [
                                         Text(
                                           "${item.displayName}",
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                               fontSize: 12,
-                                              fontFamily: 'InterRegular',
                                               color: Colors.black,
                                               fontWeight: FontWeight.w400),
                                         ),
@@ -926,10 +925,8 @@ class CustomerRepository extends GetxController {
                                           (item.phones.isNotEmpty)
                                               ? "${item.phones.first.number}"
                                               : "No Phone Number",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: 'InterRegular',
-                                              color: Colors.grey),
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12, color: Colors.grey),
                                         ),
                                       ],
                                     ),
@@ -990,10 +987,10 @@ class CustomerRepository extends GetxController {
 
             TextField(
               onChanged: searchItem,
-              style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: AppColor().backgroundColor,
-                  fontFamily: 'InterRegular'),
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                color: AppColor().backgroundColor,
+              ),
               // controller: _searchcontroller,
               cursorColor: Colors.white,
               autofocus: false,
@@ -1009,11 +1006,11 @@ class CustomerRepository extends GetxController {
                 fillColor: Colors.white,
                 filled: true,
                 hintText: 'Search Customers',
-                hintStyle: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                    fontFamily: 'InterRegular'),
+                hintStyle: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey,
+                ),
                 contentPadding:
                     EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
@@ -1072,10 +1069,9 @@ class CustomerRepository extends GetxController {
                                           item.displayName.isEmpty
                                               ? ""
                                               : '${item.displayName[0]}',
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
-                                              fontFamily: 'InterRegular',
                                               fontWeight: FontWeight.bold),
                                         ))),
                                   ),
@@ -1092,9 +1088,8 @@ class CustomerRepository extends GetxController {
                                       children: [
                                         Text(
                                           "${item.displayName}",
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                               fontSize: 12,
-                                              fontFamily: 'InterRegular',
                                               color: Colors.black,
                                               fontWeight: FontWeight.w400),
                                         ),
@@ -1102,10 +1097,8 @@ class CustomerRepository extends GetxController {
                                           (item.phones.isNotEmpty)
                                               ? "${item.phones.first.number}"
                                               : "No Phone Number",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: 'InterRegular',
-                                              color: Colors.grey),
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12, color: Colors.grey),
                                         ),
                                       ],
                                     ),
@@ -1121,10 +1114,10 @@ class CustomerRepository extends GetxController {
                                           'assets/images/plus-circle.svg'),
                                       Text(
                                         'Invite',
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: AppColor().backgroundColor,
-                                            fontFamily: 'InterRegular'),
+                                        style: GoogleFonts.inter(
+                                          fontSize: 12,
+                                          color: AppColor().backgroundColor,
+                                        ),
                                       )
                                     ]),
                                   ),

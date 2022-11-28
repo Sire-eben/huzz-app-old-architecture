@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/util/colors.dart';
@@ -73,9 +74,9 @@ class _AddMerchantState extends State<AddMerchant> {
         ),
         title: Text(
           'Add Merchant',
-          style: TextStyle(
+          style: GoogleFonts.inter(
             color: AppColor().backgroundColor,
-            fontFamily: "InterRegular",
+           
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -144,10 +145,10 @@ class _AddMerchantState extends State<AddMerchant> {
                           : Center(
                               child: Text(
                                 (widget.item == null) ? 'Save' : "Update",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     color: Colors.white,
                                     fontSize: 18,
-                                    fontFamily: 'InterRegular'),
+                                   ),
                               ),
                             ),
                     ),

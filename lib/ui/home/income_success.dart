@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/dashboard.dart';
 import 'package:huzz/ui/home/reciept.dart';
 import 'package:huzz/data/model/money_reciept_model.dart';
@@ -50,9 +51,8 @@ class IncomeSuccess extends StatelessWidget {
                   children: [
                     Text(
                       'Your $title has',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
-                        fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -60,9 +60,8 @@ class IncomeSuccess extends StatelessWidget {
                     ),
                     Text(
                       'been added successfully',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
-                        fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -91,10 +90,10 @@ class IncomeSuccess extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Proceed',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'InterRegular'),
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
@@ -167,10 +166,10 @@ class IncomeSuccess extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 'View Receipt',
-                                style: TextStyle(
-                                    color: AppColor().backgroundColor,
-                                    fontSize: 18,
-                                    fontFamily: 'InterRegular'),
+                                style: GoogleFonts.inter(
+                                  color: AppColor().backgroundColor,
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                           ),

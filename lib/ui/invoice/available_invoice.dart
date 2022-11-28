@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/ui/invoice/available_invoice/all.dart';
 import 'package:huzz/ui/invoice/available_invoice/overdue.dart';
@@ -27,9 +28,9 @@ class ManageInvoiceInformationDialog extends StatelessWidget {
         Text(
           'This is where you can create new invoices for your customers or update payments for existing invoices.',
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 14,
-            fontFamily: "InterRegular",
+            
           ),
         ),
       ],
@@ -116,10 +117,10 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       children: [
                         Text(
                           "Manage Invoices",
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
-                              fontFamily: 'InterRegular',
+                              
                               color: AppColor().backgroundColor),
                         ),
                         SizedBox(width: 4),
@@ -189,7 +190,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Text(
                       "Invoices",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 24,
                           color: AppColor().backgroundColor),
@@ -211,7 +212,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       labelStyle:
                           Theme.of(context).textTheme.headline2!.copyWith(
                                 color: Colors.black,
-                                fontFamily: "InterRegular",
+                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -219,7 +220,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       unselectedLabelStyle:
                           Theme.of(context).textTheme.headline2!.copyWith(
                                 color: AppColor().backgroundColor,
-                                fontFamily: "InterRegular",
+                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -266,17 +267,17 @@ class DashboardDetails extends StatelessWidget {
           children: [
             Text(
               name!,
-              style: TextStyle(
+              style: GoogleFonts.inter(
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'InterRegular',
+                  
                   fontSize: 12,
                   color: Colors.black),
             ),
             Text(
               no!.toString(),
-              style: TextStyle(
+              style: GoogleFonts.inter(
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'InterRegular',
+                  
                   fontSize: 18,
                   color: AppColor().backgroundColor),
             )

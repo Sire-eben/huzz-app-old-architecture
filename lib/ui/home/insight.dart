@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/home/wordclass.dart';
 import 'package:huzz/util/colors.dart';
@@ -171,9 +172,9 @@ class _InsightState extends State<Insight> {
                           SizedBox(width: 20),
                           Text(
                             'Insights',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              fontFamily: "InterRegular",
+                             
                               fontStyle: FontStyle.normal,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
@@ -197,8 +198,8 @@ class _InsightState extends State<Insight> {
                             ),
                             hint: Text(
                               'Today',
-                              style: TextStyle(
-                                  fontFamily: 'InterRegular',
+                              style: GoogleFonts.inter(
+                                 
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -268,9 +269,9 @@ class _InsightState extends State<Insight> {
                           SizedBox(width: 2),
                           Text(
                             'Money Out(${Utils.getCurrency()})',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
@@ -290,9 +291,9 @@ class _InsightState extends State<Insight> {
                           SizedBox(width: 2),
                           Text(
                             'Money in(${Utils.getCurrency()})',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
@@ -323,7 +324,7 @@ class _InsightState extends State<Insight> {
                             // labelFormat: "${ Utils.getCurrency()}"
                             axisLabelFormatter: (s) => ChartAxisLabel(
                                 "${Utils.getCurrency()}${display(s.value)}",
-                                TextStyle(fontSize: 10)),
+                                GoogleFonts.inter(fontSize: 10)),
                           ),
 
                           // Chart title
@@ -384,9 +385,9 @@ class _InsightState extends State<Insight> {
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   child: Text(
                     'Statistics',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
@@ -489,9 +490,9 @@ class _InsightState extends State<Insight> {
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   child: Text(
                     'Transaction Distribution',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
@@ -505,9 +506,9 @@ class _InsightState extends State<Insight> {
                         children: [
                           Text(
                             'Income',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
@@ -549,9 +550,9 @@ class _InsightState extends State<Insight> {
                         children: [
                           Text(
                             'Expenses',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
@@ -600,9 +601,9 @@ class _InsightState extends State<Insight> {
                     children: [
                       Text(
                         'Income',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -627,9 +628,9 @@ class _InsightState extends State<Insight> {
                                             SizedBox(width: 2),
                                             Text(
                                               '${e.label}',
-                                              style: TextStyle(
+                                              style: GoogleFonts.inter(
                                                 color: AppColor().blackColor,
-                                                fontFamily: 'InterRegular',
+                                                
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -653,9 +654,9 @@ class _InsightState extends State<Insight> {
                                             SizedBox(width: 2),
                                             Text(
                                               '${e.label}',
-                                              style: TextStyle(
+                                              style: GoogleFonts.inter(
                                                 color: AppColor().blackColor,
-                                                fontFamily: 'InterRegular',
+                                                
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -680,9 +681,9 @@ class _InsightState extends State<Insight> {
                     children: [
                       Text(
                         'Expenses',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -707,9 +708,9 @@ class _InsightState extends State<Insight> {
                                           SizedBox(width: 2),
                                           Text(
                                             '${e.label}',
-                                            style: TextStyle(
+                                            style: GoogleFonts.inter(
                                               color: AppColor().blackColor,
-                                              fontFamily: 'InterRegular',
+                                              
                                               fontSize: 9,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -733,9 +734,9 @@ class _InsightState extends State<Insight> {
                                           SizedBox(width: 2),
                                           Text(
                                             '${e.label}',
-                                            style: TextStyle(
+                                            style: GoogleFonts.inter(
                                               color: AppColor().blackColor,
-                                              fontFamily: 'InterRegular',
+                                              
                                               fontSize: 9,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -760,9 +761,9 @@ class _InsightState extends State<Insight> {
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   child: Text(
                     'Popular Items',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
@@ -782,9 +783,9 @@ class _InsightState extends State<Insight> {
                           children: [
                             Text(
                               'Income',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -812,9 +813,9 @@ class _InsightState extends State<Insight> {
                           children: [
                             Text(
                               'Expenses',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -886,9 +887,9 @@ class _InsightState extends State<Insight> {
                       Expanded(
                         child: Text(
                           'Date',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -896,9 +897,9 @@ class _InsightState extends State<Insight> {
                       Expanded(
                         child: Text(
                           'Money Out',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -922,11 +923,11 @@ class _InsightState extends State<Insight> {
                   child: Center(
                     child: Text(
                       'Filter',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
-                          fontFamily: 'InterRegular'),
+                         ),
                     ),
                   ),
                 ),
@@ -940,8 +941,8 @@ class _InsightState extends State<Insight> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(
-              fontFamily: 'InterRegular',
+          style: GoogleFonts.inter(
+              
               fontSize: 10,
               fontWeight: FontWeight.bold),
         ),
@@ -983,9 +984,9 @@ class StatisticsWidget extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(color: Colors.black38, blurRadius: 10)
                     ]),
-                textStyle: TextStyle(
+                textStyle: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
-                    fontFamily: 'InterRegular',
+                    
                     fontSize: 10,
                     color: Colors.black),
                 preferBelow: false,
@@ -1011,25 +1012,25 @@ class StatisticsWidget extends StatelessWidget {
                     children: [
                       Text(
                         amount!,
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 15,
                             color: Colors.white),
                       ),
                       Text(
                         name1!,
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 8,
                             color: Colors.white),
                       ),
                       Text(
                         name2!,
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 8,
                             color: Colors.white),
                       ),

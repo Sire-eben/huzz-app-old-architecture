@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/inventory/Service/servicelist.dart';
@@ -37,8 +38,8 @@ class _ServicesState extends State<Services> {
                         backgroundColor: AppColor().backgroundColor,
                         label: Text(
                           'New Service',
-                          style: TextStyle(
-                              fontFamily: 'InterRegular',
+                          style: GoogleFonts.inter(
+                              
                               fontSize: 10,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
@@ -95,9 +96,9 @@ class _ServicesState extends State<Services> {
                           SizedBox(height: 5),
                           Text(
                             'Service',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
                             ),
@@ -108,9 +109,9 @@ class _ServicesState extends State<Services> {
                                     ProductStatus.UnAuthorized)
                                 ? "Your services will show here. Click the"
                                 : "Your services will show here.",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontSize: 10,
                               fontWeight: FontWeight.normal,
                             ),
@@ -119,9 +120,9 @@ class _ServicesState extends State<Services> {
                               ProductStatus.UnAuthorized) ...[
                             Text(
                               "New Service button to add your first service",
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 10,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -132,10 +133,10 @@ class _ServicesState extends State<Services> {
                               ProductStatus.UnAuthorized) ...[
                             Text(
                               'You need to be authorized\nto view this module',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   fontSize: 14,
                                   color: AppColor().orangeBorderColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
@@ -169,9 +170,9 @@ class _ServicesState extends State<Services> {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Text(
                     "Service Count",
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: Colors.white,
-                      fontFamily: 'InterRegular',
+                      
                       fontSize: 12,
                     ),
                   ),
@@ -179,9 +180,9 @@ class _ServicesState extends State<Services> {
                 Center(
                   child: Text(
                     "0",
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: Colors.white,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
@@ -222,8 +223,8 @@ class _ServicesState extends State<Services> {
                       padding: const EdgeInsets.symmetric(horizontal: 39),
                       child: Text(
                         "Total service value",
-                        style: TextStyle(
-                          fontFamily: 'InterRegular',
+                        style: GoogleFonts.inter(
+                          
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -235,8 +236,8 @@ class _ServicesState extends State<Services> {
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
                         "N0.00",
-                        style: TextStyle(
-                          fontFamily: 'InterRegular',
+                        style: GoogleFonts.inter(
+                          
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
                           color: Colors.white,

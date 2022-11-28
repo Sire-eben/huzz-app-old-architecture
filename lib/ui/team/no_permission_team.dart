@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
 import '../../util/colors.dart';
@@ -50,9 +51,9 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
             children: [
               Text(
                 'My Team',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -71,9 +72,9 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
               child: Text(
                 'You`re a member of ${value!.businessName} team.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
 
@@ -22,7 +23,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(fontSize: 14, fontFamily: 'InterRegular'),
+          style: GoogleFonts.inter(fontSize: 14, ),
         ),
       );
 
@@ -45,9 +46,9 @@ class _NotificationSettingsState extends State<NotificationSettings> {
           ),
           title: Text(
             'Notification Settings',
-            style: TextStyle(
+            style: GoogleFonts.inter(
               color: AppColor().backgroundColor,
-              fontFamily: 'InterRegular',
+              
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -68,12 +69,12 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                   children: [
                     Text(
                       'Remind me about debtors',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
-                          fontFamily: 'InterRegular'),
+                          ),
                     ),
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
@@ -93,10 +94,10 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                           children: [
                             Text(
                               'Interval',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   color: Colors.black,
                                   fontSize: 12,
-                                  fontFamily: 'InterRegular'),
+                                  ),
                             ),
                             SizedBox(
                               height: 8,
@@ -114,9 +115,9 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                 child: DropdownButton<String>(
                                   hint: Text(
                                     'Select Notification Interval',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         fontSize: 15,
-                                        fontFamily: 'InterRegular'),
+                                        ),
                                   ),
                                   value: debtorsValue,
                                   icon: Icon(
@@ -142,12 +143,12 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                   children: [
                     Text(
                       'Remind me about debt Owed',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
-                          fontFamily: 'InterRegular'),
+                          ),
                     ),
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
@@ -167,10 +168,10 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                           children: [
                             Text(
                               'Interval',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   color: Colors.black,
                                   fontSize: 12,
-                                  fontFamily: 'InterRegular'),
+                                  ),
                             ),
                             SizedBox(
                               height: 8,
@@ -188,9 +189,9 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                 child: DropdownButton<String>(
                                   hint: Text(
                                     'Select Notification Interval',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         fontSize: 15,
-                                        fontFamily: 'InterRegular'),
+                                        ),
                                   ),
                                   value: debtOwnedValue,
                                   icon: Icon(

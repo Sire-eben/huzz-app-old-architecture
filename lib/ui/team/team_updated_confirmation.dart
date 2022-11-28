@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../util/colors.dart';
 
 class TeamMemberConfirmation extends StatefulWidget {
@@ -38,9 +39,9 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
             Center(
               child: Text(
                 'Team Member Successfully',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -49,9 +50,9 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
             Center(
               child: Text(
                 'Updated',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -80,9 +81,9 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
                 child: Center(
                   child: Text(
                     'Proceed',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.bold,
                     ),
                   ),

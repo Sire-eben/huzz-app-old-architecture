@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/privacy_policy.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_icons.dart';
@@ -52,9 +53,9 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
           children: [
             Text(
               AppStrings.helpAndSupport,
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -120,9 +121,9 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               ),
                               Text(
                                 AppStrings.privacyPolicy,
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -188,9 +189,9 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               ),
                               Text(
                                 AppStrings.termsOfUse,
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -257,9 +258,9 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               ),
                               Text(
                                 AppStrings.faq,
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -342,9 +343,9 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               ),
                               Text(
                                 AppStrings.mail,
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -419,9 +420,9 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               ),
                               Text(
                                 AppStrings.connectOnWhatsApp,
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -479,7 +480,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                 Expanded(
                   child: Text(
                     'Open WhatsApp..?',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -491,9 +492,9 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
             content: Container(
               child: Text(
                 AppStrings.continueToProceed,
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontWeight: FontWeight.normal,
                   fontSize: 11,
                 ),
@@ -528,9 +529,9 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                         child: Center(
                           child: Text(
                             'Cancel',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -554,9 +555,9 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                         child: Center(
                           child: Text(
                             'Continue',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),

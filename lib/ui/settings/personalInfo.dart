@@ -5,6 +5,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/data/model/user.dart';
@@ -70,7 +71,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
         ),
         title: Text(
           "Personal Information",
-          style: TextStyle(
+          style: GoogleFonts.inter(
             color: AppColor().backgroundColor,
             fontSize: 18,
           ),
@@ -114,7 +115,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         children: [
                           Text(
                             'Phone Number',
-                            style: TextStyle(color: Colors.black, fontSize: 12),
+                            style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                           ),
                           SizedBox(
                             width: 5,
@@ -123,7 +124,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             margin: EdgeInsets.only(top: 5),
                             child: Text(
                               "*",
-                              style: TextStyle(color: Colors.red, fontSize: 12),
+                              style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
                             ),
                           ),
                         ],
@@ -190,12 +191,12 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: phone,
-                                hintStyle: TextStyle(
+                                hintStyle: GoogleFonts.inter(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500),
                                 prefixText: "+$countryCode ",
-                                prefixStyle: TextStyle(
+                                prefixStyle: GoogleFonts.inter(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black)),
@@ -255,7 +256,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             Text(
                               'Save',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                                  GoogleFonts.inter(color: Colors.white, fontSize: 18),
                             ),
                           ],
                         ),
@@ -302,9 +303,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 Expanded(
                   child: Text(
                     'We will send a one-time password to verify it\'s really you',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().orangeBorderColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -320,7 +321,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 ),
                 child: Text(
                   "Enter OTP sent to your phone",
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: Colors.black,
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -370,7 +371,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 label: "Send as Voice Call",
                 timeOutInSeconds: 20,
                 activeTextStyle:
-                    TextStyle(color: AppColor().backgroundColor, fontSize: 12),
+                    GoogleFonts.inter(color: AppColor().backgroundColor, fontSize: 12),
                 onPressed: () {
                   _controller.sendVoiceOtp();
                 },
@@ -382,7 +383,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 label: "Resend via sms",
                 timeOutInSeconds: 20,
                 activeTextStyle:
-                    TextStyle(color: Color(0xffEF6500), fontSize: 12),
+                    GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
                 onPressed: () {
                   _controller.sendSmsOtp(isresend: true);
                 },
@@ -417,9 +418,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         child: Center(
                           child: Text(
                             'Cancel',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -444,9 +445,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         child: Center(
                           child: Text(
                             'Continue',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -474,9 +475,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
             title: Center(
               child: Text(
                 'Phone Number successfully Changed',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
                 ),
@@ -507,9 +508,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     child: Center(
                       child: Text(
                         'Continue',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          fontFamily: 'InterRegular',
+                          
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),

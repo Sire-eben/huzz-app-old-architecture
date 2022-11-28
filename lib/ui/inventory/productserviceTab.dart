@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../util/colors.dart';
 import 'Product/productlist.dart';
@@ -25,9 +26,9 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
             alignment: Alignment.centerLeft,
             child: Text(
               'Manage Inventory',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/util/colors.dart';
@@ -45,7 +46,7 @@ class _AddServiceState extends State<AddService> {
         ),
         title: Text(
           (widget.item == null) ? "Add Service" : "Update Service",
-          style: TextStyle(
+          style: GoogleFonts.inter(
             color: AppColor().backgroundColor,
             fontSize: 18,
           ),
@@ -98,9 +99,9 @@ class _AddServiceState extends State<AddService> {
                   Center(
                     child: Text(
                       'Service Image',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: Colors.black,
-                        fontFamily: 'InterRegular',
+                        
                         fontSize: 12,
                       ),
                     ),
@@ -171,10 +172,10 @@ class _AddServiceState extends State<AddService> {
                           : Center(
                               child: Text(
                                 (widget.item == null) ? 'Save' : "Update",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().whiteColor,
                                   fontSize: 18,
-                                  fontFamily: 'InterRegular',
+                                  
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -240,9 +241,9 @@ class _AddServiceState extends State<AddService> {
               SizedBox(height: 5),
               Text(
                 'Upload Image',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -279,9 +280,9 @@ class _AddServiceState extends State<AddService> {
               Center(
                 child: Text(
                   'Select from Device',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -303,9 +304,9 @@ class _AddServiceState extends State<AddService> {
                   child: Center(
                     child: Text(
                       'Continue',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        fontFamily: 'InterRegular',
+                        
                         fontWeight: FontWeight.bold,
                       ),
                     ),

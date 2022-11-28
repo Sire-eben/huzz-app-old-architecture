@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/util/colors.dart';
@@ -34,10 +35,10 @@ class NoTeamWidget extends GetView<TeamRepository> {
               ),
               Text(
                 'My Team',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                     fontSize: 13,
                     color: Colors.black,
-                    fontFamily: 'InterRegular',
+                    
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -45,17 +46,17 @@ class NoTeamWidget extends GetView<TeamRepository> {
               ),
               Text(
                 'Invite team members to help',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                     fontSize: 10,
                     color: Colors.black,
-                    fontFamily: 'InterRegular'),
+                    ),
               ),
               Text(
                 'you manage your business',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   fontSize: 10,
                   color: Colors.black,
-                  fontFamily: 'InterRegular',
+                  
                 ),
               ),
               SizedBox(
@@ -87,9 +88,9 @@ class NoTeamWidget extends GetView<TeamRepository> {
                         : Center(
                             child: Text(
                               'Create Team',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 fontSize: 13,
-                                fontFamily: 'InterRegular',
+                                
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/home_respository.dart';
 import 'package:huzz/ui/create_pin.dart';
 import 'package:huzz/ui/enter_otp.dart';
@@ -70,7 +71,7 @@ class _RegHome extends State<RegHome> {
                 ),
               ),
               Text(topText[_homeController.onboardingRegSelectedIndex],
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
                       fontSize: 28,
                       fontWeight: FontWeight.w500)),
@@ -82,7 +83,7 @@ class _RegHome extends State<RegHome> {
                 child: Text(
                   bodyText[_homeController.onboardingRegSelectedIndex],
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                  style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
               SizedBox(

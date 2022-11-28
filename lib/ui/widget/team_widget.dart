@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:random_color/random_color.dart';
 
@@ -40,10 +41,10 @@ class TeamsWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     name!.substring(0, 2).toUpperCase(),
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                         fontSize: 20,
                         color: Colors.white,
-                        fontFamily: 'InterRegular',
+                        
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -57,10 +58,10 @@ class TeamsWidget extends StatelessWidget {
               children: [
                 Text(
                   name!,
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                       fontSize: 14,
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 10),
@@ -68,10 +69,10 @@ class TeamsWidget extends StatelessWidget {
                   children: [
                     Text(
                       position!,
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                           fontSize: 10,
                           color: AppColor().blackColor,
-                          fontFamily: 'InterRegular',
+                          
                           fontWeight: FontWeight.w400),
                     ),
                     SizedBox(width: 40),
@@ -123,10 +124,10 @@ class NoTeamsWidget extends StatelessWidget {
                   child: Text(
                     fName!.substring(0, 1).toUpperCase() +
                         lName!.substring(0, 1).toUpperCase(),
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                         fontSize: 20,
                         color: Colors.white,
-                        fontFamily: 'InterRegular',
+                        
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -141,19 +142,19 @@ class NoTeamsWidget extends StatelessWidget {
                 children: [
                   Text(
                     fName!,
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                         fontSize: 14,
                         color: AppColor().blackColor,
-                        fontFamily: 'InterRegular',
+                        
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(width: 2),
                   Text(
                     lName!,
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                         fontSize: 14,
                         color: AppColor().blackColor,
-                        fontFamily: 'InterRegular',
+                        
                         fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -161,10 +162,10 @@ class NoTeamsWidget extends StatelessWidget {
               SizedBox(height: 5),
               Text(
                 position!,
-                style: TextStyle(
+                style: GoogleFonts.inter(
                     fontSize: 10,
                     color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontWeight: FontWeight.w400),
               ),
             ],

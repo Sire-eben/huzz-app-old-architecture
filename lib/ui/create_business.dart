@@ -2,6 +2,7 @@ import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/widget/custom_drop_field.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
@@ -47,9 +48,9 @@ class _CreateBusinessState extends State<CreateBusiness> {
           ),
           title: Text(
             'Create Your Business',
-            style: TextStyle(
+            style: GoogleFonts.inter(
               color: AppColor().backgroundColor,
-              fontFamily: 'InterRegular',
+              
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -205,7 +206,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                                 ),
                                 Text(
                                   'Continue',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.white, fontSize: 18),
                                 ),
                               ],
@@ -239,9 +240,9 @@ class _CreateBusinessState extends State<CreateBusiness> {
                 Expanded(
                   child: Text(
                     '$title',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -290,9 +291,9 @@ class _CreateBusinessState extends State<CreateBusiness> {
                         child: Center(
                           child: Text(
                             'Cancel',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -318,9 +319,9 @@ class _CreateBusinessState extends State<CreateBusiness> {
                         child: Center(
                           child: Text(
                             'Logout',
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -377,7 +378,7 @@ class BusinessCreatedSuccesful extends StatelessWidget {
                 "Business Created Successfully",
                 textAlign: TextAlign.center,
                 style:
-                    TextStyle(fontSize: 30, color: AppColor().backgroundColor),
+                    GoogleFonts.inter(fontSize: 30, color: AppColor().backgroundColor),
               )),
           Spacer(),
           Center(
@@ -403,7 +404,7 @@ class BusinessCreatedSuccesful extends StatelessWidget {
                 children: [
                   Text(
                     'Proceed',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: GoogleFonts.inter(color: Colors.white, fontSize: 18),
                   ),
                   SizedBox(width: 10),
                 ],

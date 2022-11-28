@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/data/model/product.dart';
@@ -88,7 +89,7 @@ class _AddProductState extends State<AddProduct> {
         ),
         title: Text(
           (widget.item == null) ? "Add Product" : "Edit Product",
-          style: TextStyle(
+          style: GoogleFonts.inter(
             color: AppColor().backgroundColor,
             fontSize: 18,
           ),
@@ -137,9 +138,9 @@ class _AddProductState extends State<AddProduct> {
             Center(
               child: Text(
                 'Product Image',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: Colors.black,
-                  fontFamily: 'InterRegular',
+                  
                   fontSize: 12,
                 ),
               ),
@@ -176,7 +177,7 @@ class _AddProductState extends State<AddProduct> {
                             children: [
                               Text(
                                 'Cost price',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     color: Colors.black, fontSize: 12),
                               ),
                               SizedBox(
@@ -186,7 +187,7 @@ class _AddProductState extends State<AddProduct> {
                                 margin: EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.red, fontSize: 12),
                                 ),
                               ),
@@ -227,7 +228,7 @@ class _AddProductState extends State<AddProduct> {
                             hintText: '${Utils.getCurrency()} 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
-                                      fontFamily: 'InterRegular',
+                                      
                                       color: Colors.black26,
                                       fontSize: 14,
                                       fontStyle: FontStyle.normal,
@@ -252,7 +253,7 @@ class _AddProductState extends State<AddProduct> {
                             children: [
                               Text(
                                 'Selling price',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     color: Colors.black, fontSize: 12),
                               ),
                               SizedBox(
@@ -262,7 +263,7 @@ class _AddProductState extends State<AddProduct> {
                                 margin: EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.red, fontSize: 12),
                                 ),
                               ),
@@ -303,7 +304,7 @@ class _AddProductState extends State<AddProduct> {
                             hintText: '${Utils.getCurrency()} 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
-                                      fontFamily: 'InterRegular',
+                                      
                                       fontSize: 14,
                                       color: Colors.black26,
                                       fontStyle: FontStyle.normal,
@@ -336,7 +337,7 @@ class _AddProductState extends State<AddProduct> {
                       children: [
                         Text(
                           'Quantity',
-                          style: TextStyle(color: Colors.black, fontSize: 12),
+                          style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                         ),
                         SizedBox(
                           width: 1,
@@ -345,7 +346,7 @@ class _AddProductState extends State<AddProduct> {
                           margin: EdgeInsets.only(top: 5),
                           child: Text(
                             "*",
-                            style: TextStyle(color: Colors.red, fontSize: 12),
+                            style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
                           ),
                         ),
                       ],
@@ -402,7 +403,7 @@ class _AddProductState extends State<AddProduct> {
                             : _productController.productQuantityController.text,
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
-                                  fontFamily: 'InterRegular',
+                                  
                                   color: Colors.black,
                                   fontSize: 14,
                                   fontStyle: FontStyle.normal,
@@ -439,7 +440,7 @@ class _AddProductState extends State<AddProduct> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Select Unit',
-                style: TextStyle(color: Colors.black, fontSize: 12),
+                style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
               ),
             ),
             SizedBox(
@@ -468,9 +469,9 @@ class _AddProductState extends State<AddProduct> {
                   iconSize: 30,
                   hint: Text(
                     'Select product unit',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: Colors.black26,
-                      fontFamily: 'InterRegular',
+                      
                     ),
                   ),
                   items: _productController.units.map(buildMenuItem).toList(),
@@ -514,10 +515,10 @@ class _AddProductState extends State<AddProduct> {
                     : Center(
                         child: Text(
                           (widget.item == null) ? 'Save' : "Update",
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             color: AppColor().whiteColor,
                             fontSize: 18,
-                            fontFamily: 'InterRegular',
+                            
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -581,9 +582,9 @@ class _AddProductState extends State<AddProduct> {
               SizedBox(height: 5),
               Text(
                 'Upload Image',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontFamily: 'InterRegular',
+                  
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -620,9 +621,9 @@ class _AddProductState extends State<AddProduct> {
               Center(
                 child: Text(
                   'Select from Device',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -644,9 +645,9 @@ class _AddProductState extends State<AddProduct> {
                   child: Center(
                     child: Text(
                       'Done',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        fontFamily: 'InterRegular',
+                        
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -673,7 +674,7 @@ class _AddProductState extends State<AddProduct> {
           child: Center(
             child: Text(
               item,
-              style: TextStyle(fontSize: 14),
+              style: GoogleFonts.inter(fontSize: 14),
             ),
           ),
         ),

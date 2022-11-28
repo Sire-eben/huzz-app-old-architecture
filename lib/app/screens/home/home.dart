@@ -40,7 +40,6 @@ class DebtInformationDialog extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontSize: 14,
-            
           ),
         ),
       ],
@@ -178,7 +177,6 @@ class _HomeState extends State<Home> {
                               "Today's BALANCE",
                               style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                // ,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -191,7 +189,6 @@ class _HomeState extends State<Home> {
                             "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // ,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -218,7 +215,6 @@ class _HomeState extends State<Home> {
                                         "All Records",
                                         style: GoogleFonts.inter(
                                           color: AppColor().whiteColor,
-                                          // ,
                                           fontSize: 10,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -260,7 +256,6 @@ class _HomeState extends State<Home> {
                                         "Insights",
                                         style: GoogleFonts.inter(
                                           color: AppColor().whiteColor,
-                                          // ,
                                           fontSize: 10,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -315,7 +310,6 @@ class _HomeState extends State<Home> {
                                   "Today's Money IN",
                                   style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    // ,
                                     fontSize: 9,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -328,7 +322,6 @@ class _HomeState extends State<Home> {
                             "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // ,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -360,7 +353,6 @@ class _HomeState extends State<Home> {
                                   "Today's Money Out",
                                   style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    // ,
                                     fontSize: 9,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -373,7 +365,6 @@ class _HomeState extends State<Home> {
                             "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // ,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -585,10 +576,10 @@ class _HomeState extends State<Home> {
                             ? Text(
                                 "No debtors yet",
                                 style: GoogleFonts.inter(
-                                    fontSize: 15,
-                                    color: Color(0xffF58D40),
-                                    fontWeight: FontWeight.bold,
-                                    ),
+                                  fontSize: 15,
+                                  color: Color(0xffF58D40),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               )
                             : Row(
                                 children: [
@@ -642,12 +633,7 @@ class _HomeState extends State<Home> {
                     },
                     child: (_transactionController.transactionStatus ==
                             TransactionStatus.Loading)
-                        ?
-                        // Obx(() {
-                        // return
-                        Center(child: CircularProgressIndicator())
-                        // ;
-                        // })
+                        ? Center(child: CircularProgressIndicator())
                         : (_transactionController.allPaymentItem.isNotEmpty)
                             ? ListView.separated(
                                 scrollDirection: Axis.vertical,
@@ -711,10 +697,9 @@ class _HomeState extends State<Home> {
                                                 Text(
                                                   "${Utils.getCurrency()}${display(item.totalAmount)}",
                                                   style: GoogleFonts.inter(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      ),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                                 Text(
                                                   item.isFullyPaid!
@@ -752,7 +737,6 @@ class _HomeState extends State<Home> {
                                       style: GoogleFonts.inter(
                                           fontSize: 13,
                                           color: Colors.black,
-                                          // ,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     SizedBox(
@@ -761,16 +745,16 @@ class _HomeState extends State<Home> {
                                     Text(
                                       'Your recent transactions will show here. Click the',
                                       style: GoogleFonts.inter(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          ),
+                                        fontSize: 10,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                     Text(
                                       'Add transaction button to record your first transaction.',
                                       style: GoogleFonts.inter(
-                                          fontSize: 10,
-                                          color: Colors.black,
-                                          ),
+                                        fontSize: 10,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -780,13 +764,7 @@ class _HomeState extends State<Home> {
               ))
             ],
           ),
-        )
-
-        // (_transactionController.allPaymentItem.isNotEmpty)
-        //     ? TransactionAvailable(context)
-        //     : TransactionNotAvailable(context)
-
-        ,
+        ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () => showModalBottomSheet(
               shape: RoundedRectangleBorder(
@@ -799,10 +777,7 @@ class _HomeState extends State<Home> {
           label: Text(
             'Add transaction',
             style: GoogleFonts.inter(
-                // ,
-                fontSize: 10,
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
+                fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -950,7 +925,6 @@ class _HomeState extends State<Home> {
                                     "All Records",
                                     style: GoogleFonts.inter(
                                       color: AppColor().whiteColor,
-                                      // ,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -1092,7 +1066,6 @@ class _HomeState extends State<Home> {
                               "Today's Money Out",
                               style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                // ,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -1105,7 +1078,6 @@ class _HomeState extends State<Home> {
                         "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                         style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          // ,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -1312,10 +1284,10 @@ class _HomeState extends State<Home> {
                         ? Text(
                             "No debtors yet",
                             style: GoogleFonts.inter(
-                                fontSize: 15,
-                                color: Color(0xffF58D40),
-                                fontWeight: FontWeight.bold,
-                                ),
+                              fontSize: 15,
+                              color: Color(0xffF58D40),
+                              fontWeight: FontWeight.bold,
+                            ),
                           )
                         : Row(
                             children: [
@@ -1431,9 +1403,9 @@ class _HomeState extends State<Home> {
                                             Text(
                                               "${Utils.getCurrency()}${display(item.totalAmount)}",
                                               style: GoogleFonts.inter(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  ),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                             Text(
                                               item.isFullyPaid!
@@ -1571,7 +1543,6 @@ class _HomeState extends State<Home> {
                         "Today's BALANCE",
                         style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          // ,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -1584,7 +1555,6 @@ class _HomeState extends State<Home> {
                       '${Utils.getCurrency()}0.0',
                       style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        // ,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -1610,7 +1580,6 @@ class _HomeState extends State<Home> {
                                   "All Records",
                                   style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    // ,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -1651,7 +1620,6 @@ class _HomeState extends State<Home> {
                                   "Insights",
                                   style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    // ,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -1704,7 +1672,6 @@ class _HomeState extends State<Home> {
                             "Today's Money IN",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // ,
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
@@ -1747,7 +1714,6 @@ class _HomeState extends State<Home> {
                             "Today's Money Out",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // ,
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
@@ -1760,7 +1726,6 @@ class _HomeState extends State<Home> {
                       "${Utils.getCurrency()}0.0",
                       style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        // ,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -1955,10 +1920,10 @@ class _HomeState extends State<Home> {
                         ? Text(
                             "No debtors yet",
                             style: GoogleFonts.inter(
-                                fontSize: 15,
-                                color: Color(0xffF58D40),
-                                fontWeight: FontWeight.w600,
-                                ),
+                              fontSize: 15,
+                              color: Color(0xffF58D40),
+                              fontWeight: FontWeight.w600,
+                            ),
                           )
                         : Row(
                             children: [
@@ -2023,7 +1988,6 @@ class _HomeState extends State<Home> {
                         style: GoogleFonts.inter(
                             fontSize: 13,
                             color: Colors.black,
-                            // ,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
@@ -2032,16 +1996,16 @@ class _HomeState extends State<Home> {
                       Text(
                         'Your recent transactions will show here. Click the',
                         style: GoogleFonts.inter(
-                            fontSize: 10,
-                            color: Colors.black,
-                            ),
+                          fontSize: 10,
+                          color: Colors.black,
+                        ),
                       ),
                       Text(
                         'Add transaction button to record your first transaction.',
                         style: GoogleFonts.inter(
-                            fontSize: 10,
-                            color: Colors.black,
-                            ),
+                          fontSize: 10,
+                          color: Colors.black,
+                        ),
                       ),
                     ],
                   ),
@@ -2198,9 +2162,6 @@ class _HomeState extends State<Home> {
                             _debtorController.dispose();
                             _transactionController.dispose();
 
-                            // Get.delete(tag: "Debtors");
-                            // Get.put(DebtorRepository,permanent: true);
-
                             _businessController.selectedBusiness(item.business);
 
                             Navigator.pop(context);
@@ -2267,8 +2228,6 @@ class _HomeState extends State<Home> {
                   }),
                 ),
               ),
-              // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
               Expanded(
                 child: InkWell(
                   onTap: () {
@@ -2288,9 +2247,9 @@ class _HomeState extends State<Home> {
                       child: Text(
                         'Create New Business',
                         style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 18,
-                            ),
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),

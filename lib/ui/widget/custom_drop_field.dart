@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/colors.dart';
 
 class CustomDropDownField extends StatelessWidget {
@@ -35,7 +36,7 @@ class CustomDropDownField extends StatelessWidget {
                 children: [
                   Text(
                     label!,
-                    style: TextStyle(color: Colors.black, fontSize: 12),
+                    style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                   ),
                   SizedBox(
                     width: 5,
@@ -45,7 +46,7 @@ class CustomDropDownField extends StatelessWidget {
                           margin: EdgeInsets.only(top: 5),
                           child: Text(
                             "*",
-                            style: TextStyle(color: Colors.red, fontSize: 12),
+                            style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
                           ))
                       : Container()
                 ],
@@ -58,7 +59,7 @@ class CustomDropDownField extends StatelessWidget {
                   decoration: InputDecoration(
                       labelStyle: labelTextStyle,
                       errorStyle:
-                          TextStyle(color: Colors.redAccent, fontSize: 16.0),
+                          GoogleFonts.inter(color: Colors.redAccent, fontSize: 16.0),
                       hintText: hintText,
                       enabledBorder: OutlineInputBorder(
                           borderSide:

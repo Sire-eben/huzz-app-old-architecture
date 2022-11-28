@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/bank.dart';
 
@@ -27,8 +28,8 @@ class ItemCard extends StatelessWidget {
               flex: 3,
               child: Text(
                 item.bankAccountName!,
-                style: TextStyle(
-                  fontFamily: "InterRegular",
+                style: GoogleFonts.inter(
+                 
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
@@ -41,8 +42,8 @@ class ItemCard extends StatelessWidget {
               flex: 2,
               child: Text(
                 item.bankAccountNumber!,
-                style: TextStyle(
-                  fontFamily: "InterRegular",
+                style: GoogleFonts.inter(
+                 
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),
@@ -55,8 +56,8 @@ class ItemCard extends StatelessWidget {
               flex: 2,
               child: Text(
                 item.bankName!,
-                style: TextStyle(
-                  fontFamily: "InterRegular",
+                style: GoogleFonts.inter(
+                  
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),

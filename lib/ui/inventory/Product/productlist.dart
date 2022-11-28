@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
@@ -61,9 +62,9 @@ class _ProductListingState extends State<ProductListing> {
                 Expanded(
                   child: Text(
                     'You are about to delete a product, Are you sure you want to continue?',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -105,9 +106,9 @@ class _ProductListingState extends State<ProductListing> {
                           child: Center(
                             child: Text(
                               'Cancel',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -137,9 +138,9 @@ class _ProductListingState extends State<ProductListing> {
                           child: Center(
                             child: Text(
                               'Delete',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -188,8 +189,8 @@ class _ProductListingState extends State<ProductListing> {
           backgroundColor: AppColor().backgroundColor,
           label: Text(
             (isDelete) ? "Delete Product(s)" : 'New Product',
-            style: TextStyle(
-                fontFamily: 'InterRegular',
+            style: GoogleFonts.inter(
+                
                 fontSize: 10,
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
@@ -253,7 +254,7 @@ class _ProductListingState extends State<ProductListing> {
                           hintText: 'Search',
                           hintStyle:
                               Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontFamily: 'InterRegular',
+                                    
                                     color: Colors.black26,
                                     fontSize: 14,
                                     fontStyle: FontStyle.normal,
@@ -276,9 +277,9 @@ class _ProductListingState extends State<ProductListing> {
                 children: [
                   Text(
                     'Product (${_productController.productGoods.length})',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -398,17 +399,17 @@ class _ProductListingState extends State<ProductListing> {
                 children: [
                   Text(
                     "Product Count",
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: Colors.white,
-                      fontFamily: 'InterRegular',
+                      
                       fontSize: 12,
                     ),
                   ),
                   Text(
                     "${_productController.productGoods.length}",
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: Colors.white,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
@@ -448,8 +449,8 @@ class _ProductListingState extends State<ProductListing> {
                     Center(
                       child: Text(
                         "Total product value",
-                        style: TextStyle(
-                          fontFamily: 'InterRegular',
+                        style: GoogleFonts.inter(
+                          
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -460,8 +461,8 @@ class _ProductListingState extends State<ProductListing> {
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: Text(
                           "${Utils.getCurrency()}${display(_productController.totalProduct)}",
-                          style: TextStyle(
-                            fontFamily: 'InterRegular',
+                          style: GoogleFonts.inter(
+                            
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
                             color: Colors.white,
@@ -502,9 +503,9 @@ class _ProductListingState extends State<ProductListing> {
               children: [
                 Text(
                   'Add stock',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
                   ),
@@ -560,9 +561,9 @@ class _ProductListingState extends State<ProductListing> {
                           children: [
                             Text(
                               'Television',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -577,18 +578,18 @@ class _ProductListingState extends State<ProductListing> {
                                   children: [
                                     Text(
                                       'left: ',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                         color: AppColor().blackColor,
-                                        fontFamily: 'InterRegular',
+                                        
                                         fontSize: 11,
                                         fontWeight: FontWeight.normal,
                                       ),
                                     ),
                                     Text(
                                       '7',
-                                      style: TextStyle(
+                                      style: GoogleFonts.inter(
                                         color: AppColor().orangeBorderColor,
-                                        fontFamily: 'InterRegular',
+                                        
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -600,9 +601,9 @@ class _ProductListingState extends State<ProductListing> {
                                 ),
                                 Text(
                                   'N20,000',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().blackColor,
-                                    fontFamily: 'InterRegular',
+                                    
                                     fontSize: 11,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -635,7 +636,7 @@ class _ProductListingState extends State<ProductListing> {
                     children: [
                       Text(
                         'Quantity',
-                        style: TextStyle(color: Colors.black, fontSize: 12),
+                        style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                       ),
                       SizedBox(
                         width: 5,
@@ -644,7 +645,7 @@ class _ProductListingState extends State<ProductListing> {
                         margin: EdgeInsets.only(top: 5),
                         child: Text(
                           "*",
-                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
                         ),
                       ),
                     ],
@@ -689,7 +690,7 @@ class _ProductListingState extends State<ProductListing> {
                       hintText: '${Utils.getCurrency()} 0.00',
                       hintStyle:
                           Theme.of(context).textTheme.headline4!.copyWith(
-                                fontFamily: 'InterRegular',
+                                
                                 color: Colors.black26,
                                 fontSize: 14,
                                 fontStyle: FontStyle.normal,
@@ -731,9 +732,9 @@ class _ProductListingState extends State<ProductListing> {
                 child: Center(
                   child: Text(
                     'Continue',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().whiteColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -805,9 +806,9 @@ class _ListingProductState extends State<ListingProduct> {
                 children: [
                   Text(
                     "${widget.item!.productName}",
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -819,18 +820,18 @@ class _ListingProductState extends State<ListingProduct> {
                     children: [
                       Text(
                         'left: ',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                         ),
                       ),
                       Text(
                         "${widget.item!.quantityLeft}",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().orangeBorderColor,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -840,9 +841,9 @@ class _ListingProductState extends State<ListingProduct> {
                       ),
                       Text(
                         '${Utils.getCurrency()}${display(widget.item!.sellingPrice ?? 0)}',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          fontFamily: 'InterRegular',
+                          
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                         ),
@@ -888,9 +889,9 @@ class _ListingProductState extends State<ListingProduct> {
                             ),
                             Text(
                               'Edit',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().orangeBorderColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontSize: 12,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -970,9 +971,9 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                   children: [
                     Text(
                       widget.item!.productName!,
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().blackColor,
-                        fontFamily: 'InterRegular',
+                        
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
@@ -984,18 +985,18 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                       children: [
                         Text(
                           'left: ',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             color: AppColor().blackColor,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
                         ),
                         Text(
                           "${widget.item!.quantityLeft}",
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             color: AppColor().orangeBorderColor,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -1005,9 +1006,9 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                         ),
                         Text(
                           '${Utils.getCurrency()}${display(widget.item!.costPrice ?? 0)}',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             color: AppColor().blackColor,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),

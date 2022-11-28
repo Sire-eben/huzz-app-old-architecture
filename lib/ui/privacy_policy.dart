@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -31,7 +32,7 @@ class _PrivacyState extends State<Privacy> {
         centerTitle: true,
         title: Text(
           'Privacy Policy',
-          style: TextStyle(
+          style: GoogleFonts.inter(
             color: AppColor().whiteColor,
             fontSize: 16,
           ),

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
@@ -29,9 +30,9 @@ class NoAccessDialog extends StatelessWidget {
         Text(
           "You are not authorized to perform this action",
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 14,
-            fontFamily: "InterRegular",
+            
           ),
         ),
       ],
@@ -106,9 +107,9 @@ class _MyTeamState extends State<MyTeam> {
               children: [
                 Text(
                   'My Team',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: AppColor().backgroundColor,
-                    fontFamily: 'InterRegular',
+                    
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -128,8 +129,8 @@ class _MyTeamState extends State<MyTeam> {
                   backgroundColor: AppColor().backgroundColor,
                   label: Text(
                     'Add new member',
-                    style: TextStyle(
-                        fontFamily: 'InterRegular',
+                    style: GoogleFonts.inter(
+                        
                         fontSize: 10,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
@@ -246,9 +247,9 @@ class _MyTeamState extends State<MyTeam> {
                           child: Text(
                             'You joined the ${value.businessName} team on\n$date',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              fontFamily: 'InterRegular',
+                              
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                             ),
@@ -282,7 +283,7 @@ class _MyTeamState extends State<MyTeam> {
             ),
             title: Text(
               'Delete Team Member',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
@@ -290,9 +291,9 @@ class _MyTeamState extends State<MyTeam> {
             ),
             content: Text(
               "You're about to delete this team member, click delete to proceed",
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 color: AppColor().blackColor,
-                fontFamily: 'InterRegular',
+                
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
               ),
@@ -326,9 +327,9 @@ class _MyTeamState extends State<MyTeam> {
                           child: Center(
                             child: Text(
                               'Cancel',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -355,9 +356,9 @@ class _MyTeamState extends State<MyTeam> {
                           child: Center(
                             child: Text(
                               'Delete',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -394,10 +395,10 @@ class StatusWidget extends StatelessWidget {
           color: color!.withOpacity(0.2)),
       child: Text(
         text!,
-        style: TextStyle(
+        style: GoogleFonts.inter(
             fontSize: 7,
             color: color!,
-            fontFamily: 'InterRegular',
+            
             fontWeight: FontWeight.w400),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
@@ -49,9 +50,9 @@ class _AllState extends State<All> {
                 Expanded(
                   child: Text(
                     'You are about to delete this invoice(s). Are you sure you want to continue?',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      fontFamily: 'InterRegular',
+                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -96,9 +97,9 @@ class _AllState extends State<All> {
                           child: Center(
                             child: Text(
                               'Cancel',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -128,9 +129,9 @@ class _AllState extends State<All> {
                           child: Center(
                             child: Text(
                               'Delete',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -166,18 +167,18 @@ class _AllState extends State<All> {
                     children: [
                       Text(
                         'Invoices',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 14,
                             color: Colors.black),
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(
                         '(${_invoiceController.offlineInvoices.length})',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'InterRegular',
+                            
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -282,11 +283,10 @@ class _AllState extends State<All> {
                                                         customer == null
                                                             ? ""
                                                             : customer.name!,
-                                                        style: TextStyle(
+                                                        style: GoogleFonts.inter(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontFamily:
-                                                                'InterRegular',
+                                                           
                                                             fontSize: 16,
                                                             color:
                                                                 Colors.black),
@@ -301,24 +301,22 @@ class _AllState extends State<All> {
                                                         children: [
                                                           Text(
                                                             "${Utils.getCurrency()}${display(item.totalAmount)}",
-                                                            style: TextStyle(
+                                                            style: GoogleFonts.inter(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontFamily:
-                                                                    'InterRegular',
+                                                                
                                                                 fontSize: 14,
                                                                 color: Color(
                                                                     0xffEF6500)),
                                                           ),
                                                           Text(
                                                             "",
-                                                            style: TextStyle(
+                                                            style: GoogleFonts.inter(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontFamily:
-                                                                    'InterRegular',
+                                                                
                                                                 fontSize: 14,
                                                                 color: Colors
                                                                     .black),
@@ -326,12 +324,11 @@ class _AllState extends State<All> {
                                                           Text(
                                                             item.createdDateTime!
                                                                 .formatDate()!,
-                                                            style: TextStyle(
+                                                            style: GoogleFonts.inter(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontFamily:
-                                                                    'InterRegular',
+                                                                
                                                                 fontSize: 14,
                                                                 color: Colors
                                                                     .black),
@@ -424,11 +421,10 @@ class _AllState extends State<All> {
                                                       customer == null
                                                           ? ""
                                                           : customer.name!,
-                                                      style: TextStyle(
+                                                      style: GoogleFonts.inter(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontFamily:
-                                                              'InterRegular',
+                                                          
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
@@ -442,24 +438,22 @@ class _AllState extends State<All> {
                                                       children: [
                                                         Text(
                                                           "${Utils.getCurrency()}${display(item.totalAmount)}",
-                                                          style: TextStyle(
+                                                          style: GoogleFonts.inter(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                              fontFamily:
-                                                                  'InterRegular',
+                                                              
                                                               fontSize: 14,
                                                               color: Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
                                                           "",
-                                                          style: TextStyle(
+                                                          style: GoogleFonts.inter(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                              fontFamily:
-                                                                  'InterRegular',
+                                                              
                                                               fontSize: 14,
                                                               color:
                                                                   Colors.black),
@@ -467,12 +461,11 @@ class _AllState extends State<All> {
                                                         Text(
                                                           item.createdDateTime!
                                                               .formatDate()!,
-                                                          style: TextStyle(
+                                                          style: GoogleFonts.inter(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                              fontFamily:
-                                                                  'InterRegular',
+                                                              
                                                               fontSize: 14,
                                                               color:
                                                                   Colors.black),
@@ -569,8 +562,8 @@ class _AllState extends State<All> {
                     backgroundColor: AppColor().backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
-                      style: TextStyle(
-                          fontFamily: 'InterRegular',
+                      style: GoogleFonts.inter(
+                          
                           fontSize: 10,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),

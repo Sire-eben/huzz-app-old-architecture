@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/inventory/Service/services.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
@@ -25,9 +26,9 @@ class ManageInventoryInformationDialog extends StatelessWidget {
         Text(
           'To make recording your sales easier, you can add all your products/services here.',
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 14,
-            fontFamily: "InterRegular",
+            
           ),
         ),
       ],
@@ -72,9 +73,9 @@ class _ManageInventoryState extends State<ManageInventory> {
             children: [
               Text(
                 'Manage Inventory',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                  fontFamily: 'InterRegular',
+                 
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),

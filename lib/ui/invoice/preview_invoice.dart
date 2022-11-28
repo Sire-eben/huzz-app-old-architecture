@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/dashboard.dart';
 import 'package:huzz/ui/invoice/invoice_pdf.dart';
 import 'package:huzz/util/colors.dart';
@@ -64,9 +65,9 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
             children: [
               Text(
                 'View Invoice',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                  fontFamily: "InterRegular",
+                  
                   fontStyle: FontStyle.normal,
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
@@ -75,9 +76,9 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
               SizedBox(width: 4),
               // Text(
               //   '(#00000001)',
-              //   style: TextStyle(
+              //   style: GoogleFonts.inter(
               //     color: Colors.black,
-              //     fontFamily: "InterRegular",
+              //     
               //     fontStyle: FontStyle.normal,
               //     fontSize: 16,
               //     fontWeight: FontWeight.w500,
@@ -136,7 +137,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                             ),
                             Text(
                               'Change invoice theme',
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.inter(fontSize: 12),
                             )
                           ],
                         ),
@@ -177,11 +178,11 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                                         0.01),
                                 Text(
                                   'Download',
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                       color: Colors.black,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w400,
-                                      fontFamily: 'InterRegular'),
+                                      ),
                                 ),
                               ],
                             ),
@@ -217,11 +218,11 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                                               0.01),
                                   Text(
                                     'Share',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         color: Colors.black,
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400,
-                                        fontFamily: 'InterRegular'),
+                                        ),
                                   ),
                                 ],
                               ),
@@ -250,10 +251,10 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                           child: Center(
                             child: Text(
                               'Continue',
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                   color: Colors.white,
                                   fontSize: 18,
-                                  fontFamily: 'InterRegular'),
+                                  ),
                             ),
                           ),
                         ),

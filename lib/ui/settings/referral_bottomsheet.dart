@@ -2,6 +2,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/user_referral_model.dart';
@@ -256,9 +257,9 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                       )
                                     : Text(
                                         'Share Referral Link',
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                           color: AppColor().whiteColor,
-                                          fontFamily: 'InterRegular',
+                                         
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
                                         ),
