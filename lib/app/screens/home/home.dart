@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/constants.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
@@ -39,7 +40,7 @@ class DebtInformationDialog extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontSize: 14,
-            fontFamily: "InterRegular",
+            
           ),
         ),
       ],
@@ -177,7 +178,7 @@ class _HomeState extends State<Home> {
                               "Today's BALANCE",
                               style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                // fontFamily: 'InterRegular',
+                                // ,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -190,7 +191,7 @@ class _HomeState extends State<Home> {
                             "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // fontFamily: 'InterRegular',
+                              // ,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -217,7 +218,7 @@ class _HomeState extends State<Home> {
                                         "All Records",
                                         style: GoogleFonts.inter(
                                           color: AppColor().whiteColor,
-                                          // fontFamily: 'InterRegular',
+                                          // ,
                                           fontSize: 10,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -259,7 +260,7 @@ class _HomeState extends State<Home> {
                                         "Insights",
                                         style: GoogleFonts.inter(
                                           color: AppColor().whiteColor,
-                                          // fontFamily: 'InterRegular',
+                                          // ,
                                           fontSize: 10,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -314,7 +315,7 @@ class _HomeState extends State<Home> {
                                   "Today's Money IN",
                                   style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    // fontFamily: 'InterRegular',
+                                    // ,
                                     fontSize: 9,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -327,7 +328,7 @@ class _HomeState extends State<Home> {
                             "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // fontFamily: 'InterRegular',
+                              // ,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -359,7 +360,7 @@ class _HomeState extends State<Home> {
                                   "Today's Money Out",
                                   style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    // fontFamily: 'InterRegular',
+                                    // ,
                                     fontSize: 9,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -372,7 +373,7 @@ class _HomeState extends State<Home> {
                             "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // fontFamily: 'InterRegular',
+                              // ,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -403,7 +404,7 @@ class _HomeState extends State<Home> {
               //           "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
               //           style: GoogleFonts.inter(
               //             color: AppColor().whiteColor,
-              //             // fontFamily: 'InterRegular',
+              //             // ,
               //             fontSize: 20,
               //             fontWeight: FontWeight.bold,
               //           ),
@@ -425,7 +426,7 @@ class _HomeState extends State<Home> {
               //                   "All Records",
               //                   style: GoogleFonts.inter(
               //                     color: AppColor().whiteColor,
-              //                     // fontFamily: 'InterRegular',
+              //                     // ,
               //                     fontSize: 10,
               //                     fontWeight: FontWeight.w600,
               //                   ),
@@ -465,7 +466,7 @@ class _HomeState extends State<Home> {
               //                   "Insights",
               //                   style: GoogleFonts.inter(
               //                     color: AppColor().whiteColor,
-              //                     // fontFamily: 'InterRegular',
+              //                     // ,
               //                     fontSize: 10,
               //                     fontWeight: FontWeight.w600,
               //                   ),
@@ -587,7 +588,7 @@ class _HomeState extends State<Home> {
                                     fontSize: 15,
                                     color: Color(0xffF58D40),
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'InterRegular'),
+                                    ),
                               )
                             : Row(
                                 children: [
@@ -713,8 +714,7 @@ class _HomeState extends State<Home> {
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontFamily:
-                                                          'InterRegular'),
+                                                      ),
                                                 ),
                                                 Text(
                                                   item.isFullyPaid!
@@ -752,7 +752,7 @@ class _HomeState extends State<Home> {
                                       style: GoogleFonts.inter(
                                           fontSize: 13,
                                           color: Colors.black,
-                                          // fontFamily: 'InterRegular',
+                                          // ,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     SizedBox(
@@ -763,14 +763,14 @@ class _HomeState extends State<Home> {
                                       style: GoogleFonts.inter(
                                           fontSize: 10,
                                           color: Colors.black,
-                                          fontFamily: 'InterRegular'),
+                                          ),
                                     ),
                                     Text(
                                       'Add transaction button to record your first transaction.',
                                       style: GoogleFonts.inter(
                                           fontSize: 10,
                                           color: Colors.black,
-                                          fontFamily: 'InterRegular'),
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -799,7 +799,7 @@ class _HomeState extends State<Home> {
           label: Text(
             'Add transaction',
             style: GoogleFonts.inter(
-                // fontFamily: 'InterRegular',
+                // ,
                 fontSize: 10,
                 color: Colors.white,
                 fontWeight: FontWeight.bold),
@@ -910,7 +910,7 @@ class _HomeState extends State<Home> {
                           "Today's BALANCE",
                           style: GoogleFonts.inter(
                             color: AppColor().blackColor,
-                            // fontFamily: 'InterRegular',
+                            // ,
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
@@ -923,7 +923,7 @@ class _HomeState extends State<Home> {
                         "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                         style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          // fontFamily: 'InterRegular',
+                          // ,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -950,7 +950,7 @@ class _HomeState extends State<Home> {
                                     "All Records",
                                     style: GoogleFonts.inter(
                                       color: AppColor().whiteColor,
-                                      // fontFamily: 'InterRegular',
+                                      // ,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -992,7 +992,7 @@ class _HomeState extends State<Home> {
                                     "Insights",
                                     style: GoogleFonts.inter(
                                       color: AppColor().whiteColor,
-                                      // fontFamily: 'InterRegular',
+                                      // ,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -1047,7 +1047,7 @@ class _HomeState extends State<Home> {
                               "Today's Money IN",
                               style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                // fontFamily: 'InterRegular',
+                                // ,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -1060,7 +1060,7 @@ class _HomeState extends State<Home> {
                         "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                         style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          // fontFamily: 'InterRegular',
+                          // ,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -1092,7 +1092,7 @@ class _HomeState extends State<Home> {
                               "Today's Money Out",
                               style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                // fontFamily: 'InterRegular',
+                                // ,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -1105,7 +1105,7 @@ class _HomeState extends State<Home> {
                         "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                         style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          // fontFamily: 'InterRegular',
+                          // ,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -1136,7 +1136,7 @@ class _HomeState extends State<Home> {
           //           "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
           //           style: GoogleFonts.inter(
           //             color: AppColor().whiteColor,
-          //             // fontFamily: 'InterRegular',
+          //             // ,
           //             fontSize: 20,
           //             fontWeight: FontWeight.bold,
           //           ),
@@ -1158,7 +1158,7 @@ class _HomeState extends State<Home> {
           //                   "All Records",
           //                   style: GoogleFonts.inter(
           //                     color: AppColor().whiteColor,
-          //                     // fontFamily: 'InterRegular',
+          //                     // ,
           //                     fontSize: 10,
           //                     fontWeight: FontWeight.w600,
           //                   ),
@@ -1198,7 +1198,7 @@ class _HomeState extends State<Home> {
           //                   "Insights",
           //                   style: GoogleFonts.inter(
           //                     color: AppColor().whiteColor,
-          //                     // fontFamily: 'InterRegular',
+          //                     // ,
           //                     fontSize: 10,
           //                     fontWeight: FontWeight.w600,
           //                   ),
@@ -1315,7 +1315,7 @@ class _HomeState extends State<Home> {
                                 fontSize: 15,
                                 color: Color(0xffF58D40),
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'InterRegular'),
+                                ),
                           )
                         : Row(
                             children: [
@@ -1433,7 +1433,7 @@ class _HomeState extends State<Home> {
                                               style: GoogleFonts.inter(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.bold,
-                                                  fontFamily: 'InterRegular'),
+                                                  ),
                                             ),
                                             Text(
                                               item.isFullyPaid!
@@ -1571,7 +1571,7 @@ class _HomeState extends State<Home> {
                         "Today's BALANCE",
                         style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          // fontFamily: 'InterRegular',
+                          // ,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -1584,7 +1584,7 @@ class _HomeState extends State<Home> {
                       '${Utils.getCurrency()}0.0',
                       style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        // fontFamily: 'InterRegular',
+                        // ,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -1610,7 +1610,7 @@ class _HomeState extends State<Home> {
                                   "All Records",
                                   style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    // fontFamily: 'InterRegular',
+                                    // ,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -1651,7 +1651,7 @@ class _HomeState extends State<Home> {
                                   "Insights",
                                   style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    // fontFamily: 'InterRegular',
+                                    // ,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -1704,7 +1704,7 @@ class _HomeState extends State<Home> {
                             "Today's Money IN",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // fontFamily: 'InterRegular',
+                              // ,
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
@@ -1717,7 +1717,7 @@ class _HomeState extends State<Home> {
                       "${Utils.getCurrency()}0.0",
                       style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        // fontFamily: 'InterRegular',
+                        // ,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -1747,7 +1747,7 @@ class _HomeState extends State<Home> {
                             "Today's Money Out",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              // fontFamily: 'InterRegular',
+                              // ,
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
@@ -1760,7 +1760,7 @@ class _HomeState extends State<Home> {
                       "${Utils.getCurrency()}0.0",
                       style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        // fontFamily: 'InterRegular',
+                        // ,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -1857,7 +1857,7 @@ class _HomeState extends State<Home> {
           // '${Utils.getCurrency()}0.0',
           // style: GoogleFonts.inter(
           // color: AppColor().whiteColor,
-          // // fontFamily: 'InterRegular',
+          // // ,
           // fontSize: 24,
           // fontWeight: FontWeight.bold,
           // ),
@@ -1958,7 +1958,7 @@ class _HomeState extends State<Home> {
                                 fontSize: 15,
                                 color: Color(0xffF58D40),
                                 fontWeight: FontWeight.w600,
-                                fontFamily: 'InterRegular'),
+                                ),
                           )
                         : Row(
                             children: [
@@ -2023,7 +2023,7 @@ class _HomeState extends State<Home> {
                         style: GoogleFonts.inter(
                             fontSize: 13,
                             color: Colors.black,
-                            // fontFamily: 'InterRegular',
+                            // ,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
@@ -2034,14 +2034,14 @@ class _HomeState extends State<Home> {
                         style: GoogleFonts.inter(
                             fontSize: 10,
                             color: Colors.black,
-                            fontFamily: 'InterRegular'),
+                            ),
                       ),
                       Text(
                         'Add transaction button to record your first transaction.',
                         style: GoogleFonts.inter(
                             fontSize: 10,
                             color: Colors.black,
-                            fontFamily: 'InterRegular'),
+                            ),
                       ),
                     ],
                   ),
@@ -2227,7 +2227,7 @@ class _HomeState extends State<Home> {
                                         style: GoogleFonts.inter(
                                             fontSize: 20,
                                             color: Colors.white,
-                                            // fontFamily: 'InterRegular',
+                                            // ,
                                             fontWeight: FontWeight.bold),
                                       ))),
                                 ),
@@ -2239,7 +2239,7 @@ class _HomeState extends State<Home> {
                                     style: GoogleFonts.inter(
                                         fontSize: 13,
                                         color: Colors.black,
-                                        // fontFamily: 'InterRegular',
+                                        // ,
                                         fontWeight: FontWeight.bold),
                                   )),
                               Expanded(
@@ -2290,7 +2290,7 @@ class _HomeState extends State<Home> {
                         style: GoogleFonts.inter(
                             color: Colors.white,
                             fontSize: 18,
-                            fontFamily: 'InterRegular'),
+                            ),
                       ),
                     ),
                   ),
