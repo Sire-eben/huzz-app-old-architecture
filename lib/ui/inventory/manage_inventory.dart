@@ -28,7 +28,6 @@ class ManageInventoryInformationDialog extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontSize: 14,
-            
           ),
         ),
       ],
@@ -75,7 +74,6 @@ class _ManageInventoryState extends State<ManageInventory> {
                 'Manage Inventory',
                 style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                 
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -139,21 +137,18 @@ class _ManageInventoryState extends State<ManageInventory> {
                 child: TabBar(
                   labelColor: AppColor().whiteColor,
                   unselectedLabelColor: AppColor().backgroundColor,
-                  labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: AppColor().backgroundColor,
-                        fontFamily: "InterRegular",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                  unselectedLabelStyle:
-                      Theme.of(context).textTheme.headline2!.copyWith(
-                            color: AppColor().backgroundColor,
-                            fontFamily: "InterRegular",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  labelStyle: GoogleFonts.inter(
+                    color: AppColor().backgroundColor,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  unselectedLabelStyle: GoogleFonts.inter(
+                    color: AppColor().backgroundColor,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                   indicator: BoxDecoration(
                     color: AppColor().backgroundColor,
                     border: Border.all(

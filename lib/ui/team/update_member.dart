@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:expandable/expandable.dart';
+
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,11 +8,9 @@ import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
 import 'package:huzz/util/colors.dart';
-import 'package:huzz/data/model/roles_model.dart';
 import '../../data/model/team.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../model/user_teamInvite_model.dart';
-import 'confirmation.dart';
 
 class UpdateMember extends StatefulWidget {
   Teams? team;
@@ -225,7 +222,7 @@ class _UpdateMemberState extends State<UpdateMember> {
               'Edit Privilege',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
+              
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),

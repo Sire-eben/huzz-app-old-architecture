@@ -46,7 +46,6 @@ class _ProductsState extends State<Products> {
                         label: Text(
                           'New Product',
                           style: GoogleFonts.inter(
-                              
                               fontSize: 10,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),

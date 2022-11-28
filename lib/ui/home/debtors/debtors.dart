@@ -356,7 +356,6 @@ class _DebtorsState extends State<Debtors> {
                                           'Add New Debtor',
                                           style: GoogleFonts.inter(
                                             color: AppColor().whiteColor,
-                                            
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                           ),
