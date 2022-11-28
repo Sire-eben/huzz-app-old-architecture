@@ -46,94 +46,96 @@ class _InvoiceState extends State<EmptyInvoice> {
                   style: GoogleFonts.inter(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      
                       color: AppColor().backgroundColor),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                Expanded(
+                Container(
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.height * 0.02,
+                        right: MediaQuery.of(context).size.height * 0.02,
+                        bottom: MediaQuery.of(context).size.height * 0.02),
+                    decoration: BoxDecoration(
+                        color: Color(0xffF5F5F5),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            width: 2, color: Colors.grey.withOpacity(0.2))),
                     child: Container(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.02,
-                            right: MediaQuery.of(context).size.height * 0.02,
-                            bottom: MediaQuery.of(context).size.height * 0.02),
-                        decoration: BoxDecoration(
-                            color: Color(0xffF5F5F5),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                width: 2, color: Colors.grey.withOpacity(0.2))),
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.height * 0.02,
-                              right: MediaQuery.of(context).size.height * 0.02,
-                              bottom:
-                                  MediaQuery.of(context).size.height * 0.02),
-                          decoration: BoxDecoration(
-                            color: Color(0xffF5F5F5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset('assets/images/invoice.svg'),
-                                SizedBox(height: 5),
-                                Text(
-                                  'Invoice',
-                                  style: GoogleFonts.inter(
-                                      fontSize: 13,
-                                      color: Colors.black,
-                                      
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 5),
-                                Text(
-                                  'Your invoices will show here. Click the',
-                                  style: GoogleFonts.inter(
-                                      fontSize: 10,
-                                      color: Colors.black,
-                                      ),
-                                ),
-                                Text(
-                                  'Create invoice button to add your first invoice',
-                                  style: GoogleFonts.inter(
-                                      fontSize: 10,
-                                      color: Colors.black,
-                                      ),
-                                ),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.02),
-                                InkWell(
-                                  onTap: () {
-                                    Get.to(() => CreateInvoice());
-                                  },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal:
-                                            MediaQuery.of(context).size.height *
-                                                0.06),
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        color: AppColor().backgroundColor,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10))),
-                                    child: Center(
-                                      child: Text(
-                                        'Create Invoice',
-                                        style: GoogleFonts.inter(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            ),
-                                      ),
+                      padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.height * 0.02,
+                          right: MediaQuery.of(context).size.height * 0.02,
+                          bottom: MediaQuery.of(context).size.height * 0.02),
+                      decoration: BoxDecoration(
+                        color: Color(0xffF5F5F5),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.27),
+                            SvgPicture.asset('assets/images/invoice.svg'),
+                            SizedBox(height: 5),
+                            Text(
+                              'Invoice',
+                              style: GoogleFonts.inter(
+                                  fontSize: 13,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Your invoices will show here. Click the',
+                              style: GoogleFonts.inter(
+                                fontSize: 10,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Text(
+                              'Create invoice button to add your first invoice',
+                              style: GoogleFonts.inter(
+                                fontSize: 10,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.02),
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => CreateInvoice());
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal:
+                                        MediaQuery.of(context).size.height *
+                                            0.06),
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: AppColor().backgroundColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Center(
+                                  child: Text(
+                                    'Create Invoice',
+                                    style: GoogleFonts.inter(
+                                      color: Colors.white,
+                                      fontSize: 18,
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        )))
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.27),
+                          ],
+                        ),
+                      ),
+                    ))
               ],
             ),
           ),
@@ -174,7 +176,6 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
               style: GoogleFonts.inter(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  
                   color: AppColor().backgroundColor),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -209,16 +210,15 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                           style: GoogleFonts.inter(
                               fontSize: 14,
                               color: Colors.black,
-                              
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 5),
                         Text(
                           'Your invoices will show here.',
                           style: GoogleFonts.inter(
-                              fontSize: 10,
-                              color: Colors.black,
-                              ),
+                            fontSize: 10,
+                            color: Colors.black,
+                          ),
                         ),
                         SizedBox(height: 20),
                         Text(
@@ -226,7 +226,6 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                           style: GoogleFonts.inter(
                               fontSize: 14,
                               color: AppColor().orangeBorderColor,
-                              
                               fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
