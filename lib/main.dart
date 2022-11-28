@@ -27,7 +27,7 @@ class _HuzzAppState extends State<HuzzApp> {
       initialBinding: AppBinding(),
       useInheritedMediaQuery: true,
       theme: ThemeData(
-          fontFamily: 'InterRegular',
+          // fontFamily: 'InterRegular',
           primaryColor: AppColor().backgroundColor,
           primarySwatch: Palette.primaryColor),
       debugShowCheckedModeBanner: false,

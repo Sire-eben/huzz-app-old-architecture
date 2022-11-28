@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
@@ -39,9 +40,8 @@ class DebtInformationDialog extends StatelessWidget {
         Text(
           "Total debts is the sum of the debts you owe and the debts others owe you. It gives you a sense of your potential revenue.",
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 14,
-            fontFamily: "InterRegular",
           ),
         ),
       ],
@@ -75,6 +75,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      print(teamController.teamMember.toJson());
       _authController.checkTeamInvite();
       _authController.checkDeletedTeamBusiness();
       return Scaffold(
@@ -176,9 +177,9 @@ class _HomeState extends State<Home> {
                               ),
                               child: Text(
                                 "Today's BALANCE",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  fontFamily: 'InterRegular',
+                                  // // ,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -189,9 +190,9 @@ class _HomeState extends State<Home> {
                             ),
                             Text(
                               "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                // ,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -216,9 +217,9 @@ class _HomeState extends State<Home> {
                                       children: [
                                         Text(
                                           "All Records",
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                             color: AppColor().whiteColor,
-                                            fontFamily: 'InterRegular',
+                                            // ,
                                             fontSize: 10,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -258,9 +259,9 @@ class _HomeState extends State<Home> {
                                       children: [
                                         Text(
                                           "Insights",
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                             color: AppColor().whiteColor,
-                                            fontFamily: 'InterRegular',
+                                            // ,
                                             fontSize: 10,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -313,9 +314,9 @@ class _HomeState extends State<Home> {
                                   ),
                                   Text(
                                     "Today's Money IN",
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                       color: AppColor().whiteColor,
-                                      fontFamily: 'InterRegular',
+                                      // ,
                                       fontSize: 9,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -326,9 +327,9 @@ class _HomeState extends State<Home> {
                             Spacer(),
                             Text(
                               "${Utils.getCurrency()}${display(_transactionController.income.value)}",
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                // ,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -359,9 +360,9 @@ class _HomeState extends State<Home> {
                                   ),
                                   Text(
                                     "Today's Money Out",
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                       color: AppColor().whiteColor,
-                                      fontFamily: 'InterRegular',
+                                      // ,
                                       fontSize: 9,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -372,9 +373,9 @@ class _HomeState extends State<Home> {
                             Spacer(),
                             Text(
                               "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                // ,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -403,9 +404,9 @@ class _HomeState extends State<Home> {
                 //       children: [
                 //         Text(
                 //           "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
-                //           style: TextStyle(
+                //           style: GoogleFonts.inter(
                 //             color: AppColor().whiteColor,
-                //             fontFamily: 'InterRegular',
+                //             // ,
                 //             fontSize: 20,
                 //             fontWeight: FontWeight.bold,
                 //           ),
@@ -425,9 +426,9 @@ class _HomeState extends State<Home> {
                 //               children: [
                 //                 Text(
                 //                   "All Records",
-                //                   style: TextStyle(
+                //                   style: GoogleFonts.inter(
                 //                     color: AppColor().whiteColor,
-                //                     fontFamily: 'InterRegular',
+                //                     // ,
                 //                     fontSize: 10,
                 //                     fontWeight: FontWeight.w600,
                 //                   ),
@@ -465,9 +466,9 @@ class _HomeState extends State<Home> {
                 //               children: [
                 //                 Text(
                 //                   "Insights",
-                //                   style: TextStyle(
+                //                   style: GoogleFonts.inter(
                 //                     color: AppColor().whiteColor,
-                //                     fontFamily: 'InterRegular',
+                //                     // ,
                 //                     fontSize: 10,
                 //                     fontWeight: FontWeight.w600,
                 //                   ),
@@ -503,138 +504,401 @@ class _HomeState extends State<Home> {
                 //   );
                 // }),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
-                        teamController.teamMember.authoritySet!
-                            .contains('VIEW_DEBTOR'))
-                    ? InkWell(
-                        onTap: () {
-                          Get.to(() => DebtorsTab());
-                        },
-                        child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            decoration: BoxDecoration(
-                              color:
-                                  AppColor().backgroundColor.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                if (_businessController.selectedBusiness.value!.teamId ==
+                    null) ...[
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => DebtorsTab());
+                    },
+                    child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.height * 0.02),
+                        decoration: BoxDecoration(
+                          color: AppColor().backgroundColor.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.08,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.08,
-                                      padding: EdgeInsets.all(
-                                          MediaQuery.of(context).size.width *
-                                              0.015),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xffEF6500),
-                                          shape: BoxShape.circle),
-                                      child: SvgPicture.asset(
-                                          'assets/images/debtors.svg'),
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.08,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.08,
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.width *
+                                          0.015),
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffEF6500),
+                                      shape: BoxShape.circle),
+                                  child: SvgPicture.asset(
+                                      'assets/images/debtors.svg'),
+                                ),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.02),
+                                Text(
+                                  'Total debts',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Platform.isIOS
+                                        ? showCupertinoDialog(
+                                            context: context,
+                                            barrierDismissible: true,
+                                            builder: (context) =>
+                                                CupertinoAlertDialog(
+                                              content: DebtInformationDialog(),
+                                              actions: [
+                                                CupertinoButton(
+                                                  child: Text("OK"),
+                                                  onPressed: () => Get.back(),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              content: DebtInformationDialog(),
+                                              actions: [
+                                                CupertinoButton(
+                                                  child: Text("OK"),
+                                                  onPressed: () => Get.back(),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 4.0, top: 2.0),
+                                    child: Icon(
+                                      Icons.info_outline_rounded,
+                                      size: 18,
+                                      color: Color(0xff056B5C),
                                     ),
-                                    SizedBox(
+                                  ),
+                                )
+                              ],
+                            ),
+                            (_debtorController.totalDebt as num).abs() == 0
+                                ? Text(
+                                    "No debtors yet",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 15,
+                                      color: Color(0xffF58D40),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                : Row(
+                                    children: [
+                                      Text(
+                                        "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 15,
+                                            color: Color(0xffF58D40),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02),
+                                      Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 15,
+                                        color: Color(0xffF58D40),
+                                      ),
+                                    ],
+                                  ),
+                          ],
+                        )),
+                  )
+                ] else ...[
+                  (teamController.teamMember.teamMemberStatus == 'CREATOR')
+                      ? InkWell(
+                          onTap: () {
+                            Get.to(() => DebtorsTab());
+                          },
+                          child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.height *
+                                          0.02),
+                              decoration: BoxDecoration(
+                                color:
+                                    AppColor().backgroundColor.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.08,
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.02),
-                                    Text(
-                                      'Total debts',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Platform.isIOS
-                                            ? showCupertinoDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                builder: (context) =>
-                                                    CupertinoAlertDialog(
-                                                  content:
-                                                      DebtInformationDialog(),
-                                                  actions: [
-                                                    CupertinoButton(
-                                                      child: Text("OK"),
-                                                      onPressed: () =>
-                                                          Get.back(),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            : showDialog(
-                                                context: context,
-                                                builder: (context) =>
-                                                    AlertDialog(
-                                                  content:
-                                                      DebtInformationDialog(),
-                                                  actions: [
-                                                    CupertinoButton(
-                                                      child: Text("OK"),
-                                                      onPressed: () =>
-                                                          Get.back(),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 4.0, top: 2.0),
-                                        child: Icon(
-                                          Icons.info_outline_rounded,
-                                          size: 18,
-                                          color: Color(0xff056B5C),
-                                        ),
+                                                0.08,
+                                        padding: EdgeInsets.all(
+                                            MediaQuery.of(context).size.width *
+                                                0.015),
+                                        decoration: BoxDecoration(
+                                            color: Color(0xffEF6500),
+                                            shape: BoxShape.circle),
+                                        child: SvgPicture.asset(
+                                            'assets/images/debtors.svg'),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                (_debtorController.totalDebt as num).abs() == 0
-                                    ? Text(
-                                        "No debtors yet",
-                                        style: TextStyle(
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02),
+                                      Text(
+                                        'Total debts',
+                                        style: GoogleFonts.inter(
+                                            fontSize: 15,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Platform.isIOS
+                                              ? showCupertinoDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  builder: (context) =>
+                                                      CupertinoAlertDialog(
+                                                    content:
+                                                        DebtInformationDialog(),
+                                                    actions: [
+                                                      CupertinoButton(
+                                                        child: Text("OK"),
+                                                        onPressed: () =>
+                                                            Get.back(),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              : showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                    content:
+                                                        DebtInformationDialog(),
+                                                    actions: [
+                                                      CupertinoButton(
+                                                        child: Text("OK"),
+                                                        onPressed: () =>
+                                                            Get.back(),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 4.0, top: 2.0),
+                                          child: Icon(
+                                            Icons.info_outline_rounded,
+                                            size: 18,
+                                            color: Color(0xff056B5C),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  (_debtorController.totalDebt as num).abs() ==
+                                          0
+                                      ? Text(
+                                          "No debtors yet",
+                                          style: GoogleFonts.inter(
                                             fontSize: 15,
                                             color: Color(0xffF58D40),
                                             fontWeight: FontWeight.bold,
-                                            fontFamily: 'InterRegular'),
-                                      )
-                                    : Row(
+                                          ),
+                                        )
+                                      : Row(
+                                          children: [
+                                            Text(
+                                              "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
+                                              style: GoogleFonts.inter(
+                                                  fontSize: 15,
+                                                  color: Color(0xffF58D40),
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.02),
+                                            Icon(
+                                              Icons.arrow_forward_ios,
+                                              size: 15,
+                                              color: Color(0xffF58D40),
+                                            ),
+                                          ],
+                                        ),
+                                ],
+                              )),
+                        )
+                      : (teamController.teamMember.authoritySet!
+                              .contains('VIEW_DEBTOR'))
+                          ? InkWell(
+                              onTap: () {
+                                Get.to(() => DebtorsTab());
+                              },
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          MediaQuery.of(context).size.height *
+                                              0.02),
+                                  decoration: BoxDecoration(
+                                    color: AppColor()
+                                        .backgroundColor
+                                        .withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
                                         children: [
-                                          Text(
-                                            "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: Color(0xffF58D40),
-                                                fontWeight: FontWeight.bold),
+                                          Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.08,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.08,
+                                            padding: EdgeInsets.all(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.015),
+                                            decoration: BoxDecoration(
+                                                color: Color(0xffEF6500),
+                                                shape: BoxShape.circle),
+                                            child: SvgPicture.asset(
+                                                'assets/images/debtors.svg'),
                                           ),
                                           SizedBox(
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
                                                   0.02),
-                                          Icon(
-                                            Icons.arrow_forward_ios,
-                                            size: 15,
-                                            color: Color(0xffF58D40),
+                                          Text(
+                                            'Total debts',
+                                            style: GoogleFonts.inter(
+                                                fontSize: 15,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
                                           ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Platform.isIOS
+                                                  ? showCupertinoDialog(
+                                                      context: context,
+                                                      barrierDismissible: true,
+                                                      builder: (context) =>
+                                                          CupertinoAlertDialog(
+                                                        content:
+                                                            DebtInformationDialog(),
+                                                        actions: [
+                                                          CupertinoButton(
+                                                            child: Text("OK"),
+                                                            onPressed: () =>
+                                                                Get.back(),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  : showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          AlertDialog(
+                                                        content:
+                                                            DebtInformationDialog(),
+                                                        actions: [
+                                                          CupertinoButton(
+                                                            child: Text("OK"),
+                                                            onPressed: () =>
+                                                                Get.back(),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 4.0, top: 2.0),
+                                              child: Icon(
+                                                Icons.info_outline_rounded,
+                                                size: 18,
+                                                color: Color(0xff056B5C),
+                                              ),
+                                            ),
+                                          )
                                         ],
                                       ),
-                              ],
-                            )),
-                      )
-                    : Container(),
+                                      (_debtorController.totalDebt as num)
+                                                  .abs() ==
+                                              0
+                                          ? Text(
+                                              "No debtors yet",
+                                              style: GoogleFonts.inter(
+                                                fontSize: 15,
+                                                color: Color(0xffF58D40),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
+                                          : Row(
+                                              children: [
+                                                Text(
+                                                  "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
+                                                  style: GoogleFonts.inter(
+                                                      fontSize: 15,
+                                                      color: Color(0xffF58D40),
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.02),
+                                                Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  size: 15,
+                                                  color: Color(0xffF58D40),
+                                                ),
+                                              ],
+                                            ),
+                                    ],
+                                  )),
+                            )
+                          : Container()
+                ],
+
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 Text(
                   "Today's transactions",
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                       fontSize: 15,
                       color: Colors.black,
                       fontWeight: FontWeight.bold),
@@ -705,7 +969,7 @@ class _HomeState extends State<Home> {
                                               children: [
                                                 Text(
                                                   item.itemName!,
-                                                  style: TextStyle(
+                                                  style: GoogleFonts.inter(
                                                       fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -713,7 +977,7 @@ class _HomeState extends State<Home> {
                                                 Text(
                                                   item.entryDateTime!
                                                       .formatDate()!,
-                                                  style: TextStyle(
+                                                  style: GoogleFonts.inter(
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -730,18 +994,17 @@ class _HomeState extends State<Home> {
                                                 children: [
                                                   Text(
                                                     "${Utils.getCurrency()}${display(item.totalAmount)}",
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontFamily:
-                                                            'InterRegular'),
+                                                    style: GoogleFonts.inter(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
                                                   Text(
                                                     item.isFullyPaid!
                                                         ? "Fully Paid"
                                                         : "Partially",
-                                                    style: TextStyle(
+                                                    style: GoogleFonts.inter(
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -770,10 +1033,10 @@ class _HomeState extends State<Home> {
                                       SizedBox(height: 5),
                                       Text(
                                         'Record a transaction',
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                             fontSize: 13,
                                             color: Colors.black,
-                                            fontFamily: 'InterRegular',
+                                            // ,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(height: 5),
@@ -783,20 +1046,20 @@ class _HomeState extends State<Home> {
                                                 TransactionStatus.UnAuthorized)
                                             ? 'Your recent transactions will show here. Click the'
                                             : 'Your recent transactions will show here.',
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.black,
-                                            fontFamily: 'InterRegular'),
+                                        style: GoogleFonts.inter(
+                                          fontSize: 10,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                       if (_transactionController
                                               .transactionStatus !=
                                           TransactionStatus.UnAuthorized) ...[
                                         Text(
                                           'Add transaction button to record your first transaction.',
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.black,
-                                              fontFamily: 'InterRegular'),
+                                          style: GoogleFonts.inter(
+                                            fontSize: 10,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ],
                                       SizedBox(height: 20),
@@ -805,11 +1068,11 @@ class _HomeState extends State<Home> {
                                           TransactionStatus.UnAuthorized) ...[
                                         Text(
                                           'You need to be authorized\nto view this module',
-                                          style: TextStyle(
+                                          style: GoogleFonts.inter(
                                               fontSize: 14,
                                               color:
                                                   AppColor().orangeBorderColor,
-                                              fontFamily: 'InterRegular',
+                                              // ,
                                               fontWeight: FontWeight.bold),
                                           textAlign: TextAlign.center,
                                         ),
@@ -832,9 +1095,8 @@ class _HomeState extends State<Home> {
           floatingActionButton: (_transactionController.transactionStatus ==
                   TransactionStatus.UnAuthorized)
               ? Container()
-              : (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
-                      teamController.teamMember.authoritySet!
-                          .contains('CREATE_BUSINESS_TRANSACTION'))
+              : (teamController.teamMember.authoritySet == null ||
+                      teamController.teamMember.teamMemberStatus == 'CREATOR')
                   ? FloatingActionButton.extended(
                       onPressed: () => showModalBottomSheet(
                         shape: RoundedRectangleBorder(
@@ -847,14 +1109,35 @@ class _HomeState extends State<Home> {
                       backgroundColor: AppColor().backgroundColor,
                       label: Text(
                         'Add transaction',
-                        style: TextStyle(
-                            fontFamily: 'InterRegular',
+                        style: GoogleFonts.inter(
+                            // ,
                             fontSize: 10,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
                     )
-                  : Container());
+                  : (teamController.teamMember.authoritySet!
+                          .contains('CREATE_BUSINESS_TRANSACTION'))
+                      ? FloatingActionButton.extended(
+                          onPressed: () => showModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20))),
+                            context: context,
+                            builder: (context) => buildAddTransaction(),
+                          ),
+                          icon: Icon(Icons.add),
+                          backgroundColor: AppColor().backgroundColor,
+                          label: Text(
+                            'Add transaction',
+                            style: GoogleFonts.inter(
+                                // ,
+                                fontSize: 10,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      : Container());
     });
   }
 
@@ -955,24 +1238,22 @@ class _HomeState extends State<Home> {
                           color: AppColor().whiteColor,
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        child: Text(
-                          "Today's BALANCE",
-                          style: TextStyle(
-                            color: AppColor().blackColor,
-                            fontFamily: 'InterRegular',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        child: Text("Today's BALANCE",
+                            style: GoogleFonts.inter(
+                              color: AppColor().blackColor,
+                              // // ,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            )),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Text(
                         "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          fontFamily: 'InterRegular',
+                          // ,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -997,9 +1278,9 @@ class _HomeState extends State<Home> {
                                 children: [
                                   Text(
                                     "All Records",
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                       color: AppColor().whiteColor,
-                                      fontFamily: 'InterRegular',
+                                      // ,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -1039,9 +1320,9 @@ class _HomeState extends State<Home> {
                                 children: [
                                   Text(
                                     "Insights",
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                       color: AppColor().whiteColor,
-                                      fontFamily: 'InterRegular',
+                                      // ,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -1094,9 +1375,9 @@ class _HomeState extends State<Home> {
                             ),
                             Text(
                               "Today's Money IN",
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                // ,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -1107,9 +1388,9 @@ class _HomeState extends State<Home> {
                       Spacer(),
                       Text(
                         "${Utils.getCurrency()}${display(_transactionController.income.value)}",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          fontFamily: 'InterRegular',
+                          // ,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -1139,9 +1420,9 @@ class _HomeState extends State<Home> {
                             ),
                             Text(
                               "Today's Money Out",
-                              style: TextStyle(
+                              style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                fontFamily: 'InterRegular',
+                                // ,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -1152,9 +1433,9 @@ class _HomeState extends State<Home> {
                       Spacer(),
                       Text(
                         "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          fontFamily: 'InterRegular',
+                          // ,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -1183,9 +1464,9 @@ class _HomeState extends State<Home> {
           //       children: [
           //         Text(
           //           "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
-          //           style: TextStyle(
+          //           style: GoogleFonts.inter(
           //             color: AppColor().whiteColor,
-          //             fontFamily: 'InterRegular',
+          //             // ,
           //             fontSize: 20,
           //             fontWeight: FontWeight.bold,
           //           ),
@@ -1205,9 +1486,9 @@ class _HomeState extends State<Home> {
           //               children: [
           //                 Text(
           //                   "All Records",
-          //                   style: TextStyle(
+          //                   style: GoogleFonts.inter(
           //                     color: AppColor().whiteColor,
-          //                     fontFamily: 'InterRegular',
+          //                     // ,
           //                     fontSize: 10,
           //                     fontWeight: FontWeight.w600,
           //                   ),
@@ -1245,9 +1526,9 @@ class _HomeState extends State<Home> {
           //               children: [
           //                 Text(
           //                   "Insights",
-          //                   style: TextStyle(
+          //                   style: GoogleFonts.inter(
           //                     color: AppColor().whiteColor,
-          //                     fontFamily: 'InterRegular',
+          //                     // ,
           //                     fontSize: 10,
           //                     fontWeight: FontWeight.w600,
           //                   ),
@@ -1312,7 +1593,7 @@ class _HomeState extends State<Home> {
                             width: MediaQuery.of(context).size.width * 0.02),
                         Text(
                           'Total debts',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontSize: 15,
                               color: Colors.black,
                               fontWeight: FontWeight.bold),
@@ -1360,17 +1641,17 @@ class _HomeState extends State<Home> {
                     (_debtorController.totalDebt as num).abs() == 0
                         ? Text(
                             "No debtors yet",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xffF58D40),
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'InterRegular'),
+                            style: GoogleFonts.inter(
+                              fontSize: 15,
+                              color: Color(0xffF58D40),
+                              fontWeight: FontWeight.bold,
+                            ),
                           )
                         : Row(
                             children: [
                               Text(
                                 "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     fontSize: 15,
                                     color: Color(0xffF58D40),
                                     fontWeight: FontWeight.bold),
@@ -1391,7 +1672,7 @@ class _HomeState extends State<Home> {
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Text(
             "Today's transactions",
-            style: TextStyle(
+            style: GoogleFonts.inter(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -1454,13 +1735,13 @@ class _HomeState extends State<Home> {
                                         children: [
                                           Text(
                                             item.itemName!,
-                                            style: TextStyle(
+                                            style: GoogleFonts.inter(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
                                             item.entryDateTime!.formatDate()!,
-                                            style: TextStyle(
+                                            style: GoogleFonts.inter(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -1477,16 +1758,16 @@ class _HomeState extends State<Home> {
                                           children: [
                                             Text(
                                               "${Utils.getCurrency()}${display(item.totalAmount)}",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'InterRegular'),
+                                              style: GoogleFonts.inter(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                             Text(
                                               item.isFullyPaid!
                                                   ? "Fully Paid"
                                                   : "Partially",
-                                              style: TextStyle(
+                                              style: GoogleFonts.inter(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -1616,9 +1897,9 @@ class _HomeState extends State<Home> {
                       ),
                       child: Text(
                         "Today's BALANCE",
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          fontFamily: 'InterRegular',
+                          // // ,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
@@ -1629,9 +1910,9 @@ class _HomeState extends State<Home> {
                     ),
                     Text(
                       '${Utils.getCurrency()}0.0',
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        fontFamily: 'InterRegular',
+                        // ,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -1655,9 +1936,9 @@ class _HomeState extends State<Home> {
                               children: [
                                 Text(
                                   "All Records",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
+                                    // ,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -1696,9 +1977,9 @@ class _HomeState extends State<Home> {
                               children: [
                                 Text(
                                   "Insights",
-                                  style: TextStyle(
+                                  style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    fontFamily: 'InterRegular',
+                                    // ,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -1749,9 +2030,9 @@ class _HomeState extends State<Home> {
                           ),
                           Text(
                             "Today's Money IN",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              // ,
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
@@ -1762,9 +2043,9 @@ class _HomeState extends State<Home> {
                     Spacer(),
                     Text(
                       "${Utils.getCurrency()}0.0",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        fontFamily: 'InterRegular',
+                        // ,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -1792,9 +2073,9 @@ class _HomeState extends State<Home> {
                           ),
                           Text(
                             "Today's Money Out",
-                            style: TextStyle(
+                            style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              fontFamily: 'InterRegular',
+                              // ,
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
                             ),
@@ -1805,9 +2086,9 @@ class _HomeState extends State<Home> {
                     Spacer(),
                     Text(
                       "${Utils.getCurrency()}0.0",
-                      style: TextStyle(
+                      style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        fontFamily: 'InterRegular',
+                        // ,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -1852,7 +2133,7 @@ class _HomeState extends State<Home> {
           // children: [
           // Text(
           // 'WEMA BANK #23456789',
-          // style: TextStyle(
+          // style: GoogleFonts.inter(
           // fontSize: 12,
           // color: Colors.white,
           // fontWeight: FontWeight.w600),
@@ -1902,9 +2183,9 @@ class _HomeState extends State<Home> {
           // SizedBox(height: 5),
           // Text(
           // '${Utils.getCurrency()}0.0',
-          // style: TextStyle(
+          // style: GoogleFonts.inter(
           // color: AppColor().whiteColor,
-          // fontFamily: 'InterRegular',
+          // // ,
           // fontSize: 24,
           // fontWeight: FontWeight.bold,
           // ),
@@ -1953,7 +2234,7 @@ class _HomeState extends State<Home> {
                             width: MediaQuery.of(context).size.width * 0.02),
                         Text(
                           'Debtors',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                               fontSize: 15,
                               color: Colors.black,
                               fontWeight: FontWeight.w600),
@@ -2001,17 +2282,17 @@ class _HomeState extends State<Home> {
                     (_debtorController.totalDebt as num).abs() == 0
                         ? Text(
                             "No debtors yet",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xffF58D40),
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'InterRegular'),
+                            style: GoogleFonts.inter(
+                              fontSize: 15,
+                              color: Color(0xffF58D40),
+                              fontWeight: FontWeight.w600,
+                            ),
                           )
                         : Row(
                             children: [
                               Text(
                                 "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     fontSize: 15,
                                     color: Color(0xffF58D40),
                                     fontWeight: FontWeight.w600),
@@ -2032,7 +2313,7 @@ class _HomeState extends State<Home> {
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Text(
             "Today's transactions",
-            style: TextStyle(
+            style: GoogleFonts.inter(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -2067,10 +2348,10 @@ class _HomeState extends State<Home> {
                       ),
                       Text(
                         'Record a transaction',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                             fontSize: 13,
                             color: Colors.black,
-                            fontFamily: 'InterRegular',
+                            // ,
                             fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
@@ -2078,17 +2359,17 @@ class _HomeState extends State<Home> {
                       ),
                       Text(
                         'Your recent transactions will show here. Click the',
-                        style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.black,
-                            fontFamily: 'InterRegular'),
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          color: Colors.black,
+                        ),
                       ),
                       Text(
                         'Add transaction button to record your first transaction.',
-                        style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.black,
-                            fontFamily: 'InterRegular'),
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          color: Colors.black,
+                        ),
                       ),
                     ],
                   ),
@@ -2144,7 +2425,7 @@ class _HomeState extends State<Home> {
                                       MediaQuery.of(context).size.width * 0.02),
                               Text(
                                 'Money OUT',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     fontSize: 14, color: Colors.white),
                               ),
                             ],
@@ -2154,7 +2435,8 @@ class _HomeState extends State<Home> {
                                   MediaQuery.of(context).size.height * 0.01),
                           Text(
                             'Click here to record an expense',
-                            style: TextStyle(fontSize: 10, color: Colors.white),
+                            style: GoogleFonts.inter(
+                                fontSize: 10, color: Colors.white),
                           ),
                         ],
                       ),
@@ -2187,7 +2469,7 @@ class _HomeState extends State<Home> {
                                       MediaQuery.of(context).size.width * 0.02),
                               Text(
                                 'Money IN',
-                                style: TextStyle(
+                                style: GoogleFonts.inter(
                                     fontSize: 14, color: Colors.white),
                               ),
                             ],
@@ -2197,7 +2479,8 @@ class _HomeState extends State<Home> {
                                   MediaQuery.of(context).size.height * 0.01),
                           Text(
                             'Click here to record an income',
-                            style: TextStyle(fontSize: 10, color: Colors.white),
+                            style: GoogleFonts.inter(
+                                fontSize: 10, color: Colors.white),
                           ),
                         ],
                       ),
@@ -2269,10 +2552,10 @@ class _HomeState extends State<Home> {
                                                     .isEmpty)
                                             ? ''
                                             : item.business!.businessName![0],
-                                        style: TextStyle(
+                                        style: GoogleFonts.inter(
                                             fontSize: 20,
                                             color: Colors.white,
-                                            fontFamily: 'InterRegular',
+                                            // ,
                                             fontWeight: FontWeight.bold),
                                       ))),
                                 ),
@@ -2281,10 +2564,10 @@ class _HomeState extends State<Home> {
                                   flex: 2,
                                   child: Text(
                                     '${item.business!.businessName!}',
-                                    style: TextStyle(
+                                    style: GoogleFonts.inter(
                                         fontSize: 13,
                                         color: Colors.black,
-                                        fontFamily: 'InterRegular',
+                                        // ,
                                         fontWeight: FontWeight.bold),
                                   )),
                               Expanded(
@@ -2332,10 +2615,10 @@ class _HomeState extends State<Home> {
                     child: Center(
                       child: Text(
                         'Create New Business',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'InterRegular'),
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -2350,7 +2633,7 @@ class _HomeState extends State<Home> {
         value: item,
         child: Text(
           item,
-          style: TextStyle(fontSize: 14),
+          style: GoogleFonts.inter(fontSize: 14),
         ),
       );
 }

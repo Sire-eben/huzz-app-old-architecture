@@ -89,13 +89,13 @@ class BusinessRespository extends GetxController {
     var response = await http.get(Uri.parse(ApiLink.getUserBusiness),
         headers: {"Authorization": "Bearer ${_userController.token}"});
 
-    print("online busines result ${response.body}");
+    print("online business result ${response.body}");
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       if (json['success']) {
         var result = List.from(json['data']).map((e) => Business.fromJson(e));
         businessListFromServer.addAll(result);
-        print("online data business lenght ${result.length}");
+        print("online data business length ${result.length}");
         onlineBusinessLength(result.length);
         result.isNotEmpty
             ? _businessStatus(BusinessStatus.Available)

@@ -1,5 +1,6 @@
 name: huzz
-description: A new Flutter project.https://github.com/project-huzz/huzz-app/blob/dev/pubspec.yaml
+description: A new Flutter
+  project.https://github.com/project-huzz/huzz-app/blob/dev/pubspec.yaml
 
 publish_to: "none"
 
@@ -9,59 +10,56 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
+  auto_size_text: ^3.0.0
+  bottom_navy_bar: ^6.0.0
+  connectivity_plus: ^2.1.0
+  country_currency_pickers: ^2.0.0
+  country_picker: ^2.0.8
+  cupertino_icons: ^1.0.2
+  currency_picker: ^2.0.8
+  dotted_border: ^2.0.0
+  expandable: ^5.0.1
+  firebase_core: ^1.10.6
+  firebase_dynamic_links: ^4.1.1
+  firebase_messaging: ^11.2.3
+  flag: ^5.0.1
   flutter:
     sdk: flutter
-
-  intl: ^0.17.0
-  get_it: ^7.1.3
-  provider: ^6.0.1
-  flutter_svg: ^0.22.0
-  flutter_dotenv: ^5.0.2
-  new_version: ^0.3.0
-  sleek_circular_slider: ^2.0.1
-  get: ^4.5.1
-  country_picker: ^2.0.8
-  flag: ^5.0.1
-  pin_code_fields: ^7.3.0
-  http: ^0.13.1
-  shared_preferences: ^2.0.5
-  bottom_navy_bar: ^6.0.0
-  sqflite: ^2.0.0+4
-  country_currency_pickers: ^2.0.0
-  number_display:
-  pdf: ^3.1.0
-  flutter_pdfview: ^1.2.1
-  printing: ^5.7.2
-  local_auth:
-  open_file: ^3.1.0
-  url_launcher: ^6.0.18
-  path_provider: ^2.0.2
-  webview_flutter: ^2.0.10
   flutter_contacts: ^1.1.2
-  random_color: ^1.0.6-nullsafety
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  image_picker: ^0.8.3+3
-  flutter_launcher_icons: ^0.9.0
-  auto_size_text: ^3.0.0
-  uuid: ^3.0.5
-  connectivity_plus: ^2.1.0
-  syncfusion_flutter_charts: ^19.4.40
-  path: ^1.8.0
-  syncfusion_flutter_datepicker: ^19.4.40
+  flutter_dotenv: ^5.0.2
   flutter_easyloading: ^3.0.3
-  flutter_scatter: ^0.2.0
-  flutter_masked_text2: ^0.9.1
-  share_plus: ^4.0.10
-  dotted_border: ^2.0.0
-  firebase_core: ^1.10.6
-  firebase_messaging: ^11.2.3
+  flutter_launcher_icons: ^0.9.0
   flutter_local_notifications: ^9.1.5
-  currency_picker: ^2.0.8
-  firebase_dynamic_links: ^4.1.1
-  expandable: ^5.0.1
+  flutter_masked_text2: ^0.9.1
+  flutter_pdfview: ^1.2.1
+  flutter_scatter: ^0.2.0
+  flutter_svg: ^0.22.0
+  get: ^4.5.1
+  get_it: ^7.1.3
+  google_fonts: ^3.0.1
+  http: ^0.13.1
+  image_picker: ^0.8.3+3
+  intl: ^0.17.0
+  local_auth: null
+  new_version: ^0.3.0
+  number_display: null
+  open_file: ^3.1.0
+  path: ^1.8.0
+  path_provider: ^2.0.2
+  pdf: ^3.1.0
+  pin_code_fields: ^7.3.0
+  printing: ^5.7.2
+  provider: ^6.0.1
+  random_color: ^1.0.6-nullsafety
+  share_plus: ^4.0.10
+  shared_preferences: ^2.0.5
+  sleek_circular_slider: ^2.0.1
+  sqflite: ^2.0.0+4
+  syncfusion_flutter_charts: ^19.4.40
+  syncfusion_flutter_datepicker: ^19.4.40
+  url_launcher: ^6.0.18
+  uuid: ^3.0.5
+  webview_flutter: ^2.0.10
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -95,4 +93,4 @@ flutter:
 
     - family: InterRegular
       fonts:
-        - asset: assets/fontFamily/Inter-Regular.ttf
+        - asset: assets/fontFamily/Inter-Regulars.ttf
