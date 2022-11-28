@@ -378,9 +378,8 @@ class _CustomersState extends State<Customers> {
       floatingActionButton:
           (_customerController.customerStatus == CustomerStatus.UnAuthorized)
               ? Container()
-              : (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
-                      teamController.teamMember.authoritySet!
-                          .contains('CREATE_CUSTOMER'))
+              : (teamController.teamMember.authoritySet == null ||
+                      teamController.teamMember.teamMemberStatus == 'CREATOR')
                   ? FloatingActionButton.extended(
                       onPressed: () {
                         Get.to(() => AddCustomer());
@@ -395,7 +394,23 @@ class _CustomersState extends State<Customers> {
                             fontWeight: FontWeight.w600),
                       ),
                     )
-                  : Container(),
+                  : (teamController.teamMember.authoritySet!
+                          .contains('CREATE_CUSTOMER'))
+                      ? FloatingActionButton.extended(
+                          onPressed: () {
+                            Get.to(() => AddCustomer());
+                          },
+                          icon: Icon(Icons.add),
+                          backgroundColor: AppColor().backgroundColor,
+                          label: Text(
+                            'Add Customer',
+                            style: GoogleFonts.inter(
+                                fontSize: 10,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        )
+                      : Container(),
     );
   }
 

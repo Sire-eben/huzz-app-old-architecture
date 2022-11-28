@@ -391,20 +391,11 @@ class _MerchantsState extends State<Merchants> {
       floatingActionButton:
           (_customerController.customerStatus == CustomerStatus.UnAuthorized)
               ? Container()
-              : (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
-                      teamController.teamMember.authoritySet!
-                          .contains('CREATE_CUSTOMER'))
+              : (teamController.teamMember.authoritySet == null ||
+                      teamController.teamMember.teamMemberStatus == 'CREATOR')
                   ? FloatingActionButton.extended(
                       onPressed: () {
-                        if (teamController.teamMember.teamMemberStatus ==
-                                'CREATOR' ||
-                            teamController.teamMember.authoritySet!
-                                .contains('CREATE_CUSTOMER')) {
-                          Get.to(() => AddMerchant());
-                        } else {
-                          Get.snackbar('Alert',
-                              'You need to be authorized to perform this operation');
-                        }
+                        Get.to(() => AddMerchant());
                       },
                       icon: Icon(Icons.add),
                       backgroundColor: AppColor().backgroundColor,
@@ -416,7 +407,23 @@ class _MerchantsState extends State<Merchants> {
                             fontWeight: FontWeight.w600),
                       ),
                     )
-                  : Container(),
+                  : (teamController.teamMember.authoritySet!
+                          .contains('CREATE_CUSTOMER'))
+                      ? FloatingActionButton.extended(
+                          onPressed: () {
+                            Get.to(() => AddMerchant());
+                          },
+                          icon: Icon(Icons.add),
+                          backgroundColor: AppColor().backgroundColor,
+                          label: Text(
+                            'Add Merchant',
+                            style: GoogleFonts.inter(
+                                fontSize: 10,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        )
+                      : Container(),
     );
   }
 
