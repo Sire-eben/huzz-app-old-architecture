@@ -40,7 +40,6 @@ class CreateInvoiceInformationDialog extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontSize: 14,
-            
           ),
         ),
       ],
@@ -144,7 +143,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               'Create Invoice',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -241,8 +239,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               Text(
                                 'Back',
                                 style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
-                                    ),
+                                  color: AppColor().backgroundColor,
+                                ),
                               ),
                             ],
                           ),
@@ -274,8 +272,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       Text(
                                         'Continue',
                                         style: GoogleFonts.inter(
-                                            color: Colors.white,
-                                            ),
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       SizedBox(width: 4),
                                       Container(
@@ -381,10 +379,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             title: Text(
               'Customer Info',
               style: GoogleFonts.inter(
-                  fontSize: 12,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  ),
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             content: CustomerInfo()),
         Step(
@@ -392,10 +390,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             title: Text(
               'Item Info',
               style: GoogleFonts.inter(
-                  fontSize: 12,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  ),
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             content: ItemInfo()),
         Step(
@@ -403,10 +401,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             title: Text(
               'Payment Info',
               style: GoogleFonts.inter(
-                  fontSize: 12,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  ),
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             content: PaymentInfo()),
       ];
@@ -434,7 +432,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       'New Details',
                       style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
-                        
                         fontStyle: FontStyle.normal,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -458,7 +455,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       'Existing Details',
                       style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
-                        
                         fontStyle: FontStyle.normal,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -607,7 +603,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       'Enter Item',
                                       style: GoogleFonts.inter(
                                         color: AppColor().backgroundColor,
-                                        
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -647,7 +642,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       'Select Item',
                                       style: GoogleFonts.inter(
                                         color: AppColor().backgroundColor,
-                                        
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -752,9 +746,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     Text(
                                       'Select Item',
                                       style: GoogleFonts.inter(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          ),
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                      ),
                                     ),
                                     SizedBox(
                                       width: 5,
@@ -762,9 +756,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     Text(
                                       "*",
                                       style: GoogleFonts.inter(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                          ),
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -911,10 +905,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               Text(
                                 'Add another item',
                                 style: GoogleFonts.inter(
-                                    
                                     fontSize: 10,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.w600),
                               ),
                             ]))),
                 Row(
@@ -983,7 +976,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 'New Customer',
                                 style: GoogleFonts.inter(
                                   color: AppColor().backgroundColor,
-                                  
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1008,7 +1000,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 'Existing Customer',
                                 style: GoogleFonts.inter(
                                   color: AppColor().backgroundColor,
-                                  
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1037,9 +1028,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   Text(
                                     'Select Customer',
                                     style: GoogleFonts.inter(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        ),
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -1047,9 +1038,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   Text(
                                     "*",
                                     style: GoogleFonts.inter(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                        ),
+                                      color: Colors.red,
+                                      fontSize: 12,
+                                    ),
                                   )
                                 ],
                               ),
@@ -1124,10 +1115,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           Text(
             'Business Logo',
             style: GoogleFonts.inter(
-                fontSize: 12,
-                color: Colors.black,
-                fontWeight: FontWeight.w400,
-                ),
+              fontSize: 12,
+              color: Colors.black,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           CustomTextFieldOptional(
@@ -1193,13 +1184,11 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         hintStyle: GoogleFonts.inter(
                             color: Colors.black.withOpacity(0.5),
                             fontSize: 14,
-                            
                             fontWeight: FontWeight.w500),
                         prefixText: "+$countryCode ",
                         prefixStyle: GoogleFonts.inter(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
-                            
                             color: Colors.black)),
                   ),
                 ),
@@ -1229,9 +1218,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 child: Text(
                   'Continue',
                   style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontSize: 18,
-                      ),
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ),
@@ -1262,7 +1251,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         value: item,
         child: Text(
           item,
-          style: GoogleFonts.inter(fontSize: 14, ),
+          style: GoogleFonts.inter(
+            fontSize: 14,
+          ),
         ),
       );
 
@@ -1329,9 +1320,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       child: Text(
                         'Add item',
                         style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 18,
-                            ),
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -1364,9 +1355,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           children: [
             TextField(
               style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w400,
-                  color: AppColor().backgroundColor,
-                  ),
+                fontWeight: FontWeight.w400,
+                color: AppColor().backgroundColor,
+              ),
               controller: _searchcontroller,
               cursorColor: Colors.white,
               autofocus: false,
@@ -1383,10 +1374,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 filled: true,
                 hintText: 'Search Customers',
                 hintStyle: GoogleFonts.inter(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                    ),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey,
+                ),
                 contentPadding:
                     EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
@@ -1432,8 +1423,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 style: GoogleFonts.inter(
                                     fontSize: 30,
                                     color: Colors.white,
-                                    
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.w600),
                               ))),
                         ),
                       )),
@@ -1444,8 +1434,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             style: GoogleFonts.inter(
                                 fontSize: 13,
                                 color: Colors.black,
-                                
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                           )),
                       Expanded(
                           flex: 2,
@@ -1454,8 +1443,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             style: GoogleFonts.inter(
                                 fontSize: 13,
                                 color: Colors.black,
-                                
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                           )),
                     ],
                   );
@@ -1479,9 +1467,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   child: Text(
                     'Continue',
                     style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontSize: 18,
-                        ),
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),
@@ -1601,9 +1589,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     child: Text(
                       'Update',
                       style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontSize: 18,
-                          ),
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
@@ -1665,7 +1653,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               'Enter Item',
                               style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1696,7 +1683,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               'Select Item',
                               style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1754,9 +1740,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             Text(
                               'Select product/services',
                               style: GoogleFonts.inter(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                  ),
+                                color: Colors.black,
+                                fontSize: 12,
+                              ),
                             ),
                             SizedBox(
                               height: 8,
@@ -1853,9 +1839,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         child: Text(
                           'Save',
                           style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontSize: 18,
-                              ),
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),

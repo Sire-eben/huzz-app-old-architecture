@@ -38,7 +38,6 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
           'Back',
           style: GoogleFonts.inter(
             color: AppColor().backgroundColor,
-            
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -64,7 +63,6 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     'Product (${_productControlller.productGoods.length})',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontSize: 15,
                       fontWeight: FontWeight.normal,
                     ),
@@ -148,7 +146,6 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                           hintText: 'Search',
                           hintStyle:
                               Theme.of(context).textTheme.headline4!.copyWith(
-                                    
                                     color: Colors.black26,
                                     fontSize: 14,
                                     fontStyle: FontStyle.normal,
@@ -207,8 +204,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                         'Delete Product',
                         style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
                       ),
@@ -244,7 +240,6 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     "Product Count",
                     style: GoogleFonts.inter(
                       color: Colors.white,
-                      
                       fontSize: 12,
                     ),
                   ),
@@ -254,7 +249,6 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     "${_productControlller.productGoods.length}",
                     style: GoogleFonts.inter(
                       color: Colors.white,
-                      
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
@@ -296,7 +290,6 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                       child: Text(
                         "Total product value",
                         style: GoogleFonts.inter(
-                          
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -309,7 +302,6 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                       child: Text(
                         "N0.00",
                         style: GoogleFonts.inter(
-                          
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
                           color: Colors.white,
@@ -385,9 +377,8 @@ class _ListingProductState extends State<ListingProduct> {
                       widget.item!.productName!,
                       style: GoogleFonts.inter(
                         color: AppColor().blackColor,
-                        
                         fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     SizedBox(
@@ -399,7 +390,6 @@ class _ListingProductState extends State<ListingProduct> {
                           'left: ',
                           style: GoogleFonts.inter(
                             color: AppColor().blackColor,
-                            
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -408,9 +398,8 @@ class _ListingProductState extends State<ListingProduct> {
                           "${widget.item!.quantityLeft}",
                           style: GoogleFonts.inter(
                             color: AppColor().orangeBorderColor,
-                            
                             fontSize: 12,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         SizedBox(
@@ -420,7 +409,6 @@ class _ListingProductState extends State<ListingProduct> {
                           'N${display(widget.item!.costPrice ?? 0)}',
                           style: GoogleFonts.inter(
                             color: AppColor().blackColor,
-                            
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),

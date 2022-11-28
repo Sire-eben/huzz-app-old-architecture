@@ -114,8 +114,7 @@ class _AddMemberState extends State<AddMember> {
               'Add Members',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
             ),
@@ -149,7 +148,6 @@ class _AddMemberState extends State<AddMember> {
                     style: GoogleFonts.inter(
                       color: Colors.black,
                       fontSize: 12,
-                      
                     ),
                   ),
                   SizedBox(width: 5),
@@ -442,9 +440,8 @@ class _AddMemberState extends State<AddMember> {
                             'Invite Member',
                             style: GoogleFonts.inter(
                               fontSize: 13,
-                              
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                   ),

@@ -81,7 +81,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
               'Manage ${_tabController.index == 0 ? 'Customers' : 'Merchants'}',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
             ),
@@ -147,7 +147,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
                       fontFamily: "InterRegular",
                       fontStyle: FontStyle.normal,
                       fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                 unselectedLabelColor: AppColor().backgroundColor,
                 unselectedLabelStyle:
@@ -156,7 +156,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
                           fontFamily: "InterRegular",
                           fontStyle: FontStyle.normal,
                           fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                 indicatorSize: TabBarIndicatorSize.tab,
                 // indicatorColor: Colors.white,

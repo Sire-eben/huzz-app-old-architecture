@@ -101,7 +101,6 @@ class _AddServiceState extends State<AddService> {
                       'Service Image',
                       style: GoogleFonts.inter(
                         color: Colors.black,
-                        
                         fontSize: 12,
                       ),
                     ),
@@ -175,8 +174,7 @@ class _AddServiceState extends State<AddService> {
                                 style: GoogleFonts.inter(
                                   color: AppColor().whiteColor,
                                   fontSize: 18,
-                                  
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
@@ -243,7 +241,6 @@ class _AddServiceState extends State<AddService> {
                 'Upload Image',
                 style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -282,7 +279,6 @@ class _AddServiceState extends State<AddService> {
                   'Select from Device',
                   style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -306,8 +302,7 @@ class _AddServiceState extends State<AddService> {
                       'Continue',
                       style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),

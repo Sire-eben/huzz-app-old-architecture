@@ -44,7 +44,6 @@ class TeamsWidget extends StatelessWidget {
                     style: GoogleFonts.inter(
                         fontSize: 20,
                         color: Colors.white,
-                        
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -61,7 +60,6 @@ class TeamsWidget extends StatelessWidget {
                   style: GoogleFonts.inter(
                       fontSize: 14,
                       color: AppColor().blackColor,
-                      
                       fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 10),
@@ -72,7 +70,6 @@ class TeamsWidget extends StatelessWidget {
                       style: GoogleFonts.inter(
                           fontSize: 10,
                           color: AppColor().blackColor,
-                          
                           fontWeight: FontWeight.w400),
                     ),
                     SizedBox(width: 40),
@@ -127,7 +124,6 @@ class NoTeamsWidget extends StatelessWidget {
                     style: GoogleFonts.inter(
                         fontSize: 20,
                         color: Colors.white,
-                        
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -145,8 +141,7 @@ class NoTeamsWidget extends StatelessWidget {
                     style: GoogleFonts.inter(
                         fontSize: 14,
                         color: AppColor().blackColor,
-                        
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w600),
                   ),
                   SizedBox(width: 2),
                   Text(
@@ -154,8 +149,7 @@ class NoTeamsWidget extends StatelessWidget {
                     style: GoogleFonts.inter(
                         fontSize: 14,
                         color: AppColor().blackColor,
-                        
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -165,7 +159,6 @@ class NoTeamsWidget extends StatelessWidget {
                 style: GoogleFonts.inter(
                     fontSize: 10,
                     color: AppColor().blackColor,
-                    
                     fontWeight: FontWeight.w400),
               ),
             ],

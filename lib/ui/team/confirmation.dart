@@ -100,8 +100,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   'Team Member Successfully',
                   style: GoogleFonts.inter(
                     color: AppColor().backgroundColor,
-                    
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
                 ),
@@ -111,8 +110,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   'Added',
                   style: GoogleFonts.inter(
                     color: AppColor().backgroundColor,
-                    
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
                 ),
@@ -148,9 +146,8 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                         : Text(
                             'Share invite link',
                             style: GoogleFonts.inter(
-                              
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                   ),
@@ -173,8 +170,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                       'Proceed',
                       style: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
-                        
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),

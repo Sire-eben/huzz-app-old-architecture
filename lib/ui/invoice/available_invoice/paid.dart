@@ -53,8 +53,7 @@ class _PaidState extends State<Paid> {
                       Text(
                         'Invoices',
                         style: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
-                            
+                            fontWeight: FontWeight.w600,
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -62,8 +61,7 @@ class _PaidState extends State<Paid> {
                       Text(
                         '(${_invoiceController.paidInvoiceList.length})',
                         style: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
-                            
+                            fontWeight: FontWeight.w600,
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -156,15 +154,13 @@ class _PaidState extends State<Paid> {
                                                         : customer.name!,
                                                     style: GoogleFonts.inter(
                                                         fontWeight:
-                                                            FontWeight.bold,
-                                                        
+                                                            FontWeight.w600,
                                                         fontSize: 16,
                                                         color: Colors.black),
                                                   ),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
-                                                 
                                                   SizedBox(
                                                       height:
                                                           MediaQuery.of(context)
@@ -180,32 +176,33 @@ class _PaidState extends State<Paid> {
                                                         "${Utils.getCurrency()}${display(item.totalAmount)}",
                                                         style: GoogleFonts.inter(
                                                             fontWeight:
-                                                                FontWeight.bold,
-                                                            
+                                                                FontWeight.w600,
                                                             fontSize: 14,
                                                             color: Color(
                                                                 0xffEF6500)),
                                                       ),
                                                       Text(
                                                         "",
-                                                        style: GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            
-                                                            fontSize: 14,
-                                                            color:
-                                                                Colors.black),
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .black),
                                                       ),
                                                       Text(
                                                         item.createdDateTime!
                                                             .formatDate()!,
-                                                        style: GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            
-                                                            fontSize: 14,
-                                                            color:
-                                                                Colors.black),
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .black),
                                                       ),
                                                     ],
                                                   ),
@@ -288,15 +285,13 @@ class _PaidState extends State<Paid> {
                                                         : customer.name!,
                                                     style: GoogleFonts.inter(
                                                         fontWeight:
-                                                            FontWeight.bold,
-                                                        
+                                                            FontWeight.w600,
                                                         fontSize: 16,
                                                         color: Colors.black),
                                                   ),
                                                   SizedBox(
                                                     height: 5,
                                                   ),
-                                                 
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -306,32 +301,33 @@ class _PaidState extends State<Paid> {
                                                         "${Utils.getCurrency()}${display(item.totalAmount)}",
                                                         style: GoogleFonts.inter(
                                                             fontWeight:
-                                                                FontWeight.bold,
-                                                            
+                                                                FontWeight.w600,
                                                             fontSize: 14,
                                                             color: Color(
                                                                 0xffEF6500)),
                                                       ),
                                                       Text(
                                                         "",
-                                                        style: GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            
-                                                            fontSize: 14,
-                                                            color:
-                                                                Colors.black),
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .black),
                                                       ),
                                                       Text(
                                                         item.createdDateTime!
                                                             .formatDate()!,
-                                                        style: GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            
-                                                            fontSize: 14,
-                                                            color:
-                                                                Colors.black),
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .black),
                                                       ),
                                                     ],
                                                   ),
@@ -343,7 +339,6 @@ class _PaidState extends State<Paid> {
                                                         .size
                                                         .height *
                                                     0.05),
-                                            
                                             GestureDetector(
                                               onTap: () {
                                                 if (_invoiceController
@@ -423,10 +418,9 @@ class _PaidState extends State<Paid> {
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
                       style: GoogleFonts.inter(
-                          
                           fontSize: 10,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w600),
                     ),
                   )
                 : Container(),
@@ -450,7 +444,6 @@ class _PaidState extends State<Paid> {
                     'You are about to delete  invoice(s). Are you sure you want to continue?',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -497,7 +490,6 @@ class _PaidState extends State<Paid> {
                               'Cancel',
                               style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -530,7 +522,6 @@ class _PaidState extends State<Paid> {
                               'Delete',
                               style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

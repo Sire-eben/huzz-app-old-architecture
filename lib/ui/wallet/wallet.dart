@@ -25,7 +25,6 @@ class WalletInInformationDialog extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontSize: 14,
-            
           ),
         ),
       ],
@@ -63,7 +62,6 @@ class _WalletState extends State<Wallet> {
               'My Wallet',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -133,7 +131,6 @@ class _WalletState extends State<Wallet> {
                             "WEMA BANK",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
@@ -142,7 +139,6 @@ class _WalletState extends State<Wallet> {
                             "3066856680",
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
@@ -153,7 +149,6 @@ class _WalletState extends State<Wallet> {
                         "JOSHUA OLATUNDE",
                         style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
@@ -173,9 +168,8 @@ class _WalletState extends State<Wallet> {
                       '${Utils.getCurrency()}0.0',
                       style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        
                         fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -262,7 +256,6 @@ class WalletOption extends StatelessWidget {
               name!,
               style: GoogleFonts.inter(
                 color: AppColor().whiteColor,
-                
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
               ),

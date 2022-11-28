@@ -42,8 +42,7 @@ class _MoreState extends State<More> {
               'Do more with Huzz',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
             ),

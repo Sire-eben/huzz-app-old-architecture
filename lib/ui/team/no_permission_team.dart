@@ -53,8 +53,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
                 'My Team',
                 style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                  
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 18,
                 ),
               ),
@@ -74,8 +73,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),
               ),

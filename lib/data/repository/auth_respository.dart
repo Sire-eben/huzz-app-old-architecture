@@ -219,16 +219,12 @@ class AuthRepository extends GetxController {
             titleText: Text(
               'Success',
               style: GoogleFonts.inter(
-                 
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+                  color: Colors.black, fontWeight: FontWeight.w600),
             ),
             messageText: Text(
               'Otp sent successfully',
               style: GoogleFonts.inter(
-                  
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal),
+                  color: Colors.black, fontWeight: FontWeight.normal),
             ),
             icon: Icon(Icons.check, color: AppColor().backgroundColor));
 
@@ -240,16 +236,12 @@ class AuthRepository extends GetxController {
             titleText: Text(
               'Error',
               style: GoogleFonts.inter(
-                  
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+                  color: Colors.black, fontWeight: FontWeight.w600),
             ),
             messageText: Text(
               'Unable to send Otp',
               style: GoogleFonts.inter(
-                  
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal),
+                  color: Colors.black, fontWeight: FontWeight.normal),
             ),
             icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
       }
@@ -275,16 +267,12 @@ class AuthRepository extends GetxController {
             titleText: Text(
               'Success',
               style: GoogleFonts.inter(
-                 
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+                  color: Colors.black, fontWeight: FontWeight.w600),
             ),
             messageText: Text(
               'Otp sent successfully',
               style: GoogleFonts.inter(
-                  
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal),
+                  color: Colors.black, fontWeight: FontWeight.normal),
             ),
             icon: Icon(Icons.check, color: AppColor().backgroundColor));
         Timer(Duration(milliseconds: 2000), () {
@@ -296,16 +284,12 @@ class AuthRepository extends GetxController {
             titleText: Text(
               'Error',
               style: GoogleFonts.inter(
-                  
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
+                  color: Colors.black, fontWeight: FontWeight.w600),
             ),
             messageText: Text(
               'User with phone number not found',
               style: GoogleFonts.inter(
-                  
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal),
+                  color: Colors.black, fontWeight: FontWeight.normal),
             ),
             icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
       }
@@ -326,16 +310,12 @@ class AuthRepository extends GetxController {
           titleText: Text(
             'Success',
             style: GoogleFonts.inter(
-                
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
+                color: Colors.black, fontWeight: FontWeight.w600),
           ),
           messageText: Text(
             'Otp sent successfully',
             style: GoogleFonts.inter(
-                
-                color: Colors.black,
-                fontWeight: FontWeight.normal),
+                color: Colors.black, fontWeight: FontWeight.normal),
           ),
           icon: Icon(Icons.check, color: AppColor().backgroundColor));
     } else {
@@ -343,16 +323,12 @@ class AuthRepository extends GetxController {
           titleText: Text(
             'Error',
             style: GoogleFonts.inter(
-                
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
+                color: Colors.black, fontWeight: FontWeight.w600),
           ),
           messageText: Text(
             'Unable to send Otp',
             style: GoogleFonts.inter(
-                
-                color: Colors.black,
-                fontWeight: FontWeight.normal),
+                color: Colors.black, fontWeight: FontWeight.normal),
           ),
           icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
     }
@@ -380,16 +356,12 @@ class AuthRepository extends GetxController {
               titleText: Text(
                 'Success',
                 style: GoogleFonts.inter(
-                    
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+                    color: Colors.black, fontWeight: FontWeight.w600),
               ),
               messageText: Text(
                 'Otp sent successfully',
                 style: GoogleFonts.inter(
-                    
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal),
+                    color: Colors.black, fontWeight: FontWeight.normal),
               ),
               icon: Icon(Icons.check, color: AppColor().backgroundColor));
 
@@ -400,16 +372,12 @@ class AuthRepository extends GetxController {
               titleText: Text(
                 'Error',
                 style: GoogleFonts.inter(
-                    
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+                    color: Colors.black, fontWeight: FontWeight.w600),
               ),
               messageText: Text(
                 'Unable to send Otp',
                 style: GoogleFonts.inter(
-                    
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal),
+                    color: Colors.black, fontWeight: FontWeight.normal),
               ),
               icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
         }
@@ -420,16 +388,12 @@ class AuthRepository extends GetxController {
           titleText: Text(
             'Error',
             style: GoogleFonts.inter(
-                
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
+                color: Colors.black, fontWeight: FontWeight.w600),
           ),
           messageText: Text(
             'Error verifying Otp',
             style: GoogleFonts.inter(
-                
-                color: Colors.black,
-                fontWeight: FontWeight.normal),
+                color: Colors.black, fontWeight: FontWeight.normal),
           ),
           icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
       _Otpverifystatus(OtpVerifyStatus.Error);

@@ -140,7 +140,6 @@ class _AddProductState extends State<AddProduct> {
                 'Product Image',
                 style: GoogleFonts.inter(
                   color: Colors.black,
-                  
                   fontSize: 12,
                 ),
               ),
@@ -228,7 +227,6 @@ class _AddProductState extends State<AddProduct> {
                             hintText: '${Utils.getCurrency()} 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
-                                      
                                       color: Colors.black26,
                                       fontSize: 14,
                                       fontStyle: FontStyle.normal,
@@ -304,7 +302,6 @@ class _AddProductState extends State<AddProduct> {
                             hintText: '${Utils.getCurrency()} 0.00',
                             hintStyle:
                                 Theme.of(context).textTheme.headline4!.copyWith(
-                                      
                                       fontSize: 14,
                                       color: Colors.black26,
                                       fontStyle: FontStyle.normal,
@@ -337,7 +334,8 @@ class _AddProductState extends State<AddProduct> {
                       children: [
                         Text(
                           'Quantity',
-                          style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
+                          style: GoogleFonts.inter(
+                              color: Colors.black, fontSize: 12),
                         ),
                         SizedBox(
                           width: 1,
@@ -346,7 +344,8 @@ class _AddProductState extends State<AddProduct> {
                           margin: EdgeInsets.only(top: 5),
                           child: Text(
                             "*",
-                            style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
+                            style: GoogleFonts.inter(
+                                color: Colors.red, fontSize: 12),
                           ),
                         ),
                       ],
@@ -403,7 +402,6 @@ class _AddProductState extends State<AddProduct> {
                             : _productController.productQuantityController.text,
                         hintStyle:
                             Theme.of(context).textTheme.headline4!.copyWith(
-                                  
                                   color: Colors.black,
                                   fontSize: 14,
                                   fontStyle: FontStyle.normal,
@@ -471,7 +469,6 @@ class _AddProductState extends State<AddProduct> {
                     'Select product unit',
                     style: GoogleFonts.inter(
                       color: Colors.black26,
-                      
                     ),
                   ),
                   items: _productController.units.map(buildMenuItem).toList(),
@@ -518,8 +515,7 @@ class _AddProductState extends State<AddProduct> {
                           style: GoogleFonts.inter(
                             color: AppColor().whiteColor,
                             fontSize: 18,
-                            
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
@@ -584,7 +580,6 @@ class _AddProductState extends State<AddProduct> {
                 'Upload Image',
                 style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -623,7 +618,6 @@ class _AddProductState extends State<AddProduct> {
                   'Select from Device',
                   style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -647,8 +641,7 @@ class _AddProductState extends State<AddProduct> {
                       'Done',
                       style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),

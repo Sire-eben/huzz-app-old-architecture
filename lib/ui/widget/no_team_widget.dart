@@ -38,8 +38,7 @@ class NoTeamWidget extends GetView<TeamRepository> {
                 style: GoogleFonts.inter(
                     fontSize: 13,
                     color: Colors.black,
-                    
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: 5,
@@ -47,16 +46,15 @@ class NoTeamWidget extends GetView<TeamRepository> {
               Text(
                 'Invite team members to help',
                 style: GoogleFonts.inter(
-                    fontSize: 10,
-                    color: Colors.black,
-                    ),
+                  fontSize: 10,
+                  color: Colors.black,
+                ),
               ),
               Text(
                 'you manage your business',
                 style: GoogleFonts.inter(
                   fontSize: 10,
                   color: Colors.black,
-                  
                 ),
               ),
               SizedBox(
@@ -90,9 +88,8 @@ class NoTeamWidget extends GetView<TeamRepository> {
                               'Create Team',
                               style: GoogleFonts.inter(
                                 fontSize: 13,
-                                
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),

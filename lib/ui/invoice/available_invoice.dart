@@ -117,7 +117,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                         Text(
                           "Manage Invoices",
                           style: GoogleFonts.inter(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                               fontSize: 18,
                               color: AppColor().backgroundColor),
                         ),
@@ -211,13 +211,13 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                         color: Colors.black,
                         fontStyle: FontStyle.normal,
                         fontSize: 12,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                       unselectedLabelStyle: GoogleFonts.inter(
                         color: AppColor().backgroundColor,
                         fontStyle: FontStyle.normal,
                         fontSize: 12,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                       indicatorSize: TabBarIndicatorSize.label,
                       indicatorColor: AppColor().backgroundColor,
@@ -262,14 +262,14 @@ class DashboardDetails extends StatelessWidget {
             Text(
               name!,
               style: GoogleFonts.inter(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 12,
                   color: Colors.black),
             ),
             Text(
               no!.toString(),
               style: GoogleFonts.inter(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 18,
                   color: AppColor().backgroundColor),
             )

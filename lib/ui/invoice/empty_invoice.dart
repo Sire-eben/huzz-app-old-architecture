@@ -44,7 +44,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                 Text(
                   "Manage Invoices",
                   style: GoogleFonts.inter(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       fontSize: 18,
                       color: AppColor().backgroundColor),
                 ),
@@ -83,7 +83,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                               style: GoogleFonts.inter(
                                   fontSize: 13,
                                   color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w600),
                             ),
                             SizedBox(height: 5),
                             Text(
@@ -174,7 +174,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
             Text(
               "Manage Invoices",
               style: GoogleFonts.inter(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 18,
                   color: AppColor().backgroundColor),
             ),
@@ -210,7 +210,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                           style: GoogleFonts.inter(
                               fontSize: 14,
                               color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                         ),
                         SizedBox(height: 5),
                         Text(
@@ -226,7 +226,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                           style: GoogleFonts.inter(
                               fontSize: 14,
                               color: AppColor().orangeBorderColor,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         ),
                       ],

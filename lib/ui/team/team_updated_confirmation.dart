@@ -41,8 +41,7 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
                 'Team Member Successfully',
                 style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                  
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 20,
                 ),
               ),
@@ -52,8 +51,7 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
                 'Updated',
                 style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                  
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 20,
                 ),
               ),
@@ -83,8 +81,7 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
                     'Proceed',
                     style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),

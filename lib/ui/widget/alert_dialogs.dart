@@ -27,7 +27,7 @@ class AlertDialogs {
                 'Cancel',
                 style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),

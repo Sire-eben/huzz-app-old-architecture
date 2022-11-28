@@ -48,7 +48,7 @@ class _ProductsState extends State<Products> {
                           style: GoogleFonts.inter(
                               fontSize: 10,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                         ),
                       )
                     : Container(),
@@ -103,9 +103,8 @@ class _ProductsState extends State<Products> {
                             'Product',
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
                               fontSize: 13,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           SizedBox(height: 5),
@@ -116,7 +115,6 @@ class _ProductsState extends State<Products> {
                                 : "Your products will show here.",
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
                               fontSize: 10,
                               fontWeight: FontWeight.normal,
                             ),
@@ -127,7 +125,6 @@ class _ProductsState extends State<Products> {
                               "New Product button to add your first product",
                               style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                
                                 fontSize: 10,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -141,8 +138,7 @@ class _ProductsState extends State<Products> {
                               style: GoogleFonts.inter(
                                   fontSize: 14,
                                   color: AppColor().orangeBorderColor,
-                                  
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w600),
                               textAlign: TextAlign.center,
                             ),
                           ]
@@ -179,7 +175,6 @@ class _ProductsState extends State<Products> {
                     "Product Count",
                     style: GoogleFonts.inter(
                       color: Colors.white,
-                      
                       fontSize: 12,
                     ),
                   ),
@@ -189,7 +184,6 @@ class _ProductsState extends State<Products> {
                     "0",
                     style: GoogleFonts.inter(
                       color: Colors.white,
-                      
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
@@ -231,7 +225,6 @@ class _ProductsState extends State<Products> {
                       child: Text(
                         "Total product value",
                         style: GoogleFonts.inter(
-                          
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -244,7 +237,6 @@ class _ProductsState extends State<Products> {
                       child: Text(
                         "${Utils.getCurrency()}0.0",
                         style: GoogleFonts.inter(
-                          
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
                           color: Colors.white,

@@ -129,7 +129,7 @@ class _CustomersState extends State<Customers> {
                                     style: GoogleFonts.inter(
                                         fontSize: 13,
                                         color: Colors.black,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -216,7 +216,7 @@ class _CustomersState extends State<Customers> {
         label: Text(
           'Add Customer',
           style: GoogleFonts.inter(
-              fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 10, color: Colors.white, fontWeight: FontWeight.w600),
         ),
       ),
     );

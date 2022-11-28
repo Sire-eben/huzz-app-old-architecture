@@ -130,7 +130,7 @@ class _MerchantsState extends State<Merchants> {
                             style: GoogleFonts.inter(
                                 fontSize: 14,
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                           ),
                           SizedBox(height: 5),
                           Text(
@@ -146,7 +146,7 @@ class _MerchantsState extends State<Merchants> {
                             style: GoogleFonts.inter(
                                 fontSize: 14,
                                 color: AppColor().orangeBorderColor,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -228,7 +228,7 @@ class _MerchantsState extends State<Merchants> {
                                                                         .white,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold),
+                                                                            .w600),
                                                               ))),
                                                         ),
                                                       )),
@@ -356,7 +356,7 @@ class _MerchantsState extends State<Merchants> {
                                       style: GoogleFonts.inter(
                                           fontSize: 14,
                                           color: Colors.black,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     SizedBox(height: 5),
                                     Text(
@@ -413,7 +413,7 @@ class _MerchantsState extends State<Merchants> {
                         style: GoogleFonts.inter(
                             fontSize: 10,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w600),
                       ),
                     )
                   : Container(),

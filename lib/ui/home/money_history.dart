@@ -168,7 +168,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     color: AppColor().blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
@@ -178,7 +178,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     color: AppColor().blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -226,7 +226,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   color: AppColor().orangeBorderColor,
                   fontStyle: FontStyle.normal,
                   fontSize: 10,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -250,7 +250,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 color: AppColor().blackColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 10,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             SizedBox(
@@ -262,7 +262,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 color: AppColor().backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -276,7 +276,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                   color: AppColor().blackColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 10,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               SizedBox(
@@ -288,7 +288,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                   color: AppColor().orangeBorderColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               )
                             ]),
@@ -301,7 +301,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 color: AppColor().blackColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 10,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             SizedBox(
@@ -313,7 +313,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 color: AppColor().backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -354,7 +354,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 color: AppColor().blackColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
@@ -504,7 +504,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     color: AppColor().blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -580,7 +580,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 item.itemName!,
                                 textAlign: TextAlign.left,
                                 style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -590,7 +590,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 "${item.quality}",
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -600,7 +600,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 "${Utils.getCurrency()}${display(item.totalAmount)}",
                                 textAlign: TextAlign.right,
                                 style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -623,7 +623,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     color: AppColor().blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -699,7 +699,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 item.createdDateTime!.formatDate()!,
                                 textAlign: TextAlign.left,
                                 style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -709,7 +709,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 '${Utils.getCurrency()}${display(item.amountPaid)}',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
@@ -730,7 +730,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                     Text(
                                       'View Receipt',
                                       style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                           fontSize: 10,
                                           color: AppColor().backgroundColor),
                                     ),
@@ -898,7 +898,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                       color: AppColor().blackColor,
                       fontStyle: FontStyle.normal,
                       fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   InkWell(
@@ -941,14 +941,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                             Text(
                               'Date',
                               style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
                             Text(
                               recordModel.date!,
                               style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
@@ -962,14 +962,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                             Text(
                               'Money Out',
                               style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 10,
                                   color: AppColor().blackColor),
                             ),
                             Text(
                               recordModel.moneyOut!,
                               style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 10,
                                   color: AppColor().orangeBorderColor),
                             ),
@@ -985,14 +985,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                               Text(
                                 'Money In',
                                 style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 10,
                                     color: AppColor().blackColor),
                               ),
                               Text(
                                 recordModel.moneyIn!,
                                 style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 10,
                                     color: AppColor().blueColor),
                               ),
@@ -1030,14 +1030,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                                     Text(
                                       item.name!,
                                       style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
                                     Text(
                                       item.time!,
                                       style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -1051,14 +1051,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                                     Text(
                                       item.price!,
                                       style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
                                     Text(
                                       item.detail!,
                                       style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                           fontSize: 10,
                                           color: AppColor().blackColor),
                                     ),
@@ -1085,7 +1085,7 @@ class _MoneySummaryState extends State<MoneySummary> {
         value: item,
         child: Text(
           item,
-          style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.bold),
+          style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w600),
         ),
       );
 

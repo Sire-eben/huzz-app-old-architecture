@@ -29,9 +29,8 @@ class BankCard extends StatelessWidget {
               child: Text(
                 item.bankAccountName!,
                 style: GoogleFonts.inter(
-                  
                   fontSize: 12,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -43,9 +42,8 @@ class BankCard extends StatelessWidget {
               child: Text(
                 item.bankAccountNumber!,
                 style: GoogleFonts.inter(
-                  
                   fontSize: 10,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -57,9 +55,8 @@ class BankCard extends StatelessWidget {
               child: Text(
                 item.bankName!,
                 style: GoogleFonts.inter(
-                  
                   fontSize: 10,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),

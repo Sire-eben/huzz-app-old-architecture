@@ -65,8 +65,7 @@ class _SettingsState extends State<Settings> {
           'Settings',
           style: GoogleFonts.inter(
             color: AppColor().backgroundColor,
-            
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             fontSize: 18,
           ),
         ),
@@ -158,8 +157,7 @@ class _SettingsState extends State<Settings> {
                             : firstName,
                         style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
                       ),
@@ -172,8 +170,7 @@ class _SettingsState extends State<Settings> {
                             : lastName!,
                         style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
                       ),
@@ -220,7 +217,6 @@ class _SettingsState extends State<Settings> {
                           'Personal Account',
                           style: GoogleFonts.inter(
                             color: AppColor().blackColor,
-                            
                             fontWeight: FontWeight.normal,
                             fontSize: 14,
                           ),
@@ -296,7 +292,6 @@ class _SettingsState extends State<Settings> {
                           'Business Account',
                           style: GoogleFonts.inter(
                             color: AppColor().blackColor,
-                            
                             fontWeight: FontWeight.normal,
                             fontSize: 14,
                           ),
@@ -387,7 +382,6 @@ class _SettingsState extends State<Settings> {
                             'Notification Settings',
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -448,7 +442,6 @@ class _SettingsState extends State<Settings> {
                             'Referrals',
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -493,7 +486,6 @@ class _SettingsState extends State<Settings> {
                             'Logout',
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -538,7 +530,6 @@ class _SettingsState extends State<Settings> {
                                         'Verify your Phone Number',
                                         style: GoogleFonts.inter(
                                           color: AppColor().whiteColor,
-                                          
                                           fontWeight: FontWeight.normal,
                                           fontSize: 14,
                                         ),
@@ -605,7 +596,6 @@ class _SettingsState extends State<Settings> {
                 'Upload Image',
                 style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -648,7 +638,6 @@ class _SettingsState extends State<Settings> {
                   'Select from Device',
                   style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -685,8 +674,7 @@ class _SettingsState extends State<Settings> {
                             'Done',
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -714,7 +702,6 @@ class _SettingsState extends State<Settings> {
                     '$title',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -765,7 +752,6 @@ class _SettingsState extends State<Settings> {
                             'Cancel',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -794,7 +780,6 @@ class _SettingsState extends State<Settings> {
                             'Delete',
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -830,7 +815,7 @@ class _SettingsState extends State<Settings> {
                     'Verify your phone number?',
                     style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
                   ),
@@ -842,7 +827,6 @@ class _SettingsState extends State<Settings> {
                 'Please click continue if you want to proceed',
                 style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  
                   fontWeight: FontWeight.normal,
                   fontSize: 11,
                 ),
@@ -879,7 +863,6 @@ class _SettingsState extends State<Settings> {
                             'Cancel',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -906,7 +889,6 @@ class _SettingsState extends State<Settings> {
                             'Continue',
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -939,7 +921,6 @@ class _SettingsState extends State<Settings> {
                     '$title',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -990,7 +971,6 @@ class _SettingsState extends State<Settings> {
                             'Cancel',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1018,7 +998,6 @@ class _SettingsState extends State<Settings> {
                             'Logout',
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1051,7 +1030,6 @@ class _SettingsState extends State<Settings> {
                     '$title',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -1099,7 +1077,6 @@ class _SettingsState extends State<Settings> {
                             'Cancel',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1128,7 +1105,6 @@ class _SettingsState extends State<Settings> {
                             'Delete',
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),

@@ -1,4 +1,3 @@
-
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -222,8 +221,7 @@ class _UpdateMemberState extends State<UpdateMember> {
               'Edit Privilege',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-              
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
             ),
@@ -256,7 +254,6 @@ class _UpdateMemberState extends State<UpdateMember> {
                     style: GoogleFonts.inter(
                       color: Colors.black,
                       fontSize: 12,
-                      
                     ),
                   ),
                   SizedBox(width: 5),
@@ -1721,9 +1718,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                             'Update Privilege',
                             style: GoogleFonts.inter(
                               fontSize: 13,
-                              
                               color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                   ),
@@ -1756,7 +1752,6 @@ class EditDetails extends StatelessWidget {
             name!,
             style: GoogleFonts.inter(
               color: AppColor().blackColor,
-              
               fontSize: 12,
             ),
           ),
@@ -1765,8 +1760,7 @@ class EditDetails extends StatelessWidget {
             value!,
             style: GoogleFonts.inter(
               color: AppColor().blackColor,
-              
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
               fontSize: 12,
             ),
           ),

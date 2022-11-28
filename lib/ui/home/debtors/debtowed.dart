@@ -94,7 +94,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       "Number Of Debts Owed",
                                       style: GoogleFonts.inter(
                                         color: Colors.white,
-                                        
                                         fontSize: 12,
                                       ),
                                       textAlign: TextAlign.center,
@@ -104,7 +103,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         "${_debtorRepository.debtOwnedList.length}",
                                         style: GoogleFonts.inter(
                                           color: Colors.white,
-                                          
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
                                         ),
@@ -145,7 +143,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       Text(
                                         "Total Debts Owed",
                                         style: GoogleFonts.inter(
-                                          
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
@@ -153,7 +150,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       Text(
                                         "${Utils.getCurrency()}${display(_debtorRepository.debtOwnedAmount)}",
                                         style: GoogleFonts.inter(
-                                          
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
                                           color: Colors.white,
@@ -184,9 +180,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               hint: Text(
                                 'Pending',
                                 style: GoogleFonts.inter(
-                                    
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 10, fontWeight: FontWeight.w600),
                               ),
                               isDense: true,
                               items: debtStatus.map(buildDropDown).toList(),
@@ -225,8 +219,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         style: GoogleFonts.inter(
                                             fontSize: 13,
                                             color: Colors.black,
-                                            
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.w600),
                                       ),
                                       SizedBox(height: 5),
                                       Text(
@@ -235,18 +228,18 @@ class _DebtOwnedState extends State<DebtOwned> {
                                             ? 'Your debts will show here. Click the'
                                             : 'Your debts will show here.',
                                         style: GoogleFonts.inter(
-                                            fontSize: 10,
-                                            color: Colors.black,
-                                            ),
+                                          fontSize: 10,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                       if (_debtorRepository.debtorStatus !=
                                           DebtorStatus.UnAuthorized) ...[
                                         Text(
                                           'Add New Debt Owed button to add your first debt',
                                           style: GoogleFonts.inter(
-                                              fontSize: 10,
-                                              color: Colors.black,
-                                              ),
+                                            fontSize: 10,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ],
                                       SizedBox(height: 20),
@@ -258,8 +251,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                               fontSize: 14,
                                               color:
                                                   AppColor().orangeBorderColor,
-                                              
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.w600),
                                           textAlign: TextAlign.center,
                                         ),
                                       ]
@@ -314,9 +306,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       style: GoogleFonts.inter(
                                                           fontSize: 30,
                                                           color: Colors.white,
-                                                          
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.w600),
                                                     ))),
                                               ),
                                             )),
@@ -336,7 +327,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       customer.name!,
                                                       style: GoogleFonts.inter(
                                                           fontSize: 12,
-                                                         
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.w400),
@@ -345,7 +335,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       customer.phone!,
                                                       style: GoogleFonts.inter(
                                                           fontSize: 12,
-                                                          
                                                           color: Colors.grey),
                                                     ),
                                                   ],
@@ -363,7 +352,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       "Balance: ${Utils.getCurrency()}${display(item.balance!)}",
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
-                                                          
                                                           color: AppColor()
                                                               .orangeBorderColor,
                                                           fontWeight:
@@ -373,7 +361,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       "Paid: ${Utils.getCurrency()}${display((item.totalAmount! - item.balance!))}",
                                                       style: GoogleFonts.inter(
                                                           fontSize: 11,
-                                                          
                                                           color: Colors.grey),
                                                     ),
                                                   ],
@@ -509,9 +496,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                           'Add New Debt Owed',
                                           style: GoogleFonts.inter(
                                             color: AppColor().whiteColor,
-                                            
                                             fontSize: 14,
-                                            fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
                                       ),
@@ -544,7 +530,7 @@ class _DebtOwnedState extends State<DebtOwned> {
               'Delete Debt',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 17,
               ),
             ),
@@ -552,7 +538,6 @@ class _DebtOwnedState extends State<DebtOwned> {
               "You're about to delete this debt entry, click delete to proceed",
               style: GoogleFonts.inter(
                 color: AppColor().blackColor,
-                
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
               ),
@@ -588,7 +573,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                               'Cancel',
                               style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -617,7 +601,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                               'Delete',
                               style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -669,9 +652,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                   'Update Payment',
                   style: GoogleFonts.inter(
                     color: AppColor().blackColor,
-                    
                     fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 Padding(
@@ -700,7 +682,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                             Text(
                               'Paying Fully',
                               style: GoogleFonts.inter(
-                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -730,7 +711,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                             Text(
                               'Paying Partly',
                               style: GoogleFonts.inter(
-                                
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -759,7 +739,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       style: GoogleFonts.inter(
                                         color: Colors.black,
                                         fontSize: 16,
-                                        
                                         fontStyle: FontStyle.normal,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -783,22 +762,20 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     Text(
                                       'Balance: ${Utils.getCurrency()}${display(debtor.balance)}',
                                       style: GoogleFonts.inter(
-                                        
                                         color: AppColor().orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                     Text(
                                       // debtOwnedModel.balance!,
                                       '',
                                       style: GoogleFonts.inter(
-                                        
                                         color: AppColor().orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
@@ -851,7 +828,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     .textTheme
                                     .headline4!
                                     .copyWith(
-                                      
                                       color: Colors.black26,
                                       fontSize: 14,
                                       fontStyle: FontStyle.normal,
@@ -901,9 +877,9 @@ class _DebtOwnedState extends State<DebtOwned> {
                             : Text(
                                 'Save',
                                 style: GoogleFonts.inter(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    ),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
                       ),
                     );
@@ -950,9 +926,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                     'Add Debt Owed',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -1028,8 +1003,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   'Add Debt Owed',
                                   style: GoogleFonts.inter(
                                     color: AppColor().whiteColor,
-                                    
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
@@ -1075,7 +1049,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 'New Merchant',
                                 style: GoogleFonts.inter(
                                   color: AppColor().backgroundColor,
-                                  
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1099,7 +1072,6 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 'Existing Merchants',
                                 style: GoogleFonts.inter(
                                   color: AppColor().backgroundColor,
-                                  
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1173,9 +1145,9 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   Text(
                                     'Select Merchant',
                                     style: GoogleFonts.inter(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        ),
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -1183,9 +1155,9 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   Text(
                                     "*",
                                     style: GoogleFonts.inter(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                        ),
+                                      color: Colors.red,
+                                      fontSize: 12,
+                                    ),
                                   )
                                 ],
                               ),
@@ -1280,7 +1252,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   child: Text('F',
                       style: GoogleFonts.inter(
                         color: AppColor().whiteColor,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         fontSize: 24,
                       )),
                 ),
@@ -1374,9 +1346,9 @@ class _DebtOwnedState extends State<DebtOwned> {
                     child: Text(
                       'Add Debtors',
                       style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontSize: 18,
-                          ),
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
@@ -1393,10 +1365,7 @@ class _DebtOwnedState extends State<DebtOwned> {
         value: item,
         child: Text(
           item,
-          style: GoogleFonts.inter(
-              
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
+          style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w600),
         ),
       );
 }
@@ -1431,16 +1400,12 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                   'name',
                   style: GoogleFonts.inter(
                       fontSize: 12,
-                      
                       color: Colors.black,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
                   'phone',
-                  style: GoogleFonts.inter(
-                      fontSize: 12,
-                      
-                      color: Colors.grey),
+                  style: GoogleFonts.inter(fontSize: 12, color: Colors.grey),
                 ),
               ],
             ),
@@ -1456,16 +1421,12 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                   "Balance: ${widget.item!.balance!}",
                   style: GoogleFonts.inter(
                       fontSize: 13,
-                      
                       color: AppColor().backgroundColor,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
                   "Paid: ${(widget.item!.totalAmount! - widget.item!.balance!)}",
-                  style: GoogleFonts.inter(
-                      fontSize: 11,
-                      
-                      color: Colors.grey),
+                  style: GoogleFonts.inter(fontSize: 11, color: Colors.grey),
                 ),
               ],
             ),
@@ -1522,9 +1483,8 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                     'Update Payment',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   Padding(
@@ -1553,7 +1513,6 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                               Text(
                                 'Paying Fully',
                                 style: GoogleFonts.inter(
-                                  
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1583,7 +1542,6 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                               Text(
                                 'Paying Partly',
                                 style: GoogleFonts.inter(
-                                  
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1614,7 +1572,6 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                         style: GoogleFonts.inter(
                                           color: Colors.black,
                                           fontSize: 16,
-                                          
                                           fontStyle: FontStyle.normal,
                                           fontWeight: FontWeight.normal,
                                         ),
@@ -1638,22 +1595,20 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                       Text(
                                         'Balance: ' + debtor.balance.toString(),
                                         style: GoogleFonts.inter(
-                                          
                                           color: AppColor().orangeBorderColor,
                                           fontStyle: FontStyle.normal,
                                           fontSize: 14,
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                       Text(
                                         // debtOwnedModel.balance!,
                                         '',
                                         style: GoogleFonts.inter(
-                                          
                                           color: AppColor().orangeBorderColor,
                                           fontStyle: FontStyle.normal,
                                           fontSize: 14,
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                     ],
@@ -1707,7 +1662,6 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                       .textTheme
                                       .headline4!
                                       .copyWith(
-                                        
                                         color: Colors.black26,
                                         fontSize: 14,
                                         fontStyle: FontStyle.normal,
@@ -1756,9 +1710,9 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                             : Text(
                                 'Save',
                                 style: GoogleFonts.inter(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    ),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
                       ),
                     ),

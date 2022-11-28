@@ -174,7 +174,6 @@ class _InsightState extends State<Insight> {
                             'Insights',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                             
                               fontStyle: FontStyle.normal,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
@@ -199,9 +198,7 @@ class _InsightState extends State<Insight> {
                             hint: Text(
                               'Today',
                               style: GoogleFonts.inter(
-                                 
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 10, fontWeight: FontWeight.w600),
                             ),
                             isDense: true,
                             items: recordFilter.map(buildDropDown).toList(),
@@ -271,7 +268,6 @@ class _InsightState extends State<Insight> {
                             'Money Out(${Utils.getCurrency()})',
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
@@ -293,7 +289,6 @@ class _InsightState extends State<Insight> {
                             'Money in(${Utils.getCurrency()})',
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
@@ -387,9 +382,8 @@ class _InsightState extends State<Insight> {
                     'Statistics',
                     style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      
                       fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -492,9 +486,8 @@ class _InsightState extends State<Insight> {
                     'Transaction Distribution',
                     style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      
                       fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -508,9 +501,8 @@ class _InsightState extends State<Insight> {
                             'Income',
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
                               fontSize: 12,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           Container(
@@ -552,9 +544,8 @@ class _InsightState extends State<Insight> {
                             'Expenses',
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
                               fontSize: 12,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           Container(
@@ -603,9 +594,8 @@ class _InsightState extends State<Insight> {
                         'Income',
                         style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          
                           fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       SizedBox(
@@ -630,7 +620,6 @@ class _InsightState extends State<Insight> {
                                               '${e.label}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor().blackColor,
-                                                
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -656,7 +645,6 @@ class _InsightState extends State<Insight> {
                                               '${e.label}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor().blackColor,
-                                                
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -683,9 +671,8 @@ class _InsightState extends State<Insight> {
                         'Expenses',
                         style: GoogleFonts.inter(
                           color: AppColor().blackColor,
-                          
                           fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       SizedBox(
@@ -710,7 +697,6 @@ class _InsightState extends State<Insight> {
                                             '${e.label}',
                                             style: GoogleFonts.inter(
                                               color: AppColor().blackColor,
-                                              
                                               fontSize: 9,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -736,7 +722,6 @@ class _InsightState extends State<Insight> {
                                             '${e.label}',
                                             style: GoogleFonts.inter(
                                               color: AppColor().blackColor,
-                                              
                                               fontSize: 9,
                                               fontWeight: FontWeight.w400,
                                             ),
@@ -763,9 +748,8 @@ class _InsightState extends State<Insight> {
                     'Popular Items',
                     style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      
                       fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -785,9 +769,8 @@ class _InsightState extends State<Insight> {
                               'Income',
                               style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             SizedBox(
@@ -815,9 +798,8 @@ class _InsightState extends State<Insight> {
                               'Expenses',
                               style: GoogleFonts.inter(
                                 color: AppColor().blackColor,
-                                
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             SizedBox(
@@ -888,8 +870,7 @@ class _InsightState extends State<Insight> {
                         child: Text(
                           'Date',
                           style: GoogleFonts.inter(
-                              fontWeight: FontWeight.bold,
-                              
+                              fontWeight: FontWeight.w600,
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -898,8 +879,7 @@ class _InsightState extends State<Insight> {
                         child: Text(
                           'Money Out',
                           style: GoogleFonts.inter(
-                              fontWeight: FontWeight.bold,
-                              
+                              fontWeight: FontWeight.w600,
                               fontSize: 10,
                               color: AppColor().blackColor),
                         ),
@@ -924,10 +904,10 @@ class _InsightState extends State<Insight> {
                     child: Text(
                       'Filter',
                       style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                         ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
@@ -941,10 +921,7 @@ class _InsightState extends State<Insight> {
         value: item,
         child: Text(
           item,
-          style: GoogleFonts.inter(
-              
-              fontSize: 10,
-              fontWeight: FontWeight.bold),
+          style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w600),
         ),
       );
 }
@@ -986,7 +963,6 @@ class StatisticsWidget extends StatelessWidget {
                     ]),
                 textStyle: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
-                    
                     fontSize: 10,
                     color: Colors.black),
                 preferBelow: false,
@@ -1013,8 +989,7 @@ class StatisticsWidget extends StatelessWidget {
                       Text(
                         amount!,
                         style: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
-                            
+                            fontWeight: FontWeight.w600,
                             fontSize: 15,
                             color: Colors.white),
                       ),
@@ -1022,7 +997,6 @@ class StatisticsWidget extends StatelessWidget {
                         name1!,
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
-                            
                             fontSize: 8,
                             color: Colors.white),
                       ),
@@ -1030,7 +1004,6 @@ class StatisticsWidget extends StatelessWidget {
                         name2!,
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
-                            
                             fontSize: 8,
                             color: Colors.white),
                       ),

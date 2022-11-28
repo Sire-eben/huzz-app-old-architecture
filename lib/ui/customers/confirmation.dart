@@ -38,8 +38,7 @@ class ConfirmationCustomer extends StatelessWidget {
               text + ' Successfully',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
             ),
@@ -49,8 +48,7 @@ class ConfirmationCustomer extends StatelessWidget {
               'Added',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
             ),
@@ -83,8 +81,7 @@ class ConfirmationCustomer extends StatelessWidget {
                   'Continue',
                   style: GoogleFonts.inter(
                     color: AppColor().whiteColor,
-                   
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

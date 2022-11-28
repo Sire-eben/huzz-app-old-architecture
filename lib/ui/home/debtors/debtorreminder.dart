@@ -36,8 +36,7 @@ class DebtorsConfirmation extends StatelessWidget {
               'Your reminder has been',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
             ),
@@ -47,8 +46,7 @@ class DebtorsConfirmation extends StatelessWidget {
               'sent successfully',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-               
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
             ),
@@ -79,9 +77,8 @@ class DebtorsConfirmation extends StatelessWidget {
                   'Proceed',
                   style: GoogleFonts.inter(
                     color: AppColor().whiteColor,
-                   
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

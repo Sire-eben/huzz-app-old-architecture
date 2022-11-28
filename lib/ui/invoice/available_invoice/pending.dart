@@ -55,8 +55,7 @@ class _PendingState extends State<Pending> {
                       Text(
                         'Invoices',
                         style: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
-                            
+                            fontWeight: FontWeight.w600,
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -64,8 +63,7 @@ class _PendingState extends State<Pending> {
                       Text(
                         '(${_invoiceController.InvoicePendingList.length})',
                         style: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
-                            
+                            fontWeight: FontWeight.w600,
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -160,8 +158,7 @@ class _PendingState extends State<Pending> {
                                                           : customer.name!,
                                                       style: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FontWeight.bold,
-                                                          
+                                                              FontWeight.w600,
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
@@ -171,8 +168,8 @@ class _PendingState extends State<Pending> {
                                                     //   Text(
                                                     //  item.paymentItemRequestList!.isNotEmpty?   item.paymentItemRequestList!.first.itemName!:"",
                                                     //     style: GoogleFonts.inter(
-                                                    //         fontWeight: FontWeight.bold,
-                                                    //         
+                                                    //         fontWeight: FontWeight.w600,
+                                                    //
                                                     //         fontSize: 14,
                                                     //         color: Colors.black),
                                                     //   ),
@@ -192,34 +189,33 @@ class _PendingState extends State<Pending> {
                                                           style: GoogleFonts.inter(
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold,
-                                                              
+                                                                      .w600,
                                                               fontSize: 14,
                                                               color: Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
                                                           "",
-                                                          style: GoogleFonts.inter(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              
-                                                              fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                          style:
+                                                              GoogleFonts.inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                         Text(
                                                           item.createdDateTime!
                                                               .formatDate()!,
-                                                          style: GoogleFonts.inter(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              
-                                                              fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                          style:
+                                                              GoogleFonts.inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                       ],
                                                     ),
@@ -306,8 +302,7 @@ class _PendingState extends State<Pending> {
                                                           : customer.name!,
                                                       style: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FontWeight.bold,
-                                                          
+                                                              FontWeight.w600,
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
@@ -317,8 +312,8 @@ class _PendingState extends State<Pending> {
                                                     // Text(
                                                     // item.paymentItemRequestList!.first.itemName!,
                                                     //   style: GoogleFonts.inter(
-                                                    //       fontWeight: FontWeight.bold,
-                                                    //       
+                                                    //       fontWeight: FontWeight.w600,
+                                                    //
                                                     //       fontSize: 14,
                                                     //       color: Colors.black),
                                                     // ),
@@ -337,34 +332,33 @@ class _PendingState extends State<Pending> {
                                                           style: GoogleFonts.inter(
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold,
-                                                             
+                                                                      .w600,
                                                               fontSize: 14,
                                                               color: Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
                                                           "",
-                                                          style: GoogleFonts.inter(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              
-                                                              fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                          style:
+                                                              GoogleFonts.inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                         Text(
                                                           item.createdDateTime!
                                                               .formatDate()!,
-                                                          style: GoogleFonts.inter(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              
-                                                              fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                          style:
+                                                              GoogleFonts.inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                       ],
                                                     ),
@@ -462,10 +456,9 @@ class _PendingState extends State<Pending> {
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
                       style: GoogleFonts.inter(
-                          
                           fontSize: 10,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w600),
                     ),
                   )
                 : Container(),
@@ -489,7 +482,6 @@ class _PendingState extends State<Pending> {
                     'You are about to delete invoice(s). Are you sure you want to continue?',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -536,7 +528,6 @@ class _PendingState extends State<Pending> {
                               'Cancel',
                               style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -569,7 +560,6 @@ class _PendingState extends State<Pending> {
                               'Delete',
                               style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

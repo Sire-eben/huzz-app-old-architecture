@@ -46,9 +46,8 @@ class MoreWidget extends StatelessWidget {
               Text(
                 title!,
                 style: GoogleFonts.inter(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.normal,
-                  
                   fontSize: 16,
                 ),
               ),
@@ -57,7 +56,6 @@ class MoreWidget extends StatelessWidget {
                 style: GoogleFonts.inter(
                   fontWeight: FontWeight.normal,
                   fontStyle: FontStyle.normal,
-                  
                   fontSize: 12,
                 ),
               ),
