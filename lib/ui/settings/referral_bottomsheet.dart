@@ -259,9 +259,8 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                         'Share Referral Link',
                                         style: GoogleFonts.inter(
                                           color: AppColor().whiteColor,
-                                         
                                           fontSize: 14,
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
                               ),

@@ -3,9 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
-import 'package:huzz/ui/invoice/create_invoice.dart';
 import 'package:huzz/util/colors.dart';
 import '../../data/repository/auth_respository.dart';
+import 'create_invoice.dart';
 
 class EmptyInvoice extends StatefulWidget {
   const EmptyInvoice({Key? key}) : super(key: key);
@@ -44,7 +44,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                 Text(
                   "Manage Invoices",
                   style: GoogleFonts.inter(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       fontSize: 18,
                       color: AppColor().backgroundColor),
                 ),
@@ -83,7 +83,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                               style: GoogleFonts.inter(
                                   fontSize: 13,
                                   color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w600),
                             ),
                             SizedBox(height: 5),
                             Text(
@@ -174,7 +174,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
             Text(
               "Manage Invoices",
               style: GoogleFonts.inter(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 18,
                   color: AppColor().backgroundColor),
             ),
@@ -210,7 +210,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                           style: GoogleFonts.inter(
                               fontSize: 14,
                               color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                         ),
                         SizedBox(height: 5),
                         Text(
@@ -226,7 +226,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                           style: GoogleFonts.inter(
                               fontSize: 14,
                               color: AppColor().orangeBorderColor,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         ),
                       ],

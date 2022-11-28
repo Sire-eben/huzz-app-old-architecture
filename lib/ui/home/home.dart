@@ -179,7 +179,6 @@ class _HomeState extends State<Home> {
                                 "Today's BALANCE",
                                 style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  // // ,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -192,9 +191,8 @@ class _HomeState extends State<Home> {
                               "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                               style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                // ,
                                 fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             Spacer(),
@@ -331,7 +329,7 @@ class _HomeState extends State<Home> {
                                 color: AppColor().whiteColor,
                                 // ,
                                 fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             Spacer(),
@@ -377,7 +375,7 @@ class _HomeState extends State<Home> {
                                 color: AppColor().whiteColor,
                                 // ,
                                 fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -408,7 +406,7 @@ class _HomeState extends State<Home> {
                 //             color: AppColor().whiteColor,
                 //             // ,
                 //             fontSize: 20,
-                //             fontWeight: FontWeight.bold,
+                //             fontWeight: FontWeight.w600,
                 //           ),
                 //         ),
                 //         InkWell(
@@ -545,7 +543,7 @@ class _HomeState extends State<Home> {
                                   style: GoogleFonts.inter(
                                       fontSize: 15,
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -595,7 +593,7 @@ class _HomeState extends State<Home> {
                                     style: GoogleFonts.inter(
                                       fontSize: 15,
                                       color: Color(0xffF58D40),
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   )
                                 : Row(
@@ -605,7 +603,7 @@ class _HomeState extends State<Home> {
                                         style: GoogleFonts.inter(
                                             fontSize: 15,
                                             color: Color(0xffF58D40),
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.w600),
                                       ),
                                       SizedBox(
                                           width: MediaQuery.of(context)
@@ -670,7 +668,7 @@ class _HomeState extends State<Home> {
                                         style: GoogleFonts.inter(
                                             fontSize: 15,
                                             color: Colors.black,
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.w600),
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -726,7 +724,7 @@ class _HomeState extends State<Home> {
                                           style: GoogleFonts.inter(
                                             fontSize: 15,
                                             color: Color(0xffF58D40),
-                                            fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         )
                                       : Row(
@@ -736,7 +734,7 @@ class _HomeState extends State<Home> {
                                               style: GoogleFonts.inter(
                                                   fontSize: 15,
                                                   color: Color(0xffF58D40),
-                                                  fontWeight: FontWeight.bold),
+                                                  fontWeight: FontWeight.w600),
                                             ),
                                             SizedBox(
                                                 width: MediaQuery.of(context)
@@ -806,7 +804,7 @@ class _HomeState extends State<Home> {
                                             style: GoogleFonts.inter(
                                                 fontSize: 15,
                                                 color: Colors.black,
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.w600),
                                           ),
                                           GestureDetector(
                                             onTap: () {
@@ -863,7 +861,7 @@ class _HomeState extends State<Home> {
                                               style: GoogleFonts.inter(
                                                 fontSize: 15,
                                                 color: Color(0xffF58D40),
-                                                fontWeight: FontWeight.bold,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             )
                                           : Row(
@@ -874,7 +872,7 @@ class _HomeState extends State<Home> {
                                                       fontSize: 15,
                                                       color: Color(0xffF58D40),
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                          FontWeight.w600),
                                                 ),
                                                 SizedBox(
                                                     width:
@@ -901,7 +899,7 @@ class _HomeState extends State<Home> {
                   style: GoogleFonts.inter(
                       fontSize: 15,
                       color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 Expanded(
@@ -972,14 +970,14 @@ class _HomeState extends State<Home> {
                                                   style: GoogleFonts.inter(
                                                       fontSize: 12,
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                          FontWeight.w600),
                                                 ),
                                                 Text(
                                                   item.entryDateTime!
                                                       .formatDate()!,
                                                   style: GoogleFonts.inter(
                                                     fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                 ),
                                               ],
@@ -997,7 +995,7 @@ class _HomeState extends State<Home> {
                                                     style: GoogleFonts.inter(
                                                       fontSize: 12,
                                                       fontWeight:
-                                                          FontWeight.bold,
+                                                          FontWeight.w600,
                                                     ),
                                                   ),
                                                   Text(
@@ -1007,7 +1005,7 @@ class _HomeState extends State<Home> {
                                                     style: GoogleFonts.inter(
                                                         fontSize: 12,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                            FontWeight.w600),
                                                   ),
                                                 ]),
                                           ),
@@ -1037,7 +1035,7 @@ class _HomeState extends State<Home> {
                                             fontSize: 13,
                                             color: Colors.black,
                                             // ,
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.w600),
                                       ),
                                       SizedBox(height: 5),
                                       Text(
@@ -1073,7 +1071,7 @@ class _HomeState extends State<Home> {
                                               color:
                                                   AppColor().orangeBorderColor,
                                               // ,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.w600),
                                           textAlign: TextAlign.center,
                                         ),
                                       ]
@@ -1113,7 +1111,7 @@ class _HomeState extends State<Home> {
                             // ,
                             fontSize: 10,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w600),
                       ),
                     )
                   : (teamController.teamMember.authoritySet!
@@ -1134,7 +1132,7 @@ class _HomeState extends State<Home> {
                                 // ,
                                 fontSize: 10,
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                           ),
                         )
                       : Container());
@@ -1255,7 +1253,7 @@ class _HomeState extends State<Home> {
                           color: AppColor().whiteColor,
                           // ,
                           fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       Spacer(),
@@ -1392,7 +1390,7 @@ class _HomeState extends State<Home> {
                           color: AppColor().whiteColor,
                           // ,
                           fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       Spacer(),
@@ -1437,7 +1435,7 @@ class _HomeState extends State<Home> {
                           color: AppColor().whiteColor,
                           // ,
                           fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -1468,7 +1466,7 @@ class _HomeState extends State<Home> {
           //             color: AppColor().whiteColor,
           //             // ,
           //             fontSize: 20,
-          //             fontWeight: FontWeight.bold,
+          //             fontWeight: FontWeight.w600,
           //           ),
           //         ),
           //         InkWell(
@@ -1596,7 +1594,7 @@ class _HomeState extends State<Home> {
                           style: GoogleFonts.inter(
                               fontSize: 15,
                               color: Colors.black,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -1644,7 +1642,7 @@ class _HomeState extends State<Home> {
                             style: GoogleFonts.inter(
                               fontSize: 15,
                               color: Color(0xffF58D40),
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                             ),
                           )
                         : Row(
@@ -1654,7 +1652,7 @@ class _HomeState extends State<Home> {
                                 style: GoogleFonts.inter(
                                     fontSize: 15,
                                     color: Color(0xffF58D40),
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.w600),
                               ),
                               SizedBox(
                                   width:
@@ -1673,7 +1671,7 @@ class _HomeState extends State<Home> {
           Text(
             "Today's transactions",
             style: GoogleFonts.inter(
-                fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: 15, color: Colors.black, fontWeight: FontWeight.w600),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Expanded(
@@ -1737,13 +1735,13 @@ class _HomeState extends State<Home> {
                                             item.itemName!,
                                             style: GoogleFonts.inter(
                                                 fontSize: 12,
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.w600),
                                           ),
                                           Text(
                                             item.entryDateTime!.formatDate()!,
                                             style: GoogleFonts.inter(
                                               fontSize: 12,
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.w600,
                                             ),
                                           ),
                                         ],
@@ -1760,7 +1758,7 @@ class _HomeState extends State<Home> {
                                               "${Utils.getCurrency()}${display(item.totalAmount)}",
                                               style: GoogleFonts.inter(
                                                 fontSize: 12,
-                                                fontWeight: FontWeight.bold,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
                                             Text(
@@ -1769,7 +1767,7 @@ class _HomeState extends State<Home> {
                                                   : "Partially",
                                               style: GoogleFonts.inter(
                                                   fontSize: 12,
-                                                  fontWeight: FontWeight.bold),
+                                                  fontWeight: FontWeight.w600),
                                             ),
                                           ]),
                                     ),
@@ -1914,7 +1912,7 @@ class _HomeState extends State<Home> {
                         color: AppColor().whiteColor,
                         // ,
                         fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Spacer(),
@@ -2047,7 +2045,7 @@ class _HomeState extends State<Home> {
                         color: AppColor().whiteColor,
                         // ,
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Spacer(),
@@ -2090,7 +2088,7 @@ class _HomeState extends State<Home> {
                         color: AppColor().whiteColor,
                         // ,
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
@@ -2187,7 +2185,7 @@ class _HomeState extends State<Home> {
           // color: AppColor().whiteColor,
           // // ,
           // fontSize: 24,
-          // fontWeight: FontWeight.bold,
+          // fontWeight: FontWeight.w600,
           // ),
           // ),
           // ],
@@ -2314,7 +2312,7 @@ class _HomeState extends State<Home> {
           Text(
             "Today's transactions",
             style: GoogleFonts.inter(
-                fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: 15, color: Colors.black, fontWeight: FontWeight.w600),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Expanded(
@@ -2352,7 +2350,7 @@ class _HomeState extends State<Home> {
                             fontSize: 13,
                             color: Colors.black,
                             // ,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 5,
@@ -2556,7 +2554,7 @@ class _HomeState extends State<Home> {
                                             fontSize: 20,
                                             color: Colors.white,
                                             // ,
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.w600),
                                       ))),
                                 ),
                               )),
@@ -2568,7 +2566,7 @@ class _HomeState extends State<Home> {
                                         fontSize: 13,
                                         color: Colors.black,
                                         // ,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.w600),
                                   )),
                               Expanded(
                                   child: Align(

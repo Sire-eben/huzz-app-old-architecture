@@ -52,7 +52,6 @@ class _AllState extends State<All> {
                     'You are about to delete this invoice(s). Are you sure you want to continue?',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -99,7 +98,6 @@ class _AllState extends State<All> {
                               'Cancel',
                               style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -131,7 +129,6 @@ class _AllState extends State<All> {
                               'Delete',
                               style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -168,8 +165,7 @@ class _AllState extends State<All> {
                       Text(
                         'Invoices',
                         style: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
-                            
+                            fontWeight: FontWeight.w600,
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -177,8 +173,7 @@ class _AllState extends State<All> {
                       Text(
                         '(${_invoiceController.offlineInvoices.length})',
                         style: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
-                            
+                            fontWeight: FontWeight.w600,
                             fontSize: 14,
                             color: Colors.black),
                       ),
@@ -283,13 +278,14 @@ class _AllState extends State<All> {
                                                         customer == null
                                                             ? ""
                                                             : customer.name!,
-                                                        style: GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                           
-                                                            fontSize: 16,
-                                                            color:
-                                                                Colors.black),
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 16,
+                                                                color: Colors
+                                                                    .black),
                                                       ),
                                                       SizedBox(
                                                         height: 5,
@@ -304,8 +300,7 @@ class _AllState extends State<All> {
                                                             style: GoogleFonts.inter(
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .bold,
-                                                                
+                                                                        .w600,
                                                                 fontSize: 14,
                                                                 color: Color(
                                                                     0xffEF6500)),
@@ -315,8 +310,7 @@ class _AllState extends State<All> {
                                                             style: GoogleFonts.inter(
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .bold,
-                                                                
+                                                                        .w600,
                                                                 fontSize: 14,
                                                                 color: Colors
                                                                     .black),
@@ -327,8 +321,7 @@ class _AllState extends State<All> {
                                                             style: GoogleFonts.inter(
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .bold,
-                                                                
+                                                                        .w600,
                                                                 fontSize: 14,
                                                                 color: Colors
                                                                     .black),
@@ -423,8 +416,7 @@ class _AllState extends State<All> {
                                                           : customer.name!,
                                                       style: GoogleFonts.inter(
                                                           fontWeight:
-                                                              FontWeight.bold,
-                                                          
+                                                              FontWeight.w600,
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
@@ -441,34 +433,33 @@ class _AllState extends State<All> {
                                                           style: GoogleFonts.inter(
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold,
-                                                              
+                                                                      .w600,
                                                               fontSize: 14,
                                                               color: Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
                                                           "",
-                                                          style: GoogleFonts.inter(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              
-                                                              fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                          style:
+                                                              GoogleFonts.inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                         Text(
                                                           item.createdDateTime!
                                                               .formatDate()!,
-                                                          style: GoogleFonts.inter(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              
-                                                              fontSize: 14,
-                                                              color:
-                                                                  Colors.black),
+                                                          style:
+                                                              GoogleFonts.inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize: 14,
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                       ],
                                                     ),
@@ -563,10 +554,9 @@ class _AllState extends State<All> {
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
                       style: GoogleFonts.inter(
-                          
                           fontSize: 10,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w600),
                     ),
                   )
                 : Container(),

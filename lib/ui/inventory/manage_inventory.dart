@@ -74,7 +74,7 @@ class _ManageInventoryState extends State<ManageInventory> {
                 'Manage Inventory',
                 style: GoogleFonts.inter(
                   color: AppColor().backgroundColor,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontSize: 18,
                 ),
               ),
@@ -141,13 +141,13 @@ class _ManageInventoryState extends State<ManageInventory> {
                     color: AppColor().backgroundColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                   unselectedLabelStyle: GoogleFonts.inter(
                     color: AppColor().backgroundColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                   indicator: BoxDecoration(
                     color: AppColor().backgroundColor,

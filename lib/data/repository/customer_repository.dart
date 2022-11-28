@@ -900,7 +900,7 @@ class CustomerRepository extends GetxController {
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.w600),
                                         ))),
                                   ),
                                 )),
@@ -1072,7 +1072,7 @@ class CustomerRepository extends GetxController {
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.w600),
                                         ))),
                                   ),
                                 )),

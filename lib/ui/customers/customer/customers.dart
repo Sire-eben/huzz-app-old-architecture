@@ -130,7 +130,7 @@ class _CustomersState extends State<Customers> {
                             style: GoogleFonts.inter(
                                 fontSize: 13,
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                           ),
                           SizedBox(height: 5),
                           Text(
@@ -146,7 +146,7 @@ class _CustomersState extends State<Customers> {
                             style: GoogleFonts.inter(
                                 fontSize: 14,
                                 color: AppColor().orangeBorderColor,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -221,7 +221,7 @@ class _CustomersState extends State<Customers> {
                                                                       .white,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .bold),
+                                                                          .w600),
                                                         ))),
                                                   ),
                                                 )),
@@ -343,7 +343,7 @@ class _CustomersState extends State<Customers> {
                                       style: GoogleFonts.inter(
                                           fontSize: 13,
                                           color: Colors.black,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     SizedBox(height: 5),
                                     Text(
@@ -378,9 +378,8 @@ class _CustomersState extends State<Customers> {
       floatingActionButton:
           (_customerController.customerStatus == CustomerStatus.UnAuthorized)
               ? Container()
-              : (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
-                      teamController.teamMember.authoritySet!
-                          .contains('CREATE_CUSTOMER'))
+              : (teamController.teamMember.authoritySet == null ||
+                      teamController.teamMember.teamMemberStatus == 'CREATOR')
                   ? FloatingActionButton.extended(
                       onPressed: () {
                         Get.to(() => AddCustomer());
@@ -392,10 +391,26 @@ class _CustomersState extends State<Customers> {
                         style: GoogleFonts.inter(
                             fontSize: 10,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w600),
                       ),
                     )
-                  : Container(),
+                  : (teamController.teamMember.authoritySet!
+                          .contains('CREATE_CUSTOMER'))
+                      ? FloatingActionButton.extended(
+                          onPressed: () {
+                            Get.to(() => AddCustomer());
+                          },
+                          icon: Icon(Icons.add),
+                          backgroundColor: AppColor().backgroundColor,
+                          label: Text(
+                            'Add Customer',
+                            style: GoogleFonts.inter(
+                                fontSize: 10,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        )
+                      : Container(),
     );
   }
 

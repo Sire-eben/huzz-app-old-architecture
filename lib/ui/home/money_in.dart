@@ -38,7 +38,6 @@ class MoneyInInformationDialog extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontSize: 14,
-            
           ),
         ),
       ],
@@ -174,7 +173,6 @@ class _MoneyInState extends State<MoneyIn> {
               'Money In',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -270,7 +268,6 @@ class _MoneyInState extends State<MoneyIn> {
                                   'Enter Item',
                                   style: GoogleFonts.inter(
                                     color: AppColor().backgroundColor,
-                                    
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -311,7 +308,6 @@ class _MoneyInState extends State<MoneyIn> {
                                   'Select Item',
                                   style: GoogleFonts.inter(
                                     color: AppColor().backgroundColor,
-                                    
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -420,9 +416,9 @@ class _MoneyInState extends State<MoneyIn> {
                                   Text(
                                     'Select product/services',
                                     style: GoogleFonts.inter(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        ),
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -430,9 +426,9 @@ class _MoneyInState extends State<MoneyIn> {
                                   Text(
                                     "*",
                                     style: GoogleFonts.inter(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                        ),
+                                      color: Colors.red,
+                                      fontSize: 12,
+                                    ),
                                   )
                                 ],
                               ),
@@ -600,10 +596,9 @@ class _MoneyInState extends State<MoneyIn> {
                         Text(
                           'Add another item',
                           style: GoogleFonts.inter(
-                             
                               fontSize: 10,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -680,9 +675,9 @@ class _MoneyInState extends State<MoneyIn> {
                         Text(
                           'Paid in full?',
                           style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 12,
-                              ),
+                            color: Colors.black,
+                            fontSize: 12,
+                          ),
                         ),
                         SizedBox(
                           width: 5,
@@ -690,9 +685,9 @@ class _MoneyInState extends State<MoneyIn> {
                         Text(
                           "*",
                           style: GoogleFonts.inter(
-                              color: Colors.red,
-                              fontSize: 12,
-                              ),
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
                         )
                       ],
                     ),
@@ -767,9 +762,9 @@ class _MoneyInState extends State<MoneyIn> {
                         Text(
                           'Payment Mode',
                           style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 12,
-                              ),
+                            color: Colors.black,
+                            fontSize: 12,
+                          ),
                         ),
                         SizedBox(
                           width: 5,
@@ -777,9 +772,9 @@ class _MoneyInState extends State<MoneyIn> {
                         Text(
                           "*",
                           style: GoogleFonts.inter(
-                              color: Colors.red,
-                              fontSize: 12,
-                              ),
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
                         )
                       ],
                     ),
@@ -900,12 +895,12 @@ class _MoneyInState extends State<MoneyIn> {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.inter(
-                                  color: _transactionController.image != null
-                                      ? Colors.black
-                                      : Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  ),
+                                color: _transactionController.image != null
+                                    ? Colors.black
+                                    : Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ),
                           _transactionController.image != null
@@ -945,12 +940,12 @@ class _MoneyInState extends State<MoneyIn> {
                     Text(
                       'Add Customer',
                       style: GoogleFonts.inter(
-                          color: _transactionController.addCustomer == true
-                              ? AppColor().backgroundColor
-                              : Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          ),
+                        color: _transactionController.addCustomer == true
+                            ? AppColor().backgroundColor
+                            : Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     Switch.adaptive(
                         activeColor: AppColor().backgroundColor,
@@ -987,7 +982,6 @@ class _MoneyInState extends State<MoneyIn> {
                                       'New Customer',
                                       style: GoogleFonts.inter(
                                         color: AppColor().backgroundColor,
-                                        
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -1013,7 +1007,6 @@ class _MoneyInState extends State<MoneyIn> {
                                       'Existing Customer',
                                       style: GoogleFonts.inter(
                                         color: AppColor().backgroundColor,
-                                        
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -1044,9 +1037,9 @@ class _MoneyInState extends State<MoneyIn> {
                                         Text(
                                           'Select Customer',
                                           style: GoogleFonts.inter(
-                                              color: Colors.black,
-                                              fontSize: 12,
-                                              ),
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: 5,
@@ -1054,9 +1047,9 @@ class _MoneyInState extends State<MoneyIn> {
                                         Text(
                                           "*",
                                           style: GoogleFonts.inter(
-                                              color: Colors.red,
-                                              fontSize: 12,
-                                              ),
+                                            color: Colors.red,
+                                            fontSize: 12,
+                                          ),
                                         )
                                       ],
                                     ),
@@ -1166,9 +1159,9 @@ class _MoneyInState extends State<MoneyIn> {
                             child: Text(
                               'Save',
                               style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  ),
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                   ),
@@ -1232,7 +1225,6 @@ class _MoneyInState extends State<MoneyIn> {
                             'Enter Item',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1263,7 +1255,6 @@ class _MoneyInState extends State<MoneyIn> {
                             'Select product/services',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1332,9 +1323,9 @@ class _MoneyInState extends State<MoneyIn> {
                           Text(
                             'Select Item',
                             style: GoogleFonts.inter(
-                                color: Colors.black,
-                                fontSize: 12,
-                                ),
+                              color: Colors.black,
+                              fontSize: 12,
+                            ),
                           ),
                           SizedBox(
                             height: 8,
@@ -1449,9 +1440,9 @@ class _MoneyInState extends State<MoneyIn> {
                       child: Text(
                         'Save',
                         style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 18,
-                            ),
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -1469,7 +1460,9 @@ class _MoneyInState extends State<MoneyIn> {
         value: item,
         child: Text(
           item,
-          style: GoogleFonts.inter(fontSize: 14, ),
+          style: GoogleFonts.inter(
+            fontSize: 14,
+          ),
         ),
       );
 
@@ -1613,9 +1606,9 @@ class _MoneyInState extends State<MoneyIn> {
                       child: Text(
                         'Update',
                         style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 18,
-                            ),
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),

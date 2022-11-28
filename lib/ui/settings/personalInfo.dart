@@ -115,7 +115,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         children: [
                           Text(
                             'Phone Number',
-                            style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
+                            style: GoogleFonts.inter(
+                                color: Colors.black, fontSize: 12),
                           ),
                           SizedBox(
                             width: 5,
@@ -124,7 +125,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             margin: EdgeInsets.only(top: 5),
                             child: Text(
                               "*",
-                              style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
+                              style: GoogleFonts.inter(
+                                  color: Colors.red, fontSize: 12),
                             ),
                           ),
                         ],
@@ -255,8 +257,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           children: [
                             Text(
                               'Save',
-                              style:
-                                  GoogleFonts.inter(color: Colors.white, fontSize: 18),
+                              style: GoogleFonts.inter(
+                                  color: Colors.white, fontSize: 18),
                             ),
                           ],
                         ),
@@ -305,7 +307,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     'We will send a one-time password to verify it\'s really you',
                     style: GoogleFonts.inter(
                       color: AppColor().orangeBorderColor,
-                      
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -370,8 +371,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
               TimerButton(
                 label: "Send as Voice Call",
                 timeOutInSeconds: 20,
-                activeTextStyle:
-                    GoogleFonts.inter(color: AppColor().backgroundColor, fontSize: 12),
+                activeTextStyle: GoogleFonts.inter(
+                    color: AppColor().backgroundColor, fontSize: 12),
                 onPressed: () {
                   _controller.sendVoiceOtp();
                 },
@@ -420,7 +421,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             'Cancel',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -447,7 +447,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             'Continue',
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -477,7 +476,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 'Phone Number successfully Changed',
                 style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
                 ),
@@ -510,8 +508,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         'Continue',
                         style: GoogleFonts.inter(
                           color: AppColor().whiteColor,
-                          
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           fontSize: 12,
                         ),
                       ),

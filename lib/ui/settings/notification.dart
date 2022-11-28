@@ -39,8 +39,7 @@ class _NotificationsState extends State<Notifications> {
             'Notifications',
             style: GoogleFonts.inter(
               color: AppColor().backgroundColor,
-              
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
           ),
@@ -61,8 +60,7 @@ class _NotificationsState extends State<Notifications> {
                       style: GoogleFonts.inter(
                           fontSize: 13,
                           color: Colors.black,
-                          
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
                       height: 5,
@@ -70,9 +68,9 @@ class _NotificationsState extends State<Notifications> {
                     Text(
                       'Your notifications will appear here',
                       style: GoogleFonts.inter(
-                          fontSize: 10,
-                          color: Colors.black,
-                          ),
+                        fontSize: 10,
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),
@@ -105,8 +103,7 @@ class _NotificationsState extends State<Notifications> {
                                 child: Text(
                                   item.message!,
                                   style: GoogleFonts.inter(
-                                      fontWeight: FontWeight.bold,
-                                      
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 10),
                                 ),
                               ),
@@ -115,8 +112,7 @@ class _NotificationsState extends State<Notifications> {
                                   Text(
                                     item.time!,
                                     style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.bold,
-                                        
+                                        fontWeight: FontWeight.w600,
                                         color: AppColor()
                                             .blackColor
                                             .withOpacity(0.5),
@@ -125,8 +121,7 @@ class _NotificationsState extends State<Notifications> {
                                   Text(
                                     item.time!,
                                     style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.bold,
-                                        
+                                        fontWeight: FontWeight.w600,
                                         color: AppColor()
                                             .blackColor
                                             .withOpacity(0.5),

@@ -8,6 +8,6 @@ class AppThemes {
     color: Color(0xff07A58E),
     fontStyle: FontStyle.normal,
     fontSize: 12,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w600,
   );
 }

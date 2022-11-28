@@ -32,7 +32,6 @@ class NoAccessDialog extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontSize: 14,
-            
           ),
         ),
       ],
@@ -109,8 +108,7 @@ class _MyTeamState extends State<MyTeam> {
                   'My Team',
                   style: GoogleFonts.inter(
                     color: AppColor().backgroundColor,
-                    
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                     fontSize: 18,
                   ),
                 ),
@@ -130,10 +128,9 @@ class _MyTeamState extends State<MyTeam> {
                   label: Text(
                     'Add new member',
                     style: GoogleFonts.inter(
-                        
                         fontSize: 10,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
           body: value.teamId == null
@@ -249,8 +246,7 @@ class _MyTeamState extends State<MyTeam> {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
                               color: AppColor().blackColor,
-                              
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                               fontSize: 14,
                             ),
                           ),
@@ -285,7 +281,7 @@ class _MyTeamState extends State<MyTeam> {
               'Delete Team Member',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 17,
               ),
             ),
@@ -293,7 +289,6 @@ class _MyTeamState extends State<MyTeam> {
               "You're about to delete this team member, click delete to proceed",
               style: GoogleFonts.inter(
                 color: AppColor().blackColor,
-                
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
               ),
@@ -329,7 +324,6 @@ class _MyTeamState extends State<MyTeam> {
                               'Cancel',
                               style: GoogleFonts.inter(
                                 color: AppColor().backgroundColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -358,7 +352,6 @@ class _MyTeamState extends State<MyTeam> {
                               'Delete',
                               style: GoogleFonts.inter(
                                 color: AppColor().whiteColor,
-                                
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -396,10 +389,7 @@ class StatusWidget extends StatelessWidget {
       child: Text(
         text!,
         style: GoogleFonts.inter(
-            fontSize: 7,
-            color: color!,
-            
-            fontWeight: FontWeight.w400),
+            fontSize: 7, color: color!, fontWeight: FontWeight.w400),
       ),
     );
   }

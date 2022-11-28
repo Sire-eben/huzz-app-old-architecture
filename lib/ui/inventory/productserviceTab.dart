@@ -28,8 +28,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
               'Manage Inventory',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
             ),
@@ -57,7 +56,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
                         fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                   unselectedLabelStyle:
                       Theme.of(context).textTheme.headline2!.copyWith(
@@ -65,7 +64,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
                             fontFamily: "InterRegular",
                             fontStyle: FontStyle.normal,
                             fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                           ),
                   indicator: BoxDecoration(
                     color: AppColor().backgroundColor,

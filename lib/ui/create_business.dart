@@ -50,8 +50,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
             'Create Your Business',
             style: GoogleFonts.inter(
               color: AppColor().backgroundColor,
-              
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
           ),
@@ -242,7 +241,6 @@ class _CreateBusinessState extends State<CreateBusiness> {
                     '$title',
                     style: GoogleFonts.inter(
                       color: AppColor().blackColor,
-                      
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -293,7 +291,6 @@ class _CreateBusinessState extends State<CreateBusiness> {
                             'Cancel',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -321,7 +318,6 @@ class _CreateBusinessState extends State<CreateBusiness> {
                             'Logout',
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -377,8 +373,8 @@ class BusinessCreatedSuccesful extends StatelessWidget {
               child: Text(
                 "Business Created Successfully",
                 textAlign: TextAlign.center,
-                style:
-                    GoogleFonts.inter(fontSize: 30, color: AppColor().backgroundColor),
+                style: GoogleFonts.inter(
+                    fontSize: 30, color: AppColor().backgroundColor),
               )),
           Spacer(),
           Center(

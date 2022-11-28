@@ -39,8 +39,7 @@ class Confirmation extends StatelessWidget {
               '$title Successfully ',
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
             ),
@@ -50,8 +49,7 @@ class Confirmation extends StatelessWidget {
               text,
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
             ),
@@ -84,8 +82,7 @@ class Confirmation extends StatelessWidget {
                   'Continue',
                   style: GoogleFonts.inter(
                     color: AppColor().whiteColor,
-                    
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

@@ -43,17 +43,15 @@ class ItemCard extends StatelessWidget {
                     Text(
                       item.itemName!,
                       style: GoogleFonts.inter(
-                        
                         fontSize: 12,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
                       '${Utils.getCurrency()}${display(item.amount)}',
                       style: GoogleFonts.inter(
-                        
                         fontSize: 10,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
@@ -64,9 +62,8 @@ class ItemCard extends StatelessWidget {
               child: Text(
                 'Qty: ${item.quality}',
                 style: GoogleFonts.inter(
-                  
                   fontSize: 10,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),

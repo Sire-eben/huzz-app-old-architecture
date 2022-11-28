@@ -55,8 +55,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
               AppStrings.helpAndSupport,
               style: GoogleFonts.inter(
                 color: AppColor().backgroundColor,
-                
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
             ),
@@ -123,7 +122,6 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 AppStrings.privacyPolicy,
                                 style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -191,7 +189,6 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 AppStrings.termsOfUse,
                                 style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -260,7 +257,6 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 AppStrings.faq,
                                 style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -345,7 +341,6 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 AppStrings.mail,
                                 style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -422,7 +417,6 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 AppStrings.connectOnWhatsApp,
                                 style: GoogleFonts.inter(
                                   color: AppColor().blackColor,
-                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -482,7 +476,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     'Open WhatsApp..?',
                     style: GoogleFonts.inter(
                       color: AppColor().backgroundColor,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
                   ),
@@ -494,7 +488,6 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                 AppStrings.continueToProceed,
                 style: GoogleFonts.inter(
                   color: AppColor().blackColor,
-                  
                   fontWeight: FontWeight.normal,
                   fontSize: 11,
                 ),
@@ -531,7 +524,6 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                             'Cancel',
                             style: GoogleFonts.inter(
                               color: AppColor().backgroundColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -557,7 +549,6 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                             'Continue',
                             style: GoogleFonts.inter(
                               color: AppColor().whiteColor,
-                              
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
