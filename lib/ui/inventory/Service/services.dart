@@ -4,8 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/inventory/Service/servicelist.dart';
+import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
 import '../../../util/colors.dart';
+import '../../../util/util.dart';
 import 'add_service.dart';
 
 class Services extends StatefulWidget {
@@ -19,11 +21,16 @@ class _ServicesState extends State<Services> {
   final _productController = Get.find<ProductRepository>();
   final teamController = Get.find<TeamRepository>();
   final _businessController = Get.find<BusinessRespository>();
+  final display = createDisplay(
+      length: 5,
+      decimal: 0,
+      placeholder: '${Utils.getCurrency()}',
+      units: ['K', 'M', 'B', 'T']);
   @override
   Widget build(BuildContext context) {
-    return (_productController.productServices.isNotEmpty)
-        ? ServiceListing()
-        : Scaffold(
+    return (_productController.productServices.isEmpty ||
+            _productController.productStatus == ProductStatus.UnAuthorized)
+        ? Scaffold(
             floatingActionButton: (_productController.productStatus ==
                     ProductStatus.UnAuthorized)
                 ? Container()
@@ -124,7 +131,7 @@ class _ServicesState extends State<Services> {
                               ),
                             ),
                           ],
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
                           if (_productController.productStatus ==
                               ProductStatus.UnAuthorized) ...[
                             Text(
@@ -143,7 +150,8 @@ class _ServicesState extends State<Services> {
                 ],
               ),
             ),
-          );
+          )
+        : ServiceListing();
   }
 
   Widget serviceCount(BuildContext context) => Container(
@@ -227,7 +235,7 @@ class _ServicesState extends State<Services> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
-                        "N0.00",
+                        "${Utils.getCurrency()}0.0",
                         style: GoogleFonts.inter(
                           fontWeight: FontWeight.w600,
                           fontSize: 20,

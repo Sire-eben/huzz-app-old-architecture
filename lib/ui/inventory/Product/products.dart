@@ -130,7 +130,7 @@ class _ProductsState extends State<Products> {
                               ),
                             ),
                           ],
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
                           if (_productController.productStatus ==
                               ProductStatus.UnAuthorized) ...[
                             Text(

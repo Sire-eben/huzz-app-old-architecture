@@ -8,8 +8,8 @@ import 'package:huzz/ui/customers/merchants/add_merchant.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:random_color/random_color.dart';
-
 import '../../../data/repository/team_repository.dart';
+import '../../widget/loading_widget.dart';
 
 class Merchants extends StatefulWidget {
   final String? pageName;
@@ -48,345 +48,604 @@ class _MerchantsState extends State<Merchants> {
       backgroundColor: Colors.white,
       body: Obx(() {
         final value = _businessController.selectedBusiness.value;
-        return Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              if (_customerController.customerStatus ==
-                  CustomerStatus.UnAuthorized) ...[
-                Container(),
-              ] else ...[
-                TextField(
-                  style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w400,
-                    color: AppColor().backgroundColor,
-                  ),
-                  controller: _searchcontroller,
-                  cursorColor: Colors.white,
-                  autofocus: false,
-                  onChanged: searchItem,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: AppColor().backgroundColor,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(0),
-                      borderSide: BorderSide(color: Colors.black12),
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: 'Search Merchant',
-                    hintStyle: GoogleFonts.inter(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey,
-                    ),
-                    contentPadding:
-                        EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: AppColor().backgroundColor,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: AppColor().backgroundColor,
-                      ),
-                    ),
-                  ),
+        return teamController.teamMembersStatus == TeamMemberStatus.Loading
+            ? Center(
+                child: LoadingWidget(
+                  color: AppColor().backgroundColor,
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              ],
-              if (_customerController.customerStatus ==
-                  CustomerStatus.UnAuthorized) ...[
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.height * 0.02,
-                        right: MediaQuery.of(context).size.height * 0.02,
-                        bottom: MediaQuery.of(context).size.height * 0.02),
-                    decoration: BoxDecoration(
-                      color: Color(0xffF5F5F5),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 2, color: Colors.grey.withOpacity(0.2)),
-                    ),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/images/customers.svg'),
-                          SizedBox(height: 5),
-                          Text(
-                            'Merchant',
-                            style: GoogleFonts.inter(
-                                fontSize: 14,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600),
+              )
+            : Container(
+                padding:
+                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  children: [
+                    TextField(
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w400,
+                        color: AppColor().backgroundColor,
+                      ),
+                      controller: _searchcontroller,
+                      cursorColor: Colors.white,
+                      autofocus: false,
+                      onChanged: searchItem,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: AppColor().backgroundColor,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0),
+                          borderSide: BorderSide(color: Colors.black12),
+                        ),
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: 'Search Merchant',
+                        hintStyle: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
+                        contentPadding: EdgeInsets.only(
+                            left: 16, right: 8, top: 8, bottom: 8),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: AppColor().backgroundColor,
                           ),
-                          SizedBox(height: 5),
-                          Text(
-                            'Your merchants will show here.',
-                            style: GoogleFonts.inter(
-                              fontSize: 10,
-                              color: Colors.black,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: AppColor().backgroundColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    if (_customerController.customerStatus ==
+                        CustomerStatus.UnAuthorized) ...[
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.height * 0.02,
+                              right: MediaQuery.of(context).size.height * 0.02,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.02),
+                          decoration: BoxDecoration(
+                            color: Color(0xffF5F5F5),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                width: 2, color: Colors.grey.withOpacity(0.2)),
+                          ),
+                          child: Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/images/customers.svg'),
+                                SizedBox(height: 5),
+                                Text(
+                                  'Merchant',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  'Your merchants will show here.',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 10,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Text(
+                                  'You need to be authorized\nto view this module',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 14,
+                                      color: AppColor().orangeBorderColor,
+                                      fontWeight: FontWeight.w600),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 20),
-                          Text(
-                            'You need to be authorized\nto view this module',
-                            style: GoogleFonts.inter(
-                                fontSize: 14,
-                                color: AppColor().orangeBorderColor,
-                                fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ] else ...[
-                Expanded(
-                    child: Container(
-                  padding: EdgeInsets.only(
-                      // left: MediaQuery.of(context).size.height * 0.02,
-                      // right: MediaQuery.of(context).size.height * 0.02,
-                      bottom: MediaQuery.of(context).size.height * 0.02),
-                  child: (searchtext.isEmpty || searchResult.isNotEmpty)
-                      ? (_customerController.customerMerchant.isNotEmpty)
-                          ? RefreshIndicator(
-                              onRefresh: () async {
-                                return Future.delayed(Duration(seconds: 1), () {
-                                  _customerController
-                                      .getOnlineCustomer(value!.businessId!);
-                                });
-                              },
-                              child: (_customerController.customerStatus ==
-                                      CustomerStatus.Loading)
-                                  ? Center(child: CircularProgressIndicator())
-                                  : (_customerController.customerStatus ==
-                                          CustomerStatus.Available)
-                                      ? ListView.separated(
-                                          scrollDirection: Axis.vertical,
-                                          shrinkWrap: true,
-                                          separatorBuilder: (context, index) =>
-                                              Divider(),
-                                          itemCount: (searchResult.isEmpty)
-                                              ? _customerController
-                                                  .customerMerchant.length
-                                              : searchResult.length,
-                                          itemBuilder: (context, index) {
-                                            var item = (searchResult.isEmpty)
-                                                ? _customerController
-                                                    .customerMerchant[index]
-                                                : searchResult[index];
-                                            print(
-                                                'merchant: ${item.name}, ${item.customerId}');
-                                            return Column(
-                                              children: [
-                                                if (item.name == null ||
-                                                    item.name == '')
-                                                  ...[]
-                                                else ...[
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                          child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            bottom: 10),
-                                                        child: Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          child: Container(
-                                                              height: 50,
-                                                              decoration: BoxDecoration(
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                  color: _randomColor
-                                                                      .randomColor()),
-                                                              child: Center(
-                                                                  child: Text(
-                                                                (item.name ==
-                                                                            null ||
-                                                                        item.name ==
-                                                                            '')
-                                                                    ? '0'
-                                                                    : '${item.name![0]}',
-                                                                style: GoogleFonts.inter(
-                                                                    fontSize:
-                                                                        30,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                              ))),
-                                                        ),
-                                                      )),
-                                                      SizedBox(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.02),
-                                                      Expanded(
-                                                        flex: 3,
-                                                        child: Container(
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
+                        ),
+                      )
+                    ] else ...[
+                      if (teamController.teamMembersStatus ==
+                              TeamMemberStatus.UnAuthorized ||
+                          teamController.teamMembersStatus ==
+                              TeamMemberStatus.Error) ...[
+                        Expanded(
+                            child: Container(
+                          padding: EdgeInsets.only(
+                              // left: MediaQuery.of(context).size.height * 0.02,
+                              // right: MediaQuery.of(context).size.height * 0.02,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.02),
+                          child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                              ? (_customerController
+                                      .customerMerchant.isNotEmpty)
+                                  ? RefreshIndicator(
+                                      onRefresh: () async {
+                                        return Future.delayed(
+                                            Duration(seconds: 1), () {
+                                          _customerController.getOnlineCustomer(
+                                              value!.businessId!);
+                                        });
+                                      },
+                                      child: (_customerController
+                                                  .customerStatus ==
+                                              CustomerStatus.Loading)
+                                          ? Center(
+                                              child:
+                                                  CircularProgressIndicator())
+                                          : (_customerController
+                                                      .customerStatus ==
+                                                  CustomerStatus.Available)
+                                              ? ListView.separated(
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  shrinkWrap: true,
+                                                  separatorBuilder:
+                                                      (context, index) =>
+                                                          Divider(),
+                                                  itemCount:
+                                                      (searchResult.isEmpty)
+                                                          ? _customerController
+                                                              .customerMerchant
+                                                              .length
+                                                          : searchResult.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    var item = (searchResult
+                                                            .isEmpty)
+                                                        ? _customerController
+                                                                .customerMerchant[
+                                                            index]
+                                                        : searchResult[index];
+                                                    print(
+                                                        'merchant: ${item.name}, ${item.customerId}');
+                                                    return Column(
+                                                      children: [
+                                                        if (item.name == null ||
+                                                            item.name == '')
+                                                          ...[]
+                                                        else ...[
+                                                          Row(
                                                             children: [
-                                                              Text(
-                                                                item.name!,
-                                                                style: GoogleFonts.inter(
-                                                                    fontSize:
-                                                                        12,
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400),
+                                                              Expanded(
+                                                                  child:
+                                                                      Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        bottom:
+                                                                            10),
+                                                                child: Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .centerLeft,
+                                                                  child: Container(
+                                                                      height: 50,
+                                                                      decoration: BoxDecoration(shape: BoxShape.circle, color: _randomColor.randomColor()),
+                                                                      child: Center(
+                                                                          child: Text(
+                                                                        (item.name == null ||
+                                                                                item.name == '')
+                                                                            ? '0'
+                                                                            : '${item.name![0]}',
+                                                                        style: GoogleFonts.inter(
+                                                                            fontSize:
+                                                                                30,
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontWeight: FontWeight.w600),
+                                                                      ))),
+                                                                ),
+                                                              )),
+                                                              SizedBox(
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.02),
+                                                              Expanded(
+                                                                flex: 3,
+                                                                child:
+                                                                    Container(
+                                                                  child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Text(
+                                                                        item.name!,
+                                                                        style: GoogleFonts.inter(
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontWeight: FontWeight.w400),
+                                                                      ),
+                                                                      Text(
+                                                                        item.phone!,
+                                                                        style: GoogleFonts.inter(
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Colors.grey),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
                                                               ),
-                                                              Text(
-                                                                item.phone!,
-                                                                style: GoogleFonts.inter(
-                                                                    fontSize:
-                                                                        12,
-                                                                    color: Colors
-                                                                        .grey),
+                                                              GestureDetector(
+                                                                  onTap: () {
+                                                                    _customerController
+                                                                        .setItem(
+                                                                            item);
+                                                                    Get.to(
+                                                                        AddMerchant(
+                                                                      item:
+                                                                          item,
+                                                                    ));
+                                                                  },
+                                                                  child: SvgPicture
+                                                                      .asset(
+                                                                          'assets/images/edit.svg')),
+                                                              Row(
+                                                                children: [
+                                                                  SizedBox(
+                                                                    width: 10,
+                                                                  ),
+                                                                  GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        _displayDialog(
+                                                                            context,
+                                                                            item);
+                                                                      },
+                                                                      child: SvgPicture
+                                                                          .asset(
+                                                                              'assets/images/delete.svg')),
+                                                                ],
                                                               ),
                                                             ],
                                                           ),
-                                                        ),
-                                                      ),
-                                                      (teamController.teamMember
-                                                                      .teamMemberStatus ==
-                                                                  'CREATOR' ||
-                                                              teamController
-                                                                  .teamMember
-                                                                  .authoritySet!
-                                                                  .contains(
-                                                                      'UPDATE_CUSTOMER'))
-                                                          ? GestureDetector(
-                                                              onTap: () {
-                                                                _customerController
-                                                                    .setItem(
-                                                                        item);
-                                                                Get.to(
-                                                                    AddMerchant(
-                                                                  item: item,
-                                                                ));
-                                                              },
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                      'assets/images/edit.svg'))
-                                                          : Container(),
-                                                      (teamController.teamMember
-                                                                      .teamMemberStatus ==
-                                                                  'CREATOR' ||
-                                                              teamController
-                                                                  .teamMember
-                                                                  .authoritySet!
-                                                                  .contains(
-                                                                      'DELETE_CUSTOMER'))
-                                                          ? Row(
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: 10,
-                                                                ),
-                                                                GestureDetector(
-                                                                    onTap: () {
-                                                                      _displayDialog(
-                                                                          context,
-                                                                          item);
-                                                                    },
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            'assets/images/delete.svg')),
-                                                              ],
-                                                            )
-                                                          : Container(),
-                                                    ],
-                                                  ),
-                                                ]
-                                              ],
-                                            );
-                                          },
-                                        )
-                                      : (_customerController.customerStatus ==
-                                              CustomerStatus.Empty)
-                                          ? Text('Not Item')
-                                          : Text('Empty'),
-                            )
-                          : Container(
-                              padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                  right:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                  bottom: MediaQuery.of(context).size.height *
-                                      0.02),
-                              decoration: BoxDecoration(
-                                color: Color(0xffF5F5F5),
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    width: 2,
-                                    color: Colors.grey.withOpacity(0.2)),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                        'assets/images/customers.svg'),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      'Merchant',
-                                      style: GoogleFonts.inter(
-                                          fontSize: 14,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      'Your merchants will show here. Click the',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 10,
-                                        color: Colors.black,
+                                                        ]
+                                                      ],
+                                                    );
+                                                  },
+                                                )
+                                              : (_customerController
+                                                          .customerStatus ==
+                                                      CustomerStatus.Empty)
+                                                  ? Text('Not Item')
+                                                  : Text('Empty'),
+                                    )
+                                  : Container(
+                                      padding: EdgeInsets.only(
+                                          left: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.02,
+                                          right: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.02,
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.02),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffF5F5F5),
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            width: 2,
+                                            color:
+                                                Colors.grey.withOpacity(0.2)),
                                       ),
-                                    ),
-                                    Text(
-                                      'Add merchant button to add your first merchant',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 10,
-                                        color: Colors.black,
+                                      child: Center(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SvgPicture.asset(
+                                                'assets/images/customers.svg'),
+                                            SizedBox(height: 5),
+                                            Text(
+                                              'Merchant',
+                                              style: GoogleFonts.inter(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(height: 5),
+                                            Text(
+                                              'Your merchants will show here. Click the',
+                                              style: GoogleFonts.inter(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Add merchant button to add your first merchant',
+                                              style: GoogleFonts.inter(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    )
+                              : Container(
+                                  child: Center(
+                                    child: Text("No Merchant Found"),
+                                  ),
                                 ),
-                              ),
-                            )
-                      : Container(
-                          child: Center(
-                            child: Text("No Merchant Found"),
-                          ),
-                        ),
-                ))
-              ],
-            ],
-          ),
-        );
+                        ))
+                      ] else ...[
+                        Expanded(
+                            child: Container(
+                          padding: EdgeInsets.only(
+                              // left: MediaQuery.of(context).size.height * 0.02,
+                              // right: MediaQuery.of(context).size.height * 0.02,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.02),
+                          child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                              ? (_customerController
+                                      .customerMerchant.isNotEmpty)
+                                  ? RefreshIndicator(
+                                      onRefresh: () async {
+                                        return Future.delayed(
+                                            Duration(seconds: 1), () {
+                                          _customerController.getOnlineCustomer(
+                                              value!.businessId!);
+                                        });
+                                      },
+                                      child: (_customerController
+                                                  .customerStatus ==
+                                              CustomerStatus.Loading)
+                                          ? Center(
+                                              child:
+                                                  CircularProgressIndicator())
+                                          : (_customerController
+                                                      .customerStatus ==
+                                                  CustomerStatus.Available)
+                                              ? ListView.separated(
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  shrinkWrap: true,
+                                                  separatorBuilder:
+                                                      (context, index) =>
+                                                          Divider(),
+                                                  itemCount:
+                                                      (searchResult.isEmpty)
+                                                          ? _customerController
+                                                              .customerMerchant
+                                                              .length
+                                                          : searchResult.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    var item = (searchResult
+                                                            .isEmpty)
+                                                        ? _customerController
+                                                                .customerMerchant[
+                                                            index]
+                                                        : searchResult[index];
+                                                    print(
+                                                        'merchant: ${item.name}, ${item.customerId}');
+                                                    return Column(
+                                                      children: [
+                                                        if (item.name == null ||
+                                                            item.name == '')
+                                                          ...[]
+                                                        else ...[
+                                                          Row(
+                                                            children: [
+                                                              Expanded(
+                                                                  child:
+                                                                      Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        bottom:
+                                                                            10),
+                                                                child: Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .centerLeft,
+                                                                  child: Container(
+                                                                      height: 50,
+                                                                      decoration: BoxDecoration(shape: BoxShape.circle, color: _randomColor.randomColor()),
+                                                                      child: Center(
+                                                                          child: Text(
+                                                                        (item.name == null ||
+                                                                                item.name == '')
+                                                                            ? '0'
+                                                                            : '${item.name![0]}',
+                                                                        style: GoogleFonts.inter(
+                                                                            fontSize:
+                                                                                30,
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontWeight: FontWeight.w600),
+                                                                      ))),
+                                                                ),
+                                                              )),
+                                                              SizedBox(
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.02),
+                                                              Expanded(
+                                                                flex: 3,
+                                                                child:
+                                                                    Container(
+                                                                  child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Text(
+                                                                        item.name!,
+                                                                        style: GoogleFonts.inter(
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontWeight: FontWeight.w400),
+                                                                      ),
+                                                                      Text(
+                                                                        item.phone!,
+                                                                        style: GoogleFonts.inter(
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Colors.grey),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              (teamController.teamMember
+                                                                              .teamMemberStatus ==
+                                                                          'CREATOR' ||
+                                                                      teamController
+                                                                          .teamMember
+                                                                          .authoritySet!
+                                                                          .contains(
+                                                                              'UPDATE_CUSTOMER'))
+                                                                  ? GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        _customerController
+                                                                            .setItem(item);
+                                                                        Get.to(
+                                                                            AddMerchant(
+                                                                          item:
+                                                                              item,
+                                                                        ));
+                                                                      },
+                                                                      child: SvgPicture
+                                                                          .asset(
+                                                                              'assets/images/edit.svg'))
+                                                                  : Container(),
+                                                              (teamController.teamMember
+                                                                              .teamMemberStatus ==
+                                                                          'CREATOR' ||
+                                                                      teamController
+                                                                          .teamMember
+                                                                          .authoritySet!
+                                                                          .contains(
+                                                                              'DELETE_CUSTOMER'))
+                                                                  ? Row(
+                                                                      children: [
+                                                                        SizedBox(
+                                                                          width:
+                                                                              10,
+                                                                        ),
+                                                                        GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              _displayDialog(context, item);
+                                                                            },
+                                                                            child:
+                                                                                SvgPicture.asset('assets/images/delete.svg')),
+                                                                      ],
+                                                                    )
+                                                                  : Container(),
+                                                            ],
+                                                          ),
+                                                        ]
+                                                      ],
+                                                    );
+                                                  },
+                                                )
+                                              : (_customerController
+                                                          .customerStatus ==
+                                                      CustomerStatus.Empty)
+                                                  ? Text('Not Item')
+                                                  : Text('Empty'),
+                                    )
+                                  : Container(
+                                      padding: EdgeInsets.only(
+                                          left: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.02,
+                                          right: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.02,
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.02),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffF5F5F5),
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            width: 2,
+                                            color:
+                                                Colors.grey.withOpacity(0.2)),
+                                      ),
+                                      child: Center(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SvgPicture.asset(
+                                                'assets/images/customers.svg'),
+                                            SizedBox(height: 5),
+                                            Text(
+                                              'Merchant',
+                                              style: GoogleFonts.inter(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(height: 5),
+                                            Text(
+                                              'Your merchants will show here. Click the',
+                                              style: GoogleFonts.inter(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Add merchant button to add your first merchant',
+                                              style: GoogleFonts.inter(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                              : Container(
+                                  child: Center(
+                                    child: Text("No Merchant Found"),
+                                  ),
+                                ),
+                        ))
+                      ],
+                    ],
+                  ],
+                ),
+              );
       }),
       floatingActionButton:
           (_customerController.customerStatus == CustomerStatus.UnAuthorized)
