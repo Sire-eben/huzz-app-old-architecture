@@ -35,6 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
         print('Business List: ${_controller.user!.businessList!.length}');
         Get.off(() => CreateBusiness());
       } else {
+        _controller.checkTeamInvite();
         Get.off(() => Dashboard());
       }
     } else {

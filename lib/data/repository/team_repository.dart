@@ -15,12 +15,13 @@ import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../ui/team/confirmation.dart';
 
 enum AddingTeamStatus { Loading, Error, Success, Empty }
 
 enum UpdateTeamStatus { Loading, Error, Success, Empty }
+
+enum TeamMemberStatus { Loading, Error, UnAuthorized, Success, Empty }
 
 enum DeleteTeamStatus { Loading, Error, Success, Empty }
 
@@ -41,6 +42,7 @@ class TeamRepository extends GetxController {
   final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
   final _updatingTeamMemberStatus = UpdateTeamStatus.Empty.obs;
   final _teamStatus = TeamStatus.Empty.obs;
+  final teamMembersStatus = TeamMemberStatus.Empty.obs;
   final hasTeamInviteDeeplink = false.obs;
 
   final teamMemberData = Rx(Teams());
@@ -61,6 +63,7 @@ class TeamRepository extends GetxController {
   List<Teams> get deleteTeamMemberList => _deleteTeamMemberList.value;
   List<Teams> get team => _team.value;
   TeamStatus get teamStatus => _teamStatus.value;
+  TeamMemberStatus get teamMemberStatus => teamMembersStatus.value;
 
   List<Teams> pendingTeamMember = [];
   List<Teams> pendingUpdatedTeamMember = [];
@@ -101,6 +104,7 @@ class TeamRepository extends GetxController {
     _userController.MonlineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
+          getOnlineTeamMember(p0!.teamId);
           // checkPendingCustomerToBeAddedToSever();
           // checkPendingCustomerToBeDeletedOnServer();
           // checkPendingCustomerTobeUpdatedToServer();
@@ -743,7 +747,7 @@ class TeamRepository extends GetxController {
 
   Future getOnlineTeamMember(String? businessId) async {
     try {
-      _teamStatus(TeamStatus.Loading);
+      teamMembersStatus(TeamMemberStatus.Loading);
       print("trying to get team member data online");
       var response = await http.get(
           Uri.parse(ApiLink.getTeamMemberData +
@@ -754,18 +758,17 @@ class TeamRepository extends GetxController {
       print("result of get team member data ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
+        teamMembersStatus(TeamMemberStatus.Success);
         if (json['success']) {
           var teamMember = Teams.fromJson(json['data']);
           teamMemberData(teamMember);
         }
       } else if (response.statusCode == 500) {
         print("result of get team member error data ${response.body}");
-        _teamStatus(TeamStatus.UnAuthorized);
-      } else {
-        _teamStatus(TeamStatus.Error);
+        teamMembersStatus(TeamMemberStatus.UnAuthorized);
       }
     } catch (error) {
-      _teamStatus(TeamStatus.Error);
+      teamMembersStatus(TeamMemberStatus.Error);
       print('team member data error ${error.toString()}');
     }
   }

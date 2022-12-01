@@ -312,7 +312,7 @@ class _ServiceListingState extends State<ServiceListing> {
 
               //ServiceList
               Positioned(
-                top: 240,
+                top: 230,
                 bottom: 30,
                 left: 20,
                 right: 20,
@@ -329,7 +329,9 @@ class _ServiceListingState extends State<ServiceListing> {
                           },
                           child: (_productController.productStatus ==
                                   ProductStatus.Loading)
-                              ? Center(child: CircularProgressIndicator())
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                      color: AppColor().backgroundColor))
                               : (_productController.productStatus ==
                                       ProductStatus.Available)
                                   ? ListView.builder(
@@ -340,36 +342,17 @@ class _ServiceListingState extends State<ServiceListing> {
                                           : searchResult.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        var item = searchtext.isEmpty
+                                        var item = (searchtext.isEmpty)
                                             ? _productController
                                                 .productServices[index]
                                             : searchResult[index];
+                                        print("service item ${item.toJson()}");
                                         return (isDelete)
                                             ? ListingServicesDelete(
                                                 item: item,
                                               )
-                                            : GestureDetector(
-                                                onTap: () {
-                                                  if (teamController.teamMember
-                                                              .teamMemberStatus ==
-                                                          'CREATOR' ||
-                                                      teamController.teamMember
-                                                          .authoritySet!
-                                                          .contains(
-                                                              'UPDATE_PRODUCT')) {
-                                                    _productController
-                                                        .setItem(item);
-                                                    Get.to(AddService(
-                                                      item: item,
-                                                    ));
-                                                  } else {
-                                                    Get.snackbar('Alert',
-                                                        'You need to be authorized to perform this operation');
-                                                  }
-                                                },
-                                                child: ListingServices(
-                                                  item: item,
-                                                ),
+                                            : ListingServices(
+                                                item: item,
                                               );
                                       })
                                   : (_productController.productStatus ==

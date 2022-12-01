@@ -26,6 +26,7 @@ class _ProductListingState extends State<ProductListing> {
       roundingType: RoundingType.floor,
       length: 15,
       decimal: 5,
+      placeholder: '${Utils.getCurrency()}',
       units: ['K', 'M', 'B', 'T']);
 
   final TextEditingController textEditingController = TextEditingController();
@@ -310,7 +311,7 @@ class _ProductListingState extends State<ProductListing> {
 
             //ProductList
             Positioned(
-              top: 240,
+              top: 230,
               bottom: 30,
               left: 20,
               right: 20,

@@ -18,6 +18,7 @@ import 'package:huzz/ui/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/ui/pin_successful.dart';
 import 'package:huzz/ui/reg_home.dart';
 import 'package:huzz/ui/sign_in.dart';
+import 'package:huzz/ui/team/team_success.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/data/model/user.dart';
@@ -925,9 +926,10 @@ class AuthRepository extends GetxController {
           print('Referral Invite deeplink: ${hasReferralDeeplink.value}');
         }
         if (hasTeamInviteDeeplink.value == true) {
-          _businessController.OnlineBusiness();
           hasTeamInviteDeeplink(false);
-          Get.snackbar("Success", "You've been invited to a team successfully");
+          Get.to(() => TeamSuccess());
+          _businessController.OnlineBusiness();
+          // Get.snackbar("Success", "You've been invited to a team successfully");
         }
       } catch (error) {
         if (kDebugMode) {

@@ -19,7 +19,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
   final controller = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
   bool isLoadingTeamInviteLink = false;
-  String? values, teamInviteLink;
+  String? values, teamInviteLink, busName;
 
   @override
   void initState() {
@@ -27,6 +27,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
     print('BusinessId: $value');
+    busName = _businessController.selectedBusiness.value!.businessName;
     final teamId = _businessController.selectedBusiness.value!.teamId;
     print('Business TeamId: $teamId');
     shareBusinessIdLink(value.toString());
@@ -127,7 +128,8 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
               InkWell(
                 onTap: () {
                   print(teamInviteLink);
-                  Share.share(teamInviteLink!,
+                  Share.share(
+                      'You have been invited to manage $busName on Huzz. Click this: ${teamInviteLink!}',
                       subject: 'Share team invite link');
                 },
                 child: Container(

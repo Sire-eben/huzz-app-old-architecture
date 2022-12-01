@@ -1090,10 +1090,6 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 validatorText: "",
                 hint: 'Add a brief invoice description',
                 textEditingController: _invoiceController.noteController,
-                keyType: Platform.isIOS
-                    ? TextInputType.numberWithOptions(
-                        signed: true, decimal: true)
-                    : TextInputType.number,
               ),
             ],
           ),

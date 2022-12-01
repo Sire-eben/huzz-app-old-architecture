@@ -5,9 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
+import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
 import 'package:huzz/ui/invoice/empty_invoice.dart';
 import 'package:huzz/ui/more/more.dart';
+import 'package:huzz/ui/widget/loading_widget.dart';
 import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:new_version/new_version.dart';
@@ -32,6 +34,7 @@ class _DashboardState extends State<Dashboard> {
   int selectedIndex = 0;
   _DashboardState({required this.selectedIndex});
   final _invoiceRepository = Get.find<InvoiceRespository>();
+  final teamController = Get.find<TeamRepository>();
 
   void _selectPage(int index) {
     setState(() {
@@ -82,56 +85,65 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: buildPages(),
-      bottomNavigationBar: BottomNavyBar(
-        showElevation: false,
-        selectedIndex: selectedIndex,
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-              icon: Icon(Icons.home),
-              title: Text(
-                'Home',
-                style: AppThemes.style12PriBold,
-              ),
-              activeColor: AppColor().backgroundColor,
-              inactiveColor: inactiveColor),
-          BottomNavyBarItem(
-              icon: Icon(
-                CupertinoIcons.person_3_fill,
-                size: 32,
-              ),
-              title: Text(
-                'Customers',
-                style: AppThemes.style12PriBold,
-              ),
-              activeColor: AppColor().backgroundColor,
-              inactiveColor: inactiveColor),
-          BottomNavyBarItem(
-              icon: Icon(Icons.inventory),
-              title: Text(
-                'Inventory',
-                style: AppThemes.style12PriBold,
-              ),
-              activeColor: AppColor().backgroundColor,
-              inactiveColor: inactiveColor),
-          BottomNavyBarItem(
-              icon: Icon(Icons.receipt),
-              title: Text(
-                'Invoice',
-                style: AppThemes.style12PriBold,
-              ),
-              activeColor: AppColor().backgroundColor,
-              inactiveColor: inactiveColor),
-          BottomNavyBarItem(
-              icon: Icon(Icons.grid_view_rounded),
-              title: Text(
-                'More',
-                style: AppThemes.style12PriBold,
-              ),
-              activeColor: AppColor().backgroundColor,
-              inactiveColor: inactiveColor),
-        ],
-        onItemSelected: (index) => setState(() => this.selectedIndex = index),
-      ),
+      bottomNavigationBar: Obx(() {
+        return (teamController.teamMembersStatus == TeamMemberStatus.Loading)
+            ? Center(
+                child: LoadingWidget(
+                  color: AppColor().backgroundColor,
+                ),
+              )
+            : BottomNavyBar(
+                showElevation: false,
+                selectedIndex: selectedIndex,
+                items: <BottomNavyBarItem>[
+                  BottomNavyBarItem(
+                      icon: Icon(Icons.home),
+                      title: Text(
+                        'Home',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColor().backgroundColor,
+                      inactiveColor: inactiveColor),
+                  BottomNavyBarItem(
+                      icon: Icon(
+                        CupertinoIcons.person_3_fill,
+                        size: 32,
+                      ),
+                      title: Text(
+                        'Customers',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColor().backgroundColor,
+                      inactiveColor: inactiveColor),
+                  BottomNavyBarItem(
+                      icon: Icon(Icons.inventory),
+                      title: Text(
+                        'Inventory',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColor().backgroundColor,
+                      inactiveColor: inactiveColor),
+                  BottomNavyBarItem(
+                      icon: Icon(Icons.receipt),
+                      title: Text(
+                        'Invoice',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColor().backgroundColor,
+                      inactiveColor: inactiveColor),
+                  BottomNavyBarItem(
+                      icon: Icon(Icons.grid_view_rounded),
+                      title: Text(
+                        'More',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColor().backgroundColor,
+                      inactiveColor: inactiveColor),
+                ],
+                onItemSelected: (index) =>
+                    setState(() => this.selectedIndex = index),
+              );
+      }),
     );
   }
 

@@ -9,6 +9,7 @@ class ExpandableWidget extends StatefulWidget {
   final double? tL, tR, bL, bR;
   final bool? role;
   final Widget? manageChild, view, create, update, delete;
+  final VoidCallback? info;
   ExpandableWidget({
     Key? key,
     this.name,
@@ -22,6 +23,7 @@ class ExpandableWidget extends StatefulWidget {
     this.create,
     this.update,
     this.delete,
+    this.info,
   }) : super(key: key);
 
   @override
@@ -64,7 +66,6 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        
                       ),
                     ),
                     Container(child: widget.view)
@@ -83,7 +84,6 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        
                       ),
                     ),
                     Container(child: widget.create)
@@ -102,7 +102,6 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        
                       ),
                     ),
                     Container(child: widget.update)
@@ -121,73 +120,12 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        
                       ),
                     ),
                     Container(child: widget.delete)
                   ],
                 ),
               ),
-              // SizedBox(
-              //   height: 30,
-              //   child: CheckboxListTile(
-              //     contentPadding: EdgeInsets.zero,
-              //     title: Text(
-              //       "Create",
-              //       style: GoogleFonts.inter(
-              //         color: Colors.black,
-              //         fontSize: 12,
-              //         fontWeight: FontWeight.w400,
-              //         
-              //       ),
-              //     ),
-              //     value: create,
-              //     onChanged: (newValue) {
-              //       setState(() {
-              //         create = newValue!;
-              //       });
-              //     },
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 30,
-              //   child: CheckboxListTile(
-              //     contentPadding: EdgeInsets.zero,
-              //     title: Text(
-              //       "Update",
-              //       style: GoogleFonts.inter(
-              //         color: Colors.black,
-              //         fontSize: 12,
-              //         fontWeight: FontWeight.w400,
-              //         
-              //       ),
-              //     ),
-              //     value: update,
-              //     onChanged: (newValue) {
-              //       setState(() {
-              //         update = newValue!;
-              //       });
-              //     },
-              //   ),
-              // ),
-              // CheckboxListTile(
-              //   contentPadding: EdgeInsets.zero,
-              //   title: Text(
-              //     "Delete",
-              //     style: GoogleFonts.inter(
-              //       color: Colors.black,
-              //       fontSize: 12,
-              //       fontWeight: FontWeight.w400,
-              //       
-              //     ),
-              //   ),
-              //   value: delete,
-              //   onChanged: (newValue) {
-              //     setState(() {
-              //       delete = newValue!;
-              //     });
-              //   },
-              // )
             ],
           ),
           header: Row(
@@ -209,10 +147,13 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                         ),
                   ),
                   SizedBox(width: 5),
-                  SvgPicture.asset(
-                    "assets/images/info.svg",
-                    height: 15,
-                    width: 15,
+                  InkWell(
+                    onTap: widget.info,
+                    child: SvgPicture.asset(
+                      "assets/images/info.svg",
+                      height: 15,
+                      width: 15,
+                    ),
                   ),
                 ],
               ),
