@@ -39,5 +39,5 @@ jobs:
 
       - uses: kolpav/purge-artifacts-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           expire-in: 1hr
