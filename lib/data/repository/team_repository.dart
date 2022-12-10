@@ -137,7 +137,13 @@ class TeamRepository extends GetxController {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         context: context,
-        builder: (context) => buildSelectTeam(context));
+        isScrollControlled: true,
+        builder: (context) => Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: Container(
+              height: Get.width - 50,
+              child: buildSelectTeam(context),
+            )));
   }
 
   Rx<List<Contact>> _searchResult = Rx([]);
