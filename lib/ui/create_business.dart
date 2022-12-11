@@ -129,8 +129,9 @@ class _CreateBusinessState extends State<CreateBusiness> {
                             print('Select currency: ${currency.code}');
                             _businessController.businessCurrency.text =
                                 currency.code;
+                            FocusManager.instance.primaryFocus?.unfocus();
                           },
-                          favorite: ['USD'],
+                          favorite: ['NGN'],
                         );
                       },
                       label: "Currency ",
