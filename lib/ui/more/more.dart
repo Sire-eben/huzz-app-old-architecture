@@ -86,7 +86,7 @@ class _MoreState extends State<More> {
                     : Get.to(() => MyTeam());
               }),
               child: MoreWidget(
-                image: 'assets/images/team.png',
+                image: 'assets/images/teamIcon.png',
                 title: 'My Team',
                 description: 'Collaborate with coworkers',
               ),
