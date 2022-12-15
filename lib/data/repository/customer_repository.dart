@@ -770,7 +770,14 @@ class CustomerRepository extends GetxController {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         context: context,
-        builder: (context) => buildSelectContact(context));
+        isScrollControlled: true,
+        builder: (context) => Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: Container(
+              height: Get.width -
+                  100, //height or you can use Get.width-100 to set height
+              child: buildSelectContact(context),
+            )));
   }
 
   Rx<List<Contact>> _searchResult = Rx([]);
