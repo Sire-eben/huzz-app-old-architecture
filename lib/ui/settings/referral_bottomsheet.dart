@@ -47,6 +47,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
           appStoreId: "1596574133",
           minimumVersion: '1',
         ),
+        
       );
       final shortLink = await dynamicLinks.buildShortLink(parameters);
       referralLink = shortLink.shortUrl.toString();

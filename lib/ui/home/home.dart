@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -73,6 +75,51 @@ class _HomeState extends State<Home> {
   final transactionList = [];
   RandomColor _randomColor = RandomColor();
 
+  Future<void> initDynamicLinks() async {
+    print("Initial DynamicLinks");
+    FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+
+    // Incoming Links Listener
+    dynamicLinks.onLink.listen((dynamicLinkData) {
+      final Uri uri = dynamicLinkData.link;
+      final queryParams = uri.queryParameters;
+      if (queryParams.isNotEmpty) {
+        print("Incoming Link :" + uri.toString());
+        //  your code here
+      } else {
+        print("No Current Links");
+        // your code here
+      }
+    });
+
+    // Search for Firebase Dynamic Links
+    PendingDynamicLinkData? data = await dynamicLinks
+        .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
+    final Uri uri = data!.link;
+    if (uri != null) {
+      print("Found The Searched Link: " + uri.toString());
+      // your code here
+    } else {
+      print("Search Link Not Found");
+      // your code here
+    }
+  }
+
+  Future<void> initFirebase() async {
+    print("Initial Firebase");
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    // await Future.delayed(Duration(seconds: 3));
+    initDynamicLinks();
+  }
+
+  @override
+  void initState() {
+    _authController.checkTeamInvite();
+    initFirebase();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -81,6 +128,7 @@ class _HomeState extends State<Home> {
       _authController.checkDeletedTeamBusiness();
       print('Team Status: ${teamController.teamMembersStatus.value}');
       return Scaffold(
+          backgroundColor: Colors.white,
           body: teamController.teamMembersStatus == TeamMemberStatus.Loading
               ? Container()
               : Container(
