@@ -157,7 +157,7 @@ class _SiginState extends State<Signin> {
                       controller: _authController.phoneNumberController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "080123456789",
+                          hintText: "8123456789",
                           hintStyle: GoogleFonts.inter(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: 14,
@@ -350,8 +350,8 @@ class _SiginState extends State<Signin> {
                           children: [
                             Text(
                               'Login',
-                              style:
-                                  GoogleFonts.inter(color: Colors.white, fontSize: 18),
+                              style: GoogleFonts.inter(
+                                  color: Colors.white, fontSize: 18),
                             ),
                           ],
                         ),

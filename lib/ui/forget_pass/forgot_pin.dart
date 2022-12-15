@@ -93,7 +93,8 @@ class _ForgotPINState extends State<ForgotPIN> {
                   child: Text(
                     'To make sure it’s really you, we’ll send a secret code to your phone number via SMS',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400),
+                    style: GoogleFonts.inter(
+                        fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                 ),
                 SizedBox(
@@ -170,7 +171,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                               _authController.forgotPhoneNumberController,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "9034678966",
+                              hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,

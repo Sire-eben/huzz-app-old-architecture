@@ -438,9 +438,10 @@ class _AddMemberState extends State<AddMember> {
                       'isEmail: ${GetUtils.isEmail(_teamController.emailController.text)}');
                   if (_teamController.phoneNumberController.text == '' ||
                       _teamController.emailController.text == '') {
-                    Get.snackbar('Alert', 'Enter your details to continue!',
+                    Get.snackbar('Alert', 'Enter required details to continue!',
                         titleText: Text('Alert'),
-                        messageText: Text('Enter your details to continue!'),
+                        messageText:
+                            Text('Enter required details to continue!'),
                         icon: Icon(Icons.info,
                             color: AppColor().orangeBorderColor));
                   } else if (_teamController.phoneNumberController.text == '') {

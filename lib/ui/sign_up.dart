@@ -186,7 +186,7 @@ class _SignUpState extends State<Signup> {
                           // ${_authController.phoneNumberController.value}
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "080123456789",
+                              hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,

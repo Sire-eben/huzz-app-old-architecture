@@ -114,7 +114,7 @@ class _SendOtpState extends State<SendOtp> {
                           controller: _authController.phoneNumberController,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "9034678966",
+                              hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
