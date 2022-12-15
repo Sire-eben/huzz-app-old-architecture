@@ -408,7 +408,11 @@ class TeamRepository extends GetxController {
                                 var no = item.phones.first.number
                                     .replaceAll('+', '')
                                     .replaceAll('234', '')
-                                    .replaceAll('+234', '');
+                                    .replaceAll('+234', '')
+                                    .replaceAll(' ', '')
+                                    .replaceAll('-', '')
+                                    .replaceAll('(', '')
+                                    .replaceAll(')', '');
                                 print('contact selected $no');
                                 phoneNumberController.text = no;
                               }

@@ -85,6 +85,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: buildPages(),
+      backgroundColor: Colors.white,
       bottomNavigationBar: Obx(() {
         return (teamController.teamMembersStatus == TeamMemberStatus.Loading)
             ? Center(

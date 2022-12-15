@@ -77,7 +77,8 @@ class _SignUpState extends State<Signup> {
                 child: Text(
                   'let’s get to know you better',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
+                  style: GoogleFonts.inter(
+                      fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
               SizedBox(
@@ -185,7 +186,7 @@ class _SignUpState extends State<Signup> {
                           // ${_authController.phoneNumberController.value}
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: "9034678966",
+                              hintText: "080123456789",
                               hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 14,
@@ -237,7 +238,8 @@ class _SignUpState extends State<Signup> {
                     children: [
                       Text(
                         'Continue',
-                        style: GoogleFonts.inter(color: Colors.white, fontSize: 18),
+                        style: GoogleFonts.inter(
+                            color: Colors.white, fontSize: 18),
                       ),
                       SizedBox(
                         width: 10,
