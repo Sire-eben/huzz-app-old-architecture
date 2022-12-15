@@ -497,6 +497,34 @@ class _UpdateMemberState extends State<UpdateMember> {
               role: _isManageCustomer,
             ),
             ExpandableWidget(
+              info: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
               manageChild: InkWell(
                 onTap: () {
                   setState(() {
@@ -669,6 +697,34 @@ class _UpdateMemberState extends State<UpdateMember> {
               role: _isManageProduct,
             ),
             ExpandableWidget(
+              info: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
               manageChild: InkWell(
                 onTap: () {
                   setState(() {
@@ -841,6 +897,34 @@ class _UpdateMemberState extends State<UpdateMember> {
               role: _isManageBusiness,
             ),
             ExpandableWidget(
+              info: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
               manageChild: InkWell(
                 onTap: () {
                   setState(() {
@@ -1013,6 +1097,34 @@ class _UpdateMemberState extends State<UpdateMember> {
               role: _isManageBank,
             ),
             ExpandableWidget(
+              info: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
               manageChild: InkWell(
                 onTap: () {
                   setState(() {
@@ -1185,6 +1297,34 @@ class _UpdateMemberState extends State<UpdateMember> {
               role: _isManageTeam,
             ),
             ExpandableWidget(
+              info: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
               manageChild: InkWell(
                 onTap: () {
                   setState(() {
@@ -1358,6 +1498,34 @@ class _UpdateMemberState extends State<UpdateMember> {
               role: _isManageDebtor,
             ),
             ExpandableWidget(
+              info: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
               manageChild: InkWell(
                 onTap: () {
                   setState(() {
