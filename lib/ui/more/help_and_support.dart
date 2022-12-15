@@ -433,6 +433,82 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // Telegram Connect
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material(
+                      child: InkWell(
+                        highlightColor:
+                            AppColor().backgroundColor.withOpacity(0.3),
+                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                        onTap: () async {
+                          // final action = await AlertDialogs.yesCancelDialog(
+                          //     context, 'Open WhatsApp', 'Click confirm to proceed');
+                          // if (action == DialogsAction.yes) {
+                          //   launch(
+                          //       'https://api.whatsapp.com/send?phone=+2348133258252');
+                          // } else {
+                          //   return null;
+                          // }
+                          _displayTelegramDialog(context);
+                        },
+                        child: Ink(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColor().whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColor().whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    AppIcons.whatsapp,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                AppStrings.connectOnTelegram,
+                                style: GoogleFonts.inter(
+                                  color: AppColor().blackColor,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              SvgPicture.asset(
+                                AppIcons.chevronRight,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -534,6 +610,114 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     InkWell(
                       onTap: () {
                         launch(AppStrings.huzzWhatsAppContactURI);
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().backgroundColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Continue',
+                            style: GoogleFonts.inter(
+                              color: AppColor().whiteColor,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  _displayTelegramDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: 50,
+              vertical: 280,
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: Text(
+                    'Open Telegram..?',
+                    style: GoogleFonts.inter(
+                      color: AppColor().backgroundColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Container(
+              child: Text(
+                AppStrings.continueToProceed,
+                style: GoogleFonts.inter(
+                  color: AppColor().blackColor,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 11,
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColor().whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColor().backgroundColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Cancel',
+                            style: GoogleFonts.inter(
+                              color: AppColor().backgroundColor,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        launch(AppStrings.huzzTelegramContactURI);
                       },
                       child: Container(
                         height: 45,
