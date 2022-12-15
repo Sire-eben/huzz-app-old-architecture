@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -10,6 +13,33 @@ import 'package:huzz/util/colors.dart';
 import '../../data/model/team.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../model/user_teamInvite_model.dart';
+
+class InformationDialog extends StatelessWidget {
+  final String? title;
+
+  const InformationDialog({super.key, this.title});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.info_outline_rounded,
+          size: 27,
+        ),
+        SizedBox(height: 7),
+        Text(
+          "Manage member authorization for your business team",
+          textAlign: TextAlign.center,
+          style: GoogleFonts.inter(
+            fontSize: 14,
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class UpdateMember extends StatefulWidget {
   Teams? team;
@@ -267,6 +297,34 @@ class _UpdateMemberState extends State<UpdateMember> {
             ),
             SizedBox(height: 10),
             ExpandableWidget(
+              info: () {
+                Platform.isIOS
+                    ? showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => CupertinoAlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: InformationDialog(),
+                          actions: [
+                            CupertinoButton(
+                              child: Text("OK"),
+                              onPressed: () => Get.back(),
+                            ),
+                          ],
+                        ),
+                      );
+              },
               manageChild: InkWell(
                 onTap: () {
                   setState(() {
