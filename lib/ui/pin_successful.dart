@@ -6,7 +6,7 @@ import 'package:huzz/ui/create_business.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 import '../data/repository/auth_respository.dart';
-import 'dashboard.dart';
+import 'app_scaffold.dart';
 
 class PinSuccesful extends StatelessWidget {
   @override
@@ -48,8 +48,8 @@ class PinSuccesful extends StatelessWidget {
               child: Text(
                 "Account Created Successfully",
                 textAlign: TextAlign.center,
-                style:
-                    GoogleFonts.inter(fontSize: 30, color: AppColors.backgroundColor),
+                style: GoogleFonts.inter(
+                    fontSize: 30, color: AppColors.backgroundColor),
               )),
           Spacer(),
           Center(

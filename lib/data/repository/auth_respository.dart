@@ -13,7 +13,7 @@ import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/ui/create_business.dart';
-import 'package:huzz/ui/dashboard.dart';
+import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/forget_pass/enter_forget_pin.dart';
 import 'package:huzz/ui/pin_successful.dart';
 import 'package:huzz/ui/reg_home.dart';

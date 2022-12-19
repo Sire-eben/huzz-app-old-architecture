@@ -106,7 +106,7 @@ class _WalletState extends State<Wallet> {
                 ),
               ),
             ),
-          ],
+          ], 
         ),
       ),
       backgroundColor: Colors.white,
