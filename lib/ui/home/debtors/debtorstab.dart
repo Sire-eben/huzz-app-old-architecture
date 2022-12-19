@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'debtors.dart';
 import 'debtowed.dart';
 
@@ -27,7 +27,7 @@ class _DebtorsTabState extends State<DebtorsTab> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
             ),
             onPressed: () {
               Get.back();
@@ -36,7 +36,7 @@ class _DebtorsTabState extends State<DebtorsTab> {
           title: Text(
             'Debt Management',
             style: GoogleFonts.inter(
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
@@ -51,16 +51,16 @@ class _DebtorsTabState extends State<DebtorsTab> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
-                  color: AppColor().whiteColor,
+                  color: AppColors.whiteColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TabBar(
-                  labelColor: AppColor().whiteColor,
-                  unselectedLabelColor: AppColor().backgroundColor,
+                  labelColor: AppColors.whiteColor,
+                  unselectedLabelColor: AppColors.backgroundColor,
                   labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
@@ -68,17 +68,17 @@ class _DebtorsTabState extends State<DebtorsTab> {
                       ),
                   unselectedLabelStyle:
                       Theme.of(context).textTheme.headline2!.copyWith(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             fontFamily: "InterRegular",
                             fontStyle: FontStyle.normal,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                           ),
                   indicator: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     border: Border.all(
                       width: 3,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                     borderRadius: BorderRadius.circular(2.5),
                   ),

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/home/reciept.dart';
@@ -97,7 +98,7 @@ class _MoneySummaryState extends State<MoneySummary> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -111,7 +112,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                 Text(
                   'Transaction',
                   style: GoogleFonts.inter(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
@@ -152,7 +153,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     child: Icon(
                       Icons.info_outline_rounded,
                       size: 18,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                   ),
                 )
@@ -165,7 +166,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   transactionModel!.entryDateTime!
                       .formatDate(pattern: "dd, MMM y")!,
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.w600,
@@ -175,7 +176,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   transactionModel!.entryDateTime!
                       .formatDate(pattern: "hh:mm a")!,
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.w600,
@@ -219,11 +220,11 @@ class _MoneySummaryState extends State<MoneySummary> {
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: AppColor().orangeBorderColor.withOpacity(0.2)),
+                  color: AppColors.orangeBorderColor.withOpacity(0.2)),
               child: Text(
                 transactionModel!.balance == 0 ? 'Fully Paid' : "Partially",
                 style: GoogleFonts.inter(
-                  color: AppColor().orangeBorderColor,
+                  color: AppColors.orangeBorderColor,
                   fontStyle: FontStyle.normal,
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
@@ -247,7 +248,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             Text(
                               'Total Amt.',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
@@ -259,7 +260,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             Text(
                               '${Utils.getCurrency()}${display(transactionModel!.totalAmount!)}',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -273,7 +274,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               Text(
                                 'Bal.',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().blackColor,
+                                  color: AppColors.blackColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600,
@@ -285,7 +286,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               Text(
                                 '${Utils.getCurrency()}${display(transactionModel!.balance!)}',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().orangeBorderColor,
+                                  color: AppColors.orangeBorderColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
@@ -298,7 +299,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             Text(
                               'Paid Amt.',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
@@ -310,7 +311,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             Text(
                               '${Utils.getCurrency()}${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -346,12 +347,12 @@ class _MoneySummaryState extends State<MoneySummary> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               color:
-                                  AppColor().backgroundColor.withOpacity(0.2)),
+                                  AppColors.backgroundColor.withOpacity(0.2)),
                           child: Center(
                             child: Text(
                               'Update payment',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -382,7 +383,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               Text(
                                 'Customer`s Name',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                 ),
@@ -390,7 +391,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               Text(
                                 customer!.name!,
                                 style: GoogleFonts.inter(
-                                  color: AppColor().blackColor,
+                                  color: AppColors.blackColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                 ),
@@ -404,7 +405,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               Text(
                                 'Phone Number',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                 ),
@@ -412,7 +413,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               Text(
                                 customer!.phone!,
                                 style: GoogleFonts.inter(
-                                  color: AppColor().blackColor,
+                                  color: AppColors.blackColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                 ),
@@ -433,7 +434,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                     Text(
                                       'Email',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                       ),
@@ -441,7 +442,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                     Text(
                                       customer!.email!,
                                       style: GoogleFonts.inter(
-                                        color: AppColor().blackColor,
+                                        color: AppColors.blackColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                       ),
@@ -466,7 +467,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                     Text(
                                       'Transaction Image',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                       ),
@@ -501,7 +502,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                 child: Text(
                   'Items',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -519,7 +520,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12)),
-                    color: AppColor().backgroundColor),
+                    color: AppColors.backgroundColor),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -530,7 +531,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
-                            color: AppColor().whiteColor),
+                            color: AppColors.whiteColor),
                       ),
                     ),
                     Expanded(
@@ -540,7 +541,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
-                            color: AppColor().whiteColor),
+                            color: AppColors.whiteColor),
                       ),
                     ),
                     Expanded(
@@ -550,7 +551,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
-                            color: AppColor().whiteColor),
+                            color: AppColors.whiteColor),
                       ),
                     ),
                   ],
@@ -582,7 +583,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
-                                    color: AppColor().blackColor),
+                                    color: AppColors.blackColor),
                               ),
                             ),
                             Expanded(
@@ -592,7 +593,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
-                                    color: AppColor().blackColor),
+                                    color: AppColors.blackColor),
                               ),
                             ),
                             Expanded(
@@ -602,7 +603,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
-                                    color: AppColor().blackColor),
+                                    color: AppColors.blackColor),
                               ),
                             ),
                           ],
@@ -620,7 +621,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                 child: Text(
                   'Payment History',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -638,7 +639,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12)),
-                    color: AppColor().backgroundColor),
+                    color: AppColors.backgroundColor),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -649,7 +650,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
-                            color: AppColor().whiteColor),
+                            color: AppColors.whiteColor),
                       ),
                     ),
                     Expanded(
@@ -659,7 +660,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
-                            color: AppColor().whiteColor),
+                            color: AppColors.whiteColor),
                       ),
                     ),
                     Expanded(
@@ -669,7 +670,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w500,
                             fontSize: 12,
-                            color: AppColor().whiteColor),
+                            color: AppColors.whiteColor),
                       ),
                     ),
                   ],
@@ -701,7 +702,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
-                                    color: AppColor().blackColor),
+                                    color: AppColors.blackColor),
                               ),
                             ),
                             Expanded(
@@ -711,7 +712,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
-                                    color: AppColor().blackColor),
+                                    color: AppColors.blackColor),
                               ),
                             ),
                             Expanded(
@@ -732,17 +733,17 @@ class _MoneySummaryState extends State<MoneySummary> {
                                       style: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 10,
-                                          color: AppColor().backgroundColor),
+                                          color: AppColors.backgroundColor),
                                     ),
                                     SizedBox(width: 4),
                                     Container(
                                         padding: EdgeInsets.all(2),
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: AppColor().backgroundColor),
+                                            color: AppColors.backgroundColor),
                                         child: Icon(
                                           Icons.arrow_forward,
-                                          color: AppColor().whiteColor,
+                                          color: AppColors.whiteColor,
                                           size: 15,
                                         ))
                                   ],
@@ -776,7 +777,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   child: Text(
                     'You are about to delete this transaction. Are you sure you want to continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -810,17 +811,17 @@ class _MoneySummaryState extends State<MoneySummary> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -843,13 +844,13 @@ class _MoneySummaryState extends State<MoneySummary> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -895,7 +896,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   Text(
                     '10, Nov. 2021',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontStyle: FontStyle.normal,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -911,11 +912,11 @@ class _MoneySummaryState extends State<MoneySummary> {
                         padding: EdgeInsets.all(4),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: AppColor().backgroundColor.withOpacity(0.2)),
+                            color: AppColors.backgroundColor.withOpacity(0.2)),
                         child: Icon(
                           Icons.close,
                           size: 20,
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                         ),
                       ))
                 ],
@@ -943,14 +944,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                             Text(
                               recordModel.date!,
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                           ],
                         ),
@@ -964,14 +965,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                             Text(
                               recordModel.moneyOut!,
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().orangeBorderColor),
+                                  color: AppColors.orangeBorderColor),
                             ),
                           ],
                         ),
@@ -987,14 +988,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
-                                    color: AppColor().blackColor),
+                                    color: AppColors.blackColor),
                               ),
                               Text(
                                 recordModel.moneyIn!,
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
-                                    color: AppColor().blueColor),
+                                    color: AppColors.blueColor),
                               ),
                             ],
                           ),
@@ -1032,14 +1033,14 @@ class _MoneySummaryState extends State<MoneySummary> {
                                       style: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 10,
-                                          color: AppColor().blackColor),
+                                          color: AppColors.blackColor),
                                     ),
                                     Text(
                                       item.time!,
                                       style: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 10,
-                                          color: AppColor().blackColor),
+                                          color: AppColors.blackColor),
                                     ),
                                   ],
                                 ),
@@ -1053,21 +1054,21 @@ class _MoneySummaryState extends State<MoneySummary> {
                                       style: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 10,
-                                          color: AppColor().blackColor),
+                                          color: AppColors.blackColor),
                                     ),
                                     Text(
                                       item.detail!,
                                       style: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 10,
-                                          color: AppColor().blackColor),
+                                          color: AppColors.blackColor),
                                     ),
                                   ],
                                 ),
                               ),
                               Icon(
                                 Icons.visibility,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 size: 20,
                               ),
                             ],
@@ -1165,10 +1166,10 @@ class _MoneySummaryState extends State<MoneySummary> {
                           MediaQuery.of(context).size.width * 0.01),
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: AppColor().backgroundColor.withOpacity(0.2)),
+                          color: AppColors.backgroundColor.withOpacity(0.2)),
                       child: Icon(
                         Icons.close,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         size: 18,
                       )),
                 ),
@@ -1201,7 +1202,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             children: [
                               Radio<int>(
                                 value: 1,
-                                activeColor: AppColor().backgroundColor,
+                                activeColor: AppColors.backgroundColor,
                                 groupValue: paymentType,
                                 onChanged: (value) {
                                   myState(() {
@@ -1212,7 +1213,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               Text(
                                 'Paying Fully',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1231,7 +1232,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             children: [
                               Radio<int>(
                                   value: 0,
-                                  activeColor: AppColor().backgroundColor,
+                                  activeColor: AppColors.backgroundColor,
                                   groupValue: paymentType,
                                   onChanged: (value) {
                                     myState(() {
@@ -1242,7 +1243,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               Text(
                                 'Paying Partly',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1308,7 +1309,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         horizontal: MediaQuery.of(context).size.height * 0.01),
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_transactionController.addingTransactionStatus ==
                             AddingTransactionStatus.Loading)

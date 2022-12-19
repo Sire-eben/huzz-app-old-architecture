@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/fingerprint_repository.dart';
-
-import '../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'sign_in.dart';
 
 class FingerPrint extends StatelessWidget {
@@ -14,10 +13,10 @@ class FingerPrint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         elevation: 0,
         leading: GestureDetector(
           onTap: () {
@@ -25,7 +24,7 @@ class FingerPrint extends StatelessWidget {
           },
           child: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
         ),
       ),
@@ -38,7 +37,7 @@ class FingerPrint extends StatelessWidget {
             child: Text(
               'Sign in with',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
@@ -48,7 +47,7 @@ class FingerPrint extends StatelessWidget {
             child: Text(
               'your fingerprint',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
@@ -87,7 +86,7 @@ class FingerPrint extends StatelessWidget {
             child: Text(
               'Please place your finger',
               style: GoogleFonts.inter(
-                color: AppColor().blackColor,
+                color: AppColors.blackColor,
                 fontWeight: FontWeight.normal,
                 fontSize: 14,
               ),
@@ -104,7 +103,7 @@ class FingerPrint extends StatelessWidget {
               child: Text(
                 'OR SIGN IN WITH PIN',
                 style: GoogleFonts.inter(
-                  color: AppColor().orangeBorderColor,
+                  color: AppColors.orangeBorderColor,
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),

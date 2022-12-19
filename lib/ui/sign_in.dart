@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'forget_pass/forgot_pin.dart';
 import 'reg_home.dart';
@@ -41,7 +41,7 @@ class _SiginState extends State<Signin> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -60,7 +60,7 @@ class _SiginState extends State<Signin> {
                 },
                 child: Icon(
                   Icons.arrow_back,
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
               ),
             ),
@@ -73,7 +73,7 @@ class _SiginState extends State<Signin> {
               style: GoogleFonts.inter(
                   fontWeight: FontWeight.w500,
                   fontSize: 24,
-                  color: AppColor().backgroundColor),
+                  color: AppColors.backgroundColor),
             )),
             SizedBox(
               height: 20,
@@ -112,7 +112,7 @@ class _SiginState extends State<Signin> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 border:
-                    Border.all(color: AppColor().backgroundColor, width: 2.0),
+                    Border.all(color: AppColors.backgroundColor, width: 2.0),
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: Row(
@@ -127,7 +127,7 @@ class _SiginState extends State<Signin> {
                       decoration: BoxDecoration(
                         border: Border(
                           right: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                         ),
                       ),
                       height: 50,
@@ -143,7 +143,7 @@ class _SiginState extends State<Signin> {
                           Icon(
                             Icons.arrow_drop_down,
                             size: 24,
-                            color: AppColor().backgroundColor.withOpacity(0.5),
+                            color: AppColors.backgroundColor.withOpacity(0.5),
                           )
                         ],
                       ),
@@ -205,9 +205,9 @@ class _SiginState extends State<Signin> {
                   animationType: AnimationType.fade,
                   controller: _authController.pinController,
                   pinTheme: PinTheme(
-                    inactiveColor: AppColor().backgroundColor,
-                    activeColor: AppColor().backgroundColor,
-                    selectedColor: AppColor().backgroundColor,
+                    inactiveColor: AppColors.backgroundColor,
+                    activeColor: AppColors.backgroundColor,
+                    selectedColor: AppColors.backgroundColor,
                     selectedFillColor: Colors.white,
                     inactiveFillColor: Colors.white,
                     shape: PinCodeFieldShape.box,
@@ -249,7 +249,7 @@ class _SiginState extends State<Signin> {
             //       children: [
             //         Icon(
             //           Icons.fingerprint,
-            //           color: AppColor().backgroundColor,
+            //           color: AppColors.backgroundColor,
             //         ),
             //         SizedBox(
             //           width: 10,
@@ -257,7 +257,7 @@ class _SiginState extends State<Signin> {
             //         Text(
             //           "SIGN IN WITH YOUR FINGERPRINT",
             //           style: GoogleFonts.inter(
-            //             color: AppColor().backgroundColor,
+            //             color: AppColors.backgroundColor,
             //             fontSize: 12,
             //             fontWeight: FontWeight.w700,
             //           ),
@@ -281,7 +281,7 @@ class _SiginState extends State<Signin> {
                     child: Text(
                       "Forgot PIN?",
                       style: GoogleFonts.inter(
-                        color: AppColor().orangeBorderColor,
+                        color: AppColors.orangeBorderColor,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
@@ -299,7 +299,7 @@ class _SiginState extends State<Signin> {
                     child: Text(
                       "Sign up",
                       style: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
@@ -324,7 +324,7 @@ class _SiginState extends State<Signin> {
                           // style: AppThemes.style14black,
                         ),
                         icon: Icon(Icons.info,
-                            color: AppColor().orangeBorderColor));
+                            color: AppColors.orangeBorderColor));
                     print('phone cannot be empty');
                   } else if (_authController.signinStatus !=
                       SigninStatus.Loading) _authController.signIn();
@@ -334,7 +334,7 @@ class _SiginState extends State<Signin> {
                   margin: EdgeInsets.only(left: 50, right: 50),
                   height: 50,
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: (_authController.signinStatus == SigninStatus.Loading)
                       ? Container(

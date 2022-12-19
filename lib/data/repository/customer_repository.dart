@@ -12,7 +12,7 @@ import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/ui/customers/confirmation.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:random_color/random_color.dart';
@@ -825,7 +825,7 @@ class CustomerRepository extends GetxController {
               onChanged: searchItem,
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
               ),
               // controller: _searchcontroller,
               cursorColor: Colors.white,
@@ -833,7 +833,7 @@ class CustomerRepository extends GetxController {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
@@ -853,14 +853,14 @@ class CustomerRepository extends GetxController {
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
               ),
@@ -996,7 +996,7 @@ class CustomerRepository extends GetxController {
               onChanged: searchItem,
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
               ),
               // controller: _searchcontroller,
               cursorColor: Colors.white,
@@ -1004,7 +1004,7 @@ class CustomerRepository extends GetxController {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
@@ -1024,14 +1024,14 @@ class CustomerRepository extends GetxController {
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
               ),
@@ -1123,7 +1123,7 @@ class CustomerRepository extends GetxController {
                                         'Invite',
                                         style: GoogleFonts.inter(
                                           fontSize: 12,
-                                          color: AppColor().backgroundColor,
+                                          color: AppColors.backgroundColor,
                                         ),
                                       )
                                     ]),

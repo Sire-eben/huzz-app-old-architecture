@@ -17,7 +17,7 @@ import 'package:huzz/data/model/business.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../data/repository/team_repository.dart';
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'bankCard.dart';
 
 class BusinessInfo extends StatefulWidget {
@@ -91,20 +91,20 @@ class _BusinessInfoState extends State<BusinessInfo> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         leading: GestureDetector(
           onTap: () {
             Get.back();
           },
           child: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
         ),
         title: Text(
           "Business account settings",
           style: GoogleFonts.inter(
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
             fontSize: 18,
           ),
         ),
@@ -172,7 +172,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         child: Text(
                       "Business Logo",
                       style: GoogleFonts.inter(
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                         fontSize: 12,
                       ),
                     )),
@@ -182,7 +182,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     CustomTextField(
                       label: "Business Name",
                       validatorText: "Business Name required",
-                      colors: AppColor().blackColor,
+                      colors: AppColors.blackColor,
                       hint:
                           "${businessController.selectedBusiness.value!.businessName}",
                       textEditingController: businessController.businessName,
@@ -225,7 +225,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
-                            color: AppColor().backgroundColor, width: 2.0),
+                            color: AppColors.backgroundColor, width: 2.0),
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       child: Row(
@@ -240,7 +240,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                               decoration: BoxDecoration(
                                 border: Border(
                                     right: BorderSide(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         width: 2)),
                               ),
                               height: 50,
@@ -257,7 +257,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                   Icon(
                                     Icons.arrow_drop_down,
                                     size: 24,
-                                    color: AppColor()
+                                    color: AppColors
                                         .backgroundColor
                                         .withOpacity(0.5),
                                   )
@@ -323,17 +323,17 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         isDense: true,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText:
@@ -350,7 +350,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     CustomTextField(
                       label: "Address",
                       validatorText: "Address is needed",
-                      colors: AppColor().blackColor,
+                      colors: AppColors.blackColor,
                       hint:
                           "${businessController.selectedBusiness.value!.businessAddress}",
                       textEditingController:
@@ -389,15 +389,15 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                            width: 2, color: AppColor().backgroundColor),
+                            width: 2, color: AppColors.backgroundColor),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value: value,
-                          focusColor: AppColor().whiteColor,
+                          focusColor: AppColors.whiteColor,
                           icon: Icon(
                             Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                           iconSize: 30,
                           items: items.map(buildMenuItem).toList(),
@@ -461,7 +461,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                     Text(
                                       'Add Bank Account',
                                       style: GoogleFonts.inter(
-                                          color: AppColor().backgroundColor,
+                                          color: AppColors.backgroundColor,
                                           fontSize: 12),
                                     ),
                                   ],
@@ -478,7 +478,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           'You need to be authorized\nto view this module',
                           style: GoogleFonts.inter(
                               fontSize: 14,
-                              color: AppColor().orangeBorderColor,
+                              color: AppColors.orangeBorderColor,
                               fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         ),
@@ -528,7 +528,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           child: Text(
                             'No bank account has been added yet',
                             style: GoogleFonts.inter(
-                              color: AppColor().hintColor,
+                              color: AppColors.hintColor,
                               fontSize: 10,
                             ),
                           ),
@@ -548,7 +548,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           height: 50,
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: (businessController.updateBusinessStatus ==
@@ -627,7 +627,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       },
                       child: Icon(
                         Icons.close,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                     ),
                   )
@@ -637,7 +637,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -674,7 +674,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 child: Text(
                   'Select from Device',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -691,13 +691,13 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
                       'Done',
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -753,7 +753,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         },
                         child: Icon(
                           Icons.close,
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                         ),
                       ),
                     )
@@ -762,7 +762,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 Text(
                   'Add Bank Account',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                   ),
@@ -802,7 +802,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         horizontal: 5,
                       ),
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: (bankInfoController.addingBankStatus ==
@@ -811,7 +811,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             : Text(
                                 'Add Bank Account',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -890,7 +890,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       height: 50,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: (bankInfoController.addingBankStatus ==
@@ -903,7 +903,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             : Text(
                                 'Update Bank Account',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -935,7 +935,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   child: Text(
                     'We will send a one-time password to verify it\'s really you',
                     style: GoogleFonts.inter(
-                      color: AppColor().orangeBorderColor,
+                      color: AppColors.orangeBorderColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -967,7 +967,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
-                          color: AppColor().backgroundColor, width: 2.0),
+                          color: AppColors.backgroundColor, width: 2.0),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: Row(
@@ -982,7 +982,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             decoration: BoxDecoration(
                               border: Border(
                                   right: BorderSide(
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                       width: 2)),
                             ),
                             height: 50,
@@ -999,7 +999,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                 Icon(
                                   Icons.arrow_drop_down,
                                   size: 24,
-                                  color: AppColor()
+                                  color: AppColors
                                       .backgroundColor
                                       .withOpacity(0.5),
                                 )
@@ -1055,17 +1055,17 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1084,13 +1084,13 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Continue',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1137,7 +1137,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   child: Text(
                     'We will send a one-time password to verify it\'s really you',
                     style: GoogleFonts.inter(
-                      color: AppColor().orangeBorderColor,
+                      color: AppColors.orangeBorderColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -1171,9 +1171,9 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   obscureText: true,
                   animationType: AnimationType.fade,
                   pinTheme: PinTheme(
-                    inactiveColor: AppColor().backgroundColor,
-                    activeColor: AppColor().backgroundColor,
-                    selectedColor: AppColor().backgroundColor,
+                    inactiveColor: AppColors.backgroundColor,
+                    activeColor: AppColors.backgroundColor,
+                    selectedColor: AppColors.backgroundColor,
                     selectedFillColor: Colors.white,
                     inactiveFillColor: Colors.white,
                     shape: PinCodeFieldShape.box,
@@ -1211,7 +1211,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
               Text(
                 "Send as Voice Call",
                 style: GoogleFonts.inter(
-                    color: AppColor().backgroundColor, fontSize: 12),
+                    color: AppColors.backgroundColor, fontSize: 12),
               ),
               SizedBox(
                 height: 10,
@@ -1239,17 +1239,17 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1268,13 +1268,13 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Continue',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1303,7 +1303,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
               child: Text(
                 'Phone Number successfully Changed',
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
                 ),
@@ -1329,13 +1329,13 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       horizontal: 20,
                     ),
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
                       child: Text(
                         'Continue',
                         style: GoogleFonts.inter(
-                          color: AppColor().whiteColor,
+                          color: AppColors.whiteColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 12,
                         ),

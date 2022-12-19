@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class MoreWidget extends StatelessWidget {
   final String? image, title, description;
@@ -66,7 +66,7 @@ class MoreWidget extends StatelessWidget {
             children: [
               Icon(
                 Icons.keyboard_arrow_right,
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
               ),
             ],
           ),

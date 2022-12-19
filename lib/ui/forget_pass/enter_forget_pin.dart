@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../widget/timer_button.dart';
 
 class EnterForgotPIN extends StatefulWidget {
@@ -66,7 +66,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                           },
                           child: Icon(
                             Icons.arrow_back,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                       ),
@@ -75,7 +75,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                 ),
                 Text('Enter OTP & PIN',
                     style: GoogleFonts.inter(
-                        color: AppColor().orangeBorderColor,
+                        color: AppColors.orangeBorderColor,
                         fontSize: 28,
                         fontWeight: FontWeight.w500)),
                 SizedBox(
@@ -86,7 +86,8 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   child: Text(
                     'Enter  the four digit code we sent to your phone number',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400),
+                    style: GoogleFonts.inter(
+                        fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                 ),
                 SizedBox(
@@ -117,9 +118,9 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                       obscureText: true,
                       animationType: AnimationType.fade,
                       pinTheme: PinTheme(
-                        inactiveColor: AppColor().backgroundColor,
-                        activeColor: AppColor().backgroundColor,
-                        selectedColor: AppColor().backgroundColor,
+                        inactiveColor: AppColors.backgroundColor,
+                        activeColor: AppColors.backgroundColor,
+                        selectedColor: AppColors.backgroundColor,
                         selectedFillColor: Colors.white,
                         inactiveFillColor: Colors.white,
                         shape: PinCodeFieldShape.box,
@@ -159,7 +160,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   label: "Send as Voice Call",
                   timeOutInSeconds: 20,
                   activeTextStyle: GoogleFonts.inter(
-                      color: AppColor().backgroundColor, fontSize: 12),
+                      color: AppColors.backgroundColor, fontSize: 12),
                   onPressed: () {
                     _authController.sendVoiceOtp();
                   },
@@ -206,9 +207,9 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                       obscureText: true,
                       animationType: AnimationType.fade,
                       pinTheme: PinTheme(
-                        inactiveColor: AppColor().backgroundColor,
-                        activeColor: AppColor().backgroundColor,
-                        selectedColor: AppColor().backgroundColor,
+                        inactiveColor: AppColors.backgroundColor,
+                        activeColor: AppColors.backgroundColor,
+                        selectedColor: AppColors.backgroundColor,
                         selectedFillColor: Colors.white,
                         inactiveFillColor: Colors.white,
                         shape: PinCodeFieldShape.box,
@@ -254,7 +255,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                       margin: EdgeInsets.only(left: 50, right: 50),
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_authController.Otpforgotverifystatus ==
                               OtpForgotVerifyStatus.Loading)
@@ -285,7 +286,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                                           Radius.circular(50))),
                                   child: Icon(
                                     Icons.arrow_forward,
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     size: 16,
                                   ),
                                 )

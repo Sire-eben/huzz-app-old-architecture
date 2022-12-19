@@ -9,7 +9,7 @@ import 'package:huzz/ui/inventory/Service/add_service.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:huzz/data/model/product_model.dart';
 import 'package:number_display/number_display.dart';
-import '../../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../../util/util.dart';
 
 class ServiceListing extends StatefulWidget {
@@ -63,7 +63,7 @@ class _ServiceListingState extends State<ServiceListing> {
                   child: Text(
                     'You are about to delete a service, Are you sure you want to continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -96,17 +96,17 @@ class _ServiceListingState extends State<ServiceListing> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -131,13 +131,13 @@ class _ServiceListingState extends State<ServiceListing> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -159,7 +159,7 @@ class _ServiceListingState extends State<ServiceListing> {
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
       return Scaffold(
-          backgroundColor: AppColor().whiteColor,
+          backgroundColor: AppColors.whiteColor,
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               if (isDelete) {
@@ -183,7 +183,7 @@ class _ServiceListingState extends State<ServiceListing> {
               }
             },
             icon: (isDelete) ? Container() : Icon(Icons.add),
-            backgroundColor: AppColor().backgroundColor,
+            backgroundColor: AppColors.backgroundColor,
             label: Text(
               (isDelete) ? "Delete Service(s)" : 'New Service',
               style: GoogleFonts.inter(
@@ -219,7 +219,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     children: [
                       Icon(
                         Icons.search,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                       SizedBox(
                         width: 10,
@@ -243,7 +243,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                     BorderRadius.all(Radius.circular(10))),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
@@ -272,7 +272,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     Text(
                       'Services (${_productController.productServices.length})',
                       style: GoogleFonts.inter(
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
                       ),
@@ -295,13 +295,13 @@ class _ServiceListingState extends State<ServiceListing> {
                               height: 30,
                               width: 30,
                               decoration: BoxDecoration(
-                                color: AppColor().lightbackgroundColor,
+                                color: AppColors.lightbackgroundColor,
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
                                 Icons.delete_outline_outlined,
                                 size: 20,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                             ),
                           )
@@ -331,7 +331,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                   ProductStatus.Loading)
                               ? Center(
                                   child: CircularProgressIndicator(
-                                      color: AppColor().backgroundColor))
+                                      color: AppColors.backgroundColor))
                               : (_productController.productStatus ==
                                       ProductStatus.Available)
                                   ? ListView.builder(
@@ -376,7 +376,7 @@ class _ServiceListingState extends State<ServiceListing> {
         height: 95,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: AppColor().backgroundColor,
+          color: AppColors.backgroundColor,
           borderRadius: BorderRadius.all(
             Radius.circular(15),
           ),
@@ -412,7 +412,7 @@ class _ServiceListingState extends State<ServiceListing> {
                 height: 95,
                 padding: EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: AppColor().secondbgColor,
+                  color: AppColors.secondbgColor,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -424,7 +424,7 @@ class _ServiceListingState extends State<ServiceListing> {
                     colors: [
                       Color(0xff0D8372),
                       Color(0xff07A58E),
-                      AppColor().backgroundColor.withOpacity(0.5),
+                      AppColors.backgroundColor.withOpacity(0.5),
                     ],
                   ),
                   borderRadius: BorderRadius.only(
@@ -492,7 +492,7 @@ class _ServiceListingState extends State<ServiceListing> {
                 Text(
                   'Add stock',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
                   ),
@@ -506,7 +506,7 @@ class _ServiceListingState extends State<ServiceListing> {
                   ),
                   child: Icon(
                     Icons.close,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 )
               ],
@@ -549,7 +549,7 @@ class _ServiceListingState extends State<ServiceListing> {
                             Text(
                               'Television',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -565,7 +565,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                     Text(
                                       'left: ',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().blackColor,
+                                        color: AppColors.blackColor,
                                         fontSize: 11,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -573,7 +573,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                     Text(
                                       '7',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().orangeBorderColor,
+                                        color: AppColors.orangeBorderColor,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -586,7 +586,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                 Text(
                                   'N20,000',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().blackColor,
+                                    color: AppColors.blackColor,
                                     fontSize: 11,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -640,13 +640,13 @@ class _ServiceListingState extends State<ServiceListing> {
                 Container(
                   height: 40,
                   decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.add,
                     size: 18,
-                    color: AppColor().whiteColor,
+                    color: AppColors.whiteColor,
                   ),
                 ),
                 SizedBox(
@@ -661,15 +661,15 @@ class _ServiceListingState extends State<ServiceListing> {
                       isDense: true,
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       border: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       // labelText: label,
                       hintText: '${Utils.getCurrency()} 0.00',
@@ -689,13 +689,13 @@ class _ServiceListingState extends State<ServiceListing> {
                 Container(
                   height: 40,
                   decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.add,
                     size: 18,
-                    color: AppColor().whiteColor,
+                    color: AppColors.whiteColor,
                   ),
                 ),
               ],
@@ -711,13 +711,13 @@ class _ServiceListingState extends State<ServiceListing> {
                   horizontal: 15,
                 ),
                 decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Text(
                     'Continue',
                     style: GoogleFonts.inter(
-                      color: AppColor().whiteColor,
+                      color: AppColors.whiteColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -803,7 +803,7 @@ class _ListingServicesState extends State<ListingServices> {
                           Text(
                             widget.item!.productName!,
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
@@ -811,7 +811,7 @@ class _ListingServicesState extends State<ListingServices> {
                           Text(
                             '${Utils.getCurrency()}${display(widget.item!.costPrice!)}',
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
                             ),
@@ -825,7 +825,7 @@ class _ListingServicesState extends State<ListingServices> {
                         child: Text(
                           "${widget.item!.description}",
                           style: GoogleFonts.inter(
-                            color: AppColor().blackColor,
+                            color: AppColors.blackColor,
                             fontSize: 9,
                             fontWeight: FontWeight.normal,
                           ),
@@ -839,7 +839,7 @@ class _ListingServicesState extends State<ListingServices> {
                   child: Icon(
                     Icons.keyboard_arrow_down,
                     size: 20,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
               ],
@@ -923,7 +923,7 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                             Text(
                               widget.item!.productName!,
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -931,7 +931,7 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                             Text(
                               '${Utils.getCurrency()}${display(widget.item!.costPrice!)}',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -945,7 +945,7 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                           child: Text(
                             "${widget.item!.description}",
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontSize: 9,
                               fontWeight: FontWeight.normal,
                             ),
@@ -971,8 +971,8 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                       decoration: BoxDecoration(
                         color: _productController.checkifSelectedForDelted(
                                 widget.item!.productId!)
-                            ? AppColor().orangeBorderColor
-                            : AppColor().whiteColor,
+                            ? AppColors.orangeBorderColor
+                            : AppColors.whiteColor,
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Color(0xffEF6500),
@@ -986,8 +986,8 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                           size: 15,
                           color: _productController.checkifSelectedForDelted(
                                   widget.item!.productId!)
-                              ? AppColor().whiteColor
-                              : AppColor().orangeBorderColor,
+                              ? AppColors.whiteColor
+                              : AppColors.orangeBorderColor,
                         ),
                       ),
                     ),

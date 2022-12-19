@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class TeamConfirmation extends StatefulWidget {
   TeamConfirmation({Key? key}) : super(key: key);
@@ -74,10 +74,10 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
       return Scaffold(
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: AppColor().whiteColor,
+          backgroundColor: AppColors.whiteColor,
           elevation: 0,
           leading: GestureDetector(
             onTap: () {
@@ -85,7 +85,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
             },
             child: Icon(
               Icons.arrow_back,
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
             ),
           ),
         ),
@@ -100,7 +100,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                 child: Text(
                   'Team Member Successfully',
                   style: GoogleFonts.inter(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
@@ -110,7 +110,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                 child: Text(
                   'Added',
                   style: GoogleFonts.inter(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
@@ -137,7 +137,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -163,15 +163,15 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                 child: Container(
                   height: 55,
                   decoration: BoxDecoration(
-                      color: AppColor().whiteColor,
+                      color: AppColors.whiteColor,
                       border: Border.all(
-                          width: 2, color: AppColor().backgroundColor),
+                          width: 2, color: AppColors.backgroundColor),
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
                       'Proceed',
                       style: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

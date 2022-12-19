@@ -10,7 +10,7 @@ import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/ui/team/team_updated_confirmation.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:random_color/random_color.dart';
@@ -190,7 +190,7 @@ class TeamRepository extends GetxController {
               onChanged: searchItem,
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 //
               ),
               // controller: _searchcontroller,
@@ -199,7 +199,7 @@ class TeamRepository extends GetxController {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
@@ -220,14 +220,14 @@ class TeamRepository extends GetxController {
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
               ),
@@ -352,14 +352,14 @@ class TeamRepository extends GetxController {
               onChanged: searchItem,
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
               ),
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
@@ -379,14 +379,14 @@ class TeamRepository extends GetxController {
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
               ),
@@ -495,7 +495,7 @@ class TeamRepository extends GetxController {
                                         'Invite',
                                         style: GoogleFonts.inter(
                                           fontSize: 12,
-                                          color: AppColor().backgroundColor,
+                                          color: AppColors.backgroundColor,
                                         ),
                                       )
                                     ]),

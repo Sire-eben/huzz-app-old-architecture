@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/create_business.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 import '../data/repository/auth_respository.dart';
 import 'dashboard.dart';
@@ -36,7 +36,7 @@ class PinSuccesful extends StatelessWidget {
                     },
                     child: Icon(
                       Icons.arrow_back,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                   ),
                 ),
@@ -49,7 +49,7 @@ class PinSuccesful extends StatelessWidget {
                 "Account Created Successfully",
                 textAlign: TextAlign.center,
                 style:
-                    GoogleFonts.inter(fontSize: 30, color: AppColor().backgroundColor),
+                    GoogleFonts.inter(fontSize: 30, color: AppColors.backgroundColor),
               )),
           Spacer(),
           Center(
@@ -69,7 +69,7 @@ class PinSuccesful extends StatelessWidget {
               margin: EdgeInsets.only(left: 50, right: 50),
               height: 50,
               decoration: BoxDecoration(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

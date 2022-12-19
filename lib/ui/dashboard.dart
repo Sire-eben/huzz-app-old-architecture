@@ -10,7 +10,6 @@ import 'package:huzz/ui/customers/customer_tabView.dart';
 import 'package:huzz/ui/invoice/empty_invoice.dart';
 import 'package:huzz/ui/more/more.dart';
 import 'package:huzz/ui/widget/loading_widget.dart';
-import 'package:huzz/util/colors.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:new_version/new_version.dart';
 import 'home/home.dart';
@@ -54,6 +53,7 @@ class _DashboardState extends State<Dashboard> {
 
     if (simpleBehavior) {
       basicStatusCheck(newVersion);
+      // ignore: dead_code
     } else {
       advancedStatusCheck(newVersion);
     }
@@ -90,7 +90,7 @@ class _DashboardState extends State<Dashboard> {
         return (teamController.teamMembersStatus == TeamMemberStatus.Loading)
             ? Center(
                 child: LoadingWidget(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
               )
             : BottomNavyBar(
@@ -103,7 +103,7 @@ class _DashboardState extends State<Dashboard> {
                         'Home',
                         style: AppThemes.style12PriBold,
                       ),
-                      activeColor: AppColor().backgroundColor,
+                      activeColor: AppColors.backgroundColor,
                       inactiveColor: inactiveColor),
                   BottomNavyBarItem(
                       icon: Icon(
@@ -114,7 +114,7 @@ class _DashboardState extends State<Dashboard> {
                         'Customers',
                         style: AppThemes.style12PriBold,
                       ),
-                      activeColor: AppColor().backgroundColor,
+                      activeColor: AppColors.backgroundColor,
                       inactiveColor: inactiveColor),
                   BottomNavyBarItem(
                       icon: Icon(Icons.inventory),
@@ -122,7 +122,7 @@ class _DashboardState extends State<Dashboard> {
                         'Inventory',
                         style: AppThemes.style12PriBold,
                       ),
-                      activeColor: AppColor().backgroundColor,
+                      activeColor: AppColors.backgroundColor,
                       inactiveColor: inactiveColor),
                   BottomNavyBarItem(
                       icon: Icon(Icons.receipt),
@@ -130,7 +130,7 @@ class _DashboardState extends State<Dashboard> {
                         'Invoice',
                         style: AppThemes.style12PriBold,
                       ),
-                      activeColor: AppColor().backgroundColor,
+                      activeColor: AppColors.backgroundColor,
                       inactiveColor: inactiveColor),
                   BottomNavyBarItem(
                       icon: Icon(Icons.grid_view_rounded),
@@ -138,7 +138,7 @@ class _DashboardState extends State<Dashboard> {
                         'More',
                         style: AppThemes.style12PriBold,
                       ),
-                      activeColor: AppColor().backgroundColor,
+                      activeColor: AppColors.backgroundColor,
                       inactiveColor: inactiveColor),
                 ],
                 onItemSelected: (index) =>

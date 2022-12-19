@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/customers/merchants/add_merchant.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:random_color/random_color.dart';
 import '../../../data/repository/team_repository.dart';
@@ -51,7 +51,7 @@ class _MerchantsState extends State<Merchants> {
         return teamController.teamMembersStatus == TeamMemberStatus.Loading
             ? Center(
                 child: LoadingWidget(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
               )
             : Container(
@@ -64,7 +64,7 @@ class _MerchantsState extends State<Merchants> {
                     TextField(
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                       controller: _searchcontroller,
                       cursorColor: Colors.white,
@@ -73,7 +73,7 @@ class _MerchantsState extends State<Merchants> {
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.search,
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(0),
@@ -93,14 +93,14 @@ class _MerchantsState extends State<Merchants> {
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
                             width: 2,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
                             width: 2,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                       ),
@@ -148,7 +148,7 @@ class _MerchantsState extends State<Merchants> {
                                   'You need to be authorized\nto view this module',
                                   style: GoogleFonts.inter(
                                       fontSize: 14,
-                                      color: AppColor().orangeBorderColor,
+                                      color: AppColors.orangeBorderColor,
                                       fontWeight: FontWeight.w600),
                                   textAlign: TextAlign.center,
                                 ),
@@ -657,7 +657,7 @@ class _MerchantsState extends State<Merchants> {
                         Get.to(() => AddMerchant());
                       },
                       icon: Icon(Icons.add),
-                      backgroundColor: AppColor().backgroundColor,
+                      backgroundColor: AppColors.backgroundColor,
                       label: Text(
                         'Add Merchant',
                         style: GoogleFonts.inter(
@@ -673,7 +673,7 @@ class _MerchantsState extends State<Merchants> {
                             Get.to(() => AddMerchant());
                           },
                           icon: Icon(Icons.add),
-                          backgroundColor: AppColor().backgroundColor,
+                          backgroundColor: AppColors.backgroundColor,
                           label: Text(
                             'Add Merchant',
                             style: GoogleFonts.inter(
@@ -701,7 +701,7 @@ class _MerchantsState extends State<Merchants> {
                   child: Text(
                     'You are about to delete a merchant, Are you sure you want to continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -735,17 +735,17 @@ class _MerchantsState extends State<Merchants> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -767,13 +767,13 @@ class _MerchantsState extends State<Merchants> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

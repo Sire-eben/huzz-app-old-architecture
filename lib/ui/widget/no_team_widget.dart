@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class NoTeamWidget extends GetView<TeamRepository> {
   final _businessController = Get.find<BusinessRespository>();
@@ -71,7 +71,7 @@ class NoTeamWidget extends GetView<TeamRepository> {
                     height: 55,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: (controller.addingTeamMemberStatus ==

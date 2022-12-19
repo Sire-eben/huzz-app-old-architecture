@@ -19,7 +19,7 @@ import 'package:huzz/ui/pin_successful.dart';
 import 'package:huzz/ui/reg_home.dart';
 import 'package:huzz/ui/sign_in.dart';
 import 'package:huzz/ui/team/team_success.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/data/model/user.dart';
 import 'package:huzz/data/model/user_referral_model.dart';
@@ -227,7 +227,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.check, color: AppColor().backgroundColor));
+            icon: Icon(Icons.check, color: AppColors.backgroundColor));
 
         if (!isresend) Get.to(() => EnterOtp());
         // if (!isresend) _homeController.selectOnboardSelectedNext();
@@ -244,7 +244,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+            icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
       }
     } catch (ex) {
       print("error otp send ${ex.toString()}");
@@ -275,7 +275,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.check, color: AppColor().backgroundColor));
+            icon: Icon(Icons.check, color: AppColors.backgroundColor));
         Timer(Duration(milliseconds: 2000), () {
           Get.off(EnterForgotPIN());
         });
@@ -292,7 +292,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+            icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
       }
     } catch (ex) {
       print("error otp send ${ex.toString()}");
@@ -318,7 +318,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.check, color: AppColor().backgroundColor));
+          icon: Icon(Icons.check, color: AppColors.backgroundColor));
     } else {
       Get.snackbar("Error", "Unable to send Otp",
           titleText: Text(
@@ -331,7 +331,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+          icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
     }
   }
 
@@ -364,7 +364,7 @@ class AuthRepository extends GetxController {
                 style: GoogleFonts.inter(
                     color: Colors.black, fontWeight: FontWeight.normal),
               ),
-              icon: Icon(Icons.check, color: AppColor().backgroundColor));
+              icon: Icon(Icons.check, color: AppColors.backgroundColor));
 
           getUser();
         } else {
@@ -380,7 +380,7 @@ class AuthRepository extends GetxController {
                 style: GoogleFonts.inter(
                     color: Colors.black, fontWeight: FontWeight.normal),
               ),
-              icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+              icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
         }
       }
     } catch (ex) {
@@ -396,7 +396,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+          icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
       _Otpverifystatus(OtpVerifyStatus.Error);
     }
   }

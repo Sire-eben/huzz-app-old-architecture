@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/util/util.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class WalletInInformationDialog extends StatelessWidget {
   @override
@@ -50,7 +50,7 @@ class _WalletState extends State<Wallet> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -61,7 +61,7 @@ class _WalletState extends State<Wallet> {
             Text(
               'My Wallet',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -130,7 +130,7 @@ class _WalletState extends State<Wallet> {
                           Text(
                             "WEMA BANK",
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
@@ -138,7 +138,7 @@ class _WalletState extends State<Wallet> {
                           Text(
                             "3066856680",
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
@@ -148,16 +148,16 @@ class _WalletState extends State<Wallet> {
                       Text(
                         "JOSHUA OLATUNDE",
                         style: GoogleFonts.inter(
-                          color: AppColor().whiteColor,
+                          color: AppColors.whiteColor,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Switch.adaptive(
-                          activeColor: AppColor().orangeBorderColor,
-                          activeTrackColor: AppColor().orangeBorderColor,
-                          inactiveThumbColor: AppColor().orangeColor,
-                          inactiveTrackColor: AppColor().whiteColor,
+                          activeColor: AppColors.orangeBorderColor,
+                          activeTrackColor: AppColors.orangeBorderColor,
+                          inactiveThumbColor: AppColors.orangeColor,
+                          inactiveTrackColor: AppColors.whiteColor,
                           value: viewBal,
                           onChanged: (newValue) =>
                               setState(() => viewBal = newValue))
@@ -167,7 +167,7 @@ class _WalletState extends State<Wallet> {
                     child: Text(
                       '${Utils.getCurrency()}0.0',
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                       ),
@@ -194,7 +194,7 @@ class _WalletState extends State<Wallet> {
               ),
               height: 140,
               decoration: BoxDecoration(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
                   image: AssetImage("assets/images/home_rectangle.png"),
@@ -255,7 +255,7 @@ class WalletOption extends StatelessWidget {
             Text(
               name!,
               style: GoogleFonts.inter(
-                color: AppColor().whiteColor,
+                color: AppColors.whiteColor,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
               ),

@@ -14,7 +14,7 @@ import 'package:huzz/data/model/invoice.dart';
 import 'package:huzz/util/constants.dart';
 import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
-import '../../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../../util/util.dart';
 import 'empty_invoice_info.dart';
 
@@ -88,7 +88,7 @@ class _OverdueState extends State<Overdue> {
                               decoration: BoxDecoration(
                                   color: !deleteItem
                                       ? Colors.transparent
-                                      : AppColor()
+                                      : AppColors
                                           .backgroundColor
                                           .withOpacity(0.2),
                                   shape: BoxShape.circle),
@@ -227,7 +227,7 @@ class _OverdueState extends State<Overdue> {
                                               Icon(
                                                 Icons.arrow_forward_ios,
                                                 color:
-                                                    AppColor().backgroundColor,
+                                                    AppColors.backgroundColor,
                                               ),
                                             ],
                                           ),
@@ -385,8 +385,8 @@ class _OverdueState extends State<Overdue> {
                                                     color: (!_invoiceController
                                                             .checkifSelectedForDeleted(
                                                                 item.id!))
-                                                        ? AppColor().whiteColor
-                                                        : AppColor()
+                                                        ? AppColors.whiteColor
+                                                        : AppColors
                                                             .orangeBorderColor,
                                                     shape: BoxShape.circle,
                                                     border: Border.all(
@@ -404,7 +404,7 @@ class _OverdueState extends State<Overdue> {
                                                       Icons.check,
                                                       size: 15,
                                                       color:
-                                                          AppColor().whiteColor,
+                                                          AppColors.whiteColor,
                                                     ),
                                                   ),
                                                 ),
@@ -439,7 +439,7 @@ class _OverdueState extends State<Overdue> {
                       }
                     },
                     icon: (!deleteItem) ? Container() : Icon(Icons.add),
-                    backgroundColor: AppColor().backgroundColor,
+                    backgroundColor: AppColors.backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
                       style: GoogleFonts.inter(
@@ -468,7 +468,7 @@ class _OverdueState extends State<Overdue> {
                   child: Text(
                     'You are about to delete invoice(s). Are you sure you want to continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -504,17 +504,17 @@ class _OverdueState extends State<Overdue> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -540,13 +540,13 @@ class _OverdueState extends State<Overdue> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

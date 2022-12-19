@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
-import '../../util/colors.dart';
 import '../widget/team_widget.dart';
 
 class NoPermissionTeam extends StatefulWidget {
@@ -41,7 +41,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
             ),
             onPressed: () {
               Get.back();
@@ -52,7 +52,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
               Text(
                 'My Team',
                 style: GoogleFonts.inter(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
                 ),
@@ -60,7 +60,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
             ],
           ),
         ),
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
@@ -72,7 +72,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
                 'You`re a member of ${value!.businessName} team.',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),

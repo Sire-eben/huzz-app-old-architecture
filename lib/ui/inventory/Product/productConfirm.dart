@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/dashboard.dart';
-
-import '../../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 // ignore: must_be_immutable
 class Confirmation extends StatelessWidget {
@@ -14,10 +13,10 @@ class Confirmation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         elevation: 0,
         leading: GestureDetector(
           onTap: () {
@@ -25,7 +24,7 @@ class Confirmation extends StatelessWidget {
           },
           child: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
         ),
       ),
@@ -38,7 +37,7 @@ class Confirmation extends StatelessWidget {
             child: Text(
               '$title Successfully ',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
@@ -48,7 +47,7 @@ class Confirmation extends StatelessWidget {
             child: Text(
               text,
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
@@ -75,13 +74,13 @@ class Confirmation extends StatelessWidget {
                 horizontal: 20,
               ),
               decoration: BoxDecoration(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                   borderRadius: BorderRadius.circular(10)),
               child: Center(
                 child: Text(
                   'Continue',
                   style: GoogleFonts.inter(
-                    color: AppColor().whiteColor,
+                    color: AppColors.whiteColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

@@ -18,6 +18,7 @@ import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../util/util.dart';
 import 'itemCard.dart';
 
@@ -162,7 +163,7 @@ class _MoneyOutState extends State<MoneyOut> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -173,7 +174,7 @@ class _MoneyOutState extends State<MoneyOut> {
             Text(
               'Money Out',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -251,7 +252,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               children: [
                                 Radio<int>(
                                     value: 1,
-                                    activeColor: AppColor().backgroundColor,
+                                    activeColor: AppColors.backgroundColor,
                                     groupValue:
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
@@ -267,7 +268,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                 Text(
                                   'Enter Item',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -290,7 +291,7 @@ class _MoneyOutState extends State<MoneyOut> {
                               children: [
                                 Radio<int>(
                                     value: 0,
-                                    activeColor: AppColor().backgroundColor,
+                                    activeColor: AppColors.backgroundColor,
                                     groupValue:
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
@@ -307,7 +308,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                 Text(
                                   'Select Item',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -440,14 +441,14 @@ class _MoneyOutState extends State<MoneyOut> {
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
                                         width: 2,
-                                        color: AppColor().backgroundColor)),
+                                        color: AppColors.backgroundColor)),
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<Product>(
                                     value:
                                         _transactionController.selectedProduct,
                                     icon: Icon(
                                       Icons.keyboard_arrow_down,
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                     ),
                                     iconSize: 30,
                                     items: _productController
@@ -584,8 +585,8 @@ class _MoneyOutState extends State<MoneyOut> {
                                             .isNotEmpty &&
                                         _transactionController
                                             .amountController!.text.isNotEmpty)
-                                ? AppColor().backgroundColor
-                                : AppColor().backgroundColor.withOpacity(0.3),
+                                ? AppColors.backgroundColor
+                                : AppColors.backgroundColor.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(45)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -705,14 +706,14 @@ class _MoneyOutState extends State<MoneyOut> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              width: 2, color: AppColor().backgroundColor)),
+                              width: 2, color: AppColors.backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value:
                               _transactionController.selectedCategoryExpenses,
                           icon: Icon(
                             Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                           iconSize: 30,
                           items: _transactionController.expenseCategories
@@ -765,13 +766,13 @@ class _MoneyOutState extends State<MoneyOut> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              width: 2, color: AppColor().backgroundColor)),
+                              width: 2, color: AppColors.backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                             value: _transactionController.valuePaymentMode,
                             icon: Icon(
                               Icons.keyboard_arrow_down,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             iconSize: 30,
                             items: paymentMode.map(buildPaymentItem).toList(),
@@ -852,13 +853,13 @@ class _MoneyOutState extends State<MoneyOut> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              width: 2, color: AppColor().backgroundColor)),
+                              width: 2, color: AppColors.backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value: _transactionController.selectedPaymentSource,
                           icon: Icon(
                             Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                           iconSize: 30,
                           items: _transactionController.paymentSource
@@ -893,7 +894,7 @@ class _MoneyOutState extends State<MoneyOut> {
                           ListTile(
                             leading: Icon(
                               Icons.camera,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             title: Text('Camera'),
                             onTap: () {
@@ -904,7 +905,7 @@ class _MoneyOutState extends State<MoneyOut> {
                           ListTile(
                             leading: Icon(
                               Icons.image,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             title: Text('Gallery'),
                             onTap: () {
@@ -919,7 +920,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   child: DottedBorder(
                     borderType: BorderType.RRect,
                     radius: Radius.circular(10),
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     strokeWidth: _transactionController.image != null ? 0 : 2,
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
@@ -928,13 +929,13 @@ class _MoneyOutState extends State<MoneyOut> {
                           EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
                         color: _transactionController.image != null
-                            ? AppColor().backgroundColor.withOpacity(0.2)
+                            ? AppColors.backgroundColor.withOpacity(0.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         // border: _transactionController.image != null
                         //     ? null
                         //     : Border.all(
-                        //         width: 2, color: AppColor().backgroundColor)
+                        //         width: 2, color: AppColors.backgroundColor)
                       ),
                       child: Row(
                         children: [
@@ -1005,14 +1006,14 @@ class _MoneyOutState extends State<MoneyOut> {
                       'Add Merchant',
                       style: GoogleFonts.inter(
                         color: _transactionController.addCustomer == true
-                            ? AppColor().backgroundColor
+                            ? AppColors.backgroundColor
                             : Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Switch.adaptive(
-                        activeColor: AppColor().backgroundColor,
+                        activeColor: AppColors.backgroundColor,
                         value: _transactionController.addCustomer,
                         onChanged: (newValue) => setState(() =>
                             _transactionController.addCustomer = newValue))
@@ -1036,7 +1037,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                   children: [
                                     Radio<int>(
                                         value: 1,
-                                        activeColor: AppColor().backgroundColor,
+                                        activeColor: AppColors.backgroundColor,
                                         groupValue:
                                             _transactionController.customerType,
                                         onChanged: (value) => setState(() =>
@@ -1045,7 +1046,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                     Text(
                                       'New Merchant',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -1061,7 +1062,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                   children: [
                                     Radio<int>(
                                         value: 0,
-                                        activeColor: AppColor().backgroundColor,
+                                        activeColor: AppColors.backgroundColor,
                                         groupValue:
                                             _transactionController.customerType,
                                         onChanged: (value) => setState(() =>
@@ -1070,7 +1071,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                     Text(
                                       'Existing Merchant',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -1131,7 +1132,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                                 BorderRadius.circular(10),
                                             border: Border.all(
                                                 width: 2,
-                                                color: AppColor()
+                                                color: AppColors
                                                     .backgroundColor)),
                                         child: DropdownButtonHideUnderline(
                                           child: DropdownButton<Customer>(
@@ -1139,7 +1140,7 @@ class _MoneyOutState extends State<MoneyOut> {
                                                 .selectedCustomer,
                                             icon: Icon(
                                               Icons.keyboard_arrow_down,
-                                              color: AppColor().backgroundColor,
+                                              color: AppColors.backgroundColor,
                                             ),
                                             iconSize: 30,
                                             items: _customerController
@@ -1212,7 +1213,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_transactionController.addingTransactionStatus ==
                             AddingTransactionStatus.Loading)
@@ -1280,7 +1281,7 @@ class _MoneyOutState extends State<MoneyOut> {
                       children: [
                         Radio<int>(
                           value: 1,
-                          activeColor: AppColor().backgroundColor,
+                          activeColor: AppColors.backgroundColor,
                           groupValue: _transactionController.selectedValue,
                           onChanged: (value) {
                             myState(() {
@@ -1291,7 +1292,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         Text(
                           'Enter Item',
                           style: GoogleFonts.inter(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             fontStyle: FontStyle.normal,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -1310,7 +1311,7 @@ class _MoneyOutState extends State<MoneyOut> {
                       children: [
                         Radio<int>(
                             value: 0,
-                            activeColor: AppColor().backgroundColor,
+                            activeColor: AppColors.backgroundColor,
                             groupValue: _transactionController.selectedValue,
                             onChanged: (value) {
                               myState(() {
@@ -1321,7 +1322,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         Text(
                           'Select Item',
                           style: GoogleFonts.inter(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             fontStyle: FontStyle.normal,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -1405,13 +1406,13 @@ class _MoneyOutState extends State<MoneyOut> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                  width: 2, color: AppColor().backgroundColor)),
+                                  width: 2, color: AppColors.backgroundColor)),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<Product>(
                               value: _transactionController.selectedProduct,
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               iconSize: 30,
                               items: _productController.offlineBusinessProduct
@@ -1497,7 +1498,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(
@@ -1660,7 +1661,7 @@ class _MoneyOutState extends State<MoneyOut> {
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(

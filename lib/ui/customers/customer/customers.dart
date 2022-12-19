@@ -6,7 +6,7 @@ import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/customers/customers/add_customer.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:random_color/random_color.dart';
 import '../../widget/loading_widget.dart';
@@ -52,7 +52,7 @@ class _CustomersState extends State<Customers> {
         return teamController.teamMembersStatus == TeamMemberStatus.Loading
             ? Center(
                 child: LoadingWidget(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
               )
             : Container(
@@ -65,7 +65,7 @@ class _CustomersState extends State<Customers> {
                     TextField(
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                       controller: _searchcontroller,
                       cursorColor: Colors.white,
@@ -74,7 +74,7 @@ class _CustomersState extends State<Customers> {
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.search,
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(0),
@@ -94,14 +94,14 @@ class _CustomersState extends State<Customers> {
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
                             width: 2,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
                             width: 2,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                       ),
@@ -149,7 +149,7 @@ class _CustomersState extends State<Customers> {
                                   'You need to be authorized\nto view this module',
                                   style: GoogleFonts.inter(
                                       fontSize: 14,
-                                      color: AppColor().orangeBorderColor,
+                                      color: AppColors.orangeBorderColor,
                                       fontWeight: FontWeight.w600),
                                   textAlign: TextAlign.center,
                                 ),
@@ -652,7 +652,7 @@ class _CustomersState extends State<Customers> {
                         Get.to(() => AddCustomer());
                       },
                       icon: Icon(Icons.add),
-                      backgroundColor: AppColor().backgroundColor,
+                      backgroundColor: AppColors.backgroundColor,
                       label: Text(
                         'Add Customer',
                         style: GoogleFonts.inter(
@@ -668,7 +668,7 @@ class _CustomersState extends State<Customers> {
                             Get.to(() => AddCustomer());
                           },
                           icon: Icon(Icons.add),
-                          backgroundColor: AppColor().backgroundColor,
+                          backgroundColor: AppColors.backgroundColor,
                           label: Text(
                             'Add Customer',
                             style: GoogleFonts.inter(
@@ -696,7 +696,7 @@ class _CustomersState extends State<Customers> {
                   child: Text(
                     'You are about to delete a customer, Are you sure you want to continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -731,17 +731,17 @@ class _CustomersState extends State<Customers> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -763,13 +763,13 @@ class _CustomersState extends State<Customers> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

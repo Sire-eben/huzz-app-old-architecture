@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class CustomDropDownField extends StatelessWidget {
   Rx<String> currentSelectedValue;
@@ -46,7 +46,8 @@ class CustomDropDownField extends StatelessWidget {
                           margin: EdgeInsets.only(top: 5),
                           child: Text(
                             "*",
-                            style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
+                            style: GoogleFonts.inter(
+                                color: Colors.red, fontSize: 12),
                           ))
                       : Container()
                 ],
@@ -58,16 +59,16 @@ class CustomDropDownField extends StatelessWidget {
                 return InputDecorator(
                   decoration: InputDecoration(
                       labelStyle: labelTextStyle,
-                      errorStyle:
-                          GoogleFonts.inter(color: Colors.redAccent, fontSize: 16.0),
+                      errorStyle: GoogleFonts.inter(
+                          color: Colors.redAccent, fontSize: 16.0),
                       hintText: hintText,
                       enabledBorder: OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: AppColor().backgroundColor),
+                              BorderSide(color: AppColors.backgroundColor),
                           borderRadius: BorderRadius.circular(10.0)),
                       border: OutlineInputBorder(
                           borderSide:
-                              BorderSide(color: AppColor().backgroundColor),
+                              BorderSide(color: AppColors.backgroundColor),
                           borderRadius: BorderRadius.circular(10.0))),
                   isEmpty: currentSelectedValue.value.isEmpty,
                   child: DropdownButtonHideUnderline(

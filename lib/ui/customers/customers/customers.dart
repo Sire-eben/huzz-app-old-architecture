@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/customer_model.dart';
 
 class Customers extends StatefulWidget {
@@ -45,7 +45,7 @@ class _CustomersState extends State<Customers> {
             TextField(
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
               ),
               controller: _searchcontroller,
               onChanged: searchItem,
@@ -54,7 +54,7 @@ class _CustomersState extends State<Customers> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
@@ -74,14 +74,14 @@ class _CustomersState extends State<Customers> {
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
               ),
@@ -212,7 +212,7 @@ class _CustomersState extends State<Customers> {
           // Get.to(() => AddCustomer());
         },
         icon: Icon(Icons.add),
-        backgroundColor: AppColor().backgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         label: Text(
           'Add Customer',
           style: GoogleFonts.inter(

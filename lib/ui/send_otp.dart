@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/sign_in.dart';
 import 'package:huzz/ui/terms_of_condition.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../data/repository/home_respository.dart';
 import 'privacy_policy.dart';
 import 'sign_up.dart';
@@ -33,7 +33,7 @@ class _SendOtpState extends State<SendOtp> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -66,7 +66,7 @@ class _SendOtpState extends State<SendOtp> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        color: AppColor().backgroundColor, width: 2.0),
+                        color: AppColors.backgroundColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
@@ -81,7 +81,7 @@ class _SendOtpState extends State<SendOtp> {
                           decoration: BoxDecoration(
                             border: Border(
                                 right: BorderSide(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     width: 2)),
                             // borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20))
                           ),
@@ -100,7 +100,7 @@ class _SendOtpState extends State<SendOtp> {
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color:
-                                    AppColor().backgroundColor.withOpacity(0.5),
+                                    AppColors.backgroundColor.withOpacity(0.5),
                               )
                             ],
                           ),
@@ -155,7 +155,7 @@ class _SendOtpState extends State<SendOtp> {
                             TextSpan(
                               style: GoogleFonts.inter(
                                 fontSize: 12,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               text: "Sign in",
                             )
@@ -179,7 +179,7 @@ class _SendOtpState extends State<SendOtp> {
                                 text: "Terms of use ",
                                 style: GoogleFonts.inter(
                                   fontSize: 12,
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   letterSpacing: 0.5,
                                 ),
                                 recognizer: TapGestureRecognizer()
@@ -196,7 +196,7 @@ class _SendOtpState extends State<SendOtp> {
                                 text: "and Privacy policy",
                                 style: GoogleFonts.inter(
                                     fontSize: 12,
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     letterSpacing: 0.5),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = privacyPolicy,
@@ -218,7 +218,7 @@ class _SendOtpState extends State<SendOtp> {
                               'Enter your phone number to continue!',
                             ),
                             icon: Icon(Icons.info,
-                                color: AppColor().orangeBorderColor));
+                                color: AppColors.orangeBorderColor));
                         print('phone cannot be empty');
                       } else if (_authController
                               .phoneNumberController.text.length >
@@ -231,7 +231,7 @@ class _SendOtpState extends State<SendOtp> {
                               'Invalid phone number!',
                             ),
                             icon: Icon(Icons.info,
-                                color: AppColor().orangeBorderColor));
+                                color: AppColors.orangeBorderColor));
                         print('phone cannot be empty');
                       } else {
                         // _authController.sendSmsOtp();
@@ -244,7 +244,7 @@ class _SendOtpState extends State<SendOtp> {
                       margin: EdgeInsets.only(left: 50, right: 50),
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_authController.Otpauthstatus ==
                               OtpAuthStatus.Loading)
@@ -275,7 +275,7 @@ class _SendOtpState extends State<SendOtp> {
                                           Radius.circular(50))),
                                   child: Icon(
                                     Icons.arrow_forward,
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     size: 16,
                                   ),
                                 )

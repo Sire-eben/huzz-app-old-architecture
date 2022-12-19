@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/home_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class ForgotPIN extends StatefulWidget {
   @override
@@ -71,7 +71,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                           },
                           child: Icon(
                             Icons.arrow_back,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                       ),
@@ -81,7 +81,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                 Center(
                   child: Text('Forgot Pin',
                       style: GoogleFonts.inter(
-                          color: AppColor().orangeBorderColor,
+                          color: AppColors.orangeBorderColor,
                           fontSize: 28,
                           fontWeight: FontWeight.w500)),
                 ),
@@ -123,7 +123,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        color: AppColor().backgroundColor, width: 2.0),
+                        color: AppColors.backgroundColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
@@ -138,7 +138,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                           decoration: BoxDecoration(
                             border: Border(
                                 right: BorderSide(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     width: 2)),
                           ),
                           height: 50,
@@ -156,7 +156,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color:
-                                    AppColor().backgroundColor.withOpacity(0.5),
+                                    AppColors.backgroundColor.withOpacity(0.5),
                               )
                             ],
                           ),
@@ -202,7 +202,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                       margin: EdgeInsets.only(left: 50, right: 50),
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_authController.Otpauthstatus ==
                               OtpAuthStatus.Loading)
@@ -234,7 +234,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                                           Radius.circular(50))),
                                   child: Icon(
                                     Icons.arrow_forward,
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     size: 16,
                                   ),
                                 )

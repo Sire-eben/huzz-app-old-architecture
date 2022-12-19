@@ -6,7 +6,7 @@ import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/inventory/Service/servicelist.dart';
 import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
-import '../../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../../util/util.dart';
 import 'add_service.dart';
 
@@ -42,7 +42,7 @@ class _ServicesState extends State<Services> {
                           Get.to(() => AddService());
                         },
                         icon: Icon(Icons.add),
-                        backgroundColor: AppColor().backgroundColor,
+                        backgroundColor: AppColors.backgroundColor,
                         label: Text(
                           'New Service',
                           style: GoogleFonts.inter(
@@ -97,13 +97,13 @@ class _ServicesState extends State<Services> {
                           Image.asset(
                             'assets/images/Group 3625.png',
                             height: 50,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                           SizedBox(height: 5),
                           Text(
                             'Service',
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
                             ),
@@ -115,7 +115,7 @@ class _ServicesState extends State<Services> {
                                 ? "Your services will show here. Click the"
                                 : "Your services will show here.",
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontSize: 10,
                               fontWeight: FontWeight.normal,
                             ),
@@ -125,7 +125,7 @@ class _ServicesState extends State<Services> {
                             Text(
                               "New Service button to add your first service",
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 10,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -138,7 +138,7 @@ class _ServicesState extends State<Services> {
                               'You need to be authorized\nto view this module',
                               style: GoogleFonts.inter(
                                   fontSize: 14,
-                                  color: AppColor().orangeBorderColor,
+                                  color: AppColors.orangeBorderColor,
                                   fontWeight: FontWeight.w600),
                               textAlign: TextAlign.center,
                             ),
@@ -157,7 +157,7 @@ class _ServicesState extends State<Services> {
   Widget serviceCount(BuildContext context) => Container(
         height: 95,
         decoration: BoxDecoration(
-          color: AppColor().backgroundColor,
+          color: AppColors.backgroundColor,
           borderRadius: BorderRadius.all(
             Radius.circular(15),
           ),
@@ -195,7 +195,7 @@ class _ServicesState extends State<Services> {
               height: 95,
               padding: EdgeInsets.only(right: 9),
               decoration: BoxDecoration(
-                color: AppColor().secondbgColor,
+                color: AppColors.secondbgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -207,7 +207,7 @@ class _ServicesState extends State<Services> {
                   colors: [
                     Color(0xff0D8372),
                     Color(0xff07A58E),
-                    AppColor().backgroundColor.withOpacity(0.5),
+                    AppColors.backgroundColor.withOpacity(0.5),
                   ],
                 ),
                 borderRadius: BorderRadius.only(

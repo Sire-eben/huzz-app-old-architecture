@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CreatePin extends StatefulWidget {
@@ -34,7 +34,7 @@ class _CreatePinState extends State<CreatePin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       resizeToAvoidBottomInset: false,
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -65,7 +65,7 @@ class _CreatePinState extends State<CreatePin> {
                         },
                         child: Icon(
                           Icons.arrow_back,
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                         ),
                       ),
                     ),
@@ -75,7 +75,7 @@ class _CreatePinState extends State<CreatePin> {
               Center(
                 child: Text('Set Your PIN',
                     style: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontSize: 28,
                         fontWeight: FontWeight.w500)),
               ),
@@ -86,7 +86,8 @@ class _CreatePinState extends State<CreatePin> {
                 child: Text(
                   'Set a 4-digit PIN for subsequent logins',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
+                  style: GoogleFonts.inter(
+                      fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
               SizedBox(
@@ -113,9 +114,9 @@ class _CreatePinState extends State<CreatePin> {
                   animationType: AnimationType.fade,
                   controller: _authController.pinController,
                   pinTheme: PinTheme(
-                    inactiveColor: AppColor().backgroundColor,
-                    activeColor: AppColor().backgroundColor,
-                    selectedColor: AppColor().backgroundColor,
+                    inactiveColor: AppColors.backgroundColor,
+                    activeColor: AppColors.backgroundColor,
+                    selectedColor: AppColors.backgroundColor,
                     selectedFillColor: Colors.white,
                     inactiveFillColor: Colors.white,
                     shape: PinCodeFieldShape.box,
@@ -168,9 +169,9 @@ class _CreatePinState extends State<CreatePin> {
                   animationType: AnimationType.fade,
                   controller: _authController.confirmPinController,
                   pinTheme: PinTheme(
-                    inactiveColor: AppColor().backgroundColor,
-                    activeColor: AppColor().backgroundColor,
-                    selectedColor: AppColor().backgroundColor,
+                    inactiveColor: AppColors.backgroundColor,
+                    activeColor: AppColors.backgroundColor,
+                    selectedColor: AppColors.backgroundColor,
                     selectedFillColor: Colors.white,
                     inactiveFillColor: Colors.white,
                     shape: PinCodeFieldShape.box,
@@ -216,7 +217,7 @@ class _CreatePinState extends State<CreatePin> {
                             'Enter your pin to continue!',
                           ),
                           icon: Icon(Icons.info,
-                              color: AppColor().orangeBorderColor));
+                              color: AppColors.orangeBorderColor));
                       print('pin cannot be empty');
                     } else {
                       if (_authController.confirmPinController.text ==
@@ -235,7 +236,7 @@ class _CreatePinState extends State<CreatePin> {
                     margin: EdgeInsets.only(left: 50, right: 50),
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child:
                         (_authController.signupStatus == SignupStatus.Loading)
@@ -263,7 +264,7 @@ class _CreatePinState extends State<CreatePin> {
                                   //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
 
                                   //    ),
-                                  //    child: Icon(Icons.arrow_forward,color: AppColor().backgroundColor,size: 16,),
+                                  //    child: Icon(Icons.arrow_forward,color: AppColors.backgroundColor,size: 16,),
                                   //  )
                                 ],
                               ),

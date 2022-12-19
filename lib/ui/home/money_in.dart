@@ -12,7 +12,7 @@ import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/payment_item.dart';
 import 'package:huzz/data/model/product.dart';
@@ -161,7 +161,7 @@ class _MoneyInState extends State<MoneyIn> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -172,7 +172,7 @@ class _MoneyInState extends State<MoneyIn> {
             Text(
               'Money In',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -251,7 +251,7 @@ class _MoneyInState extends State<MoneyIn> {
                               children: [
                                 Radio<int>(
                                     value: 1,
-                                    activeColor: AppColor().backgroundColor,
+                                    activeColor: AppColors.backgroundColor,
                                     groupValue:
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
@@ -267,7 +267,7 @@ class _MoneyInState extends State<MoneyIn> {
                                 Text(
                                   'Enter Item',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -290,7 +290,7 @@ class _MoneyInState extends State<MoneyIn> {
                               children: [
                                 Radio<int>(
                                     value: 0,
-                                    activeColor: AppColor().backgroundColor,
+                                    activeColor: AppColors.backgroundColor,
                                     groupValue:
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
@@ -307,7 +307,7 @@ class _MoneyInState extends State<MoneyIn> {
                                 Text(
                                   'Select Item',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -444,14 +444,14 @@ class _MoneyInState extends State<MoneyIn> {
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
                                         width: 2,
-                                        color: AppColor().backgroundColor)),
+                                        color: AppColors.backgroundColor)),
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<Product>(
                                     value:
                                         _transactionController.selectedProduct,
                                     icon: Icon(
                                       Icons.keyboard_arrow_down,
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                     ),
                                     iconSize: 30,
                                     items: _productController
@@ -584,8 +584,8 @@ class _MoneyInState extends State<MoneyIn> {
                                             .isNotEmpty &&
                                         _transactionController
                                             .amountController!.text.isNotEmpty)
-                                ? AppColor().backgroundColor
-                                : AppColor().backgroundColor.withOpacity(0.3),
+                                ? AppColors.backgroundColor
+                                : AppColors.backgroundColor.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(45)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -701,13 +701,13 @@ class _MoneyInState extends State<MoneyIn> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              width: 2, color: AppColor().backgroundColor)),
+                              width: 2, color: AppColors.backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                             value: _transactionController.valuePaymentMode,
                             icon: Icon(
                               Icons.keyboard_arrow_down,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             iconSize: 30,
                             items: paymentMode.map(buildPaymentItem).toList(),
@@ -788,13 +788,13 @@ class _MoneyInState extends State<MoneyIn> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              width: 2, color: AppColor().backgroundColor)),
+                              width: 2, color: AppColors.backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value: _transactionController.selectedPaymentSource,
                           icon: Icon(
                             Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                           iconSize: 30,
                           items: _transactionController.paymentSource
@@ -829,7 +829,7 @@ class _MoneyInState extends State<MoneyIn> {
                           ListTile(
                             leading: Icon(
                               Icons.camera,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             title: Text('Camera'),
                             onTap: () {
@@ -840,7 +840,7 @@ class _MoneyInState extends State<MoneyIn> {
                           ListTile(
                             leading: Icon(
                               Icons.image,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             title: Text('Gallery'),
                             onTap: () {
@@ -855,7 +855,7 @@ class _MoneyInState extends State<MoneyIn> {
                   child: DottedBorder(
                     borderType: BorderType.RRect,
                     radius: Radius.circular(10),
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     strokeWidth: _transactionController.image != null ? 0 : 2,
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
@@ -864,13 +864,13 @@ class _MoneyInState extends State<MoneyIn> {
                           EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
                         color: _transactionController.image != null
-                            ? AppColor().backgroundColor.withOpacity(0.2)
+                            ? AppColors.backgroundColor.withOpacity(0.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         // border: _transactionController.image != null
                         //     ? null
                         //     : Border.all(
-                        //         width: 2, color: AppColor().backgroundColor)
+                        //         width: 2, color: AppColors.backgroundColor)
                       ),
                       child: Row(
                         children: [
@@ -941,14 +941,14 @@ class _MoneyInState extends State<MoneyIn> {
                       'Add Customer',
                       style: GoogleFonts.inter(
                         color: _transactionController.addCustomer == true
-                            ? AppColor().backgroundColor
+                            ? AppColors.backgroundColor
                             : Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Switch.adaptive(
-                        activeColor: AppColor().backgroundColor,
+                        activeColor: AppColors.backgroundColor,
                         value: _transactionController.addCustomer,
                         onChanged: (newValue) => setState(() =>
                             _transactionController.addCustomer = newValue))
@@ -972,7 +972,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   children: [
                                     Radio<int>(
                                         value: 1,
-                                        activeColor: AppColor().backgroundColor,
+                                        activeColor: AppColors.backgroundColor,
                                         groupValue:
                                             _transactionController.customerType,
                                         onChanged: (value) => setState(() =>
@@ -981,7 +981,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     Text(
                                       'New Customer',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -997,7 +997,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   children: [
                                     Radio<int>(
                                         value: 0,
-                                        activeColor: AppColor().backgroundColor,
+                                        activeColor: AppColors.backgroundColor,
                                         groupValue:
                                             _transactionController.customerType,
                                         onChanged: (value) => setState(() =>
@@ -1006,7 +1006,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     Text(
                                       'Existing Customer',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -1067,15 +1067,15 @@ class _MoneyInState extends State<MoneyIn> {
                                                 BorderRadius.circular(10),
                                             border: Border.all(
                                                 width: 2,
-                                                color: AppColor()
-                                                    .backgroundColor)),
+                                                color:
+                                                    AppColors.backgroundColor)),
                                         child: DropdownButtonHideUnderline(
                                           child: DropdownButton<Customer>(
                                             value: _transactionController
                                                 .selectedCustomer,
                                             icon: Icon(
                                               Icons.keyboard_arrow_down,
-                                              color: AppColor().backgroundColor,
+                                              color: AppColors.backgroundColor,
                                             ),
                                             iconSize: 30,
                                             items: _customerController
@@ -1144,7 +1144,7 @@ class _MoneyInState extends State<MoneyIn> {
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_transactionController.addingTransactionStatus ==
                             AddingTransactionStatus.Loading)
@@ -1213,7 +1213,7 @@ class _MoneyInState extends State<MoneyIn> {
                         children: [
                           Radio<int>(
                             value: 1,
-                            activeColor: AppColor().backgroundColor,
+                            activeColor: AppColors.backgroundColor,
                             groupValue: _transactionController.selectedValue,
                             onChanged: (value) {
                               myState(() {
@@ -1224,7 +1224,7 @@ class _MoneyInState extends State<MoneyIn> {
                           Text(
                             'Enter Item',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1243,7 +1243,7 @@ class _MoneyInState extends State<MoneyIn> {
                         children: [
                           Radio<int>(
                               value: 0,
-                              activeColor: AppColor().backgroundColor,
+                              activeColor: AppColors.backgroundColor,
                               groupValue: _transactionController.selectedValue,
                               onChanged: (value) {
                                 myState(() {
@@ -1254,7 +1254,7 @@ class _MoneyInState extends State<MoneyIn> {
                           Text(
                             'Select product/services',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1339,13 +1339,13 @@ class _MoneyInState extends State<MoneyIn> {
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                     width: 2,
-                                    color: AppColor().backgroundColor)),
+                                    color: AppColors.backgroundColor)),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<Product>(
                                 value: _transactionController.selectedProduct,
                                 icon: Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                 ),
                                 iconSize: 30,
                                 items: _productController.offlineBusinessProduct
@@ -1434,7 +1434,7 @@ class _MoneyInState extends State<MoneyIn> {
                     width: MediaQuery.of(context).size.width,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Center(
                       child: Text(
@@ -1600,7 +1600,7 @@ class _MoneyInState extends State<MoneyIn> {
                     width: MediaQuery.of(context).size.width,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Center(
                       child: Text(

@@ -9,7 +9,7 @@ import 'package:huzz/core/constants/app_colors.dart';
 import 'package:huzz/data/model/transaction_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'receipt/money_in_out_pdf.dart';
 
 class IncomeReceipt extends StatefulWidget {
@@ -126,8 +126,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                                         0.06,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: AppColor()
-                                            .backgroundColor
+                                        color: AppColors.backgroundColor
                                             .withOpacity(0.2)),
                                     child: SvgPicture.asset(
                                         'assets/images/download.svg'),
@@ -139,10 +138,10 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                                 Text(
                                   'Download',
                                   style: GoogleFonts.inter(
-                                      color: Colors.black,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      ),
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ],
                             ),
@@ -166,8 +165,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                                         0.06,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: AppColor()
-                                            .backgroundColor
+                                        color: AppColors.backgroundColor
                                             .withOpacity(0.2)),
                                     child: SvgPicture.asset(
                                         'assets/images/share.svg'),
@@ -179,10 +177,10 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                                   Text(
                                     'Share',
                                     style: GoogleFonts.inter(
-                                        color: Colors.black,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        ),
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -205,16 +203,16 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                                   MediaQuery.of(context).size.height * 0.03),
                           height: 50,
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: Center(
                             child: Text(
                               'Continue',
                               style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  ),
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ),

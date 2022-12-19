@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/reg_home.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/onboarding_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -21,7 +21,6 @@ class _OnboardingMainState extends State<OnboardingMain> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -49,7 +48,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                     //     },
                     //     child: Icon(
                     //       Icons.arrow_back,
-                    //       color: AppColor().backgroundColor,
+                    //       color: AppColors.backgroundColor,
                     //     ),
                     //   ),
                     // ),
@@ -63,7 +62,8 @@ class _OnboardingMainState extends State<OnboardingMain> {
                         },
                         child: Text(
                           "Skip",
-                          style: GoogleFonts.inter(color: Colors.black, fontSize: 16),
+                          style: GoogleFonts.inter(
+                              color: Colors.black, fontSize: 16),
                         ),
                       ),
                     ),
@@ -91,7 +91,6 @@ class _OnboardingMainState extends State<OnboardingMain> {
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w600,
                     fontSize: 24,
-                    
                     color: Colors.black,
                   ),
                   maxLines: 1,
@@ -106,7 +105,6 @@ class _OnboardingMainState extends State<OnboardingMain> {
                   boards[selectedIndex].body!,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
-                    
                     color: Colors.black,
                     fontSize: 12,
                     letterSpacing: 0.5,
@@ -139,7 +137,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                               decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50)),
-                                  color: AppColor().backgroundColor),
+                                  color: AppColors.backgroundColor),
                               child: Icon(
                                 Icons.arrow_forward,
                                 color: Colors.white,
@@ -159,7 +157,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                               ),
                               customColors: CustomSliderColors(
                                   trackColor: Colors.white,
-                                  progressBarColor: AppColor().backgroundColor,
+                                  progressBarColor: AppColors.backgroundColor,
                                   gradientEndAngle: 360.0,
                                   trackGradientEndAngle: 360),
                               customWidths:
@@ -185,7 +183,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                         margin: EdgeInsets.only(left: 50, right: 50),
                         height: 50,
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         child: Row(
@@ -194,8 +192,8 @@ class _OnboardingMainState extends State<OnboardingMain> {
                           children: [
                             Text(
                               'Start Using Huzz',
-                              style:
-                                  GoogleFonts.inter(color: Colors.white, fontSize: 18),
+                              style: GoogleFonts.inter(
+                                  color: Colors.white, fontSize: 18),
                             ),
                             SizedBox(
                               width: 10,
@@ -208,7 +206,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                                       BorderRadius.all(Radius.circular(50))),
                               child: Icon(
                                 Icons.arrow_forward,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 size: 16,
                               ),
                             )

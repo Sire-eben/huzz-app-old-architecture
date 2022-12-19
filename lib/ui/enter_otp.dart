@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'widget/timer_button.dart';
 
@@ -37,7 +37,7 @@ class _EnterOtpState extends State<EnterOtp> {
       }
 
       return Scaffold(
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -67,7 +67,7 @@ class _EnterOtpState extends State<EnterOtp> {
                           },
                           child: Icon(
                             Icons.arrow_back,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                       ),
@@ -77,7 +77,7 @@ class _EnterOtpState extends State<EnterOtp> {
                 Center(
                   child: Text('Enter OTP',
                       style: GoogleFonts.inter(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           fontSize: 28,
                           fontWeight: FontWeight.w500)),
                 ),
@@ -88,7 +88,8 @@ class _EnterOtpState extends State<EnterOtp> {
                   child: Text(
                     'Enter the four digit code we sent to your phone number',
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
+                    style: GoogleFonts.inter(
+                        fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                 ),
                 Spacer(),
@@ -113,9 +114,9 @@ class _EnterOtpState extends State<EnterOtp> {
                       obscureText: true,
                       animationType: AnimationType.fade,
                       pinTheme: PinTheme(
-                        inactiveColor: AppColor().backgroundColor,
-                        activeColor: AppColor().backgroundColor,
-                        selectedColor: AppColor().backgroundColor,
+                        inactiveColor: AppColors.backgroundColor,
+                        activeColor: AppColors.backgroundColor,
+                        selectedColor: AppColors.backgroundColor,
                         selectedFillColor: Colors.white,
                         inactiveFillColor: Colors.white,
                         shape: PinCodeFieldShape.box,
@@ -158,13 +159,13 @@ class _EnterOtpState extends State<EnterOtp> {
                 //     child: Text(
                 //       "Send as Voice Call",
                 //       style: GoogleFonts.inter(
-                //           color: AppColor().backgroundColor, fontSize: 12),
+                //           color: AppColors.backgroundColor, fontSize: 12),
                 //     )),
                 TimerButton(
                   label: "Send as Voice Call",
                   timeOutInSeconds: 20,
                   activeTextStyle: GoogleFonts.inter(
-                      color: AppColor().backgroundColor, fontSize: 12),
+                      color: AppColors.backgroundColor, fontSize: 12),
                   onPressed: () {
                     _authController.sendVoiceOtp();
                   },
@@ -194,7 +195,8 @@ class _EnterOtpState extends State<EnterOtp> {
                     },
                     child: Text(
                       "Resend via sms",
-                      style: GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
+                      style: GoogleFonts.inter(
+                          color: Color(0xffEF6500), fontSize: 12),
                     )),
                 Spacer(),
                 GestureDetector(
@@ -206,7 +208,7 @@ class _EnterOtpState extends State<EnterOtp> {
                     margin: EdgeInsets.only(left: 50, right: 50),
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_authController.Otpverifystatus ==
                             OtpVerifyStatus.Loading)
@@ -237,7 +239,7 @@ class _EnterOtpState extends State<EnterOtp> {
                                         BorderRadius.all(Radius.circular(50))),
                                 child: Icon(
                                   Icons.arrow_forward,
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   size: 16,
                                 ),
                               )

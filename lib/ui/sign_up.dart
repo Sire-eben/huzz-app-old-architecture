@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/create_pin.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'widget/custom_form_field.dart';
 
 class Signup extends StatefulWidget {
@@ -24,7 +24,7 @@ class _SignUpState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -56,7 +56,7 @@ class _SignUpState extends State<Signup> {
                         },
                         child: Icon(
                           Icons.arrow_back,
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                         ),
                       ),
                     ),
@@ -66,7 +66,7 @@ class _SignUpState extends State<Signup> {
               Center(
                 child: Text('Personal Details',
                     style: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontSize: 28,
                         fontWeight: FontWeight.w500)),
               ),
@@ -137,7 +137,7 @@ class _SignUpState extends State<Signup> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        color: AppColor().backgroundColor, width: 2.0),
+                        color: AppColors.backgroundColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
@@ -152,7 +152,7 @@ class _SignUpState extends State<Signup> {
                           decoration: BoxDecoration(
                             border: Border(
                                 right: BorderSide(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     width: 2)),
                           ),
                           height: 50,
@@ -170,7 +170,7 @@ class _SignUpState extends State<Signup> {
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color:
-                                    AppColor().backgroundColor.withOpacity(0.5),
+                                    AppColors.backgroundColor.withOpacity(0.5),
                               )
                             ],
                           ),
@@ -230,7 +230,7 @@ class _SignUpState extends State<Signup> {
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   height: 50,
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -252,7 +252,7 @@ class _SignUpState extends State<Signup> {
                                 BorderRadius.all(Radius.circular(50))),
                         child: Icon(
                           Icons.arrow_forward,
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           size: 16,
                         ),
                       )

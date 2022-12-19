@@ -8,7 +8,7 @@ import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../../util/util.dart';
 
 // ignore: must_be_immutable
@@ -74,23 +74,23 @@ class _AddProductState extends State<AddProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         leading: GestureDetector(
           onTap: () {
             Get.back();
           },
           child: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
         ),
         title: Text(
           (widget.item == null) ? "Add Product" : "Edit Product",
           style: GoogleFonts.inter(
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
             fontSize: 18,
           ),
         ),
@@ -128,7 +128,7 @@ class _AddProductState extends State<AddProduct> {
                         : Image.asset(
                             'assets/images/Group 3647.png',
                             height: 50,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
               ),
             ),
@@ -208,20 +208,17 @@ class _AddProductState extends State<AddProduct> {
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: AppColor().backgroundColor,
-                                    width: 2),
+                                    color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: AppColor().backgroundColor,
-                                    width: 2),
+                                    color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: AppColor().backgroundColor,
-                                    width: 2),
+                                    color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             hintText: '${Utils.getCurrency()} 0.00',
@@ -283,20 +280,17 @@ class _AddProductState extends State<AddProduct> {
                             isDense: true,
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: AppColor().backgroundColor,
-                                    width: 2),
+                                    color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: AppColor().backgroundColor,
-                                    width: 2),
+                                    color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: AppColor().backgroundColor,
-                                    width: 2),
+                                    color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             hintText: '${Utils.getCurrency()} 0.00',
@@ -357,13 +351,13 @@ class _AddProductState extends State<AddProduct> {
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.remove,
                         size: 18,
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ),
@@ -383,17 +377,17 @@ class _AddProductState extends State<AddProduct> {
                         isDense: true,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText: _productController
@@ -418,13 +412,13 @@ class _AddProductState extends State<AddProduct> {
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.add,
                         size: 18,
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                       ),
                     ),
                   ),
@@ -454,15 +448,15 @@ class _AddProductState extends State<AddProduct> {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 2, color: AppColor().backgroundColor),
+                border: Border.all(width: 2, color: AppColors.backgroundColor),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   value: _productController.selectedUnit.value,
-                  focusColor: AppColor().whiteColor,
+                  focusColor: AppColors.whiteColor,
                   icon: Icon(
                     Icons.keyboard_arrow_down,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                   iconSize: 30,
                   hint: Text(
@@ -496,7 +490,7 @@ class _AddProductState extends State<AddProduct> {
                   horizontal: 15,
                 ),
                 decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10)),
                 child: (_productController.addingProductStatus ==
                         AddingProductStatus.Loading)
@@ -513,7 +507,7 @@ class _AddProductState extends State<AddProduct> {
                         child: Text(
                           (widget.item == null) ? 'Save' : "Update",
                           style: GoogleFonts.inter(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                           ),
@@ -569,7 +563,7 @@ class _AddProductState extends State<AddProduct> {
                       },
                       child: Icon(
                         Icons.close,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                     ),
                   )
@@ -579,7 +573,7 @@ class _AddProductState extends State<AddProduct> {
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -617,7 +611,7 @@ class _AddProductState extends State<AddProduct> {
                 child: Text(
                   'Select from Device',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -634,13 +628,13 @@ class _AddProductState extends State<AddProduct> {
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
                       'Done',
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

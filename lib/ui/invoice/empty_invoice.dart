@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../data/repository/auth_respository.dart';
 import 'create_invoice.dart';
 
@@ -46,7 +46,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                   style: GoogleFonts.inter(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
-                      color: AppColor().backgroundColor),
+                      color: AppColors.backgroundColor),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Container(
@@ -115,7 +115,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                                             0.06),
                                 height: 50,
                                 decoration: BoxDecoration(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 child: Center(
@@ -176,7 +176,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
               style: GoogleFonts.inter(
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
-                  color: AppColor().backgroundColor),
+                  color: AppColors.backgroundColor),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Expanded(
@@ -225,7 +225,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                           'You need to be authorized\nto view this module',
                           style: GoogleFonts.inter(
                               fontSize: 14,
-                              color: AppColor().orangeBorderColor,
+                              color: AppColors.orangeBorderColor,
                               fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         ),

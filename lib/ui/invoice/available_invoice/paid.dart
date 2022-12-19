@@ -10,7 +10,7 @@ import 'package:huzz/data/model/invoice.dart';
 import 'package:huzz/util/constants.dart';
 import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
-import '../../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../../util/util.dart';
 import '../create_invoice.dart';
 import 'empty_invoice_info.dart';
@@ -83,8 +83,7 @@ class _PaidState extends State<Paid> {
                               decoration: BoxDecoration(
                                   color: !deleteItem
                                       ? Colors.transparent
-                                      : AppColor()
-                                          .backgroundColor
+                                      : AppColors.backgroundColor
                                           .withOpacity(0.2),
                                   shape: BoxShape.circle),
                               child:
@@ -216,7 +215,7 @@ class _PaidState extends State<Paid> {
                                                     0.05),
                                             Icon(
                                               Icons.arrow_forward_ios,
-                                              color: AppColor().backgroundColor,
+                                              color: AppColors.backgroundColor,
                                             ),
                                           ],
                                         ),
@@ -361,8 +360,8 @@ class _PaidState extends State<Paid> {
                                                   color: (!_invoiceController
                                                           .checkifSelectedForDeleted(
                                                               item.id!))
-                                                      ? AppColor().whiteColor
-                                                      : AppColor()
+                                                      ? AppColors.whiteColor
+                                                      : AppColors
                                                           .orangeBorderColor,
                                                   shape: BoxShape.circle,
                                                   border: Border.all(
@@ -379,8 +378,7 @@ class _PaidState extends State<Paid> {
                                                   child: Icon(
                                                     Icons.check,
                                                     size: 15,
-                                                    color:
-                                                        AppColor().whiteColor,
+                                                    color: AppColors.whiteColor,
                                                   ),
                                                 ),
                                               ),
@@ -414,7 +412,7 @@ class _PaidState extends State<Paid> {
                       }
                     },
                     icon: (!deleteItem) ? Container() : Icon(Icons.add),
-                    backgroundColor: AppColor().backgroundColor,
+                    backgroundColor: AppColors.backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
                       style: GoogleFonts.inter(
@@ -443,7 +441,7 @@ class _PaidState extends State<Paid> {
                   child: Text(
                     'You are about to delete  invoice(s). Are you sure you want to continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -479,17 +477,17 @@ class _PaidState extends State<Paid> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -515,13 +513,13 @@ class _PaidState extends State<Paid> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

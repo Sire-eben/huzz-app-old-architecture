@@ -5,7 +5,7 @@ import 'package:huzz/ui/home/home.dart';
 import 'package:huzz/ui/inventory/productserviceTab.dart';
 import 'package:huzz/ui/invoice/available_invoice.dart';
 import 'package:huzz/ui/more/more.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class ProServiceDashboard extends StatefulWidget {
   const ProServiceDashboard({Key? key}) : super(key: key);
@@ -35,27 +35,27 @@ class _ProServiceDashboardState extends State<ProServiceDashboard> {
               icon: Icon(Icons.people),
               title: Text('Customers'),
               textAlign: TextAlign.center,
-              activeColor: AppColor().backgroundColor,
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.inventory),
               title: Text('Inventory'),
-              activeColor: AppColor().backgroundColor,
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.home),
               title: Text('Home'),
-              activeColor: AppColor().backgroundColor,
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.receipt),
               title: Text('Invoice'),
-              activeColor: AppColor().backgroundColor,
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
               icon: Icon(Icons.dashboard),
               title: Text('More'),
-              activeColor: AppColor().backgroundColor,
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor)
         ],
         onItemSelected: (index) => setState(() => this._selectedIndex = index),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class FaqWeb extends StatefulWidget {
@@ -28,12 +28,12 @@ class _FaqWebState extends State<FaqWeb> {
             size: 16,
           ),
         ),
-        backgroundColor: AppColor().backgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         centerTitle: true,
         title: Text(
           'FAQs',
           style: GoogleFonts.inter(
-            color: AppColor().whiteColor,
+            color: AppColors.whiteColor,
             fontSize: 16,
           ),
         ),
@@ -68,7 +68,7 @@ class _FaqWebState extends State<FaqWeb> {
           isLoading
               ? Center(
                   child: CircularProgressIndicator(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 )
               : Container(),

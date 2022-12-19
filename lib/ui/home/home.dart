@@ -4,8 +4,10 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
@@ -18,13 +20,11 @@ import 'package:huzz/ui/home/money_out.dart';
 import 'package:huzz/ui/home/records.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
-import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/team_repository.dart';
-import '../widget/loading_widget.dart';
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
@@ -129,11 +129,61 @@ class _HomeState extends State<Home> {
       print('Team Status: ${teamController.teamMembersStatus.value}');
       return Scaffold(
           backgroundColor: Colors.white,
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.white,
+            title: GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20))),
+                    context: context,
+                    builder: (context) => buildSelectBusiness());
+              },
+              child: Row(
+                children: [
+                  Gap(Insets.lg),
+                  buildMenuItem(
+                      "${_businessController.selectedBusiness.value!.businessName}"),
+                  Gap(Insets.lg),
+                  Icon(
+                    Icons.arrow_drop_down,
+                    color: AppColors.backgroundColor,
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              IconButton(
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  Get.to(Notifications());
+                },
+                icon: SvgPicture.asset(
+                  'assets/images/bell.svg',
+                  height: 20,
+                  width: 20,
+                ),
+              ),
+              IconButton(
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  Get.to(Settings());
+                },
+                icon: SvgPicture.asset(
+                  'assets/images/settings.svg',
+                  color: AppColors.backgroundColor,
+                  height: 20,
+                  width: 20,
+                ),
+              ),
+            ],
+          ),
           body: teamController.teamMembersStatus == TeamMemberStatus.Loading
               ? Container()
               : Container(
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                  padding: EdgeInsets.all(Insets.lg),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: Column(
@@ -143,86 +193,10 @@ class _HomeState extends State<Home> {
                               TeamMemberStatus.UnAuthorized ||
                           teamController.teamMembersStatus ==
                               TeamMemberStatus.Error) ...[
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.04),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20))),
-                                    context: context,
-                                    builder: (context) =>
-                                        buildSelectBusiness());
-                              },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                        width: 3,
-                                        color: AppColor().backgroundColor)),
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    buildMenuItem(
-                                        "${_businessController.selectedBusiness.value!.businessName}"),
-                                    Expanded(child: SizedBox()),
-                                    Icon(
-                                      Icons.keyboard_arrow_down,
-                                      color: AppColor().backgroundColor,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(Notifications());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/bell.svg',
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(Settings());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/settings.svg',
-                                      color: AppColor().backgroundColor,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02),
+                        // Gap(Insets.lg),
                         Obx(() {
                           return Container(
-                            padding: EdgeInsets.all(12),
+                            padding: EdgeInsets.all(Insets.md),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -233,16 +207,19 @@ class _HomeState extends State<Home> {
                                   children: [
                                     Container(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 13, vertical: 4),
+                                        horizontal: Insets.lg,
+                                        vertical: Insets.sm,
+                                      ),
                                       decoration: BoxDecoration(
-                                        color: AppColor().whiteColor,
-                                        borderRadius: BorderRadius.circular(16),
+                                        color: AppColors.whiteColor,
+                                        borderRadius:
+                                            BorderRadius.all(Corners.mdRadius),
                                       ),
                                       child: Text(
-                                        "Today's BALANCE",
+                                        "Today's balance",
                                         style: GoogleFonts.inter(
-                                          color: AppColor().blackColor,
-                                          fontSize: 14,
+                                          color: AppColors.blackColor,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
@@ -251,9 +228,10 @@ class _HomeState extends State<Home> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                                      "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}"
+                                          .toString(),
                                       style: GoogleFonts.inter(
-                                        color: AppColor().whiteColor,
+                                        color: AppColors.whiteColor,
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -281,8 +259,7 @@ class _HomeState extends State<Home> {
                                                 Text(
                                                   "All Records",
                                                   style: GoogleFonts.inter(
-                                                    color:
-                                                        AppColor().whiteColor,
+                                                    color: AppColors.whiteColor,
                                                     // ,
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w600,
@@ -327,8 +304,7 @@ class _HomeState extends State<Home> {
                                                 Text(
                                                   "Insights",
                                                   style: GoogleFonts.inter(
-                                                    color:
-                                                        AppColor().whiteColor,
+                                                    color: AppColors.whiteColor,
                                                     // ,
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w600,
@@ -384,7 +360,7 @@ class _HomeState extends State<Home> {
                                           Text(
                                             "Today's Money IN",
                                             style: GoogleFonts.inter(
-                                              color: AppColor().whiteColor,
+                                              color: AppColors.whiteColor,
                                               // ,
                                               fontSize: 9,
                                               fontWeight: FontWeight.w600,
@@ -397,7 +373,7 @@ class _HomeState extends State<Home> {
                                     Text(
                                       "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                                       style: GoogleFonts.inter(
-                                        color: AppColor().whiteColor,
+                                        color: AppColors.whiteColor,
                                         // ,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
@@ -430,7 +406,7 @@ class _HomeState extends State<Home> {
                                           Text(
                                             "Today's Money Out",
                                             style: GoogleFonts.inter(
-                                              color: AppColor().whiteColor,
+                                              color: AppColors.whiteColor,
                                               // ,
                                               fontSize: 9,
                                               fontWeight: FontWeight.w600,
@@ -443,7 +419,7 @@ class _HomeState extends State<Home> {
                                     Text(
                                       "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                                       style: GoogleFonts.inter(
-                                        color: AppColor().whiteColor,
+                                        color: AppColors.whiteColor,
                                         // ,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
@@ -453,18 +429,21 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                            height: 130,
+                            // height: 130,
+                            width: context.width,
+                            height: 140,
                             decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(12),
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/home_rectangle.png"),
-                                fit: BoxFit.fill,
-                              ),
+                              // image: DecorationImage(
+                              //   image: AssetImage(
+                              //       "assets/images/home_rectangle.png"),
+                              //   fit: BoxFit.fill,
+                              // ),
                             ),
                           );
                         }),
+
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
                         InkWell(
@@ -472,13 +451,9 @@ class _HomeState extends State<Home> {
                             Get.to(() => DebtorsTab());
                           },
                           child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.height *
-                                          0.02),
+                              padding: EdgeInsets.all(Insets.md),
                               decoration: BoxDecoration(
-                                color:
-                                    AppColor().backgroundColor.withOpacity(0.2),
+                                color: AppColors.secondbgColor.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
@@ -488,26 +463,14 @@ class _HomeState extends State<Home> {
                                   Row(
                                     children: [
                                       Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.08,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.08,
-                                        padding: EdgeInsets.all(
-                                            MediaQuery.of(context).size.width *
-                                                0.015),
+                                        padding: EdgeInsets.all(Insets.sm),
                                         decoration: BoxDecoration(
-                                            color: Color(0xffEF6500),
+                                            color: AppColors.error,
                                             shape: BoxShape.circle),
                                         child: SvgPicture.asset(
                                             'assets/images/debtors.svg'),
                                       ),
-                                      SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.02),
+                                      Gap(Insets.md),
                                       Text(
                                         'Total debts',
                                         style: GoogleFonts.inter(
@@ -596,8 +559,7 @@ class _HomeState extends State<Home> {
                                 ],
                               )),
                         ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
+                        Gap(Insets.md),
                         Text(
                           "Today's transactions",
                           style: GoogleFonts.inter(
@@ -605,19 +567,19 @@ class _HomeState extends State<Home> {
                               color: Colors.black,
                               fontWeight: FontWeight.w600),
                         ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
+                        Gap(Insets.md),
                         Expanded(
                             child: Container(
                           padding: EdgeInsets.only(
                               bottom:
                                   MediaQuery.of(context).size.height * 0.02),
                           decoration: BoxDecoration(
-                              color: Color(0xffF5F5F5),
+                              color: Color.fromARGB(161, 245, 245, 245),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
                                   width: 2,
-                                  color: Colors.grey.withOpacity(0.2))),
+                                  color:
+                                      AppColors.primaryColor.withOpacity(0.1))),
                           child: Obx(() {
                             return RefreshIndicator(
                               onRefresh: () async {
@@ -792,7 +754,7 @@ class _HomeState extends State<Home> {
                                                   'You need to be authorized\nto view this module',
                                                   style: GoogleFonts.inter(
                                                       fontSize: 14,
-                                                      color: AppColor()
+                                                      color: AppColors
                                                           .orangeBorderColor,
                                                       // ,
                                                       fontWeight:
@@ -830,7 +792,7 @@ class _HomeState extends State<Home> {
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
                                         width: 3,
-                                        color: AppColor().backgroundColor)),
+                                        color: AppColors.backgroundColor)),
                                 child: Row(
                                   children: [
                                     SizedBox(
@@ -841,7 +803,7 @@ class _HomeState extends State<Home> {
                                     Expanded(child: SizedBox()),
                                     Icon(
                                       Icons.keyboard_arrow_down,
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                     ),
                                     SizedBox(
                                       width: 10,
@@ -872,7 +834,7 @@ class _HomeState extends State<Home> {
                                     },
                                     child: SvgPicture.asset(
                                       'assets/images/settings.svg',
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                       height: 20,
                                       width: 20,
                                     ),
@@ -899,13 +861,13 @@ class _HomeState extends State<Home> {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 13, vertical: 4),
                                       decoration: BoxDecoration(
-                                        color: AppColor().whiteColor,
+                                        color: AppColors.whiteColor,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
                                       child: Text(
                                         "Today's BALANCE",
                                         style: GoogleFonts.inter(
-                                          color: AppColor().blackColor,
+                                          color: AppColors.blackColor,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -917,7 +879,7 @@ class _HomeState extends State<Home> {
                                     Text(
                                       "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                                       style: GoogleFonts.inter(
-                                        color: AppColor().whiteColor,
+                                        color: AppColors.whiteColor,
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -945,8 +907,7 @@ class _HomeState extends State<Home> {
                                                 Text(
                                                   "All Records",
                                                   style: GoogleFonts.inter(
-                                                    color:
-                                                        AppColor().whiteColor,
+                                                    color: AppColors.whiteColor,
                                                     // ,
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w600,
@@ -991,8 +952,7 @@ class _HomeState extends State<Home> {
                                                 Text(
                                                   "Insights",
                                                   style: GoogleFonts.inter(
-                                                    color:
-                                                        AppColor().whiteColor,
+                                                    color: AppColors.whiteColor,
                                                     // ,
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w600,
@@ -1048,7 +1008,7 @@ class _HomeState extends State<Home> {
                                           Text(
                                             "Today's Money IN",
                                             style: GoogleFonts.inter(
-                                              color: AppColor().whiteColor,
+                                              color: AppColors.whiteColor,
                                               // ,
                                               fontSize: 9,
                                               fontWeight: FontWeight.w600,
@@ -1061,7 +1021,7 @@ class _HomeState extends State<Home> {
                                     Text(
                                       "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                                       style: GoogleFonts.inter(
-                                        color: AppColor().whiteColor,
+                                        color: AppColors.whiteColor,
                                         // ,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
@@ -1094,7 +1054,7 @@ class _HomeState extends State<Home> {
                                           Text(
                                             "Today's Money Out",
                                             style: GoogleFonts.inter(
-                                              color: AppColor().whiteColor,
+                                              color: AppColors.whiteColor,
                                               // ,
                                               fontSize: 9,
                                               fontWeight: FontWeight.w600,
@@ -1107,7 +1067,7 @@ class _HomeState extends State<Home> {
                                     Text(
                                       "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                                       style: GoogleFonts.inter(
-                                        color: AppColor().whiteColor,
+                                        color: AppColors.whiteColor,
                                         // ,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
@@ -1119,7 +1079,7 @@ class _HomeState extends State<Home> {
                             ),
                             height: 130,
                             decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(12),
                               image: DecorationImage(
                                 image: AssetImage(
@@ -1143,8 +1103,7 @@ class _HomeState extends State<Home> {
                                             MediaQuery.of(context).size.height *
                                                 0.02),
                                     decoration: BoxDecoration(
-                                      color: AppColor()
-                                          .backgroundColor
+                                      color: AppColors.backgroundColor
                                           .withOpacity(0.2),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
@@ -1285,8 +1244,7 @@ class _HomeState extends State<Home> {
                                                     .height *
                                                 0.02),
                                         decoration: BoxDecoration(
-                                          color: AppColor()
-                                              .backgroundColor
+                                          color: AppColors.backgroundColor
                                               .withOpacity(0.2),
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -1626,7 +1584,7 @@ class _HomeState extends State<Home> {
                                                   'You need to be authorized\nto view this module',
                                                   style: GoogleFonts.inter(
                                                       fontSize: 14,
-                                                      color: AppColor()
+                                                      color: AppColors
                                                           .orangeBorderColor,
                                                       // ,
                                                       fontWeight:
@@ -1659,7 +1617,7 @@ class _HomeState extends State<Home> {
                           builder: (context) => buildAddTransaction(),
                         ),
                         icon: Icon(Icons.add),
-                        backgroundColor: AppColor().backgroundColor,
+                        backgroundColor: AppColors.backgroundColor,
                         label: Text(
                           'Add transaction',
                           style: GoogleFonts.inter(
@@ -1680,7 +1638,7 @@ class _HomeState extends State<Home> {
                               builder: (context) => buildAddTransaction(),
                             ),
                             icon: Icon(Icons.add),
-                            backgroundColor: AppColor().backgroundColor,
+                            backgroundColor: AppColors.backgroundColor,
                             label: Text(
                               'Add transaction',
                               style: GoogleFonts.inter(
@@ -1724,7 +1682,7 @@ class _HomeState extends State<Home> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                          width: 3, color: AppColor().backgroundColor)),
+                          width: 3, color: AppColors.backgroundColor)),
                   child: Row(
                     children: [
                       SizedBox(
@@ -1735,7 +1693,7 @@ class _HomeState extends State<Home> {
                       Expanded(child: SizedBox()),
                       Icon(
                         Icons.keyboard_arrow_down,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                       SizedBox(
                         width: 10,
@@ -1764,7 +1722,7 @@ class _HomeState extends State<Home> {
                       },
                       child: SvgPicture.asset(
                         'assets/images/settings.svg',
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         height: 20,
                         width: 20,
                       ),
@@ -1789,12 +1747,12 @@ class _HomeState extends State<Home> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                         decoration: BoxDecoration(
-                          color: AppColor().whiteColor,
+                          color: AppColors.whiteColor,
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Text("Today's BALANCE",
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               // // ,
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -1806,7 +1764,7 @@ class _HomeState extends State<Home> {
                       Text(
                         "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                         style: GoogleFonts.inter(
-                          color: AppColor().whiteColor,
+                          color: AppColors.whiteColor,
                           // ,
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -1833,7 +1791,7 @@ class _HomeState extends State<Home> {
                                   Text(
                                     "All Records",
                                     style: GoogleFonts.inter(
-                                      color: AppColor().whiteColor,
+                                      color: AppColors.whiteColor,
                                       // ,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
@@ -1875,7 +1833,7 @@ class _HomeState extends State<Home> {
                                   Text(
                                     "Insights",
                                     style: GoogleFonts.inter(
-                                      color: AppColor().whiteColor,
+                                      color: AppColors.whiteColor,
                                       // ,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
@@ -1930,7 +1888,7 @@ class _HomeState extends State<Home> {
                             Text(
                               "Today's Money IN",
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 // ,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
@@ -1943,7 +1901,7 @@ class _HomeState extends State<Home> {
                       Text(
                         "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                         style: GoogleFonts.inter(
-                          color: AppColor().whiteColor,
+                          color: AppColors.whiteColor,
                           // ,
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -1975,7 +1933,7 @@ class _HomeState extends State<Home> {
                             Text(
                               "Today's Money Out",
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 // ,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
@@ -1988,7 +1946,7 @@ class _HomeState extends State<Home> {
                       Text(
                         "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                         style: GoogleFonts.inter(
-                          color: AppColor().whiteColor,
+                          color: AppColors.whiteColor,
                           // ,
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -2000,7 +1958,7 @@ class _HomeState extends State<Home> {
               ),
               height: 130,
               decoration: BoxDecoration(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
                   image: AssetImage("assets/images/home_rectangle.png"),
@@ -2019,7 +1977,7 @@ class _HomeState extends State<Home> {
           //         Text(
           //           "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
           //           style: GoogleFonts.inter(
-          //             color: AppColor().whiteColor,
+          //             color: AppColors.whiteColor,
           //             // ,
           //             fontSize: 20,
           //             fontWeight: FontWeight.w600,
@@ -2041,7 +1999,7 @@ class _HomeState extends State<Home> {
           //                 Text(
           //                   "All Records",
           //                   style: GoogleFonts.inter(
-          //                     color: AppColor().whiteColor,
+          //                     color: AppColors.whiteColor,
           //                     // ,
           //                     fontSize: 10,
           //                     fontWeight: FontWeight.w600,
@@ -2081,7 +2039,7 @@ class _HomeState extends State<Home> {
           //                 Text(
           //                   "Insights",
           //                   style: GoogleFonts.inter(
-          //                     color: AppColor().whiteColor,
+          //                     color: AppColors.whiteColor,
           //                     // ,
           //                     fontSize: 10,
           //                     fontWeight: FontWeight.w600,
@@ -2108,7 +2066,7 @@ class _HomeState extends State<Home> {
           //     ),
           //     height: 60,
           //     decoration: BoxDecoration(
-          //       color: AppColor().backgroundColor,
+          //       color: AppColors.backgroundColor,
           //       borderRadius: BorderRadius.circular(12),
           //       image: DecorationImage(
           //         image: AssetImage("assets/images/home_rectangle.png"),
@@ -2126,7 +2084,7 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.02),
                 decoration: BoxDecoration(
-                  color: AppColor().backgroundColor.withOpacity(0.2),
+                  color: AppColors.backgroundColor.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -2377,7 +2335,7 @@ class _HomeState extends State<Home> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                          width: 3, color: AppColor().backgroundColor)),
+                          width: 3, color: AppColors.backgroundColor)),
                   child: Row(
                     children: [
                       SizedBox(
@@ -2391,7 +2349,7 @@ class _HomeState extends State<Home> {
                       Expanded(child: SizedBox()),
                       Icon(
                         Icons.keyboard_arrow_down,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                       SizedBox(
                         width: 10,
@@ -2407,7 +2365,7 @@ class _HomeState extends State<Home> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor.withOpacity(0.15),
+                      color: AppColors.backgroundColor.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(6)),
                   padding: EdgeInsets.all(10),
                   child: SvgPicture.asset(
@@ -2422,7 +2380,7 @@ class _HomeState extends State<Home> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor.withOpacity(0.15),
+                      color: AppColors.backgroundColor.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(6)),
                   padding: EdgeInsets.all(10),
                   child: SvgPicture.asset(
@@ -2446,13 +2404,13 @@ class _HomeState extends State<Home> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                       decoration: BoxDecoration(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
                         "Today's BALANCE",
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           // // ,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -2465,7 +2423,7 @@ class _HomeState extends State<Home> {
                     Text(
                       '${Utils.getCurrency()}0.0',
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         // ,
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
@@ -2491,7 +2449,7 @@ class _HomeState extends State<Home> {
                                 Text(
                                   "All Records",
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     // ,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
@@ -2532,7 +2490,7 @@ class _HomeState extends State<Home> {
                                 Text(
                                   "Insights",
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     // ,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
@@ -2585,7 +2543,7 @@ class _HomeState extends State<Home> {
                           Text(
                             "Today's Money IN",
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               // ,
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
@@ -2598,7 +2556,7 @@ class _HomeState extends State<Home> {
                     Text(
                       "${Utils.getCurrency()}0.0",
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         // ,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -2628,7 +2586,7 @@ class _HomeState extends State<Home> {
                           Text(
                             "Today's Money Out",
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               // ,
                               fontSize: 9,
                               fontWeight: FontWeight.w600,
@@ -2641,7 +2599,7 @@ class _HomeState extends State<Home> {
                     Text(
                       "${Utils.getCurrency()}0.0",
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         // ,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -2653,7 +2611,7 @@ class _HomeState extends State<Home> {
             ),
             height: 130,
             decoration: BoxDecoration(
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
               borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
                 image: AssetImage("assets/images/home_rectangle.png"),
@@ -2670,7 +2628,7 @@ class _HomeState extends State<Home> {
           // padding: EdgeInsets.symmetric(
           // horizontal: MediaQuery.of(context).size.height * 0.02),
           // decoration: BoxDecoration(
-          // color: AppColor().backgroundColor,
+          // color: AppColors.backgroundColor,
           // borderRadius: BorderRadius.circular(10),
           // image: DecorationImage(
           // image: AssetImage("assets/images/home_rectangle.png"),
@@ -2738,7 +2696,7 @@ class _HomeState extends State<Home> {
           // Text(
           // '${Utils.getCurrency()}0.0',
           // style: GoogleFonts.inter(
-          // color: AppColor().whiteColor,
+          // color: AppColors.whiteColor,
           // // ,
           // fontSize: 24,
           // fontWeight: FontWeight.w600,
@@ -2767,7 +2725,7 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.02),
                 decoration: BoxDecoration(
-                  color: AppColor().backgroundColor.withOpacity(0.2),
+                  color: AppColors.backgroundColor.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -3129,7 +3087,7 @@ class _HomeState extends State<Home> {
                                 alignment: Alignment.centerRight,
                                 child: Radio<Business>(
                                     value: item.business!,
-                                    activeColor: AppColor().backgroundColor,
+                                    activeColor: AppColors.backgroundColor,
                                     groupValue: _businessController
                                         .selectedBusiness.value,
                                     onChanged: (value) {
@@ -3164,7 +3122,7 @@ class _HomeState extends State<Home> {
                         vertical: 20),
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Center(
                       child: Text(
@@ -3187,7 +3145,10 @@ class _HomeState extends State<Home> {
         value: item,
         child: Text(
           item,
-          style: GoogleFonts.inter(fontSize: 14),
+          style: GoogleFonts.inter(
+            fontSize: 14,
+            color: Colors.black,
+          ),
         ),
       );
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'Product/productlist.dart';
 import 'Service/servicelist.dart';
 
@@ -27,7 +26,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
             child: Text(
               'Manage Inventory',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
@@ -43,16 +42,16 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
-                  color: AppColor().whiteColor,
+                  color: AppColors.whiteColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TabBar(
-                  labelColor: AppColor().whiteColor,
-                  unselectedLabelColor: AppColor().backgroundColor,
+                  labelColor: AppColors.whiteColor,
+                  unselectedLabelColor: AppColors.backgroundColor,
                   labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontFamily: "InterRegular",
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
@@ -60,17 +59,17 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
                       ),
                   unselectedLabelStyle:
                       Theme.of(context).textTheme.headline2!.copyWith(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             fontFamily: "InterRegular",
                             fontStyle: FontStyle.normal,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                           ),
                   indicator: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     border: Border.all(
                       width: 3,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),

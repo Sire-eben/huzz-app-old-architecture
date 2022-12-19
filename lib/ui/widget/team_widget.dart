@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:random_color/random_color.dart';
 
 class TeamsWidget extends StatelessWidget {
@@ -59,7 +59,7 @@ class TeamsWidget extends StatelessWidget {
                   name!,
                   style: GoogleFonts.inter(
                       fontSize: 14,
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 10),
@@ -69,7 +69,7 @@ class TeamsWidget extends StatelessWidget {
                       position!,
                       style: GoogleFonts.inter(
                           fontSize: 10,
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontWeight: FontWeight.w400),
                     ),
                     SizedBox(width: 40),
@@ -114,7 +114,7 @@ class NoTeamsWidget extends StatelessWidget {
             child: Container(
               height: 50,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: AppColor().backgroundColor),
+                  shape: BoxShape.circle, color: AppColors.backgroundColor),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Center(
@@ -140,7 +140,7 @@ class NoTeamsWidget extends StatelessWidget {
                     fName!,
                     style: GoogleFonts.inter(
                         fontSize: 14,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(width: 2),
@@ -148,7 +148,7 @@ class NoTeamsWidget extends StatelessWidget {
                     lName!,
                     style: GoogleFonts.inter(
                         fontSize: 14,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                         fontWeight: FontWeight.w600),
                   ),
                 ],
@@ -158,7 +158,7 @@ class NoTeamsWidget extends StatelessWidget {
                 position!,
                 style: GoogleFonts.inter(
                     fontSize: 10,
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontWeight: FontWeight.w400),
               ),
             ],

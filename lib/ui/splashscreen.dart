@@ -7,7 +7,7 @@ import 'package:huzz/ui/create_business.dart';
 import 'package:huzz/ui/dashboard.dart';
 import 'package:huzz/ui/onboarding_main..dart';
 import 'package:huzz/ui/sign_in.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: AppColor().backgroundColor,
+        color: AppColors.backgroundColor,
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

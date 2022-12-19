@@ -13,7 +13,7 @@ import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/home/itemCard.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/data/model/bank.dart';
 import 'package:huzz/data/model/customer_model.dart';
@@ -131,7 +131,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -142,7 +142,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             Text(
               'Create Invoice',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -216,9 +216,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           height: 40,
                           width: 110,
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
-                                  width: 2, color: AppColor().backgroundColor),
+                                  width: 2, color: AppColors.backgroundColor),
                               borderRadius: BorderRadius.circular(10)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -227,11 +227,11 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               Container(
                                 padding: EdgeInsets.all(2),
                                 decoration: BoxDecoration(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     shape: BoxShape.circle),
                                 child: Icon(
                                   Icons.arrow_back,
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   size: 15,
                                 ),
                               ),
@@ -239,7 +239,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               Text(
                                 'Back',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                 ),
                               ),
                             ],
@@ -253,7 +253,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             height: 40,
                             width: 110,
                             decoration: BoxDecoration(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 borderRadius: BorderRadius.circular(10)),
                             child: (_invoiceController.addingInvoiceStatus ==
                                     AddingInvoiceStatus.Loading)
@@ -283,7 +283,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                             shape: BoxShape.circle),
                                         child: Icon(
                                           Icons.arrow_forward,
-                                          color: AppColor().backgroundColor,
+                                          color: AppColors.backgroundColor,
                                           size: 15,
                                         ),
                                       )
@@ -424,14 +424,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   children: [
                     Radio<int>(
                         value: 1,
-                        activeColor: AppColor().backgroundColor,
+                        activeColor: AppColors.backgroundColor,
                         groupValue: _invoiceController.paymentValue,
                         onChanged: (value) => setState(
                             () => _invoiceController.paymentValue = 1)),
                     Text(
                       'New Details',
                       style: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontStyle: FontStyle.normal,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -447,14 +447,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   children: [
                     Radio<int>(
                         value: 0,
-                        activeColor: AppColor().backgroundColor,
+                        activeColor: AppColors.backgroundColor,
                         groupValue: _invoiceController.paymentValue,
                         onChanged: (value) => setState(
                             () => _invoiceController.paymentValue = 0)),
                     Text(
                       'Existing Details',
                       style: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontStyle: FontStyle.normal,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -472,13 +472,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                          width: 2, color: AppColor().backgroundColor)),
+                          width: 2, color: AppColors.backgroundColor)),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<Bank>(
                       value: _invoiceController.selectedBank,
                       icon: Icon(
                         Icons.keyboard_arrow_down,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                       iconSize: 30,
                       items: _bankAccountController.offlineBusinessBank
@@ -586,7 +586,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   children: [
                                     Radio<int>(
                                         value: 1,
-                                        activeColor: AppColor().backgroundColor,
+                                        activeColor: AppColors.backgroundColor,
                                         groupValue:
                                             _invoiceController.selectedValue,
                                         onChanged: (value) {
@@ -602,7 +602,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     Text(
                                       'Enter Item',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -624,7 +624,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   children: [
                                     Radio<int>(
                                         value: 0,
-                                        activeColor: AppColor().backgroundColor,
+                                        activeColor: AppColors.backgroundColor,
                                         groupValue:
                                             _invoiceController.selectedValue,
                                         onChanged: (value) {
@@ -641,7 +641,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     Text(
                                       'Select Item',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -773,13 +773,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
                                             width: 2,
-                                            color: AppColor().backgroundColor)),
+                                            color: AppColors.backgroundColor)),
                                     child: DropdownButtonHideUnderline(
                                         child: DropdownButton<Product>(
                                       value: _invoiceController.selectedProduct,
                                       icon: Icon(
                                         Icons.keyboard_arrow_down,
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                       ),
                                       iconSize: 30,
                                       items: _productController
@@ -890,9 +890,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                                 .isNotEmpty &&
                                             _invoiceController.amountController
                                                 .text.isNotEmpty)
-                                    ? AppColor().backgroundColor
-                                    : AppColor()
-                                        .backgroundColor
+                                    ? AppColors.backgroundColor
+                                    : AppColors.backgroundColor
                                         .withOpacity(0.3),
                             borderRadius: BorderRadius.circular(45)),
                         child: Row(
@@ -968,14 +967,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             children: [
                               Radio<int>(
                                   value: 1,
-                                  activeColor: AppColor().backgroundColor,
+                                  activeColor: AppColors.backgroundColor,
                                   groupValue: _invoiceController.customerType,
                                   onChanged: (value) => setState(() =>
                                       _invoiceController.customerType = 1)),
                               Text(
                                 'New Customer',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -992,14 +991,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             children: [
                               Radio<int>(
                                   value: 0,
-                                  activeColor: AppColor().backgroundColor,
+                                  activeColor: AppColors.backgroundColor,
                                   groupValue: _invoiceController.customerType,
                                   onChanged: (value) => setState(() =>
                                       _invoiceController.customerType = 0)),
                               Text(
                                 'Existing Customer',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1055,14 +1054,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           width: 2,
-                                          color: AppColor().backgroundColor)),
+                                          color: AppColors.backgroundColor)),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton<Customer>(
                                       value:
                                           _invoiceController.selectedCustomer,
                                       icon: Icon(
                                         Icons.keyboard_arrow_down,
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                       ),
                                       iconSize: 30,
                                       items: _customerController
@@ -1132,7 +1131,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             height: 50,
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(color: AppColor().backgroundColor, width: 2.0),
+              border: Border.all(color: AppColors.backgroundColor, width: 2.0),
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: Row(
@@ -1147,7 +1146,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     decoration: BoxDecoration(
                       border: Border(
                           right: BorderSide(
-                              color: AppColor().backgroundColor, width: 2)),
+                              color: AppColors.backgroundColor, width: 2)),
                     ),
                     height: 50,
                     width: 80,
@@ -1162,7 +1161,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         Icon(
                           Icons.arrow_drop_down,
                           size: 24,
-                          color: AppColor().backgroundColor.withOpacity(0.5),
+                          color: AppColors.backgroundColor.withOpacity(0.5),
                         )
                       ],
                     ),
@@ -1208,7 +1207,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   horizontal: MediaQuery.of(context).size.height * 0.03),
               height: 50,
               decoration: BoxDecoration(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Center(
                 child: Text(
@@ -1310,7 +1309,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     width: MediaQuery.of(context).size.width,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Center(
                       child: Text(
@@ -1352,7 +1351,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             TextField(
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
               ),
               controller: _searchcontroller,
               cursorColor: Colors.white,
@@ -1360,7 +1359,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
@@ -1380,14 +1379,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 ),
               ),
@@ -1457,7 +1456,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     horizontal: MediaQuery.of(context).size.height * 0.03),
                 height: 50,
                 decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Center(
                   child: Text(
@@ -1579,7 +1578,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(
@@ -1637,7 +1636,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           children: [
                             Radio<int>(
                               value: 1,
-                              activeColor: AppColor().backgroundColor,
+                              activeColor: AppColors.backgroundColor,
                               groupValue: _invoiceController.selectedValue,
                               onChanged: (value) {
                                 myState(() {
@@ -1648,7 +1647,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             Text(
                               'Enter Item',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1667,7 +1666,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           children: [
                             Radio<int>(
                                 value: 0,
-                                activeColor: AppColor().backgroundColor,
+                                activeColor: AppColors.backgroundColor,
                                 groupValue: _invoiceController.selectedValue,
                                 onChanged: (value) {
                                   myState(() {
@@ -1678,7 +1677,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             Text(
                               'Select Item',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -1751,13 +1750,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                       width: 2,
-                                      color: AppColor().backgroundColor)),
+                                      color: AppColors.backgroundColor)),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton<Product>(
                                   value: _invoiceController.selectedProduct,
                                   icon: Icon(
                                     Icons.keyboard_arrow_down,
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                   ),
                                   iconSize: 30,
                                   items: _productController
@@ -1829,7 +1828,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
                         child: Text(

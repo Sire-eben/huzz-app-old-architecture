@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../util/util.dart';
@@ -31,23 +31,23 @@ class _AddServiceState extends State<AddService> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         leading: GestureDetector(
           onTap: () {
             Get.back();
           },
           child: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
         ),
         title: Text(
           (widget.item == null) ? "Add Service" : "Update Service",
           style: GoogleFonts.inter(
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
             fontSize: 18,
           ),
         ),
@@ -89,7 +89,7 @@ class _AddServiceState extends State<AddService> {
                               : Image.asset(
                                   'assets/images/Group 3647.png',
                                   height: 50,
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                 ),
                     ),
                   ),
@@ -157,7 +157,7 @@ class _AddServiceState extends State<AddService> {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.circular(10)),
                       child: (_productController.addingProductStatus ==
                               AddingProductStatus.Loading)
@@ -172,7 +172,7 @@ class _AddServiceState extends State<AddService> {
                               child: Text(
                                 (widget.item == null) ? 'Save' : "Update",
                                 style: GoogleFonts.inter(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -230,7 +230,7 @@ class _AddServiceState extends State<AddService> {
                       },
                       child: Icon(
                         Icons.close,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                     ),
                   )
@@ -240,7 +240,7 @@ class _AddServiceState extends State<AddService> {
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -278,7 +278,7 @@ class _AddServiceState extends State<AddService> {
                 child: Text(
                   'Select from Device',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -295,13 +295,13 @@ class _AddServiceState extends State<AddService> {
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
                       'Continue',
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

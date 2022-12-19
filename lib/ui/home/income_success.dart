@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/ui/dashboard.dart';
 import 'package:huzz/ui/home/reciept.dart';
 import 'package:huzz/data/model/money_reciept_model.dart';
 import 'package:huzz/data/model/transaction_model.dart';
-import '../../util/colors.dart';
 
 // ignore: must_be_immutable
 class IncomeSuccess extends StatelessWidget {
@@ -31,7 +31,7 @@ class IncomeSuccess extends StatelessWidget {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -52,7 +52,7 @@ class IncomeSuccess extends StatelessWidget {
                     Text(
                       'Your $title has',
                       style: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontStyle: FontStyle.normal,
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -61,7 +61,7 @@ class IncomeSuccess extends StatelessWidget {
                     Text(
                       'been added successfully',
                       style: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontStyle: FontStyle.normal,
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
@@ -85,7 +85,7 @@ class IncomeSuccess extends StatelessWidget {
                               MediaQuery.of(context).size.height * 0.03),
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
                         child: Text(
@@ -159,7 +159,7 @@ class IncomeSuccess extends StatelessWidget {
                             height: 50,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
@@ -167,7 +167,7 @@ class IncomeSuccess extends StatelessWidget {
                               child: Text(
                                 'View Receipt',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontSize: 18,
                                 ),
                               ),

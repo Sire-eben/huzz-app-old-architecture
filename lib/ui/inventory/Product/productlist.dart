@@ -9,7 +9,7 @@ import 'package:huzz/ui/inventory/Product/add_product.dart';
 import 'package:huzz/ui/inventory/Service/servicelist.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:number_display/number_display.dart';
-import '../../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../../util/util.dart';
 
 class ProductListing extends StatefulWidget {
@@ -64,7 +64,7 @@ class _ProductListingState extends State<ProductListing> {
                   child: Text(
                     'You are about to delete a product, Are you sure you want to continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -97,17 +97,17 @@ class _ProductListingState extends State<ProductListing> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -132,13 +132,13 @@ class _ProductListingState extends State<ProductListing> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -160,7 +160,7 @@ class _ProductListingState extends State<ProductListing> {
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
       return Scaffold(
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             if (isDelete) {
@@ -184,7 +184,7 @@ class _ProductListingState extends State<ProductListing> {
             }
           },
           icon: (isDelete) ? Container() : Icon(Icons.add),
-          backgroundColor: AppColor().backgroundColor,
+          backgroundColor: AppColors.backgroundColor,
           label: Text(
             (isDelete) ? "Delete Product(s)" : 'New Product',
             style: GoogleFonts.inter(
@@ -219,7 +219,7 @@ class _ProductListingState extends State<ProductListing> {
                   children: [
                     Icon(
                       Icons.search,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                     SizedBox(
                       width: 10,
@@ -243,7 +243,7 @@ class _ProductListingState extends State<ProductListing> {
                                   BorderRadius.all(Radius.circular(10))),
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: AppColor().backgroundColor, width: 2),
+                                  color: AppColors.backgroundColor, width: 2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           hintText: 'Search',
@@ -272,7 +272,7 @@ class _ProductListingState extends State<ProductListing> {
                   Text(
                     'Product (${_productController.productGoods.length})',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -294,13 +294,13 @@ class _ProductListingState extends State<ProductListing> {
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
-                              color: AppColor().lightbackgroundColor,
+                              color: AppColors.lightbackgroundColor,
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
                               Icons.delete_outline_outlined,
                               size: 20,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                           ),
                         )
@@ -330,7 +330,7 @@ class _ProductListingState extends State<ProductListing> {
                                 ProductStatus.Loading)
                             ? Center(
                                 child: CircularProgressIndicator(
-                                    color: AppColor().backgroundColor))
+                                    color: AppColors.backgroundColor))
                             : (_productController.productStatus ==
                                     ProductStatus.Available)
                                 ? ListView.builder(
@@ -358,7 +358,7 @@ class _ProductListingState extends State<ProductListing> {
                                     ? Text('Not Item')
                                     : Center(
                                         child: CircularProgressIndicator(
-                                            color: AppColor().backgroundColor),
+                                            color: AppColors.backgroundColor),
                                       ),
                       );
                     })
@@ -377,7 +377,7 @@ class _ProductListingState extends State<ProductListing> {
   Widget productCount(BuildContext context) => Container(
         height: 95,
         decoration: BoxDecoration(
-          color: AppColor().backgroundColor,
+          color: AppColors.backgroundColor,
           borderRadius: BorderRadius.all(
             Radius.circular(15),
           ),
@@ -413,7 +413,7 @@ class _ProductListingState extends State<ProductListing> {
                 height: 95,
                 padding: EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: AppColor().secondbgColor,
+                  color: AppColors.secondbgColor,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -425,7 +425,7 @@ class _ProductListingState extends State<ProductListing> {
                     colors: [
                       Color(0xff0D8372),
                       Color(0xff07A58E),
-                      AppColor().backgroundColor.withOpacity(0.5),
+                      AppColors.backgroundColor.withOpacity(0.5),
                     ],
                   ),
                   borderRadius: BorderRadius.only(
@@ -493,7 +493,7 @@ class _ProductListingState extends State<ProductListing> {
                 Text(
                   'Add stock',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
                   ),
@@ -507,7 +507,7 @@ class _ProductListingState extends State<ProductListing> {
                   ),
                   child: Icon(
                     Icons.close,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 )
               ],
@@ -550,7 +550,7 @@ class _ProductListingState extends State<ProductListing> {
                             Text(
                               'Television',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -566,7 +566,7 @@ class _ProductListingState extends State<ProductListing> {
                                     Text(
                                       'left: ',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().blackColor,
+                                        color: AppColors.blackColor,
                                         fontSize: 11,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -574,7 +574,7 @@ class _ProductListingState extends State<ProductListing> {
                                     Text(
                                       '7',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().orangeBorderColor,
+                                        color: AppColors.orangeBorderColor,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -587,7 +587,7 @@ class _ProductListingState extends State<ProductListing> {
                                 Text(
                                   'N20,000',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().blackColor,
+                                    color: AppColors.blackColor,
                                     fontSize: 11,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -641,13 +641,13 @@ class _ProductListingState extends State<ProductListing> {
                 Container(
                   height: 40,
                   decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.add,
                     size: 18,
-                    color: AppColor().whiteColor,
+                    color: AppColors.whiteColor,
                   ),
                 ),
                 SizedBox(
@@ -662,15 +662,15 @@ class _ProductListingState extends State<ProductListing> {
                       isDense: true,
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       border: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       // labelText: label,
                       hintText: '${Utils.getCurrency()} 0.00',
@@ -690,13 +690,13 @@ class _ProductListingState extends State<ProductListing> {
                 Container(
                   height: 40,
                   decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.add,
                     size: 18,
-                    color: AppColor().whiteColor,
+                    color: AppColors.whiteColor,
                   ),
                 ),
               ],
@@ -712,13 +712,13 @@ class _ProductListingState extends State<ProductListing> {
                   horizontal: 15,
                 ),
                 decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Text(
                     'Continue',
                     style: GoogleFonts.inter(
-                      color: AppColor().whiteColor,
+                      color: AppColors.whiteColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -791,7 +791,7 @@ class _ListingProductState extends State<ListingProduct> {
                   Text(
                     "${widget.item!.productName}",
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
@@ -804,7 +804,7 @@ class _ListingProductState extends State<ListingProduct> {
                       Text(
                         'left: ',
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                         ),
@@ -812,7 +812,7 @@ class _ListingProductState extends State<ListingProduct> {
                       Text(
                         "${widget.item!.quantityLeft}",
                         style: GoogleFonts.inter(
-                          color: AppColor().orangeBorderColor,
+                          color: AppColors.orangeBorderColor,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
@@ -823,7 +823,7 @@ class _ListingProductState extends State<ListingProduct> {
                       Text(
                         '${Utils.getCurrency()}${display(widget.item!.sellingPrice ?? 0)}',
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                         ),
@@ -862,7 +862,7 @@ class _ListingProductState extends State<ListingProduct> {
                             Icon(
                               Icons.edit,
                               size: 20,
-                              color: AppColor().orangeBorderColor,
+                              color: AppColors.orangeBorderColor,
                             ),
                             SizedBox(
                               width: 5,
@@ -870,7 +870,7 @@ class _ListingProductState extends State<ListingProduct> {
                             Text(
                               'Edit',
                               style: GoogleFonts.inter(
-                                color: AppColor().orangeBorderColor,
+                                color: AppColors.orangeBorderColor,
                                 fontSize: 12,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -951,7 +951,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                     Text(
                       widget.item!.productName!,
                       style: GoogleFonts.inter(
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
                       ),
@@ -964,7 +964,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                         Text(
                           'left: ',
                           style: GoogleFonts.inter(
-                            color: AppColor().blackColor,
+                            color: AppColors.blackColor,
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -972,7 +972,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                         Text(
                           "${widget.item!.quantityLeft}",
                           style: GoogleFonts.inter(
-                            color: AppColor().orangeBorderColor,
+                            color: AppColors.orangeBorderColor,
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
@@ -983,7 +983,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                         Text(
                           '${Utils.getCurrency()}${display(widget.item!.costPrice ?? 0)}',
                           style: GoogleFonts.inter(
-                            color: AppColor().blackColor,
+                            color: AppColors.blackColor,
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -1012,8 +1012,8 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                     decoration: BoxDecoration(
                       color: _productController
                               .checkifSelectedForDelted(widget.item!.productId!)
-                          ? AppColor().orangeBorderColor
-                          : AppColor().whiteColor,
+                          ? AppColors.orangeBorderColor
+                          : AppColors.whiteColor,
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: Color(0xffEF6500),
@@ -1027,8 +1027,8 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                         size: 15,
                         color: _productController.checkifSelectedForDelted(
                                 widget.item!.productId!)
-                            ? AppColor().whiteColor
-                            : AppColor().orangeBorderColor,
+                            ? AppColors.whiteColor
+                            : AppColors.orangeBorderColor,
                       ),
                     ),
                   ),

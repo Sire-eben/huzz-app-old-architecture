@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/di/appbinding.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/core/routes/app_router.dart';
 import 'ui/splashscreen.dart';
@@ -28,7 +28,7 @@ class _HuzzAppState extends State<HuzzApp> {
       useInheritedMediaQuery: true,
       theme: ThemeData(
           fontFamily: 'InterRegular',
-          primaryColor: AppColor().backgroundColor,
+          primaryColor: AppColors.backgroundColor,
           primarySwatch: Palette.primaryColor),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,

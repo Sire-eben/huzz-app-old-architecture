@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/widget/custom_drop_field.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../data/repository/auth_respository.dart';
 import 'dashboard.dart';
 
@@ -40,7 +40,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
             ),
             onPressed: () {
               Get.back();
@@ -49,7 +49,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
           title: Text(
             'Create Your Business',
             style: GoogleFonts.inter(
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
@@ -174,7 +174,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                       // margin: EdgeInsets.symmetric(horizontal: 20),
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_businessController.createBusinessStatus ==
                               CreateBusinessStatus.Loading)
@@ -197,7 +197,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                                           Radius.circular(50))),
                                   child: Icon(
                                     Icons.add,
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     size: 16,
                                   ),
                                 ),
@@ -241,7 +241,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                   child: Text(
                     '$title',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -281,17 +281,17 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -312,13 +312,13 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Logout',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -362,7 +362,7 @@ class BusinessCreatedSuccesful extends StatelessWidget {
                 //     },
                 //     child: Icon(
                 //       Icons.arrow_back,
-                //       color: AppColor().backgroundColor,
+                //       color: AppColors.backgroundColor,
                 //     ),
                 //   ),
                 // ),
@@ -375,7 +375,7 @@ class BusinessCreatedSuccesful extends StatelessWidget {
                 "Business Created Successfully",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
-                    fontSize: 30, color: AppColor().backgroundColor),
+                    fontSize: 30, color: AppColors.backgroundColor),
               )),
           Spacer(),
           Center(
@@ -393,7 +393,7 @@ class BusinessCreatedSuccesful extends StatelessWidget {
               margin: EdgeInsets.only(left: 50, right: 50),
               height: 50,
               decoration: BoxDecoration(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
