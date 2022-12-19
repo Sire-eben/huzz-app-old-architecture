@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/ui/create_business.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/ui/app_scaffold.dart';
+import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-
-import '../data/repository/auth_respository.dart';
-import 'app_scaffold.dart';
 
 class PinSuccesful extends StatelessWidget {
   @override

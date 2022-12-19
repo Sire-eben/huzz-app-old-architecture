@@ -5,9 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/ui/create_pin.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'widget/custom_form_field.dart';
+import 'package:huzz/ui/auth/create_pin.dart';
+import 'package:huzz/ui/widget/custom_form_field.dart';
 
 class Signup extends StatefulWidget {
   _SignUpState createState() => _SignUpState();
