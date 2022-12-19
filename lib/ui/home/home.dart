@@ -13,7 +13,7 @@ import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/util/constants.dart';
 import 'package:huzz/util/util.dart';
-import 'package:huzz/ui/create_business.dart';
+import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/ui/home/insight.dart';
 import 'package:huzz/ui/home/money_in.dart';
 import 'package:huzz/ui/home/money_out.dart';

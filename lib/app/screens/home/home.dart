@@ -13,7 +13,7 @@ import '../../../data/model/notification_model.dart';
 import '../../../data/repository/business_respository.dart';
 import '../../../data/repository/debtors_repository.dart';
 import '../../../data/repository/transaction_respository.dart';
-import '../../../ui/create_business.dart';
+import '../../../ui/business/create_business.dart';
 import '../../../ui/home/debtors/debtorstab.dart';
 import '../../../ui/home/insight.dart';
 import '../../../ui/home/money_history.dart';
