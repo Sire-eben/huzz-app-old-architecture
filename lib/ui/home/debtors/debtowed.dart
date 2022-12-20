@@ -16,7 +16,8 @@ import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../../data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../../util/util.dart';
+
+import 'package:huzz/core/util/util.dart';
 import '../money_history.dart';
 
 // ignore: must_be_immutable

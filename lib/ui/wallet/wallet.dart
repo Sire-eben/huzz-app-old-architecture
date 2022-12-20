@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/util/util.dart';
+import 'package:huzz/core/util/util.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class WalletInInformationDialog extends StatelessWidget {
@@ -15,11 +15,11 @@ class WalletInInformationDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        SizedBox(height: 7),
+        const SizedBox(height: 7),
         Text(
           'This is where you can have access to your wallet.',
           textAlign: TextAlign.center,
@@ -48,7 +48,7 @@ class _WalletState extends State<Wallet> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -67,7 +67,7 @@ class _WalletState extends State<Wallet> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             GestureDetector(
               onTap: () {
                 Platform.isIOS
@@ -78,7 +78,7 @@ class _WalletState extends State<Wallet> {
                           content: WalletInInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -90,7 +90,7 @@ class _WalletState extends State<Wallet> {
                           content: WalletInInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -106,7 +106,7 @@ class _WalletState extends State<Wallet> {
                 ),
               ),
             ),
-          ], 
+          ],
         ),
       ),
       backgroundColor: Colors.white,
@@ -115,7 +115,7 @@ class _WalletState extends State<Wallet> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -173,7 +173,7 @@ class _WalletState extends State<Wallet> {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -182,7 +182,7 @@ class _WalletState extends State<Wallet> {
                         image: 'assets/images/transfer.png',
                         name: 'Transfer',
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       WalletOption(
                         onTap: () {},
                         image: 'assets/images/payment.svg',
@@ -196,7 +196,7 @@ class _WalletState extends State<Wallet> {
               decoration: BoxDecoration(
                 color: AppColors.backgroundColor,
                 borderRadius: BorderRadius.circular(12),
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage("assets/images/home_rectangle.png"),
                   fit: BoxFit.fill,
                 ),
@@ -225,17 +225,17 @@ class WalletOption extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(4),
+        padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: Color(0xff056B5C),
+          color: const Color(0xff056B5C),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              padding: EdgeInsets.all(3),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(3),
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
@@ -251,7 +251,7 @@ class WalletOption extends StatelessWidget {
                       width: 16,
                     ),
             ),
-            SizedBox(width: 6),
+            const SizedBox(width: 6),
             Text(
               name!,
               style: GoogleFonts.inter(
@@ -260,7 +260,7 @@ class WalletOption extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(width: 6),
+            const SizedBox(width: 6),
           ],
         ),
       ),

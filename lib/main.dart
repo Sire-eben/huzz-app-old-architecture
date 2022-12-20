@@ -26,10 +26,7 @@ class _HuzzAppState extends State<HuzzApp> {
     return GetMaterialApp(
       initialBinding: AppBinding(),
       useInheritedMediaQuery: true,
-      theme: ThemeData(
-          fontFamily: 'InterRegular',
-          primaryColor: AppColors.backgroundColor,
-          primarySwatch: Palette.primaryColor),
+      theme: AppThemes.defaultTheme(context),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
       home: SplashScreen(),

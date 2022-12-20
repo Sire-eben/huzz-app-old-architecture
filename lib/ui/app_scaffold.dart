@@ -1,7 +1,3 @@
-// ignore_for_file: unused_element
-
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huzz/core/widgets/image.dart';
@@ -11,10 +7,9 @@ import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
 import 'package:huzz/ui/invoice/empty_invoice.dart';
 import 'package:huzz/ui/more/more.dart';
-import 'package:huzz/ui/widget/loading_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:new_version/new_version.dart';
-import 'home/home.dart';
+import 'home/home_page.dart';
 import 'inventory/manage_inventory.dart';
 import 'invoice/available_invoice.dart';
 
@@ -27,21 +22,14 @@ class Dashboard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DashboardState createState() =>
-      _DashboardState(selectedIndex: selectedIndex!);
+  _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
   int selectedIndex = 0;
-  _DashboardState({required this.selectedIndex});
+  // _DashboardState({required this.selectedIndex});
   final _invoiceRepository = Get.find<InvoiceRespository>();
   final teamController = Get.find<TeamRepository>();
-
-  void _selectPage(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
 
   @override
   void initState() {
@@ -108,52 +96,46 @@ class _DashboardState extends State<Dashboard> {
       ),
       _Item(
         title: 'More',
-        inactiveIcon: Assets.icons.linear.more,
-        icon: Assets.icons.bulk.more,
+        inactiveIcon: Assets.icons.linear.moreCircle,
+        icon: Assets.icons.bulk.moreCircle,
       ),
     ];
 
     return Scaffold(
       body: buildPages(),
       backgroundColor: Colors.white,
-      bottomNavigationBar: Obx(() {
-        return (teamController.teamMembersStatus == TeamMemberStatus.Loading)
-            ? Center(
-                child: LoadingWidget(
-                  color: AppColors.backgroundColor,
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        // showSelectedLabels: true,
+        currentIndex: selectedIndex,
+        selectedItemColor: Colors.black54,
+        items: _items
+            .map(
+              (item) => BottomNavigationBarItem(
+                label: item.title,
+                tooltip: item.title,
+                activeIcon: LocalSvgIcon(
+                  item.icon,
+                  size: 20,
+                  color: AppColors.primaryColor,
                 ),
-              )
-            : BottomNavigationBar(
-                // showElevation: false,
-                currentIndex: selectedIndex,
-                items: _items
-                    .map(
-                      (item) => BottomNavigationBarItem(
-                        label: item.title,
-                        tooltip: item.title,
-                        activeIcon: LocalSvgIcon(
-                          item.icon,
-                          size: 20,
-                          color: AppColors.primaryColor,
-                        ),
-                        icon: LocalSvgIcon(
-                          item.inactiveIcon,
-                          size: 20,
-                          color: AppColors.primaryColor.withOpacity(0.7),
-                        ),
-                      ),
-                    )
-                    .toList(),
-                onTap: (index) => setState(() => this.selectedIndex = index),
-              );
-      }),
+                icon: LocalSvgIcon(
+                  item.inactiveIcon,
+                  size: 20,
+                  color: AppColors.primaryColor.withOpacity(0.7),
+                ),
+              ),
+            )
+            .toList(),
+        onTap: (index) => setState(() => selectedIndex = index),
+      ),
     );
   }
 
   Widget buildPages() {
     switch (selectedIndex) {
       case 0:
-        return Home();
+        return const HomePage();
       case 1:
         return CustomerTabView();
       case 2:
@@ -161,10 +143,10 @@ class _DashboardState extends State<Dashboard> {
       case 3:
         return _invoiceRepository.invoiceStatus == InvoiceStatus.UnAuthorized
             ? const InvoiceNotAuthorized()
-            : (_invoiceRepository.InvoicePendingList.length == 0 &&
-                    _invoiceRepository.InvoiceDueList.length == 0 &&
-                    _invoiceRepository.InvoiceDepositList.length == 0 &&
-                    _invoiceRepository.paidInvoiceList.length == 0)
+            : (_invoiceRepository.InvoicePendingList.isEmpty &&
+                    _invoiceRepository.InvoiceDueList.isEmpty &&
+                    _invoiceRepository.InvoiceDepositList.isEmpty &&
+                    _invoiceRepository.paidInvoiceList.isEmpty)
                 ? const EmptyInvoice()
                 : const AvailableInvoice();
       case 4:

@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:get/get.dart';
+import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/widget/util.dart';
-import 'package:huzz/util/constants.dart';
-import 'package:huzz/util/util.dart' as utils;
+import 'package:huzz/core/util/util.dart' as utils;
 import 'package:huzz/data/model/bank.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/data/model/customer_model.dart';
@@ -35,7 +35,6 @@ class PdfInvoiceApi {
     final pdf = Document();
     var customer = _customerController
         .checkifCustomerAvailableWithValue(invoice.customerId!);
-    print("bank id ${invoice.bankId}");
     var bank = _bankController.checkifBankAvailableWithValue(invoice.bankId!);
 
     final selectedBusiness = _businessController.selectedBusiness.value!;
@@ -77,7 +76,7 @@ class PdfInvoiceApi {
           Invoice invoice,
           PdfColor themeColor) =>
       Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           color: themeColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +93,6 @@ class PdfInvoiceApi {
           ));
 
   static Widget buildCustomerAddress(Customer? customer) {
-    print("consumer ${customer!.name}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -106,8 +104,6 @@ class PdfInvoiceApi {
 
   static Widget buildSupplierAddress(Business business,
       pw.ImageProvider? businessImgProvider, PdfColor themeColor) {
-    print("business is ${business.businessName}");
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -139,10 +135,10 @@ class PdfInvoiceApi {
                 TextStyle(fontWeight: FontWeight.bold, color: PdfColors.white)),
         SizedBox(height: 1 * PdfPageFormat.mm),
         Text(business.businessEmail ?? "",
-            style: TextStyle(color: PdfColors.white)),
+            style: const TextStyle(color: PdfColors.white)),
         SizedBox(height: 1 * PdfPageFormat.mm),
         Text(business.businessPhoneNumber ?? "",
-            style: TextStyle(color: PdfColors.white)),
+            style: const TextStyle(color: PdfColors.white)),
       ],
     );
   }
@@ -166,28 +162,28 @@ class PdfInvoiceApi {
           Text(
               'Issued Date:' +
                   DateFormat.yMMMd().format(DateTime.now()).toString(),
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+              style: const TextStyle(color: PdfColors.white, fontSize: 10)),
           Text(
               'Due Date:' +
                   DateFormat.yMMMd().format(invoice.dueDateTime!).toString(),
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+              style: const TextStyle(color: PdfColors.white, fontSize: 10)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text('Mode of Payment',
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+              style: const TextStyle(color: PdfColors.white, fontSize: 10)),
           Text("Transfer",
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           (bankDetails != null)
               ? Text(bankDetails.bankAccountName!,
-                  style: TextStyle(color: PdfColors.white, fontSize: 10))
+                  style: const TextStyle(color: PdfColors.white, fontSize: 10))
               : pw.Container(),
           (bankDetails != null)
               ? Text(bankDetails.bankAccountNumber!,
-                  style: TextStyle(color: PdfColors.white, fontSize: 10))
+                  style: const TextStyle(color: PdfColors.white, fontSize: 10))
               : pw.Container(),
           (bankDetails != null)
               ? Text(bankDetails.bankName!,
-                  style: TextStyle(color: PdfColors.white, fontSize: 10))
+                  style: const TextStyle(color: PdfColors.white, fontSize: 10))
               : pw.Container(),
         ],
       );
@@ -214,7 +210,6 @@ class PdfInvoiceApi {
     ];
     final data = invoice.paymentItemRequestList!.map((item) {
       final unit = item.totalAmount / item.quality;
-      print("item name ${item.itemName}");
       return [
         '${item.itemName}',
         '${item.quality}',
@@ -227,7 +222,7 @@ class PdfInvoiceApi {
       headers: headers,
       data: data,
       border: null,
-      cellStyle: TextStyle(fontSize: 15),
+      cellStyle: const TextStyle(fontSize: 15),
       headerStyle: TextStyle(
           fontWeight: FontWeight.bold, color: themeColor, fontSize: 20),
       cellHeight: 38,
@@ -259,7 +254,7 @@ class PdfInvoiceApi {
         mainAxisAlignment: pw.MainAxisAlignment.end,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             color: PdfColors.orange,
             child: Text(
               'TOTAL',
@@ -402,13 +397,13 @@ class PdfInvoiceApi {
           pw.SizedBox(),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(width: 1, color: PdfColors.orange),
                 color: PdfColors.orange50),
             child: Text(('${invoice.businessInvoiceStatus}'),
-                style: TextStyle(color: PdfColors.orange, fontSize: 12)),
+                style: const TextStyle(color: PdfColors.orange, fontSize: 12)),
           )
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -468,20 +463,20 @@ class PdfInvoiceApi {
                       children: [
                     Text(
                       e.createdDateTime!.formatDate()!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 10,
                       ),
                     ),
                     Text(
                       '${Utils.formatPrice(e.amountPaid)}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 10,
                         color: PdfColors.orange,
                       ),
                     ),
                     Text(
                       e.paymentSource ?? "CASH",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 10,
                       ),
                     )

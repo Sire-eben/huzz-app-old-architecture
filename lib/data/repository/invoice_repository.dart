@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
+import 'package:huzz/core/util/util.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/file_upload_respository.dart';
@@ -20,7 +21,6 @@ import 'package:http/http.dart' as http;
 import 'package:huzz/data/model/transaction_model.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:uuid/uuid.dart';
-import '../../util/util.dart';
 import 'auth_respository.dart';
 import 'customer_repository.dart';
 

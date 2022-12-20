@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/ui/invoice/available_invoice/single_invoice_preview.dart';
 import 'package:huzz/data/model/invoice.dart';
-import 'package:huzz/util/constants.dart';
+import 'package:huzz/core/util/util.dart';
 import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../../util/util.dart';
 import '../create_invoice.dart';
 import 'empty_invoice_info.dart';
 
@@ -40,7 +40,7 @@ class _PaidState extends State<Paid> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -96,7 +96,7 @@ class _PaidState extends State<Paid> {
               Expanded(
                   child: RefreshIndicator(
                 onRefresh: () async {
-                  return Future.delayed(Duration(seconds: 1), () {
+                  return Future.delayed(const Duration(seconds: 1), () {
                     _invoiceController.getOnlineInvoice(value!.businessId!);
                     _invoiceController.GetOfflineInvoices(value.businessId!);
                   });
@@ -104,10 +104,10 @@ class _PaidState extends State<Paid> {
                 child: !deleteItem
                     ? (_invoiceController.invoiceStatus ==
                             InvoiceStatus.Loading)
-                        ? Center(child: CircularProgressIndicator())
+                        ? const Center(child: CircularProgressIndicator())
                         : (_invoiceController.invoiceStatus ==
                                     InvoiceStatus.Available &&
-                                _invoiceController.paidInvoiceList.length != 0)
+                                _invoiceController.paidInvoiceList.isNotEmpty)
                             ? ListView.builder(
                                 itemCount:
                                     _invoiceController.paidInvoiceList.length,
@@ -157,7 +157,7 @@ class _PaidState extends State<Paid> {
                                                         fontSize: 16,
                                                         color: Colors.black),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 5,
                                                   ),
                                                   SizedBox(
@@ -177,7 +177,7 @@ class _PaidState extends State<Paid> {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 14,
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xffEF6500)),
                                                       ),
                                                       Text(
@@ -213,7 +213,7 @@ class _PaidState extends State<Paid> {
                                                         .size
                                                         .width *
                                                     0.05),
-                                            Icon(
+                                            const Icon(
                                               Icons.arrow_forward_ios,
                                               color: AppColors.backgroundColor,
                                             ),
@@ -226,10 +226,10 @@ class _PaidState extends State<Paid> {
                             : EmptyInvoiceInfo()
                     : (_invoiceController.invoiceStatus ==
                             InvoiceStatus.Loading)
-                        ? Center(child: CircularProgressIndicator())
+                        ? const Center(child: CircularProgressIndicator())
                         : (_invoiceController.invoiceStatus ==
                                     InvoiceStatus.Available &&
-                                _invoiceController.paidInvoiceList.length != 0)
+                                _invoiceController.paidInvoiceList.isNotEmpty)
                             ? ListView.builder(
                                 itemCount:
                                     _invoiceController.paidInvoiceList.length,
@@ -288,7 +288,7 @@ class _PaidState extends State<Paid> {
                                                         fontSize: 16,
                                                         color: Colors.black),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 5,
                                                   ),
                                                   Row(
@@ -302,7 +302,7 @@ class _PaidState extends State<Paid> {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 14,
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xffEF6500)),
                                                       ),
                                                       Text(
@@ -352,8 +352,8 @@ class _PaidState extends State<Paid> {
                                                 setState(() {});
                                               },
                                               child: AnimatedContainer(
-                                                duration:
-                                                    Duration(milliseconds: 200),
+                                                duration: const Duration(
+                                                    milliseconds: 200),
                                                 height: 25,
                                                 width: 25,
                                                 decoration: BoxDecoration(
@@ -368,14 +368,15 @@ class _PaidState extends State<Paid> {
                                                     color: (!_invoiceController
                                                             .checkifSelectedForDeleted(
                                                                 item.id!))
-                                                        ? Color(0xffEF6500)
+                                                        ? const Color(
+                                                            0xffEF6500)
                                                         : Colors.transparent,
                                                     width: 2,
                                                   ),
                                                 ),
                                                 child: Visibility(
                                                   visible: visible,
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.check,
                                                     size: 15,
                                                     color: AppColors.whiteColor,
@@ -408,10 +409,10 @@ class _PaidState extends State<Paid> {
                           _displayDialog(context);
                         }
                       } else {
-                        Get.to(() => CreateInvoice());
+                        Get.to(() => const CreateInvoice());
                       }
                     },
-                    icon: (!deleteItem) ? Container() : Icon(Icons.add),
+                    icon: (!deleteItem) ? Container() : const Icon(Icons.add),
                     backgroundColor: AppColors.backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
@@ -431,7 +432,7 @@ class _PaidState extends State<Paid> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 300,
             ),
@@ -459,7 +460,7 @@ class _PaidState extends State<Paid> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -473,7 +474,7 @@ class _PaidState extends State<Paid> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -509,7 +510,7 @@ class _PaidState extends State<Paid> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
