@@ -10,7 +10,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/image.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
@@ -25,6 +27,7 @@ import 'package:huzz/ui/Home/records.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
+import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
@@ -179,11 +182,13 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           body: teamController.teamMembersStatus == TeamMemberStatus.Loading
-              ? Container()
+              ? const Center(
+                  child: LoadingWidget(),
+                )
               : Container(
                   padding: const EdgeInsets.all(Insets.lg),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  width: context.getWidth(),
+                  height: context.getHeight(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -432,7 +437,7 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                             // height: 130,
-                            width: context.width,
+                            width: context.getWidth(),
                             height: 140,
                             decoration: BoxDecoration(
                               color: AppColors.backgroundColor,
@@ -444,6 +449,8 @@ class _HomePageState extends State<HomePage> {
                               // ),
                             ),
                           );
+                        }).onTap(() {
+                          context.push(const WalletScreen());
                         }),
 
                         SizedBox(
