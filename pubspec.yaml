@@ -107,6 +107,7 @@ flutter:
     - assets/icons/bulk/
     - assets/icons/linear/
     - assets/icons/twotone/
+    - assets/icons/imported/
 
 flutter_gen:
   output: lib/generated/

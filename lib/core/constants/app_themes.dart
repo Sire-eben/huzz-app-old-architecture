@@ -4,7 +4,7 @@ import "package:flutter/material.dart";
 class AppColors {
   AppColors._();
   static const Color lightbackgroundColor = Color(0xffE6F4F2);
-  static const Color orangeBorderColor = Color(0xffEF6500);
+  static const Color orangeBorderColor = Color(0xFFEF6500);
   static const Color primaryColor = Color(0xff07A58E);
   static const Color backgroundColor = Color(0xff07A58E);
   static const Color secondbgColor = Color(0xff0D8372);

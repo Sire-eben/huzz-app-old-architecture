@@ -14,6 +14,7 @@ class Appbar extends AppBar {
     String title = "",
     List<Widget> actions = const [],
     bool showLeading = true,
+    bool centerTitle = false,
     double elevation = 0.0,
     AppbarType appbarType = AppbarType.light,
     Color? backgroundColor,
@@ -24,7 +25,7 @@ class Appbar extends AppBar {
             title,
             style: TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w500,
               color: appbarType == AppbarType.light
                   ? AppColors.primaryColor
                   : AppColors.whiteColor,
@@ -41,7 +42,7 @@ class Appbar extends AppBar {
           actions: actions,
           elevation: elevation,
           automaticallyImplyLeading: showLeading,
-          centerTitle: true,
+          centerTitle: centerTitle,
         );
 }
 

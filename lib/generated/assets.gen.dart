@@ -13,8 +13,740 @@ class $AssetsIconsGen {
   const $AssetsIconsGen();
 
   $AssetsIconsBulkGen get bulk => const $AssetsIconsBulkGen();
+  $AssetsIconsImportedGen get imported => const $AssetsIconsImportedGen();
   $AssetsIconsLinearGen get linear => const $AssetsIconsLinearGen();
   $AssetsIconsTwotoneGen get twotone => const $AssetsIconsTwotoneGen();
+}
+
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/Frame 3.svg
+  String get frame3 => 'assets/images/Frame 3.svg';
+
+  /// File path: assets/images/Group 3426.svg
+  String get group3426 => 'assets/images/Group 3426.svg';
+
+  /// File path: assets/images/Group 3505.png
+  AssetGenImage get group3505 =>
+      const AssetGenImage('assets/images/Group 3505.png');
+
+  /// File path: assets/images/Group 3625.png
+  AssetGenImage get group3625 =>
+      const AssetGenImage('assets/images/Group 3625.png');
+
+  /// File path: assets/images/Group 3647.png
+  AssetGenImage get group3647 =>
+      const AssetGenImage('assets/images/Group 3647.png');
+
+  /// File path: assets/images/Group 3786.svg
+  String get group3786 => 'assets/images/Group 3786.svg';
+
+  /// File path: assets/images/Group 3804.png
+  AssetGenImage get group3804 =>
+      const AssetGenImage('assets/images/Group 3804.png');
+
+  /// File path: assets/images/Group 3805.png
+  AssetGenImage get group3805 =>
+      const AssetGenImage('assets/images/Group 3805.png');
+
+  /// File path: assets/images/Group 3806.png
+  AssetGenImage get group3806Png =>
+      const AssetGenImage('assets/images/Group 3806.png');
+
+  /// File path: assets/images/Group 3806.svg
+  String get group3806Svg => 'assets/images/Group 3806.svg';
+
+  /// File path: assets/images/Group 3890.png
+  AssetGenImage get group3890 =>
+      const AssetGenImage('assets/images/Group 3890.png');
+
+  /// File path: assets/images/Group 4018.svg
+  String get group4018 => 'assets/images/Group 4018.svg';
+
+  /// File path: assets/images/Huzz.svg
+  String get huzz => 'assets/images/Huzz.svg';
+
+  /// File path: assets/images/Onboarding1alt2.svg
+  String get onboarding1alt2 => 'assets/images/Onboarding1alt2.svg';
+
+  /// File path: assets/images/Polygon 3.png
+  AssetGenImage get polygon3 =>
+      const AssetGenImage('assets/images/Polygon 3.png');
+
+  /// File path: assets/images/Rectangle 1015.png
+  AssetGenImage get rectangle1015 =>
+      const AssetGenImage('assets/images/Rectangle 1015.png');
+
+  /// File path: assets/images/Rectangle 63.svg
+  String get rectangle63 => 'assets/images/Rectangle 63.svg';
+
+  /// File path: assets/images/Rectangle 78.png
+  AssetGenImage get rectangle78 =>
+      const AssetGenImage('assets/images/Rectangle 78.png');
+
+  /// File path: assets/images/Rectangle 83.svg
+  String get rectangle83 => 'assets/images/Rectangle 83.svg';
+
+  /// File path: assets/images/Rectangle 84.png
+  AssetGenImage get rectangle84 =>
+      const AssetGenImage('assets/images/Rectangle 84.png');
+
+  /// File path: assets/images/Vector.svg
+  String get vector => 'assets/images/Vector.svg';
+
+  /// File path: assets/images/Vector1.svg
+  String get vector1 => 'assets/images/Vector1.svg';
+
+  /// File path: assets/images/Vector16.png
+  AssetGenImage get vector16 =>
+      const AssetGenImage('assets/images/Vector16.png');
+
+  /// File path: assets/images/Vector2.svg
+  String get vector2 => 'assets/images/Vector2.svg';
+
+  /// File path: assets/images/add_a_photo.svg
+  String get addAPhoto => 'assets/images/add_a_photo.svg';
+
+  /// File path: assets/images/add_debt_owned.svg
+  String get addDebtOwned => 'assets/images/add_debt_owned.svg';
+
+  /// File path: assets/images/add_photo.png
+  AssetGenImage get addPhotoPng =>
+      const AssetGenImage('assets/images/add_photo.png');
+
+  /// File path: assets/images/add_photo.svg
+  String get addPhotoSvg => 'assets/images/add_photo.svg';
+
+  /// File path: assets/images/addcamera.png
+  AssetGenImage get addcameraPng =>
+      const AssetGenImage('assets/images/addcamera.png');
+
+  /// File path: assets/images/addcamera.svg
+  String get addcameraSvg => 'assets/images/addcamera.svg';
+
+  /// File path: assets/images/arrow_down.png
+  AssetGenImage get arrowDown =>
+      const AssetGenImage('assets/images/arrow_down.png');
+
+  /// File path: assets/images/arrow_up.png
+  AssetGenImage get arrowUp =>
+      const AssetGenImage('assets/images/arrow_up.png');
+
+  /// File path: assets/images/average_expenses.svg
+  String get averageExpenses => 'assets/images/average_expenses.svg';
+
+  /// File path: assets/images/average_income.svg
+  String get averageIncome => 'assets/images/average_income.svg';
+
+  /// File path: assets/images/bank_CS.svg
+  String get bankCS => 'assets/images/bank_CS.svg';
+
+  /// File path: assets/images/bank_wallet.png
+  AssetGenImage get bankWalletPng =>
+      const AssetGenImage('assets/images/bank_wallet.png');
+
+  /// File path: assets/images/bank_wallet.svg
+  String get bankWalletSvg => 'assets/images/bank_wallet.svg';
+
+  /// File path: assets/images/bell.png
+  AssetGenImage get bellPng => const AssetGenImage('assets/images/bell.png');
+
+  /// File path: assets/images/bell.svg
+  String get bellSvg => 'assets/images/bell.svg';
+
+  /// File path: assets/images/boost 1.png
+  AssetGenImage get boost1Png =>
+      const AssetGenImage('assets/images/boost 1.png');
+
+  /// File path: assets/images/boost 1.svg
+  String get boost1Svg => 'assets/images/boost 1.svg';
+
+  /// File path: assets/images/business.png
+  AssetGenImage get businessPng =>
+      const AssetGenImage('assets/images/business.png');
+
+  /// File path: assets/images/business.svg
+  String get businessSvg => 'assets/images/business.svg';
+
+  /// File path: assets/images/call.png
+  AssetGenImage get call => const AssetGenImage('assets/images/call.png');
+
+  /// File path: assets/images/camera.png
+  AssetGenImage get cameraPng =>
+      const AssetGenImage('assets/images/camera.png');
+
+  /// File path: assets/images/camera.svg
+  String get cameraSvg => 'assets/images/camera.svg';
+
+  /// File path: assets/images/chat.png
+  AssetGenImage get chat => const AssetGenImage('assets/images/chat.png');
+
+  /// File path: assets/images/check.svg
+  String get check => 'assets/images/check.svg';
+
+  /// File path: assets/images/check_done.svg
+  String get checkDone => 'assets/images/check_done.svg';
+
+  /// File path: assets/images/check_notdone.svg
+  String get checkNotdone => 'assets/images/check_notdone.svg';
+
+  /// File path: assets/images/checker.png
+  AssetGenImage get checker => const AssetGenImage('assets/images/checker.png');
+
+  /// File path: assets/images/chevron-right.svg
+  String get chevronRight => 'assets/images/chevron-right.svg';
+
+  /// File path: assets/images/circle.svg
+  String get circle => 'assets/images/circle.svg';
+
+  /// File path: assets/images/close.png
+  AssetGenImage get closePng => const AssetGenImage('assets/images/close.png');
+
+  /// File path: assets/images/close.svg
+  String get closeSvg => 'assets/images/close.svg';
+
+  /// File path: assets/images/copyIcon.png
+  AssetGenImage get copyIcon =>
+      const AssetGenImage('assets/images/copyIcon.png');
+
+  /// File path: assets/images/credit_card.svg
+  String get creditCard => 'assets/images/credit_card.svg';
+
+  /// File path: assets/images/cus1.png
+  AssetGenImage get cus1 => const AssetGenImage('assets/images/cus1.png');
+
+  /// File path: assets/images/cus2.png
+  AssetGenImage get cus2 => const AssetGenImage('assets/images/cus2.png');
+
+  /// File path: assets/images/cus3.png
+  AssetGenImage get cus3 => const AssetGenImage('assets/images/cus3.png');
+
+  /// File path: assets/images/cus4.png
+  AssetGenImage get cus4 => const AssetGenImage('assets/images/cus4.png');
+
+  /// File path: assets/images/cus5.png
+  AssetGenImage get cus5 => const AssetGenImage('assets/images/cus5.png');
+
+  /// File path: assets/images/customers.svg
+  String get customers => 'assets/images/customers.svg';
+
+  /// File path: assets/images/debtors.png
+  AssetGenImage get debtorsPng =>
+      const AssetGenImage('assets/images/debtors.png');
+
+  /// File path: assets/images/debtors.svg
+  String get debtorsSvg => 'assets/images/debtors.svg';
+
+  /// File path: assets/images/delete.png
+  AssetGenImage get deletePng =>
+      const AssetGenImage('assets/images/delete.png');
+
+  /// File path: assets/images/delete.svg
+  String get deleteSvg => 'assets/images/delete.svg';
+
+  /// File path: assets/images/delete_alert.svg
+  String get deleteAlert => 'assets/images/delete_alert.svg';
+
+  /// File path: assets/images/delete_invoice.svg
+  String get deleteInvoice => 'assets/images/delete_invoice.svg';
+
+  /// File path: assets/images/dottedline.png
+  AssetGenImage get dottedline =>
+      const AssetGenImage('assets/images/dottedline.png');
+
+  /// File path: assets/images/download.svg
+  String get download => 'assets/images/download.svg';
+
+  /// File path: assets/images/edit.svg
+  String get edit => 'assets/images/edit.svg';
+
+  /// File path: assets/images/edit_pri.svg
+  String get editPri => 'assets/images/edit_pri.svg';
+
+  /// File path: assets/images/empty_transaction.svg
+  String get emptyTransaction => 'assets/images/empty_transaction.svg';
+
+  /// File path: assets/images/entre 1.png
+  AssetGenImage get entre1 => const AssetGenImage('assets/images/entre 1.png');
+
+  /// File path: assets/images/exclamation.svg
+  String get exclamation => 'assets/images/exclamation.svg';
+
+  /// File path: assets/images/expense_transaction.svg
+  String get expenseTransaction => 'assets/images/expense_transaction.svg';
+
+  /// File path: assets/images/eye.png
+  AssetGenImage get eye => const AssetGenImage('assets/images/eye.png');
+
+  /// File path: assets/images/faq.svg
+  String get faq => 'assets/images/faq.svg';
+
+  /// File path: assets/images/feather_share.png
+  AssetGenImage get featherShare =>
+      const AssetGenImage('assets/images/feather_share.png');
+
+  /// File path: assets/images/finger.png
+  AssetGenImage get finger => const AssetGenImage('assets/images/finger.png');
+
+  /// File path: assets/images/frown.svg
+  String get frown => 'assets/images/frown.svg';
+
+  /// File path: assets/images/gift.png
+  AssetGenImage get gift => const AssetGenImage('assets/images/gift.png');
+
+  /// File path: assets/images/graph.svg
+  String get graph => 'assets/images/graph.svg';
+
+  /// File path: assets/images/h_income_transaction.svg
+  String get hIncomeTransaction => 'assets/images/h_income_transaction.svg';
+
+  /// File path: assets/images/help_support.svg
+  String get helpSupport => 'assets/images/help_support.svg';
+
+  /// File path: assets/images/home_rectangle.png
+  AssetGenImage get homeRectangle =>
+      const AssetGenImage('assets/images/home_rectangle.png');
+
+  /// File path: assets/images/huzzLogoBlue.png
+  AssetGenImage get huzzLogoBlue =>
+      const AssetGenImage('assets/images/huzzLogoBlue.png');
+
+  /// File path: assets/images/huzz_blue_logo.svg
+  String get huzzBlueLogo => 'assets/images/huzz_blue_logo.svg';
+
+  /// File path: assets/images/huzz_logo.png
+  AssetGenImage get huzzLogo =>
+      const AssetGenImage('assets/images/huzz_logo.png');
+
+  /// File path: assets/images/image 3.png
+  AssetGenImage get image3 => const AssetGenImage('assets/images/image 3.png');
+
+  /// File path: assets/images/image-signature.svg
+  String get imageSignature => 'assets/images/image-signature.svg';
+
+  /// File path: assets/images/image.png
+  AssetGenImage get image => const AssetGenImage('assets/images/image.png');
+
+  /// File path: assets/images/imageicon.png
+  AssetGenImage get imageicon =>
+      const AssetGenImage('assets/images/imageicon.png');
+
+  /// File path: assets/images/income.svg
+  String get income => 'assets/images/income.svg';
+
+  /// File path: assets/images/income_added.svg
+  String get incomeAdded => 'assets/images/income_added.svg';
+
+  /// File path: assets/images/income_transaction.png
+  AssetGenImage get incomeTransactionPng =>
+      const AssetGenImage('assets/images/income_transaction.png');
+
+  /// File path: assets/images/income_transaction.svg
+  String get incomeTransactionSvg => 'assets/images/income_transaction.svg';
+
+  /// File path: assets/images/info.svg
+  String get info => 'assets/images/info.svg';
+
+  /// File path: assets/images/invoice.svg
+  String get invoice => 'assets/images/invoice.svg';
+
+  /// File path: assets/images/logo.png
+  AssetGenImage get logoPng => const AssetGenImage('assets/images/logo.png');
+
+  /// File path: assets/images/logo.svg
+  String get logoSvg => 'assets/images/logo.svg';
+
+  /// File path: assets/images/logout.svg
+  String get logout => 'assets/images/logout.svg';
+
+  /// File path: assets/images/mail.svg
+  String get mail => 'assets/images/mail.svg';
+
+  /// File path: assets/images/message.png
+  AssetGenImage get message => const AssetGenImage('assets/images/message.png');
+
+  /// File path: assets/images/moneyRound_in.png
+  AssetGenImage get moneyRoundInPng =>
+      const AssetGenImage('assets/images/moneyRound_in.png');
+
+  /// File path: assets/images/moneyRound_in.svg
+  String get moneyRoundInSvg => 'assets/images/moneyRound_in.svg';
+
+  /// File path: assets/images/moneyRound_out.png
+  AssetGenImage get moneyRoundOutPng =>
+      const AssetGenImage('assets/images/moneyRound_out.png');
+
+  /// File path: assets/images/moneyRound_out.svg
+  String get moneyRoundOutSvg => 'assets/images/moneyRound_out.svg';
+
+  /// File path: assets/images/money_in.svg
+  String get moneyIn => 'assets/images/money_in.svg';
+
+  /// File path: assets/images/money_out.svg
+  String get moneyOut => 'assets/images/money_out.svg';
+
+  /// File path: assets/images/mu_store.png
+  AssetGenImage get muStore =>
+      const AssetGenImage('assets/images/mu_store.png');
+
+  /// File path: assets/images/my_store.png
+  AssetGenImage get myStore =>
+      const AssetGenImage('assets/images/my_store.png');
+
+  /// File path: assets/images/my_team.png
+  AssetGenImage get myTeam => const AssetGenImage('assets/images/my_team.png');
+
+  /// File path: assets/images/my_teams.png
+  AssetGenImage get myTeamsPng =>
+      const AssetGenImage('assets/images/my_teams.png');
+
+  /// File path: assets/images/my_teams.svg
+  String get myTeamsSvg => 'assets/images/my_teams.svg';
+
+  /// File path: assets/images/net_income.svg
+  String get netIncome => 'assets/images/net_income.svg';
+
+  /// File path: assets/images/notification.svg
+  String get notification => 'assets/images/notification.svg';
+
+  /// File path: assets/images/notification_bell.svg
+  String get notificationBell => 'assets/images/notification_bell.svg';
+
+  /// File path: assets/images/onboard1.svg
+  String get onboard1 => 'assets/images/onboard1.svg';
+
+  /// File path: assets/images/payment.svg
+  String get payment => 'assets/images/payment.svg';
+
+  /// File path: assets/images/pen.png
+  AssetGenImage get pen => const AssetGenImage('assets/images/pen.png');
+
+  /// File path: assets/images/people.png
+  AssetGenImage get people => const AssetGenImage('assets/images/people.png');
+
+  /// File path: assets/images/pick_business_image.svg
+  String get pickBusinessImage => 'assets/images/pick_business_image.svg';
+
+  /// File path: assets/images/plus-circle.svg
+  String get plusCircle => 'assets/images/plus-circle.svg';
+
+  /// File path: assets/images/polygon 2.svg
+  String get polygon2 => 'assets/images/polygon 2.svg';
+
+  /// File path: assets/images/polygon.svg
+  String get polygon => 'assets/images/polygon.svg';
+
+  /// File path: assets/images/privacy_policy.png
+  AssetGenImage get privacyPolicy =>
+      const AssetGenImage('assets/images/privacy_policy.png');
+
+  /// File path: assets/images/privacy_policy1.png
+  AssetGenImage get privacyPolicy1 =>
+      const AssetGenImage('assets/images/privacy_policy1.png');
+
+  /// File path: assets/images/productImage.png
+  AssetGenImage get productImage =>
+      const AssetGenImage('assets/images/productImage.png');
+
+  /// File path: assets/images/profileImg.png
+  AssetGenImage get profileImgPng =>
+      const AssetGenImage('assets/images/profileImg.png');
+
+  /// File path: assets/images/profileImg.svg
+  String get profileImgSvg => 'assets/images/profileImg.svg';
+
+  /// File path: assets/images/referral.png
+  AssetGenImage get referral =>
+      const AssetGenImage('assets/images/referral.png');
+
+  /// File path: assets/images/result.svg
+  String get result => 'assets/images/result.svg';
+
+  /// File path: assets/images/result1.svg
+  String get result1 => 'assets/images/result1.svg';
+
+  /// File path: assets/images/result2.svg
+  String get result2 => 'assets/images/result2.svg';
+
+  /// File path: assets/images/result3.svg
+  String get result3 => 'assets/images/result3.svg';
+
+  /// File path: assets/images/select_from_contact.svg
+  String get selectFromContact => 'assets/images/select_from_contact.svg';
+
+  /// File path: assets/images/select_image.png
+  AssetGenImage get selectImage =>
+      const AssetGenImage('assets/images/select_image.png');
+
+  /// File path: assets/images/selectedItem.svg
+  String get selectedItem => 'assets/images/selectedItem.svg';
+
+  /// File path: assets/images/setting.svg
+  String get setting => 'assets/images/setting.svg';
+
+  /// File path: assets/images/settings 2.svg
+  String get settings2 => 'assets/images/settings 2.svg';
+
+  /// File path: assets/images/settings.png
+  AssetGenImage get settingsPng =>
+      const AssetGenImage('assets/images/settings.png');
+
+  /// File path: assets/images/settings.svg
+  String get settingsSvg => 'assets/images/settings.svg';
+
+  /// File path: assets/images/share.png
+  AssetGenImage get sharePng => const AssetGenImage('assets/images/share.png');
+
+  /// File path: assets/images/share.svg
+  String get shareSvg => 'assets/images/share.svg';
+
+  /// File path: assets/images/step1.png
+  AssetGenImage get step1Png => const AssetGenImage('assets/images/step1.png');
+
+  /// File path: assets/images/step1.svg
+  String get step1Svg => 'assets/images/step1.svg';
+
+  /// File path: assets/images/store.png
+  AssetGenImage get storePng => const AssetGenImage('assets/images/store.png');
+
+  /// File path: assets/images/store.svg
+  String get storeSvg => 'assets/images/store.svg';
+
+  /// File path: assets/images/store_CS.svg
+  String get storeCS => 'assets/images/store_CS.svg';
+
+  /// File path: assets/images/storeee 1.png
+  AssetGenImage get storeee1 =>
+      const AssetGenImage('assets/images/storeee 1.png');
+
+  /// File path: assets/images/team 1.png
+  AssetGenImage get team1 => const AssetGenImage('assets/images/team 1.png');
+
+  /// File path: assets/images/team.png
+  AssetGenImage get teamPng => const AssetGenImage('assets/images/team.png');
+
+  /// File path: assets/images/team.svg
+  String get teamSvg => 'assets/images/team.svg';
+
+  /// File path: assets/images/teamIcon.png
+  AssetGenImage get teamIcon =>
+      const AssetGenImage('assets/images/teamIcon.png');
+
+  /// File path: assets/images/team_CM.svg
+  String get teamCM => 'assets/images/team_CM.svg';
+
+  /// File path: assets/images/total_expense.svg
+  String get totalExpense => 'assets/images/total_expense.svg';
+
+  /// File path: assets/images/total_income.svg
+  String get totalIncome => 'assets/images/total_income.svg';
+
+  /// File path: assets/images/transaction_icon.png
+  AssetGenImage get transactionIcon =>
+      const AssetGenImage('assets/images/transaction_icon.png');
+
+  /// File path: assets/images/transfer.png
+  AssetGenImage get transferPng =>
+      const AssetGenImage('assets/images/transfer.png');
+
+  /// File path: assets/images/transfer.svg
+  String get transferSvg => 'assets/images/transfer.svg';
+
+  /// File path: assets/images/trash.svg
+  String get trash => 'assets/images/trash.svg';
+
+  /// File path: assets/images/user.png
+  AssetGenImage get userPng => const AssetGenImage('assets/images/user.png');
+
+  /// File path: assets/images/user.svg
+  String get userSvg => 'assets/images/user.svg';
+
+  /// File path: assets/images/users.svg
+  String get users => 'assets/images/users.svg';
+
+  /// File path: assets/images/wallet.svg
+  String get wallet => 'assets/images/wallet.svg';
+
+  /// File path: assets/images/wallett.png
+  AssetGenImage get wallett => const AssetGenImage('assets/images/wallett.png');
+
+  /// File path: assets/images/whatsapp.svg
+  String get whatsapp => 'assets/images/whatsapp.svg';
+
+  /// List of all assets
+  List<dynamic> get values => [
+        frame3,
+        group3426,
+        group3505,
+        group3625,
+        group3647,
+        group3786,
+        group3804,
+        group3805,
+        group3806Png,
+        group3806Svg,
+        group3890,
+        group4018,
+        huzz,
+        onboarding1alt2,
+        polygon3,
+        rectangle1015,
+        rectangle63,
+        rectangle78,
+        rectangle83,
+        rectangle84,
+        vector,
+        vector1,
+        vector16,
+        vector2,
+        addAPhoto,
+        addDebtOwned,
+        addPhotoPng,
+        addPhotoSvg,
+        addcameraPng,
+        addcameraSvg,
+        arrowDown,
+        arrowUp,
+        averageExpenses,
+        averageIncome,
+        bankCS,
+        bankWalletPng,
+        bankWalletSvg,
+        bellPng,
+        bellSvg,
+        boost1Png,
+        boost1Svg,
+        businessPng,
+        businessSvg,
+        call,
+        cameraPng,
+        cameraSvg,
+        chat,
+        check,
+        checkDone,
+        checkNotdone,
+        checker,
+        chevronRight,
+        circle,
+        closePng,
+        closeSvg,
+        copyIcon,
+        creditCard,
+        cus1,
+        cus2,
+        cus3,
+        cus4,
+        cus5,
+        customers,
+        debtorsPng,
+        debtorsSvg,
+        deletePng,
+        deleteSvg,
+        deleteAlert,
+        deleteInvoice,
+        dottedline,
+        download,
+        edit,
+        editPri,
+        emptyTransaction,
+        entre1,
+        entre1,
+        exclamation,
+        expenseTransaction,
+        eye,
+        faq,
+        featherShare,
+        finger,
+        frown,
+        gift,
+        graph,
+        hIncomeTransaction,
+        helpSupport,
+        homeRectangle,
+        huzzLogoBlue,
+        huzzBlueLogo,
+        huzzLogo,
+        image3,
+        imageSignature,
+        image,
+        imageicon,
+        income,
+        incomeAdded,
+        incomeTransactionPng,
+        incomeTransactionSvg,
+        info,
+        invoice,
+        logoPng,
+        logoSvg,
+        logout,
+        mail,
+        message,
+        moneyRoundInPng,
+        moneyRoundInSvg,
+        moneyRoundOutPng,
+        moneyRoundOutSvg,
+        moneyIn,
+        moneyOut,
+        muStore,
+        myStore,
+        myTeam,
+        myTeamsPng,
+        myTeamsSvg,
+        netIncome,
+        notification,
+        notificationBell,
+        onboard1,
+        payment,
+        pen,
+        people,
+        pickBusinessImage,
+        plusCircle,
+        polygon2,
+        polygon,
+        privacyPolicy,
+        privacyPolicy1,
+        productImage,
+        profileImgPng,
+        profileImgSvg,
+        referral,
+        result,
+        result1,
+        result2,
+        result3,
+        selectFromContact,
+        selectImage,
+        selectedItem,
+        setting,
+        settings2,
+        settingsPng,
+        settingsSvg,
+        sharePng,
+        shareSvg,
+        step1Png,
+        step1Svg,
+        storePng,
+        storeSvg,
+        storeCS,
+        storeee1,
+        team1,
+        teamPng,
+        teamSvg,
+        teamIcon,
+        teamCM,
+        totalExpense,
+        totalIncome,
+        transactionIcon,
+        transferPng,
+        transferSvg,
+        trash,
+        userPng,
+        userSvg,
+        users,
+        wallet,
+        wallett,
+        whatsapp
+      ];
 }
 
 class $AssetsIconsBulkGen {
@@ -3608,6 +4340,21 @@ class $AssetsIconsBulkGen {
         wind,
         woman
       ];
+}
+
+class $AssetsIconsImportedGen {
+  const $AssetsIconsImportedGen();
+
+  /// File path: assets/icons/imported/face_scan.png
+  AssetGenImage get faceScan =>
+      const AssetGenImage('assets/icons/imported/face_scan.png');
+
+  /// File path: assets/icons/imported/transaction.png
+  AssetGenImage get transaction =>
+      const AssetGenImage('assets/icons/imported/transaction.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [faceScan, transaction];
 }
 
 class $AssetsIconsLinearGen {
@@ -10917,6 +11664,7 @@ class Assets {
   Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {
