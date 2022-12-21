@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/appbar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
-import 'package:huzz/core/widgets/image.dart';
-import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/ui/account/upgrade_steps.dart';
+import 'package:huzz/ui/account/face_capture.dart';
 
 class UpgradeAccountScreen extends StatefulWidget {
   const UpgradeAccountScreen({super.key});
@@ -49,7 +45,7 @@ class _UpgradeAccountScreenState extends State<UpgradeAccountScreen> {
             const Gap(Insets.xl),
             Button(
               label: 'Face Capture',
-              action: () => context.push(const UpgradeStepsScreen()),
+              action: () => context.push(FaceCaptureCreen()),
             ),
             const Gap(Insets.md),
             const Align(

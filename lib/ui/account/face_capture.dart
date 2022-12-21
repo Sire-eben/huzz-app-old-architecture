@@ -1,37 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/appbar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/generated/assets.gen.dart';
-
-enum UpgradeSteps { first, second }
+import 'package:huzz/ui/account/id_verification.dart';
 
 enum FaceCapture { initial, loading, successful, unsuccessful }
 
-class UpgradeStepsScreen extends StatefulWidget {
-  UpgradeSteps upgradeSteps;
+// ignore: must_be_immutable
+class FaceCaptureCreen extends StatefulWidget {
   FaceCapture faceCapture;
 
-  UpgradeStepsScreen({
+  FaceCaptureCreen({
     super.key,
-    this.upgradeSteps = UpgradeSteps.first,
     this.faceCapture = FaceCapture.initial,
   });
 
   @override
-  State<UpgradeStepsScreen> createState() => _UpgradeStepsScreenState();
+  State<FaceCaptureCreen> createState() => _FaceCaptureCreenState();
 }
 
-class _UpgradeStepsScreenState extends State<UpgradeStepsScreen> {
-  bool successful = false;
+class _FaceCaptureCreenState extends State<FaceCaptureCreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbar(
-        title: 'Upgrade',
-      ),
+      appBar: Appbar(),
       body: Padding(
           padding: const EdgeInsets.all(Insets.lg),
           child: Center(
@@ -39,9 +35,7 @@ class _UpgradeStepsScreenState extends State<UpgradeStepsScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  widget.upgradeSteps == UpgradeSteps.first
-                      ? 'STEP ONE'
-                      : 'STEP TWO',
+                  'STEP ONE',
                   style: TextStyles.t2.copyWith(
                     color: AppColors.primaryColor,
                   ),
@@ -59,12 +53,9 @@ class _UpgradeStepsScreenState extends State<UpgradeStepsScreen> {
                           margin: const EdgeInsets.only(
                             right: Insets.sm,
                           ),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Corners.smRadius),
-                              color: widget.upgradeSteps == UpgradeSteps.first
-                                  ? AppColors.primaryColor
-                                  : Colors.grey.shade300),
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Corners.smRadius),
+                              color: AppColors.primaryColor),
                         ),
                         Container(
                           height: 4,
@@ -72,9 +63,7 @@ class _UpgradeStepsScreenState extends State<UpgradeStepsScreen> {
                           decoration: BoxDecoration(
                               borderRadius:
                                   const BorderRadius.all(Corners.smRadius),
-                              color: widget.upgradeSteps == UpgradeSteps.second
-                                  ? AppColors.primaryColor
-                                  : Colors.grey.shade300),
+                              color: Colors.grey.shade300),
                         )
                       ]),
                 ),
@@ -115,9 +104,7 @@ class _UpgradeStepsScreenState extends State<UpgradeStepsScreen> {
                         ? Button(
                             label: 'Proceed',
                             action: () {
-                              setState(() {
-                                widget.upgradeSteps = UpgradeSteps.second;
-                              });
+                              context.push(IdVerificationScreen());
                             },
                           )
                         : Button(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/ui/auth/sign_in.dart';
 import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/ui/app_scaffold.dart';
@@ -62,12 +63,12 @@ class _SplashScreenState extends State<SplashScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: SvgPicture.asset("assets/images/Vector (1).svg"),
+                    child: SvgPicture.asset(Assets.images.vector1),
                   )),
               SizedBox(
                 width: 10,
               ),
-              SvgPicture.asset("assets/images/Huzz.svg")
+              SvgPicture.asset(Assets.images.huzz)
             ],
           ),
         ),

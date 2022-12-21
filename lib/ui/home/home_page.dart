@@ -102,14 +102,14 @@ class _HomePageState extends State<HomePage> {
     });
 
     // Search for Firebase Dynamic Links
-    // PendingDynamicLinkData? data = await dynamicLinks
-    //     .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
-    // final Uri uri = data!.link;
-    // if (uri != null) {
-    //   // your code here
-    // } else {
-    //   // your code here
-    // }
+    PendingDynamicLinkData? data = await dynamicLinks
+        .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
+    final Uri uri = data!.link;
+    if (uri != null) {
+      // your code here
+    } else {
+      // your code here
+    }
   }
 
   Future<void> initFirebase() async {
@@ -455,6 +455,7 @@ class _HomePageState extends State<HomePage> {
 
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
+
                         InkWell(
                           onTap: () {
                             Get.to(() => const DebtorsTab());
