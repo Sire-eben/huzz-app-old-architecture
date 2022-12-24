@@ -82,14 +82,8 @@ class _FaceCaptureCreenState extends State<FaceCaptureCreen> {
                 widget.faceCapture == FaceCapture.initial
                     ? Image.asset(Assets.icons.imported.faceScan.path)
                     : widget.faceCapture == FaceCapture.successful
-                        ? LocalSvgIcon(
-                            Assets.icons.bulk.copySuccess,
-                            size: 100,
-                          )
-                        : LocalSvgIcon(
-                            Assets.images.huzz,
-                            size: 100,
-                          ),
+                        ? Image.asset(Assets.icons.imported.success.path)
+                        : Image.asset(Assets.images.huzz),
                 const Spacer(),
                 widget.faceCapture == FaceCapture.initial
                     ? Button(

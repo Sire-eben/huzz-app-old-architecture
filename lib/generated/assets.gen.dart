@@ -270,6 +270,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/entre 1.png
   AssetGenImage get entre1 => const AssetGenImage('assets/images/entre 1.png');
 
+  /// File path: assets/images/entre1.svg
+  // String get entre1 => 'assets/images/entre1.svg';
+
   /// File path: assets/images/exclamation.svg
   String get exclamation => 'assets/images/exclamation.svg';
 
@@ -4349,12 +4352,29 @@ class $AssetsIconsImportedGen {
   AssetGenImage get faceScan =>
       const AssetGenImage('assets/icons/imported/face_scan.png');
 
+  /// File path: assets/icons/imported/history.png
+  AssetGenImage get history =>
+      const AssetGenImage('assets/icons/imported/history.png');
+
+  /// File path: assets/icons/imported/scan_done.png
+  AssetGenImage get scanDone =>
+      const AssetGenImage('assets/icons/imported/scan_done.png');
+
+  /// File path: assets/icons/imported/success.png
+  AssetGenImage get success =>
+      const AssetGenImage('assets/icons/imported/success.png');
+
   /// File path: assets/icons/imported/transaction.png
   AssetGenImage get transaction =>
       const AssetGenImage('assets/icons/imported/transaction.png');
 
+  /// File path: assets/icons/imported/upgrade_successful.png
+  AssetGenImage get upgradeSuccessful =>
+      const AssetGenImage('assets/icons/imported/upgrade_successful.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [faceScan, transaction];
+  List<AssetGenImage> get values =>
+      [faceScan, history, scanDone, success, transaction, upgradeSuccessful];
 }
 
 class $AssetsIconsLinearGen {

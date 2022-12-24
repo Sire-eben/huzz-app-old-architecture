@@ -154,6 +154,7 @@ class _SiginState extends State<Signin> {
                   ),
                   Expanded(
                     child: TextFormField(
+                      keyboardType: TextInputType.phone,
                       controller: _authController.phoneNumberController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -200,6 +201,7 @@ class _SiginState extends State<Signin> {
                   right: 20,
                 ),
                 child: PinCodeTextField(
+                  keyboardType: TextInputType.number,
                   length: 4,
                   obscureText: true,
                   animationType: AnimationType.fade,
