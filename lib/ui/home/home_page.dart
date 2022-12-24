@@ -27,6 +27,7 @@ import 'package:huzz/ui/Home/records.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
+import 'package:huzz/ui/wallet/bank_account/create_bank_account.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
@@ -244,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Records());
+                                            Get.to(() => const Records());
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
@@ -291,7 +292,7 @@ class _HomePageState extends State<HomePage> {
                                         const SizedBox(width: 7),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Insight());
+                                            Get.to(() => const Insight());
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
@@ -452,6 +453,41 @@ class _HomePageState extends State<HomePage> {
                         }).onTap(() {
                           context.push(const WalletScreen());
                         }),
+                        const Gap(Insets.md),
+                        Container(
+                            width: context.getWidth(),
+                            padding: const EdgeInsets.all(Insets.md),
+                            decoration: const BoxDecoration(
+                              color: AppColors.primaryColor,
+                              borderRadius: BorderRadius.all(Corners.mdRadius),
+                            ),
+                            child: Row(
+                              children: [
+                                Text('NO BANK ACCOUNT YET?',
+                                    style: TextStyles.t3.copyWith(
+                                      color: Colors.white,
+                                    )),
+                                const Spacer(),
+                                InkWell(
+                                  onTap: () => context
+                                      .push(const CreateBankAccountScreen()),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(Insets.sm),
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.secondbgColor,
+                                      borderRadius:
+                                          BorderRadius.all(Corners.smRadius),
+                                    ),
+                                    child: Text(
+                                      'Create Account',
+                                      style: TextStyles.b2.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
 
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
@@ -901,7 +937,7 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Records());
+                                            Get.to(() => const Records());
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
@@ -948,7 +984,7 @@ class _HomePageState extends State<HomePage> {
                                         const SizedBox(width: 7),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Insight());
+                                            Get.to(() => const Insight());
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
@@ -1796,7 +1832,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.to(() => Records());
+                              Get.to(() => const Records());
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
@@ -1838,7 +1874,7 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(width: 7),
                           InkWell(
                             onTap: () {
-                              Get.to(() => Insight());
+                              Get.to(() => const Insight());
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
@@ -2455,7 +2491,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(() => Records());
+                            Get.to(() => const Records());
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -2496,7 +2532,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(width: 7),
                         InkWell(
                           onTap: () {
-                            Get.to(() => Insight());
+                            Get.to(() => const Insight());
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -2976,7 +3012,7 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.to(() => MoneyIn());
+                      Get.to(() => const MoneyIn());
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,

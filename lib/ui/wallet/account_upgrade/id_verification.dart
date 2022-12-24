@@ -8,7 +8,7 @@ import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/appbar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/state/success.dart';
-import 'package:huzz/ui/account/upgrade_success_screen.dart';
+import 'package:huzz/ui/app_scaffold.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:huzz/core/widgets/dropdowns/buildmenuitem.dart';
 import 'package:huzz/core/widgets/dropdowns/dropdown_outline.dart';
@@ -175,7 +175,13 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
               Button(
                   label: 'Upgrade',
                   action: () {
-                    context.push(const AccountUpgradedSuccessFully());
+                    context.push(
+                      SuccessPage(
+                        title: 'Account Upgraded\nSuccessfully!',
+                        iconUrl: Assets.icons.imported.upgradeSuccessful.path,
+                        onBtnPressed: (p0) => context.pushOff(Dashboard()),
+                      ),
+                    );
                   }),
               const Gap(Insets.xl),
             ],

@@ -6,7 +6,7 @@ import 'package:huzz/core/widgets/appbar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/ui/account/id_verification.dart';
+import 'package:huzz/ui/wallet/account_upgrade/id_verification.dart';
 
 enum FaceCapture { initial, loading, successful, unsuccessful }
 

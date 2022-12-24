@@ -56,14 +56,16 @@ class TextInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const underlinedInputBorder = UnderlineInputBorder(
+    const underlinedInputBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.all(Corners.mdRadius),
       borderSide: BorderSide(
         color: AppColors.primaryColor,
         width: 0.9,
       ),
     );
 
-    final underlinedInputErrorBorder = underlinedInputBorder.copyWith(
+    final underlinedInputErrorBorder = OutlineInputBorder(
+      borderRadius: const BorderRadius.all(Corners.mdRadius),
       borderSide: underlinedInputBorder.borderSide.copyWith(
         color: AppColors.error,
       ),
@@ -75,9 +77,7 @@ class TextInputField extends StatelessWidget {
         if (labelText != null) ...[
           Text(
             labelText!,
-            style: const TextStyle(
-              fontSize: 13,
-            ),
+            style: TextStyles.b2,
           ),
           const Gap(4),
         ],
@@ -123,6 +123,7 @@ class TextInputField extends StatelessWidget {
                 ),
               ),
         ),
+        const Gap(Insets.md),
       ],
     );
   }

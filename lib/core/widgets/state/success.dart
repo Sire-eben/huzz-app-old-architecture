@@ -21,61 +21,35 @@ class SuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconUrl = this.iconUrl ?? Assets.icons.bulk.medal;
+    // final iconUrl = this.iconUrl ?? Assets.icons.imported.success;
     return Scaffold(
       appBar: Appbar(
         showLeading: false,
-        appbarType: AppbarType.dark,
       ),
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.whiteColor,
       body: Padding(
         padding: const EdgeInsets.all(Insets.lg),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(Insets.lg),
-                    decoration: const BoxDecoration(
-                      color: Colors.white10,
-                      shape: BoxShape.circle,
-                    ),
-                    child: LocalSvgIcon(
-                      iconUrl,
-                      size: 50,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const Gap(Insets.md),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const Gap(Insets.sm),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 24,
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.w600,
               ),
             ),
+            const Gap(Insets.md),
+            Image.asset(
+              iconUrl ?? Assets.icons.imported.success.path,
+            ),
             Button(
-              backgroundColor: Colors.white,
-              color: Colors.black,
-              label: btnLabel,
+              label: 'Proceed',
               action: () => onBtnPressed?.call(context),
             ),
-            const Gap(Insets.lg),
+            const Gap(Insets.sm),
           ],
         ),
       ),

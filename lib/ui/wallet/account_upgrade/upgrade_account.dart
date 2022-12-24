@@ -5,7 +5,7 @@ import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/appbar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/ui/account/face_capture.dart';
+import 'package:huzz/ui/wallet/account_upgrade/face_capture.dart';
 
 class UpgradeAccountScreen extends StatefulWidget {
   const UpgradeAccountScreen({super.key});

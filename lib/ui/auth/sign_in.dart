@@ -49,22 +49,22 @@ class _SiginState extends State<Signin> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Container(
-              margin: EdgeInsets.only(left: 20),
+              margin: const EdgeInsets.only(left: 20),
               child: GestureDetector(
                 onTap: () {
                   Get.back();
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_back,
                   color: AppColors.backgroundColor,
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Center(
@@ -75,7 +75,7 @@ class _SiginState extends State<Signin> {
                   fontSize: 24,
                   color: AppColors.backgroundColor),
             )),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
@@ -90,7 +90,7 @@ class _SiginState extends State<Signin> {
               height: MediaQuery.of(context).size.height * 0.1,
             ),
             Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   left: 20,
                 ),
                 child: Text(
@@ -101,19 +101,19 @@ class _SiginState extends State<Signin> {
                     fontWeight: FontWeight.w400,
                   ),
                 )),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
             Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 20, right: 20),
               width: MediaQuery.of(context).size.width,
               height: 50,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border:
                     Border.all(color: AppColors.backgroundColor, width: 2.0),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -124,7 +124,7 @@ class _SiginState extends State<Signin> {
                       showCountryCode(context);
                     },
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         border: Border(
                           right: BorderSide(
                               color: AppColors.backgroundColor, width: 2),
@@ -135,9 +135,9 @@ class _SiginState extends State<Signin> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Flag.fromString(countryFlag, height: 30, width: 30),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Icon(
@@ -149,7 +149,7 @@ class _SiginState extends State<Signin> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
@@ -170,18 +170,18 @@ class _SiginState extends State<Signin> {
                               color: Colors.black)),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(left: 20),
+              margin: const EdgeInsets.only(left: 20),
               child: Text(
                 "Enter your 4 digits PIN",
                 style: GoogleFonts.inter(
@@ -190,13 +190,13 @@ class _SiginState extends State<Signin> {
                     fontWeight: FontWeight.w400),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Center(
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.8,
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   left: 20,
                   right: 20,
                 ),
@@ -218,7 +218,7 @@ class _SiginState extends State<Signin> {
                     fieldWidth: 70,
                     activeFillColor: Colors.white,
                   ),
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                   enableActiveFill: true,
                   errorAnimationController: errorController,
                   onCompleted: (v) {
@@ -268,7 +268,7 @@ class _SiginState extends State<Signin> {
             //     ),
             //   ),
             // ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -279,53 +279,49 @@ class _SiginState extends State<Signin> {
                   onTap: () {
                     Get.to(ForgotPIN());
                   },
-                  child: Container(
-                    child: Text(
-                      "Forgot PIN?",
-                      style: GoogleFonts.inter(
-                        color: AppColors.orangeBorderColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  child: Text(
+                    "Forgot PIN?",
+                    style: GoogleFonts.inter(
+                      color: AppColors.orangeBorderColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 GestureDetector(
                   onTap: () {
                     Get.to(RegHome());
                   },
-                  child: Container(
-                    child: Text(
-                      "Sign up",
-                      style: GoogleFonts.inter(
-                        color: AppColors.backgroundColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  child: Text(
+                    "Sign up",
+                    style: GoogleFonts.inter(
+                      color: AppColors.backgroundColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ],
             ),
-            Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             Obx(() {
               return GestureDetector(
                 onTap: () {
                   if (_authController.phoneNumberController.text == '') {
                     Get.snackbar(
                         'Alert', 'Enter your phone number to continue!',
-                        titleText: Text(
+                        titleText: const Text(
                           'Alert',
                           // style: AppThemes.style14blackBold,
                         ),
-                        messageText: Text(
+                        messageText: const Text(
                           'Enter your phone number to continue!',
                           // style: AppThemes.style14black,
                         ),
-                        icon: Icon(Icons.info,
+                        icon: const Icon(Icons.info,
                             color: AppColors.orangeBorderColor));
                     print('phone cannot be empty');
                   } else if (_authController.signinStatus !=
@@ -333,16 +329,16 @@ class _SiginState extends State<Signin> {
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(left: 50, right: 50),
+                  margin: const EdgeInsets.only(left: 50, right: 50),
                   height: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: (_authController.signinStatus == SigninStatus.Loading)
                       ? Container(
                           width: 30,
                           height: 30,
-                          child: Center(
+                          child: const Center(
                               child: CircularProgressIndicator(
                                   color: Colors.white)),
                         )
@@ -360,7 +356,7 @@ class _SiginState extends State<Signin> {
                 ),
               );
             }),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
           ],
