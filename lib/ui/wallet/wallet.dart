@@ -13,7 +13,8 @@ import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/core/widgets/wallet/wallet_info_dialog.dart';
 import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/ui/wallet/account_upgrade/upgrade_account.dart';
-import 'package:huzz/ui/wallet/transfer_ft/transfer.dart';
+import 'package:huzz/ui/wallet/request_payment.dart';
+import 'package:huzz/ui/wallet/transfer.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({Key? key}) : super(key: key);
@@ -173,15 +174,13 @@ class _WalletScreenState extends State<WalletScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       WalletScreenOption(
-                        onTap: () {
-                          context.push(TransferScreen());
-                        },
+                        onTap: () => context.push(const TransferScreen()),
                         image: 'assets/images/transfer.png',
                         name: 'Transfer',
                       ),
                       const SizedBox(width: 20),
                       WalletScreenOption(
-                        onTap: () {},
+                        onTap: () => context.push(const RequestPaymentScreen()),
                         image: 'assets/images/payment.svg',
                         name: 'Request Payment',
                       )

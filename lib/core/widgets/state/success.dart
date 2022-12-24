@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/widgets/appbar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
+import 'package:huzz/core/widgets/button/outlined_button.dart';
 import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/generated/assets.gen.dart';
 
@@ -10,12 +11,15 @@ class SuccessPage extends StatelessWidget {
   final String title, subtitle, btnLabel;
   final String? iconUrl;
   final Function(BuildContext)? onBtnPressed;
+  final bool isMoneySent;
+
   const SuccessPage(
       {this.title = "",
       this.subtitle = "",
       this.btnLabel = "Continue",
       this.iconUrl,
       this.onBtnPressed,
+      this.isMoneySent = false,
       Key? key})
       : super(key: key);
 
@@ -50,6 +54,12 @@ class SuccessPage extends StatelessWidget {
               action: () => onBtnPressed?.call(context),
             ),
             const Gap(Insets.sm),
+            if (isMoneySent) ...[
+              OutlineButton(
+                label: 'View Receipt',
+                action: () {},
+              )
+            ]
           ],
         ),
       ),

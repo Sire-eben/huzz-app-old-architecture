@@ -99,29 +99,32 @@ class TextInputField extends StatelessWidget {
           textCapitalization: textCapitalization ?? TextCapitalization.none,
           decoration: decoration ??
               InputDecoration(
-                suffixText: suffixText,
-                prefixText: prefixText,
-                prefixIcon: prefixIcon,
-                suffixIcon: suffixIcon,
-                hintText: hintText,
-                labelStyle: labelStyle,
-                hintStyle: hintStyle ??
-                    TextStyle(
-                      color: AppColors.primaryColor.withOpacity(0.8),
-                    ),
-                enabledBorder: underlinedInputBorder,
-                focusedBorder: underlinedInputBorder.copyWith(
-                  borderSide: underlinedInputBorder.borderSide
-                      .copyWith(color: AppColors.primaryColor, width: 1.4),
-                ),
-                errorBorder: underlinedInputErrorBorder,
-                focusedErrorBorder: underlinedInputErrorBorder,
-                disabledBorder: underlinedInputBorder.copyWith(
-                  borderSide: underlinedInputBorder.borderSide.copyWith(
-                    color: Colors.grey,
+                  suffixText: suffixText,
+                  prefixText: prefixText,
+                  prefixIcon: prefixIcon,
+                  suffixIcon: suffixIcon,
+                  hintText: hintText,
+                  labelStyle: labelStyle,
+                  hintStyle: hintStyle ??
+                      TextStyle(
+                        color: AppColors.primaryColor.withOpacity(0.8),
+                      ),
+                  enabledBorder: underlinedInputBorder,
+                  focusedBorder: underlinedInputBorder.copyWith(
+                    borderSide: underlinedInputBorder.borderSide
+                        .copyWith(color: AppColors.primaryColor, width: 1.4),
                   ),
-                ),
-              ),
+                  errorBorder: underlinedInputErrorBorder,
+                  focusedErrorBorder: underlinedInputErrorBorder,
+                  disabledBorder: underlinedInputBorder.copyWith(
+                    borderSide: underlinedInputBorder.borderSide.copyWith(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: Insets.md * 1.2,
+                    horizontal: Insets.md,
+                  )),
         ),
         const Gap(Insets.md),
       ],

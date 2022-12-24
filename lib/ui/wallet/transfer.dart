@@ -11,8 +11,10 @@ import 'package:huzz/core/widgets/appbar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/dropdowns/buildmenuitem.dart';
 import 'package:huzz/core/widgets/dropdowns/dropdown_outline.dart';
+import 'package:huzz/core/widgets/state/success.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/generated/assets.gen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class TransferScreen extends StatefulWidget {
@@ -32,26 +34,34 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
 
   String? selectedBank;
 
-  StreamController<ErrorAnimationType>? errorController;
+  // StreamController<ErrorAnimationType>? errorController;
 
   final _authController = Get.find<AuthRepository>();
 
   @override
   void initState() {
-    errorController = StreamController<ErrorAnimationType>();
+    // errorController = StreamController<ErrorAnimationType>();
     _authController.pinController = TextEditingController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: Appbar(
         title: 'Transfer',
       ),
       body: SingleChildScrollView(
+        reverse: true,
         child: Padding(
-          padding: const EdgeInsets.all(Insets.lg),
+          padding: EdgeInsets.only(
+            left: Insets.lg,
+            right: Insets.lg,
+            top: Insets.lg,
+            bottom: bottom,
+          ),
           child: Form(
             key: formKey,
             child: Column(
@@ -113,9 +123,11 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
                 Button(
                   label: 'Continue',
                   action: () {
-                    if (formKey.currentState!.validate()) {
-                      enterPinBottomSheet(context);
-                    }
+                    enterPinBottomSheet(context, bottom);
+                    // TODO: Implement form validation first later
+                    // if (formKey.currentState!.validate()) {
+                    //   enterPinBottomSheet(context, bottom);
+                    // }
                   },
                 ),
               ],
@@ -126,7 +138,10 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
     );
   }
 
-  Future<dynamic> enterPinBottomSheet(BuildContext context) {
+  Future<dynamic> enterPinBottomSheet(
+    BuildContext context,
+    double bottom,
+  ) {
     return showModalBottomSheet(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -140,7 +155,12 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
           return Container(
             height: 325,
             width: context.getWidth(),
-            padding: const EdgeInsets.all(Insets.lg),
+            padding: EdgeInsets.only(
+              left: Insets.lg,
+              right: Insets.lg,
+              top: Insets.lg,
+              bottom: bottom,
+            ),
             child: Column(children: [
               Container(
                 height: 4,
@@ -187,7 +207,7 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
                     length: 4,
                     obscureText: true,
                     animationType: AnimationType.fade,
-                    controller: _authController.pinController,
+                    // controller: _authController.pinController,
                     pinTheme: PinTheme(
                       inactiveColor: AppColors.backgroundColor,
                       activeColor: AppColors.backgroundColor,
@@ -202,7 +222,7 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
                     ),
                     animationDuration: const Duration(milliseconds: 300),
                     enableActiveFill: true,
-                    errorAnimationController: errorController,
+                    // errorAnimationController: errorController,
                     onCompleted: (v) {},
                     onChanged: (value) {
                       // setState(() {
@@ -221,7 +241,13 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
               const Spacer(),
               Button(
                 label: 'Transfer',
-                action: () {},
+                action: () {
+                  context.replace(SuccessPage(
+                    isMoneySent: true,
+                    title: 'Money sent\nsuccessfully',
+                    iconUrl: Assets.icons.imported.success.path,
+                  ));
+                },
               )
             ]),
           );
