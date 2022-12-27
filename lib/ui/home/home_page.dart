@@ -27,7 +27,7 @@ import 'package:huzz/ui/Home/records.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
-import 'package:huzz/ui/wallet/bank_account/create_bank_account.dart';
+import 'package:huzz/ui/wallet/create_bank_account.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
