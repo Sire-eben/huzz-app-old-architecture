@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/widget/more_widget.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/team_repository.dart';
 import '../team/my_team.dart';
@@ -41,7 +41,7 @@ class _MoreState extends State<More> {
             Text(
               'Do more with Huzz',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),

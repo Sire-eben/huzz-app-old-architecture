@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/home/insight.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/recordData.dart';
 import 'package:huzz/data/model/transaction_model.dart';
-import 'package:huzz/util/constants.dart';
+import 'package:huzz/core/util/util.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../../util/util.dart';
 import 'money_history.dart';
 import 'records/download_records.dart';
 import 'records/records_pdf.dart';
 
 class Records extends StatefulWidget {
+  const Records({super.key});
+
   @override
   _RecordsState createState() => _RecordsState();
 }
@@ -43,7 +45,7 @@ class _RecordsState extends State<Records> {
   Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
     final initialDateRange = DateTimeRange(
       start: DateTime.now(),
-      end: DateTime.now().add(Duration(hours: 24 * 3)),
+      end: DateTime.now().add(const Duration(hours: 24 * 3)),
     );
     final newDateRange = await showDateRangePicker(
       initialEntryMode: DatePickerEntryMode.input,
@@ -57,7 +59,6 @@ class _RecordsState extends State<Records> {
 
     setState(() {
       dateRange = newDateRange;
-      print(dateRange);
     });
     return dateRange;
   }
@@ -67,9 +68,6 @@ class _RecordsState extends State<Records> {
   @override
   void initState() {
     super.initState();
-    print('Total Online Records: ${transactionController.totalOnlineRecords}');
-    print(
-        'Total Offline Records: ${transactionController.totalOfflineRecords}');
     if (transactionController.value.value.contains("This Year")) {
       transactionController.getYearRecord();
     } else if (transactionController.value.value.contains("Today")) {
@@ -92,9 +90,9 @@ class _RecordsState extends State<Records> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -103,7 +101,7 @@ class _RecordsState extends State<Records> {
         title: Text(
           'Records',
           style: GoogleFonts.inter(
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -124,13 +122,13 @@ class _RecordsState extends State<Records> {
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
                       height: 100,
                       decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           image: AssetImage("assets/images/home_rectangle.png"),
                           fit: BoxFit.fill,
                         ),
@@ -150,7 +148,7 @@ class _RecordsState extends State<Records> {
                                 Text(
                                   "Money In",
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -158,7 +156,7 @@ class _RecordsState extends State<Records> {
                                 Text(
                                   "${Utils.getCurrency()}${display(transactionController.recordMoneyIn)}",
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -177,7 +175,7 @@ class _RecordsState extends State<Records> {
                                 Text(
                                   "Balance",
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -185,7 +183,7 @@ class _RecordsState extends State<Records> {
                                 Text(
                                   "${Utils.getCurrency()}${display(transactionController.recordBalance)}",
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     fontSize: 24,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -204,7 +202,7 @@ class _RecordsState extends State<Records> {
                                 Text(
                                   "Money Out",
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -212,7 +210,7 @@ class _RecordsState extends State<Records> {
                                 Text(
                                   "${Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -239,36 +237,36 @@ class _RecordsState extends State<Records> {
                                 Container(
                                   height: 10,
                                   width: 10,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: AppColor().orangeBorderColor),
+                                      color: AppColors.orangeBorderColor),
                                 ),
-                                SizedBox(width: 2),
+                                const SizedBox(width: 2),
                                 Text(
                                   'Money Out (${Utils.getCurrency()})',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().blackColor,
+                                    color: AppColors.blackColor,
                                     fontSize: 9,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Row(
                               children: [
                                 Container(
                                   height: 10,
                                   width: 10,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: AppColor().blueColor),
+                                      color: AppColors.blueColor),
                                 ),
-                                SizedBox(width: 2),
+                                const SizedBox(width: 2),
                                 Text(
                                   'Money in (${Utils.getCurrency()})',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().blackColor,
+                                    color: AppColors.blackColor,
                                     fontSize: 9,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -277,19 +275,19 @@ class _RecordsState extends State<Records> {
                             ),
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => Insight());
+                            Get.to(() => const Insight());
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 5),
-                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -298,7 +296,7 @@ class _RecordsState extends State<Records> {
                                   style: GoogleFonts.inter(
                                       fontSize: 11, color: Colors.white),
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 SvgPicture.asset(
                                   'assets/images/graph.svg',
                                   color: Colors.white,
@@ -310,17 +308,17 @@ class _RecordsState extends State<Records> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                  width: 2, color: AppColor().backgroundColor)),
+                                  width: 2, color: AppColors.backgroundColor)),
                           child: DropdownButton<String>(
                             value: transactionController.value.value,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.keyboard_arrow_down,
                               size: 14,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             isDense: true,
                             items: recordFilter.map(buildDropDown).toList(),
@@ -371,7 +369,7 @@ class _RecordsState extends State<Records> {
                         //         },
                         //         icon: Icon(
                         //           Icons.date_range,
-                        //           color: AppColor().backgroundColor,
+                        //           color: AppColors.backgroundColor,
                         //         ))
                         //     : Container()
                       ],
@@ -384,8 +382,6 @@ class _RecordsState extends State<Records> {
                     child: Container(
                       height: 200,
                       child: Obx(() {
-                        print(
-                            "TESTX: ${transactionController.allExpenditureHoursData.toList()}");
                         // item1=removeDoubleItem(transactionController.allIncomeHoursData);
                         // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                         return SfCartesianChart(
@@ -412,7 +408,7 @@ class _RecordsState extends State<Records> {
                                   dataSource: transactionController
                                       .allIncomeHoursData
                                       .toList(),
-                                  color: AppColor().blueColor,
+                                  color: AppColors.blueColor,
                                   xValueMapper: (RecordsData value, _) =>
                                       value.label,
                                   yValueMapper: (RecordsData value, _) =>
@@ -421,13 +417,13 @@ class _RecordsState extends State<Records> {
                                   splineType: SplineType.cardinal,
                                   cardinalSplineTension: 0.9,
                                   // Enable data label
-                                  dataLabelSettings:
-                                      DataLabelSettings(isVisible: false)),
+                                  dataLabelSettings: const DataLabelSettings(
+                                      isVisible: false)),
                               SplineSeries<RecordsData, String>(
                                   dataSource: transactionController
                                       .allExpenditureHoursData
                                       .toList(),
-                                  color: AppColor().orangeBorderColor,
+                                  color: AppColors.orangeBorderColor,
                                   xValueMapper: (RecordsData value, _) =>
                                       value.label,
                                   yValueMapper: (RecordsData value, _) =>
@@ -442,7 +438,7 @@ class _RecordsState extends State<Records> {
                                     isVisible: false,
                                     builder: (data, point, series, pointIndex,
                                             seriesIndex) =>
-                                        Text("bb"),
+                                        const Text("bb"),
                                   )),
                             ]);
                       }),
@@ -459,26 +455,26 @@ class _RecordsState extends State<Records> {
                             Text(
                               'Transactions',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
                               (transactionController.value.value
                                       .contains("Custom date range"))
                                   ? transactionController.customText
-                                  : '${transactionController.value.value}',
+                                  : transactionController.value.value,
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         GestureDetector(
                           onTap: () async {
                             final recordsData =
@@ -490,11 +486,11 @@ class _RecordsState extends State<Records> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 7),
-                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -503,7 +499,7 @@ class _RecordsState extends State<Records> {
                                   style: GoogleFonts.inter(
                                       fontSize: 11, color: Colors.white),
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 SvgPicture.asset(
                                   'assets/images/download.svg',
                                   color: Colors.white,
@@ -522,10 +518,10 @@ class _RecordsState extends State<Records> {
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     child: Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: AppColor().backgroundColor.withOpacity(0.2)),
+                          color: AppColors.backgroundColor.withOpacity(0.2)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -533,7 +529,7 @@ class _RecordsState extends State<Records> {
                             child: Text(
                               'DATE',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -545,7 +541,7 @@ class _RecordsState extends State<Records> {
                               child: Text(
                                 'MONEY OUT(${Utils.getCurrency()})',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontSize: 9,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -558,7 +554,7 @@ class _RecordsState extends State<Records> {
                               child: Text(
                                 'MONEY IN(${Utils.getCurrency()})',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontSize: 9,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -571,8 +567,6 @@ class _RecordsState extends State<Records> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Obx(() {
-                    print(
-                        "record size is ${transactionController.allExpenditureHoursData.length}");
                     return (transactionController.recordMoneyIn == 0 &&
                             transactionController.recordMoneyOut == 0)
                         ? Expanded(
@@ -589,7 +583,7 @@ class _RecordsState extends State<Records> {
                                   Text(
                                     'Oh, snap. No transactions to show',
                                     style: GoogleFonts.inter(
-                                      color: AppColor().blackColor,
+                                      color: AppColors.blackColor,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -614,7 +608,7 @@ class _RecordsState extends State<Records> {
                                     child: InkWell(
                                       onTap: () {
                                         showModalBottomSheet(
-                                            shape: RoundedRectangleBorder(
+                                            shape: const RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.vertical(
                                                         top: Radius.circular(
@@ -669,7 +663,7 @@ class _RecordsState extends State<Records> {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 10,
-                                                            color: AppColor()
+                                                            color: AppColors
                                                                 .blackColor),
                                                       ),
                                                       Text(
@@ -678,7 +672,7 @@ class _RecordsState extends State<Records> {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 10,
-                                                            color: AppColor()
+                                                            color: AppColors
                                                                 .backgroundColor),
                                                       ),
                                                     ],
@@ -696,7 +690,7 @@ class _RecordsState extends State<Records> {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 10,
-                                                            color: AppColor()
+                                                            color: AppColors
                                                                 .orangeBorderColor),
                                                       ),
                                                       Text(
@@ -705,7 +699,7 @@ class _RecordsState extends State<Records> {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 10,
-                                                            color: AppColor()
+                                                            color: AppColors
                                                                 .backgroundColor),
                                                       ),
                                                     ],
@@ -720,12 +714,14 @@ class _RecordsState extends State<Records> {
                                                     children: [
                                                       Text(
                                                         "${Utils.getCurrency()}${display(item2.value)}",
-                                                        style: GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize: 10,
-                                                            color: AppColor()
-                                                                .blueColor),
+                                                        style:
+                                                            GoogleFonts.inter(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 10,
+                                                                color: AppColors
+                                                                    .blueColor),
                                                       ),
                                                       Text(
                                                         'View',
@@ -733,7 +729,7 @@ class _RecordsState extends State<Records> {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 10,
-                                                            color: AppColor()
+                                                            color: AppColors
                                                                 .backgroundColor),
                                                       ),
                                                     ],
@@ -761,7 +757,7 @@ class _RecordsState extends State<Records> {
             //     mainAxisAlignment: MainAxisAlignment.center,
             //     children: [
             //       CircularProgressIndicator(
-            //         color: AppColor().backgroundColor,
+            //         color: AppColors.backgroundColor,
             //       ),
             //       Text('Loading Data'),
             //     ],
@@ -800,9 +796,9 @@ class _RecordsState extends State<Records> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${item1.label}',
+                item1.label,
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontStyle: FontStyle.normal,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -813,14 +809,14 @@ class _RecordsState extends State<Records> {
                     Get.back();
                   },
                   child: Container(
-                    padding: EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: AppColor().backgroundColor.withOpacity(0.2)),
-                    child: Icon(
+                        color: AppColors.backgroundColor.withOpacity(0.2)),
+                    child: const Icon(
                       Icons.close,
                       size: 20,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                   ))
             ],
@@ -849,14 +845,14 @@ class _RecordsState extends State<Records> {
                           style: GoogleFonts.inter(
                               fontWeight: FontWeight.w600,
                               fontSize: 10,
-                              color: AppColor().blackColor),
+                              color: AppColors.blackColor),
                         ),
                         Text(
                           item1.label,
                           style: GoogleFonts.inter(
                               fontWeight: FontWeight.w600,
                               fontSize: 10,
-                              color: AppColor().blackColor),
+                              color: AppColors.blackColor),
                         ),
                       ],
                     ),
@@ -872,14 +868,14 @@ class _RecordsState extends State<Records> {
                             style: GoogleFonts.inter(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 10,
-                                color: AppColor().blackColor),
+                                color: AppColors.blackColor),
                           ),
                           Text(
                             "${Utils.getCurrency()} ${display(item1.value)}",
                             style: GoogleFonts.inter(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 10,
-                                color: AppColor().orangeBorderColor),
+                                color: AppColors.orangeBorderColor),
                           ),
                         ],
                       ),
@@ -898,14 +894,14 @@ class _RecordsState extends State<Records> {
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                             Text(
                               "${Utils.getCurrency()} ${display(item2.value)}",
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blueColor),
+                                  color: AppColors.blueColor),
                             ),
                           ],
                         ),
@@ -920,7 +916,7 @@ class _RecordsState extends State<Records> {
           Container(
             height: MediaQuery.of(context).size.height / 3,
             child: ListView.separated(
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemCount: paymentList.length,
                 itemBuilder: (BuildContext context, int index) {
                   var item = paymentList[index];
@@ -941,7 +937,7 @@ class _RecordsState extends State<Records> {
                             width: 20,
                             height: 20,
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Expanded(
                             flex: 3,
                             child: Column(
@@ -952,14 +948,14 @@ class _RecordsState extends State<Records> {
                                   style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10,
-                                      color: AppColor().blackColor),
+                                      color: AppColors.blackColor),
                                 ),
                                 Text(
                                   item.createdTime!.formatDate()!,
                                   style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10,
-                                      color: AppColor().blackColor),
+                                      color: AppColors.blackColor),
                                 ),
                               ],
                             ),
@@ -973,7 +969,7 @@ class _RecordsState extends State<Records> {
                                   style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10,
-                                      color: AppColor().blackColor),
+                                      color: AppColors.blackColor),
                                 ),
                                 Text(
                                   item.isFullyPaid!
@@ -982,7 +978,7 @@ class _RecordsState extends State<Records> {
                                   style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10,
-                                      color: AppColor().blackColor),
+                                      color: AppColors.blackColor),
                                 ),
                               ],
                             ),
@@ -995,9 +991,9 @@ class _RecordsState extends State<Records> {
                                     pageCheck: false,
                                   ));
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.visibility,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               size: 20,
                             ),
                           ),
@@ -1053,7 +1049,7 @@ class _RecordsState extends State<Records> {
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w600,
                             fontSize: 10,
-                            color: AppColor().blackColor),
+                            color: AppColors.blackColor),
                       ),
                     ),
                     Expanded(
@@ -1062,7 +1058,7 @@ class _RecordsState extends State<Records> {
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w600,
                             fontSize: 10,
-                            color: AppColor().blackColor),
+                            color: AppColors.blackColor),
                       ),
                     ),
                   ],
@@ -1078,8 +1074,8 @@ class _RecordsState extends State<Records> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 50,
-                decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                decoration: const BoxDecoration(
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Center(
                   child: Text(
@@ -1106,7 +1102,6 @@ class _RecordsState extends State<Records> {
       );
 
   List<RecordsData> removeDoubleItem(List<RecordsData> list) {
-    print("previous items length ${list.length}");
     List<RecordsData> newList = [];
     list.forEach((element) {
       if (newList
@@ -1129,7 +1124,6 @@ class _RecordsState extends State<Records> {
         }
       }
     });
-    print("new item list is ${newList.length}");
     return newList;
   }
 }

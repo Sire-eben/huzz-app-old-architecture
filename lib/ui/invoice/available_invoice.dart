@@ -9,7 +9,7 @@ import 'package:huzz/ui/invoice/available_invoice/all.dart';
 import 'package:huzz/ui/invoice/available_invoice/overdue.dart';
 import 'package:huzz/ui/invoice/available_invoice/paid.dart';
 import 'package:huzz/ui/invoice/available_invoice/pending.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/team_repository.dart';
 
@@ -119,7 +119,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                           style: GoogleFonts.inter(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
-                              color: AppColor().backgroundColor),
+                              color: AppColors.backgroundColor),
                         ),
                         SizedBox(width: 4),
                         GestureDetector(
@@ -191,7 +191,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 24,
-                          color: AppColor().backgroundColor),
+                          color: AppColors.backgroundColor),
                     ),
                   ],
                 ),
@@ -205,7 +205,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                   SliverToBoxAdapter(
                     child: TabBar(
                       controller: _tabController,
-                      labelColor: AppColor().backgroundColor,
+                      labelColor: AppColors.backgroundColor,
                       unselectedLabelColor: Colors.grey,
                       labelStyle: GoogleFonts.inter(
                         color: Colors.black,
@@ -214,13 +214,13 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                         fontWeight: FontWeight.w600,
                       ),
                       unselectedLabelStyle: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         fontStyle: FontStyle.normal,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                       ),
                       indicatorSize: TabBarIndicatorSize.label,
-                      indicatorColor: AppColor().backgroundColor,
+                      indicatorColor: AppColors.backgroundColor,
                       tabs: [
                         Tab(text: 'All'),
                         Tab(text: 'Pending'),
@@ -256,7 +256,7 @@ class DashboardDetails extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: AppColor().backgroundColor.withOpacity(0.3)),
+            color: AppColors.backgroundColor.withOpacity(0.3)),
         child: Column(
           children: [
             Text(
@@ -271,7 +271,7 @@ class DashboardDetails extends StatelessWidget {
               style: GoogleFonts.inter(
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
-                  color: AppColor().backgroundColor),
+                  color: AppColors.backgroundColor),
             )
           ],
         ),

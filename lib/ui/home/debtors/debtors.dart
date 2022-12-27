@@ -19,10 +19,10 @@ import 'package:huzz/data/model/user.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/util.dart';
 import '../../../data/repository/team_repository.dart';
 import '../../../data/repository/transaction_respository.dart';
-import '../../../util/colors.dart';
-import '../../../util/util.dart';
 import '../money_history.dart';
 import 'debtorreminder.dart';
 
@@ -103,7 +103,7 @@ class _DebtorsState extends State<Debtors> {
                         Container(
                           height: 95,
                           decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.all(
                               Radius.circular(15),
                             ),
@@ -140,7 +140,7 @@ class _DebtorsState extends State<Debtors> {
                                 child: Container(
                                   height: 95,
                                   decoration: BoxDecoration(
-                                    color: AppColor().secondbgColor,
+                                    color: AppColors.secondbgColor,
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -152,8 +152,7 @@ class _DebtorsState extends State<Debtors> {
                                       colors: [
                                         Color(0xff0D8372),
                                         Color(0xff07A58E),
-                                        AppColor()
-                                            .backgroundColor
+                                        AppColors.backgroundColor
                                             .withOpacity(0.5),
                                       ],
                                     ),
@@ -193,14 +192,14 @@ class _DebtorsState extends State<Debtors> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                  width: 2, color: AppColor().backgroundColor)),
+                                  width: 2, color: AppColors.backgroundColor)),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
                               value: value,
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 size: 14,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               hint: Text(
                                 'Pending',
@@ -235,7 +234,7 @@ class _DebtorsState extends State<Debtors> {
                                         'assets/images/debtors.svg',
                                         height: 50,
                                         width: 50,
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                       ),
                                       SizedBox(height: 5),
                                       Text(
@@ -274,7 +273,7 @@ class _DebtorsState extends State<Debtors> {
                                           style: GoogleFonts.inter(
                                               fontSize: 14,
                                               color:
-                                                  AppColor().orangeBorderColor,
+                                                  AppColors.orangeBorderColor,
                                               fontWeight: FontWeight.w600),
                                           textAlign: TextAlign.center,
                                         ),
@@ -330,7 +329,7 @@ class _DebtorsState extends State<Debtors> {
                                 child: Container(
                                   height: 55,
                                   decoration: BoxDecoration(
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -338,7 +337,7 @@ class _DebtorsState extends State<Debtors> {
                                       Icon(
                                         Icons.add,
                                         size: 22,
-                                        color: AppColor().whiteColor,
+                                        color: AppColors.whiteColor,
                                       ),
                                       SizedBox(
                                         width: 5,
@@ -347,7 +346,7 @@ class _DebtorsState extends State<Debtors> {
                                         child: Text(
                                           'Add New Debtor',
                                           style: GoogleFonts.inter(
-                                            color: AppColor().whiteColor,
+                                            color: AppColors.whiteColor,
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -412,7 +411,7 @@ class _DebtorsState extends State<Debtors> {
                   child: Text(
                     'Add Debtor',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
@@ -463,7 +462,7 @@ class _DebtorsState extends State<Debtors> {
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_debtorController.addingDebtorStatus ==
                             AddingDebtorStatus.Loading)
@@ -480,7 +479,7 @@ class _DebtorsState extends State<Debtors> {
                               Icon(
                                 Icons.add,
                                 size: 22,
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                               ),
                               SizedBox(
                                 width: 5,
@@ -489,7 +488,7 @@ class _DebtorsState extends State<Debtors> {
                                 child: Text(
                                   'Add Debtor',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -530,14 +529,14 @@ class _DebtorsState extends State<Debtors> {
                               children: [
                                 Radio<int>(
                                     value: 1,
-                                    activeColor: AppColor().backgroundColor,
+                                    activeColor: AppColors.backgroundColor,
                                     groupValue: _debtorController.customerType,
                                     onChanged: (value) => myState(() =>
                                         _debtorController.customerType = 1)),
                                 Text(
                                   'New Customer',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -553,14 +552,14 @@ class _DebtorsState extends State<Debtors> {
                               children: [
                                 Radio<int>(
                                     value: 0,
-                                    activeColor: AppColor().backgroundColor,
+                                    activeColor: AppColors.backgroundColor,
                                     groupValue: _debtorController.customerType,
                                     onChanged: (value) => myState(() =>
                                         _debtorController.customerType = 0)),
                                 Text(
                                   'Existing Customers',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -591,7 +590,7 @@ class _DebtorsState extends State<Debtors> {
                                       Text(
                                         "Select from Contact",
                                         style: GoogleFonts.inter(
-                                            color: AppColor().backgroundColor,
+                                            color: AppColors.backgroundColor,
                                             fontSize: 12),
                                       ),
                                     ],
@@ -676,13 +675,13 @@ class _DebtorsState extends State<Debtors> {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
                                           width: 2,
-                                          color: AppColor().backgroundColor)),
+                                          color: AppColors.backgroundColor)),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton<Customer>(
                                       value: _debtorController.selectedCustomer,
                                       icon: Icon(
                                         Icons.keyboard_arrow_down,
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                       ),
                                       iconSize: 30,
                                       items: _customerController
@@ -745,12 +744,12 @@ class _DebtorsState extends State<Debtors> {
                 width: 30,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColor().blueColor,
+                  color: AppColors.blueColor,
                 ),
                 child: Center(
                   child: Text('F',
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         fontWeight: FontWeight.w600,
                         fontSize: 24,
                       )),
@@ -826,7 +825,7 @@ class _DebtorsState extends State<Debtors> {
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   height: 50,
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(
@@ -961,7 +960,7 @@ class _DebtorListingState extends State<DebtorListing> {
                         "Balance: ${Utils.getCurrency()}${display(widget.item!.balance!)}",
                         style: GoogleFonts.inter(
                             fontSize: 13,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
@@ -1067,7 +1066,7 @@ class _DebtorListingState extends State<DebtorListing> {
             title: Text(
               'Delete Debt',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 17,
               ),
@@ -1075,7 +1074,7 @@ class _DebtorListingState extends State<DebtorListing> {
             content: Text(
               "You're about to delete this debt entry, click delete to proceed",
               style: GoogleFonts.inter(
-                color: AppColor().blackColor,
+                color: AppColors.blackColor,
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
               ),
@@ -1100,17 +1099,17 @@ class _DebtorListingState extends State<DebtorListing> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 1.2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -1133,13 +1132,13 @@ class _DebtorListingState extends State<DebtorListing> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().orangeBorderColor,
+                              color: AppColors.orangeBorderColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -1179,7 +1178,7 @@ class _DebtorListingState extends State<DebtorListing> {
                 child: Text(
                   'Send Reminder to debtor',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
@@ -1219,10 +1218,10 @@ class _DebtorListingState extends State<DebtorListing> {
                 child: Container(
                   padding: EdgeInsets.only(left: 10, top: 5, bottom: 2),
                   decoration: BoxDecoration(
-                    color: AppColor().whiteColor,
+                    color: AppColors.whiteColor,
                     border: Border.all(
                       width: 2,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -1243,7 +1242,7 @@ class _DebtorListingState extends State<DebtorListing> {
                       child: Text(
                         "Send Options",
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontSize: 14,
                         ),
                       ),
@@ -1334,7 +1333,7 @@ class _DebtorListingState extends State<DebtorListing> {
                 Text(
                   'Update Payment',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
@@ -1354,7 +1353,7 @@ class _DebtorListingState extends State<DebtorListing> {
                           children: [
                             Radio<int>(
                               value: 1,
-                              activeColor: AppColor().backgroundColor,
+                              activeColor: AppColors.backgroundColor,
                               groupValue: statusType,
                               onChanged: (value) {
                                 myState(() {
@@ -1383,7 +1382,7 @@ class _DebtorListingState extends State<DebtorListing> {
                           children: [
                             Radio<int>(
                                 value: 0,
-                                activeColor: AppColor().backgroundColor,
+                                activeColor: AppColors.backgroundColor,
                                 groupValue: statusType,
                                 onChanged: (value) {
                                   myState(() {
@@ -1445,7 +1444,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                     Text(
                                       'Balance: ${Utils.getCurrency()}${display(debtor.balance)}',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().orangeBorderColor,
+                                        color: AppColors.orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
@@ -1455,7 +1454,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                       // debtOwnedModel.balance!,
                                       '',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().orangeBorderColor,
+                                        color: AppColors.orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
@@ -1486,7 +1485,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                 isDense: true,
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                       width: 2),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
@@ -1494,7 +1493,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                       width: 2),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
@@ -1502,7 +1501,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                 ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                       width: 2),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10),
@@ -1547,7 +1546,7 @@ class _DebtorListingState extends State<DebtorListing> {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
                         child: (_debtorController.addingDebtorStatus ==
@@ -1598,7 +1597,7 @@ class _DebtorListingState extends State<DebtorListing> {
                     child: Text(
                       'This will send a direct sms to the debtor.',
                       style: GoogleFonts.inter(
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                         fontWeight: FontWeight.normal,
                         fontSize: 11,
                       ),
@@ -1613,7 +1612,7 @@ class _DebtorListingState extends State<DebtorListing> {
                   child: Text(
                     'Continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
@@ -1641,17 +1640,17 @@ class _DebtorListingState extends State<DebtorListing> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1670,13 +1669,13 @@ class _DebtorListingState extends State<DebtorListing> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Continue',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),

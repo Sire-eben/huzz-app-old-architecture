@@ -14,7 +14,6 @@ import '../data/repository/product_repository.dart';
 import '../data/repository/team_repository.dart';
 import '../data/repository/transaction_respository.dart';
 
-
 class AppBinding extends Bindings {
   @override
   void dependencies() {

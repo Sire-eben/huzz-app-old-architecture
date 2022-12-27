@@ -2,7 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class ExpandableWidget extends StatefulWidget {
   final String? name;
@@ -44,13 +44,13 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                 topRight: Radius.circular(widget.tR!),
                 bottomLeft: Radius.circular(widget.bL!),
                 bottomRight: Radius.circular(widget.bR!)),
-            color: AppColor().backgroundColor.withOpacity(0.1)),
+            color: AppColors.backgroundColor.withOpacity(0.1)),
         child: ExpandablePanel(
           theme: ExpandableThemeData(
             headerAlignment: ExpandablePanelHeaderAlignment.center,
             tapBodyToCollapse: true,
             hasIcon: true,
-            iconColor: AppColor().backgroundColor,
+            iconColor: AppColors.backgroundColor,
           ),
           collapsed: Container(),
           expanded: Column(
@@ -139,7 +139,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                   Text(
                     widget.name!,
                     style: Theme.of(context).textTheme.headline4!.copyWith(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           fontFamily: "InterRegular",
                           fontStyle: FontStyle.normal,
                           fontSize: 12,

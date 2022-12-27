@@ -7,10 +7,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../util/util.dart';
+import 'package:huzz/core/util/util.dart';
 
 // ignore: must_be_immutable
 class AddService extends StatefulWidget {
@@ -31,23 +31,23 @@ class _AddServiceState extends State<AddService> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         leading: GestureDetector(
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
         ),
         title: Text(
           (widget.item == null) ? "Add Service" : "Update Service",
           style: GoogleFonts.inter(
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
             fontSize: 18,
           ),
         ),
@@ -65,7 +65,7 @@ class _AddServiceState extends State<AddService> {
                 children: [
                   GestureDetector(
                     onTap: () => showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(20))),
                         context: context,
@@ -89,11 +89,11 @@ class _AddServiceState extends State<AddService> {
                               : Image.asset(
                                   'assets/images/Group 3647.png',
                                   height: 50,
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                 ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Center(
@@ -105,7 +105,7 @@ class _AddServiceState extends State<AddService> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   CustomTextField(
@@ -121,7 +121,7 @@ class _AddServiceState extends State<AddService> {
                     hint: '${Utils.getCurrency()}0.00',
                     inputformater: [FilteringTextInputFormatter.digitsOnly],
                     keyType: Platform.isIOS
-                        ? TextInputType.numberWithOptions(
+                        ? const TextInputType.numberWithOptions(
                             signed: true, decimal: true)
                         : TextInputType.number,
                     textEditingController:
@@ -157,14 +157,14 @@ class _AddServiceState extends State<AddService> {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.circular(10)),
                       child: (_productController.addingProductStatus ==
                               AddingProductStatus.Loading)
                           ? Container(
                               width: 30,
                               height: 30,
-                              child: Center(
+                              child: const Center(
                                   child: CircularProgressIndicator(
                                       color: Colors.white)),
                             )
@@ -172,7 +172,7 @@ class _AddServiceState extends State<AddService> {
                               child: Text(
                                 (widget.item == null) ? 'Save' : "Update",
                                 style: GoogleFonts.inter(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -180,7 +180,7 @@ class _AddServiceState extends State<AddService> {
                             ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                 ],
@@ -213,14 +213,14 @@ class _AddServiceState extends State<AddService> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xffE6F4F2),
                       shape: BoxShape.circle,
                     ),
@@ -228,24 +228,24 @@ class _AddServiceState extends State<AddService> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.close,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                     ),
                   )
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               GestureDetector(
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();
@@ -271,37 +271,37 @@ class _AddServiceState extends State<AddService> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Center(
                 child: Text(
                   'Select from Device',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               GestureDetector(
                 onTap: () {
                   Get.back();
                 },
                 child: Container(
                   height: 55,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text(
                       'Continue',
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

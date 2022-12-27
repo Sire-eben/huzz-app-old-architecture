@@ -5,9 +5,9 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/ui/dashboard.dart';
+import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/invoice/invoice_pdf.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_colors.dart';
 import 'package:huzz/data/model/invoice.dart';
 import 'package:pdf/pdf.dart';
@@ -55,7 +55,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
             ),
             onPressed: () {
               Get.back();
@@ -66,8 +66,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
               Text(
                 'View Invoice',
                 style: GoogleFonts.inter(
-                  color: AppColor().backgroundColor,
-                  
+                  color: AppColors.backgroundColor,
                   fontStyle: FontStyle.normal,
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
@@ -78,7 +77,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
               //   '(#00000001)',
               //   style: GoogleFonts.inter(
               //     color: Colors.black,
-              //     
+              //
               //     fontStyle: FontStyle.normal,
               //     fontSize: 16,
               //     fontWeight: FontWeight.w500,
@@ -166,8 +165,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                                         0.06,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: AppColor()
-                                            .backgroundColor
+                                        color: AppColors.backgroundColor
                                             .withOpacity(0.2)),
                                     child: SvgPicture.asset(
                                         'assets/images/download.svg'),
@@ -179,10 +177,10 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                                 Text(
                                   'Download',
                                   style: GoogleFonts.inter(
-                                      color: Colors.black,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      ),
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ],
                             ),
@@ -206,8 +204,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                                         0.06,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: AppColor()
-                                            .backgroundColor
+                                        color: AppColors.backgroundColor
                                             .withOpacity(0.2)),
                                     child: SvgPicture.asset(
                                         'assets/images/share.svg'),
@@ -219,10 +216,10 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                                   Text(
                                     'Share',
                                     style: GoogleFonts.inter(
-                                        color: Colors.black,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        ),
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -245,16 +242,16 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                                   MediaQuery.of(context).size.height * 0.03),
                           height: 50,
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: Center(
                             child: Text(
                               'Continue',
                               style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  ),
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ),

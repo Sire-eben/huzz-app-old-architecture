@@ -10,7 +10,7 @@ import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/data/model/user.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../widget/timer_button.dart';
 
 class PersonalInfo extends StatefulWidget {
@@ -59,20 +59,20 @@ class _PersonalInfoState extends State<PersonalInfo> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         leading: GestureDetector(
           onTap: () {
             Get.back();
           },
           child: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
         ),
         title: Text(
           "Personal Information",
           style: GoogleFonts.inter(
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
             fontSize: 18,
           ),
         ),
@@ -87,7 +87,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
               label: "First Name",
               validatorText: "First name is needed",
               hint: firstName,
-              colors: AppColor().blackColor,
+              colors: AppColors.blackColor,
               keyType: TextInputType.name,
               textEditingController: _controller.firstNameController,
             ),
@@ -95,7 +95,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
               label: "Last Name",
               validatorText: "Last name is needed",
               hint: lastName,
-              colors: AppColor().blackColor,
+              colors: AppColors.blackColor,
               keyType: TextInputType.name,
               textEditingController: _controller.lastNameController,
             ),
@@ -142,7 +142,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
-                          color: AppColor().backgroundColor, width: 2.0),
+                          color: AppColors.backgroundColor, width: 2.0),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: Row(
@@ -157,7 +157,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             decoration: BoxDecoration(
                               border: Border(
                                   right: BorderSide(
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                       width: 2)),
                             ),
                             height: 50,
@@ -174,7 +174,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                 Icon(
                                   Icons.arrow_drop_down,
                                   size: 24,
-                                  color: AppColor()
+                                  color: AppColors
                                       .backgroundColor
                                       .withOpacity(0.5),
                                 )
@@ -220,7 +220,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
               label: "Email",
               validatorText: "Email required",
               hint: email,
-              colors: AppColor().blackColor,
+              colors: AppColors.blackColor,
               keyType: TextInputType.emailAddress,
               textEditingController: _controller.emailController,
             ),
@@ -238,7 +238,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   height: 50,
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: (_controller.updateProfileStatus ==
                           UpdateProfileStatus.Loading)
@@ -306,7 +306,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   child: Text(
                     'We will send a one-time password to verify it\'s really you',
                     style: GoogleFonts.inter(
-                      color: AppColor().orangeBorderColor,
+                      color: AppColors.orangeBorderColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 9,
                     ),
@@ -340,9 +340,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   controller: _controller.otpController,
                   animationType: AnimationType.fade,
                   pinTheme: PinTheme(
-                    inactiveColor: AppColor().backgroundColor,
-                    activeColor: AppColor().backgroundColor,
-                    selectedColor: AppColor().backgroundColor,
+                    inactiveColor: AppColors.backgroundColor,
+                    activeColor: AppColors.backgroundColor,
+                    selectedColor: AppColors.backgroundColor,
                     selectedFillColor: Colors.white,
                     inactiveFillColor: Colors.white,
                     shape: PinCodeFieldShape.box,
@@ -372,7 +372,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 label: "Send as Voice Call",
                 timeOutInSeconds: 20,
                 activeTextStyle: GoogleFonts.inter(
-                    color: AppColor().backgroundColor, fontSize: 12),
+                    color: AppColors.backgroundColor, fontSize: 12),
                 onPressed: () {
                   _controller.sendVoiceOtp();
                 },
@@ -410,17 +410,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -440,13 +440,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Continue',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -475,7 +475,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
               child: Text(
                 'Phone Number successfully Changed',
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
                 ),
@@ -501,13 +501,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       horizontal: 20,
                     ),
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
                       child: Text(
                         'Continue',
                         style: GoogleFonts.inter(
-                          color: AppColor().whiteColor,
+                          color: AppColors.whiteColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 12,
                         ),

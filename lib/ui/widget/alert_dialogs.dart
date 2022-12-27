@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 enum DialogsAction { yes, cancel }
 
@@ -26,7 +26,7 @@ class AlertDialogs {
               child: Text(
                 'Cancel',
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -36,7 +36,7 @@ class AlertDialogs {
               child: Text(
                 'Confirm',
                 style: GoogleFonts.inter(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                   fontWeight: FontWeight.w700,
                 ),
               ),

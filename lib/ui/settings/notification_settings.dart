@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class NotificationSettings extends StatefulWidget {
   const NotificationSettings({Key? key}) : super(key: key);
@@ -40,7 +40,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
             ),
             onPressed: () {
               Get.back();
@@ -49,7 +49,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
           title: Text(
             'Notification Settings',
             style: GoogleFonts.inter(
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
@@ -78,7 +78,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                       ),
                     ),
                     Switch.adaptive(
-                        activeColor: AppColor().backgroundColor,
+                        activeColor: AppColors.backgroundColor,
                         value: debtorRemind,
                         onChanged: (newValue) =>
                             setState(() => this.debtorRemind = newValue))
@@ -111,7 +111,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                       width: 2,
-                                      color: AppColor().backgroundColor)),
+                                      color: AppColors.backgroundColor)),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
                                   hint: Text(
@@ -123,7 +123,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                   value: debtorsValue,
                                   icon: Icon(
                                     Icons.keyboard_arrow_down,
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                   ),
                                   iconSize: 30,
                                   items:
@@ -152,7 +152,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                       ),
                     ),
                     Switch.adaptive(
-                        activeColor: AppColor().backgroundColor,
+                        activeColor: AppColors.backgroundColor,
                         value: debtOwnedRemind,
                         onChanged: (newValue) =>
                             setState(() => this.debtOwnedRemind = newValue))
@@ -185,7 +185,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                       width: 2,
-                                      color: AppColor().backgroundColor)),
+                                      color: AppColors.backgroundColor)),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
                                   hint: Text(
@@ -197,7 +197,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                   value: debtOwnedValue,
                                   icon: Icon(
                                     Icons.keyboard_arrow_down,
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                   ),
                                   iconSize: 30,
                                   items:

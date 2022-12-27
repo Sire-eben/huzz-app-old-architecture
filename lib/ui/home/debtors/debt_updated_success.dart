@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/ui/dashboard.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/ui/app_scaffold.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class DebtUpdatedSuccess extends StatelessWidget {
   DebtUpdatedSuccess({
@@ -21,7 +21,7 @@ class DebtUpdatedSuccess extends StatelessWidget {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.offAll(Dashboard());
@@ -43,8 +43,7 @@ class DebtUpdatedSuccess extends StatelessWidget {
                       'Transaction Updated Successfully',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.inter(
-                        color: AppColor().backgroundColor,
-                        
+                        color: AppColors.backgroundColor,
                         fontSize: 24,
                         fontWeight: FontWeight.w500,
                       ),
@@ -68,15 +67,15 @@ class DebtUpdatedSuccess extends StatelessWidget {
                               MediaQuery.of(context).size.height * 0.03),
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
                         child: Text(
                           'Proceed',
                           style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontSize: 18,
-                             ),
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),

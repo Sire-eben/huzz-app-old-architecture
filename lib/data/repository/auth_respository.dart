@@ -12,14 +12,15 @@ import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/ui/create_business.dart';
-import 'package:huzz/ui/dashboard.dart';
+import 'package:huzz/ui/auth/enter_otp.dart';
+import 'package:huzz/ui/auth/pin_successful.dart';
+import 'package:huzz/ui/auth/sign_in.dart';
+import 'package:huzz/ui/business/create_business.dart';
+import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/forget_pass/enter_forget_pin.dart';
-import 'package:huzz/ui/pin_successful.dart';
 import 'package:huzz/ui/reg_home.dart';
-import 'package:huzz/ui/sign_in.dart';
 import 'package:huzz/ui/team/team_success.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/data/model/user.dart';
 import 'package:huzz/data/model/user_referral_model.dart';
@@ -27,7 +28,6 @@ import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/user_teamInvite_model.dart';
-import '../../ui/enter_otp.dart';
 import 'fingerprint_repository.dart';
 
 enum SignupStatus { Empty, Loading, Error, Success }
@@ -227,7 +227,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.check, color: AppColor().backgroundColor));
+            icon: Icon(Icons.check, color: AppColors.backgroundColor));
 
         if (!isresend) Get.to(() => EnterOtp());
         // if (!isresend) _homeController.selectOnboardSelectedNext();
@@ -244,7 +244,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+            icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
       }
     } catch (ex) {
       print("error otp send ${ex.toString()}");
@@ -275,7 +275,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.check, color: AppColor().backgroundColor));
+            icon: Icon(Icons.check, color: AppColors.backgroundColor));
         Timer(Duration(milliseconds: 2000), () {
           Get.off(EnterForgotPIN());
         });
@@ -292,7 +292,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+            icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
       }
     } catch (ex) {
       print("error otp send ${ex.toString()}");
@@ -318,7 +318,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.check, color: AppColor().backgroundColor));
+          icon: Icon(Icons.check, color: AppColors.backgroundColor));
     } else {
       Get.snackbar("Error", "Unable to send Otp",
           titleText: Text(
@@ -331,7 +331,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+          icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
     }
   }
 
@@ -364,7 +364,7 @@ class AuthRepository extends GetxController {
                 style: GoogleFonts.inter(
                     color: Colors.black, fontWeight: FontWeight.normal),
               ),
-              icon: Icon(Icons.check, color: AppColor().backgroundColor));
+              icon: Icon(Icons.check, color: AppColors.backgroundColor));
 
           getUser();
         } else {
@@ -380,7 +380,7 @@ class AuthRepository extends GetxController {
                 style: GoogleFonts.inter(
                     color: Colors.black, fontWeight: FontWeight.normal),
               ),
-              icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+              icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
         }
       }
     } catch (ex) {
@@ -396,7 +396,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.info, color: AppColor().orangeBorderColor));
+          icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
       _Otpverifystatus(OtpVerifyStatus.Error);
     }
   }

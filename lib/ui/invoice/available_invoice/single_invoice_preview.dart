@@ -12,12 +12,12 @@ import 'package:share_plus/share_plus.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/ui/invoice/invoice_pdf.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_colors.dart';
 import 'package:huzz/data/model/invoice.dart';
+import 'package:huzz/core/util/util.dart';
 
 import '../../../data/repository/team_repository.dart';
-import '../../../util/util.dart';
 
 class PreviewSingleInvoice extends StatefulWidget {
   final Invoice? invoice;
@@ -99,7 +99,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
             ),
             onPressed: () {
               Get.back();
@@ -108,8 +108,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
           title: Text(
             'View Invoice',
             style: GoogleFonts.inter(
-              color: AppColor().backgroundColor,
-              
+              color: AppColors.backgroundColor,
               fontStyle: FontStyle.normal,
               fontSize: 18,
               fontWeight: FontWeight.w500,
@@ -223,8 +222,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
-                                                color: AppColor()
-                                                    .backgroundColor
+                                                color: AppColors.backgroundColor
                                                     .withOpacity(0.2)),
                                             child: SvgPicture.asset(
                                                 'assets/images/credit_card.svg'),
@@ -238,10 +236,10 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                   Text(
                                     'Update Payment',
                                     style: GoogleFonts.inter(
-                                        color: Colors.black,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        ),
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -265,8 +263,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                         0.06,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: AppColor()
-                                            .backgroundColor
+                                        color: AppColors.backgroundColor
                                             .withOpacity(0.2)),
                                     child: SvgPicture.asset(
                                         'assets/images/download.svg'),
@@ -278,10 +275,10 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                 Text(
                                   'Download',
                                   style: GoogleFonts.inter(
-                                      color: Colors.black,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      ),
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ],
                             ),
@@ -305,8 +302,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                         0.06,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: AppColor()
-                                            .backgroundColor
+                                        color: AppColors.backgroundColor
                                             .withOpacity(0.2)),
                                     child: SvgPicture.asset(
                                         'assets/images/share.svg'),
@@ -318,10 +314,10 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                   Text(
                                     'Share',
                                     style: GoogleFonts.inter(
-                                        color: Colors.black,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                        ),
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -342,16 +338,16 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                   MediaQuery.of(context).size.height * 0.03),
                           height: 50,
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: Center(
                             child: Text(
                               'Go back',
                               style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  ),
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ),
@@ -402,10 +398,10 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color:
-                                  AppColor().backgroundColor.withOpacity(0.2)),
+                                  AppColors.backgroundColor.withOpacity(0.2)),
                           child: Icon(
                             Icons.close,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             size: 18,
                           )),
                     ),
@@ -416,7 +412,6 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                       'Update Payment',
                       style: GoogleFonts.inter(
                         color: Colors.black,
-                        
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -436,7 +431,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           children: [
                             Radio<int>(
                               value: 1,
-                              activeColor: AppColor().backgroundColor,
+                              activeColor: AppColors.backgroundColor,
                               groupValue: paymentType,
                               onChanged: (value) {
                                 myState(() {
@@ -447,8 +442,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                             Text(
                               'Paying Fully',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
-                                
+                                color: AppColors.backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -467,7 +461,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           children: [
                             Radio<int>(
                                 value: 0,
-                                activeColor: AppColor().backgroundColor,
+                                activeColor: AppColors.backgroundColor,
                                 groupValue: paymentType,
                                 onChanged: (value) {
                                   myState(() {
@@ -478,8 +472,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                             Text(
                               'Paying Partly',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
-                                
+                                color: AppColors.backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -515,7 +508,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                   //           ListTile(
                   //             leading: Icon(
                   //               Icons.camera,
-                  //               color: AppColor().backgroundColor,
+                  //               color: AppColors.backgroundColor,
                   //             ),
                   //             title: Text('Camera'),
                   //             onTap: () {
@@ -526,7 +519,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                   //           ListTile(
                   //             leading: Icon(
                   //               Icons.image,
-                  //               color: AppColor().backgroundColor,
+                  //               color: AppColors.backgroundColor,
                   //             ),
                   //             title: Text('Gallery'),
                   //             onTap: () {
@@ -544,13 +537,13 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                   //     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   //     decoration: BoxDecoration(
                   //         color: image != null
-                  //             ? AppColor().backgroundColor.withOpacity(0.2)
+                  //             ? AppColors.backgroundColor.withOpacity(0.2)
                   //             : Colors.white,
                   //         borderRadius: BorderRadius.circular(10),
                   //         border: image != null
                   //             ? null
                   //             : Border.all(
-                  //                 width: 2, color: AppColor().backgroundColor)),
+                  //                 width: 2, color: AppColors.backgroundColor)),
                   //     child: Row(
                   //       children: [
                   //         Expanded(
@@ -613,15 +606,14 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           children: [
                             Radio<int>(
                                 value: 0,
-                                activeColor: AppColor().backgroundColor,
+                                activeColor: AppColors.backgroundColor,
                                 groupValue: paymentMode,
                                 onChanged: (value) =>
                                     myState(() => paymentMode = 0)),
                             Text(
                               'Cash',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
-                                
+                                color: AppColors.backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -636,15 +628,14 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           children: [
                             Radio<int>(
                                 value: 1,
-                                activeColor: AppColor().backgroundColor,
+                                activeColor: AppColors.backgroundColor,
                                 groupValue: paymentMode,
                                 onChanged: (value) =>
                                     myState(() => paymentMode = 1)),
                             Text(
                               'POS',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
-                                
+                                color: AppColors.backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -659,15 +650,14 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           children: [
                             Radio<int>(
                                 value: 2,
-                                activeColor: AppColor().backgroundColor,
+                                activeColor: AppColors.backgroundColor,
                                 groupValue: paymentMode,
                                 onChanged: (value) =>
                                     myState(() => paymentMode = 2)),
                             Text(
                               'Transfer',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
-                                
+                                color: AppColors.backgroundColor,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -708,7 +698,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               MediaQuery.of(context).size.height * 0.01),
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_invoiceController.addingInvoiceStatus ==
                               AddingInvoiceStatus.Loading)
@@ -723,9 +713,9 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               child: Text(
                                 'Save',
                                 style: GoogleFonts.inter(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    ),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                     ),

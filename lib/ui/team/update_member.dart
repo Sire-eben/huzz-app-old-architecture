@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import '../../data/model/team.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../model/user_teamInvite_model.dart';
@@ -236,7 +236,7 @@ class _UpdateMemberState extends State<UpdateMember> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             _teamController.nameController.clear();
@@ -250,7 +250,7 @@ class _UpdateMemberState extends State<UpdateMember> {
             Text(
               'Edit Privilege',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
@@ -258,7 +258,7 @@ class _UpdateMemberState extends State<UpdateMember> {
           ],
         ),
       ),
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -370,11 +370,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isManageCustomer == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
               ),
               view: InkWell(
@@ -398,11 +398,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMCView == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               create: InkWell(
@@ -426,11 +426,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMCCreate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               update: InkWell(
@@ -454,11 +454,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMCUpdate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               delete: InkWell(
@@ -482,11 +482,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMCDelete == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               name: 'MANAGE CUSTOMER',
@@ -570,11 +570,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isManageProduct == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
               ),
               view: InkWell(
@@ -598,11 +598,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMPView == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               create: InkWell(
@@ -626,11 +626,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMPCreate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               update: InkWell(
@@ -654,11 +654,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMPUpdate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               delete: InkWell(
@@ -682,11 +682,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMPDelete == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               name: 'MANAGE PRODUCT',
@@ -770,11 +770,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isManageBusiness == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
               ),
               view: InkWell(
@@ -798,11 +798,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMBusView == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               create: InkWell(
@@ -826,11 +826,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMBusCreate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               update: InkWell(
@@ -854,11 +854,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMBusUpdate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               delete: InkWell(
@@ -882,11 +882,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMBusDelete == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               name: 'MANAGE BUSINESS TRANSACTION',
@@ -970,11 +970,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isManageBank == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
               ),
               view: InkWell(
@@ -998,11 +998,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMBankView == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               create: InkWell(
@@ -1026,11 +1026,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMBankCreate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               update: InkWell(
@@ -1054,11 +1054,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMBankUpdate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               delete: InkWell(
@@ -1082,11 +1082,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMBankDelete == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               name: 'MANAGE BANK INFO',
@@ -1170,11 +1170,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isManageTeam == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
               ),
               view: InkWell(
@@ -1198,11 +1198,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMTView == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               create: InkWell(
@@ -1226,11 +1226,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMTCreate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               update: InkWell(
@@ -1254,11 +1254,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMTUpdate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               delete: InkWell(
@@ -1282,11 +1282,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMTDelete == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               name: 'MANAGE TEAM',
@@ -1371,11 +1371,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isManageDebtor == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
               ),
               view: InkWell(
@@ -1399,11 +1399,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMDView == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               create: InkWell(
@@ -1427,11 +1427,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMDCreate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               update: InkWell(
@@ -1455,11 +1455,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMDUpdate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               delete: InkWell(
@@ -1483,11 +1483,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMDDelete == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               name: 'MANAGE DEBTOR',
@@ -1571,11 +1571,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isManageInvoice == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
               ),
               view: InkWell(
@@ -1599,11 +1599,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMInvView == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               create: InkWell(
@@ -1627,11 +1627,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMInvCreate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               update: InkWell(
@@ -1655,11 +1655,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMInvUpdate == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               delete: InkWell(
@@ -1683,11 +1683,11 @@ class _UpdateMemberState extends State<UpdateMember> {
                 child: _isMInvDelete == true
                     ? Icon(
                         Icons.check_box,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       )
                     : Icon(
                         Icons.check_box_outline_blank,
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                       ),
               ),
               name: 'MANAGE BUSINESS INVOICE',
@@ -1760,11 +1760,11 @@ class _UpdateMemberState extends State<UpdateMember> {
             //           child: _isSelected
             //               ? Icon(
             //                   Icons.check_box,
-            //                   color: AppColor().backgroundColor,
+            //                   color: AppColors.backgroundColor,
             //                 )
             //               : Icon(
             //                   Icons.check_box_outline_blank,
-            //                   color: AppColor().backgroundColor,
+            //                   color: AppColors.backgroundColor,
             //                 ),
             //         ),
             //         view: InkWell(
@@ -1793,11 +1793,11 @@ class _UpdateMemberState extends State<UpdateMember> {
             //           child: _isSelectedView
             //               ? Icon(
             //                   Icons.check_box,
-            //                   color: AppColor().blackColor,
+            //                   color: AppColors.blackColor,
             //                 )
             //               : Icon(
             //                   Icons.check_box_outline_blank,
-            //                   color: AppColor().blackColor,
+            //                   color: AppColors.blackColor,
             //                 ),
             //         ),
             //         create: InkWell(
@@ -1826,11 +1826,11 @@ class _UpdateMemberState extends State<UpdateMember> {
             //           child: _isSelectedCreate
             //               ? Icon(
             //                   Icons.check_box,
-            //                   color: AppColor().blackColor,
+            //                   color: AppColors.blackColor,
             //                 )
             //               : Icon(
             //                   Icons.check_box_outline_blank,
-            //                   color: AppColor().blackColor,
+            //                   color: AppColors.blackColor,
             //                 ),
             //         ),
             //         update: InkWell(
@@ -1859,11 +1859,11 @@ class _UpdateMemberState extends State<UpdateMember> {
             //           child: _isSelectedUpdate
             //               ? Icon(
             //                   Icons.check_box,
-            //                   color: AppColor().blackColor,
+            //                   color: AppColors.blackColor,
             //                 )
             //               : Icon(
             //                   Icons.check_box_outline_blank,
-            //                   color: AppColor().blackColor,
+            //                   color: AppColors.blackColor,
             //                 ),
             //         ),
             //         delete: InkWell(
@@ -1892,11 +1892,11 @@ class _UpdateMemberState extends State<UpdateMember> {
             //           child: _isSelectedDelete
             //               ? Icon(
             //                   Icons.check_box,
-            //                   color: AppColor().blackColor,
+            //                   color: AppColors.blackColor,
             //                 )
             //               : Icon(
             //                   Icons.check_box_outline_blank,
-            //                   color: AppColor().blackColor,
+            //                   color: AppColors.blackColor,
             //                 ),
             //         ),
             //         name: item.name,
@@ -1928,7 +1928,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -1977,7 +1977,7 @@ class EditDetails extends StatelessWidget {
           Text(
             name!,
             style: GoogleFonts.inter(
-              color: AppColor().blackColor,
+              color: AppColors.blackColor,
               fontSize: 12,
             ),
           ),
@@ -1985,7 +1985,7 @@ class EditDetails extends StatelessWidget {
           Text(
             value!,
             style: GoogleFonts.inter(
-              color: AppColor().blackColor,
+              color: AppColors.blackColor,
               fontWeight: FontWeight.w600,
               fontSize: 12,
             ),

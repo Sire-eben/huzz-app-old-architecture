@@ -4,7 +4,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:share_plus/share_plus.dart';
 import 'records_pdf.dart';
 
@@ -61,7 +61,7 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
                             height: MediaQuery.of(context).size.height * 0.06,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: AppColor()
+                                color: AppColors
                                     .backgroundColor
                                     .withOpacity(0.2)),
                             child:
@@ -95,7 +95,7 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
                             height: MediaQuery.of(context).size.height * 0.06,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: AppColor()
+                                color: AppColors
                                     .backgroundColor
                                     .withOpacity(0.2)),
                             child: SvgPicture.asset('assets/images/share.svg'),
@@ -128,7 +128,7 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   height: 50,
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(

@@ -8,8 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
-// import 'package:fluttercontactpicker/fluttercontactpicker.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
@@ -117,15 +116,15 @@ class CustomTextField extends StatelessWidget {
                     suffixText: this.sufText,
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: hint,
                     prefixIcon: prefixIcon,
@@ -229,15 +228,15 @@ class CustomTextFieldOptional extends StatelessWidget {
                     suffixText: this.sufText,
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: hint,
                     prefixIcon: prefixIcon,
@@ -323,15 +322,15 @@ class CustomTextFieldOnly extends StatelessWidget {
             suffixText: this.sufText,
             focusedBorder: OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: AppColor().backgroundColor, width: 2),
+                    BorderSide(color: AppColors.backgroundColor, width: 2),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             enabledBorder: OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: AppColor().backgroundColor, width: 2),
+                    BorderSide(color: AppColors.backgroundColor, width: 2),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             border: OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: AppColor().backgroundColor, width: 2),
+                    BorderSide(color: AppColors.backgroundColor, width: 2),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             hintText: hint,
             prefixIcon: prefixIcon,
@@ -429,15 +428,15 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
                     suffixText: this.sufText,
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: hint,
                     prefixIcon: prefixIcon,
@@ -548,15 +547,15 @@ class CustomTextFieldOption extends StatelessWidget {
                     suffixText: this.sufText,
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     border: OutlineInputBorder(
                         borderSide: BorderSide(
-                            color: AppColor().backgroundColor, width: 2),
+                            color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: hint,
                     prefixIcon: prefixIcon,
@@ -707,7 +706,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                                   child: Text(
                                     "Select from Contact",
                                     style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontSize: 12),
                                   )),
                             ),
@@ -744,17 +743,17 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText: widget.hint,
@@ -777,7 +776,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        color: AppColor().backgroundColor, width: 2.0),
+                        color: AppColors.backgroundColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
@@ -792,7 +791,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                           decoration: BoxDecoration(
                             border: Border(
                                 right: BorderSide(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     width: 2)),
                           ),
                           height: 50,
@@ -810,7 +809,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color:
-                                    AppColor().backgroundColor.withOpacity(0.5),
+                                    AppColors.backgroundColor.withOpacity(0.5),
                               )
                             ],
                           ),
@@ -895,17 +894,17 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         // labelText: label,
@@ -1086,7 +1085,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                                   child: Text(
                                     "Select from Contact",
                                     style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontSize: 12),
                                   )),
                             ),
@@ -1123,17 +1122,17 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText: widget.hint,
@@ -1156,7 +1155,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        color: AppColor().backgroundColor, width: 2.0),
+                        color: AppColors.backgroundColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
@@ -1171,7 +1170,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                           decoration: BoxDecoration(
                             border: Border(
                                 right: BorderSide(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     width: 2)),
                           ),
                           height: 50,
@@ -1189,7 +1188,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color:
-                                    AppColor().backgroundColor.withOpacity(0.5),
+                                    AppColors.backgroundColor.withOpacity(0.5),
                               )
                             ],
                           ),
@@ -1280,17 +1279,17 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         // labelText: label,
@@ -1452,7 +1451,7 @@ class _CustomTextFieldWithImageTransactionState
                               child: Text(
                                 "Select from Contact",
                                 style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontSize: 12),
                               )),
                         ),
@@ -1489,17 +1488,17 @@ class _CustomTextFieldWithImageTransactionState
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText: 'customer name',
@@ -1521,7 +1520,7 @@ class _CustomTextFieldWithImageTransactionState
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        color: AppColor().backgroundColor, width: 2.0),
+                        color: AppColors.backgroundColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
@@ -1536,7 +1535,7 @@ class _CustomTextFieldWithImageTransactionState
                           decoration: BoxDecoration(
                             border: Border(
                                 right: BorderSide(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     width: 2)),
                           ),
                           height: 50,
@@ -1554,7 +1553,7 @@ class _CustomTextFieldWithImageTransactionState
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color:
-                                    AppColor().backgroundColor.withOpacity(0.5),
+                                    AppColors.backgroundColor.withOpacity(0.5),
                               )
                             ],
                           ),
@@ -1636,17 +1635,17 @@ class _CustomTextFieldWithImageTransactionState
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText: 'yourmail@mail.com',
@@ -1819,7 +1818,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                               child: Text(
                                 "Select from Contact",
                                 style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontSize: 12),
                               )),
                         ),
@@ -1856,17 +1855,17 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText: 'customer name',
@@ -1888,7 +1887,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        color: AppColor().backgroundColor, width: 2.0),
+                        color: AppColors.backgroundColor, width: 2.0),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
@@ -1903,7 +1902,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                           decoration: BoxDecoration(
                             border: Border(
                                 right: BorderSide(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     width: 2)),
                           ),
                           height: 50,
@@ -1921,7 +1920,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                                 Icons.arrow_drop_down,
                                 size: 24,
                                 color:
-                                    AppColor().backgroundColor.withOpacity(0.5),
+                                    AppColors.backgroundColor.withOpacity(0.5),
                               )
                             ],
                           ),
@@ -1986,17 +1985,17 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText: 'yourmail@mail.com',
@@ -2034,17 +2033,17 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         hintText: '0.0',
@@ -2099,17 +2098,17 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         suffixText: this.widget.sufText,
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: AppColor().backgroundColor, width: 2),
+                                color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         prefixIcon: widget.prefixIcon,

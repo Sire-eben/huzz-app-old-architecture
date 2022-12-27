@@ -15,8 +15,9 @@ import 'package:huzz/data/model/debtor.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../../data/repository/team_repository.dart';
-import '../../../util/colors.dart';
-import '../../../util/util.dart';
+import 'package:huzz/core/constants/app_themes.dart';
+
+import 'package:huzz/core/util/util.dart';
 import '../money_history.dart';
 
 // ignore: must_be_immutable
@@ -78,7 +79,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                         Container(
                           height: 95,
                           decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.all(
                               Radius.circular(15),
                             ),
@@ -115,7 +116,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 child: Container(
                                   height: 95,
                                   decoration: BoxDecoration(
-                                    color: AppColor().secondbgColor,
+                                    color: AppColors.secondbgColor,
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -127,8 +128,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       colors: [
                                         Color(0xff0D8372),
                                         Color(0xff07A58E),
-                                        AppColor()
-                                            .backgroundColor
+                                        AppColors.backgroundColor
                                             .withOpacity(0.5),
                                       ],
                                     ),
@@ -168,14 +168,14 @@ class _DebtOwnedState extends State<DebtOwned> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                  width: 2, color: AppColor().backgroundColor)),
+                                  width: 2, color: AppColors.backgroundColor)),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
                               value: value,
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 size: 14,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               hint: Text(
                                 'Pending',
@@ -211,7 +211,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         'assets/images/add_debt_owned.svg',
                                         height: 50,
                                         width: 50,
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                       ),
                                       SizedBox(height: 5),
                                       Text(
@@ -250,7 +250,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                           style: GoogleFonts.inter(
                                               fontSize: 14,
                                               color:
-                                                  AppColor().orangeBorderColor,
+                                                  AppColors.orangeBorderColor,
                                               fontWeight: FontWeight.w600),
                                           textAlign: TextAlign.center,
                                         ),
@@ -352,7 +352,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       "Balance: ${Utils.getCurrency()}${display(item.balance!)}",
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
-                                                          color: AppColor()
+                                                          color: AppColors
                                                               .orangeBorderColor,
                                                           fontWeight:
                                                               FontWeight.w400),
@@ -478,7 +478,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 child: Container(
                                   height: 55,
                                   decoration: BoxDecoration(
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -486,7 +486,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       Icon(
                                         Icons.add,
                                         size: 22,
-                                        color: AppColor().whiteColor,
+                                        color: AppColors.whiteColor,
                                       ),
                                       SizedBox(
                                         width: 5,
@@ -495,7 +495,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         child: Text(
                                           'Add New Debt Owed',
                                           style: GoogleFonts.inter(
-                                            color: AppColor().whiteColor,
+                                            color: AppColors.whiteColor,
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -529,7 +529,7 @@ class _DebtOwnedState extends State<DebtOwned> {
             title: Text(
               'Delete Debt',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 17,
               ),
@@ -537,7 +537,7 @@ class _DebtOwnedState extends State<DebtOwned> {
             content: Text(
               "You're about to delete this debt entry, click delete to proceed",
               style: GoogleFonts.inter(
-                color: AppColor().blackColor,
+                color: AppColors.blackColor,
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
               ),
@@ -562,17 +562,17 @@ class _DebtOwnedState extends State<DebtOwned> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 1.2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -594,13 +594,13 @@ class _DebtOwnedState extends State<DebtOwned> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().orangeBorderColor,
+                              color: AppColors.orangeBorderColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -651,7 +651,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                 Text(
                   'Update Payment',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
@@ -671,7 +671,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                           children: [
                             Radio<int>(
                               value: 1,
-                              activeColor: AppColor().backgroundColor,
+                              activeColor: AppColors.backgroundColor,
                               groupValue: statusType,
                               onChanged: (value) {
                                 myState(() {
@@ -700,7 +700,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                           children: [
                             Radio<int>(
                                 value: 0,
-                                activeColor: AppColor().backgroundColor,
+                                activeColor: AppColors.backgroundColor,
                                 groupValue: statusType,
                                 onChanged: (value) {
                                   myState(() {
@@ -762,7 +762,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     Text(
                                       'Balance: ${Utils.getCurrency()}${display(debtor.balance)}',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().orangeBorderColor,
+                                        color: AppColors.orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
@@ -772,7 +772,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       // debtOwnedModel.balance!,
                                       '',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().orangeBorderColor,
+                                        color: AppColors.orangeBorderColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
@@ -805,19 +805,19 @@ class _DebtOwnedState extends State<DebtOwned> {
 
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         width: 2),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         width: 2),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         width: 2),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
@@ -862,7 +862,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
                         child: (_debtorRepository.addingDebtorStatus ==
@@ -925,7 +925,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   child: Text(
                     'Add Debt Owed',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
@@ -976,7 +976,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     height: 50,
                     decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_debtorRepository.addingDebtorStatus ==
                             AddingDebtorStatus.Loading)
@@ -993,7 +993,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               Icon(
                                 Icons.add,
                                 size: 22,
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                               ),
                               SizedBox(
                                 width: 5,
@@ -1002,7 +1002,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 child: Text(
                                   'Add Debt Owed',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -1041,14 +1041,14 @@ class _DebtOwnedState extends State<DebtOwned> {
                             children: [
                               Radio<int>(
                                   value: 1,
-                                  activeColor: AppColor().backgroundColor,
+                                  activeColor: AppColors.backgroundColor,
                                   groupValue: _debtorRepository.customerType,
                                   onChanged: (value) => myState(() =>
                                       _debtorRepository.customerType = 1)),
                               Text(
                                 'New Merchant',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1064,14 +1064,14 @@ class _DebtOwnedState extends State<DebtOwned> {
                             children: [
                               Radio<int>(
                                   value: 0,
-                                  activeColor: AppColor().backgroundColor,
+                                  activeColor: AppColors.backgroundColor,
                                   groupValue: _debtorRepository.customerType,
                                   onChanged: (value) => myState(() =>
                                       _debtorRepository.customerType = 0)),
                               Text(
                                 'Existing Merchants',
                                 style: GoogleFonts.inter(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -1101,7 +1101,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     Text(
                                       "Select from Contact",
                                       style: GoogleFonts.inter(
-                                          color: AppColor().backgroundColor,
+                                          color: AppColors.backgroundColor,
                                           fontSize: 12),
                                     ),
                                   ],
@@ -1172,13 +1172,13 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
                                         width: 2,
-                                        color: AppColor().backgroundColor)),
+                                        color: AppColors.backgroundColor)),
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<Customer>(
                                     value: _debtorRepository.selectedCustomer,
                                     icon: Icon(
                                       Icons.keyboard_arrow_down,
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                     ),
                                     iconSize: 30,
                                     items: _customerRepository.customerMerchant
@@ -1246,12 +1246,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                 width: 30,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColor().blueColor,
+                  color: AppColors.blueColor,
                 ),
                 child: Center(
                   child: Text('F',
                       style: GoogleFonts.inter(
-                        color: AppColor().whiteColor,
+                        color: AppColors.whiteColor,
                         fontWeight: FontWeight.w600,
                         fontSize: 24,
                       )),
@@ -1340,7 +1340,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   height: 50,
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(
@@ -1421,7 +1421,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                   "Balance: ${widget.item!.balance!}",
                   style: GoogleFonts.inter(
                       fontSize: 13,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontWeight: FontWeight.w400),
                 ),
                 Text(
@@ -1482,7 +1482,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                   Text(
                     'Update Payment',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
@@ -1502,7 +1502,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                             children: [
                               Radio<int>(
                                 value: 1,
-                                activeColor: AppColor().backgroundColor,
+                                activeColor: AppColors.backgroundColor,
                                 groupValue: statusType,
                                 onChanged: (value) {
                                   myState(() {
@@ -1531,7 +1531,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                             children: [
                               Radio<int>(
                                   value: 0,
-                                  activeColor: AppColor().backgroundColor,
+                                  activeColor: AppColors.backgroundColor,
                                   groupValue: statusType,
                                   onChanged: (value) {
                                     myState(() {
@@ -1595,7 +1595,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                       Text(
                                         'Balance: ' + debtor.balance.toString(),
                                         style: GoogleFonts.inter(
-                                          color: AppColor().orangeBorderColor,
+                                          color: AppColors.orangeBorderColor,
                                           fontStyle: FontStyle.normal,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
@@ -1605,7 +1605,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                                         // debtOwnedModel.balance!,
                                         '',
                                         style: GoogleFonts.inter(
-                                          color: AppColor().orangeBorderColor,
+                                          color: AppColors.orangeBorderColor,
                                           fontStyle: FontStyle.normal,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
@@ -1639,19 +1639,19 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
 
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: AppColor().backgroundColor,
+                                          color: AppColors.backgroundColor,
                                           width: 2),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: AppColor().backgroundColor,
+                                          color: AppColors.backgroundColor,
                                           width: 2),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: AppColor().backgroundColor,
+                                          color: AppColors.backgroundColor,
                                           width: 2),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
@@ -1695,7 +1695,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
                         child: (_debtorController.addingDebtorStatus ==

@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/records_model.dart';
 import 'package:huzz/data/model/transaction_model.dart';
 
@@ -32,7 +32,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -44,7 +44,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             Text(
               'Transaction',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -56,7 +56,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 Text(
                   '10, NOV. 2021',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.w600,
@@ -65,7 +65,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 Text(
                   '10:00 AM',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 8,
                     fontWeight: FontWeight.w600,
@@ -97,11 +97,11 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: AppColor().backgroundColor.withOpacity(0.2)),
+                  color: AppColors.backgroundColor.withOpacity(0.2)),
               child: Text(
                 widget.recordSummary!.detail!,
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontStyle: FontStyle.normal,
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
@@ -112,7 +112,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             Text(
               'Total Amount',
               style: GoogleFonts.inter(
-                color: AppColor().blackColor,
+                color: AppColors.blackColor,
                 fontStyle: FontStyle.normal,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
@@ -122,7 +122,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             Text(
               widget.recordSummary!.price!,
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -137,7 +137,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 child: Text(
                   'Items',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -155,7 +155,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12)),
-                    color: AppColor().backgroundColor),
+                    color: AppColors.backgroundColor),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -164,21 +164,21 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                       style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
-                          color: AppColor().whiteColor),
+                          color: AppColors.whiteColor),
                     ),
                     Text(
                       'Qty',
                       style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
-                          color: AppColor().whiteColor),
+                          color: AppColors.whiteColor),
                     ),
                     Text(
                       'Amount',
                       style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
-                          color: AppColor().whiteColor),
+                          color: AppColors.whiteColor),
                     ),
                   ],
                 ),
@@ -205,21 +205,21 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                             Text(
                               item.quantity!,
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                             Text(
                               item.price!,
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                           ],
                         ),
@@ -236,7 +236,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                 child: Text(
                   'Payment History',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -254,7 +254,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12)),
-                    color: AppColor().backgroundColor),
+                    color: AppColors.backgroundColor),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -263,21 +263,21 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                       style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
-                          color: AppColor().whiteColor),
+                          color: AppColors.whiteColor),
                     ),
                     Text(
                       'Amount',
                       style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
-                          color: AppColor().whiteColor),
+                          color: AppColors.whiteColor),
                     ),
                     Text(
                       '',
                       style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
-                          color: AppColor().whiteColor),
+                          color: AppColors.whiteColor),
                     ),
                   ],
                 ),
@@ -304,14 +304,14 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                             Text(
                               item.price!,
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                             Row(
                               children: [
@@ -320,17 +320,17 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                   style: GoogleFonts.inter(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10,
-                                      color: AppColor().backgroundColor),
+                                      color: AppColors.backgroundColor),
                                 ),
                                 SizedBox(width: 4),
                                 Container(
                                     padding: EdgeInsets.all(2),
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: AppColor().backgroundColor),
+                                        color: AppColors.backgroundColor),
                                     child: Icon(
                                       Icons.arrow_forward,
-                                      color: AppColor().whiteColor,
+                                      color: AppColors.whiteColor,
                                       size: 15,
                                     ))
                               ],
@@ -362,7 +362,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   child: Text(
                     'You are about to delete you want to delete this transaction. Are you sure you want to continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -396,17 +396,17 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -429,13 +429,13 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -481,7 +481,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                   Text(
                     '10, Nov. 2021',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontStyle: FontStyle.normal,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -497,11 +497,11 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                         padding: EdgeInsets.all(4),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: AppColor().backgroundColor.withOpacity(0.2)),
+                            color: AppColors.backgroundColor.withOpacity(0.2)),
                         child: Icon(
                           Icons.close,
                           size: 20,
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                         ),
                       ))
                 ],
@@ -529,14 +529,14 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                             Text(
                               recordModel.date!,
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                           ],
                         ),
@@ -550,14 +550,14 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().blackColor),
+                                  color: AppColors.blackColor),
                             ),
                             Text(
                               recordModel.moneyOut!,
                               style: GoogleFonts.inter(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10,
-                                  color: AppColor().orangeBorderColor),
+                                  color: AppColors.orangeBorderColor),
                             ),
                           ],
                         ),
@@ -573,14 +573,14 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
-                                    color: AppColor().blackColor),
+                                    color: AppColors.blackColor),
                               ),
                               Text(
                                 recordModel.moneyIn!,
                                 style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 10,
-                                    color: AppColor().blueColor),
+                                    color: AppColors.blueColor),
                               ),
                             ],
                           ),
@@ -618,14 +618,14 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                       style: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 10,
-                                          color: AppColor().blackColor),
+                                          color: AppColors.blackColor),
                                     ),
                                     Text(
                                       item.time!,
                                       style: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 10,
-                                          color: AppColor().blackColor),
+                                          color: AppColors.blackColor),
                                     ),
                                   ],
                                 ),
@@ -639,21 +639,21 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                       style: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 10,
-                                          color: AppColor().blackColor),
+                                          color: AppColors.blackColor),
                                     ),
                                     Text(
                                       item.detail!,
                                       style: GoogleFonts.inter(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 10,
-                                          color: AppColor().blackColor),
+                                          color: AppColors.blackColor),
                                     ),
                                   ],
                                 ),
                               ),
                               Icon(
                                 Icons.visibility,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 size: 20,
                               ),
                             ],

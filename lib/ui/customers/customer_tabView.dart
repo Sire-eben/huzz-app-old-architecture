@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/customers/merchants/merchants.dart';
 import '../../data/repository/auth_respository.dart';
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'customer/customers.dart';
 
 class ManageCustomerInformationDialog extends StatelessWidget {
@@ -80,7 +80,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
             Text(
               'Manage ${_tabController.index == 0 ? 'Customers' : 'Merchants'}',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
@@ -138,21 +138,21 @@ class _CustomerTabViewState extends State<CustomerTabView>
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border:
-                      Border.all(width: 2, color: AppColor().backgroundColor)),
+                      Border.all(width: 2, color: AppColors.backgroundColor)),
               child: TabBar(
                 controller: _tabController,
 
                 labelStyle: Theme.of(context).textTheme.headline2!.copyWith(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontFamily: "InterRegular",
                       fontStyle: FontStyle.normal,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
-                unselectedLabelColor: AppColor().backgroundColor,
+                unselectedLabelColor: AppColors.backgroundColor,
                 unselectedLabelStyle:
                     Theme.of(context).textTheme.headline2!.copyWith(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           fontFamily: "InterRegular",
                           fontStyle: FontStyle.normal,
                           fontSize: 18,
@@ -162,7 +162,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
                 // indicatorColor: Colors.white,
                 indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(2.5),
-                    color: AppColor().backgroundColor),
+                    color: AppColors.backgroundColor),
                 tabs: [
                   Tab(text: 'Customers'),
                   Tab(text: 'Merchants'),

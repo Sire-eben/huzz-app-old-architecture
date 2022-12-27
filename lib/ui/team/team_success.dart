@@ -1,11 +1,7 @@
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:share_plus/share_plus.dart';
-import '../../data/repository/auth_respository.dart';
-import '../../data/repository/business_respository.dart';
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class TeamSuccess extends StatelessWidget {
   TeamSuccess({Key? key}) : super(key: key);
@@ -13,7 +9,7 @@ class TeamSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -22,7 +18,7 @@ class TeamSuccess extends StatelessWidget {
             Text(
               'You\'ve been invited',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
@@ -30,7 +26,7 @@ class TeamSuccess extends StatelessWidget {
             Text(
               'to a team successfully',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
@@ -49,15 +45,15 @@ class TeamSuccess extends StatelessWidget {
               child: Container(
                 height: 55,
                 decoration: BoxDecoration(
-                    color: AppColor().whiteColor,
+                    color: AppColors.whiteColor,
                     border:
-                        Border.all(width: 2, color: AppColor().backgroundColor),
+                        Border.all(width: 2, color: AppColors.backgroundColor),
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Text(
                     'Proceed',
                     style: GoogleFonts.inter(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

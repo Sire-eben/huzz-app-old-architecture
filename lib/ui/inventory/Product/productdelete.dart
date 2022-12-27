@@ -6,8 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:number_display/number_display.dart';
-
-import '../../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class BuildDeleteProduct extends StatefulWidget {
   const BuildDeleteProduct({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -37,14 +36,14 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
         title: Text(
           'Back',
           style: GoogleFonts.inter(
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
         ),
       ),
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       body: Obx(() {
         return Stack(
           children: [
@@ -62,7 +61,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                   Text(
                     'Product (${_productControlller.productGoods.length})',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontSize: 15,
                       fontWeight: FontWeight.normal,
                     ),
@@ -72,13 +71,13 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
+                      color: AppColors.lightbackgroundColor,
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.add,
                       size: 20,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                   ),
                   SizedBox(
@@ -88,13 +87,13 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
-                      color: AppColor().lightbackgroundColor,
+                      color: AppColors.lightbackgroundColor,
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.delete_outline_outlined,
                       size: 20,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                   ),
                 ],
@@ -117,7 +116,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                   children: [
                     Icon(
                       Icons.search,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                     SizedBox(
                       width: 10,
@@ -140,7 +139,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                                   BorderRadius.all(Radius.circular(10))),
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: AppColor().backgroundColor, width: 2),
+                                  color: AppColors.backgroundColor, width: 2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           hintText: 'Search',
@@ -187,7 +186,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     vertical: 15,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: Row(
@@ -203,7 +202,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                       Text(
                         'Delete Product',
                         style: GoogleFonts.inter(
-                          color: AppColor().whiteColor,
+                          color: AppColors.whiteColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -222,7 +221,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
   Widget productCount(BuildContext context) => Container(
         height: 95,
         decoration: BoxDecoration(
-          color: AppColor().backgroundColor,
+          color: AppColors.backgroundColor,
           borderRadius: BorderRadius.all(
             Radius.circular(15),
           ),
@@ -260,7 +259,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               height: 95,
               padding: EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
-                color: AppColor().secondbgColor,
+                color: AppColors.secondbgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -272,7 +271,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                   colors: [
                     Color(0xff0D8372),
                     Color(0xff07A58E),
-                    AppColor().backgroundColor.withOpacity(0.5),
+                    AppColors.backgroundColor.withOpacity(0.5),
                   ],
                 ),
                 borderRadius: BorderRadius.only(
@@ -376,7 +375,7 @@ class _ListingProductState extends State<ListingProduct> {
                     Text(
                       widget.item!.productName!,
                       style: GoogleFonts.inter(
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
                       ),
@@ -389,7 +388,7 @@ class _ListingProductState extends State<ListingProduct> {
                         Text(
                           'left: ',
                           style: GoogleFonts.inter(
-                            color: AppColor().blackColor,
+                            color: AppColors.blackColor,
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -397,7 +396,7 @@ class _ListingProductState extends State<ListingProduct> {
                         Text(
                           "${widget.item!.quantityLeft}",
                           style: GoogleFonts.inter(
-                            color: AppColor().orangeBorderColor,
+                            color: AppColors.orangeBorderColor,
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
@@ -408,7 +407,7 @@ class _ListingProductState extends State<ListingProduct> {
                         Text(
                           'N${display(widget.item!.costPrice ?? 0)}',
                           style: GoogleFonts.inter(
-                            color: AppColor().blackColor,
+                            color: AppColors.blackColor,
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -437,8 +436,8 @@ class _ListingProductState extends State<ListingProduct> {
                     decoration: BoxDecoration(
                       color: _productController
                               .checkifSelectedForDelted(widget.item!.productId!)
-                          ? AppColor().orangeBorderColor
-                          : AppColor().whiteColor,
+                          ? AppColors.orangeBorderColor
+                          : AppColors.whiteColor,
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: Color(0xffEF6500),
@@ -452,8 +451,8 @@ class _ListingProductState extends State<ListingProduct> {
                         size: 15,
                         color: _productController.checkifSelectedForDelted(
                                 widget.item!.productId!)
-                            ? AppColor().whiteColor
-                            : AppColor().orangeBorderColor,
+                            ? AppColors.whiteColor
+                            : AppColors.orangeBorderColor,
                       ),
                     ),
                   ),

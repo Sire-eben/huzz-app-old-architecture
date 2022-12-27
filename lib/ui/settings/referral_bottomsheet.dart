@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/user_referral_model.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -106,7 +106,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                           "RETRY",
                           style: textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w700,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                         ),
                       ),
@@ -186,7 +186,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                       text: "${referralData.referralCode}",
                                       style: textTheme.bodyMedium!.copyWith(
                                         fontWeight: FontWeight.w700,
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                       ),
                                     ),
                                   ]),
@@ -249,7 +249,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                             child: Container(
                               height: 55,
                               decoration: BoxDecoration(
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                   borderRadius: BorderRadius.circular(10)),
                               child: Center(
                                 child: isLoadingReferralLink
@@ -259,7 +259,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                     : Text(
                                         'Share Referral Link',
                                         style: GoogleFonts.inter(
-                                          color: AppColor().whiteColor,
+                                          color: AppColors.whiteColor,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                         ),

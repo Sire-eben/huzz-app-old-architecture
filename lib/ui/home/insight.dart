@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/home/wordclass.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/util/util.dart';
 import 'package:huzz/data/model/recordData.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../util/util.dart';
-
 class Insight extends StatefulWidget {
+  const Insight({super.key});
+
   @override
   _InsightState createState() => _InsightState();
 }
@@ -37,7 +38,7 @@ class _InsightState extends State<Insight> {
   Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
     final initialDateRange = DateTimeRange(
       start: DateTime.now(),
-      end: DateTime.now().add(Duration(hours: 24 * 3)),
+      end: DateTime.now().add(const Duration(hours: 24 * 3)),
     );
     final newDateRange = await showDateRangePicker(
       initialEntryMode: DatePickerEntryMode.input,
@@ -82,23 +83,23 @@ class _InsightState extends State<Insight> {
   ];
 
   List<_PieChartData> pieMoneyIn = [
-    _PieChartData('Mon', 35, AppColor().orangeBorderColor),
-    _PieChartData('Tue', 28, AppColor().wineColor),
-    _PieChartData('Wed', 34, AppColor().backgroundColor),
-    _PieChartData('Thur', 32, AppColor().blueColor),
-    _PieChartData('Fri', 40, AppColor().lightblueColor),
-    _PieChartData('Sat', 28, AppColor().purpleColor),
-    _PieChartData('Sun', 32, AppColor().brownColor)
+    _PieChartData('Mon', 35, AppColors.orangeBorderColor),
+    _PieChartData('Tue', 28, AppColors.wineColor),
+    _PieChartData('Wed', 34, AppColors.backgroundColor),
+    _PieChartData('Thur', 32, AppColors.blueColor),
+    _PieChartData('Fri', 40, AppColors.lightblueColor),
+    _PieChartData('Sat', 28, AppColors.purpleColor),
+    _PieChartData('Sun', 32, AppColors.brownColor)
   ];
 
   List<_PieChartData> pieMoneyOut = [
-    _PieChartData('Mon', 15, AppColor().orangeBorderColor),
-    _PieChartData('Tue', 10, AppColor().wineColor),
-    _PieChartData('Wed', 40, AppColor().backgroundColor),
-    _PieChartData('Thur', 32, AppColor().blueColor),
-    _PieChartData('Fri', 20, AppColor().lightblueColor),
-    _PieChartData('Sat', 15, AppColor().purpleColor),
-    _PieChartData('Sun', 32, AppColor().brownColor)
+    _PieChartData('Mon', 15, AppColors.orangeBorderColor),
+    _PieChartData('Tue', 10, AppColors.wineColor),
+    _PieChartData('Wed', 40, AppColors.backgroundColor),
+    _PieChartData('Thur', 32, AppColors.blueColor),
+    _PieChartData('Fri', 20, AppColors.lightblueColor),
+    _PieChartData('Sat', 15, AppColors.purpleColor),
+    _PieChartData('Sun', 32, AppColors.brownColor)
   ];
   List<RecordsData> removeDoubleItem(List<RecordsData> list) {
     print("previous items lenght ${list.length}");
@@ -161,19 +162,19 @@ class _InsightState extends State<Insight> {
                       Row(
                         children: [
                           IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             onPressed: () {
                               Get.back();
                             },
                           ),
-                          SizedBox(width: 20),
+                          const SizedBox(width: 20),
                           Text(
                             'Insights',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontStyle: FontStyle.normal,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
@@ -182,18 +183,18 @@ class _InsightState extends State<Insight> {
                         ],
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(
-                                width: 2, color: AppColor().backgroundColor)),
+                                width: 2, color: AppColors.backgroundColor)),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             value: transactionController.value.value,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.keyboard_arrow_down,
                               size: 14,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             hint: Text(
                               'Today',
@@ -242,7 +243,7 @@ class _InsightState extends State<Insight> {
                       //         },
                       //         icon: Icon(
                       //           Icons.date_range,
-                      //           color: AppColor().backgroundColor,
+                      //           color: AppColors.backgroundColor,
                       //         ))
                       //     : Container()
                     ],
@@ -259,43 +260,43 @@ class _InsightState extends State<Insight> {
                           Container(
                             height: 10,
                             width: 10,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: AppColor().orangeBorderColor),
+                                color: AppColors.orangeBorderColor),
                           ),
-                          SizedBox(width: 2),
+                          const SizedBox(width: 2),
                           Text(
                             'Money Out(${Utils.getCurrency()})',
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Row(
                         children: [
                           Container(
                             height: 10,
                             width: 10,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: AppColor().blueColor),
+                                color: AppColors.blueColor),
                           ),
-                          SizedBox(width: 2),
+                          const SizedBox(width: 2),
                           Text(
                             'Money in(${Utils.getCurrency()})',
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontSize: 9,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
                 ),
@@ -340,7 +341,7 @@ class _InsightState extends State<Insight> {
                                 dataSource: transactionController
                                     .allIncomeHoursData
                                     .toList(),
-                                color: AppColor().blueColor,
+                                color: AppColors.blueColor,
                                 xValueMapper: (RecordsData value, _) =>
                                     value.label,
                                 yValueMapper: (RecordsData value, _) =>
@@ -350,12 +351,12 @@ class _InsightState extends State<Insight> {
                                 cardinalSplineTension: 0.9,
                                 // Enable data label
                                 dataLabelSettings:
-                                    DataLabelSettings(isVisible: false)),
+                                    const DataLabelSettings(isVisible: false)),
                             SplineSeries<RecordsData, String>(
                                 dataSource: transactionController
                                     .allExpenditureHoursData
                                     .toList(),
-                                color: AppColor().orangeBorderColor,
+                                color: AppColors.orangeBorderColor,
                                 xValueMapper: (RecordsData value, _) =>
                                     value.label,
                                 yValueMapper: (RecordsData value, _) =>
@@ -365,7 +366,7 @@ class _InsightState extends State<Insight> {
                                 cardinalSplineTension: 0.9,
                                 // Enable data label
                                 dataLabelSettings:
-                                    DataLabelSettings(isVisible: false)),
+                                    const DataLabelSettings(isVisible: false)),
                           ]);
                     }),
                   ),
@@ -373,7 +374,7 @@ class _InsightState extends State<Insight> {
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Divider(),
+                  child: const Divider(),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -381,7 +382,7 @@ class _InsightState extends State<Insight> {
                   child: Text(
                     'Statistics',
                     style: GoogleFonts.inter(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
@@ -397,7 +398,7 @@ class _InsightState extends State<Insight> {
                           children: [
                             StatisticsWidget(
                               image: 'assets/images/income_transaction.svg',
-                              color: AppColor().blueColor,
+                              color: AppColors.blueColor,
                               amount: transactionController
                                   .allIncomeTransaction.length
                                   .toString(),
@@ -406,10 +407,10 @@ class _InsightState extends State<Insight> {
                               message:
                                   'Total number of\nincome transactions\nfor the selected period',
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             StatisticsWidget(
                               image: 'assets/images/expense_transaction.svg',
-                              color: AppColor().orangeBorderColor,
+                              color: AppColors.orangeBorderColor,
                               amount: transactionController
                                   .allExpenditureTransaction.length
                                   .toString(),
@@ -420,22 +421,22 @@ class _InsightState extends State<Insight> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             StatisticsWidget(
                               image: 'assets/images/total_income.svg',
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               amount:
                                   '${Utils.getCurrency()}${display(transactionController.recordMoneyIn)}',
                               name1: 'Total',
                               name2: 'Income',
                               message: 'Total income for\nthe selected period',
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             StatisticsWidget(
                               image: 'assets/images/total_expense.svg',
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               amount:
                                   "${Utils.getCurrency()}${display(transactionController.recordMoneyOut)}",
                               name1: 'Total',
@@ -445,12 +446,12 @@ class _InsightState extends State<Insight> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
                             StatisticsWidget(
                               image: 'assets/images/average_income.svg',
-                              color: AppColor().purpleColor,
+                              color: AppColors.purpleColor,
                               amount:
                                   "${Utils.getCurrency()}${display((transactionController.recordMoneyIn / transactionController.allIncomeTransaction.length))}",
                               name1: 'Average income',
@@ -458,10 +459,10 @@ class _InsightState extends State<Insight> {
                               message:
                                   'Average income\nper transaction\nfor the selected period',
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             StatisticsWidget(
                               image: 'assets/images/average_expenses.svg',
-                              color: AppColor().wineColor,
+                              color: AppColors.wineColor,
                               amount:
                                   "${Utils.getCurrency()}${display((transactionController.recordMoneyOut / transactionController.allExpenditureTransaction.length))}",
                               name1: 'Average expenses',
@@ -471,13 +472,13 @@ class _InsightState extends State<Insight> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                       ],
                     )),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Divider(),
+                  child: const Divider(),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -485,7 +486,7 @@ class _InsightState extends State<Insight> {
                   child: Text(
                     'Transaction Distribution',
                     style: GoogleFonts.inter(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
@@ -500,7 +501,7 @@ class _InsightState extends State<Insight> {
                           Text(
                             'Income',
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
@@ -514,7 +515,7 @@ class _InsightState extends State<Insight> {
                                       "${list[0]} ${display(double.parse(list[1]))}";
                                 },
                                 onDataLabelRender: (s) =>
-                                    s.text = "${display(double.parse(s.text))}",
+                                    s.text = display(double.parse(s.text)),
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <CircularSeries>[
                                   PieSeries<RecordsData, String>(
@@ -531,7 +532,8 @@ class _InsightState extends State<Insight> {
                                       yValueMapper: (RecordsData data, _) =>
                                           data.value,
                                       dataLabelSettings:
-                                          DataLabelSettings(isVisible: true)),
+                                          const DataLabelSettings(
+                                              isVisible: true)),
                                 ]),
                           ),
                         ],
@@ -543,7 +545,7 @@ class _InsightState extends State<Insight> {
                           Text(
                             'Expenses',
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
@@ -557,7 +559,7 @@ class _InsightState extends State<Insight> {
                                       "${list[0]} ${display(double.parse(list[1]))}";
                                 },
                                 onDataLabelRender: (s) =>
-                                    s.text = "${display(double.parse(s.text))}",
+                                    s.text = display(double.parse(s.text)),
                                 tooltipBehavior: TooltipBehavior(enable: true),
                                 series: <CircularSeries>[
                                   PieSeries<RecordsData, String>(
@@ -574,7 +576,8 @@ class _InsightState extends State<Insight> {
                                       yValueMapper: (RecordsData data, _) =>
                                           data.value,
                                       dataLabelSettings:
-                                          DataLabelSettings(isVisible: true)),
+                                          const DataLabelSettings(
+                                              isVisible: true)),
                                 ]),
                           ),
                         ],
@@ -582,7 +585,7 @@ class _InsightState extends State<Insight> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
@@ -593,12 +596,12 @@ class _InsightState extends State<Insight> {
                       Text(
                         'Income',
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
@@ -615,16 +618,16 @@ class _InsightState extends State<Insight> {
                                                   shape: BoxShape.circle,
                                                   color: e.color),
                                             ),
-                                            SizedBox(width: 2),
+                                            const SizedBox(width: 2),
                                             Text(
-                                              '${e.label}',
+                                              e.label,
                                               style: GoogleFonts.inter(
-                                                color: AppColor().blackColor,
+                                                color: AppColors.blackColor,
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             )
                                           ],
@@ -640,16 +643,16 @@ class _InsightState extends State<Insight> {
                                                   shape: BoxShape.circle,
                                                   color: e.color),
                                             ),
-                                            SizedBox(width: 2),
+                                            const SizedBox(width: 2),
                                             Text(
-                                              '${e.label}',
+                                              e.label,
                                               style: GoogleFonts.inter(
-                                                color: AppColor().blackColor,
+                                                color: AppColors.blackColor,
                                                 fontSize: 9,
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             )
                                           ],
@@ -659,7 +662,7 @@ class _InsightState extends State<Insight> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
@@ -670,12 +673,12 @@ class _InsightState extends State<Insight> {
                       Text(
                         'Expenses',
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
@@ -692,16 +695,16 @@ class _InsightState extends State<Insight> {
                                                 shape: BoxShape.circle,
                                                 color: e.color),
                                           ),
-                                          SizedBox(width: 2),
+                                          const SizedBox(width: 2),
                                           Text(
-                                            '${e.label}',
+                                            e.label,
                                             style: GoogleFonts.inter(
-                                              color: AppColor().blackColor,
+                                              color: AppColors.blackColor,
                                               fontSize: 9,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           )
                                         ],
@@ -717,16 +720,16 @@ class _InsightState extends State<Insight> {
                                                 shape: BoxShape.circle,
                                                 color: e.color),
                                           ),
-                                          SizedBox(width: 2),
+                                          const SizedBox(width: 2),
                                           Text(
-                                            '${e.label}',
+                                            e.label,
                                             style: GoogleFonts.inter(
-                                              color: AppColor().blackColor,
+                                              color: AppColors.blackColor,
                                               fontSize: 9,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           )
                                         ],
@@ -739,7 +742,7 @@ class _InsightState extends State<Insight> {
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Divider(),
+                  child: const Divider(),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -747,7 +750,7 @@ class _InsightState extends State<Insight> {
                   child: Text(
                     'Popular Items',
                     style: GoogleFonts.inter(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
@@ -768,12 +771,12 @@ class _InsightState extends State<Insight> {
                             Text(
                               'Income',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
@@ -788,7 +791,7 @@ class _InsightState extends State<Insight> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Expanded(
@@ -797,12 +800,12 @@ class _InsightState extends State<Insight> {
                             Text(
                               'Expenses',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
@@ -820,7 +823,7 @@ class _InsightState extends State<Insight> {
                     ],
                   ),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
               ],
             ),
           ),
@@ -872,7 +875,7 @@ class _InsightState extends State<Insight> {
                           style: GoogleFonts.inter(
                               fontWeight: FontWeight.w600,
                               fontSize: 10,
-                              color: AppColor().blackColor),
+                              color: AppColors.blackColor),
                         ),
                       ),
                       Expanded(
@@ -881,7 +884,7 @@ class _InsightState extends State<Insight> {
                           style: GoogleFonts.inter(
                               fontWeight: FontWeight.w600,
                               fontSize: 10,
-                              color: AppColor().blackColor),
+                              color: AppColors.blackColor),
                         ),
                       ),
                     ],
@@ -897,8 +900,8 @@ class _InsightState extends State<Insight> {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                  decoration: const BoxDecoration(
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                     child: Text(
@@ -945,7 +948,7 @@ class StatisticsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: double.infinity,
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.circular(12)),
@@ -954,12 +957,12 @@ class StatisticsWidget extends StatelessWidget {
           children: [
             Tooltip(
                 triggerMode: TooltipTriggerMode.tap,
-                padding: EdgeInsets.all(6),
+                padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
                     boxShadow: [
-                      BoxShadow(color: Colors.black38, blurRadius: 10)
+                      const BoxShadow(color: Colors.black38, blurRadius: 10)
                     ]),
                 textStyle: GoogleFonts.inter(
                     fontWeight: FontWeight.w500,
@@ -967,7 +970,7 @@ class StatisticsWidget extends StatelessWidget {
                     color: Colors.black),
                 preferBelow: false,
                 message: message!,
-                child: Icon(
+                child: const Icon(
                   Icons.info_outline,
                   color: Colors.white,
                   size: 10,

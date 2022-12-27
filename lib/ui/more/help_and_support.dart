@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/privacy_policy.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_icons.dart';
 import 'package:huzz/core/constants/app_strings.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -43,7 +43,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -54,7 +54,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
             Text(
               AppStrings.helpAndSupport,
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
@@ -80,8 +80,8 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     child: Material(
                       child: InkWell(
                         highlightColor:
-                            AppColor().backgroundColor.withOpacity(0.3),
-                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                            AppColors.backgroundColor.withOpacity(0.3),
+                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(Privacy());
                         },
@@ -101,10 +101,10 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 height: 30,
                                 width: 30,
                                 decoration: BoxDecoration(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   border: Border.all(
                                     width: 2,
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                   ),
                                   shape: BoxShape.circle,
                                 ),
@@ -121,7 +121,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               Text(
                                 AppStrings.privacyPolicy,
                                 style: GoogleFonts.inter(
-                                  color: AppColor().blackColor,
+                                  color: AppColors.blackColor,
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -147,8 +147,8 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     child: Material(
                       child: InkWell(
                         highlightColor:
-                            AppColor().backgroundColor.withOpacity(0.3),
-                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                            AppColors.backgroundColor.withOpacity(0.3),
+                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(TermsOfUse());
                         },
@@ -168,10 +168,10 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 height: 30,
                                 width: 30,
                                 decoration: BoxDecoration(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   border: Border.all(
                                     width: 2,
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                   ),
                                   shape: BoxShape.circle,
                                 ),
@@ -188,7 +188,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               Text(
                                 AppStrings.termsOfUse,
                                 style: GoogleFonts.inter(
-                                  color: AppColor().blackColor,
+                                  color: AppColors.blackColor,
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -214,8 +214,8 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     child: Material(
                       child: InkWell(
                         highlightColor:
-                            AppColor().backgroundColor.withOpacity(0.3),
-                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                            AppColors.backgroundColor.withOpacity(0.3),
+                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(FaqWeb());
                         },
@@ -235,10 +235,10 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 height: 30,
                                 width: 30,
                                 decoration: BoxDecoration(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   border: Border.all(
                                     width: 2,
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                   ),
                                   shape: BoxShape.circle,
                                 ),
@@ -256,7 +256,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               Text(
                                 AppStrings.faq,
                                 style: GoogleFonts.inter(
-                                  color: AppColor().blackColor,
+                                  color: AppColors.blackColor,
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -282,8 +282,8 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     child: Material(
                       child: InkWell(
                         highlightColor:
-                            AppColor().backgroundColor.withOpacity(0.3),
-                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                            AppColors.backgroundColor.withOpacity(0.3),
+                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
                         onTap: () async {
                           if (_authController.onlineStatus ==
                               OnlineStatus.Onilne) {
@@ -319,10 +319,10 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 height: 30,
                                 width: 30,
                                 decoration: BoxDecoration(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   border: Border.all(
                                     width: 2,
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                   ),
                                   shape: BoxShape.circle,
                                 ),
@@ -340,7 +340,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               Text(
                                 AppStrings.mail,
                                 style: GoogleFonts.inter(
-                                  color: AppColor().blackColor,
+                                  color: AppColors.blackColor,
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -366,8 +366,8 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     child: Material(
                       child: InkWell(
                         highlightColor:
-                            AppColor().backgroundColor.withOpacity(0.3),
-                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                            AppColors.backgroundColor.withOpacity(0.3),
+                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
                         onTap: () async {
                           // final action = await AlertDialogs.yesCancelDialog(
                           //     context, 'Open WhatsApp', 'Click confirm to proceed');
@@ -395,10 +395,10 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 height: 30,
                                 width: 30,
                                 decoration: BoxDecoration(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   border: Border.all(
                                     width: 2,
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                   ),
                                   shape: BoxShape.circle,
                                 ),
@@ -416,7 +416,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               Text(
                                 AppStrings.connectOnWhatsApp,
                                 style: GoogleFonts.inter(
-                                  color: AppColor().blackColor,
+                                  color: AppColors.blackColor,
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -442,8 +442,8 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     child: Material(
                       child: InkWell(
                         highlightColor:
-                            AppColor().backgroundColor.withOpacity(0.3),
-                        splashColor: AppColor().secondbgColor.withOpacity(0.3),
+                            AppColors.backgroundColor.withOpacity(0.3),
+                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
                         onTap: () async {
                           // final action = await AlertDialogs.yesCancelDialog(
                           //     context, 'Open WhatsApp', 'Click confirm to proceed');
@@ -471,10 +471,10 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                 height: 30,
                                 width: 30,
                                 decoration: BoxDecoration(
-                                  color: AppColor().whiteColor,
+                                  color: AppColors.whiteColor,
                                   border: Border.all(
                                     width: 2,
-                                    color: AppColor().whiteColor,
+                                    color: AppColors.whiteColor,
                                   ),
                                   shape: BoxShape.circle,
                                 ),
@@ -492,7 +492,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                               Text(
                                 AppStrings.connectOnTelegram,
                                 style: GoogleFonts.inter(
-                                  color: AppColor().blackColor,
+                                  color: AppColors.blackColor,
                                   fontWeight: FontWeight.normal,
                                   fontSize: 14,
                                 ),
@@ -551,7 +551,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                   child: Text(
                     'Open WhatsApp..?',
                     style: GoogleFonts.inter(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
@@ -563,7 +563,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
               child: Text(
                 AppStrings.continueToProceed,
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontWeight: FontWeight.normal,
                   fontSize: 11,
                 ),
@@ -589,17 +589,17 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -618,13 +618,13 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Continue',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -659,7 +659,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                   child: Text(
                     'Open Telegram..?',
                     style: GoogleFonts.inter(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
@@ -671,7 +671,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
               child: Text(
                 AppStrings.continueToProceed,
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontWeight: FontWeight.normal,
                   fontSize: 11,
                 ),
@@ -697,17 +697,17 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -726,13 +726,13 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Continue',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),

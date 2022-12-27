@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/ui/inventory/Service/services.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
-import '../../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'Product/products.dart';
 
 class ManageInventoryInformationDialog extends StatelessWidget {
@@ -73,7 +73,7 @@ class _ManageInventoryState extends State<ManageInventory> {
               Text(
                 'Manage Inventory',
                 style: GoogleFonts.inter(
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
                 ),
@@ -129,31 +129,31 @@ class _ManageInventoryState extends State<ManageInventory> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
-                  color: AppColor().whiteColor,
+                  color: AppColors.whiteColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TabBar(
-                  labelColor: AppColor().whiteColor,
-                  unselectedLabelColor: AppColor().backgroundColor,
+                  labelColor: AppColors.whiteColor,
+                  unselectedLabelColor: AppColors.backgroundColor,
                   labelStyle: GoogleFonts.inter(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
                   unselectedLabelStyle: GoogleFonts.inter(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     fontStyle: FontStyle.normal,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
                   indicator: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     border: Border.all(
                       width: 3,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                     borderRadius: BorderRadius.circular(2.5),
                   ),

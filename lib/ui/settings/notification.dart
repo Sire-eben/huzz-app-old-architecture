@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/notification_model.dart';
 import 'package:random_color/random_color.dart';
 
@@ -29,7 +29,7 @@ class _NotificationsState extends State<Notifications> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
             ),
             onPressed: () {
               Get.back();
@@ -38,7 +38,7 @@ class _NotificationsState extends State<Notifications> {
           title: Text(
             'Notifications',
             style: GoogleFonts.inter(
-              color: AppColor().backgroundColor,
+              color: AppColors.backgroundColor,
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
@@ -113,8 +113,7 @@ class _NotificationsState extends State<Notifications> {
                                     item.time!,
                                     style: GoogleFonts.inter(
                                         fontWeight: FontWeight.w600,
-                                        color: AppColor()
-                                            .blackColor
+                                        color: AppColors.blackColor
                                             .withOpacity(0.5),
                                         fontSize: 8),
                                   ),
@@ -122,8 +121,7 @@ class _NotificationsState extends State<Notifications> {
                                     item.time!,
                                     style: GoogleFonts.inter(
                                         fontWeight: FontWeight.w600,
-                                        color: AppColor()
-                                            .blackColor
+                                        color: AppColors.blackColor
                                             .withOpacity(0.5),
                                         fontSize: 8),
                                   ),

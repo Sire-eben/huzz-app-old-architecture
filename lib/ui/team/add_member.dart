@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/roles_model.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../model/user_teamInvite_model.dart';
@@ -128,7 +128,7 @@ class _AddMemberState extends State<AddMember> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             _teamController.nameController.clear();
@@ -142,7 +142,7 @@ class _AddMemberState extends State<AddMember> {
             Text(
               'Add Members',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
@@ -150,7 +150,7 @@ class _AddMemberState extends State<AddMember> {
           ],
         ),
       ),
-      backgroundColor: AppColor().whiteColor,
+      backgroundColor: AppColors.whiteColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -280,11 +280,11 @@ class _AddMemberState extends State<AddMember> {
                       child: _isSelected
                           ? Icon(
                               Icons.check_box,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             )
                           : Icon(
                               Icons.check_box_outline_blank,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                     ),
                     view: InkWell(
@@ -313,11 +313,11 @@ class _AddMemberState extends State<AddMember> {
                       child: _isSelectedView
                           ? Icon(
                               Icons.check_box,
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                             )
                           : Icon(
                               Icons.check_box_outline_blank,
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                             ),
                     ),
                     create: InkWell(
@@ -346,11 +346,11 @@ class _AddMemberState extends State<AddMember> {
                       child: _isSelectedCreate
                           ? Icon(
                               Icons.check_box,
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                             )
                           : Icon(
                               Icons.check_box_outline_blank,
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                             ),
                     ),
                     update: InkWell(
@@ -379,11 +379,11 @@ class _AddMemberState extends State<AddMember> {
                       child: _isSelectedUpdate
                           ? Icon(
                               Icons.check_box,
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                             )
                           : Icon(
                               Icons.check_box_outline_blank,
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                             ),
                     ),
                     delete: InkWell(
@@ -412,11 +412,11 @@ class _AddMemberState extends State<AddMember> {
                       child: _isSelectedDelete
                           ? Icon(
                               Icons.check_box,
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                             )
                           : Icon(
                               Icons.check_box_outline_blank,
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                             ),
                     ),
                     name: item.name,
@@ -443,7 +443,7 @@ class _AddMemberState extends State<AddMember> {
                         messageText:
                             Text('Enter required details to continue!'),
                         icon: Icon(Icons.info,
-                            color: AppColor().orangeBorderColor));
+                            color: AppColors.orangeBorderColor));
                   } else if (_teamController.phoneNumberController.text == '') {
                     Get.snackbar(
                         'Alert', 'Enter your phone number to continue!',
@@ -451,7 +451,7 @@ class _AddMemberState extends State<AddMember> {
                         messageText:
                             Text('Enter your phone number to continue!'),
                         icon: Icon(Icons.info,
-                            color: AppColor().orangeBorderColor));
+                            color: AppColors.orangeBorderColor));
                   } else if (GetUtils.isEmail(
                           _teamController.emailController.text) ==
                       false) {
@@ -482,7 +482,7 @@ class _AddMemberState extends State<AddMember> {
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(

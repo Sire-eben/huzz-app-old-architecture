@@ -9,8 +9,8 @@ import 'package:huzz/ui/inventory/Product/add_product.dart';
 import 'package:huzz/ui/inventory/Service/servicelist.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:number_display/number_display.dart';
-import '../../../util/colors.dart';
-import '../../../util/util.dart';
+import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/util.dart';
 
 class ProductListing extends StatefulWidget {
   const ProductListing({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _ProductListingState extends State<ProductListing> {
       roundingType: RoundingType.floor,
       length: 15,
       decimal: 5,
-      placeholder: '${Utils.getCurrency()}',
+      placeholder: Utils.getCurrency(),
       units: ['K', 'M', 'B', 'T']);
 
   final TextEditingController textEditingController = TextEditingController();
@@ -54,7 +54,7 @@ class _ProductListingState extends State<ProductListing> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 300,
             ),
@@ -64,7 +64,7 @@ class _ProductListingState extends State<ProductListing> {
                   child: Text(
                     'You are about to delete a product, Are you sure you want to continue?',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -79,7 +79,7 @@ class _ProductListingState extends State<ProductListing> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -93,21 +93,21 @@ class _ProductListingState extends State<ProductListing> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -128,17 +128,17 @@ class _ProductListingState extends State<ProductListing> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -160,7 +160,7 @@ class _ProductListingState extends State<ProductListing> {
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
       return Scaffold(
-        backgroundColor: AppColor().whiteColor,
+        backgroundColor: AppColors.whiteColor,
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             if (isDelete) {
@@ -183,8 +183,8 @@ class _ProductListingState extends State<ProductListing> {
               }
             }
           },
-          icon: (isDelete) ? Container() : Icon(Icons.add),
-          backgroundColor: AppColor().backgroundColor,
+          icon: (isDelete) ? Container() : const Icon(Icons.add),
+          backgroundColor: AppColors.backgroundColor,
           label: Text(
             (isDelete) ? "Delete Product(s)" : 'New Product',
             style: GoogleFonts.inter(
@@ -207,24 +207,25 @@ class _ProductListingState extends State<ProductListing> {
               left: 20,
               right: 20,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 height: 55,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Color(0xffE6F4F2),
+                  color: const Color(0xffE6F4F2),
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.search,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                    Container(
+                    SizedBox(
                       height: 55,
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: TextFormField(
@@ -233,17 +234,17 @@ class _ProductListingState extends State<ProductListing> {
                         // textInputAction: TextInputAction.none,
                         decoration: InputDecoration(
                           isDense: true,
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: AppColor().backgroundColor, width: 2),
+                                  color: AppColors.backgroundColor, width: 2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           hintText: 'Search',
@@ -272,13 +273,13 @@ class _ProductListingState extends State<ProductListing> {
                   Text(
                     'Product (${_productController.productGoods.length})',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Spacer(),
-                  SizedBox(
+                  const Spacer(),
+                  const SizedBox(
                     width: 5,
                   ),
                   (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
@@ -293,14 +294,14 @@ class _ProductListingState extends State<ProductListing> {
                           child: Container(
                             height: 30,
                             width: 30,
-                            decoration: BoxDecoration(
-                              color: AppColor().lightbackgroundColor,
+                            decoration: const BoxDecoration(
+                              color: AppColors.lightbackgroundColor,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.delete_outline_outlined,
                               size: 20,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                           ),
                         )
@@ -319,7 +320,7 @@ class _ProductListingState extends State<ProductListing> {
                   ? Obx(() {
                       return RefreshIndicator(
                         onRefresh: () async {
-                          return Future.delayed(Duration(seconds: 1), () {
+                          return Future.delayed(const Duration(seconds: 1), () {
                             _productController
                                 .getOnlineProduct(value!.businessId!);
                             _productController
@@ -328,9 +329,9 @@ class _ProductListingState extends State<ProductListing> {
                         },
                         child: (_productController.productStatus ==
                                 ProductStatus.Loading)
-                            ? Center(
+                            ? const Center(
                                 child: CircularProgressIndicator(
-                                    color: AppColor().backgroundColor))
+                                    color: AppColors.backgroundColor))
                             : (_productController.productStatus ==
                                     ProductStatus.Available)
                                 ? ListView.builder(
@@ -344,7 +345,6 @@ class _ProductListingState extends State<ProductListing> {
                                           ? _productController
                                               .productGoods[index]
                                           : searchResult[index];
-                                      print("product item ${item.toJson()}");
                                       return (isDelete)
                                           ? ListingProductDelete(
                                               item: item,
@@ -355,15 +355,15 @@ class _ProductListingState extends State<ProductListing> {
                                     })
                                 : (_productController.productStatus ==
                                         ProductStatus.Empty)
-                                    ? Text('Not Item')
-                                    : Center(
+                                    ? const Text('Not Item')
+                                    : const Center(
                                         child: CircularProgressIndicator(
-                                            color: AppColor().backgroundColor),
+                                            color: AppColors.backgroundColor),
                                       ),
                       );
                     })
                   : Container(
-                      child: Center(
+                      child: const Center(
                         child: Text("No Product Found"),
                       ),
                     ),
@@ -376,8 +376,8 @@ class _ProductListingState extends State<ProductListing> {
 
   Widget productCount(BuildContext context) => Container(
         height: 95,
-        decoration: BoxDecoration(
-          color: AppColor().backgroundColor,
+        decoration: const BoxDecoration(
+          color: AppColors.backgroundColor,
           borderRadius: BorderRadius.all(
             Radius.circular(15),
           ),
@@ -411,9 +411,9 @@ class _ProductListingState extends State<ProductListing> {
             Expanded(
               child: Container(
                 height: 95,
-                padding: EdgeInsets.only(right: 8),
+                padding: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: AppColor().secondbgColor,
+                  color: AppColors.secondbgColor,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -423,12 +423,12 @@ class _ProductListingState extends State<ProductListing> {
                       0.8,
                     ],
                     colors: [
-                      Color(0xff0D8372),
-                      Color(0xff07A58E),
-                      AppColor().backgroundColor.withOpacity(0.5),
+                      const Color(0xff0D8372),
+                      const Color(0xff07A58E),
+                      AppColors.backgroundColor.withOpacity(0.5),
                     ],
                   ),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(15),
                     bottomRight: Radius.circular(15),
                   ),
@@ -486,14 +486,14 @@ class _ProductListingState extends State<ProductListing> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Add stock',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
                   ),
@@ -501,33 +501,33 @@ class _ProductListingState extends State<ProductListing> {
                 Container(
                   height: 30,
                   width: 30,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xffE6F4F2),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.close,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 )
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 10,
                     vertical: 10,
                   ),
                   height: 80,
                   decoration: BoxDecoration(
-                    color: Color(0xffF5F5F5),
+                    color: const Color(0xffF5F5F5),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: Color(0xffC3C3C3),
+                      color: const Color(0xffC3C3C3),
                     ),
                   ),
                   child: Row(
@@ -538,10 +538,10 @@ class _ProductListingState extends State<ProductListing> {
                         'assets/images/productImage.png',
                         height: 50,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
-                      Container(
+                      SizedBox(
                         height: 80,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -550,12 +550,12 @@ class _ProductListingState extends State<ProductListing> {
                             Text(
                               'Television',
                               style: GoogleFonts.inter(
-                                color: AppColor().blackColor,
+                                color: AppColors.blackColor,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -566,7 +566,7 @@ class _ProductListingState extends State<ProductListing> {
                                     Text(
                                       'left: ',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().blackColor,
+                                        color: AppColors.blackColor,
                                         fontSize: 11,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -574,20 +574,20 @@ class _ProductListingState extends State<ProductListing> {
                                     Text(
                                       '7',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().orangeBorderColor,
+                                        color: AppColors.orangeBorderColor,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 150,
                                 ),
                                 Text(
                                   'N20,000',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().blackColor,
+                                    color: AppColors.blackColor,
                                     fontSize: 11,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -600,18 +600,18 @@ class _ProductListingState extends State<ProductListing> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 )
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   height: 50,
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     left: 20,
                     right: 20,
                   ),
@@ -623,11 +623,11 @@ class _ProductListingState extends State<ProductListing> {
                         style: GoogleFonts.inter(
                             color: Colors.black, fontSize: 12),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 5),
+                        margin: const EdgeInsets.only(top: 5),
                         child: Text(
                           "*",
                           style: GoogleFonts.inter(
@@ -637,40 +637,40 @@ class _ProductListingState extends State<ProductListing> {
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                   height: 40,
-                  decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                  decoration: const BoxDecoration(
+                    color: AppColors.backgroundColor,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     size: 18,
-                    color: AppColor().whiteColor,
+                    color: AppColors.whiteColor,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Container(
+                SizedBox(
                   width: 120,
                   child: TextFormField(
                     controller: textEditingController,
                     textInputAction: TextInputAction.none,
                     decoration: InputDecoration(
                       isDense: true,
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: AppColor().backgroundColor, width: 2),
+                              color: AppColors.backgroundColor, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       // labelText: label,
                       hintText: '${Utils.getCurrency()} 0.00',
@@ -684,41 +684,41 @@ class _ProductListingState extends State<ProductListing> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Container(
                   height: 40,
-                  decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                  decoration: const BoxDecoration(
+                    color: AppColors.backgroundColor,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     size: 18,
-                    color: AppColor().whiteColor,
+                    color: AppColors.whiteColor,
                   ),
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             InkWell(
               onTap: () {
-                Get.to(ServiceListing());
+                Get.to(const ServiceListing());
               },
               child: Container(
                 height: 55,
-                margin: EdgeInsets.symmetric(
+                margin: const EdgeInsets.symmetric(
                   horizontal: 15,
                 ),
                 decoration: BoxDecoration(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10)),
                 child: Center(
                   child: Text(
                     'Continue',
                     style: GoogleFonts.inter(
-                      color: AppColor().whiteColor,
+                      color: AppColors.whiteColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -755,16 +755,16 @@ class _ListingProductState extends State<ListingProduct> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 10,
           ),
           height: 80,
           decoration: BoxDecoration(
-            color: Color(0xffF5F5F5),
+            color: const Color(0xffF5F5F5),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: Color(0xffC3C3C3),
+              color: const Color(0xffC3C3C3),
             ),
           ),
           child: Row(
@@ -781,7 +781,7 @@ class _ListingProductState extends State<ListingProduct> {
                       widget.item!.productLogoFileStoreId!,
                       height: 50,
                     ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Column(
@@ -791,12 +791,12 @@ class _ListingProductState extends State<ListingProduct> {
                   Text(
                     "${widget.item!.productName}",
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -804,7 +804,7 @@ class _ListingProductState extends State<ListingProduct> {
                       Text(
                         'left: ',
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                         ),
@@ -812,18 +812,18 @@ class _ListingProductState extends State<ListingProduct> {
                       Text(
                         "${widget.item!.quantityLeft}",
                         style: GoogleFonts.inter(
-                          color: AppColor().orangeBorderColor,
+                          color: AppColors.orangeBorderColor,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 50,
                       ),
                       Text(
                         '${Utils.getCurrency()}${display(widget.item!.sellingPrice ?? 0)}',
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontSize: 11,
                           fontWeight: FontWeight.normal,
                         ),
@@ -832,7 +832,7 @@ class _ListingProductState extends State<ListingProduct> {
                   ),
                 ],
               ),
-              Expanded(
+              const Expanded(
                 child: SizedBox(),
               ),
               (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
@@ -849,28 +849,28 @@ class _ListingProductState extends State<ListingProduct> {
                         height: 40,
                         width: 100,
                         decoration: BoxDecoration(
-                          color: Color(0xffF4D8C4),
+                          color: const Color(0xffF4D8C4),
                           borderRadius: BorderRadius.circular(18),
                           border: Border.all(
-                            color: Color(0xffEF6500),
+                            color: const Color(0xffEF6500),
                           ),
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.edit,
                               size: 20,
-                              color: AppColor().orangeBorderColor,
+                              color: AppColors.orangeBorderColor,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
                               'Edit',
                               style: GoogleFonts.inter(
-                                color: AppColor().orangeBorderColor,
+                                color: AppColors.orangeBorderColor,
                                 fontSize: 12,
                                 fontWeight: FontWeight.normal,
                               ),
@@ -883,7 +883,7 @@ class _ListingProductState extends State<ListingProduct> {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         )
       ],
@@ -915,16 +915,16 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 10,
             ),
             height: 80,
             decoration: BoxDecoration(
-              color: Color(0xffF5F5F5),
+              color: const Color(0xffF5F5F5),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Color(0xffC3C3C3),
+                color: const Color(0xffC3C3C3),
               ),
             ),
             child: Row(
@@ -941,7 +941,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                         "assets/images/Rectangle 1015.png",
                         height: 50,
                       ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
@@ -951,12 +951,12 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                     Text(
                       widget.item!.productName!,
                       style: GoogleFonts.inter(
-                        color: AppColor().blackColor,
+                        color: AppColors.blackColor,
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -964,7 +964,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                         Text(
                           'left: ',
                           style: GoogleFonts.inter(
-                            color: AppColor().blackColor,
+                            color: AppColors.blackColor,
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -972,18 +972,18 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                         Text(
                           "${widget.item!.quantityLeft}",
                           style: GoogleFonts.inter(
-                            color: AppColor().orangeBorderColor,
+                            color: AppColors.orangeBorderColor,
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 50,
                         ),
                         Text(
                           '${Utils.getCurrency()}${display(widget.item!.costPrice ?? 0)}',
                           style: GoogleFonts.inter(
-                            color: AppColor().blackColor,
+                            color: AppColors.blackColor,
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
                           ),
@@ -992,7 +992,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                     ),
                   ],
                 ),
-                Expanded(
+                const Expanded(
                   child: SizedBox(),
                 ),
                 GestureDetector(
@@ -1006,17 +1006,17 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                     setState(() {});
                   },
                   child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
                       color: _productController
                               .checkifSelectedForDelted(widget.item!.productId!)
-                          ? AppColor().orangeBorderColor
-                          : AppColor().whiteColor,
+                          ? AppColors.orangeBorderColor
+                          : AppColors.whiteColor,
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: Color(0xffEF6500),
+                        color: const Color(0xffEF6500),
                       ),
                     ),
                     child: Visibility(
@@ -1027,8 +1027,8 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                         size: 15,
                         color: _productController.checkifSelectedForDelted(
                                 widget.item!.productId!)
-                            ? AppColor().whiteColor
-                            : AppColor().orangeBorderColor,
+                            ? AppColors.whiteColor
+                            : AppColors.orangeBorderColor,
                       ),
                     ),
                   ),
@@ -1036,7 +1036,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           )
         ],

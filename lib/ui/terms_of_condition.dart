@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import '../util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class TermsOfUse extends StatefulWidget {
   @override
@@ -29,12 +28,12 @@ class _TermsOfUseState extends State<TermsOfUse> {
             size: 16,
           ),
         ),
-        backgroundColor: AppColor().backgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         centerTitle: true,
         title: Text(
           'Terms of use',
           style: GoogleFonts.inter(
-            color: AppColor().whiteColor,
+            color: AppColors.whiteColor,
             fontSize: 16,
           ),
         ),
@@ -69,7 +68,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
           isLoading
               ? Center(
                   child: CircularProgressIndicator(
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                 )
               : Container(),

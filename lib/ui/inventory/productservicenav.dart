@@ -1,11 +1,11 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
-import 'package:huzz/ui/home/home.dart';
+import 'package:huzz/ui/home/home_page.dart';
 import 'package:huzz/ui/inventory/productserviceTab.dart';
 import 'package:huzz/ui/invoice/available_invoice.dart';
 import 'package:huzz/ui/more/more.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 
 class ProServiceDashboard extends StatefulWidget {
   const ProServiceDashboard({Key? key}) : super(key: key);
@@ -32,30 +32,30 @@ class _ProServiceDashboardState extends State<ProServiceDashboard> {
         selectedIndex: _selectedIndex,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              icon: Icon(Icons.people),
-              title: Text('Customers'),
+              icon: const Icon(Icons.people),
+              title: const Text('Customers'),
               textAlign: TextAlign.center,
-              activeColor: AppColor().backgroundColor,
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
-              icon: Icon(Icons.inventory),
-              title: Text('Inventory'),
-              activeColor: AppColor().backgroundColor,
+              icon: const Icon(Icons.inventory),
+              title: const Text('Inventory'),
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-              activeColor: AppColor().backgroundColor,
+              icon: const Icon(Icons.home),
+              title: const Text('Home'),
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
-              icon: Icon(Icons.receipt),
-              title: Text('Invoice'),
-              activeColor: AppColor().backgroundColor,
+              icon: const Icon(Icons.receipt),
+              title: const Text('Invoice'),
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
-              icon: Icon(Icons.dashboard),
-              title: Text('More'),
-              activeColor: AppColor().backgroundColor,
+              icon: const Icon(Icons.dashboard),
+              title: const Text('More'),
+              activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor)
         ],
         onItemSelected: (index) => setState(() => this._selectedIndex = index),
@@ -68,14 +68,14 @@ class _ProServiceDashboardState extends State<ProServiceDashboard> {
       case 0:
         return CustomerTabView();
       case 1:
-        return ProductServiceListing();
+        return const ProductServiceListing();
       case 2:
-        return Home();
+        return const HomePage();
       case 3:
-        return AvailableInvoice();
+        return const AvailableInvoice();
       case 4:
       default:
-        return More();
+        return const More();
     }
   }
 }

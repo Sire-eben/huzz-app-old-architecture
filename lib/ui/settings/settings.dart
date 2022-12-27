@@ -9,7 +9,7 @@ import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/settings/businessInfo.dart';
 import 'package:huzz/ui/settings/referral_bottomsheet.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/user.dart';
 import 'package:image_picker/image_picker.dart';
 import 'notification.dart';
@@ -55,7 +55,7 @@ class _SettingsState extends State<Settings> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -64,7 +64,7 @@ class _SettingsState extends State<Settings> {
         title: Text(
           'Settings',
           style: GoogleFonts.inter(
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
             fontWeight: FontWeight.w600,
             fontSize: 18,
           ),
@@ -78,10 +78,10 @@ class _SettingsState extends State<Settings> {
             right: 100,
             child: Container(
               decoration: BoxDecoration(
-                color: AppColor().whiteColor,
+                color: AppColors.whiteColor,
                 border: Border.all(
                   width: 2,
-                  color: AppColor().backgroundColor,
+                  color: AppColors.backgroundColor,
                 ),
                 shape: BoxShape.circle,
               ),
@@ -121,10 +121,10 @@ class _SettingsState extends State<Settings> {
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: AppColor().whiteColor,
+                  color: AppColors.whiteColor,
                   border: Border.all(
                     width: 2,
-                    color: AppColor().backgroundColor,
+                    color: AppColors.backgroundColor,
                   ),
                   shape: BoxShape.circle,
                 ),
@@ -156,7 +156,7 @@ class _SettingsState extends State<Settings> {
                             ? 'First Name'
                             : firstName,
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -169,7 +169,7 @@ class _SettingsState extends State<Settings> {
                             ? 'Last Name'
                             : lastName!,
                         style: GoogleFonts.inter(
-                          color: AppColor().blackColor,
+                          color: AppColors.blackColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -195,10 +195,10 @@ class _SettingsState extends State<Settings> {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                             ),
                             shape: BoxShape.circle,
                           ),
@@ -216,7 +216,7 @@ class _SettingsState extends State<Settings> {
                         Text(
                           'Personal Account',
                           style: GoogleFonts.inter(
-                            color: AppColor().blackColor,
+                            color: AppColors.blackColor,
                             fontWeight: FontWeight.normal,
                             fontSize: 14,
                           ),
@@ -270,10 +270,10 @@ class _SettingsState extends State<Settings> {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                             ),
                             shape: BoxShape.circle,
                           ),
@@ -291,7 +291,7 @@ class _SettingsState extends State<Settings> {
                         Text(
                           'Business Account',
                           style: GoogleFonts.inter(
-                            color: AppColor().blackColor,
+                            color: AppColors.blackColor,
                             fontWeight: FontWeight.normal,
                             fontSize: 14,
                           ),
@@ -324,7 +324,7 @@ class _SettingsState extends State<Settings> {
                                     height: 20,
                                     width: 20,
                                     child: CircularProgressIndicator(
-                                        color: AppColor().orangeBorderColor),
+                                        color: AppColors.orangeBorderColor),
                                   )
                                 : SvgPicture.asset(
                                     "assets/images/delete.svg",
@@ -360,10 +360,10 @@ class _SettingsState extends State<Settings> {
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                               ),
                               shape: BoxShape.circle,
                             ),
@@ -381,7 +381,7 @@ class _SettingsState extends State<Settings> {
                           Text(
                             'Notification Settings',
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -420,10 +420,10 @@ class _SettingsState extends State<Settings> {
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 2,
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                               ),
                               shape: BoxShape.circle,
                             ),
@@ -441,7 +441,7 @@ class _SettingsState extends State<Settings> {
                           Text(
                             'Referrals',
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -485,7 +485,7 @@ class _SettingsState extends State<Settings> {
                           Text(
                             'Logout',
                             style: GoogleFonts.inter(
-                              color: AppColor().blackColor,
+                              color: AppColors.blackColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 14,
                             ),
@@ -513,7 +513,7 @@ class _SettingsState extends State<Settings> {
                               height: 55,
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
-                                color: AppColor().orangeBorderColor,
+                                color: AppColors.orangeBorderColor,
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: (controller.Otpauthstatus ==
@@ -529,7 +529,7 @@ class _SettingsState extends State<Settings> {
                                       child: Text(
                                         'Verify your Phone Number',
                                         style: GoogleFonts.inter(
-                                          color: AppColor().whiteColor,
+                                          color: AppColors.whiteColor,
                                           fontWeight: FontWeight.normal,
                                           fontSize: 14,
                                         ),
@@ -585,7 +585,7 @@ class _SettingsState extends State<Settings> {
                       },
                       child: Icon(
                         Icons.close,
-                        color: AppColor().backgroundColor,
+                        color: AppColors.backgroundColor,
                       ),
                     ),
                   )
@@ -595,7 +595,7 @@ class _SettingsState extends State<Settings> {
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontSize: 20,
                   fontWeight: FontWeight.normal,
                 ),
@@ -637,7 +637,7 @@ class _SettingsState extends State<Settings> {
                 child: Text(
                   'Select from Device',
                   style: GoogleFonts.inter(
-                    color: AppColor().blackColor,
+                    color: AppColors.blackColor,
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
                   ),
@@ -656,7 +656,7 @@ class _SettingsState extends State<Settings> {
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.circular(10)),
                   child: (controller.updateProfileStatus ==
                           UpdateProfileStatus.Loading)
@@ -673,7 +673,7 @@ class _SettingsState extends State<Settings> {
                           child: Text(
                             'Done',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -701,7 +701,7 @@ class _SettingsState extends State<Settings> {
                   child: Text(
                     '$title',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -741,17 +741,17 @@ class _SettingsState extends State<Settings> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -773,13 +773,13 @@ class _SettingsState extends State<Settings> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Delete',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -814,7 +814,7 @@ class _SettingsState extends State<Settings> {
                   child: Text(
                     'Verify your phone number?',
                     style: GoogleFonts.inter(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
@@ -826,7 +826,7 @@ class _SettingsState extends State<Settings> {
               child: Text(
                 'Please click continue if you want to proceed',
                 style: GoogleFonts.inter(
-                  color: AppColor().blackColor,
+                  color: AppColors.blackColor,
                   fontWeight: FontWeight.normal,
                   fontSize: 11,
                 ),
@@ -852,17 +852,17 @@ class _SettingsState extends State<Settings> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -882,13 +882,13 @@ class _SettingsState extends State<Settings> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Continue',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -920,7 +920,7 @@ class _SettingsState extends State<Settings> {
                   child: Text(
                     '$title',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -960,17 +960,17 @@ class _SettingsState extends State<Settings> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -991,13 +991,13 @@ class _SettingsState extends State<Settings> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Logout',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1029,7 +1029,7 @@ class _SettingsState extends State<Settings> {
                   child: Text(
                     '$title',
                     style: GoogleFonts.inter(
-                      color: AppColor().blackColor,
+                      color: AppColors.blackColor,
                       fontWeight: FontWeight.normal,
                       fontSize: 10,
                     ),
@@ -1066,17 +1066,17 @@ class _SettingsState extends State<Settings> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                               width: 2,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Cancel',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),
@@ -1098,13 +1098,13 @@ class _SettingsState extends State<Settings> {
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
                             'Delete',
                             style: GoogleFonts.inter(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,
                             ),

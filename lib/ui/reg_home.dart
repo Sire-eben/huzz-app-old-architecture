@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/home_respository.dart';
-import 'package:huzz/ui/create_pin.dart';
-import 'package:huzz/ui/enter_otp.dart';
-import 'package:huzz/ui/sign_up.dart';
-import 'package:huzz/util/colors.dart';
-import 'send_otp.dart';
+import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/ui/auth/create_pin.dart';
+import 'package:huzz/ui/auth/enter_otp.dart';
+import 'package:huzz/ui/auth/send_otp.dart';
+import 'package:huzz/ui/auth/sign_up.dart';
 
 class RegHome extends StatefulWidget {
   _RegHome createState() => _RegHome();
@@ -63,7 +63,7 @@ class _RegHome extends State<RegHome> {
                         },
                         child: Icon(
                           Icons.arrow_back,
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                         ),
                       ),
                     ),
@@ -72,7 +72,7 @@ class _RegHome extends State<RegHome> {
               ),
               Text(topText[_homeController.onboardingRegSelectedIndex],
                   style: GoogleFonts.inter(
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                       fontSize: 28,
                       fontWeight: FontWeight.w500)),
               SizedBox(
@@ -83,7 +83,8 @@ class _RegHome extends State<RegHome> {
                 child: Text(
                   bodyText[_homeController.onboardingRegSelectedIndex],
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
+                  style: GoogleFonts.inter(
+                      fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
               SizedBox(
@@ -111,8 +112,8 @@ class _RegHome extends State<RegHome> {
                           decoration: BoxDecoration(
                             color: (index <=
                                     _homeController.onboardingRegSelectedIndex)
-                                ? AppColor().backgroundColor
-                                : AppColor().backgroundColor.withOpacity(0.4),
+                                ? AppColors.backgroundColor
+                                : AppColors.backgroundColor.withOpacity(0.4),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                         ),

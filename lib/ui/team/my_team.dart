@@ -11,7 +11,7 @@ import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/team/update_member.dart';
 import 'package:huzz/ui/widget/no_team_widget.dart';
 import 'package:huzz/ui/widget/team_widget.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:intl/intl.dart';
 import '../widget/loading_widget.dart';
 import 'add_member.dart';
@@ -92,7 +92,7 @@ class _MyTeamState extends State<MyTeam> {
         child: _teamController.teamMembersStatus == TeamMemberStatus.Loading
             ? Center(
                 child: LoadingWidget(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
               ))
             : Scaffold(
                 appBar: AppBar(
@@ -102,7 +102,7 @@ class _MyTeamState extends State<MyTeam> {
                   leading: IconButton(
                     icon: Icon(
                       Icons.arrow_back,
-                      color: AppColor().backgroundColor,
+                      color: AppColors.backgroundColor,
                     ),
                     onPressed: () {
                       Get.back();
@@ -113,7 +113,7 @@ class _MyTeamState extends State<MyTeam> {
                       Text(
                         'My Team',
                         style: GoogleFonts.inter(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 18,
                         ),
@@ -121,7 +121,7 @@ class _MyTeamState extends State<MyTeam> {
                     ],
                   ),
                 ),
-                backgroundColor: AppColor().whiteColor,
+                backgroundColor: AppColors.whiteColor,
                 floatingActionButton: (value!.teamId == null ||
                         phone !=
                             _teamController
@@ -132,7 +132,7 @@ class _MyTeamState extends State<MyTeam> {
                           Get.to(() => AddMember());
                         },
                         icon: Icon(Icons.add),
-                        backgroundColor: AppColor().backgroundColor,
+                        backgroundColor: AppColors.backgroundColor,
                         label: Text(
                           'Add new member',
                           style: GoogleFonts.inter(
@@ -159,7 +159,7 @@ class _MyTeamState extends State<MyTeam> {
                                       TeamStatus.Loading) {
                                     return Center(
                                       child: LoadingWidget(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                       ),
                                     );
                                   } else if (_teamController.teamStatus ==
@@ -189,12 +189,12 @@ class _MyTeamState extends State<MyTeam> {
                                                         item.teamMemberStatus ==
                                                             "INVITE_LINK_SENT")
                                                     ? StatusWidget(
-                                                        color: AppColor()
+                                                        color: AppColors
                                                             .backgroundColor,
                                                         text: "Pending",
                                                       )
                                                     : StatusWidget(
-                                                        color: AppColor()
+                                                        color: AppColors
                                                             .orangeBorderColor,
                                                         text: "Invited",
                                                       ),
@@ -255,7 +255,7 @@ class _MyTeamState extends State<MyTeam> {
                                   'You joined the ${value.businessName} team on\n$date',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
-                                    color: AppColor().blackColor,
+                                    color: AppColors.blackColor,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
                                   ),
@@ -291,7 +291,7 @@ class _MyTeamState extends State<MyTeam> {
             title: Text(
               'Delete Team Member',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 17,
               ),
@@ -299,7 +299,7 @@ class _MyTeamState extends State<MyTeam> {
             content: Text(
               "You're about to delete this team member, click delete to proceed",
               style: GoogleFonts.inter(
-                color: AppColor().blackColor,
+                color: AppColors.blackColor,
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
               ),
@@ -324,17 +324,17 @@ class _MyTeamState extends State<MyTeam> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().whiteColor,
+                              color: AppColors.whiteColor,
                               border: Border.all(
                                 width: 1.2,
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                               ),
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Cancel',
                               style: GoogleFonts.inter(
-                                color: AppColor().backgroundColor,
+                                color: AppColors.backgroundColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),
@@ -356,13 +356,13 @@ class _MyTeamState extends State<MyTeam> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColor().orangeBorderColor,
+                              color: AppColors.orangeBorderColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
                               'Delete',
                               style: GoogleFonts.inter(
-                                color: AppColor().whiteColor,
+                                color: AppColors.whiteColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                               ),

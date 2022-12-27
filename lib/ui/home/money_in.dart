@@ -12,27 +12,29 @@ import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/payment_item.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import '../../util/util.dart';
+import 'package:huzz/core/util/util.dart';
 import 'itemCard.dart';
 
 class MoneyInInformationDialog extends StatelessWidget {
+  const MoneyInInformationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        SizedBox(height: 7),
+        const SizedBox(height: 7),
         Text(
           'This is where you can log your income for a product sold or service rendered.',
           textAlign: TextAlign.center,
@@ -46,6 +48,8 @@ class MoneyInInformationDialog extends StatelessWidget {
 }
 
 class MoneyIn extends StatefulWidget {
+  const MoneyIn({super.key});
+
   @override
   _MoneyInState createState() => _MoneyInState();
 }
@@ -89,15 +93,12 @@ class _MoneyInState extends State<MoneyIn> {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemporary = File(image.path);
-      print(imageTemporary);
       setState(
         () {
           _transactionController.image = imageTemporary;
         },
       );
-    } on PlatformException catch (e) {
-      print('$e');
-    }
+    } on PlatformException catch (e) {}
   }
 
   Future pickImageFromCamera() async {
@@ -105,15 +106,12 @@ class _MoneyInState extends State<MoneyIn> {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
       final imageTemporary = File(image.path);
-      print(imageTemporary);
       setState(
         () {
           _transactionController.image = imageTemporary;
         },
       );
-    } on PlatformException catch (e) {
-      print('$e');
-    }
+    } on PlatformException catch (e) {}
   }
 
   Future pickDate(BuildContext context) async {
@@ -148,7 +146,6 @@ class _MoneyInState extends State<MoneyIn> {
       _transactionController.time = newTime;
       _transactionController.timeController.text =
           '${_transactionController.time!.hour.toString().padLeft(2, '0')}:${_transactionController.time!.minute.toString().padLeft(2, '0')} ${_transactionController.time!.period.index == 0 ? am : pm}';
-      print(_transactionController.timeController.text);
     });
   }
 
@@ -159,9 +156,9 @@ class _MoneyInState extends State<MoneyIn> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -172,13 +169,13 @@ class _MoneyInState extends State<MoneyIn> {
             Text(
               'Money In',
               style: GoogleFonts.inter(
-                color: AppColor().backgroundColor,
+                color: AppColors.backgroundColor,
                 fontStyle: FontStyle.normal,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             GestureDetector(
               onTap: () {
                 Platform.isIOS
@@ -189,7 +186,7 @@ class _MoneyInState extends State<MoneyIn> {
                           content: MoneyInInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -201,7 +198,7 @@ class _MoneyInState extends State<MoneyIn> {
                           content: MoneyInInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -251,7 +248,7 @@ class _MoneyInState extends State<MoneyIn> {
                               children: [
                                 Radio<int>(
                                     value: 1,
-                                    activeColor: AppColor().backgroundColor,
+                                    activeColor: AppColors.backgroundColor,
                                     groupValue:
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
@@ -267,7 +264,7 @@ class _MoneyInState extends State<MoneyIn> {
                                 Text(
                                   'Enter Item',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -290,7 +287,7 @@ class _MoneyInState extends State<MoneyIn> {
                               children: [
                                 Radio<int>(
                                     value: 0,
-                                    activeColor: AppColor().backgroundColor,
+                                    activeColor: AppColors.backgroundColor,
                                     groupValue:
                                         _transactionController.selectedValue,
                                     onChanged: (value) {
@@ -302,12 +299,11 @@ class _MoneyInState extends State<MoneyIn> {
                                           null;
                                       setState(() => _transactionController
                                           .selectedValue = 0);
-                                      print("item is select");
                                     }),
                                 Text(
                                   'Select Item',
                                   style: GoogleFonts.inter(
-                                    color: AppColor().backgroundColor,
+                                    color: AppColors.backgroundColor,
                                     fontStyle: FontStyle.normal,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -332,7 +328,6 @@ class _MoneyInState extends State<MoneyIn> {
                               child: CustomTextField(
                                 label: "Item Name",
                                 onChanged: (value) {
-                                  print("value is $value");
                                   setState(() {});
                                 },
                                 validatorText: "Item name is needed",
@@ -354,7 +349,6 @@ class _MoneyInState extends State<MoneyIn> {
                                       hint: '${Utils.getCurrency()}0.00',
                                       validatorText: "Amount is needed",
                                       onChanged: (value) {
-                                        print("value is $value");
                                         setState(() {});
                                       },
                                       textEditingController:
@@ -364,7 +358,8 @@ class _MoneyInState extends State<MoneyIn> {
                                         FilteringTextInputFormatter.digitsOnly
                                       ],
                                       keyType: Platform.isIOS
-                                          ? TextInputType.numberWithOptions(
+                                          ? const TextInputType
+                                                  .numberWithOptions(
                                               signed: true, decimal: true)
                                           : TextInputType.number,
                                     ),
@@ -381,12 +376,12 @@ class _MoneyInState extends State<MoneyIn> {
                                           FilteringTextInputFormatter.digitsOnly
                                         ],
                                         keyType: Platform.isIOS
-                                            ? TextInputType.numberWithOptions(
+                                            ? const TextInputType
+                                                    .numberWithOptions(
                                                 signed: true, decimal: true)
                                             : TextInputType.number,
                                         validatorText: "Quantity is needed",
                                         onChanged: (value) {
-                                          print("value is $value");
                                           setState(() {});
                                         },
                                         onSubmited: (value) {
@@ -420,7 +415,7 @@ class _MoneyInState extends State<MoneyIn> {
                                       fontSize: 12,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Text(
@@ -432,26 +427,26 @@ class _MoneyInState extends State<MoneyIn> {
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
                                 height: 50,
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 4),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
                                         width: 2,
-                                        color: AppColor().backgroundColor)),
+                                        color: AppColors.backgroundColor)),
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<Product>(
                                     value:
                                         _transactionController.selectedProduct,
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.keyboard_arrow_down,
-                                      color: AppColor().backgroundColor,
+                                      color: AppColors.backgroundColor,
                                     ),
                                     iconSize: 30,
                                     items: _productController
@@ -490,7 +485,8 @@ class _MoneyInState extends State<MoneyIn> {
                                         FilteringTextInputFormatter.digitsOnly
                                       ],
                                       keyType: Platform.isIOS
-                                          ? TextInputType.numberWithOptions(
+                                          ? const TextInputType
+                                                  .numberWithOptions(
                                               signed: true, decimal: true)
                                           : TextInputType.number,
                                     ),
@@ -507,12 +503,12 @@ class _MoneyInState extends State<MoneyIn> {
                                           FilteringTextInputFormatter.digitsOnly
                                         ],
                                         keyType: Platform.isIOS
-                                            ? TextInputType.numberWithOptions(
+                                            ? const TextInputType
+                                                    .numberWithOptions(
                                                 signed: true, decimal: true)
                                             : TextInputType.number,
                                         validatorText: "Quantity is needed",
                                         onChanged: (value) {
-                                          print("value is $value");
                                           setState(() {});
                                         },
                                         onSubmited: (value) {
@@ -545,8 +541,6 @@ class _MoneyInState extends State<MoneyIn> {
                       : 0),
               GestureDetector(
                 onTap: () {
-                  print("New Item is selected");
-
                   if (_transactionController.productList.length >= 2 ||
                       _transactionController.selectedProduct != null ||
                       _transactionController
@@ -558,7 +552,7 @@ class _MoneyInState extends State<MoneyIn> {
                     }
                     showModalBottomSheet(
                         isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(20))),
                         context: context,
@@ -584,13 +578,13 @@ class _MoneyInState extends State<MoneyIn> {
                                             .isNotEmpty &&
                                         _transactionController
                                             .amountController!.text.isNotEmpty)
-                                ? AppColor().backgroundColor
-                                : AppColor().backgroundColor.withOpacity(0.3),
+                                ? AppColors.backgroundColor
+                                : AppColors.backgroundColor.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(45)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.add, color: Colors.white),
+                        const Icon(Icons.add, color: Colors.white),
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
                         Text(
@@ -623,13 +617,13 @@ class _MoneyInState extends State<MoneyIn> {
                         },
                         prefixIcon: IconButton(
                           onPressed: () {},
-                          icon: Icon(Icons.calendar_today),
+                          icon: const Icon(Icons.calendar_today),
                           color: Colors.orange,
                         ),
                         // validatorText: "Select date is needed",
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS
-                            ? TextInputType.numberWithOptions(
+                            ? const TextInputType.numberWithOptions(
                                 signed: true, decimal: true)
                             : TextInputType.number,
                       ),
@@ -644,17 +638,16 @@ class _MoneyInState extends State<MoneyIn> {
                         label: "Select Time",
                         hint: 'Select Time',
                         onClick: () {
-                          print("trying to pick time");
                           pickTime(context);
                         },
                         prefixIcon: IconButton(
                           onPressed: () {},
-                          icon: Icon(Icons.lock_clock),
+                          icon: const Icon(Icons.lock_clock),
                           color: Colors.orange,
                         ),
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS
-                            ? TextInputType.numberWithOptions(
+                            ? const TextInputType.numberWithOptions(
                                 signed: true, decimal: true)
                             : TextInputType.number,
                         // validatorText: "Select time is needed",
@@ -679,7 +672,7 @@ class _MoneyInState extends State<MoneyIn> {
                             fontSize: 12,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
@@ -691,23 +684,23 @@ class _MoneyInState extends State<MoneyIn> {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              width: 2, color: AppColor().backgroundColor)),
+                              width: 2, color: AppColors.backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                             value: _transactionController.valuePaymentMode,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.keyboard_arrow_down,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
                             iconSize: 30,
                             items: paymentMode.map(buildPaymentItem).toList(),
@@ -721,8 +714,6 @@ class _MoneyInState extends State<MoneyIn> {
                                 _transactionController.valuePaymentMode = value;
                                 _transactionController.selectedPaymentMode =
                                     paidInFullValue;
-                                print(
-                                    _transactionController.selectedPaymentMode);
                               });
                             }),
                       ),
@@ -742,7 +733,7 @@ class _MoneyInState extends State<MoneyIn> {
                         validatorText: "Amount Paid is needed",
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS
-                            ? TextInputType.numberWithOptions(
+                            ? const TextInputType.numberWithOptions(
                                 signed: true, decimal: true)
                             : TextInputType.number,
                         textEditingController:
@@ -766,7 +757,7 @@ class _MoneyInState extends State<MoneyIn> {
                             fontSize: 12,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
@@ -778,23 +769,23 @@ class _MoneyInState extends State<MoneyIn> {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              width: 2, color: AppColor().backgroundColor)),
+                              width: 2, color: AppColors.backgroundColor)),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value: _transactionController.selectedPaymentSource,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.keyboard_arrow_down,
-                            color: AppColor().backgroundColor,
+                            color: AppColors.backgroundColor,
                           ),
                           iconSize: 30,
                           items: _transactionController.paymentSource
@@ -816,9 +807,9 @@ class _MoneyInState extends State<MoneyIn> {
                 child: InkWell(
                   onTap: () {
                     Get.bottomSheet(Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius: const BorderRadius.only(
+                        borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(16.0),
                             topRight: Radius.circular(16.0)),
                       ),
@@ -827,22 +818,22 @@ class _MoneyInState extends State<MoneyIn> {
                         crossAxisAlignment: WrapCrossAlignment.end,
                         children: [
                           ListTile(
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.camera,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
-                            title: Text('Camera'),
+                            title: const Text('Camera'),
                             onTap: () {
                               Get.back();
                               pickImageFromCamera();
                             },
                           ),
                           ListTile(
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.image,
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                             ),
-                            title: Text('Gallery'),
+                            title: const Text('Gallery'),
                             onTap: () {
                               Get.back();
                               pickImageFromGallery();
@@ -854,23 +845,23 @@ class _MoneyInState extends State<MoneyIn> {
                   },
                   child: DottedBorder(
                     borderType: BorderType.RRect,
-                    radius: Radius.circular(10),
-                    color: AppColor().backgroundColor,
+                    radius: const Radius.circular(10),
+                    color: AppColors.backgroundColor,
                     strokeWidth: _transactionController.image != null ? 0 : 2,
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
                       width: MediaQuery.of(context).size.width,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
                         color: _transactionController.image != null
-                            ? AppColor().backgroundColor.withOpacity(0.2)
+                            ? AppColors.backgroundColor.withOpacity(0.2)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         // border: _transactionController.image != null
                         //     ? null
                         //     : Border.all(
-                        //         width: 2, color: AppColor().backgroundColor)
+                        //         width: 2, color: AppColors.backgroundColor)
                       ),
                       child: Row(
                         children: [
@@ -941,14 +932,14 @@ class _MoneyInState extends State<MoneyIn> {
                       'Add Customer',
                       style: GoogleFonts.inter(
                         color: _transactionController.addCustomer == true
-                            ? AppColor().backgroundColor
+                            ? AppColors.backgroundColor
                             : Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Switch.adaptive(
-                        activeColor: AppColor().backgroundColor,
+                        activeColor: AppColors.backgroundColor,
                         value: _transactionController.addCustomer,
                         onChanged: (newValue) => setState(() =>
                             _transactionController.addCustomer = newValue))
@@ -972,7 +963,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   children: [
                                     Radio<int>(
                                         value: 1,
-                                        activeColor: AppColor().backgroundColor,
+                                        activeColor: AppColors.backgroundColor,
                                         groupValue:
                                             _transactionController.customerType,
                                         onChanged: (value) => setState(() =>
@@ -981,7 +972,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     Text(
                                       'New Customer',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -997,7 +988,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   children: [
                                     Radio<int>(
                                         value: 0,
-                                        activeColor: AppColor().backgroundColor,
+                                        activeColor: AppColors.backgroundColor,
                                         groupValue:
                                             _transactionController.customerType,
                                         onChanged: (value) => setState(() =>
@@ -1006,7 +997,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     Text(
                                       'Existing Customer',
                                       style: GoogleFonts.inter(
-                                        color: AppColor().backgroundColor,
+                                        color: AppColors.backgroundColor,
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
@@ -1041,7 +1032,7 @@ class _MoneyInState extends State<MoneyIn> {
                                             fontSize: 12,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
                                         Text(
@@ -1053,29 +1044,29 @@ class _MoneyInState extends State<MoneyIn> {
                                         )
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 8,
                                     ),
                                     Container(
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height: 50,
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 4),
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             border: Border.all(
                                                 width: 2,
-                                                color: AppColor()
-                                                    .backgroundColor)),
+                                                color:
+                                                    AppColors.backgroundColor)),
                                         child: DropdownButtonHideUnderline(
                                           child: DropdownButton<Customer>(
                                             value: _transactionController
                                                 .selectedCustomer,
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.keyboard_arrow_down,
-                                              color: AppColor().backgroundColor,
+                                              color: AppColors.backgroundColor,
                                             ),
                                             iconSize: 30,
                                             items: _customerController
@@ -1143,15 +1134,15 @@ class _MoneyInState extends State<MoneyIn> {
                     margin: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                    decoration: const BoxDecoration(
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_transactionController.addingTransactionStatus ==
                             AddingTransactionStatus.Loading)
                         ? Container(
                             width: 30,
                             height: 30,
-                            child: Center(
+                            child: const Center(
                                 child: CircularProgressIndicator(
                                     color: Colors.white)),
                           )
@@ -1192,7 +1183,7 @@ class _MoneyInState extends State<MoneyIn> {
                     Get.back();
                   },
                   child: Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     height: 6,
                     width: 80,
                     decoration: BoxDecoration(
@@ -1213,7 +1204,7 @@ class _MoneyInState extends State<MoneyIn> {
                         children: [
                           Radio<int>(
                             value: 1,
-                            activeColor: AppColor().backgroundColor,
+                            activeColor: AppColors.backgroundColor,
                             groupValue: _transactionController.selectedValue,
                             onChanged: (value) {
                               myState(() {
@@ -1224,7 +1215,7 @@ class _MoneyInState extends State<MoneyIn> {
                           Text(
                             'Enter Item',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1243,7 +1234,7 @@ class _MoneyInState extends State<MoneyIn> {
                         children: [
                           Radio<int>(
                               value: 0,
-                              activeColor: AppColor().backgroundColor,
+                              activeColor: AppColors.backgroundColor,
                               groupValue: _transactionController.selectedValue,
                               onChanged: (value) {
                                 myState(() {
@@ -1254,7 +1245,7 @@ class _MoneyInState extends State<MoneyIn> {
                           Text(
                             'Select product/services',
                             style: GoogleFonts.inter(
-                              color: AppColor().backgroundColor,
+                              color: AppColors.backgroundColor,
                               fontStyle: FontStyle.normal,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -1289,7 +1280,7 @@ class _MoneyInState extends State<MoneyIn> {
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               keyType: Platform.isIOS
-                                  ? TextInputType.numberWithOptions(
+                                  ? const TextInputType.numberWithOptions(
                                       signed: true, decimal: true)
                                   : TextInputType.number,
                             ),
@@ -1304,7 +1295,7 @@ class _MoneyInState extends State<MoneyIn> {
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
                                 keyType: Platform.isIOS
-                                    ? TextInputType.numberWithOptions(
+                                    ? const TextInputType.numberWithOptions(
                                         signed: true, decimal: true)
                                     : TextInputType.number,
                                 validatorText: "Quantity name is needed",
@@ -1327,25 +1318,25 @@ class _MoneyInState extends State<MoneyIn> {
                               fontSize: 12,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width,
                             height: 50,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                     width: 2,
-                                    color: AppColor().backgroundColor)),
+                                    color: AppColors.backgroundColor)),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<Product>(
                                 value: _transactionController.selectedProduct,
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: AppColor().backgroundColor,
+                                  color: AppColors.backgroundColor,
                                 ),
                                 iconSize: 30,
                                 items: _productController.offlineBusinessProduct
@@ -1368,7 +1359,7 @@ class _MoneyInState extends State<MoneyIn> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           Row(
@@ -1378,7 +1369,6 @@ class _MoneyInState extends State<MoneyIn> {
                                   label: "Amount",
                                   hint: '${Utils.getCurrency()}0.00',
                                   onChanged: (value) {
-                                    print("value is $value");
                                     setState(() {});
                                   },
                                   validatorText: "Amount is needed",
@@ -1388,7 +1378,7 @@ class _MoneyInState extends State<MoneyIn> {
                                     FilteringTextInputFormatter.digitsOnly
                                   ],
                                   keyType: Platform.isIOS
-                                      ? TextInputType.numberWithOptions(
+                                      ? const TextInputType.numberWithOptions(
                                           signed: true, decimal: true)
                                       : TextInputType.number,
                                 ),
@@ -1401,14 +1391,13 @@ class _MoneyInState extends State<MoneyIn> {
                                     label: "Quantity",
                                     hint: '1',
                                     onChanged: (value) {
-                                      print("value is $value");
                                       setState(() {});
                                     },
                                     inputformater: [
                                       FilteringTextInputFormatter.digitsOnly
                                     ],
                                     keyType: Platform.isIOS
-                                        ? TextInputType.numberWithOptions(
+                                        ? const TextInputType.numberWithOptions(
                                             signed: true, decimal: true)
                                         : TextInputType.number,
                                     validatorText: "Quantity is needed",
@@ -1433,8 +1422,8 @@ class _MoneyInState extends State<MoneyIn> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                    decoration: const BoxDecoration(
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Center(
                       child: Text(
@@ -1476,15 +1465,13 @@ class _MoneyInState extends State<MoneyIn> {
         countryFlag = country.toJson()['iso2_cc'];
         country.toJson();
         setState(() {});
-
-        print('Select country: ${country.toJson()}');
       },
     );
   }
 
   Widget showAllItems() {
     return Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 20),
         width: double.infinity,
         height: _transactionController.productList.length * 80,
         child: Scrollbar(
@@ -1507,7 +1494,7 @@ class _MoneyInState extends State<MoneyIn> {
                           _transactionController.productList[index]);
 
                       showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20))),
                           context: context,
@@ -1536,7 +1523,7 @@ class _MoneyInState extends State<MoneyIn> {
                     Get.back();
                   },
                   child: Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     height: 6,
                     width: 80,
                     decoration: BoxDecoration(
@@ -1566,7 +1553,7 @@ class _MoneyInState extends State<MoneyIn> {
                             _transactionController.amountController!,
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS
-                            ? TextInputType.numberWithOptions(
+                            ? const TextInputType.numberWithOptions(
                                 signed: true, decimal: true)
                             : TextInputType.number,
                       ),
@@ -1580,7 +1567,7 @@ class _MoneyInState extends State<MoneyIn> {
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           keyType: Platform.isIOS
-                              ? TextInputType.numberWithOptions(
+                              ? const TextInputType.numberWithOptions(
                                   signed: true, decimal: true)
                               : TextInputType.number,
                           validatorText: "Quantity name is needed",
@@ -1599,8 +1586,8 @@ class _MoneyInState extends State<MoneyIn> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColor().backgroundColor,
+                    decoration: const BoxDecoration(
+                        color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Center(
                       child: Text(

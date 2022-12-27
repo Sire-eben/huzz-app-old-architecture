@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
-import 'package:huzz/util/colors.dart';
+import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -66,7 +66,7 @@ class _AddCustomerState extends State<AddCustomer> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: AppColor().backgroundColor,
+            color: AppColors.backgroundColor,
           ),
           onPressed: () {
             Get.back();
@@ -75,8 +75,7 @@ class _AddCustomerState extends State<AddCustomer> {
         title: Text(
           widget.item == null ? 'Add Customer' : "Edit Customer",
           style: GoogleFonts.inter(
-            color: AppColor().backgroundColor,
-            
+            color: AppColors.backgroundColor,
             fontStyle: FontStyle.normal,
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -131,7 +130,7 @@ class _AddCustomerState extends State<AddCustomer> {
                               MediaQuery.of(context).size.height * 0.03),
                       height: 50,
                       decoration: BoxDecoration(
-                          color: AppColor().backgroundColor,
+                          color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_customerController.addingCustomerStatus ==
                               AddingCustomerStatus.Loading)
@@ -146,9 +145,9 @@ class _AddCustomerState extends State<AddCustomer> {
                               child: Text(
                                 (widget.item == null) ? 'Save' : "Update",
                                 style: GoogleFonts.inter(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                   ),
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                     ),
