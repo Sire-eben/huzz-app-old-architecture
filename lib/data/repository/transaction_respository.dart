@@ -10,7 +10,7 @@ import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/core/util/constants.dart';
-import 'package:huzz/ui/home/income_success.dart';
+import 'package:huzz/presentation/home/income_success.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/debtor.dart';
 import 'package:huzz/data/model/payment_history.dart';

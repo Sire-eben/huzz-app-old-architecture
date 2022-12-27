@@ -10,7 +10,7 @@ import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/repository/miscellaneous_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/ui/invoice/preview_invoice.dart';
+import 'package:huzz/presentation/invoice/preview_invoice.dart';
 import 'package:huzz/data/model/bank.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/invoice.dart';

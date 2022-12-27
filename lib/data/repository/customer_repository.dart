@@ -11,7 +11,7 @@ import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/ui/customers/confirmation.dart';
+import 'package:huzz/presentation/customers/confirmation.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';

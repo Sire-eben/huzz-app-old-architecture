@@ -9,13 +9,13 @@ import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/ui/team/team_updated_confirmation.dart';
+import 'package:huzz/presentation/team/confirmation.dart';
+import 'package:huzz/presentation/team/team_updated_confirmation.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
-import '../../ui/team/confirmation.dart';
 
 enum AddingTeamStatus { Loading, Error, Success, Empty }
 

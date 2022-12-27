@@ -15,7 +15,7 @@ import 'package:huzz/data/model/business.dart';
 import 'package:huzz/data/model/offline_business.dart';
 import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
-import '../../ui/business/create_business.dart';
+import 'package:huzz/presentation/business/create_business.dart';
 import 'auth_respository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }
