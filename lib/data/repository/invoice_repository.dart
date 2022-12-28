@@ -119,7 +119,7 @@ class InvoiceRespository extends GetxController {
   @override
   void onInit() async {
     // TODO: implement onInit
-    print("getting Invoice repo");
+    // print("getting Invoice repo");
 
     _miscellaneousController.businessTransactionPaymentSourceList.listen((p0) {
       if (p0.isNotEmpty) {
@@ -133,7 +133,7 @@ class InvoiceRespository extends GetxController {
       }
     });
     _userController.Mtoken.listen((p0) {
-      print("token gotten $p0");
+      // print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
@@ -143,7 +143,7 @@ class InvoiceRespository extends GetxController {
 
           GetOfflineInvoices(value.businessId!);
         } else {
-          print("current business is null");
+          // print("current business is null");
         }
         _businessController.selectedBusiness.listen((p0) {
           if (p0 != null && p0.businessId != null) {
@@ -158,7 +158,7 @@ class InvoiceRespository extends GetxController {
                 decimalSeparator: '.',
                 thousandSeparator: ',',
                 precision: 1);
-            print("business id ${p0.businessId}");
+            // print("business id ${p0.businessId}");
             _offlineInvoices([]);
             _allPaymentItem([]);
             OnlineInvoice = [];
@@ -200,12 +200,12 @@ class InvoiceRespository extends GetxController {
           Uri.parse(ApiLink.invoiceLink + "?businessId=" + businessId),
           headers: {"Authorization": "Bearer ${_userController.token}"});
       var json = jsonDecode(response.body);
-      print("get online Invoice $json");
+      // print("get online Invoice $json");
       if (response.statusCode == 200) {
         var result = List.from(json['data']).map((e) => Invoice.fromJson(e));
 
         OnlineInvoice.addAll(result);
-        print("online Invoice ${result.length}");
+        // print("online Invoice ${result.length}");
         // getTodayInvoice();
         getInvoiceYetToBeSavedLocally();
         result.isNotEmpty
@@ -217,7 +217,7 @@ class InvoiceRespository extends GetxController {
         _invoiceStatus(InvoiceStatus.Error);
       }
     } catch (error) {
-      print(error.toString());
+      // print(error.toString());
       _invoiceStatus(InvoiceStatus.Error);
     }
   }
@@ -226,7 +226,7 @@ class InvoiceRespository extends GetxController {
     try {
       _invoiceStatus(InvoiceStatus.Loading);
       var results = await _businessController.sqliteDb.getOfflineInvovoices(id);
-      print("offline Invoice ${results.length}");
+      // print("offline Invoice ${results.length}");
 
       _offlineInvoices(results.reversed.toList());
       categorizedInvoice();
@@ -240,7 +240,7 @@ class InvoiceRespository extends GetxController {
   }
 
   Future categorizedInvoice() async {
-    print("invoice list to be category is ${offlineInvoices.length}");
+    // print("invoice list to be category is ${offlineInvoices.length}");
     List<Invoice> _pending = [];
     List<Invoice> _paid = [];
     List<Invoice> _deposit = [];
@@ -248,31 +248,31 @@ class InvoiceRespository extends GetxController {
 
     for (int i = 0; i < offlineInvoices.length; ++i) {
       var element = offlineInvoices[i];
-      print("invoice status ${offlineInvoices[i].businessInvoiceStatus}");
+      // print("invoice status ${offlineInvoices[i].businessInvoiceStatus}");
       if (element.businessInvoiceStatus == "PENDING") {
-        print("pending is found");
+        // print("pending is found");
         _pending.add(element);
 
-        print("found pending");
+        // print("found pending");
       } else if (element.businessInvoiceStatus == "PAID") {
-        print("found paid");
+        // print("found paid");
         _paid.add(element);
       } else if (element.businessInvoiceStatus == "DEPOSIT") {
-        print("found deposit");
+        // print("found deposit");
         _deposit.add(element);
       }
       if (element.dueDateTime!.isBefore(DateTime.now())) {
         _overDue.add(element);
       }
 //    if(element.businessInvoiceStatus=="OVERDUE" || element.dueDateTime!.isAfter(DateTime.now())){
-//     print("found overdue");
+//     // print("found overdue");
 // _overDue.add(element);
 
 //   }
 
     }
 //    await Future.forEach<Invoice>(offlineInvoices, (element){
-//  print("invoice status ${element.businessInvoiceStatus}");
+//  // print("invoice status ${element.businessInvoiceStatus}");
 //  if(element.businessInvoiceStatus=="PENDING"){
 // // _pending.add(element);
 
@@ -304,13 +304,13 @@ class InvoiceRespository extends GetxController {
   //   List<Invoice> _todayInvoice = [];
   //   final date = DateTime.now();
   //   offlineInvoices.forEach((element) {
-  //     print("element test date ${element.createdTime!.toIso8601String()}");
+  //     // print("element test date ${element.createdTime!.toIso8601String()}");
   //     final d = DateTime(element.createdTime!.year, element.createdTime!.month,
   //         element.createdTime!.day);
   //     if (d.isAtSameMomentAs(DateTime(date.year, date.month, date.day))) {
   //       _todayInvoice.add(element);
 
-  //       print("found date for today");
+  //       // print("found date for today");
   //     }
   //   });
   //   todayInvoice = _todayInvoice;
@@ -325,7 +325,7 @@ class InvoiceRespository extends GetxController {
       }
     });
     // print("does contain value ${pendingInvoice.first.isPending}");
-    print("item yet to be save yet ${pendingInvoice.length}");
+    // print("item yet to be save yet ${pendingInvoice.length}");
     savePendingJob();
   }
 
@@ -362,7 +362,7 @@ class InvoiceRespository extends GetxController {
     var month =
         now.month >= 10 ? now.month.toString() : "0" + now.month.toString();
     final date = "" + now.year.toString() + "-" + month + "-" + day;
-    print("today date is $date");
+    // print("today date is $date");
     final response = await http.get(
         Uri.parse(ApiLink.dashboardOverview +
             "?businessId=" +
@@ -370,7 +370,7 @@ class InvoiceRespository extends GetxController {
             "&from=$date 00:00&to=$date 23:59"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
     var json = jsonDecode(response.body);
-    print("overview result $json");
+    // print("overview result $json");
     if (response.statusCode == 200) {
       var totalIncome = json['data']['totalIncomeAmount'];
       var totalExpenses = json['data']['totalExpenditureAmount'];
@@ -426,7 +426,7 @@ class InvoiceRespository extends GetxController {
 //       if (time != null && date != null) {
 // // date!.hour=time!.hour;
 //         date!.add(Duration(hours: time!.hour, minutes: time!.minute));
-//         print("date Time to string ${date!.toIso8601String()}");
+//         // print("date Time to string ${date!.toIso8601String()}");
 //       }
 // // String? timeday=date!.toIso8601String();
 //       String body = jsonEncode({
@@ -439,7 +439,7 @@ class InvoiceRespository extends GetxController {
 //         "businessInvoiceFileStoreId": fileid,
 //         "entyDateTime": date!.toIso8601String()
 //       });
-//       print("Invoice body $body");
+//       // print("Invoice body $body");
 //       final response =
 //           await http.post(Uri.parse(ApiLink.get_business_Invoice),
 //               headers: {
@@ -462,7 +462,7 @@ class InvoiceRespository extends GetxController {
 //         _addingInvoiceStatus(AddingInvoiceStatus.Error);
 //       }
 //     } catch (ex) {
-//       print("error occurred ${ex.toString()}");
+//       // print("error occurred ${ex.toString()}");
 //       _addingInvoiceStatus(AddingInvoiceStatus.Error);
 //     }
 //   }
@@ -494,7 +494,7 @@ class InvoiceRespository extends GetxController {
       if (time != null && date != null) {
 // date!.hour=time!.hour;
         date!.add(Duration(hours: time!.hour, minutes: time!.minute));
-        print("date Time to string ${date!.toIso8601String()}");
+        // print("date Time to string ${date!.toIso8601String()}");
       }
       double tax = 0;
       dynamic totalAmount = 0;
@@ -513,7 +513,7 @@ class InvoiceRespository extends GetxController {
       String? bankselectedId;
       if (paymentValue == 1) {
         bankselectedId = await _bankController.addBusinessBankWithString();
-        print("addied bank id is $bankselectedId");
+        // print("addied bank id is $bankselectedId");
       } else {
         bankselectedId = selectedBank!.id;
       }
@@ -532,7 +532,7 @@ class InvoiceRespository extends GetxController {
         "bankInfoId": bankselectedId,
         "dueDateTime": date!.toIso8601String().split("T")[0] + " 00:00"
       });
-      print("Invoice body $body");
+      // print("Invoice body $body");
       final response = await http.post(Uri.parse(ApiLink.invoiceLink),
           headers: {
             "Authorization": "Bearer ${_userController.token}",
@@ -540,12 +540,12 @@ class InvoiceRespository extends GetxController {
           },
           body: body);
 
-      print({"creating Invoice response ${response.body}"});
+      // print({"creating Invoice response ${response.body}"});
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         var result = Invoice.fromJson(json['data']);
         result.paymentItemRequestList = productList;
-        print("second result is ${result.toJson()}");
+        // print("second result is ${result.toJson()}");
 
         //  Get.to(() => IncomeSuccess(Invoice: result,title: "Invoice",));
         await getOnlineInvoice(
@@ -561,7 +561,7 @@ class InvoiceRespository extends GetxController {
         _addingInvoiceStatus(AddingInvoiceStatus.Error);
       }
     } catch (ex) {
-      print("error occurred ${ex.toString()}");
+      // print("error occurred ${ex.toString()}");
       _addingInvoiceStatus(AddingInvoiceStatus.Error);
     }
   }
@@ -596,7 +596,7 @@ class InvoiceRespository extends GetxController {
     }
     double newTotalAmount = totalAmount + tax - discount;
 
-    print("trying to save offline");
+    // print("trying to save offline");
 
     Invoice? value;
     String? bankselectedId;
@@ -635,7 +635,7 @@ class InvoiceRespository extends GetxController {
           totalAmount: newTotalAmount.toInt(),
         ));
 
-    print("offline saving to database ${value.toJson()}}");
+    // print("offline saving to database ${value.toJson()}}");
     await _businessController.sqliteDb.insertInvoce(value);
     GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
     // Get.to(() => IncomeSuccess(Invoice: value!,title: "Invoice",));
@@ -644,27 +644,29 @@ class InvoiceRespository extends GetxController {
   }
 
   Future checkIfInvoiceThatIsYetToBeAdded() async {
-    print("hoping Invoice to be added");
+    // print("hoping Invoice to be added");
     var list = await _businessController.sqliteDb.getOfflineInvovoices(
         _businessController.selectedBusiness.value!.businessId!);
-    print("number of Invoice is ${list.length}");
+    // print("number of Invoice is ${list.length}");
     list.forEach((element) {
       if (element.isPending!) {
         pendingInvoiceToBeAdded.add(element);
-        print("is pending to be added");
+        // print("is pending to be added");
       }
     });
-    print(
-        "number of Invoice that is yet to saved on server is ${pendingInvoiceToBeAdded.length}");
+    /**
+      print(
+          "number of Invoice that is yet to saved on server is ${pendingInvoiceToBeAdded.length}");
+    */
     saveInvoiceOnline();
   }
 
   bool checkifSelectedForDeleted(String id) {
     bool result = false;
     deletedItem.forEach((element) {
-      print("checking transaction whether exist");
+      // print("checking transaction whether exist");
       if (element.id == id) {
-        print("Invoice added to delete list   found");
+        // print("Invoice added to delete list   found");
         result = true;
       }
     });
@@ -677,14 +679,14 @@ class InvoiceRespository extends GetxController {
     }
 
 // pendingInvoice.forEach((e)async{
-    print("loading Invoice to server ");
+    // print("loading Invoice to server ");
     try {
 // if(!isBusyAdding){
       var savenext = pendingInvoiceToBeAdded.first;
       isBusyAdding = true;
-      print("saved next is ${savenext.toJson()}");
+      // print("saved next is ${savenext.toJson()}");
       if (savenext.customerId != null && savenext.customerId != " ") {
-        print("saved yet customer is not null");
+        // print("saved yet customer is not null");
 
         var customervalue = await _businessController.sqliteDb
             .getOfflineCustomer(savenext.customerId!);
@@ -694,7 +696,7 @@ class InvoiceRespository extends GetxController {
           savenext.customerId = customerId;
           _businessController.sqliteDb.deleteCustomer(customervalue);
         } else {
-          print("saved yet customer is null");
+          // print("saved yet customer is null");
         }
       }
 // if(savenext.businessInvoiceFileStoreId!=null&& savenext.businessInvoiceFileStoreId!=''){
@@ -708,7 +710,7 @@ class InvoiceRespository extends GetxController {
 // }
       var firstItem = savenext
           .businessTransaction!.businessTransactionPaymentHistoryList![0];
-      print("server first payment is ${firstItem.toJson()} ");
+      // print("server first payment is ${firstItem.toJson()} ");
 
       savenext.businessTransaction!.businessTransactionPaymentHistoryList!
           .remove(firstItem);
@@ -722,7 +724,7 @@ class InvoiceRespository extends GetxController {
         "dueDateTime":
             savenext.dueDateTime!.toIso8601String().split("T")[0] + " 00:00"
       });
-      print("Invoice body $body");
+      // print("Invoice body $body");
       final response = await http.post(Uri.parse(ApiLink.invoiceLink),
           headers: {
             "Authorization": "Bearer ${_userController.token}",
@@ -734,7 +736,7 @@ class InvoiceRespository extends GetxController {
       await deleteItem(savenext);
       pendingInvoiceToBeAdded.remove(savenext);
       if (response.statusCode == 200) {
-        print("Invoice response ${response.body}");
+        // print("Invoice response ${response.body}");
 // pendingInvoice.remove(savenext);
         var json = jsonDecode(response.body);
         if (savenext.businessTransaction!.businessTransactionPaymentHistoryList!
@@ -749,14 +751,14 @@ class InvoiceRespository extends GetxController {
         // saveInvoiceOnline();
 
         if (pendingInvoiceToBeAdded.isNotEmpty) {
-          print("saved size  left is ${pendingInvoiceToBeAdded.length}");
+          // print("saved size  left is ${pendingInvoiceToBeAdded.length}");
           saveInvoiceOnline();
           // await GetOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
           //  getOnlineInvoice(_businessController.selectedBusiness.value!.businessId!);
 
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         } else {
-          print("done uploading  Invoice to server ");
+          // print("done uploading  Invoice to server ");
           await GetOfflineInvoices(
               _businessController.selectedBusiness.value!.businessId!);
           getOnlineInvoice(
@@ -766,7 +768,7 @@ class InvoiceRespository extends GetxController {
       } else {
         isBusyAdding = false;
 
-//   print("pending Invoice is uploaded finished");
+//   // print("pending Invoice is uploaded finished");
 //   deleteItems();
 
         Future.delayed(Duration(seconds: 5));
@@ -789,7 +791,7 @@ class InvoiceRespository extends GetxController {
         Uri.parse(ApiLink.invoiceLink +
             "/${invoice.id}?businessId=${invoice.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
-    print("delete response ${response.body}");
+    // print("delete response ${response.body}");
     if (response.statusCode == 200) {
     } else {}
     await _businessController.sqliteDb.deleteInvoice(invoice);
@@ -817,7 +819,7 @@ class InvoiceRespository extends GetxController {
   }
 
   clearValue() {
-    print("clearing value");
+    // print("clearing value");
     itemNameController.text = "";
     amountController.text = "";
     quantityController.text = "";
@@ -852,7 +854,7 @@ class InvoiceRespository extends GetxController {
 
 //   }else{
 
-//     print("total amount is ${element.totalAmount} ${element.toJson()}");
+//     // print("total amount is ${element.totalAmount} ${element.toJson()}");
 // todayMoneyout=todayMoneyout+element.totalAmount!;
 
 //   }
@@ -985,7 +987,7 @@ class InvoiceRespository extends GetxController {
                 "Authorization": "Bearer ${_userController.token}",
                 "Content-Type": "application/json"
               });
-          print("update history to server ${response.body}");
+          // print("update history to server ${response.body}");
         }
       });
     } catch (ex) {
@@ -1017,7 +1019,7 @@ class InvoiceRespository extends GetxController {
               "Authorization": "Bearer ${_userController.token}",
               "Content-Type": "application/json"
             });
-        print("update history to server ${response.body}");
+        // print("update history to server ${response.body}");
       });
     } catch (ex) {
     } finally {
@@ -1029,7 +1031,7 @@ class InvoiceRespository extends GetxController {
   Future updatePaymentHistoryOnline(String invoiceId, String businessId,
       int amount, String mode, String source) async {
     try {
-      print("business id is $businessId");
+      // print("business id is $businessId");
       _addingInvoiceStatus(AddingInvoiceStatus.Loading);
       var response =
           await http.put(Uri.parse(ApiLink.invoiceLink + "/" + invoiceId),
@@ -1048,8 +1050,10 @@ class InvoiceRespository extends GetxController {
             "Authorization": "Bearer ${_userController.token}",
             "Content-Type": "application/json"
           });
-      print(
-          "update payment history response status code is ${response.statusCode} ${response.body} ");
+      /**
+        print(
+            "update payment history response status code is ${response.statusCode} ${response.body} ");
+      */
       if (response.statusCode == 200) {
 //
         var json = jsonDecode(response.body);
@@ -1066,7 +1070,7 @@ class InvoiceRespository extends GetxController {
       }
     } catch (ex) {
       _addingInvoiceStatus(AddingInvoiceStatus.Empty);
-      print("error occurred ${ex.toString()}");
+      // print("error occurred ${ex.toString()}");
     } finally {
       _addingInvoiceStatus(AddingInvoiceStatus.Empty);
       Get.back();
@@ -1079,7 +1083,7 @@ class InvoiceRespository extends GetxController {
       // print("comparing with ${element.id} to $id");
       if (element.id == id) {
         result = element;
-        print("search transaction is found");
+        // print("search transaction is found");
         return;
       }
     });

@@ -253,7 +253,7 @@ class _AddServiceState extends State<AddService> {
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
                   _productController.MproductImage(File(image!.path));
-                  print("image path ${image.path}");
+                  // print("image path ${image.path}");
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

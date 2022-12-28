@@ -29,7 +29,7 @@ class _MerchantsState extends State<Merchants> {
   final _businessController = Get.find<BusinessRespository>();
 
   void searchItem(String val) {
-    print("search text $val");
+    // print("search text $val");
     searchtext = val;
     setState(() {});
 
@@ -210,8 +210,8 @@ class _MerchantsState extends State<Merchants> {
                                                                 .customerMerchant[
                                                             index]
                                                         : searchResult[index];
-                                                    print(
-                                                        'merchant: ${item.name}, ${item.customerId}');
+                                                    // print(
+                                                    //     'merchant: ${item.name}, ${item.customerId}');
                                                     return Column(
                                                       children: [
                                                         if (item.name == null ||
@@ -442,8 +442,8 @@ class _MerchantsState extends State<Merchants> {
                                                                 .customerMerchant[
                                                             index]
                                                         : searchResult[index];
-                                                    print(
-                                                        'merchant: ${item.name}, ${item.customerId}');
+                                                    // print(
+                                                    //     'merchant: ${item.name}, ${item.customerId}');
                                                     return Column(
                                                       children: [
                                                         if (item.name == null ||

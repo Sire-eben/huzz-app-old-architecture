@@ -52,7 +52,7 @@ class _InsightState extends State<Insight> {
 
     setState(() {
       dateRange = newDateRange;
-      print(dateRange);
+      // print(dateRange);
     });
     return dateRange;
   }
@@ -102,7 +102,7 @@ class _InsightState extends State<Insight> {
     _PieChartData('Sun', 32, AppColors.brownColor)
   ];
   List<RecordsData> removeDoubleItem(List<RecordsData> list) {
-    print("previous items lenght ${list.length}");
+    // print("previous items lenght ${list.length}");
     List<RecordsData> newList = [];
     list.forEach((element) {
       if (element.value > 0) {
@@ -110,7 +110,7 @@ class _InsightState extends State<Insight> {
       }
     });
 
-    print("new item list is ${newList.length}");
+    // print("new item list is ${newList.length}");
     return newList;
   }
 

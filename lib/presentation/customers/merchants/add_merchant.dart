@@ -30,14 +30,14 @@ class _AddMerchantState extends State<AddMerchant> {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemporary = File(image.path);
-      print(imageTemporary);
+      // print(imageTemporary);
       setState(
         () {
           this.image = imageTemporary;
         },
       );
     } on PlatformException catch (e) {
-      print('$e');
+      // print('$e');
     }
   }
 
@@ -46,14 +46,14 @@ class _AddMerchantState extends State<AddMerchant> {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
       final imageTemporary = File(image.path);
-      print(imageTemporary);
+      // print(imageTemporary);
       setState(
         () {
           this.image = imageTemporary;
         },
       );
     } on PlatformException catch (e) {
-      print('$e');
+      // print('$e');
     }
   }
 

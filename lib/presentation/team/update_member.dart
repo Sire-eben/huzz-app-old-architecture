@@ -100,10 +100,10 @@ class _UpdateMemberState extends State<UpdateMember> {
 
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
-    print('BusinessId: $value');
+    // print('BusinessId: $value');
     final teamId = _businessController.selectedBusiness.value!.teamId;
-    print('Business TeamId: $teamId');
-    print(widget.team!.toJson());
+    // print('Business TeamId: $teamId');
+    // print(widget.team!.toJson());
 
     _roleSet = widget.team!.roleSet!;
     _authoritySet = widget.team!.authoritySet!;
@@ -349,8 +349,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageCustomer = true;
                       _isMCView = true;
@@ -362,8 +362,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_CUSTOMER');
                       _authoritySet.add('VIEW_CUSTOMER');
                       _roleSet.add('MANAGE_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -385,13 +385,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMCView = true;
                       _authoritySet.add('VIEW_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -413,13 +413,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMCCreate = true;
                       _authoritySet.add('CREATE_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -441,13 +441,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMCUpdate = true;
                       _authoritySet.add('UPDATE_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -469,13 +469,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_CUSTOMER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMCDelete = true;
                       _authoritySet.add('DELETE_CUSTOMER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -549,8 +549,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageProduct = true;
                       _isMPView = true;
@@ -562,8 +562,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_PRODUCT');
                       _authoritySet.add('VIEW_PRODUCT');
                       _roleSet.add('MANAGE_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -585,13 +585,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMPView = true;
                       _authoritySet.add('VIEW_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -613,13 +613,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMPCreate = true;
                       _authoritySet.add('CREATE_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -641,13 +641,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMPUpdate = true;
                       _authoritySet.add('UPDATE_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -669,13 +669,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_PRODUCT';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMPDelete = true;
                       _authoritySet.add('DELETE_PRODUCT');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -749,8 +749,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_BUSINESS_TRANSACTIONS';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageBusiness = true;
                       _isMBusView = true;
@@ -762,8 +762,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_BUSINESS_TRANSACTION');
                       _authoritySet.add('VIEW_BUSINESS_TRANSACTION');
                       _roleSet.add('MANAGE_BUSINESS_TRANSACTIONS');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -785,13 +785,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_BUSINESS_TRANSACTION';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBusView = true;
                       _authoritySet.add('VIEW_BUSINESS_TRANSACTION');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -813,13 +813,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_BUSINESS_TRANSACTION';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBusCreate = true;
                       _authoritySet.add('CREATE_BUSINESS_TRANSACTION');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -841,13 +841,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_BUSINESS_TRANSACTION';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBusUpdate = true;
                       _authoritySet.add('UPDATE_BUSINESS_TRANSACTION');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -869,13 +869,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_BUSINESS_TRANSACTION';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBusDelete = true;
                       _authoritySet.add('DELETE_BUSINESS_TRANSACTION');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -949,8 +949,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageBank = true;
                       _isMBankView = true;
@@ -962,8 +962,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_BANK_INFO');
                       _authoritySet.add('VIEW_BANK_INFO');
                       _roleSet.add('MANAGE_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -985,13 +985,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBankView = true;
                       _authoritySet.add('VIEW_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1013,13 +1013,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBankCreate = true;
                       _authoritySet.add('CREATE_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1041,13 +1041,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBankUpdate = true;
                       _authoritySet.add('UPDATE_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1069,13 +1069,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_BANK_INFO';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMBankDelete = true;
                       _authoritySet.add('DELETE_BANK_INFO');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1149,8 +1149,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _roleSet.removeWhere((element) {
                         return element == 'MANAGE_TEAM';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageTeam = true;
                       _isMTView = true;
@@ -1162,8 +1162,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_TEAM_MEMBER');
                       _authoritySet.add('VIEW_TEAM_MEMBER');
                       _roleSet.add('MANAGE_TEAM');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1185,13 +1185,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_TEAM_MEMBER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMTView = true;
                       _authoritySet.add('VIEW_TEAM_MEMBER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1213,13 +1213,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_TEAM_MEMBER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMTCreate = true;
                       _authoritySet.add('CREATE_TEAM_MEMBER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1241,13 +1241,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_TEAM_MEMBER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMTUpdate = true;
                       _authoritySet.add('UPDATE_TEAM_MEMBER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1269,13 +1269,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_TEAM_MEMBER';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMTDelete = true;
                       _authoritySet.add('DELETE_TEAM_MEMBER');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1350,8 +1350,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                         return element == 'MANAGE_DEBTOR';
                       });
 
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageDebtor = true;
                       _isMDView = true;
@@ -1363,8 +1363,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('CREATE_DEBTOR');
                       _authoritySet.add('VIEW_DEBTOR');
                       _roleSet.add('MANAGE_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1386,13 +1386,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_DEBTOR';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMDView = true;
                       _authoritySet.add('VIEW_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1414,13 +1414,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_DEBTOR';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMDCreate = true;
                       _authoritySet.add('CREATE_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1442,13 +1442,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_DEBTOR';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMDUpdate = true;
                       _authoritySet.add('UPDATE_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1470,13 +1470,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_DEBTOR';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMDDelete = true;
                       _authoritySet.add('DELETE_DEBTOR');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1550,8 +1550,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isManageInvoice = true;
                       _isMInvView = true;
@@ -1563,8 +1563,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.add('UPDATE_BUSINESS_INVOICE');
                       _authoritySet.add('CREATE_BUSINESS_INVOICE');
                       _authoritySet.add('VIEW_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1586,13 +1586,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'VIEW_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMInvView = true;
                       _authoritySet.add('VIEW_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1614,13 +1614,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'CREATE_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMInvCreate = true;
                       _authoritySet.add('CREATE_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1642,13 +1642,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'UPDATE_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMInvUpdate = true;
                       _authoritySet.add('UPDATE_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },
@@ -1670,13 +1670,13 @@ class _UpdateMemberState extends State<UpdateMember> {
                       _authoritySet.removeWhere((element) {
                         return element == 'DELETE_BUSINESS_INVOICE';
                       });
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     } else {
                       _isMInvDelete = true;
                       _authoritySet.add('DELETE_BUSINESS_INVOICE');
-                      print('RoleSet: $_roleSet');
-                      print('AuthoritySet: $_authoritySet');
+                      // print('RoleSet: $_roleSet');
+                      // print('AuthoritySet: $_authoritySet');
                     }
                   });
                 },

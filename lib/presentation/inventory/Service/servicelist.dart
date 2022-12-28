@@ -35,7 +35,7 @@ class _ServiceListingState extends State<ServiceListing> {
   String searchtext = "";
   List<Product> searchResult = [];
   void searchItem(String val) {
-    print("search text $val");
+    // print("search text $val");
     searchtext = val;
     setState(() {});
 
@@ -347,7 +347,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                             ? _productController
                                                 .productServices[index]
                                             : searchResult[index];
-                                        print("service item ${item.toJson()}");
+                                        // print("service item ${item.toJson()}");
                                         return (isDelete)
                                             ? ListingServicesDelete(
                                                 item: item,

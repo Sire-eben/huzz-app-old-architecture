@@ -74,7 +74,7 @@ class _PaidState extends State<Paid> {
                           onTap: () {
                             setState(() {
                               deleteItem = !deleteItem;
-                              print(deleteItem);
+                              // print(deleteItem);
                             });
                           },
                           child: Container(
@@ -250,8 +250,8 @@ class _PaidState extends State<Paid> {
                                           _selectedIndex.remove(index);
                                         }
                                       });
-                                      print('selected');
-                                      print(_items.toString());
+                                      // print('selected');
+                                      // print(_items.toString());
                                     },
                                     child: Padding(
                                       padding: EdgeInsets.only(

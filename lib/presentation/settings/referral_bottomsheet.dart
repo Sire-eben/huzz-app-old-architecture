@@ -51,14 +51,14 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
       );
       final shortLink = await dynamicLinks.buildShortLink(parameters);
       referralLink = shortLink.shortUrl.toString();
-      print('referral Link: ${shortLink.shortUrl.toString()}');
+      // print('referral Link: ${shortLink.shortUrl.toString()}');
       setState(() {
         isLoadingReferralLink = false;
       });
       Share.share(shortLink.shortUrl.toString(),
           subject: 'Share referral link');
     } catch (error) {
-      print(error.toString());
+      // print(error.toString());
       setState(() {
         isLoadingReferralLink = false;
       });
@@ -238,7 +238,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                           SizedBox(height: 24),
                           InkWell(
                             onTap: () {
-                              print(referralData.referralCode);
+                              // print(referralData.referralCode);
                               shareReferralLink(referralData.referralCode);
                             }
                             //     {

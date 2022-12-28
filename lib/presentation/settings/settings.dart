@@ -38,7 +38,7 @@ class _SettingsState extends State<Settings> {
   void initState() {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
-    print("user json ${controller.user!.toJson()}");
+    // print("user json ${controller.user!.toJson()}");
 
     super.initState();
   }
@@ -608,7 +608,7 @@ class _SettingsState extends State<Settings> {
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
                   controller.profileImage(File(image!.path));
-                  print("image path ${image.path}");
+                  // print("image path ${image.path}");
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -1086,7 +1086,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     InkWell(
                       onTap: () {
-                        print('deleting business...');
+                        // print('deleting business...');
                         controller.deleteBusinessAccounts();
                         onContinue();
                         Get.back();

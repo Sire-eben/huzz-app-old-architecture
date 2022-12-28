@@ -151,7 +151,7 @@ $businessId text not null)
     var result = await db.update(businessTableName, business.toJson(),
         where: '"BusinessId" = ?', whereArgs: [business.businessId]);
 
-    print("updated $result");
+    // print("updated $result");
   }
 
   Future deleteAllOfflineBusiness() async {
@@ -201,14 +201,14 @@ $businessId text not null)
         where: '"$transactionId" = ?',
         whereArgs: [transactionModel.id]);
 
-    print("updated $result");
+    // print("updated $result");
   }
 
   Future<int> deleteOfflineTransaction(
       TransactionModel transactionModel) async {
     var result = await db.delete(transactionTableName,
         where: '"$transactionId" = ?', whereArgs: [transactionModel.id]);
-    print("transaction  with ${transactionModel.id} is deleted $result ");
+    // print("transaction  with ${transactionModel.id} is deleted $result ");
     return result;
   }
 
@@ -238,7 +238,7 @@ $businessId text not null)
 
   Future insertDebtor(Debtor debtor) async {
     var value = jsonEncode(debtor.toJson());
-    print("debtor value $value");
+    // print("debtor value $value");
     var result = db.insert(debtorbusinessTable, {
       debtorId: debtor.debtorId,
       businessId: debtor.businessId,
@@ -276,14 +276,14 @@ $businessId text not null)
         where: '"$debtorId" = ?',
         whereArgs: [debtor.debtorId]);
 
-    print("updated $result");
+    // print("updated $result");
   }
 
   Future<int> deleteOfflineDebtor(Debtor debtor) async {
     var result = await db.delete(debtorbusinessTable,
         where: '"$debtorId" = ?', whereArgs: [debtor.debtorId]);
     // print("transaction  with ${transactionModel.id} is deleted $result ");
-    print("result of deleted debtors $result");
+    // print("result of deleted debtors $result");
     return result;
   }
 
@@ -314,14 +314,14 @@ $businessId text not null)
         where: '"$productId" = ?',
         whereArgs: [product.productId]);
 
-    print("updated $result");
+    // print("updated $result");
   }
 
   Future deleteProduct(Product product) async {
     var result = await db.delete(productbusinessTable,
         where: '"$productId" = ?', whereArgs: [product.productId]);
 
-    print("result after delete $result");
+    // print("result after delete $result");
   }
 
   Future deleteAllProducts() async {
@@ -372,14 +372,14 @@ $businessId text not null)
         where: '"$customerId" = ?',
         whereArgs: [customer.customerId]);
 
-    print("updated $result");
+    // print("updated $result");
   }
 
   Future deleteCustomer(Customer customer) async {
     var result = await db.delete(customerbusinessTable,
         where: '"$customerId" = ?', whereArgs: [customer.customerId]);
 
-    print("result after delete $result");
+    // print("result after delete $result");
   }
 
   Future deleteAllCustomers() async {
@@ -479,14 +479,14 @@ $businessId text not null)
         where: '"$bankAccountId" = ?',
         whereArgs: [bank.id]);
 
-    print("updated $result");
+    // print("updated $result");
   }
 
   Future deleteBank(Bank bank) async {
     var result = await db.delete(customerbusinessTable,
         where: '"$bankAccountId" = ?', whereArgs: [bank.id]);
 
-    print("result after delete $result");
+    // print("result after delete $result");
   }
 
   Future deleteAllBanks() async {
@@ -534,14 +534,14 @@ $businessId text not null)
         where: '"$invoiceId" = ?',
         whereArgs: [invoice.id]);
 
-    print("updated $result");
+    // print("updated $result");
   }
 
   Future deleteInvoice(Invoice invoice) async {
     var result = await db.delete(invoiceTableName,
         where: '"$invoiceId" = ?', whereArgs: [invoice.id]);
 
-    print("result after delete $result");
+    // print("result after delete $result");
   }
 
   Future deleteAllInvoice() async {

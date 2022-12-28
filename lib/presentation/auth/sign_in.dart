@@ -222,16 +222,16 @@ class _SiginState extends State<Signin> {
                   enableActiveFill: true,
                   errorAnimationController: errorController,
                   onCompleted: (v) {
-                    print("Completed");
+                    // print("Completed");
                   },
                   onChanged: (value) {
-                    print(value);
+                    // print(value);
                     // setState(() {
                     //   currentText = value;
                     // });
                   },
                   beforeTextPaste: (text) {
-                    print("Allowing to paste $text");
+                    // print("Allowing to paste $text");
                     //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
                     //but you can show anything you want here, like your pop up saying wrong paste format or etc
                     return true;
@@ -323,7 +323,7 @@ class _SiginState extends State<Signin> {
                         ),
                         icon: const Icon(Icons.info,
                             color: AppColors.orangeBorderColor));
-                    print('phone cannot be empty');
+                    // print('phone cannot be empty');
                   } else if (_authController.signinStatus !=
                       SigninStatus.Loading) _authController.signIn();
                 },
@@ -377,10 +377,10 @@ class _SiginState extends State<Signin> {
         final currency = CountryPickerUtils.getCountryByIsoCode(countryFlag)
             .currencyCode
             .toString();
-        print("currency of country is $currency");
+        // print("currency of country is $currency");
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }

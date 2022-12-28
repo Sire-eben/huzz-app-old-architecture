@@ -24,7 +24,7 @@ class CustomDropDownField extends StatelessWidget {
     // TODO: implement build
     var _currencies = [];
 
-    print("value ${currentSelectedValue.value.isEmpty}");
+    // print("value ${currentSelectedValue.value.isEmpty}");
     return Container(
         width: MediaQuery.of(context).size.width,
         height: 104,

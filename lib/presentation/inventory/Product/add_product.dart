@@ -27,7 +27,7 @@ class _AddProductState extends State<AddProduct> {
   @override
   void initState() {
     if (widget.item != null) {
-      print("Product json is ${widget.item!.toJson()}");
+      // print("Product json is ${widget.item!.toJson()}");
     }
     super.initState();
   }
@@ -590,7 +590,7 @@ class _AddProductState extends State<AddProduct> {
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
                   _productController.MproductImage(File(image!.path));
-                  print("image path ${image.path}");
+                  // print("image path ${image.path}");
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

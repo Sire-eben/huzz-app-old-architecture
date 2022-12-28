@@ -19,7 +19,7 @@ class _CustomersState extends State<Customers> {
   String searchtext = "";
   List<Customer> searchResult = [];
   void searchItem(String val) {
-    print("search text $val");
+    // print("search text $val");
     searchtext = val;
     setState(() {});
 

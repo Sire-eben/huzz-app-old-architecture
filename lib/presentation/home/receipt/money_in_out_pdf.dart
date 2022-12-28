@@ -20,11 +20,11 @@ class PdfMoneyInOutApi {
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(
       TransactionModel transactionModel, PdfColor themeColor) async {
-    print(transactionModel.toJson());
+    // print(transactionModel.toJson());
     final pdf = Document();
     Customer? customer;
     if (transactionModel.customerId != null) {
-      print("my customer id ${transactionModel.customerId}");
+      // print("my customer id ${transactionModel.customerId}");
       customer = _customerController
           .checkifCustomerAvailableWithValue(transactionModel.customerId!);
     }

@@ -74,8 +74,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
         businessController.selectedBusiness.value!.businessPhoneNumber;
     value = businessController.selectedBusiness.value!.businessCurrency;
     businessController.businessAddressController.text = businessAddress ?? "";
-    print(
-        "current business json ${businessController.selectedBusiness.value!.toJson()}");
+    // print(
+    //     "current business json ${businessController.selectedBusiness.value!.toJson()}");
     super.initState();
   }
 
@@ -493,7 +493,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                           'CREATOR' ||
                                       teamController.teamMember.authoritySet!
                                           .contains('DELETE_BANK_INFO')) {
-                                    print('deleting bank account...');
+                                    // print('deleting bank account...');
                                     bankInfoController.addToDeleteList(e);
                                   } else {
                                     Get.snackbar('Alert',
@@ -506,7 +506,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                           'CREATOR' ||
                                       teamController.teamMember.authoritySet!
                                           .contains('UPDATE_BANK_INFO')) {
-                                    print('edit bank account');
+                                    // print('edit bank account');
                                     bankInfoController.setItem(e);
                                     showModalBottomSheet(
                                         isScrollControlled: true,
@@ -649,7 +649,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
                   businessController.businessImage(File(image!.path));
-                  print("image path ${image.path}");
+                  // print("image path ${image.path}");
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -1115,7 +1115,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         country.toJson();
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }
@@ -1186,16 +1186,16 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   errorAnimationController: errorController,
                   // controller: textEditingController,
                   onCompleted: (v) {
-                    print("Completed");
+                    // print("Completed");
                   },
                   onChanged: (value) {
-                    print(value);
+                    // print(value);
                     // setState(() {
                     //   currentText = value;
                     // });
                   },
                   beforeTextPaste: (text) {
-                    print("Allowing to paste $text");
+                    // print("Allowing to paste $text");
                     //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
                     //but you can show anything you want here, like your pop up saying wrong paste format or etc
                     return true;

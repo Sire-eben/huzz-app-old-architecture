@@ -226,7 +226,7 @@ class BankAccountRepository extends GetxController {
         isAddingPending: true,
         createdDateTime: DateTime.now(),
         updatedDateTime: DateTime.now());
-    print("bank json is ${bank.toJson()}");
+    // print("bank json is ${bank.toJson()}");
     await _businessController.sqliteDb.insertBankAccount(bank);
     getOfflineBank(bank.businessId!);
     clearValue();
@@ -258,7 +258,7 @@ class BankAccountRepository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("update Bank response ${response.body}");
+      // print("update Bank response ${response.body}");
       if (response.statusCode == 200) {
         _addingBankStatus(AddingBankInfoStatus.Success);
         getOnlineBank(_businessController.selectedBusiness.value!.businessId!);
@@ -293,18 +293,18 @@ class BankAccountRepository extends GetxController {
         await _businessController.sqliteDb.getOfflineBankInfos(businessId);
     var list = result.where((c) => c.deleted == false).toList();
     _offlineBusinessBank(list);
-    print("offline Bank found ${result.length}");
+    // print("offline Bank found ${result.length}");
     // setBankDifferent();
   }
 
   Future getOnlineBank(String businessId) async {
     _addingBankStatus(AddingBankInfoStatus.Loading);
-    print("trying to get Bank online");
+    // print("trying to get Bank online");
     final response = await http.get(
         Uri.parse(ApiLink.addBankInfo + "?businessId=" + businessId),
         headers: {"Authorization": "Bearer ${_userController.token}"});
 
-    print("result of get Bank online ${response.body}");
+    // print("result of get Bank online ${response.body}");
     if (response.statusCode == 200) {
       _addingBankStatus(AddingBankInfoStatus.Loading);
       var json = jsonDecode(response.body);
@@ -312,7 +312,7 @@ class BankAccountRepository extends GetxController {
         var result =
             List.from(json['data']).map((e) => Bank.fromJson(e)).toList();
         _onlineBusinessBank(result);
-        print("Bank business lenght ${result.length}");
+        // print("Bank business lenght ${result.length}");
         await getBusinessBankYetToBeSavedLocally();
         checkIfUpdateAvailable();
       }
@@ -326,7 +326,7 @@ class BankAccountRepository extends GetxController {
   Future getBusinessBankYetToBeSavedLocally() async {
     onlineBusinessBank.forEach((element) {
       if (!checkifBankAvailable(element.id!)) {
-        print("does not contain value");
+        // print("does not contain value");
 
         pendingBusinessBank.add(element);
       }
@@ -339,11 +339,11 @@ class BankAccountRepository extends GetxController {
     onlineBusinessBank.forEach((element) async {
       var item = checkifBankAvailableWithValue(element.id!);
       if (item != null) {
-        print("item Bank is found");
-        print("updated offline ${item.updatedDateTime!.toIso8601String()}");
-        print("updated online ${element.updatedDateTime!.toIso8601String()}");
+        // print("item Bank is found");
+        // print("updated offline ${item.updatedDateTime!.toIso8601String()}");
+        // print("updated online ${element.updatedDateTime!.toIso8601String()}");
         if (!element.updatedDateTime!.isAtSameMomentAs(item.updatedDateTime!)) {
-          print("found Bank to updated");
+          // print("found Bank to updated");
           pendingUpdatedBankList.add(element);
         }
       }
@@ -395,9 +395,9 @@ class BankAccountRepository extends GetxController {
   bool checkifBankAvailable(String id) {
     bool result = false;
     offlineBusinessBank.forEach((element) {
-      print("checking transaction whether exist");
+      // print("checking transaction whether exist");
       if (element.id == id) {
-        print("Bank   found");
+        // print("Bank   found");
         result = true;
       }
     });
@@ -422,7 +422,7 @@ class BankAccountRepository extends GetxController {
         Uri.parse(
             ApiLink.addBankInfo + "/${bank.id}?businessId=${bank.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
-    print("delete response ${response.body}");
+    // print("delete response ${response.body}");
     if (response.statusCode == 200) {
       _businessController.sqliteDb.deleteBank(bank);
       getOfflineBank(_businessController.selectedBusiness.value!.businessId!);
@@ -446,9 +446,9 @@ class BankAccountRepository extends GetxController {
   bool checkifSelectedForDelted(String id) {
     bool result = false;
     deleteBankList.forEach((element) {
-      print("checking transaction whether exist");
+      // print("checking transaction whether exist");
       if (element.id == id) {
-        print("Bank   found");
+        // print("Bank   found");
         result = true;
       }
     });
@@ -456,18 +456,18 @@ class BankAccountRepository extends GetxController {
   }
 
   Future checkPendingBankToBeAddedToSever() async {
-    print("checking Bank that is pending to be added");
+    // print("checking Bank that is pending to be added");
 
     var list = await _businessController.sqliteDb.getOfflineBankInfos(
         _businessController.selectedBusiness.value!.businessId!);
-    print("offline Bank lenght ${list.length}");
+    // print("offline Bank lenght ${list.length}");
     list.forEach((element) {
       if (element.isAddingPending!) {
         pendingJobToBeAdded.add(element);
-        print("item is found to be added");
+        // print("item is found to be added");
       }
     });
-    print("number of Bank to be added to server ${pendingJobToBeAdded.length}");
+    // print("number of Bank to be added to server ${pendingJobToBeAdded.length}");
     addPendingJobBankToServer();
   }
 
@@ -484,17 +484,17 @@ class BankAccountRepository extends GetxController {
   }
 
   Future checkPendingBankToBeDeletedOnServer() async {
-    print("checking Bank to be deleted");
+    // print("checking Bank to be deleted");
     var list = await _businessController.sqliteDb.getOfflineBankInfos(
         _businessController.selectedBusiness.value!.businessId!);
-    print("checking Bank to be deleted list ${list.length}");
+    // print("checking Bank to be deleted list ${list.length}");
     list.forEach((element) {
       if (element.deleted!) {
         pendingJobToBeDelete.add(element);
-        print("Bank to be deleted is found ");
+        // print("Bank to be deleted is found ");
       }
     });
-    print("Bank to be deleted ${pendingJobToBeDelete.length}");
+    // print("Bank to be deleted ${pendingJobToBeDelete.length}");
     deletePendingJobToServer();
   }
 
@@ -543,7 +543,7 @@ class BankAccountRepository extends GetxController {
         getOnlineBank(_businessController.selectedBusiness.value!.businessId!);
 
         _businessController.sqliteDb.deleteBank(savenext);
-        print("pending to be added is delete");
+        // print("pending to be added is delete");
         return json['data']['id'];
       }
     }
@@ -575,7 +575,7 @@ class BankAccountRepository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("update Bank response ${response.body}");
+      // print("update Bank response ${response.body}");
       if (response.statusCode == 200) {
         _addingBankStatus(AddingBankInfoStatus.Success);
         getOnlineBank(_businessController.selectedBusiness.value!.businessId!);
@@ -596,7 +596,7 @@ class BankAccountRepository extends GetxController {
           Uri.parse(ApiLink.addBankInfo +
               "/${deletenext.id}?businessId=${deletenext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
-      print("previous deleted response ${response.body}");
+      // print("previous deleted response ${response.body}");
       if (response.statusCode == 200) {
         _businessController.sqliteDb.deleteBank(deletenext);
         getOfflineBank(_businessController.selectedBusiness.value!.businessId!);

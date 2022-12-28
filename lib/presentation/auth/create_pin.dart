@@ -131,16 +131,16 @@ class _CreatePinState extends State<CreatePin> {
                   errorAnimationController: errorController,
                   // controller: textEditingController,
                   onCompleted: (v) {
-                    print("Completed");
+                    // print("Completed");
                   },
                   onChanged: (value) {
-                    print(value);
+                    // print(value);
                     // setState(() {
                     //   currentText = value;
                     // });
                   },
                   beforeTextPaste: (text) {
-                    print("Allowing to paste $text");
+                    // print("Allowing to paste $text");
                     //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
                     //but you can show anything you want here, like your pop up saying wrong paste format or etc
                     return true;
@@ -186,16 +186,16 @@ class _CreatePinState extends State<CreatePin> {
                   // errorAnimationController: errorController,
                   // controller: textEditingController,
                   onCompleted: (v) {
-                    print("Completed");
+                    // print("Completed");
                   },
                   onChanged: (value) {
-                    print(value);
+                    // print(value);
                     // setState(() {
                     //   currentText = value;
                     // });
                   },
                   beforeTextPaste: (text) {
-                    print("Allowing to paste $text");
+                    // print("Allowing to paste $text");
                     //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
                     //but you can show anything you want here, like your pop up saying wrong paste format or etc
                     return true;
@@ -218,7 +218,7 @@ class _CreatePinState extends State<CreatePin> {
                           ),
                           icon: Icon(Icons.info,
                               color: AppColors.orangeBorderColor));
-                      print('pin cannot be empty');
+                      // print('pin cannot be empty');
                     } else {
                       if (_authController.confirmPinController.text ==
                           _authController.pinController.text) {
