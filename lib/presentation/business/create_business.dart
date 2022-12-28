@@ -126,7 +126,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           showCurrencyName: true,
                           showCurrencyCode: true,
                           onSelect: (Currency currency) {
-                            print('Select currency: ${currency.code}');
+                            // print('Select currency: ${currency.code}');
                             _businessController.businessCurrency.text =
                                 currency.code;
                             FocusManager.instance.primaryFocus?.unfocus();

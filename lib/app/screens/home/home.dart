@@ -648,8 +648,8 @@ class _HomeState extends State<Home> {
                                       .allPaymentItem[index];
                                   return InkWell(
                                     onTap: () {
-                                      print(
-                                          "item payment transaction id is ${item.businessTransactionId}");
+                                      // print(
+                                      //     "item payment transaction id is ${item.businessTransactionId}");
                                       Get.to(() => MoneySummary(
                                             item: item,
                                           ));
@@ -1359,8 +1359,8 @@ class _HomeState extends State<Home> {
                                   _transactionController.allPaymentItem[index];
                               return InkWell(
                                 onTap: () {
-                                  print(
-                                      "item payment transaction id is ${item.businessTransactionId}");
+                                  // print(
+                                  //     "item payment transaction id is ${item.businessTransactionId}");
                                   Get.to(() => MoneySummary(
                                         item: item,
                                       ));

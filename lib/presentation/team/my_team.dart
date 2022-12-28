@@ -60,7 +60,7 @@ class _MyTeamState extends State<MyTeam> {
     firstName = controller.user!.firstName!;
     lastName = controller.user!.lastName!;
     phone = controller.user!.phoneNumber!;
-    print(phone);
+    // print(phone);
 
     controller.checkTeamInvite();
     super.initState();
@@ -80,8 +80,8 @@ class _MyTeamState extends State<MyTeam> {
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
       if (kDebugMode) {
-        print(
-            'Team member length: ${_teamController.onlineBusinessTeam.length}');
+        // print(
+        //     'Team member length: ${_teamController.onlineBusinessTeam.length}');
       }
       return RefreshIndicator(
         onRefresh: () async {
@@ -217,8 +217,8 @@ class _MyTeamState extends State<MyTeam> {
                                                 ? Obx(() {
                                                     return GestureDetector(
                                                         onTap: () {
-                                                          print(
-                                                              'deleting team member: ${item.toJson()}');
+                                                          // print(
+                                                          //     'deleting team member: ${item.toJson()}');
                                                           _deleteTeamMemberDialog(
                                                               context, item);
                                                         },

@@ -49,8 +49,8 @@ class _ManageInventoryState extends State<ManageInventory> {
   void initState() {
     super.initState();
     if (kDebugMode) {
-      print(
-          'Team Invite deeplink: ${_authController.hasTeamInviteDeeplink.value}');
+      // print(
+      //     'Team Invite deeplink: ${_authController.hasTeamInviteDeeplink.value}');
     }
     if (_authController.hasTeamInviteDeeplink.value == true) {
       _businessController.OnlineBusiness();

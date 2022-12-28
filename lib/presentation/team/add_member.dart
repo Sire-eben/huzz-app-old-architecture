@@ -85,9 +85,9 @@ class _AddMemberState extends State<AddMember> {
 
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
-    print('BusinessId: $value');
+    // print('BusinessId: $value');
     final teamId = _businessController.selectedBusiness.value!.teamId;
-    print('Business TeamId: $teamId');
+    // print('Business TeamId: $teamId');
     shareBusinessIdLink(value.toString());
   }
 
@@ -111,9 +111,9 @@ class _AddMemberState extends State<AddMember> {
         );
         final shortLink = await dynamicLinks.buildShortLink(parameters);
         teamInviteLink = shortLink.shortUrl.toString();
-        print('invite link: $teamInviteLink');
+        // print('invite link: $teamInviteLink');
       } catch (error) {
-        print(error.toString());
+        // print(error.toString());
       }
     }
   }
@@ -255,9 +255,9 @@ class _AddMemberState extends State<AddMember> {
                               _authoritySet.remove(item.authoritySet![3]);
                               _authoritySet.remove(item.authoritySet![4]);
 
-                              print(index);
-                              print('RoleSet: ${_roleSet.toString()}');
-                              print('AuthoritySet: $_authoritySet');
+                              // print(index);
+                              // print('RoleSet: ${_roleSet.toString()}');
+                              // print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedIndex.add(index);
@@ -271,9 +271,9 @@ class _AddMemberState extends State<AddMember> {
                             _selectedDeleteIndex.add(index);
                             _authoritySet.add(item.authoritySet![4]);
 
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
+                            // print(index);
+                            // print('RoleSet: $_roleSet');
+                            // print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
@@ -296,17 +296,17 @@ class _AddMemberState extends State<AddMember> {
                             if (_authoritySet.contains(item.authoritySet![1])) {
                               _authoritySet.remove(item.authoritySet![1]);
 
-                              print(index);
-                              print('RoleSet: $_roleSet');
-                              print('AuthoritySet: $_authoritySet');
+                              // print(index);
+                              // print('RoleSet: $_roleSet');
+                              // print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedViewIndex.add(index);
                             _authoritySet.add(item.authoritySet![1]);
 
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
+                            // print(index);
+                            // print('RoleSet: $_roleSet');
+                            // print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
@@ -329,17 +329,17 @@ class _AddMemberState extends State<AddMember> {
                             if (_authoritySet.contains(item.authoritySet![2])) {
                               _authoritySet.remove(item.authoritySet![2]);
 
-                              print(index);
-                              print('RoleSet: $_roleSet');
-                              print('AuthoritySet: $_authoritySet');
+                              // print(index);
+                              // print('RoleSet: $_roleSet');
+                              // print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedCreateIndex.add(index);
                             _authoritySet.add(item.authoritySet![2]);
 
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
+                            // print(index);
+                            // print('RoleSet: $_roleSet');
+                            // print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
@@ -362,17 +362,17 @@ class _AddMemberState extends State<AddMember> {
                             if (_authoritySet.contains(item.authoritySet![3])) {
                               _authoritySet.remove(item.authoritySet![3]);
 
-                              print(index);
-                              print('RoleSet: $_roleSet');
-                              print('AuthoritySet: $_authoritySet');
+                              // print(index);
+                              // print('RoleSet: $_roleSet');
+                              // print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedUpdateIndex.add(index);
                             _authoritySet.add(item.authoritySet![3]);
 
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
+                            // print(index);
+                            // print('RoleSet: $_roleSet');
+                            // print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
@@ -395,17 +395,17 @@ class _AddMemberState extends State<AddMember> {
                             if (_authoritySet.contains(item.authoritySet![4])) {
                               _authoritySet.remove(item.authoritySet![4]);
 
-                              print(index);
-                              print('RoleSet: $_roleSet');
-                              print('AuthoritySet: $_authoritySet');
+                              // print(index);
+                              // print('RoleSet: $_roleSet');
+                              // print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedDeleteIndex.add(index);
                             _authoritySet.add(item.authoritySet![4]);
 
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
+                            // print(index);
+                            // print('RoleSet: $_roleSet');
+                            // print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
@@ -433,9 +433,9 @@ class _AddMemberState extends State<AddMember> {
                 onTap: () {
                   int phoneLength =
                       _teamController.phoneNumberController.text.length;
-                  print('phone length: $phoneLength');
-                  print(
-                      'isEmail: ${GetUtils.isEmail(_teamController.emailController.text)}');
+                  // print('phone length: $phoneLength');
+                  // print(
+                  //     'isEmail: ${GetUtils.isEmail(_teamController.emailController.text)}');
                   if (_teamController.phoneNumberController.text == '' ||
                       _teamController.emailController.text == '') {
                     Get.snackbar('Alert', 'Enter required details to continue!',
@@ -469,8 +469,8 @@ class _AddMemberState extends State<AddMember> {
                       "roleSet": _roleSet,
                       "authoritySet": _authoritySet
                     };
-                    print(
-                        'BusinessId: $value, Team member: ${jsonEncode(inviteTeamMemberData)}');
+                    // print(
+                    //     'BusinessId: $value, Team member: ${jsonEncode(inviteTeamMemberData)}');
 
                     _teamController.inviteTeamMemberOnline(
                         value!, inviteTeamMemberData);
@@ -524,7 +524,7 @@ class _AddMemberState extends State<AddMember> {
         country.toJson();
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }

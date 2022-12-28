@@ -50,7 +50,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
   }
 
   void generatePdf(PdfColor color) async {
-    print("appLog: ${widget.invoice!.toJson()}");
+    // print("appLog: ${widget.invoice!.toJson()}");
     generatedInvoice = await PdfInvoiceApi.generate(widget.invoice!, color);
     setState(() {
       themeColor = color;
@@ -63,14 +63,14 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemporary = File(image.path);
-      print(imageTemporary);
+      // print(imageTemporary);
       setState(
         () {
           this.image = imageTemporary;
         },
       );
     } on PlatformException catch (e) {
-      print('$e');
+      // print('$e');
     }
   }
 
@@ -79,14 +79,14 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
       final imageTemporary = File(image.path);
-      print(imageTemporary);
+      // print(imageTemporary);
       setState(
         () {
           this.image = imageTemporary;
         },
       );
     } on PlatformException catch (e) {
-      print('$e');
+      // print('$e');
     }
   }
 

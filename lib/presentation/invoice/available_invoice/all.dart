@@ -186,7 +186,7 @@ class _AllState extends State<All> {
                           onTap: () {
                             setState(() {
                               deleteItem = !deleteItem;
-                              print(deleteItem);
+                              // print(deleteItem);
                             });
                           },
                           child: Container(
@@ -229,7 +229,7 @@ class _AllState extends State<All> {
                                         .checkifCustomerAvailableWithValue(
                                             item.customerId ?? "");
                                     if (customer == null) {
-                                      print("customer is null");
+                                      // print("customer is null");
                                     }
                                     return Visibility(
                                       child: GestureDetector(
@@ -378,8 +378,8 @@ class _AllState extends State<All> {
                                             _selectedIndex.remove(index);
                                           }
                                         });
-                                        print('selected');
-                                        print(_items.toString());
+                                        // print('selected');
+                                        // print(_items.toString());
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(

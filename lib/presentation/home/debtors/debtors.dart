@@ -298,8 +298,8 @@ class _DebtorsState extends State<Debtors> {
                                   var customer = _customerController
                                       .checkifCustomerAvailableWithValue(
                                           item.customerId ?? "");
-                                  print(
-                                      'Debtors: ${_debtorController.debtorsList.length}, Name: ${item.customerId}');
+                                  // print(
+                                  //     'Debtors: ${_debtorController.debtorsList.length}, Name: ${item.customerId}');
                                   return (customer != null)
                                       ? DebtorListing(
                                           item: item,
@@ -429,8 +429,8 @@ class _DebtorsState extends State<Debtors> {
               Obx(() {
                 return InkWell(
                   onTap: () async {
-                    print('Amount to be updated: ' +
-                        _debtorController.totalAmountController.text);
+                    // print('Amount to be updated: ' +
+                    //     _debtorController.totalAmountController.text);
                     if (_debtorController.customerType == 0) {
                       if (_debtorController.selectedCustomer == null) {
                         Get.snackbar("Error", "Kindly Select a customer");
@@ -891,7 +891,7 @@ class _DebtorListingState extends State<DebtorListing> {
   Widget build(BuildContext context) {
     var customer = _customerController
         .checkifCustomerAvailableWithValue(widget.item!.customerId!);
-    print('Debtors: ${customer!.toJson()}');
+    // print('Debtors: ${customer!.toJson()}');
     // ignore: unnecessary_null_comparison
     if (customer == null) {
       return Container();
@@ -981,8 +981,8 @@ class _DebtorListingState extends State<DebtorListing> {
                         onTap: () {
                           //  print(index);
                           // item.businessTransactionId="6229ab581982280f4fd07cf5";
-                          print(
-                              "business transaction id  is ${widget.item!.businessTransactionId}");
+                          // print(
+                          //     "business transaction id  is ${widget.item!.businessTransactionId}");
                           if (widget.item!.businessTransactionId != null &&
                               widget.item!.businessTransactionId!.isNotEmpty) {
                             final _transactionController =

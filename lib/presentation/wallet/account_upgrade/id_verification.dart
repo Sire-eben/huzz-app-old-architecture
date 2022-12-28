@@ -42,7 +42,7 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
         imageXFile;
       });
     } on PlatformException catch (e) {
-      print(e);
+      // print(e);
     }
   }
 

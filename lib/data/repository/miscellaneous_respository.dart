@@ -62,7 +62,7 @@ class MiscellaneousRepository extends GetxController {
   Future getMiscellaneousOffline() async {
     String value = pref.getMiscellaneous();
     if (value.isNotEmpty) {
-      print("miscellaneous from offline is $value");
+      // print("miscellaneous from offline is $value");
       var json1 = jsonDecode(value);
       var json = json1['data'];
       productTypeList(List.from(json['productTypeList']));

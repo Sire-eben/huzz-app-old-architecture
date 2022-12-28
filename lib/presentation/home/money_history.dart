@@ -83,10 +83,10 @@ class _MoneySummaryState extends State<MoneySummary> {
     transactionModel = _transactionController
         .getTransactionById(widget.item!.businessTransactionId!);
     if (transactionModel != null) {
-      print("transaction result ${transactionModel!.toJson()}");
-      print("transaction is not null");
+      // print("transaction result ${transactionModel!.toJson()}");
+      // print("transaction is not null");
     } else {
-      print("transaction is null");
+      // print("transaction is null");
     }
   }
 
@@ -367,7 +367,7 @@ class _MoneySummaryState extends State<MoneySummary> {
             (transactionModel!.customerId != null)
                 ? Obx(() {
                     if (transactionModel!.customerId != null) {
-                      print("my customer id ${transactionModel!.customerId}");
+                      // print("my customer id ${transactionModel!.customerId}");
                       customer =
                           _customerController.checkifCustomerAvailableWithValue(
                               transactionModel!.customerId!);
@@ -719,8 +719,8 @@ class _MoneySummaryState extends State<MoneySummary> {
                             Expanded(
                               child: GestureDetector(
                                 onTap: () async {
-                                  print(
-                                      "Payment Mode: ${transactionModel!.paymentMethod}");
+                                  // print(
+                                  //     "Payment Mode: ${transactionModel!.paymentMethod}");
                                   Get.to(() => IncomeReceipt(
                                         transaction: transactionModel!,
                                         pageCheck: widget.pageCheck,
@@ -1275,9 +1275,9 @@ class _MoneySummaryState extends State<MoneySummary> {
                   onTap: () async {
                     if (_transactionController.addingTransactionStatus !=
                         AddingTransactionStatus.Loading) {
-                      print('Amount to be updated: ' +
-                          _transactionController.amountController!.text
-                              .replaceAll('₦', ''));
+                      // print('Amount to be updated: ' +
+                      //     _transactionController.amountController!.text
+                      //         .replaceAll('₦', ''));
 
                       var result =
                           await _transactionController.updateTransactionHistory(
@@ -1292,11 +1292,11 @@ class _MoneySummaryState extends State<MoneySummary> {
                               (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
 
                       if (result != null) {
-                        print("result is not null");
+                        // print("result is not null");
                         transactionModel = result;
                         setState(() {});
                       } else {
-                        print("result is null");
+                        // print("result is null");
                       }
                       transactionModel =
                           _transactionController.getTransactionById(

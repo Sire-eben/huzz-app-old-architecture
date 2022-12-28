@@ -28,7 +28,7 @@ class SharePref {
   String read() {
     final key = 'token';
     String value = _preferences!.getString(key)!;
-    print('read: $value');
+    // print('read: $value');
     return value.isEmpty ? "0" : value;
   }
 
@@ -38,7 +38,7 @@ class SharePref {
 
   User? getUser() {
     var user = _preferences!.getString(isLogin);
-    print("user value $user");
+    // print("user value $user");
     if (user != null && user.isNotEmpty) {
       var json = jsonDecode(user);
       User uservalue = User.fromJson(json);
@@ -54,7 +54,7 @@ class SharePref {
 
   bool getFirstTimeOpen() {
     var value = _preferences!.getBool(firstTimeAppOpen);
-    print("Am I a new User?  $value");
+    // print("Am I a new User?  $value");
     return value == null ? true : value;
   }
 

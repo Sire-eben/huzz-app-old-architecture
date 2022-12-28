@@ -110,7 +110,7 @@ class ProductRepository extends GetxController
                 decimalSeparator: '.',
                 thousandSeparator: ',',
                 precision: 1);
-            print("business id ${p0.businessId}");
+            // print("business id ${p0.businessId}");
             _offlineBusinessProduct([]);
             _onlineBusinessProduct([]);
             _productService([]);
@@ -141,7 +141,7 @@ class ProductRepository extends GetxController
       if (productImage != null && productImage != Null) {
         fileId = await _uploadFileController.uploadFile(productImage!.path);
       }
-      print("image link is $fileId");
+      // print("image link is $fileId");
       var response = await http.post(Uri.parse(ApiLink.addProduct),
           body: jsonEncode({
             "name": productNameController.text,
@@ -159,7 +159,7 @@ class ProductRepository extends GetxController
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("add product response ${response.body}");
+      // print("add product response ${response.body}");
       if (response.statusCode == 200) {
         _addingProductStatus(AddingProductStatus.Success);
         getOnlineProduct(
@@ -174,7 +174,7 @@ class ProductRepository extends GetxController
         Get.snackbar("Error", "Unable to add product");
       }
     } catch (ex) {
-      print("adding product error ${ex.toString()}");
+      // print("adding product error ${ex.toString()}");
       Get.snackbar("Error", "Unknown error occurred.. try again");
       _addingProductStatus(AddingProductStatus.Error);
     }
@@ -208,7 +208,7 @@ class ProductRepository extends GetxController
       String basename = path.basename(productImage!.path);
       var newPath = appDocPath + basename;
       // ignore: unnecessary_brace_in_string_interps
-      print("new file path is ${newPath}");
+      // print("new file path is ${newPath}");
       outFile = File(newPath);
       productImage!.copySync(outFile.path);
     }
@@ -225,7 +225,7 @@ class ProductRepository extends GetxController
         description: serviceDescription.text,
         productLogoFileStoreId: outFile == null ? null : outFile.path);
 
-    print("product offline saving ${product.toJson()}");
+    // print("product offline saving ${product.toJson()}");
     _businessController.sqliteDb.insertProduct(product);
     clearValue();
     getOfflineProduct(_businessController.selectedBusiness.value!.businessId!);
@@ -247,7 +247,7 @@ class ProductRepository extends GetxController
       String basename = path.basename(productImage!.path);
       var newPath = appDocPath + basename;
       // ignore: unnecessary_brace_in_string_interps
-      print("new file path is ${newPath}");
+      // print("new file path is ${newPath}");
       outFile = File(newPath);
       productImage!.copySync(outFile.path);
     }
@@ -263,7 +263,7 @@ class ProductRepository extends GetxController
         productLogoFileStoreId:
             outFile == null ? newproduct.productLogoFileStoreId : outFile.path);
 
-    print("product offline saving ${product.toJson()}");
+    // print("product offline saving ${product.toJson()}");
     _businessController.sqliteDb.updateOfflineProdcut(product);
     clearValue();
     Get.off(Confirmation(
@@ -284,12 +284,12 @@ class ProductRepository extends GetxController
 
   Future updateBusinessProductOnline(Product product, String title) async {
     try {
-      print("product name is ${productNameController.text}");
+      // print("product name is ${productNameController.text}");
       _addingProductStatus(AddingProductStatus.Loading);
       // ignore: avoid_init_to_null
       String? fileId = null;
-      print(
-          "selling Product Price ${productSellingPriceController.numberValue}");
+      // print(
+      //     "selling Product Price ${productSellingPriceController.numberValue}");
       if (productImage != null && productImage != Null) {
         fileId = await _uploadFileController.uploadFile(productImage!.path);
       }
@@ -312,7 +312,7 @@ class ProductRepository extends GetxController
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("update product response ${response.body}");
+      // print("update product response ${response.body}");
       if (response.statusCode == 200) {
         _addingProductStatus(AddingProductStatus.Success);
         getOnlineProduct(
@@ -329,7 +329,7 @@ class ProductRepository extends GetxController
       }
     } catch (ex) {
       _addingProductStatus(AddingProductStatus.Error);
-      print("an error has occurred ${ex.toString()}");
+      // print("an error has occurred ${ex.toString()}");
     }
   }
 
@@ -348,17 +348,17 @@ class ProductRepository extends GetxController
   Future getOfflineProduct(String businessId) async {
     try {
       _productStatus(ProductStatus.Loading);
-      print("trying to get product offline");
+      // print("trying to get product offline");
       var result =
           await _businessController.sqliteDb.getOfflineProducts(businessId);
       _offlineBusinessProduct(result);
-      print("offline product found ${result.length}");
+      // print("offline product found ${result.length}");
       setProductDifferent();
       result.isNotEmpty
           ? _productStatus(ProductStatus.Available)
           : _productStatus(ProductStatus.Empty);
     } catch (error) {
-      print(error.toString());
+      // print(error.toString());
       _productStatus(ProductStatus.Error);
     }
   }
@@ -366,12 +366,12 @@ class ProductRepository extends GetxController
   Future getOnlineProduct(String businessId) async {
     try {
       _productStatus(ProductStatus.Loading);
-      print("trying to get product online");
+      // print("trying to get product online");
       final response = await http.get(
           Uri.parse(ApiLink.getBusinessProduct + "?businessId=" + businessId),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      print("result of get product online ${response.body}");
+      // print("result of get product online ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -379,7 +379,7 @@ class ProductRepository extends GetxController
               .map((e) => Product.fromJson(e))
               .toList();
           _onlineBusinessProduct(result);
-          print("product business length ${result.length}");
+          // print("product business length ${result.length}");
           await getBusinessProductYetToBeSavedLocally();
           checkIfUpdateAvailable();
           result.isNotEmpty
@@ -400,7 +400,7 @@ class ProductRepository extends GetxController
   Future getBusinessProductYetToBeSavedLocally() async {
     onlineBusinessProduct.forEach((element) {
       if (!checkifProductAvailable(element.productId!)) {
-        print("does not contain value");
+        // print("does not contain value");
 
         pendingBusinessProduct.add(element);
       }
@@ -413,11 +413,11 @@ class ProductRepository extends GetxController
     onlineBusinessProduct.forEach((element) async {
       var item = checkifProductAvailableWithValue(element.productId!);
       if (item != null) {
-        print("item product is found");
-        print("updated offline ${item.updatedTime!.toIso8601String()}");
-        print("updated online ${element.updatedTime!.toIso8601String()}");
+        // print("item product is found");
+        // print("updated offline ${item.updatedTime!.toIso8601String()}");
+        // print("updated online ${element.updatedTime!.toIso8601String()}");
         if (!element.updatedTime!.isAtSameMomentAs(item.updatedTime!)) {
-          print("found product to updated");
+          // print("found product to updated");
           pendingUpdatedProductList.add(element);
         }
       }
@@ -427,7 +427,7 @@ class ProductRepository extends GetxController
   }
 
   Future setProductDifferent() async {
-    print('getting products');
+    // print('getting products');
     List<Product> goods = [];
     List<Product> services = [];
     dynamic totalproduct = 0.0;
@@ -446,8 +446,8 @@ class ProductRepository extends GetxController
     _productService(services);
     _totalService(totalservice);
     _totalProduct(totalproduct);
-    print("product price $totalproduct");
-    print("service price $totalservice");
+    // print("product price $totalproduct");
+    // print("service price $totalservice");
   }
 
   Future updatePendingJob() async {
@@ -480,9 +480,9 @@ class ProductRepository extends GetxController
   bool checkifProductAvailable(String id) {
     bool result = false;
     offlineBusinessProduct.forEach((element) {
-      print("checking transaction whether exist");
+      // print("checking transaction whether exist");
       if (element.productId == id) {
-        print("product   found");
+        // print("product   found");
         result = true;
       }
     });
@@ -493,9 +493,9 @@ class ProductRepository extends GetxController
     Product? item;
 
     offlineBusinessProduct.forEach((element) {
-      print("checking transaction whether exist");
+      // print("checking transaction whether exist");
       if (element.productId == id) {
-        print("product   found");
+        // print("product   found");
         item = element;
       }
     });
@@ -503,12 +503,12 @@ class ProductRepository extends GetxController
   }
 
   Future deleteProductOnline(Product product) async {
-    print("trying to delete online");
+    // print("trying to delete online");
     var response = await http.delete(
         Uri.parse(ApiLink.addProduct +
             "/${product.productId}?businessId=${product.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
-    print("delete response ${response.body}");
+    // print("delete response ${response.body}");
     if (response.statusCode == 200) {
     } else {
       Get.snackbar("Error", "Error deleting product, try again!");
@@ -540,9 +540,9 @@ class ProductRepository extends GetxController
   bool checkifSelectedForDelted(String id) {
     bool result = false;
     deleteProductList.forEach((element) {
-      print("checking transaction whether exist");
+      // print("checking transaction whether exist");
       if (element.productId == id) {
-        print("product   found");
+        // print("product   found");
         result = true;
       }
     });
@@ -550,7 +550,7 @@ class ProductRepository extends GetxController
   }
 
   Future deleteSelectedItem() async {
-    print("selected for deletion is ${deleteProductList.length}");
+    // print("selected for deletion is ${deleteProductList.length}");
     if (deleteProductList.isEmpty) {
       return;
     }
@@ -588,8 +588,8 @@ class ProductRepository extends GetxController
         pendingToBeAddedProductToServer.add(element);
       }
 
-      print(
-          "product available for uploading to server ${pendingToBeAddedProductToServer.length}");
+      // print(
+      //     "product available for uploading to server ${pendingToBeAddedProductToServer.length}");
     });
     addPendingJobProductToServer();
   }
@@ -641,7 +641,7 @@ class ProductRepository extends GetxController
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-      print("pendong uploading response ${response.body}");
+      // print("pendong uploading response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -691,7 +691,7 @@ class ProductRepository extends GetxController
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("update Customer response ${response.body}");
+      // print("update Customer response ${response.body}");
       if (response.statusCode == 200) {
         getOnlineProduct(
             _businessController.selectedBusiness.value!.businessId!);
@@ -712,7 +712,7 @@ class ProductRepository extends GetxController
           Uri.parse(ApiLink.addProduct +
               "/${deletenext.productId}?businessId=${deletenext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
-      print("delete response ${response.body}");
+      // print("delete response ${response.body}");
       if (response.statusCode == 200) {
         _businessController.sqliteDb.deleteProduct(deletenext);
         getOfflineProduct(

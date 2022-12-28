@@ -377,10 +377,10 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               'UPDATE_DEBTOR'))
                                                   ? InkWell(
                                                       onTap: () {
-                                                        print(index);
+                                                        // print(index);
                                                         // item.businessTransactionId="6229ab581982280f4fd07cf5";
-                                                        print(
-                                                            "business transaction id  is ${item.businessTransactionId}");
+                                                        // print(
+                                                        //     "business transaction id  is ${item.businessTransactionId}");
                                                         if (item.businessTransactionId !=
                                                                 null &&
                                                             item.businessTransactionId!

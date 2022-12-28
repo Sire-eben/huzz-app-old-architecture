@@ -219,7 +219,7 @@ class _SendOtpState extends State<SendOtp> {
                             ),
                             icon: Icon(Icons.info,
                                 color: AppColors.orangeBorderColor));
-                        print('phone cannot be empty');
+                        // print('phone cannot be empty');
                       } else if (_authController
                               .phoneNumberController.text.length >
                           10) {
@@ -232,7 +232,7 @@ class _SendOtpState extends State<SendOtp> {
                             ),
                             icon: Icon(Icons.info,
                                 color: AppColors.orangeBorderColor));
-                        print('phone cannot be empty');
+                        // print('phone cannot be empty');
                       } else {
                         // _authController.sendSmsOtp();
                         // _homeController.selectOnboardSelectedNext();
@@ -313,7 +313,7 @@ class _SendOtpState extends State<SendOtp> {
         country.toJson();
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }

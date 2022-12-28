@@ -29,7 +29,7 @@ class _CustomersState extends State<Customers> {
   final _businessController = Get.find<BusinessRespository>();
 
   void searchItem(String val) {
-    print("search text $val");
+    // print("search text $val");
     searchtext = val;
     setState(() {});
 
@@ -47,7 +47,7 @@ class _CustomersState extends State<Customers> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() {
-        print(teamController.teamMember.toJson());
+        // print(teamController.teamMember.toJson());
         final value = _businessController.selectedBusiness.value;
         return teamController.teamMembersStatus == TeamMemberStatus.Loading
             ? Center(

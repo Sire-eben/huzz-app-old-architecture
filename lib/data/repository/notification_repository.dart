@@ -25,7 +25,7 @@ class NotificationRepository extends GetxController {
   void onInit() async {
     super.onInit();
     controller.Mtoken.listen((p0) {
-      print("getting push notification");
+      // print("getting push notification");
       setupInteractedMessage();
       sendFCMTokenToServer();
     });
@@ -52,9 +52,9 @@ class NotificationRepository extends GetxController {
       print('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
+      // print('User granted provisional permission');
     } else {
-      print('User declined or has not accepted permission');
+      // print('User declined or has not accepted permission');
     }
   }
 
@@ -75,7 +75,7 @@ class NotificationRepository extends GetxController {
     // Stream listener
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
     FirebaseMessaging.onMessage.listen((event) {
-      print("new message gotten ${event.data}");
+      // print("new message gotten ${event.data}");
 
       RemoteNotification? notification = event.notification;
       AndroidNotification? android = event.notification!.android;
@@ -99,13 +99,13 @@ class NotificationRepository extends GetxController {
   }
 
   void _handleMessage(RemoteMessage message) {
-    print("message is gotten ${message.toString()}");
+    // print("message is gotten ${message.toString()}");
   }
 
   Future sendFCMTokenToServer() async {
-    print("trying to get the fcm");
+    // print("trying to get the fcm");
     String? token = await messaging.getToken();
-    print("user phone token $token");
+    // print("user phone token $token");
 
     final resposne = await http.put(Uri.parse(ApiLink.updateProfile),
         body: jsonEncode({
@@ -118,7 +118,7 @@ class NotificationRepository extends GetxController {
           "Authorization": "Bearer ${controller.token}"
         });
 
-    print("update token ${resposne.body}");
+    // print("update token ${resposne.body}");
     // var response = await http.post(
     //     Uri.parse(
     //         "http://foodgital2.herokuapp.com/notification/activate-user-notification"),

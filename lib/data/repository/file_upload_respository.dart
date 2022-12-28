@@ -16,7 +16,7 @@ class FileUploadRespository extends GetxController {
         contentType: new MediaType('image', 'jpeg')));
     var streamResponse = await request.send();
     String result = await streamResponse.stream.transform(Utf8Decoder()).single;
-    print("uploaded file output $result");
+    // print("uploaded file output $result");
 
     if (streamResponse.statusCode == 200) {
       var json = jsonDecode(result);

@@ -25,9 +25,9 @@ class _ForgotPINState extends State<ForgotPIN> {
   String countryCode = "234";
 
   void initState() {
-    print('Referral deeplink: ${_authController.hasReferralDeeplink.value}');
-    print(
-        'Team Invite deeplink: ${_authController.hasTeamInviteDeeplink.value}');
+    // print('Referral deeplink: ${_authController.hasReferralDeeplink.value}');
+    // print(
+    //     'Team Invite deeplink: ${_authController.hasTeamInviteDeeplink.value}');
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
@@ -264,10 +264,10 @@ class _ForgotPINState extends State<ForgotPIN> {
         final currency = CountryPickerUtils.getCountryByIsoCode(countryFlag)
             .currencyCode
             .toString();
-        print("currency of country is $currency");
+        // print("currency of country is $currency");
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }

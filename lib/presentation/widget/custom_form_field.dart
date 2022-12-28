@@ -946,7 +946,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
         country.toJson();
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }
@@ -1331,7 +1331,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
         country.toJson();
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }
@@ -1442,7 +1442,7 @@ class _CustomTextFieldWithImageTransactionState
                         SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
-                            print("contact should show");
+                            // print("contact should show");
                             await _customerController
                                 .showContactPicker(context);
                           },
@@ -1679,7 +1679,7 @@ class _CustomTextFieldWithImageTransactionState
         country.toJson();
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }
@@ -1781,7 +1781,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
-                            print("contact should show");
+                            // print("contact should show");
                             await _customerController
                                 .showContactPicker(context);
                             // Contact contact =
@@ -1800,7 +1800,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
-                            print("contact should show");
+                            // print("contact should show");
                             await _customerController
                                 .showContactPicker(context);
                             // Contact contact =
@@ -2141,7 +2141,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
         country.toJson();
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }

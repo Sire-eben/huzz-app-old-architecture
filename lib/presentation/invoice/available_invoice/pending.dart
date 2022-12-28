@@ -76,7 +76,7 @@ class _PendingState extends State<Pending> {
                           onTap: () {
                             setState(() {
                               deleteItem = !deleteItem;
-                              print(deleteItem);
+                              // print(deleteItem);
                             });
                           },
                           child: Container(
@@ -264,8 +264,8 @@ class _PendingState extends State<Pending> {
                                             _selectedIndex.remove(index);
                                           }
                                         });
-                                        print('selected');
-                                        print(_items.toString());
+                                        // print('selected');
+                                        // print(_items.toString());
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(

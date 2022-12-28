@@ -637,7 +637,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                               null;
                                           myState(() => _invoiceController
                                               .selectedValue = 0);
-                                          print("item is select");
+                                          // print("item is select");
                                         }),
                                     Text(
                                       'Select Item',
@@ -667,7 +667,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   child: CustomTextField(
                                     label: "Item Name",
                                     onChanged: (value) {
-                                      print("value is $value");
+                                      // print("value is $value");
                                       myState(() {});
                                     },
                                     validatorText: "Item name is needed",
@@ -689,7 +689,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                             hint: '${Utils.getCurrency()} 0.00',
                                             validatorText: "Amount is needed",
                                             onChanged: (value) {
-                                              print("value is $value");
+                                              // print("value is $value");
                                               myState(() {});
                                             },
                                             textEditingController:
@@ -717,7 +717,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                                 : TextInputType.number,
                                             validatorText: "Quantity is needed",
                                             onChanged: (value) {
-                                              print("value is $value");
+                                              // print("value is $value");
                                               myState(() {});
                                             },
                                             onSubmited: (value) {
@@ -855,7 +855,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 GestureDetector(
                     onTap: () {
-                      print("New Item is selected");
+                      // print("New Item is selected");
 
                       if (_invoiceController.productList.length >= 2 ||
                           _invoiceController.selectedProduct != null ||
@@ -1238,7 +1238,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         country.toJson();
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }

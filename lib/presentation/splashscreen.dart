@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } else if (_controller.authStatus == AuthStatus.Authenticated) {
       if (_controller.user!.businessList!.isEmpty ||
           _controller.user!.businessList!.length == 0) {
-        print('Business List: ${_controller.user!.businessList!.length}');
+        // print('Business List: ${_controller.user!.businessList!.length}');
         Get.off(() => CreateBusiness());
       } else {
         _controller.checkTeamInvite();

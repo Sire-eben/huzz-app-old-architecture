@@ -59,9 +59,9 @@ class BusinessRespository extends GetxController {
     await pref!.init();
 
     _userController.Mtoken.listen((p0) {
-      print("available token is $p0");
+      // print("available token is $p0");
       if (p0.isNotEmpty || p0 != "0") {
-        print("trying to get online business since is the token is valid");
+      // print("trying to get online business since is the token is valid");
         OnlineBusiness();
       }
     });
@@ -85,17 +85,17 @@ class BusinessRespository extends GetxController {
     _businessStatus(BusinessStatus.Loading);
     businessListFromServer.clear();
     offlineBusiness.clear();
-    print("get online business is token ${_userController.token} ");
+    // print("get online business is token ${_userController.token} ");
     var response = await http.get(Uri.parse(ApiLink.getUserBusiness),
         headers: {"Authorization": "Bearer ${_userController.token}"});
 
-    print("online business result ${response.body}");
+    // print("online business result ${response.body}");
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       if (json['success']) {
         var result = List.from(json['data']).map((e) => Business.fromJson(e));
         businessListFromServer.addAll(result);
-        print("online data business length ${result.length}");
+        // print("online data business length ${result.length}");
         onlineBusinessLength(result.length);
         result.isNotEmpty
             ? _businessStatus(BusinessStatus.Available)
@@ -120,12 +120,12 @@ class BusinessRespository extends GetxController {
         var json = jsonDecode(response.body);
         if (json['success']) {
           var result = List.from(json['data']).map((e) => Business.fromJson(e));
-          print("online data business length ${result.length}");
+          // print("online data business length ${result.length}");
           onlineBusinessLength(result.length);
         }
       }
     } catch (error) {
-      print(error.toString());
+      // print(error.toString());
     }
   }
 
@@ -133,7 +133,7 @@ class BusinessRespository extends GetxController {
     bool result = false;
     offlineBusiness.forEach((element) {
       if (element.businessId == id) {
-        print("business  found");
+        // print("business  found");
         result = true;
       }
     });
@@ -144,9 +144,9 @@ class BusinessRespository extends GetxController {
     Business? item;
 
     offlineBusiness.forEach((element) {
-      print("checking transaction whether exist");
+      // print("checking transaction whether exist");
       if (element.businessId == id) {
-        print("Customer   found");
+        // print("Customer   found");
         item = element.business;
       }
     });
@@ -157,11 +157,11 @@ class BusinessRespository extends GetxController {
     businessListFromServer.forEach((element) async {
       var item = checkifBusinessAvailableWithValue(element.businessId!);
       if (item != null) {
-        print("item Customer is found");
-        print("updated offline ${item.updatedTime!.toIso8601String()}");
-        print("updated online ${element.updatedTime!.toIso8601String()}");
+        // print("item Customer is found");
+        // print("updated offline ${item.updatedTime!.toIso8601String()}");
+        // print("updated online ${element.updatedTime!.toIso8601String()}");
         if (!element.updatedTime!.isAtSameMomentAs(item.updatedTime!)) {
-          print("found Customer to updated");
+          // print("found Customer to updated");
           pendingUpdatedBusinessList.add(OfflineBusiness(
               business: element, businessId: element.businessId));
         }
@@ -186,7 +186,7 @@ class BusinessRespository extends GetxController {
 
   Future setBusinessList(List<Business> list) async {
     businessListFromServer.addAll(list);
-    print("online data business lenght ${list.length}");
+    // print("online data business lenght ${list.length}");
     getBusinessYetToBeSavedLocally();
   }
 
@@ -196,7 +196,7 @@ class BusinessRespository extends GetxController {
 
     businessListFromServer.forEach((element) {
       if (!checkifBusinessAvailable(element.businessId!)) {
-        print("does not contain value");
+        // print("does not contain value");
         var re =
             OfflineBusiness(businessId: element.businessId, business: element);
         pendingJob.add(re);
@@ -221,9 +221,9 @@ class BusinessRespository extends GetxController {
 
   Future GetOfflineBusiness() async {
     var results = await sqliteDb.getOfflineBusinesses();
-    print("offline business ${results.length}");
+    // print("offline business ${results.length}");
     offlineBusinessLength(results.length);
-    print("selected business is ${selectedBusiness.value}");
+    // print("selected business is ${selectedBusiness.value}");
     _offlineBusiness(results);
     if (selectedBusiness.value == null ||
         selectedBusiness.value!.businessId == null) if (results.isNotEmpty) {
@@ -237,7 +237,7 @@ class BusinessRespository extends GetxController {
   }
 
   Future createBusiness() async {
-    print("token ${_userController.token}");
+    // print("token ${_userController.token}");
     try {
       _createBusinessStatus(CreateBusinessStatus.Loading);
       final currency = CountryPickerUtils.getCountryByIsoCode(
@@ -266,7 +266,7 @@ class BusinessRespository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("create business response ${response.body}");
+      // print("create business response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -299,7 +299,7 @@ class BusinessRespository extends GetxController {
   }
 
   Future updateBusiness(String selectedCurrency) async {
-    print("token ${_userController.token}");
+    // print("token ${_userController.token}");
 
     try {
       _updateBusinessStatus(UpdateBusinessStatus.Loading);
@@ -331,7 +331,7 @@ class BusinessRespository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("Update business response ${response.body}");
+      // print("Update business response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {

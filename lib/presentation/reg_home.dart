@@ -100,7 +100,7 @@ class _RegHome extends State<RegHome> {
                     itemBuilder: (_, index) {
                       return GestureDetector(
                         onTap: () {
-                          print("index number is $index");
+                          // print("index number is $index");
                           if (index <=
                               _homeController.onboardingRegSelectedIndex)
                             _homeController.gotoIndex(index);

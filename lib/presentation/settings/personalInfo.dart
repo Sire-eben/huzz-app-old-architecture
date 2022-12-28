@@ -284,7 +284,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
         country.toJson();
         setState(() {});
 
-        print('Select country: ${country.toJson()}');
+        // print('Select country: ${country.toJson()}');
       },
     );
   }
@@ -355,13 +355,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   enableActiveFill: true,
                   errorAnimationController: otpErrorController,
                   onCompleted: (v) {
-                    print("Completed");
+                    // print("Completed");
                   },
                   onChanged: (value) {
-                    print(value);
+                    // print(value);
                   },
                   beforeTextPaste: (text) {
-                    print("Allowing to paste $text");
+                    // print("Allowing to paste $text");
                     return true;
                   },
                   appContext: context,

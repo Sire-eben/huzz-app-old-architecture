@@ -26,10 +26,10 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
     controller.checkTeamInvite();
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
-    print('BusinessId: $value');
+    // print('BusinessId: $value');
     busName = _businessController.selectedBusiness.value!.businessName;
     final teamId = _businessController.selectedBusiness.value!.teamId;
-    print('Business TeamId: $teamId');
+    // print('Business TeamId: $teamId');
     shareBusinessIdLink(value.toString());
   }
 
@@ -56,12 +56,12 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
         );
         final shortLink = await dynamicLinks.buildShortLink(parameters);
         teamInviteLink = shortLink.shortUrl.toString();
-        print('invite link: $teamInviteLink');
+        // print('invite link: $teamInviteLink');
         setState(() {
           isLoadingTeamInviteLink = false;
         });
       } catch (error) {
-        print(error.toString());
+        // print(error.toString());
         setState(() {
           isLoadingTeamInviteLink = false;
         });
@@ -127,7 +127,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
               Spacer(),
               InkWell(
                 onTap: () {
-                  print(teamInviteLink);
+                  // print(teamInviteLink);
                   Share.share(
                       'You have been invited to manage $busName on Huzz. Click this: ${teamInviteLink!}',
                       subject: 'Share team invite link');

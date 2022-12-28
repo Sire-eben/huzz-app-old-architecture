@@ -77,7 +77,7 @@ class CustomerRepository extends GetxController {
         }
         _businessController.selectedBusiness.listen((p0) async {
           if (p0 != null && p0.businessId != null) {
-            print("business id ${p0.businessId}");
+            // print("business id ${p0.businessId}");
             _offlineBusinessCustomer([]);
 
             _onlineBusinessCustomer([]);
@@ -105,15 +105,15 @@ class CustomerRepository extends GetxController {
   }
 
   Future getPhoneContact() async {
-    print("trying phone contact list");
+    // print("trying phone contact list");
     try {
       if (await FlutterContacts.requestPermission()) {
         contactList = await FlutterContacts.getContacts(
             withProperties: true, withPhoto: false);
-        print("phone contacts ${contactList.length}");
+        // print("phone contacts ${contactList.length}");
       }
     } catch (ex) {
-      print("contact error is ${ex.toString()}");
+      // print("contact error is ${ex.toString()}");
     }
   }
 
@@ -157,7 +157,7 @@ class CustomerRepository extends GetxController {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-      print("customer adding response ${response.body}");
+      // print("customer adding response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -178,7 +178,7 @@ class CustomerRepository extends GetxController {
         Get.snackbar("Error", "Unable to add customer");
       }
     } catch (ex) {
-      print("error occurred ${ex.toString()}");
+      // print("error occurred ${ex.toString()}");
       _addingCustomerStatus(AddingCustomerStatus.Error);
       Get.snackbar("Error", "Unknown error occurred.. try again");
     }
@@ -186,8 +186,10 @@ class CustomerRepository extends GetxController {
 
   Future<String?> addBusinessCustomerWithString(String transactionType) async {
     try {
-      print(
-          "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
+      /**
+        print(
+            "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
+      */
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
           body: jsonEncode({
             "email": emailController.text,
@@ -201,7 +203,7 @@ class CustomerRepository extends GetxController {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-      print("adding customer response ${response.body}");
+      // print("adding customer response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -224,15 +226,17 @@ class CustomerRepository extends GetxController {
   Future<String?> addBusinessCustomerWithStringWithValue(
       Customer customer) async {
     try {
-      print(
-          "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
+      /**
+        print(
+            "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
+      */
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
           body: jsonEncode(customer.toJson()),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-      print("adding customer response ${response.body}");
+      // print("adding customer response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -315,7 +319,7 @@ class CustomerRepository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("update Customer response ${response.body}");
+      // print("update Customer response ${response.body}");
       if (response.statusCode == 200) {
         _addingCustomerStatus(AddingCustomerStatus.Success);
         getOnlineCustomer(
@@ -352,7 +356,7 @@ class CustomerRepository extends GetxController {
           await _businessController.sqliteDb.getOfflineCustomers(businessId);
       var list = result.where((c) => c.deleted == false).toList();
       _offlineBusinessCustomer(list);
-      print("offline Customer found ${result.length}");
+      // print("offline Customer found ${result.length}");
       setCustomerDifferent();
       list.isNotEmpty
           ? _customerStatus(CustomerStatus.Available)
@@ -366,7 +370,7 @@ class CustomerRepository extends GetxController {
   Future getOnlineCustomer(String businessId) async {
     try {
       _customerStatus(CustomerStatus.Loading);
-      print("trying to get Customer online for $businessId");
+      // print("trying to get Customer online for $businessId");
 
       final response = await http.get(
           Uri.parse(ApiLink.getBusinessCustomer +
@@ -382,7 +386,7 @@ class CustomerRepository extends GetxController {
               '&businessTransactionType=EXPENDITURE'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      print("result of get Customer online ${response.body}");
+      // print("result of get Customer online ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         var json1 = jsonDecode(response1.body);
@@ -410,15 +414,15 @@ class CustomerRepository extends GetxController {
       }
     } catch (error) {
       _customerStatus(CustomerStatus.Error);
-      print(error.toString());
+      // print(error.toString());
     }
   }
 
   Future getBusinessCustomerYetToBeSavedLocally() async {
     onlineBusinessCustomer.forEach((element) {
-      print("value is customer id is${element.customerId}");
+      // print("value is customer id is${element.customerId}");
       if (!checkifCustomerAvailable(element.customerId!)) {
-        print("doesnt contain value");
+        // print("doesnt contain value");
 
         pendingBusinessCustomer.add(element);
       }
@@ -431,11 +435,11 @@ class CustomerRepository extends GetxController {
     onlineBusinessCustomer.forEach((element) async {
       var item = checkifCustomerAvailableWithValue(element.customerId!);
       if (item != null) {
-        print("item Customer is found");
-        print("updated offline ${item.updatedTime!.toIso8601String()}");
-        print("updated online ${element.updatedTime!.toIso8601String()}");
+        // print("item Customer is found");
+        // print("updated offline ${item.updatedTime!.toIso8601String()}");
+        // print("updated online ${element.updatedTime!.toIso8601String()}");
         if (!element.updatedTime!.isAtSameMomentAs(item.updatedTime!)) {
-          print("found Customer to updated");
+          // print("found Customer to updated");
           pendingUpdatedCustomerList.add(element);
         }
       }
@@ -499,9 +503,9 @@ class CustomerRepository extends GetxController {
   bool checkifCustomerAvailable(String id) {
     bool result = false;
     offlineBusinessCustomer.forEach((element) {
-      print("checking transaction whether exist");
+      // print("checking transaction whether exist");
       if (element.customerId == id) {
-        print("Customer   found");
+        // print("Customer   found");
         result = true;
       }
     });
@@ -512,12 +516,12 @@ class CustomerRepository extends GetxController {
     Customer? item;
 
     offlineBusinessCustomer.forEach((element) {
-      print("checking customer whether exist");
+      // print("checking customer whether exist");
       if (element.customerId == id) {
-        print("Customer   found");
+        // print("Customer   found");
         item = element;
       } else {
-        print("customer not found");
+        // print("customer not found");
       }
     });
     return item;
@@ -528,7 +532,7 @@ class CustomerRepository extends GetxController {
         Uri.parse(ApiLink.add_customer +
             "/${customer.customerId}?businessId=${customer.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
-    print("delete response ${response.body}");
+    // print("delete response ${response.body}");
     if (response.statusCode == 200) {
       _businessController.sqliteDb.deleteCustomer(customer);
       getOfflineCustomer(
@@ -556,9 +560,9 @@ class CustomerRepository extends GetxController {
   bool checkifSelectedForDelted(String id) {
     bool result = false;
     deleteCustomerList.forEach((element) {
-      print("checking transaction whether exist");
+      // print("checking transaction whether exist");
       if (element.customerId == id) {
-        print("Customer   found");
+        // print("Customer   found");
         result = true;
       }
     });
@@ -566,19 +570,21 @@ class CustomerRepository extends GetxController {
   }
 
   Future checkPendingCustomerToBeAddedToSever() async {
-    print("checking customer that is pending to be added");
+    // print("checking customer that is pending to be added");
 
     var list = await _businessController.sqliteDb.getOfflineCustomers(
         _businessController.selectedBusiness.value!.businessId!);
-    print("offline customer lenght ${list.length}");
+    // print("offline customer lenght ${list.length}");
     list.forEach((element) {
       if (element.isAddingPending!) {
         pendingJobToBeAdded.add(element);
-        print("item is found to be added");
+        // print("item is found to be added");
       }
     });
-    print(
-        "number of customer to be added to server ${pendingJobToBeAdded.length}");
+    /**
+      print(
+          "number of customer to be added to server ${pendingJobToBeAdded.length}");
+    */
     addPendingJobCustomerToServer();
   }
 
@@ -595,17 +601,17 @@ class CustomerRepository extends GetxController {
   }
 
   Future checkPendingCustomerToBeDeletedOnServer() async {
-    print("checking customer to be deleted");
+    // print("checking customer to be deleted");
     var list = await _businessController.sqliteDb.getOfflineCustomers(
         _businessController.selectedBusiness.value!.businessId!);
-    print("checking customer to be deleted list ${list.length}");
+    // print("checking customer to be deleted list ${list.length}");
     list.forEach((element) {
       if (element.deleted!) {
         pendingJobToBeDelete.add(element);
-        print("Customer to be deleted is found ");
+        // print("Customer to be deleted is found ");
       }
     });
-    print("customer to be deleted ${pendingJobToBeDelete.length}");
+    // print("customer to be deleted ${pendingJobToBeDelete.length}");
     deletePendingJobToServer();
   }
 
@@ -635,7 +641,7 @@ class CustomerRepository extends GetxController {
             _businessController.selectedBusiness.value!.businessId!);
 
         _businessController.sqliteDb.deleteCustomer(savenext);
-        print("pending to be added is delete");
+        // print("pending to be added is delete");
         return json['data']['id'];
       }
     }
@@ -667,7 +673,7 @@ class CustomerRepository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("update Customer response ${response.body}");
+      // print("update Customer response ${response.body}");
       if (response.statusCode == 200) {
         _addingCustomerStatus(AddingCustomerStatus.Success);
         getOnlineCustomer(
@@ -689,7 +695,7 @@ class CustomerRepository extends GetxController {
           Uri.parse(ApiLink.add_customer +
               "/${deletenext.customerId}?businessId=${deletenext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
-      print("previous deleted response ${response.body}");
+      // print("previous deleted response ${response.body}");
       if (response.statusCode == 200) {
         _businessController.sqliteDb.deleteCustomer(deletenext);
         getOfflineCustomer(
@@ -706,7 +712,7 @@ class CustomerRepository extends GetxController {
             Uri.parse(ApiLink.add_customer +
                 "/${deletenext.customerId}?businessId=${deletenext.businessId}"),
             headers: {"Authorization": "Bearer ${_userController.token}"});
-        print("previous deleted response ${response.body}");
+        // print("previous deleted response ${response.body}");
         if (response.statusCode == 200) {
           _businessController.sqliteDb.deleteCustomer(deletenext);
           getOfflineCustomer(
@@ -763,7 +769,7 @@ class CustomerRepository extends GetxController {
   }
 
   Future showContactPicker(BuildContext context) async {
-    print("contact picker is selected");
+    // print("contact picker is selected");
     _searchtext("");
     _searchResult([]);
     await showModalBottomSheet(
@@ -793,7 +799,7 @@ class CustomerRepository extends GetxController {
     contactList.forEach((element) {
       if (element.displayName.isNotEmpty &&
           element.displayName.toLowerCase().contains(val.toLowerCase())) {
-        print("contact found");
+        // print("contact found");
         list.add(element);
       }
     });
@@ -802,7 +808,7 @@ class CustomerRepository extends GetxController {
   }
 
   Widget buildSelectContact(BuildContext context) {
-    print("contact on phone ${contactList.length}");
+    // print("contact on phone ${contactList.length}");
     return Obx(() {
       return Container(
         padding: EdgeInsets.only(
@@ -973,7 +979,7 @@ class CustomerRepository extends GetxController {
   }
 
   Widget buildSelectTeam(BuildContext context) {
-    print("contact on phone ${contactList.length}");
+    // print("contact on phone ${contactList.length}");
     return Obx(() {
       return Container(
         padding: EdgeInsets.only(
