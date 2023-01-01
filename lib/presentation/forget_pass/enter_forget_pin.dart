@@ -21,6 +21,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
   StreamController<ErrorAnimationType>? pinErrorController;
   StreamController<ErrorAnimationType>? errorController;
   final _authController = Get.find<AuthRepository>();
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
@@ -42,14 +43,14 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
 
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   height: 100,
                   width: MediaQuery.of(context).size.width,
                   child: Stack(
@@ -64,7 +65,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                           onTap: () {
                             Get.back();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back,
                             color: AppColors.backgroundColor,
                           ),
@@ -78,11 +79,11 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                         color: AppColors.orangeBorderColor,
                         fontSize: 28,
                         fontWeight: FontWeight.w500)),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 50, right: 50),
+                  margin: const EdgeInsets.only(left: 50, right: 50),
                   child: Text(
                     'Enter  the four digit code we sent to your phone number',
                     textAlign: TextAlign.center,
@@ -90,12 +91,12 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                         fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       left: 20,
                     ),
                     child: Text(
@@ -106,11 +107,11 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                         fontWeight: FontWeight.w600,
                       ),
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: PinCodeTextField(
                       controller: _authController.forgotOtpController,
@@ -129,7 +130,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                         fieldWidth: 50,
                         activeFillColor: Colors.white,
                       ),
-                      animationDuration: Duration(milliseconds: 300),
+                      animationDuration: const Duration(milliseconds: 300),
                       backgroundColor: Colors.white,
                       enableActiveFill: true,
                       errorAnimationController: errorController,
@@ -153,7 +154,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TimerButton(
@@ -172,7 +173,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   label: "Resend via sms",
                   timeOutInSeconds: 20,
                   activeTextStyle:
-                      GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
+                      GoogleFonts.inter(color: const Color(0xffEF6500), fontSize: 12),
                   onPressed: () {
                     _authController.sendSmsOtp(isresend: true);
                   },
@@ -180,11 +181,11 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   disabledColor: Colors.white,
                   color: Colors.transparent,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       left: 20,
                     ),
                     child: Text(
@@ -195,11 +196,11 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                         fontWeight: FontWeight.w600,
                       ),
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: PinCodeTextField(
                       controller: _authController.forgetpinController,
@@ -218,7 +219,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                         fieldWidth: 50,
                         activeFillColor: Colors.white,
                       ),
-                      animationDuration: Duration(milliseconds: 300),
+                      animationDuration: const Duration(milliseconds: 300),
                       backgroundColor: Colors.white,
                       enableActiveFill: true,
                       errorAnimationController: pinErrorController,
@@ -242,24 +243,25 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                     ),
                   ),
                 ),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 Obx(() {
                   return GestureDetector(
                     onTap: () {
                       if (_authController.Otpforgotverifystatus !=
-                          OtpForgotVerifyStatus.Loading)
+                          OtpForgotVerifyStatus.Loading) {
                         _authController.verifyForgotOpt();
+                      }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(left: 50, right: 50),
+                      margin: const EdgeInsets.only(left: 50, right: 50),
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_authController.Otpforgotverifystatus ==
                               OtpForgotVerifyStatus.Loading)
-                          ? Container(
+                          ? const SizedBox(
                               width: 30,
                               height: 30,
                               child: Center(
@@ -275,16 +277,16 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                                   style: GoogleFonts.inter(
                                       color: Colors.white, fontSize: 18),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Container(
-                                  padding: EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
+                                  padding: const EdgeInsets.all(3),
+                                  decoration: const BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(50))),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.arrow_forward,
                                     color: AppColors.backgroundColor,
                                     size: 16,
@@ -295,7 +297,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                     ),
                   );
                 }),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 )
               ]),
