@@ -11,11 +11,14 @@ import 'package:huzz/presentation/forget_pass/forgot_pin.dart';
 import 'package:huzz/presentation/reg_home.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class Signin extends StatefulWidget {
-  _SiginState createState() => _SiginState();
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
+
+  @override
+  _SigInState createState() => _SigInState();
 }
 
-class _SiginState extends State<Signin> {
+class _SigInState extends State<SignIn> {
   final _authController = Get.find<AuthRepository>();
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
@@ -23,6 +26,7 @@ class _SiginState extends State<Signin> {
   String countryFlag = "NG";
   String countryCode = "234";
 
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     _authController.pinController = TextEditingController();
@@ -42,7 +46,7 @@ class _SiginState extends State<Signin> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
@@ -325,7 +329,9 @@ class _SiginState extends State<Signin> {
                             color: AppColors.orangeBorderColor));
                     // print('phone cannot be empty');
                   } else if (_authController.signinStatus !=
-                      SigninStatus.Loading) _authController.signIn();
+                      SigninStatus.Loading) {
+                    _authController.signIn();
+                  }
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
@@ -335,10 +341,10 @@ class _SiginState extends State<Signin> {
                       color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: (_authController.signinStatus == SigninStatus.Loading)
-                      ? Container(
+                      ? const SizedBox(
                           width: 30,
                           height: 30,
-                          child: const Center(
+                          child: Center(
                               child: CircularProgressIndicator(
                                   color: Colors.white)),
                         )

@@ -9,6 +9,9 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CreatePin extends StatefulWidget {
+  const CreatePin({super.key});
+
+  @override
   _CreatePinState createState() => _CreatePinState();
 }
 
@@ -16,6 +19,7 @@ class _CreatePinState extends State<CreatePin> {
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
   final _authController = Get.find<AuthRepository>();
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     _authController.pinController = TextEditingController();
@@ -36,14 +40,14 @@ class _CreatePinState extends State<CreatePin> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       resizeToAvoidBottomInset: false,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 height: 70,
                 width: MediaQuery.of(context).size.width,
                 child: Stack(
@@ -63,7 +67,7 @@ class _CreatePinState extends State<CreatePin> {
                           //   Get.back();
                           // }
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back,
                           color: AppColors.backgroundColor,
                         ),
@@ -79,7 +83,7 @@ class _CreatePinState extends State<CreatePin> {
                         fontSize: 28,
                         fontWeight: FontWeight.w500)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 2,
               ),
               Center(
@@ -90,7 +94,7 @@ class _CreatePinState extends State<CreatePin> {
                       fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Center(
@@ -102,12 +106,12 @@ class _CreatePinState extends State<CreatePin> {
                   fontWeight: FontWeight.w400,
                 ),
               )),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
-                margin: EdgeInsets.only(top: 5),
+                margin: const EdgeInsets.only(top: 5),
                 child: PinCodeTextField(
                   length: 4,
                   obscureText: true,
@@ -125,7 +129,7 @@ class _CreatePinState extends State<CreatePin> {
                     fieldWidth: 50,
                     activeFillColor: Colors.white,
                   ),
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                   backgroundColor: Colors.white,
                   enableActiveFill: true,
                   errorAnimationController: errorController,
@@ -148,7 +152,7 @@ class _CreatePinState extends State<CreatePin> {
                   appContext: context,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -162,7 +166,7 @@ class _CreatePinState extends State<CreatePin> {
               )),
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
-                margin: EdgeInsets.only(top: 5),
+                margin: const EdgeInsets.only(top: 5),
                 child: PinCodeTextField(
                   length: 4,
                   obscureText: true,
@@ -180,7 +184,7 @@ class _CreatePinState extends State<CreatePin> {
                     fieldWidth: 50,
                     activeFillColor: Colors.white,
                   ),
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                   backgroundColor: Colors.white,
                   enableActiveFill: true,
                   // errorAnimationController: errorController,
@@ -203,20 +207,20 @@ class _CreatePinState extends State<CreatePin> {
                   appContext: context,
                 ),
               ),
-              Expanded(child: SizedBox()),
+              const Expanded(child: SizedBox()),
               Obx(() {
                 return GestureDetector(
                   onTap: () {
                     if (_authController.pinController == '' ||
                         _authController.confirmPinController.text == '') {
                       Get.snackbar('Alert', 'Enter your pin to continue!',
-                          titleText: Text(
+                          titleText: const Text(
                             'Alert',
                           ),
-                          messageText: Text(
+                          messageText: const Text(
                             'Enter your pin to continue!',
                           ),
-                          icon: Icon(Icons.info,
+                          icon: const Icon(Icons.info,
                               color: AppColors.orangeBorderColor));
                       // print('pin cannot be empty');
                     } else {
@@ -233,14 +237,14 @@ class _CreatePinState extends State<CreatePin> {
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(left: 50, right: 50),
+                    margin: const EdgeInsets.only(left: 50, right: 50),
                     height: 50,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child:
                         (_authController.signupStatus == SignupStatus.Loading)
-                            ? Container(
+                            ? const SizedBox(
                                 width: 30,
                                 height: 30,
                                 child: Center(
@@ -256,7 +260,7 @@ class _CreatePinState extends State<CreatePin> {
                                     style: GoogleFonts.inter(
                                         color: Colors.white, fontSize: 18),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   //  Container(padding: EdgeInsets.all(3),
@@ -271,7 +275,7 @@ class _CreatePinState extends State<CreatePin> {
                   ),
                 );
               }),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               )
             ]),

@@ -9,11 +9,14 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/presentation/auth/create_pin.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 
-class Signup extends StatefulWidget {
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
+
+  @override
   _SignUpState createState() => _SignUpState();
 }
 
-class _SignUpState extends State<Signup> {
+class _SignUpState extends State<SignUp> {
   final _authController = Get.find<AuthRepository>();
 
   final _formKey = GlobalKey<FormState>();
@@ -25,7 +28,7 @@ class _SignUpState extends State<Signup> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Form(
@@ -34,7 +37,7 @@ class _SignUpState extends State<Signup> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 70,
                 width: MediaQuery.of(context).size.width,
                 child: Stack(
@@ -54,7 +57,7 @@ class _SignUpState extends State<Signup> {
                           //   Get.back();
                           // }
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back,
                           color: AppColors.backgroundColor,
                         ),
@@ -70,7 +73,7 @@ class _SignUpState extends State<Signup> {
                         fontSize: 28,
                         fontWeight: FontWeight.w500)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 2,
               ),
               Center(
@@ -81,7 +84,7 @@ class _SignUpState extends State<Signup> {
                       fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -92,7 +95,7 @@ class _SignUpState extends State<Signup> {
                   textEditingController: _authController.firstNameController,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 3,
               ),
               Padding(
@@ -103,7 +106,7 @@ class _SignUpState extends State<Signup> {
                   textEditingController: _authController.lastNameController,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 3,
               ),
               Padding(
@@ -113,7 +116,7 @@ class _SignUpState extends State<Signup> {
                   textEditingController: _authController.emailController,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -127,7 +130,7 @@ class _SignUpState extends State<Signup> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -138,7 +141,7 @@ class _SignUpState extends State<Signup> {
                     color: Colors.white,
                     border: Border.all(
                         color: AppColors.backgroundColor, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -149,7 +152,7 @@ class _SignUpState extends State<Signup> {
                           // showCountryCode(context);
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                                 right: BorderSide(
                                     color: AppColors.backgroundColor,
@@ -160,10 +163,10 @@ class _SignUpState extends State<Signup> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Flag.fromString(countryFlag,
                                   height: 30, width: 30),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Icon(
@@ -176,7 +179,7 @@ class _SignUpState extends State<Signup> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
@@ -198,7 +201,7 @@ class _SignUpState extends State<Signup> {
                                   color: Colors.black)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                     ],
@@ -206,7 +209,7 @@ class _SignUpState extends State<Signup> {
                 ),
               ),
               if (!_authController.hasReferralDeeplink.value) ...[
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
@@ -218,18 +221,18 @@ class _SignUpState extends State<Signup> {
                   ),
                 ),
               ],
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               InkWell(
                 onTap: () {
-                  if (_formKey.currentState!.validate())
-                    // _homeController.selectOnboardSelectedNext();
-                    Get.to(() => CreatePin());
+                  if (_formKey.currentState!.validate()) {
+                    Get.to(() => const CreatePin());
+                  }
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   height: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Row(
@@ -241,16 +244,16 @@ class _SignUpState extends State<Signup> {
                         style: GoogleFonts.inter(
                             color: Colors.white, fontSize: 18),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Container(
-                        padding: EdgeInsets.all(3),
-                        decoration: BoxDecoration(
+                        padding: const EdgeInsets.all(3),
+                        decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(50))),
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_forward,
                           color: AppColors.backgroundColor,
                           size: 16,
@@ -260,7 +263,7 @@ class _SignUpState extends State<Signup> {
                   ),
                 ),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
             ],
           ),
         ),

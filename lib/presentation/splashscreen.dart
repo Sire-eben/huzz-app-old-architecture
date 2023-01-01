@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Get.off(() => Dashboard());
       }
     } else {
-      Get.off(() => Signin());
+      Get.off(() => SignIn());
     }
   }
 

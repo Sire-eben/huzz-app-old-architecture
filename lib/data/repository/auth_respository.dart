@@ -432,7 +432,7 @@ class AuthRepository extends GetxController {
             "Proceed to Login.",
           );
           Timer(Duration(milliseconds: 2000), () {
-            Get.offAll(Signin());
+            Get.offAll(SignIn());
           });
         } else {
           _Otpforgotverifystatus(OtpForgotVerifyStatus.Error);
@@ -632,7 +632,7 @@ class AuthRepository extends GetxController {
           DateTime expireToken = DateTime(date.year, date.month + 1, date.day);
           pref!.setDateTokenExpired(expireToken);
           _authStatus(AuthStatus.Authenticated);
-          Get.off(PinSuccesful());
+          Get.off(PinSuccessful());
         }
       } else if (response.statusCode == 406) {
         var json = jsonDecode(response.body);
@@ -981,7 +981,7 @@ class AuthRepository extends GetxController {
     Mtoken("0");
     pref!.logout();
     phoneNumberController.text = '';
-    Get.offAll(Signin());
+    Get.offAll(SignIn());
     final businessController = Get.find<BusinessRespository>();
     businessController.selectedBusiness = Rx(Business(businessId: null));
   }
@@ -1022,7 +1022,7 @@ class AuthRepository extends GetxController {
     if (response.statusCode == 401) {
       _authStatus(AuthStatus.TOKEN_EXISTED);
       Get.snackbar("Error", "Your Login token is expired.");
-      Get.offAll(Signin());
+      Get.offAll(SignIn());
     }
   }
 }

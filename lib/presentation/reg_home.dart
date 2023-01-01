@@ -28,7 +28,7 @@ class _RegHome extends State<RegHome> {
     'Personal Details',
     'Set Your PIN'
   ];
-  List<Widget> body = [SendOtp(), EnterOtp(), Signup(), CreatePin()];
+  List<Widget> body = [SendOtp(), EnterOtp(), SignUp(), CreatePin()];
   final _homeController = Get.find<HomeRespository>();
   @override
   Widget build(BuildContext context) {
