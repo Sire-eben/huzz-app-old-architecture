@@ -4,7 +4,7 @@ import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/presentation/customers/customer_tabView.dart';
+import 'package:huzz/presentation/customers/customer_tab_view.dart';
 import 'package:huzz/presentation/invoice/empty_invoice.dart';
 import 'package:huzz/presentation/more/more.dart';
 import 'package:huzz/core/constants/app_themes.dart';

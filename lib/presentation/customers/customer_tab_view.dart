@@ -11,7 +11,7 @@ import 'customer/customers.dart';
 
 class ManageCustomerInformationDialog extends StatelessWidget {
   final int tabIndex;
-  ManageCustomerInformationDialog(this.tabIndex);
+  const ManageCustomerInformationDialog(this.tabIndex, {super.key});
 
   @override
   Widget build(BuildContext context) {

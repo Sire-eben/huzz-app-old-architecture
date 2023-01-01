@@ -1,6 +1,6 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:huzz/presentation/customers/customer_tabView.dart';
+import 'package:huzz/presentation/customers/customer_tab_view.dart';
 import 'package:huzz/presentation/home/home_page.dart';
 import 'package:huzz/presentation/inventory/productserviceTab.dart';
 import 'package:huzz/presentation/invoice/available_invoice.dart';
