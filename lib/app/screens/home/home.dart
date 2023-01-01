@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/presentation/business/create_business.dart';
-import 'package:huzz/presentation/home/debtors/debtorstab.dart';
+import 'package:huzz/presentation/home/debtors/debtors_tab.dart';
 import 'package:huzz/presentation/home/insight.dart';
 import 'package:huzz/presentation/home/money_history.dart';
 import 'package:huzz/presentation/home/money_in.dart';

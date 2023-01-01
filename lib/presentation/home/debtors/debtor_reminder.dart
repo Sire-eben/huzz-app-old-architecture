@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'debtorstab.dart';
+import 'debtors_tab.dart';
 
-class DebtorsConfirmation extends StatelessWidget {
-  const DebtorsConfirmation({Key? key}) : super(key: key);
+class DebtorsReminder extends StatelessWidget {
+  const DebtorsReminder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class DebtorsConfirmation extends StatelessWidget {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -27,7 +27,7 @@ class DebtorsConfirmation extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Center(
@@ -50,7 +50,7 @@ class DebtorsConfirmation extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 120,
           ),
           Center(
@@ -58,14 +58,14 @@ class DebtorsConfirmation extends StatelessWidget {
               'assets/images/checker.png',
             ),
           ),
-          Spacer(),
+          const Spacer(),
           InkWell(
             onTap: () {
-              Get.to(DebtorsTab());
+              Get.to(const DebtorsTab());
             },
             child: Container(
               height: 55,
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
               decoration: BoxDecoration(
@@ -83,7 +83,7 @@ class DebtorsConfirmation extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
         ],

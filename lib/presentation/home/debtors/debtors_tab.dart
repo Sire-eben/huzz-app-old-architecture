@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:huzz/core/constants/app_themes.dart';
 import 'debtors.dart';
-import 'debtowed.dart';
+import 'debt_owed.dart';
 
 class DebtorsTab extends StatefulWidget {
   const DebtorsTab({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _DebtorsTabState extends State<DebtorsTab> {
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
@@ -42,7 +42,7 @@ class _DebtorsTabState extends State<DebtorsTab> {
             ),
           ),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(55),
+            preferredSize: const Size.fromHeight(55),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
@@ -82,7 +82,7 @@ class _DebtorsTabState extends State<DebtorsTab> {
                     ),
                     borderRadius: BorderRadius.circular(2.5),
                   ),
-                  tabs: [
+                  tabs: const [
                     Tab(
                       text: 'Debtors',
                     ),

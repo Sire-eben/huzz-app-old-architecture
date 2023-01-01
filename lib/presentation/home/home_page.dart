@@ -33,7 +33,7 @@ import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/team_repository.dart';
-import 'debtors/debtorstab.dart';
+import 'debtors/debtors_tab.dart';
 import 'money_history.dart';
 
 class DebtInformationDialog extends StatelessWidget {
