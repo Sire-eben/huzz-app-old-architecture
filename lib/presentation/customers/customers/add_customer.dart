@@ -19,7 +19,7 @@ class AddCustomer extends StatefulWidget {
 }
 
 class _AddCustomerState extends State<AddCustomer> {
-  GlobalKey<FormState> _formKey = GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController contactName = TextEditingController();
   final TextEditingController contactPhone = TextEditingController();
   final TextEditingController contactMail = TextEditingController();
@@ -36,7 +36,7 @@ class _AddCustomerState extends State<AddCustomer> {
           this.image = imageTemporary;
         },
       );
-    } on PlatformException catch (e) {
+    } on PlatformException {
       // print('$e');
     }
   }
@@ -52,7 +52,7 @@ class _AddCustomerState extends State<AddCustomer> {
           this.image = imageTemporary;
         },
       );
-    } on PlatformException catch (e) {
+    } on PlatformException {
       // print('$e');
     }
   }
@@ -64,7 +64,7 @@ class _AddCustomerState extends State<AddCustomer> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -84,7 +84,7 @@ class _AddCustomerState extends State<AddCustomer> {
       ),
       backgroundColor: Colors.white,
       body: Obx(() {
-        return Container(
+        return SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
@@ -114,12 +114,13 @@ class _AddCustomerState extends State<AddCustomer> {
                           Get.snackbar(
                               'Alert', 'Select phone number from your contact');
                         } else {
-                          if (widget.item == null)
+                          if (widget.item == null) {
                             _customerController.addBusinnessCustomer(
                                 "INCOME", 'Customer');
-                          else
+                          } else {
                             _customerController
                                 .updateBusinesscustomer(widget.item!);
+                          }
                         }
                       }
                     },
@@ -129,12 +130,12 @@ class _AddCustomerState extends State<AddCustomer> {
                           horizontal:
                               MediaQuery.of(context).size.height * 0.03),
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_customerController.addingCustomerStatus ==
                               AddingCustomerStatus.Loading)
-                          ? Container(
+                          ? const SizedBox(
                               width: 30,
                               height: 30,
                               child: Center(

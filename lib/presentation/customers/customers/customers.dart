@@ -14,21 +14,21 @@ class Customers extends StatefulWidget {
 }
 
 class _CustomersState extends State<Customers> {
-  final _searchcontroller = TextEditingController();
+  final _searchController = TextEditingController();
   final _customerController = Get.find<CustomerRepository>();
-  String searchtext = "";
+  String searchText = "";
   List<Customer> searchResult = [];
   void searchItem(String val) {
     // print("search text $val");
-    searchtext = val;
+    searchText = val;
     setState(() {});
 
     searchResult.clear();
-    _customerController.customerCustomer.forEach((element) {
+    for (var element in _customerController.customerCustomer) {
       if (element.name!.toLowerCase().contains(val.toLowerCase())) {
         searchResult.add(element);
       }
-    });
+    }
     setState(() {});
   }
 
@@ -47,18 +47,19 @@ class _CustomersState extends State<Customers> {
                 fontWeight: FontWeight.w400,
                 color: AppColors.backgroundColor,
               ),
-              controller: _searchcontroller,
+              controller: _searchController,
               onChanged: searchItem,
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
+
                   Icons.search,
                   color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(color: Colors.black12),
+                  borderSide: const BorderSide(color: Colors.black12),
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -69,17 +70,17 @@ class _CustomersState extends State<Customers> {
                   color: Colors.grey,
                 ),
                 contentPadding:
-                    EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+                    const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
@@ -93,16 +94,16 @@ class _CustomersState extends State<Customers> {
                   left: MediaQuery.of(context).size.height * 0.02,
                   right: MediaQuery.of(context).size.height * 0.02,
                   bottom: MediaQuery.of(context).size.height * 0.02),
-              child: (searchtext.isEmpty || searchResult.isNotEmpty)
+              child: (searchText.isEmpty || searchResult.isNotEmpty)
                   ? ListView.separated(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      separatorBuilder: (context, index) => Divider(),
+                      separatorBuilder: (context, index) => const Divider(),
                       itemCount: (searchResult.isEmpty)
                           ? _customerController.customerCustomer.length
                           : searchResult.length,
                       itemBuilder: (context, index) {
-                        if (customerList.length == 0) {
+                        if (customerList.isEmpty) {
                           return Container(
                             padding: EdgeInsets.only(
                                 left: MediaQuery.of(context).size.height * 0.02,
@@ -111,7 +112,7 @@ class _CustomersState extends State<Customers> {
                                 bottom:
                                     MediaQuery.of(context).size.height * 0.02),
                             decoration: BoxDecoration(
-                              color: Color(0xffF5F5F5),
+                              color: const Color(0xffF5F5F5),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
@@ -121,7 +122,7 @@ class _CustomersState extends State<Customers> {
                                 children: [
                                   SvgPicture.asset(
                                       'assets/images/customers.svg'),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   Text(
@@ -131,7 +132,7 @@ class _CustomersState extends State<Customers> {
                                         color: Colors.black,
                                         fontWeight: FontWeight.w600),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   Text(
@@ -164,25 +165,23 @@ class _CustomersState extends State<Customers> {
                                       MediaQuery.of(context).size.width * 0.02),
                               Expanded(
                                 flex: 3,
-                                child: Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.name!,
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      Text(
-                                        item.phone!,
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12, color: Colors.grey),
-                                      ),
-                                    ],
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.name!,
+                                      style: GoogleFonts.inter(
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    Text(
+                                      item.phone!,
+                                      style: GoogleFonts.inter(
+                                          fontSize: 12, color: Colors.grey),
+                                    ),
+                                  ],
                                 ),
                               ),
                               Expanded(
@@ -198,11 +197,9 @@ class _CustomersState extends State<Customers> {
                         }
                       },
                     )
-                  : Container(
-                      child: Center(
-                        child: Text("No Customer Found"),
-                      ),
-                    ),
+                  : const Center(
+                    child: Text("No Customer Found"),
+                  ),
             ))
           ],
         ),
@@ -211,7 +208,7 @@ class _CustomersState extends State<Customers> {
         onPressed: () {
           // Get.to(() => AddCustomer());
         },
-        icon: Icon(Icons.add),
+        icon: const Icon(Icons.add),
         backgroundColor: AppColors.backgroundColor,
         label: Text(
           'Add Customer',
