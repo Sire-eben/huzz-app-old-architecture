@@ -26,7 +26,7 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -127,7 +127,7 @@ class _DownloadRecordReceiptState extends State<DownloadRecordReceipt> {
                   margin: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   height: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
