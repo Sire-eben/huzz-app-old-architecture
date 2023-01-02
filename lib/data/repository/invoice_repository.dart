@@ -226,7 +226,7 @@ class InvoiceRepository extends GetxController {
   Future getOfflineInvoices(String id) async {
     try {
       _invoiceStatus(InvoiceStatus.Loading);
-      var results = await _businessController.sqliteDb.getOfflineInvovoices(id);
+      var results = await _businessController.sqliteDb.getOfflineInvoices(id);
       // print("offline Invoice ${results.length}");
 
       _offlineInvoices(results.reversed.toList());
@@ -349,7 +349,7 @@ class InvoiceRepository extends GetxController {
       return;
     }
     var saveNext = pendingInvoice.first;
-    await _businessController.sqliteDb.insertInvoce(saveNext);
+    await _businessController.sqliteDb.insertInvoice(saveNext);
     pendingInvoice.remove(saveNext);
     if (pendingInvoice.isNotEmpty) {
       savePendingJob();
@@ -635,7 +635,7 @@ class InvoiceRepository extends GetxController {
         ));
 
     // print("offline saving to database ${value.toJson()}}");
-    await _businessController.sqliteDb.insertInvoce(value);
+    await _businessController.sqliteDb.insertInvoice(value);
     getOfflineInvoices(_businessController.selectedBusiness.value!.businessId!);
     // Get.to(() => IncomeSuccess(Invoice: value!,title: "Invoice",));
     Get.to(() => PreviewInvoice(invoice: value!));
@@ -644,7 +644,7 @@ class InvoiceRepository extends GetxController {
 
   Future checkIfInvoiceThatIsYetToBeAdded() async {
     // print("hoping Invoice to be added");
-    var list = await _businessController.sqliteDb.getOfflineInvovoices(
+    var list = await _businessController.sqliteDb.getOfflineInvoices(
         _businessController.selectedBusiness.value!.businessId!);
     // print("number of Invoice is ${list.length}");
     for (var element in list) {
@@ -953,7 +953,7 @@ class InvoiceRepository extends GetxController {
   }
 
   Future checkPendingTransactionBeUpdatedToServer() async {
-    var list = await _businessController.sqliteDb.getOfflineInvovoices(
+    var list = await _businessController.sqliteDb.getOfflineInvoices(
         _businessController.selectedBusiness.value!.businessId!);
     for (var element in list) {
       if (element.isHistoryPending! && !element.isPending!) {

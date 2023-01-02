@@ -142,7 +142,7 @@ class _SendOtpState extends State<SendOtp> {
                 const Expanded(child: SizedBox()),
                 GestureDetector(
                   onTap: () {
-                    Get.to(SignIn());
+                    Get.to(const SignIn());
                   },
                   child: Center(
                     child: RichText(
@@ -237,7 +237,7 @@ class _SendOtpState extends State<SendOtp> {
                       } else {
                         // _authController.sendSmsOtp();
                         // _homeController.selectOnboardSelectedNext();
-                        Get.to(() => SignUp());
+                        Get.to(() => const SignUp());
                       }
                     },
                     child: Container(
@@ -295,7 +295,7 @@ class _SendOtpState extends State<SendOtp> {
   }
 
   Future termOfUse() async {
-    Get.to(TermsOfUse());
+    Get.to(const TermsOfUse());
   }
 
   Future privacyPolicy() async {

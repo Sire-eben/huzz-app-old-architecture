@@ -63,7 +63,7 @@ class PinSuccessful extends StatelessWidget {
             onTap: () {
               _authController.hasTeamInviteDeeplink.value == true
                   ? Get.offAll(() => Dashboard())
-                  : Get.to(CreateBusiness());
+                  : Get.to(const CreateBusiness());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,

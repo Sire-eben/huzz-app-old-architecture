@@ -264,7 +264,7 @@ class ProductRepository extends GetxController
             outFile == null ? newproduct.productLogoFileStoreId : outFile.path);
 
     // print("product offline saving ${product.toJson()}");
-    _businessController.sqliteDb.updateOfflineProdcut(product);
+    _businessController.sqliteDb.updateOfflineProduct(product);
     clearValue();
     Get.off(Confirmation(
       text: "Updated",
@@ -456,7 +456,7 @@ class ProductRepository extends GetxController
     }
 
     var updatedNext = pendingUpdatedProductList.first;
-    await _businessController.sqliteDb.updateOfflineProdcut(updatedNext);
+    await _businessController.sqliteDb.updateOfflineProduct(updatedNext);
     pendingUpdatedProductList.remove(updatedNext);
     if (pendingUpdatedProductList.isNotEmpty) {
       updatePendingJob();
@@ -529,7 +529,7 @@ class ProductRepository extends GetxController
     product.deleted = true;
 
     if (!product.isAddingPending!) {
-      _businessController.sqliteDb.updateOfflineProdcut(product);
+      _businessController.sqliteDb.updateOfflineProduct(product);
     } else {
       _businessController.sqliteDb.deleteProduct(product);
     }
