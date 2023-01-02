@@ -8,7 +8,7 @@ import 'business_respository.dart';
 import 'miscellaneous_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/core/util/util.dart';
-import 'package:huzz/presentation/inventory/Product/productConfirm.dart';
+import 'package:huzz/presentation/inventory/Product/product_confirm.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;

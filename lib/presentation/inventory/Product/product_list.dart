@@ -30,22 +30,22 @@ class _ProductListingState extends State<ProductListing> {
       units: ['K', 'M', 'B', 'T']);
 
   final TextEditingController textEditingController = TextEditingController();
-  Rx<List<Product>> _searchResult = Rx([]);
+  final Rx<List<Product>> _searchResult = Rx([]);
   List<Product> get searchResult => _searchResult.value;
-  var searchtext = '';
+  var searchText = '';
   bool isDelete = false;
   final _productController = Get.find<ProductRepository>();
   void searchItem(String val) {
-    searchtext = val;
+    searchText = val;
     // searchResult.clear();
     List<Product> list = [];
     setState(() {});
-    _productController.productGoods.forEach((element) {
+    for (var element in _productController.productGoods) {
       if (element.productName!.toLowerCase().contains(val.toLowerCase())) {
         // searchResult.add(element);
         list.add(element);
       }
-    });
+    }
     _searchResult(list);
   }
 
@@ -316,7 +316,7 @@ class _ProductListingState extends State<ProductListing> {
               bottom: 30,
               left: 20,
               right: 20,
-              child: (searchtext.isEmpty || searchResult.isNotEmpty)
+              child: (searchText.isEmpty || searchResult.isNotEmpty)
                   ? Obx(() {
                       return RefreshIndicator(
                         onRefresh: () async {
@@ -362,11 +362,9 @@ class _ProductListingState extends State<ProductListing> {
                                       ),
                       );
                     })
-                  : Container(
-                      child: const Center(
-                        child: Text("No Product Found"),
-                      ),
-                    ),
+                  : const Center(
+                    child: Text("No Product Found"),
+                  ),
             ),
           ],
         ),
@@ -417,7 +415,7 @@ class _ProductListingState extends State<ProductListing> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    stops: [
+                    stops: const [
                       0.1,
                       0.6,
                       0.8,
@@ -733,7 +731,7 @@ class _ProductListingState extends State<ProductListing> {
 // ignore: must_be_immutable
 class ListingProduct extends StatefulWidget {
   Product? item;
-  ListingProduct({
+  ListingProduct({super.key,
     this.item,
   });
 
@@ -894,7 +892,7 @@ class _ListingProductState extends State<ListingProduct> {
 // ignore: must_be_immutable
 class ListingProductDelete extends StatefulWidget {
   Product? item;
-  ListingProductDelete({
+  ListingProductDelete({super.key,
     this.item,
   });
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'Product/productlist.dart';
+import 'Product/product_list.dart';
 import 'Service/servicelist.dart';
 
 class ProductServiceListing extends StatefulWidget {
