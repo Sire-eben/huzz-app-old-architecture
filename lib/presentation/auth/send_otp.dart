@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/presentation/auth/sign_in.dart';
 import 'package:huzz/presentation/privacy_policy.dart';
 import 'package:huzz/presentation/terms_of_use.dart';
@@ -247,7 +247,7 @@ class _SendOtpState extends State<SendOtp> {
                       decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_authController.Otpauthstatus ==
+                      child: (_authController.otpAuthStatus ==
                               OtpAuthStatus.Loading)
                           ? const SizedBox(
                               width: 30,

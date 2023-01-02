@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/notification_model.dart';
 import 'package:random_color/random_color.dart';

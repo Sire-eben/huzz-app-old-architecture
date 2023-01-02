@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/presentation/widget/util.dart';
 import 'package:huzz/core/util/util.dart' as utils;

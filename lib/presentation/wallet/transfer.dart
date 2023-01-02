@@ -13,7 +13,7 @@ import 'package:huzz/core/widgets/dropdowns/build_menu_item.dart';
 import 'package:huzz/core/widgets/dropdowns/dropdown_outline.dart';
 import 'package:huzz/core/widgets/state/success.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/generated/assets.gen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 

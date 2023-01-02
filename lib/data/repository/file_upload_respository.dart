@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../api_link.dart';
-import 'auth_respository.dart';
+import 'auth_repository.dart';
 import 'package:http_parser/http_parser.dart';
 
 class FileUploadRespository extends GetxController {

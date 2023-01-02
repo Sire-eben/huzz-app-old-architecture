@@ -10,7 +10,7 @@ import 'package:huzz/presentation/invoice/available_invoice/overdue.dart';
 import 'package:huzz/presentation/invoice/available_invoice/paid.dart';
 import 'package:huzz/presentation/invoice/available_invoice/pending.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import '../../data/repository/team_repository.dart';
 
 class ManageInvoiceInformationDialog extends StatelessWidget {

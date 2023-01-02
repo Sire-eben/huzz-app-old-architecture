@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/debtor.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:uuid/uuid.dart';
 import 'package:huzz/core/util/util.dart';
-import 'auth_respository.dart';
+import 'auth_repository.dart';
 import 'customer_repository.dart';
 
 enum AddingDebtorStatus { Loading, Error, Success, Empty }
@@ -98,7 +98,7 @@ class DebtorRepository extends GetxController
     tabController = TabController(length: 2, vsync: this);
 
     //  await sqliteDb.openDatabae();
-    _userController.Mtoken.listen((p0) {
+    _userController.mToken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
@@ -130,7 +130,7 @@ class DebtorRepository extends GetxController
         });
       }
     });
-    _userController.MonlineStatus.listen((po) {
+    _userController.monLineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           checkPendingCustomerTobeUpdatedToServer();

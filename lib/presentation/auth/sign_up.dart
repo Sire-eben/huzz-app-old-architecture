@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/presentation/auth/create_pin.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';

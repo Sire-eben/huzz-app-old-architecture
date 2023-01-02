@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/data/model/bank.dart';
@@ -54,7 +54,7 @@ class BankAccountRepository extends GetxController {
   void onInit() {
     // TODO: implement onInit
 
-    _userController.Mtoken.listen((p0) {
+    _userController.mToken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
@@ -75,7 +75,7 @@ class BankAccountRepository extends GetxController {
       }
     });
 
-    _userController.MonlineStatus.listen((po) {
+    _userController.monLineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           checkPendingBankToBeAddedToSever();

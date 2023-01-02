@@ -16,7 +16,7 @@ import 'package:huzz/data/model/offline_business.dart';
 import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:huzz/presentation/business/create_business.dart';
-import 'auth_respository.dart';
+import 'auth_repository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }
 
@@ -58,7 +58,7 @@ class BusinessRespository extends GetxController {
     pref = SharePref();
     await pref!.init();
 
-    _userController.Mtoken.listen((p0) {
+    _userController.mToken.listen((p0) {
       // print("available token is $p0");
       if (p0.isNotEmpty || p0 != "0") {
       // print("trying to get online business since is the token is valid");

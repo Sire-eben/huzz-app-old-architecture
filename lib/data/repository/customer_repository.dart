@@ -7,8 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/presentation/customers/confirmation.dart';
@@ -68,7 +68,7 @@ class CustomerRepository extends GetxController {
 
   @override
   void onInit() {
-    _userController.Mtoken.listen((p0) {
+    _userController.mToken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
@@ -90,7 +90,7 @@ class CustomerRepository extends GetxController {
       }
     });
 
-    _userController.MonlineStatus.listen((po) {
+    _userController.monLineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           checkPendingCustomerToBeAddedToSever();

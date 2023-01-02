@@ -6,7 +6,7 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/data/model/user.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -384,7 +384,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 activeTextStyle:
                     GoogleFonts.inter(color: const Color(0xffEF6500), fontSize: 12),
                 onPressed: () {
-                  _controller.sendSmsOtp(isresend: true);
+                  _controller.sendSmsOtp(isResend: true);
                 },
                 buttonType: ButtonType.TextButton,
                 disabledColor: Colors.white,

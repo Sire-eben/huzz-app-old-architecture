@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/presentation/customers/merchants/merchants.dart';
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'customer/customers.dart';
 

@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/data/api_link.dart';
 
 class NotificationRepository extends GetxController {
@@ -24,7 +24,7 @@ class NotificationRepository extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    controller.Mtoken.listen((p0) {
+    controller.mToken.listen((p0) {
       // print("getting push notification");
       setupInteractedMessage();
       sendFCMTokenToServer();

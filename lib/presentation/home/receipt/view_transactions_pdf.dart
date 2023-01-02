@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/presentation/widget/util.dart';
 import 'package:huzz/data/model/business.dart';

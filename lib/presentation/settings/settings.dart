@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/presentation/settings/business_info.dart';
 import 'package:huzz/presentation/settings/referral_bottom_sheet.dart';
@@ -517,7 +517,7 @@ class _SettingsState extends State<Settings> {
                                 color: AppColors.orangeBorderColor,
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              child: (controller.Otpauthstatus ==
+                              child: (controller.otpAuthStatus ==
                                       OtpAuthStatus.Loading)
                                   ? const SizedBox(
                                       width: 30,

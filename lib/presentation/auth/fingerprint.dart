@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/data/repository/fingerprint_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'sign_in.dart';
@@ -61,13 +61,13 @@ class FingerPrint extends StatelessWidget {
               final isAuthenticated = await LocalAuthApi.authenticate();
               if (isAuthenticated) {
                 // Get.off(() => Dashboard());
-                if (_authController.signinStatus != SigninStatus.Loading) {
+                if (_authController.signInStatus != SigninStatus.Loading) {
                   _authController.fingerPrintSignIn();
                 }
               }
             },
             child: Center(
-              child: (_authController.signinStatus == SigninStatus.Loading)
+              child: (_authController.signInStatus == SigninStatus.Loading)
                   ? const SizedBox(
                       width: 30,
                       height: 30,

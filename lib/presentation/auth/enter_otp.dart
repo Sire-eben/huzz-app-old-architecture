@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/presentation/widget/timer_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -36,7 +36,7 @@ class _EnterOtpState extends State<EnterOtp> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (_authController.Otpverifystatus == OtpVerifyStatus.Error) {
+      if (_authController.otpVerifyStatus == OtpVerifyStatus.Error) {
         errorController!.add(ErrorAnimationType.shake);
       }
 
@@ -187,7 +187,7 @@ class _EnterOtpState extends State<EnterOtp> {
                   activeTextStyle:
                       GoogleFonts.inter(color: const Color(0xffEF6500), fontSize: 12),
                   onPressed: () {
-                    _authController.sendSmsOtp(isresend: true);
+                    _authController.sendSmsOtp(isResend: true);
                   },
                   buttonType: ButtonType.TextButton,
                   disabledColor: Colors.white,
@@ -214,7 +214,7 @@ class _EnterOtpState extends State<EnterOtp> {
                     decoration: const BoxDecoration(
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_authController.Otpverifystatus ==
+                    child: (_authController.otpVerifyStatus ==
                             OtpVerifyStatus.Loading)
                         ? const SizedBox(
                             width: 30,

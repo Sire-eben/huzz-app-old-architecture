@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/presentation/widget/more_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import '../../data/repository/team_repository.dart';
 import '../team/my_team.dart';
 import '../team/no_permission_team.dart';

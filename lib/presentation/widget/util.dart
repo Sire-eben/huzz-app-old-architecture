@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
-import '../../data/repository/business_respository.dart';
+import '../../data/repository/business_repository.dart';
 
 class Utils {
   static final display = createDisplay(

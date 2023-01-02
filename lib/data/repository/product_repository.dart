@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'business_respository.dart';
+import 'business_repository.dart';
 import 'miscellaneous_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/core/util/util.dart';
@@ -14,7 +14,7 @@ import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import 'auth_respository.dart';
+import 'auth_repository.dart';
 import 'file_upload_respository.dart';
 
 enum AddingProductStatus { Loading, Error, Success, Empty }
@@ -90,7 +90,7 @@ class ProductRepository extends GetxController
       }
     });
     //  await sqliteDb.openDatabae();
-    _userController.Mtoken.listen((p0) {
+    _userController.mToken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
@@ -121,7 +121,7 @@ class ProductRepository extends GetxController
         });
       }
     });
-    _userController.MonlineStatus.listen((po) {
+    _userController.monLineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           checkPendingCustomerTobeUpdatedToServer();

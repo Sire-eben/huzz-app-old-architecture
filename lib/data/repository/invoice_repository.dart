@@ -5,7 +5,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/repository/miscellaneous_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
@@ -21,7 +21,7 @@ import 'package:http/http.dart' as http;
 import 'package:huzz/data/model/transaction_model.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:uuid/uuid.dart';
-import 'auth_respository.dart';
+import 'auth_repository.dart';
 import 'customer_repository.dart';
 
 enum AddingInvoiceStatus { Loading, Error, Success, Empty }
@@ -132,7 +132,7 @@ class InvoiceRespository extends GetxController {
         paymentMode = p0;
       }
     });
-    _userController.Mtoken.listen((p0) {
+    _userController.mToken.listen((p0) {
       // print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
@@ -172,7 +172,7 @@ class InvoiceRespository extends GetxController {
         });
       }
     });
-    _userController.MonlineStatus.listen((po) {
+    _userController.monLineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           checkIfInvoiceThatIsYetToBeAdded();

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/data/repository/home_respository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -45,7 +45,7 @@ class _ForgotPINState extends State<ForgotPIN> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (_authController.Otpverifystatus == OtpVerifyStatus.Error) {
+      if (_authController.otpVerifyStatus == OtpVerifyStatus.Error) {
         errorController!.add(ErrorAnimationType.shake);
       }
 
@@ -196,7 +196,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                 Obx(() {
                   return GestureDetector(
                     onTap: () {
-                      if (_authController.Otpauthstatus !=
+                      if (_authController.otpAuthStatus !=
                           OtpAuthStatus.Loading) {
                         _authController.sendForgetOtp();
                       }
@@ -208,7 +208,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                       decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_authController.Otpauthstatus ==
+                      child: (_authController.otpAuthStatus ==
                               OtpAuthStatus.Loading)
                           ? const SizedBox(
                               width: 30,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/presentation/customers/merchants/add_merchant.dart';
 import 'package:huzz/core/constants/app_themes.dart';

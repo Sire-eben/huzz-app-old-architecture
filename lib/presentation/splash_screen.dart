@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/presentation/app_scaffold.dart';

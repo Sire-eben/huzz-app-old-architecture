@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import '../widget/timer_button.dart';
@@ -37,7 +37,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (_authController.Otpverifystatus == OtpVerifyStatus.Error) {
+      if (_authController.otpVerifyStatus == OtpVerifyStatus.Error) {
         errorController!.add(ErrorAnimationType.shake);
       }
 
@@ -175,7 +175,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   activeTextStyle:
                       GoogleFonts.inter(color: const Color(0xffEF6500), fontSize: 12),
                   onPressed: () {
-                    _authController.sendSmsOtp(isresend: true);
+                    _authController.sendSmsOtp(isResend: true);
                   },
                   buttonType: ButtonType.TextButton,
                   disabledColor: Colors.white,
@@ -203,7 +203,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: PinCodeTextField(
-                      controller: _authController.forgetpinController,
+                      controller: _authController.forgetPinController,
                       length: 4,
                       obscureText: true,
                       animationType: AnimationType.fade,
@@ -247,7 +247,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                 Obx(() {
                   return GestureDetector(
                     onTap: () {
-                      if (_authController.Otpforgotverifystatus !=
+                      if (_authController.otpForgotVerifyStatus !=
                           OtpForgotVerifyStatus.Loading) {
                         _authController.verifyForgotOpt();
                       }
@@ -259,7 +259,7 @@ class _EnterForgotPINState extends State<EnterForgotPIN> {
                       decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_authController.Otpforgotverifystatus ==
+                      child: (_authController.otpForgotVerifyStatus ==
                               OtpForgotVerifyStatus.Loading)
                           ? const SizedBox(
                               width: 30,

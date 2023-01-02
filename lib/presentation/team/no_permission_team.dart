@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../data/repository/auth_respository.dart';
-import '../../data/repository/business_respository.dart';
+import '../../data/repository/auth_repository.dart';
+import '../../data/repository/business_repository.dart';
 import '../widget/team_widget.dart';
 
 class NoPermissionTeam extends StatefulWidget {

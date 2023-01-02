@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/presentation/invoice/available_invoice/single_invoice_preview.dart';

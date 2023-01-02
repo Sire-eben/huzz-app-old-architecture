@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/presentation/widget/expandable_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import '../../data/model/team.dart';
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import '../../model/user_team_invite_model.dart';
 
 class TeamMemberInformationDialog extends StatelessWidget {

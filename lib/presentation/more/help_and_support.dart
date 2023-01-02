@@ -9,7 +9,7 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_icons.dart';
 import 'package:huzz/core/constants/app_strings.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import '../terms_of_use.dart';
 import 'faq_web_view.dart';
 

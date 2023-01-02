@@ -19,7 +19,7 @@ import 'package:random_color/random_color.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import '../../../data/model/business.dart';
 import '../../../data/model/notification_model.dart';
-import '../../../data/repository/business_respository.dart';
+import '../../../data/repository/business_repository.dart';
 import '../../../data/repository/debtors_repository.dart';
 import '../../../data/repository/transaction_respository.dart';
 

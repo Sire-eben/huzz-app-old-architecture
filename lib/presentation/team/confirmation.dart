@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../data/repository/auth_respository.dart';
-import '../../data/repository/business_respository.dart';
+import '../../data/repository/auth_repository.dart';
+import '../../data/repository/business_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class TeamConfirmation extends StatefulWidget {

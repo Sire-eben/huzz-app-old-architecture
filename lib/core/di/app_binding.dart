@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import '../../data/repository/bank_account_repository.dart';
-import '../../data/repository/business_respository.dart';
+import '../../data/repository/business_repository.dart';
 import '../../data/repository/customer_repository.dart';
 import '../../data/repository/debtors_repository.dart';
 import '../../data/repository/file_upload_respository.dart';

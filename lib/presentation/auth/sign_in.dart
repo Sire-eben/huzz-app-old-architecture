@@ -5,7 +5,7 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/presentation/forget_pass/forgot_pin.dart';
 import 'package:huzz/presentation/reg_home.dart';
@@ -328,7 +328,7 @@ class _SigInState extends State<SignIn> {
                         icon: const Icon(Icons.info,
                             color: AppColors.orangeBorderColor));
                     // print('phone cannot be empty');
-                  } else if (_authController.signinStatus !=
+                  } else if (_authController.signInStatus !=
                       SigninStatus.Loading) {
                     _authController.signIn();
                   }
@@ -340,7 +340,7 @@ class _SigInState extends State<SignIn> {
                   decoration: const BoxDecoration(
                       color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: (_authController.signinStatus == SigninStatus.Loading)
+                  child: (_authController.signInStatus == SigninStatus.Loading)
                       ? const SizedBox(
                           width: 30,
                           height: 30,
