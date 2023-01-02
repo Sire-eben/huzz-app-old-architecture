@@ -4,12 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class FaqWeb extends StatefulWidget {
+class FaqWebView extends StatefulWidget {
+  const FaqWebView({super.key});
+
   @override
-  _FaqWebState createState() => _FaqWebState();
+  _FaqWebViewState createState() => _FaqWebViewState();
 }
 
-class _FaqWebState extends State<FaqWeb> {
+class _FaqWebViewState extends State<FaqWebView> {
   bool isLoading = true;
   final _key = UniqueKey();
   WebViewController? controller;
@@ -22,7 +24,7 @@ class _FaqWebState extends State<FaqWeb> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
             size: 16,
@@ -66,7 +68,7 @@ class _FaqWebState extends State<FaqWeb> {
             }),
           ),
           isLoading
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.backgroundColor,
                   ),
