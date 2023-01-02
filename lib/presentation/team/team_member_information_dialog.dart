@@ -12,7 +12,7 @@ import 'package:huzz/presentation/widget/expandable_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import '../../data/model/team.dart';
 import '../../data/repository/auth_respository.dart';
-import '../../model/user_teamInvite_model.dart';
+import '../../model/user_team_invite_model.dart';
 
 class TeamMemberInformationDialog extends StatelessWidget {
   final String? title;

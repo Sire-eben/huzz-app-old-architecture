@@ -12,7 +12,7 @@ import 'package:huzz/presentation/widget/expandable_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/roles_model.dart';
 import '../../data/repository/auth_respository.dart';
-import '../../model/user_teamInvite_model.dart';
+import '../../model/user_team_invite_model.dart';
 import '../widget/custom_form_field.dart';
 
 class InformationDialog extends StatelessWidget {

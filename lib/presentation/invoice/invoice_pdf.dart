@@ -39,10 +39,10 @@ class PdfInvoiceApi {
 
     final selectedBusiness = _businessController.selectedBusiness.value!;
     pw.ImageProvider? businessImgProvider;
-    if (selectedBusiness.buisnessLogoFileStoreId != null &&
-        selectedBusiness.buisnessLogoFileStoreId!.isNotEmpty) {
+    if (selectedBusiness.businessLogoFileStoreId != null &&
+        selectedBusiness.businessLogoFileStoreId!.isNotEmpty) {
       businessImgProvider =
-          await networkImage(selectedBusiness.buisnessLogoFileStoreId!);
+          await networkImage(selectedBusiness.businessLogoFileStoreId!);
     }
 
     final huzzImgProvider =

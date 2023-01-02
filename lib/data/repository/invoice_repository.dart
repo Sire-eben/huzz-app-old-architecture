@@ -610,7 +610,7 @@ class InvoiceRespository extends GetxController {
         id: uuid.v1(),
         totalAmount: newTotalAmount,
         createdDateTime: DateTime.now(),
-        issuranceDateTime: DateTime.now(),
+        insuranceDateTime: DateTime.now(),
         customerId: customerId,
         businessId: _businessController.selectedBusiness.value!.businessId,
         paymentItemRequestList: productList,

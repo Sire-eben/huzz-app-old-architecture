@@ -27,7 +27,7 @@ import 'package:huzz/data/model/user_referral_model.dart';
 import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../model/user_teamInvite_model.dart';
+import '../../model/user_team_invite_model.dart';
 import 'fingerprint_repository.dart';
 
 enum SignupStatus { Empty, Loading, Error, Success }
@@ -657,7 +657,7 @@ class AuthRepository extends GetxController {
     // print("pin is ${pinController.text}");
     try {
       _signinStatus(SigninStatus.Loading);
-      final response = await http.post(Uri.parse(ApiLink.signinUser),
+      final response = await http.post(Uri.parse(ApiLink.signInUser),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text.trim(),
             "pin": pinController.text,
@@ -719,7 +719,7 @@ class AuthRepository extends GetxController {
     // print("pin is ${pinController.text}");
     try {
       // _signinStatus(SigninStatus.Loading);
-      final response = await http.post(Uri.parse(ApiLink.signinUser),
+      final response = await http.post(Uri.parse(ApiLink.signInUser),
           body: jsonEncode({
             "phoneNumber": countryText + phoneNumberController.text.trim(),
             "pin": pinController.text,

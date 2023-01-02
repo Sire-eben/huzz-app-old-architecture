@@ -16,7 +16,7 @@ import 'package:huzz/data/model/debtor.dart';
 import 'package:huzz/data/model/payment_history.dart';
 import 'package:huzz/data/model/payment_item.dart';
 import 'package:huzz/data/model/product.dart';
-import 'package:huzz/data/model/recordData.dart';
+import 'package:huzz/data/model/record_data.dart';
 import 'package:huzz/data/model/transaction_model.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;

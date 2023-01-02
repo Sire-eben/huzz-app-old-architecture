@@ -6,7 +6,7 @@ import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/presentation/home/insight.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/data/model/recordData.dart';
+import 'package:huzz/data/model/record_data.dart';
 import 'package:huzz/data/model/transaction_model.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:number_display/number_display.dart';

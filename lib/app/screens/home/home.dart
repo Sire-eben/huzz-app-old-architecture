@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
   // final _authController = Get.find<AuthRepository>();
   int selectedValue = 0;
   final transactionList = [];
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
 
   @override
   Widget build(BuildContext context) {
@@ -128,34 +128,32 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  Container(
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(Notifications());
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/bell.svg',
-                            height: 20,
-                            width: 20,
-                          ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(Notifications());
+                        },
+                        child: SvgPicture.asset(
+                          'assets/images/bell.svg',
+                          height: 20,
+                          width: 20,
                         ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(const Settings());
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/settings.svg',
-                            color: AppColors.backgroundColor,
-                            height: 20,
-                            width: 20,
-                          ),
+                      ),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(const Settings());
+                        },
+                        child: SvgPicture.asset(
+                          'assets/images/settings.svg',
+                          color: AppColors.backgroundColor,
+                          height: 20,
+                          width: 20,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -840,33 +838,31 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              Container(
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(Notifications());
-                      },
-                      child: SvgPicture.asset(
-                        'assets/images/bell.svg',
-                        height: 20,
-                        width: 20,
-                      ),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(Notifications());
+                    },
+                    child: SvgPicture.asset(
+                      'assets/images/bell.svg',
+                      height: 20,
+                      width: 20,
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(const Settings());
-                      },
-                      child: SvgPicture.asset(
-                        'assets/images/settings.svg',
-                        color: AppColors.backgroundColor,
-                        height: 20,
-                        width: 20,
-                      ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(const Settings());
+                    },
+                    child: SvgPicture.asset(
+                      'assets/images/settings.svg',
+                      color: AppColors.backgroundColor,
+                      height: 20,
+                      width: 20,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -2051,7 +2047,7 @@ class _HomeState extends State<Home> {
                   child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.to(() => MoneyOut());
+                      Get.to(() => const MoneyOut());
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
@@ -2160,7 +2156,7 @@ class _HomeState extends State<Home> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Expanded(
                 flex: 3,
-                child: Container(
+                child: SizedBox(
                   height:
                       (_businessController.offlineBusiness.length * 50) + 20,
                   width: MediaQuery.of(context).size.width,
@@ -2207,7 +2203,7 @@ class _HomeState extends State<Home> {
                               Expanded(
                                   flex: 2,
                                   child: Text(
-                                    '${item.business!.businessName!}',
+                                    item.business!.businessName!,
                                     style: GoogleFonts.inter(
                                         fontSize: 13,
                                         color: Colors.black,
@@ -2243,7 +2239,7 @@ class _HomeState extends State<Home> {
                 child: InkWell(
                   onTap: () {
                     // Get.to(() => AddNewSale());
-                    Get.to(CreateBusiness());
+                    Get.to(const CreateBusiness());
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

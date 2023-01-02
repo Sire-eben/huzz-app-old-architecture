@@ -13,7 +13,7 @@ class Invoice {
   double? tax;
   DateTime? dueDateTime;
   String? note;
-  DateTime? issuranceDateTime;
+  DateTime? insuranceDateTime;
   DateTime? reminderDateTime;
   DateTime? createdDateTime;
   DateTime? updatedDateTime;
@@ -37,7 +37,7 @@ class Invoice {
       this.tax,
       this.dueDateTime,
       this.note,
-      this.issuranceDateTime,
+      this.insuranceDateTime,
       this.reminderDateTime,
       this.updatedDateTime,
       this.createdDateTime,
@@ -63,7 +63,7 @@ class Invoice {
           ? null
           : DateTime.parse(json['dueDateTime']),
       note: json['note'] ?? "",
-      issuranceDateTime: json['issuranceDateTime'] == null
+      insuranceDateTime: json['issuranceDateTime'] == null
           ? null
           : DateTime.parse(json['issuranceDateTime']),
       reminderDateTime: json['reminderDateTime'] == null
@@ -106,9 +106,9 @@ class Invoice {
         "dueDateTime":
             dueDateTime == null ? null : dueDateTime!.toIso8601String(),
         "note": note,
-        "issuranceDateTime": issuranceDateTime == null
+        "issuranceDateTime": insuranceDateTime == null
             ? null
-            : issuranceDateTime!.toIso8601String(),
+            : insuranceDateTime!.toIso8601String(),
         "reminderDateTime": reminderDateTime == null
             ? null
             : reminderDateTime!.toIso8601String(),

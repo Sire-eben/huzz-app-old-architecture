@@ -6,7 +6,7 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/presentation/home/word_cloud.dart';
 import 'package:huzz/core/util/util.dart';
-import 'package:huzz/data/model/recordData.dart';
+import 'package:huzz/data/model/record_data.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 

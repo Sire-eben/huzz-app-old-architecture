@@ -3,8 +3,8 @@ class Debtor {
   String? customerId;
   String? businessId;
   String? businessTransactionId;
-  dynamic? balance;
-  dynamic? totalAmount;
+  dynamic balance;
+  dynamic totalAmount;
   DateTime? createdTime;
   DateTime? updatedTime;
   bool? paid;

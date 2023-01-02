@@ -148,7 +148,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                   height: 100,
                                 )
                               : businessController.selectedBusiness.value!
-                                          .buisnessLogoFileStoreId ==
+                                          .businessLogoFileStoreId ==
                                       null
                                   ? Image.asset(
                                       'assets/images/Group 3647.png',
@@ -156,7 +156,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                   : CircleAvatar(
                                       radius: 50.0,
                                       backgroundImage: NetworkImage(
-                                          "${businessController.selectedBusiness.value!.buisnessLogoFileStoreId}"),
+                                          "${businessController.selectedBusiness.value!.businessLogoFileStoreId}"),
                                       backgroundColor: Colors.transparent,
                                     )
                         ],
