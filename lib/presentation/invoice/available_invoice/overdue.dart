@@ -19,6 +19,8 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'empty_invoice_info.dart';
 
 class Overdue extends StatefulWidget {
+  const Overdue({super.key});
+
   @override
   _OverdueState createState() => _OverdueState();
 }
@@ -31,8 +33,8 @@ class _OverdueState extends State<Overdue> {
   final teamController = Get.find<TeamRepository>();
   bool deleteItem = false;
   bool visible = true;
-  List<Invoice> _items = [];
-  List _selectedIndex = [];
+  final List<Invoice> _items = [];
+  final List _selectedIndex = [];
   final display = createDisplay(
     length: 10,
     decimal: 0,
@@ -233,7 +235,7 @@ class _OverdueState extends State<Overdue> {
                                       ),
                                     );
                                   })
-                              : EmptyInvoiceInfo()
+                              : const EmptyInvoiceInfo()
                       : (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
                           ? const Center(child: CircularProgressIndicator())
@@ -412,7 +414,7 @@ class _OverdueState extends State<Overdue> {
                                     );
                                   },
                                 )
-                              : EmptyInvoiceInfo(),
+                              : const EmptyInvoiceInfo(),
                 ),
               )
             ],

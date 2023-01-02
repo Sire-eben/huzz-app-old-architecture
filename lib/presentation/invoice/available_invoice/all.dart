@@ -29,8 +29,8 @@ class _AllState extends State<All> {
   final teamController = Get.find<TeamRepository>();
   bool deleteItem = false;
   bool visible = true;
-  List<Invoice> _items = [];
-  List _selectedIndex = [];
+  final List<Invoice> _items = [];
+  final List _selectedIndex = [];
   final display = createDisplay(
     length: 10,
     decimal: 0,
@@ -41,7 +41,7 @@ class _AllState extends State<All> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 300,
             ),
@@ -69,7 +69,7 @@ class _AllState extends State<All> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -83,7 +83,7 @@ class _AllState extends State<All> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -118,7 +118,7 @@ class _AllState extends State<All> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -152,7 +152,7 @@ class _AllState extends State<All> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -208,7 +208,7 @@ class _AllState extends State<All> {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async {
-                    return Future.delayed(Duration(seconds: 1), () {
+                    return Future.delayed(const Duration(seconds: 1), () {
                       _invoiceController.getOnlineInvoice(value!.businessId!);
                       _invoiceController.GetOfflineInvoices(value.businessId!);
                     });
@@ -216,8 +216,8 @@ class _AllState extends State<All> {
                   child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: CircularProgressIndicator())
-                          : (_invoiceController.offlineInvoices.length != 0)
+                          ? const Center(child: CircularProgressIndicator())
+                          : (_invoiceController.offlineInvoices.isNotEmpty)
                               ? ListView.builder(
                                   itemCount:
                                       _invoiceController.offlineInvoices.length,
@@ -237,7 +237,7 @@ class _AllState extends State<All> {
                                           final date = DateTime.now();
                                           // ignore: unused_local_variable
                                           final dueDate =
-                                              date.add(Duration(days: 7));
+                                              date.add(const Duration(days: 7));
 
                                           // final singleInvoiceReceipt =
                                           //     await PdfInvoiceApi.generate(item);
@@ -286,7 +286,7 @@ class _AllState extends State<All> {
                                                                 color: Colors
                                                                     .black),
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 5,
                                                       ),
                                                       Row(
@@ -301,7 +301,7 @@ class _AllState extends State<All> {
                                                                     FontWeight
                                                                         .w600,
                                                                 fontSize: 14,
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xffEF6500)),
                                                           ),
                                                           Text(
@@ -336,7 +336,7 @@ class _AllState extends State<All> {
                                                                 .size
                                                                 .width *
                                                             0.05),
-                                                Icon(
+                                                const Icon(
                                                   Icons.arrow_forward_ios,
                                                   color:
                                                       AppColors.backgroundColor,
@@ -351,11 +351,10 @@ class _AllState extends State<All> {
                               : EmptyInvoiceInfo()
                       : (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: CircularProgressIndicator())
+                          ? const Center(child: CircularProgressIndicator())
                           : (_invoiceController.invoiceStatus ==
                                       InvoiceStatus.Available &&
-                                  _invoiceController.offlineInvoices.length !=
-                                      0)
+                                  _invoiceController.offlineInvoices.isNotEmpty)
                               ? ListView.builder(
                                   itemCount:
                                       _invoiceController.offlineInvoices.length,
@@ -419,7 +418,7 @@ class _AllState extends State<All> {
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     Row(
@@ -434,7 +433,7 @@ class _AllState extends State<All> {
                                                                   FontWeight
                                                                       .w600,
                                                               fontSize: 14,
-                                                              color: Color(
+                                                              color: const Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
@@ -487,7 +486,7 @@ class _AllState extends State<All> {
                                                   setState(() {});
                                                 },
                                                 child: AnimatedContainer(
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 200),
                                                   height: 25,
                                                   width: 25,
@@ -503,14 +502,14 @@ class _AllState extends State<All> {
                                                       color: (!_invoiceController
                                                               .checkifSelectedForDeleted(
                                                                   item.id!))
-                                                          ? Color(0xffEF6500)
+                                                          ? const Color(0xffEF6500)
                                                           : Colors.transparent,
                                                       width: 2,
                                                     ),
                                                   ),
                                                   child: Visibility(
                                                     visible: visible,
-                                                    child: Icon(
+                                                    child: const Icon(
                                                       Icons.check,
                                                       size: 15,
                                                       color:
@@ -545,10 +544,10 @@ class _AllState extends State<All> {
                           _displayDialog(context);
                         }
                       } else {
-                        Get.to(() => CreateInvoice());
+                        Get.to(() => const CreateInvoice());
                       }
                     },
-                    icon: (!deleteItem) ? Container() : Icon(Icons.add),
+                    icon: (!deleteItem) ? Container() : const Icon(Icons.add),
                     backgroundColor: AppColors.backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',

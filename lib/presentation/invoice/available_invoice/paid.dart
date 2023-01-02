@@ -16,6 +16,8 @@ import '../create_invoice.dart';
 import 'empty_invoice_info.dart';
 
 class Paid extends StatefulWidget {
+  const Paid({super.key});
+
   @override
   _PaidState createState() => _PaidState();
 }
@@ -27,8 +29,8 @@ class _PaidState extends State<Paid> {
   final teamController = Get.find<TeamRepository>();
   bool deleteItem = false;
   bool visible = true;
-  List<Invoice> _items = [];
-  List _selectedIndex = [];
+  final List<Invoice> _items = [];
+  final List _selectedIndex = [];
   final display = createDisplay(
     length: 10,
     decimal: 0,
@@ -223,7 +225,7 @@ class _PaidState extends State<Paid> {
                                     ),
                                   );
                                 })
-                            : EmptyInvoiceInfo()
+                            : const EmptyInvoiceInfo()
                     : (_invoiceController.invoiceStatus ==
                             InvoiceStatus.Loading)
                         ? const Center(child: CircularProgressIndicator())
@@ -236,8 +238,6 @@ class _PaidState extends State<Paid> {
                                 itemBuilder: (BuildContext context, int index) {
                                   var item =
                                       _invoiceController.paidInvoiceList[index];
-                                  final _isSelected =
-                                      _selectedIndex.contains(index);
                                   var customer = _customerController
                                       .checkifCustomerAvailableWithValue(
                                           item.customerId ?? "");
@@ -391,7 +391,7 @@ class _PaidState extends State<Paid> {
                                   );
                                 },
                               )
-                            : EmptyInvoiceInfo(),
+                            : const EmptyInvoiceInfo(),
               ))
             ],
           ),

@@ -30,7 +30,7 @@ class SingleInvoicePdf {
   }
 
   static Widget buildHeader(Invoice invoice) => Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: PdfColors.blue,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class SingleInvoicePdf {
               height: 40,
               width: 40,
               decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
+                  const BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
               child: Center(
                 child: Text(supplier.name[0],
                     style: TextStyle(
@@ -72,9 +72,9 @@ class SingleInvoicePdf {
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(supplier.mail, style: TextStyle(color: PdfColors.white)),
+          Text(supplier.mail, style: const TextStyle(color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(supplier.phone, style: TextStyle(color: PdfColors.white)),
+          Text(supplier.phone, style: const TextStyle(color: PdfColors.white)),
         ],
       );
 
@@ -95,17 +95,17 @@ class SingleInvoicePdf {
                     fontSize: 16)),
           ]),
           Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+              style: const TextStyle(color: PdfColors.white, fontSize: 10)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text('Mode of Payment',
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+              style: const TextStyle(color: PdfColors.white, fontSize: 10)),
           Text(bankDetails.mode,
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           Text(bankDetails.name,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+              style: const TextStyle(color: PdfColors.white, fontSize: 10)),
           Text(bankDetails.no,
-              style: TextStyle(color: PdfColors.white, fontSize: 10)),
+              style: const TextStyle(color: PdfColors.white, fontSize: 10)),
         ],
       );
 
@@ -129,7 +129,7 @@ class SingleInvoicePdf {
       'Amount',
     ];
     final data = invoice.items.map((item) {
-      final total = item.amount * item.quantity;
+      // final total = item.amount * item.quantity;
 
       return [
         item.item,
@@ -142,10 +142,10 @@ class SingleInvoicePdf {
       headers: headers,
       data: data,
       border: null,
-      cellStyle: TextStyle(fontSize: 15),
+      cellStyle: const TextStyle(fontSize: 15),
       headerStyle: TextStyle(
           fontWeight: FontWeight.bold, color: PdfColors.blue, fontSize: 20),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
+      headerDecoration: const BoxDecoration(color: PdfColors.grey300),
       cellHeight: 30,
       cellAlignments: {
         0: Alignment.centerLeft,
@@ -171,7 +171,7 @@ class SingleInvoicePdf {
         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             color: PdfColors.orange,
             child: Text(
               'Total',
@@ -294,13 +294,13 @@ class SingleInvoicePdf {
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(width: 1, color: PdfColors.orange),
                 color: PdfColors.orange50),
             child: Text('Pending',
-                style: TextStyle(color: PdfColors.orange, fontSize: 12)),
+                style: const TextStyle(color: PdfColors.orange, fontSize: 12)),
           )
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.end, children: [

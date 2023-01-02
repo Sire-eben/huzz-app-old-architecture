@@ -29,8 +29,8 @@ class _PendingState extends State<Pending> {
   final teamController = Get.find<TeamRepository>();
   bool deleteItem = false;
   bool visible = true;
-  List<Invoice> _items = [];
-  List _selectedIndex = [];
+  final List<Invoice> _items = [];
+  final List _selectedIndex = [];
   final display = createDisplay(
     length: 10,
     decimal: 0,
@@ -42,7 +42,7 @@ class _PendingState extends State<Pending> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -80,7 +80,7 @@ class _PendingState extends State<Pending> {
                             });
                           },
                           child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 2),
                               decoration: BoxDecoration(
                                   color: !deleteItem
@@ -98,7 +98,7 @@ class _PendingState extends State<Pending> {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async {
-                    return Future.delayed(Duration(seconds: 1), () {
+                    return Future.delayed(const Duration(seconds: 1), () {
                       _invoiceController.getOnlineInvoice(value!.businessId!);
                       _invoiceController.GetOfflineInvoices(value.businessId!);
                     });
@@ -106,8 +106,8 @@ class _PendingState extends State<Pending> {
                   child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: CircularProgressIndicator())
-                          : (_invoiceController.InvoicePendingList.length != 0)
+                          ? const Center(child: CircularProgressIndicator())
+                          : (_invoiceController.InvoicePendingList.isNotEmpty)
                               ? ListView.builder(
                                   itemCount: _invoiceController
                                       .InvoicePendingList.length,
@@ -161,7 +161,7 @@ class _PendingState extends State<Pending> {
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     //   Text(
@@ -190,7 +190,7 @@ class _PendingState extends State<Pending> {
                                                                   FontWeight
                                                                       .w600,
                                                               fontSize: 14,
-                                                              color: Color(
+                                                              color: const Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
@@ -226,7 +226,7 @@ class _PendingState extends State<Pending> {
                                                           .size
                                                           .width *
                                                       0.05),
-                                              Icon(
+                                              const Icon(
                                                 Icons.arrow_forward_ios,
                                                 color:
                                                     AppColors.backgroundColor,
@@ -237,11 +237,11 @@ class _PendingState extends State<Pending> {
                                       ),
                                     );
                                   })
-                              : EmptyInvoiceInfo()
+                              : const EmptyInvoiceInfo()
                       : (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: CircularProgressIndicator())
-                          : (_invoiceController.InvoicePendingList.length != 0)
+                          ? const Center(child: CircularProgressIndicator())
+                          : (_invoiceController.InvoicePendingList.isNotEmpty)
                               ? ListView.builder(
                                   itemCount: _invoiceController
                                       .InvoicePendingList.length,
@@ -305,7 +305,7 @@ class _PendingState extends State<Pending> {
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     // Text(
@@ -333,7 +333,7 @@ class _PendingState extends State<Pending> {
                                                                   FontWeight
                                                                       .w600,
                                                               fontSize: 14,
-                                                              color: Color(
+                                                              color: const Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
@@ -390,7 +390,7 @@ class _PendingState extends State<Pending> {
                                                   setState(() {});
                                                 },
                                                 child: AnimatedContainer(
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 200),
                                                   height: 25,
                                                   width: 25,
@@ -406,14 +406,14 @@ class _PendingState extends State<Pending> {
                                                       color: (!_invoiceController
                                                               .checkifSelectedForDeleted(
                                                                   item.id!))
-                                                          ? Color(0xffEF6500)
+                                                          ? const Color(0xffEF6500)
                                                           : Colors.transparent,
                                                       width: 2,
                                                     ),
                                                   ),
                                                   child: Visibility(
                                                     visible: visible,
-                                                    child: Icon(
+                                                    child: const Icon(
                                                       Icons.check,
                                                       size: 15,
                                                       color:
@@ -428,7 +428,7 @@ class _PendingState extends State<Pending> {
                                       ),
                                     );
                                   })
-                              : EmptyInvoiceInfo(),
+                              : const EmptyInvoiceInfo(),
                 ),
               )
             ],
@@ -447,10 +447,10 @@ class _PendingState extends State<Pending> {
                           _displayDialog(context);
                         }
                       } else {
-                        Get.to(() => CreateInvoice());
+                        Get.to(() => const CreateInvoice());
                       }
                     },
-                    icon: (!deleteItem) ? Container() : Icon(Icons.add),
+                    icon: (!deleteItem) ? Container() : const Icon(Icons.add),
                     backgroundColor: AppColors.backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
@@ -470,7 +470,7 @@ class _PendingState extends State<Pending> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 300,
             ),
@@ -498,7 +498,7 @@ class _PendingState extends State<Pending> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -512,7 +512,7 @@ class _PendingState extends State<Pending> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -548,7 +548,7 @@ class _PendingState extends State<Pending> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
