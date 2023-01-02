@@ -28,7 +28,7 @@ class _InvoiceState extends State<EmptyInvoice> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          return Future.delayed(Duration(seconds: 1), () {
+          return Future.delayed(const Duration(seconds: 1), () {
             _businessController.OnlineBusiness();
           });
         },
@@ -55,7 +55,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                         right: MediaQuery.of(context).size.height * 0.02,
                         bottom: MediaQuery.of(context).size.height * 0.02),
                     decoration: BoxDecoration(
-                        color: Color(0xffF5F5F5),
+                        color: const Color(0xffF5F5F5),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                             width: 2, color: Colors.grey.withOpacity(0.2))),
@@ -65,7 +65,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                           right: MediaQuery.of(context).size.height * 0.02,
                           bottom: MediaQuery.of(context).size.height * 0.02),
                       decoration: BoxDecoration(
-                        color: Color(0xffF5F5F5),
+                        color: const Color(0xffF5F5F5),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Center(
@@ -77,7 +77,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.27),
                             SvgPicture.asset('assets/images/invoice.svg'),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Text(
                               'Invoice',
                               style: GoogleFonts.inter(
@@ -85,7 +85,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Text(
                               'Your invoices will show here. Click the',
                               style: GoogleFonts.inter(
@@ -105,7 +105,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                                     MediaQuery.of(context).size.height * 0.02),
                             InkWell(
                               onTap: () {
-                                Get.to(() => CreateInvoice());
+                                Get.to(() => const CreateInvoice());
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
@@ -114,7 +114,7 @@ class _InvoiceState extends State<EmptyInvoice> {
                                         MediaQuery.of(context).size.height *
                                             0.06),
                                 height: 50,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: AppColors.backgroundColor,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
@@ -186,7 +186,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                     right: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.02),
                 decoration: BoxDecoration(
-                    color: Color(0xffF5F5F5),
+                    color: const Color(0xffF5F5F5),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                         width: 2, color: Colors.grey.withOpacity(0.2))),
@@ -196,7 +196,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                       right: MediaQuery.of(context).size.height * 0.02,
                       bottom: MediaQuery.of(context).size.height * 0.02),
                   decoration: BoxDecoration(
-                    color: Color(0xffF5F5F5),
+                    color: const Color(0xffF5F5F5),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -212,7 +212,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                               color: Colors.black,
                               fontWeight: FontWeight.w600),
                         ),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Text(
                           'Your invoices will show here.',
                           style: GoogleFonts.inter(
@@ -220,7 +220,7 @@ class _InvoiceNotAuthorizedState extends State<InvoiceNotAuthorized> {
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Text(
                           'You need to be authorized\nto view this module',
                           style: GoogleFonts.inter(

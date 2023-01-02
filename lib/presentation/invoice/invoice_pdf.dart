@@ -28,7 +28,7 @@ class PdfInvoiceApi {
   static final display = createDisplay(
       length: 5,
       decimal: 0,
-      placeholder: '${utils.Utils.getCurrency()}',
+      placeholder: utils.Utils.getCurrency(),
       units: ['K', 'M', 'B', 'T']);
 
   static Future<File> generate(Invoice invoice, PdfColor themeColor) async {
@@ -282,10 +282,10 @@ class PdfInvoiceApi {
   static Widget buildSubTotal(Invoice invoice) {
     dynamic totalAmount = 0;
     dynamic totalQty = 0;
-    invoice.paymentItemRequestList!.forEach((element) {
+    for (var element in invoice.paymentItemRequestList!) {
       totalAmount = totalAmount + element.totalAmount!;
       totalQty = totalQty + element.quality!;
-    });
+    }
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
