@@ -90,10 +90,11 @@ class _TimerButtonState extends State<TimerButton> {
       setState(() {
         timeCounter--;
       });
-      if (timeCounter != 0)
+      if (timeCounter != 0) {
         _timerUpdate();
-      else
+      } else {
         timeUpFlag = true;
+      }
     });
   }
 
@@ -104,7 +105,7 @@ class _TimerButtonState extends State<TimerButton> {
           widget.buttonType == ButtonType.OutlineButton) {
         activeTextStyle = TextStyle(color: widget.color);
       } else {
-        activeTextStyle = TextStyle(color: Colors.white);
+        activeTextStyle = const TextStyle(color: Colors.white);
       }
     } else {
       activeTextStyle = widget.activeTextStyle;
@@ -165,7 +166,7 @@ class _TimerButtonState extends State<TimerButton> {
             onPressed: _onPressed,
             child: _buildChild(),
             style: ElevatedButton.styleFrom(
-              primary: timeUpFlag ? widget.color : widget.disabledColor,
+              backgroundColor: timeUpFlag ? widget.color : widget.disabledColor,
             ));
       case ButtonType.TextButton:
         return TextButton(

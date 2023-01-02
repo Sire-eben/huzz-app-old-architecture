@@ -127,7 +127,8 @@ class _MoneyHistoryState extends State<MoneyHistory> {
                             context: context,
                             barrierDismissible: true,
                             builder: (context) => CupertinoAlertDialog(
-                              content: const TransactionHistoryInformationDialog(),
+                              content:
+                                  const TransactionHistoryInformationDialog(),
                               actions: [
                                 CupertinoButton(
                                   child: const Text("OK"),
@@ -139,7 +140,8 @@ class _MoneyHistoryState extends State<MoneyHistory> {
                         : showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              content: const TransactionHistoryInformationDialog(),
+                              content:
+                                  const TransactionHistoryInformationDialog(),
                               actions: [
                                 CupertinoButton(
                                   child: const Text("OK"),

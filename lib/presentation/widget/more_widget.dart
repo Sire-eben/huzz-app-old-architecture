@@ -4,26 +4,26 @@ import 'package:huzz/core/constants/app_themes.dart';
 
 class MoreWidget extends StatelessWidget {
   final String? image, title, description;
-  MoreWidget({Key? key, this.image, this.title, this.description})
+  const MoreWidget({Key? key, this.image, this.title, this.description})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 10,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Color.fromARGB(31, 150, 150, 150),
+        color: const Color.fromARGB(31, 150, 150, 150),
       ),
       child: Row(
         children: [
           Container(
             height: 80,
             width: 100,
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 10,
               horizontal: 8,
             ),
@@ -36,7 +36,7 @@ class MoreWidget extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 15,
           ),
           Column(
@@ -61,9 +61,9 @@ class MoreWidget extends StatelessWidget {
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           Row(
-            children: [
+            children: const [
               Icon(
                 Icons.keyboard_arrow_right,
                 color: AppColors.backgroundColor,

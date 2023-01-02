@@ -10,7 +10,7 @@ class ExpandableWidget extends StatefulWidget {
   final bool? role;
   final Widget? manageChild, view, create, update, delete;
   final VoidCallback? info;
-  ExpandableWidget({
+  const ExpandableWidget({
     Key? key,
     this.name,
     this.tL,
@@ -37,7 +37,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(widget.tL!),
@@ -46,7 +46,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                 bottomRight: Radius.circular(widget.bR!)),
             color: AppColors.backgroundColor.withOpacity(0.1)),
         child: ExpandablePanel(
-          theme: ExpandableThemeData(
+          theme: const ExpandableThemeData(
             headerAlignment: ExpandablePanelHeaderAlignment.center,
             tapBodyToCollapse: true,
             hasIcon: true,
@@ -72,7 +72,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                   ],
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Row(
@@ -90,7 +90,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                   ],
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Row(
@@ -108,7 +108,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                   ],
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: Row(
@@ -132,7 +132,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(width: 20, child: widget.manageChild),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -146,7 +146,7 @@ class _ExpandableWidgetState extends State<ExpandableWidget> {
                           fontWeight: FontWeight.w500,
                         ),
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   InkWell(
                     onTap: widget.info,
                     child: SvgPicture.asset(
