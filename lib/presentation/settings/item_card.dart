@@ -10,15 +10,15 @@ class ItemCard extends StatelessWidget {
   Bank item;
   final VoidCallback? onDelete;
   final VoidCallback? onEdit;
-  ItemCard({required this.item, this.onDelete, this.onEdit});
+  ItemCard({super.key, required this.item, this.onDelete, this.onEdit});
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.08,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
             color: AppColors.backgroundColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10)),
@@ -34,7 +34,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Expanded(
@@ -47,7 +47,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Expanded(
@@ -60,7 +60,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             Expanded(
               child: GestureDetector(
                 onTap: () {
@@ -71,7 +71,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Expanded(
@@ -82,7 +82,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             )
           ],

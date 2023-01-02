@@ -15,7 +15,7 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
   final controller = Get.find<AuthRepository>();
 
   @override
@@ -27,7 +27,7 @@ class _NotificationsState extends State<Notifications> {
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
@@ -45,7 +45,7 @@ class _NotificationsState extends State<Notifications> {
           ),
         ),
         backgroundColor: Colors.white,
-        body: notificationList.length > 0
+        body: notificationList.isNotEmpty
             ? Center(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,7 +54,7 @@ class _NotificationsState extends State<Notifications> {
                     SvgPicture.asset(
                       "assets/images/notification_bell.svg",
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       'Messages',
                       style: GoogleFonts.inter(
@@ -62,7 +62,7 @@ class _NotificationsState extends State<Notifications> {
                           color: Colors.black,
                           fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -80,7 +80,7 @@ class _NotificationsState extends State<Notifications> {
                     EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
                 child: ListView.separated(
                     shrinkWrap: true,
-                    separatorBuilder: (context, index) => Divider(),
+                    separatorBuilder: (context, index) => const Divider(),
                     itemCount: notificationList.length,
                     itemBuilder: (BuildContext context, int index) {
                       var item = notificationList[index];
@@ -93,12 +93,12 @@ class _NotificationsState extends State<Notifications> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: _randomColor.randomColor()),
                                   child: SvgPicture.asset(item.image!)),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
                                   item.message!,
