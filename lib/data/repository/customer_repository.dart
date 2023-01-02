@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/data/repository/business_repository.dart';
-import 'package:huzz/data/repository/file_upload_respository.dart';
+import 'package:huzz/data/repository/file_upload_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/presentation/customers/confirmation.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -59,7 +59,7 @@ class CustomerRepository extends GetxController {
   List<Contact> contactList = [];
 
   Rx<File?> customerImage = Rx(null);
-  final _uploadFileController = Get.find<FileUploadRespository>();
+  final _uploadFileController = Get.find<FileUploadRepository>();
   SqliteDb sqliteDb = SqliteDb();
   final RandomColor _randomColor = RandomColor();
   List<Customer> pendingJobToBeAdded = [];

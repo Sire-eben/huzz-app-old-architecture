@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/data/repository/business_repository.dart';
-import 'package:huzz/data/repository/file_upload_respository.dart';
+import 'package:huzz/data/repository/file_upload_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/data/model/bank.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
@@ -42,7 +42,7 @@ class BankAccountRepository extends GetxController {
   List<Contact> contactList = [];
 
   Rx<File?> bankImage = Rx(null);
-  final _uploadFileController = Get.find<FileUploadRespository>();
+  final _uploadFileController = Get.find<FileUploadRepository>();
   SqliteDb sqliteDb = SqliteDb();
   List<Bank> pendingJobToBeAdded = [];
   List<Bank> pendingJobToBeUpdated = [];

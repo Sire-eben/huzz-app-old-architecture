@@ -15,7 +15,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'auth_repository.dart';
-import 'file_upload_respository.dart';
+import 'file_upload_repository.dart';
 
 enum AddingProductStatus { Loading, Error, Success, Empty }
 
@@ -35,7 +35,7 @@ class ProductRepository extends GetxController
   Rx<String?> selectedUnit = Rx(null);
 
   Product? selectedProduct;
-  final _uploadImageController = Get.find<FileUploadRespository>();
+  final _uploadImageController = Get.find<FileUploadRepository>();
   Rx<List<Product>> _productService = Rx([]);
   Rx<List<Product>> _productGoods = Rx([]);
   final isProductService = false.obs;
@@ -61,7 +61,7 @@ class ProductRepository extends GetxController
   final _businessController = Get.find<BusinessRepository>();
   final _addingProductStatus = AddingProductStatus.Empty.obs;
   final _addingServiceStatus = AddingServiceStatus.Empty.obs;
-  final _uploadFileController = Get.find<FileUploadRespository>();
+  final _uploadFileController = Get.find<FileUploadRepository>();
   AddingProductStatus get addingProductStatus => _addingProductStatus.value;
   AddingServiceStatus get addingServiceStatus => _addingServiceStatus.value;
   TabController? tabController;

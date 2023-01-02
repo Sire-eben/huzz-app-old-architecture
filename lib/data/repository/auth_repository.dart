@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/business_repository.dart';
-import 'package:huzz/data/repository/file_upload_respository.dart';
+import 'package:huzz/data/repository/file_upload_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/presentation/auth/enter_otp.dart';
@@ -451,7 +451,7 @@ class AuthRepository extends GetxController {
     try {
       _updateProfileStatus(UpdateProfileStatus.Loading);
       // print("otp value ${otpController.text}");
-      final uploadController = Get.find<FileUploadRespository>();
+      final uploadController = Get.find<FileUploadRepository>();
       String? imageId;
       if (profileImage.value != null) {
         imageId = await uploadController.uploadFile(profileImage.value!.path);
@@ -512,7 +512,7 @@ class AuthRepository extends GetxController {
     try {
       _updateProfileStatus(UpdateProfileStatus.Loading);
       // print("otp value ${otpController.text}");
-      final uploadController = Get.find<FileUploadRespository>();
+      final uploadController = Get.find<FileUploadRepository>();
       String? imageId;
       if (profileImage.value != null) {
         imageId = await uploadController.uploadFile(profileImage.value!.path);

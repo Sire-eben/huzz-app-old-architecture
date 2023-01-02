@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
-import 'package:huzz/data/repository/file_upload_respository.dart';
+import 'package:huzz/data/repository/file_upload_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/core/util/constants.dart';
@@ -35,7 +35,7 @@ enum TransactionStatus { Loading, Available, Error, Empty, UnAuthorized }
 enum GetTransactionStatus { Loading, Available, Error, Empty }
 
 class TransactionRespository extends GetxController {
-  final _uploadImageController = Get.find<FileUploadRespository>();
+  final _uploadImageController = Get.find<FileUploadRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
   final _debtorController = Get.find<DebtorRepository>();

@@ -5,7 +5,7 @@ import '../../data/repository/bank_account_repository.dart';
 import '../../data/repository/business_repository.dart';
 import '../../data/repository/customer_repository.dart';
 import '../../data/repository/debtors_repository.dart';
-import '../../data/repository/file_upload_respository.dart';
+import '../../data/repository/file_upload_repository.dart';
 import '../../data/repository/home_respository.dart';
 import '../../data/repository/invoice_repository.dart';
 import '../../data/repository/miscellaneous_respository.dart';
@@ -21,7 +21,7 @@ class AppBinding extends Bindings {
     Get.put(AuthRepository(), permanent: true);
     Get.put(MiscellaneousRepository(), permanent: true);
     Get.put(BusinessRepository(), permanent: true);
-    Get.put(FileUploadRespository(), permanent: true);
+    Get.put(FileUploadRepository(), permanent: true);
     Get.put(ProductRepository(), permanent: true);
     Get.put(CustomerRepository(), permanent: true);
     Get.put(DebtorRepository(), permanent: true);

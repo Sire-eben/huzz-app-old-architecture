@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
 import 'package:huzz/data/repository/business_repository.dart';
-import 'package:huzz/data/repository/file_upload_respository.dart';
+import 'package:huzz/data/repository/file_upload_repository.dart';
 import 'package:huzz/data/repository/miscellaneous_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
@@ -31,7 +31,7 @@ enum InvoiceStatus { Loading, Error, Available, Empty, UnAuthorized }
 class InvoiceRespository extends GetxController {
   Rx<List<Invoice>> _offlineInvoices = Rx([]);
   List<Invoice> get offlineInvoices => _offlineInvoices.value;
-  final _uploadImageController = Get.find<FileUploadRespository>();
+  final _uploadImageController = Get.find<FileUploadRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
   // ignore: non_constant_identifier_names

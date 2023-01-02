@@ -8,7 +8,7 @@ import 'package:country_currency_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/data/repository/file_upload_respository.dart';
+import 'package:huzz/data/repository/file_upload_repository.dart';
 import 'package:huzz/data/repository/miscellaneous_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/data/model/business.dart';
@@ -299,7 +299,7 @@ class BusinessRepository extends GetxController {
     try {
       _updateBusinessStatus(UpdateBusinessStatus.Loading);
       String? imageId;
-      var uploadController = Get.find<FileUploadRespository>();
+      var uploadController = Get.find<FileUploadRepository>();
       if (businessImage.value != null) {
         imageId = await uploadController.uploadFile(businessImage.value!.path);
       }
