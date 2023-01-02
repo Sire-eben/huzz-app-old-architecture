@@ -98,7 +98,7 @@ class FingerPrint extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Get.to(SignIn());
+              Get.to(const SignIn());
             },
             child: Center(
               child: Text(
