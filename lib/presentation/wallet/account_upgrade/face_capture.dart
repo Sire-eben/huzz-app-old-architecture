@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/extension.dart';
-import 'package:huzz/core/widgets/appbar.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/presentation/wallet/account_upgrade/id_verification.dart';

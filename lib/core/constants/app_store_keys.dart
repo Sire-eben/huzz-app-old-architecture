@@ -1,1 +1,1 @@
-final String token = 'TOKEN';
+const String token = 'TOKEN';

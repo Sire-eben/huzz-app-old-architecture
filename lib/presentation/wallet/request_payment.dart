@@ -4,7 +4,7 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/mixins/form_mixin.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/validators.dart';
-import 'package:huzz/core/widgets/appbar.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/generated/assets.gen.dart';
@@ -99,7 +99,7 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
                         child: Container(
                           padding: const EdgeInsets.all(Insets.sm),
                           decoration: const BoxDecoration(
-                            color: AppColors.lightbackgroundColor,
+                            color: AppColors.lightBackgroundColor,
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(

@@ -195,7 +195,7 @@ class _ServicesState extends State<Services> {
               height: 95,
               padding: const EdgeInsets.only(right: 9),
               decoration: BoxDecoration(
-                color: AppColors.secondbgColor,
+                color: AppColors.secondBgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

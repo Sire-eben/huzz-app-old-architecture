@@ -4,9 +4,9 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/mixins/form_mixin.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/validators.dart';
-import 'package:huzz/core/widgets/appbar.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
-import 'package:huzz/core/widgets/dropdowns/buildmenuitem.dart';
+import 'package:huzz/core/widgets/dropdowns/build_menu_item.dart';
 import 'package:huzz/core/widgets/dropdowns/dropdown_outline.dart';
 import 'package:huzz/core/widgets/state/success.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
@@ -71,7 +71,7 @@ class _CreateBankAccountScreenState extends State<CreateBankAccountScreen>
 
                   hint: const Text('Select'),
                   disabledHint: const Text('Choose category'),
-                  dropdownColor: AppColors.lightbackgroundColor,
+                  dropdownColor: AppColors.lightBackgroundColor,
                   elevation: 0,
                   decoration: const InputDecoration(
                     errorBorder: dropdownErrorBorder,

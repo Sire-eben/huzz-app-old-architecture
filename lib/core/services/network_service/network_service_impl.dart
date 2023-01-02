@@ -25,7 +25,7 @@ class NetworkServiceImpl implements NetworkService {
           headers: getRequestHeaders(),
           body: jsonEncode(body),
         )
-        .timeout(Duration(seconds: 45));
+        .timeout(const Duration(seconds: 45));
     return res;
   }
 
@@ -34,7 +34,7 @@ class NetworkServiceImpl implements NetworkService {
     http.Response res;
     res = await http
         .get(uri!, headers: getRequestHeaders())
-        .timeout(Duration(seconds: 45));
+        .timeout(const Duration(seconds: 45));
     return res;
   }
 
@@ -47,7 +47,7 @@ class NetworkServiceImpl implements NetworkService {
           headers: getRequestHeaders(),
           body: jsonEncode(body),
         )
-        .timeout(Duration(seconds: 45));
+        .timeout(const Duration(seconds: 45));
     return res;
   }
 
@@ -60,7 +60,7 @@ class NetworkServiceImpl implements NetworkService {
           headers: getRequestHeaders(),
           body: jsonEncode(body),
         )
-        .timeout(Duration(seconds: 45));
+        .timeout(const Duration(seconds: 45));
     return res;
   }
 
@@ -73,7 +73,7 @@ class NetworkServiceImpl implements NetworkService {
           headers: getRequestHeaders(),
           body: jsonEncode(body),
         )
-        .timeout(Duration(seconds: 45));
+        .timeout(const Duration(seconds: 45));
     return res;
   }
 
@@ -86,7 +86,7 @@ class NetworkServiceImpl implements NetworkService {
           headers: getRequestHeaders(isNotAuthenticated: true),
           body: jsonEncode(body),
         )
-        .timeout(Duration(seconds: 45));
+        .timeout(const Duration(seconds: 45));
     return res;
   }
 }

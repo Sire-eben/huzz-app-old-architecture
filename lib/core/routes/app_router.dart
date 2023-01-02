@@ -9,7 +9,7 @@ import 'app_routes.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case splashScreen:
-      return _buildPageRoute(page: SplashScreen());
+      return _buildPageRoute(page: const SplashScreen());
       // ignore: dead_code
       break;
     default:
@@ -28,7 +28,7 @@ Route<dynamic> _buildPageRoute({@required Widget? page}) {
 Route<dynamic> _errorRoute() {
   return MaterialPageRoute(
     builder: (context) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: Text('Page not found'),
         ),

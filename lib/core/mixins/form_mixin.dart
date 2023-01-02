@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 mixin FormMixin<T extends StatefulWidget> on State<T> {
   final formKey = GlobalKey<FormState>();
-  AutovalidateMode? autovalidateMode;
+  AutovalidateMode? autoValidateMode;
 
   void validate(VoidCallback callback, {VoidCallback? orElse}) {
     final formState = formKey.currentState;
@@ -12,7 +12,7 @@ mixin FormMixin<T extends StatefulWidget> on State<T> {
       callback();
     } else {
       setState(() {
-        autovalidateMode = AutovalidateMode.onUserInteraction;
+        autoValidateMode = AutovalidateMode.onUserInteraction;
       });
       orElse?.call();
     }

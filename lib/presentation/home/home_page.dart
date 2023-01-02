@@ -474,7 +474,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     padding: const EdgeInsets.all(Insets.sm),
                                     decoration: const BoxDecoration(
-                                      color: AppColors.secondbgColor,
+                                      color: AppColors.secondBgColor,
                                       borderRadius:
                                           BorderRadius.all(Corners.smRadius),
                                     ),
@@ -499,7 +499,7 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                               padding: const EdgeInsets.all(Insets.md),
                               decoration: BoxDecoration(
-                                color: AppColors.secondbgColor.withOpacity(0.1),
+                                color: AppColors.secondBgColor.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(

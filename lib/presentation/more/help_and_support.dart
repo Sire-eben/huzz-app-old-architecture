@@ -81,7 +81,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(const PrivacyPolicy());
                         },
@@ -148,7 +148,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(TermsOfUse());
                         },
@@ -215,7 +215,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(const FaqWebView());
                         },
@@ -283,7 +283,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () async {
                           if (_authController.onlineStatus ==
                               OnlineStatus.Onilne) {
@@ -367,7 +367,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () async {
                           // final action = await AlertDialogs.yesCancelDialog(
                           //     context, 'Open WhatsApp', 'Click confirm to proceed');
@@ -443,7 +443,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () async {
                           // final action = await AlertDialogs.yesCancelDialog(
                           //     context, 'Open WhatsApp', 'Click confirm to proceed');
