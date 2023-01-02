@@ -137,7 +137,7 @@ class _DashboardState extends State<Dashboard> {
       case 0:
         return const HomePage();
       case 1:
-        return CustomerTabView();
+        return const CustomerTabView();
       case 2:
         return const ManageInventory();
       case 3:

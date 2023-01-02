@@ -10,7 +10,7 @@ import 'package:huzz/core/constants/app_icons.dart';
 import 'package:huzz/core/constants/app_strings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/repository/auth_respository.dart';
-import '../terms_of_condition.dart';
+import '../terms_of_use.dart';
 import 'faq_web_view.dart';
 
 class HelpsAndSupport extends StatefulWidget {
@@ -83,7 +83,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                             AppColors.backgroundColor.withOpacity(0.3),
                         splashColor: AppColors.secondbgColor.withOpacity(0.3),
                         onTap: () {
-                          Get.to(const Privacy());
+                          Get.to(const PrivacyPolicy());
                         },
                         child: Ink(
                           padding: const EdgeInsets.symmetric(

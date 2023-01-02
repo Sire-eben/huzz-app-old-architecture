@@ -5,6 +5,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class TermsOfUse extends StatefulWidget {
+  const TermsOfUse({super.key});
+
   @override
   _TermsOfUseState createState() => _TermsOfUseState();
 }
@@ -22,7 +24,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
             size: 16,
@@ -66,7 +68,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
             }),
           ),
           isLoading
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.backgroundColor,
                   ),

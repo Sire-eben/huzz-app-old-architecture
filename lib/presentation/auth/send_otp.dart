@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/presentation/auth/sign_in.dart';
 import 'package:huzz/presentation/privacy_policy.dart';
-import 'package:huzz/presentation/terms_of_condition.dart';
+import 'package:huzz/presentation/terms_of_use.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'sign_up.dart';
 
@@ -299,7 +299,7 @@ class _SendOtpState extends State<SendOtp> {
   }
 
   Future privacyPolicy() async {
-    Get.to(const Privacy());
+    Get.to(const PrivacyPolicy());
   }
 
   Future showCountryCode(BuildContext context) async {

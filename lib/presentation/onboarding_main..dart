@@ -10,14 +10,14 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/onboarding_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class OnboardingMain extends StatefulWidget {
-  const OnboardingMain({super.key});
+class OnBoardingMain extends StatefulWidget {
+  const OnBoardingMain({super.key});
 
   @override
-  _OnboardingMainState createState() => _OnboardingMainState();
+  _OnBoardingMainState createState() => _OnBoardingMainState();
 }
 
-class _OnboardingMainState extends State<OnboardingMain> {
+class _OnBoardingMainState extends State<OnBoardingMain> {
   int selectedIndex = 0;
   List<OnBoardingModel> boards = OnBoardingModel.values;
   final _authController = Get.find<AuthRepository>();
