@@ -35,7 +35,7 @@ class PdfInvoiceApi {
     final pdf = Document();
     var customer = _customerController
         .checkifCustomerAvailableWithValue(invoice.customerId!);
-    var bank = _bankController.checkifBankAvailableWithValue(invoice.bankId!);
+    var bank = _bankController.checkIfBankAvailableWithValue(invoice.bankId!);
 
     final selectedBusiness = _businessController.selectedBusiness.value!;
     pw.ImageProvider? businessImgProvider;

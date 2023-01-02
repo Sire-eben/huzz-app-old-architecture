@@ -767,7 +767,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   label: "Account Number ",
                   validatorText: "Account Number required",
                   textEditingController:
-                      bankInfoController.accoutNumberController,
+                      bankInfoController.accountNumberController,
                 ),
                 CustomTextField(
                   label: "Account holder Name",
@@ -857,7 +857,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   label: "Account Number ",
                   validatorText: "Account Number required",
                   textEditingController:
-                      bankInfoController.accoutNumberController,
+                      bankInfoController.accountNumberController,
                 ),
                 CustomTextField(
                   label: "Account holder Name",

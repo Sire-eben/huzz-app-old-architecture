@@ -526,7 +526,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               signed: true, decimal: true)
                           : TextInputType.number,
                       textEditingController:
-                          _bankAccountController.accoutNumberController,
+                          _bankAccountController.accountNumberController,
                     ),
                   ],
                 ),
