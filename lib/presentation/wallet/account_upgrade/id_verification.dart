@@ -29,7 +29,7 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
     "Voter's Card",
     "Driver's License",
   ];
-  String? selectedModeOfVerfication;
+  String? selectedModeOfVerification;
   bool userHasSelected = false;
 
   XFile? imageXFile;
@@ -41,7 +41,7 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
       setState(() {
         imageXFile;
       });
-    } on PlatformException catch (e) {
+    } on PlatformException {
       // print(e);
     }
   }
@@ -127,20 +127,20 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
                   enabledBorder: dropdownNormalBorder,
                 ),
 
-                value: selectedModeOfVerfication,
+                value: selectedModeOfVerification,
                 // isExpanded: true,
                 items: modeOfVerification.map(buildMenuItem).toList(),
 
                 onChanged: (optionSelected) {
                   setState(() {
-                    selectedModeOfVerfication = optionSelected;
+                    selectedModeOfVerification = optionSelected;
                   });
                   setState(() {
                     userHasSelected == true;
                   });
                 },
               ),
-              if (selectedModeOfVerfication != '') ...[
+              if (selectedModeOfVerification != '') ...[
                 const Gap(Insets.md),
                 if (imageXFile == null)
                   UploadButton(

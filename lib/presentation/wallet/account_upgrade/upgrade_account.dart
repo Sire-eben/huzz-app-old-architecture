@@ -45,7 +45,7 @@ class _UpgradeAccountScreenState extends State<UpgradeAccountScreen> {
             const Gap(Insets.xl),
             Button(
               label: 'Face Capture',
-              action: () => context.push(FaceCaptureCreen()),
+              action: () => context.push(FaceCaptureScreen()),
             ),
             const Gap(Insets.md),
             const Align(
