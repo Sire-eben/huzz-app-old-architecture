@@ -46,7 +46,7 @@ class ManageInventory extends StatefulWidget {
 
 class _ManageInventoryState extends State<ManageInventory> {
   final _authController = Get.put(AuthRepository());
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   @override
   void initState() {
     super.initState();

@@ -7,7 +7,7 @@ import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class NoTeamWidget extends GetView<TeamRepository> {
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   @override
   Widget build(BuildContext context) {
     return Padding(

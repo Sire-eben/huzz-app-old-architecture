@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
   String? value;
   final _authController = Get.put(AuthRepository());
   final _transactionController = Get.find<TransactionRespository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _debtorController = Get.find<DebtorRepository>();
   final teamController = Get.find<TeamRepository>();
 

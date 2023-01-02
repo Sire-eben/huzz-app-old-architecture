@@ -29,7 +29,7 @@ class CustomerRepository extends GetxController {
   final amountController = TextEditingController();
   final totalAmountController = TextEditingController();
   final balanceController = TextEditingController();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _userController = Get.find<AuthRepository>();
   final _addingCustomerStatus = AddingCustomerStatus.Empty.obs;
   var uuid = Uuid();

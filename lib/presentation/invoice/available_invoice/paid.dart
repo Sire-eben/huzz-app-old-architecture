@@ -23,7 +23,7 @@ class Paid extends StatefulWidget {
 }
 
 class _PaidState extends State<Paid> {
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _invoiceController = Get.find<InvoiceRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();

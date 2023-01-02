@@ -22,7 +22,7 @@ import 'package:printing/printing.dart';
 import '../../data/model/invoice.dart';
 
 class PdfInvoiceApi {
-  static final _businessController = Get.find<BusinessRespository>();
+  static final _businessController = Get.find<BusinessRepository>();
   static final _customerController = Get.find<CustomerRepository>();
   static final _bankController = Get.find<BankAccountRepository>();
   static final display = createDisplay(

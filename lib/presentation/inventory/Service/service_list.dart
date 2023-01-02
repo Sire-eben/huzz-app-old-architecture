@@ -22,7 +22,7 @@ class ServiceListing extends StatefulWidget {
 class _ServiceListingState extends State<ServiceListing> {
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final teamController = Get.find<TeamRepository>();
   final display = createDisplay(
       roundingType: RoundingType.floor,

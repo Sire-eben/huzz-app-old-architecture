@@ -51,7 +51,7 @@ class MyTeam extends StatefulWidget {
 
 class _MyTeamState extends State<MyTeam> {
   final controller = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _teamController = Get.find<TeamRepository>();
 
   String? values, date;

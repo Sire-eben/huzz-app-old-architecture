@@ -41,7 +41,7 @@ class InvoiceRespository extends GetxController {
   List<PaymentItem> get allPaymentItem => _allPaymentItem.value;
 
   final _userController = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
 
   final expenses = 0.obs;
   final income = 0.obs;

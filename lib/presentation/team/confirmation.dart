@@ -17,7 +17,7 @@ class TeamConfirmation extends StatefulWidget {
 class _TeamConfirmationState extends State<TeamConfirmation> {
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final controller = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   bool isLoadingTeamInviteLink = false;
   String? values, teamInviteLink, busName;
 

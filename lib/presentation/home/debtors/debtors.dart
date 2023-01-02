@@ -855,7 +855,7 @@ class DebtorListing extends StatefulWidget {
 class _DebtorListingState extends State<DebtorListing> {
   final _userController = Get.find<AuthRepository>();
   final _customerController = Get.find<CustomerRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
 
   int statusType = 0;
   final _debtorController = Get.find<DebtorRepository>();

@@ -26,7 +26,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
         _userController.user!.phoneNumber ?? "";
   }
 
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _userController = Get.find<AuthRepository>();
   final key = GlobalKey<FormState>();
   @override

@@ -20,7 +20,7 @@ class BankAccountRepository extends GetxController {
   final accountNumberController = TextEditingController();
 
   final bankNameController = TextEditingController();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _userController = Get.find<AuthRepository>();
   final _addingBankStatus = AddingBankInfoStatus.Empty.obs;
   var uuid = const Uuid();

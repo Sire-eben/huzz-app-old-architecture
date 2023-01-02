@@ -58,7 +58,7 @@ class ProductRepository extends GetxController
   final productQuantityController = TextEditingController();
   final productUnitController = TextEditingController();
   final serviceDescription = TextEditingController();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _addingProductStatus = AddingProductStatus.Empty.obs;
   final _addingServiceStatus = AddingServiceStatus.Empty.obs;
   final _uploadFileController = Get.find<FileUploadRespository>();

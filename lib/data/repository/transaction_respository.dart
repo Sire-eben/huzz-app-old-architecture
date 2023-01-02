@@ -40,7 +40,7 @@ class TransactionRespository extends GetxController {
   final _productController = Get.find<ProductRepository>();
   final _debtorController = Get.find<DebtorRepository>();
   final _userController = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
 
   Rx<List<TransactionModel>> _offlineTransactions = Rx([]);
   List<TransactionModel> get offlineTransactions => _offlineTransactions.value;

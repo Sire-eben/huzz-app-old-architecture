@@ -16,7 +16,7 @@ import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
 class PdfMoneyInOutApi {
-  static final _businessController = Get.find<BusinessRespository>();
+  static final _businessController = Get.find<BusinessRepository>();
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(
       TransactionModel transactionModel, PdfColor themeColor) async {

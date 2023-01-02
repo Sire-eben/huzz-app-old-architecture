@@ -76,7 +76,7 @@ class _UpdateMemberState extends State<UpdateMember> {
 
   final controller = Get.find<AuthRepository>();
   final _teamController = Get.find<TeamRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController updatePhoneNumberController =
       TextEditingController();

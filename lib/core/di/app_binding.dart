@@ -20,7 +20,7 @@ class AppBinding extends Bindings {
     Get.put(HomeRespository(), permanent: true);
     Get.put(AuthRepository(), permanent: true);
     Get.put(MiscellaneousRepository(), permanent: true);
-    Get.put(BusinessRespository(), permanent: true);
+    Get.put(BusinessRepository(), permanent: true);
     Get.put(FileUploadRespository(), permanent: true);
     Get.put(ProductRepository(), permanent: true);
     Get.put(CustomerRepository(), permanent: true);

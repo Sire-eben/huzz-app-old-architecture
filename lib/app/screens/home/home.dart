@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
 
   String? value;
   final _transactionController = Get.find<TransactionRespository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _debtorController = Get.find<DebtorRepository>();
   // final _authController = Get.find<AuthRepository>();
   int selectedValue = 0;

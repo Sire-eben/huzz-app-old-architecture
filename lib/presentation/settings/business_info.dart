@@ -29,7 +29,7 @@ class BusinessInfo extends StatefulWidget {
 
 class _BusinessInfoState extends State<BusinessInfo> {
   final controller = Get.find<AuthRepository>();
-  final businessController = Get.find<BusinessRespository>();
+  final businessController = Get.find<BusinessRepository>();
   final bankInfoController = Get.find<BankAccountRepository>();
   final teamController = Get.find<TeamRepository>();
 

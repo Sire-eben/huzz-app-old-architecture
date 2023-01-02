@@ -24,7 +24,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   final controller = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final teamController = Get.find<TeamRepository>();
 
   late String email;

@@ -26,7 +26,7 @@ class _CustomersState extends State<Customers> {
   final teamController = Get.find<TeamRepository>();
   String searchText = "";
   List<Customer> searchResult = [];
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
 
   void searchItem(String val) {
     // print("search text $val");

@@ -17,7 +17,7 @@ import 'package:pdf/widgets.dart';
 class PdfTransactionApi {
   // ignore: avoid_init_to_null
 
-  static final _businessController = Get.find<BusinessRespository>();
+  static final _businessController = Get.find<BusinessRepository>();
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(TransactionModel transactionModel) async {
     final pdf = Document();

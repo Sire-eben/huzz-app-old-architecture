@@ -20,7 +20,7 @@ class Services extends StatefulWidget {
 class _ServicesState extends State<Services> {
   final _productController = Get.find<ProductRepository>();
   final teamController = Get.find<TeamRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final display = createDisplay(
       length: 5,
       decimal: 0,

@@ -15,7 +15,7 @@ class NoPermissionTeam extends StatefulWidget {
 
 class _NoPermissionTeamState extends State<NoPermissionTeam> {
   final controller = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
 
   String? values, date;
   late String firstName, lastName;

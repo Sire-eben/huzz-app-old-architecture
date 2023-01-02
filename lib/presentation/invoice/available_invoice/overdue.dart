@@ -26,7 +26,7 @@ class Overdue extends StatefulWidget {
 }
 
 class _OverdueState extends State<Overdue> {
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _productController = Get.find<ProductRepository>();
   final _invoiceController = Get.find<InvoiceRespository>();
   final _customerController = Get.find<CustomerRepository>();

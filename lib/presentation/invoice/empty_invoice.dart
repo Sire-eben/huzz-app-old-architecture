@@ -16,7 +16,7 @@ class EmptyInvoice extends StatefulWidget {
 
 class _InvoiceState extends State<EmptyInvoice> {
   final _authController = Get.put(AuthRepository());
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   @override
   void initState() {
     super.initState();

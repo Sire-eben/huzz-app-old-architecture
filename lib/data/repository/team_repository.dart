@@ -35,7 +35,7 @@ class TeamRepository extends GetxController {
   final totalAmountController = TextEditingController();
   final emailController = TextEditingController();
   final _userController = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   var uuid = Uuid();
 
   final _addingTeamMemberStatus = AddingTeamStatus.Empty.obs;

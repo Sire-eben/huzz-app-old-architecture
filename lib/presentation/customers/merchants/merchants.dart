@@ -26,7 +26,7 @@ class _MerchantsState extends State<Merchants> {
   final teamController = Get.find<TeamRepository>();
   String searchtext = "";
   List<Customer> searchResult = [];
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
 
   void searchItem(String val) {
     // print("search text $val");

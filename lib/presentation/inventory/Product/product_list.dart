@@ -20,7 +20,7 @@ class ProductListing extends StatefulWidget {
 }
 
 class _ProductListingState extends State<ProductListing> {
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final teamController = Get.find<TeamRepository>();
   final display = createDisplay(
       roundingType: RoundingType.floor,

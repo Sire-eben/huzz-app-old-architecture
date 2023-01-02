@@ -689,7 +689,7 @@ class AuthRepository extends GetxController {
         pref!.setDateTokenExpired(expireToken);
 
         _authStatus(AuthStatus.Authenticated);
-        final _businessController = Get.find<BusinessRespository>();
+        final _businessController = Get.find<BusinessRepository>();
         _businessController.setBusinessList(user.businessList!);
         mToken(token);
         // print("user business length ${user.businessList!.length}");
@@ -881,7 +881,7 @@ class AuthRepository extends GetxController {
   void deleteBusinessAccounts() async {
     _authStatus(AuthStatus.Loading);
     try {
-      final _businessController = Get.find<BusinessRespository>();
+      final _businessController = Get.find<BusinessRepository>();
       /**
         print(
             'deleting business ${_businessController.selectedBusiness.value!.businessName}');
@@ -929,7 +929,7 @@ class AuthRepository extends GetxController {
   void checkTeamInvite() {
     if (onlineStatus == OnlineStatus.Onilne) {
       try {
-        final _businessController = Get.find<BusinessRespository>();
+        final _businessController = Get.find<BusinessRepository>();
         if (kDebugMode) {
           // print('Team Invite deeplink: ${hasTeamInviteDeeplink.value}');
           // print('Referral Invite deeplink: ${hasReferralDeeplink.value}');
@@ -951,7 +951,7 @@ class AuthRepository extends GetxController {
 
   void checkDeletedTeamBusiness() async {
     try {
-      final _businessController = Get.find<BusinessRespository>();
+      final _businessController = Get.find<BusinessRepository>();
       // _businessController.checkOnlineBusiness();
       /**
         if (kDebugMode) {
@@ -983,7 +983,7 @@ class AuthRepository extends GetxController {
     pref!.logout();
     phoneNumberController.text = '';
     Get.offAll(const SignIn());
-    final businessController = Get.find<BusinessRespository>();
+    final businessController = Get.find<BusinessRepository>();
     businessController.selectedBusiness = Rx(Business(businessId: null));
   }
 
@@ -1002,7 +1002,7 @@ class AuthRepository extends GetxController {
 
   void clearProduct() async {
     final _productController = Get.find<ProductRepository>();
-    final _businessController = Get.find<BusinessRespository>();
+    final _businessController = Get.find<BusinessRepository>();
 
     // print('clearing products...');
     await sqliteDb.openDatabae();
