@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
-import 'package:huzz/presentation/inventory/Service/servicelist.dart';
-import 'package:huzz/presentation/inventory/Service/servicelist.dart';
+import 'package:huzz/presentation/inventory/Service/service_list.dart';
 import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -25,7 +24,7 @@ class _ServicesState extends State<Services> {
   final display = createDisplay(
       length: 5,
       decimal: 0,
-      placeholder: '${Utils.getCurrency()}',
+      placeholder: Utils.getCurrency(),
       units: ['K', 'M', 'B', 'T']);
   @override
   Widget build(BuildContext context) {
@@ -200,7 +199,7 @@ class _ServicesState extends State<Services> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  stops: [
+                  stops: const [
                     0.1,
                     0.6,
                     0.8,

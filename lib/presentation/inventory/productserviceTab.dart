@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'Product/product_list.dart';
-import 'Service/servicelist.dart';
+import 'Service/service_list.dart';
 
 class ProductServiceListing extends StatefulWidget {
   const ProductServiceListing({Key? key}) : super(key: key);

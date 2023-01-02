@@ -6,7 +6,7 @@ import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/presentation/inventory/Product/add_product.dart';
-import 'package:huzz/presentation/inventory/Service/servicelist.dart';
+import 'package:huzz/presentation/inventory/Service/service_list.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:number_display/number_display.dart';
 import 'package:huzz/core/constants/app_themes.dart';

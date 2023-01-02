@@ -28,23 +28,23 @@ class _ServiceListingState extends State<ServiceListing> {
       roundingType: RoundingType.floor,
       length: 15,
       decimal: 5,
-      placeholder: '${Utils.getCurrency()}',
+      placeholder: Utils.getCurrency(),
       units: ['K', 'M', 'B', 'T']);
 
   bool isDelete = false;
-  String searchtext = "";
+  String searchText = "";
   List<Product> searchResult = [];
   void searchItem(String val) {
     // print("search text $val");
-    searchtext = val;
+    searchText = val;
     setState(() {});
 
     searchResult.clear();
-    _productController.productServices.forEach((element) {
+    for (var element in _productController.productServices) {
       if (element.productName!.toLowerCase().contains(val.toLowerCase())) {
         searchResult.add(element);
       }
-    });
+    }
     setState(() {});
   }
 
@@ -225,7 +225,7 @@ class _ServiceListingState extends State<ServiceListing> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Container(
+                      SizedBox(
                         height: 55,
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
@@ -316,7 +316,7 @@ class _ServiceListingState extends State<ServiceListing> {
                 bottom: 30,
                 left: 20,
                 right: 20,
-                child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                child: (searchText.isEmpty || searchResult.isNotEmpty)
                     ? Obx(() {
                         return RefreshIndicator(
                           onRefresh: () async {
@@ -337,13 +337,13 @@ class _ServiceListingState extends State<ServiceListing> {
                                       ProductStatus.Available)
                                   ? ListView.builder(
                                       scrollDirection: Axis.vertical,
-                                      itemCount: (searchtext.isEmpty)
+                                      itemCount: (searchText.isEmpty)
                                           ? _productController
                                               .productServices.length
                                           : searchResult.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        var item = (searchtext.isEmpty)
+                                        var item = (searchText.isEmpty)
                                             ? _productController
                                                 .productServices[index]
                                             : searchResult[index];
@@ -362,11 +362,9 @@ class _ServiceListingState extends State<ServiceListing> {
                                       : const Text('Empty'),
                         );
                       })
-                    : Container(
-                        child: const Center(
-                          child: Text("No Service Found"),
-                        ),
-                      ),
+                    : const Center(
+                      child: Text("No Service Found"),
+                    ),
               ),
             ],
           ));
@@ -417,7 +415,7 @@ class _ServiceListingState extends State<ServiceListing> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    stops: [
+                    stops: const [
                       0.1,
                       0.6,
                       0.8,
@@ -541,7 +539,7 @@ class _ServiceListingState extends State<ServiceListing> {
                       const SizedBox(
                         width: 20,
                       ),
-                      Container(
+                      SizedBox(
                         height: 80,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -653,7 +651,7 @@ class _ServiceListingState extends State<ServiceListing> {
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
+                SizedBox(
                   width: 120,
                   child: TextFormField(
                     controller: textEditingController,
@@ -733,7 +731,7 @@ class _ServiceListingState extends State<ServiceListing> {
 // ignore: must_be_immutable
 class ListingServices extends StatefulWidget {
   Product? item;
-  ListingServices({
+  ListingServices({super.key,
     this.item,
   });
 
@@ -858,7 +856,7 @@ class _ListingServicesState extends State<ListingServices> {
 // ignore: must_be_immutable
 class ListingServicesDelete extends StatefulWidget {
   Product? item;
-  ListingServicesDelete({
+  ListingServicesDelete({super.key,
     this.item,
   });
 
