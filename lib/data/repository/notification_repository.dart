@@ -3,15 +3,13 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:huzz/data/repository/auth_repository.dart';
-import 'package:huzz/data/api_link.dart';
 
 class NotificationRepository extends GetxController {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   final controller = Get.find<AuthRepository>();
 
-  AndroidNotificationChannel channel = AndroidNotificationChannel(
+  AndroidNotificationChannel channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
     description:
@@ -49,7 +47,7 @@ class NotificationRepository extends GetxController {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      ('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
       // print('User granted provisional permission');
@@ -104,19 +102,8 @@ class NotificationRepository extends GetxController {
 
   Future sendFCMTokenToServer() async {
     // print("trying to get the fcm");
-    String? token = await messaging.getToken();
     // print("user phone token $token");
 
-    final resposne = await http.put(Uri.parse(ApiLink.updateProfile),
-        body: jsonEncode({
-          "firebaseToken": token,
-          // "profileImageFileStoreId": imageId,
-          // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer ${controller.token}"
-        });
 
     // print("update token ${resposne.body}");
     // var response = await http.post(

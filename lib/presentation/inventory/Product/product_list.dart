@@ -996,7 +996,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                 GestureDetector(
                   onTap: () {
                     if (_productController
-                        .checkifSelectedForDelted(widget.item!.productId!)) {
+                        .checkIfSelectedForDeleted(widget.item!.productId!)) {
                       _productController.removeFromDeleteList(widget.item!);
                     } else {
                       _productController.addToDeleteList(widget.item!);
@@ -1009,7 +1009,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                     width: 30,
                     decoration: BoxDecoration(
                       color: _productController
-                              .checkifSelectedForDelted(widget.item!.productId!)
+                              .checkIfSelectedForDeleted(widget.item!.productId!)
                           ? AppColors.orangeBorderColor
                           : AppColors.whiteColor,
                       shape: BoxShape.circle,
@@ -1019,11 +1019,11 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                     ),
                     child: Visibility(
                       visible: _productController
-                          .checkifSelectedForDelted(widget.item!.productId!),
+                          .checkIfSelectedForDeleted(widget.item!.productId!),
                       child: Icon(
                         Icons.check,
                         size: 15,
-                        color: _productController.checkifSelectedForDelted(
+                        color: _productController.checkIfSelectedForDeleted(
                                 widget.item!.productId!)
                             ? AppColors.whiteColor
                             : AppColors.orangeBorderColor,

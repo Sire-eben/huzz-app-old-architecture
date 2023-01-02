@@ -28,7 +28,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int selectedIndex = 0;
   // _DashboardState({required this.selectedIndex});
-  final _invoiceRepository = Get.find<InvoiceRespository>();
+  final _invoiceRepository = Get.find<InvoiceRepository>();
   final teamController = Get.find<TeamRepository>();
 
   @override
@@ -143,9 +143,9 @@ class _DashboardState extends State<Dashboard> {
       case 3:
         return _invoiceRepository.invoiceStatus == InvoiceStatus.UnAuthorized
             ? const InvoiceNotAuthorized()
-            : (_invoiceRepository.InvoicePendingList.isEmpty &&
-                    _invoiceRepository.InvoiceDueList.isEmpty &&
-                    _invoiceRepository.InvoiceDepositList.isEmpty &&
+            : (_invoiceRepository.invoicePendingList.isEmpty &&
+                    _invoiceRepository.invoiceDueList.isEmpty &&
+                    _invoiceRepository.invoiceDepositList.isEmpty &&
                     _invoiceRepository.paidInvoiceList.isEmpty)
                 ? const EmptyInvoice()
                 : const AvailableInvoice();

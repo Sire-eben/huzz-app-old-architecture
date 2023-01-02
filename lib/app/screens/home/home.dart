@@ -21,7 +21,7 @@ import '../../../data/model/business.dart';
 import '../../../data/model/notification_model.dart';
 import '../../../data/repository/business_repository.dart';
 import '../../../data/repository/debtors_repository.dart';
-import '../../../data/repository/transaction_respository.dart';
+import '../../../data/repository/transaction_repository.dart';
 
 class DebtInformationDialog extends StatelessWidget {
   const DebtInformationDialog({super.key});
@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
   );
 
   String? value;
-  final _transactionController = Get.find<TransactionRespository>();
+  final _transactionController = Get.find<TransactionRepository>();
   final _businessController = Get.find<BusinessRepository>();
   final _debtorController = Get.find<DebtorRepository>();
   // final _authController = Get.find<AuthRepository>();
@@ -188,7 +188,7 @@ class _HomeState extends State<Home> {
                             height: 10,
                           ),
                           Text(
-                            "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                            "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
                             style: GoogleFonts.inter(
                               color: AppColors.whiteColor,
                               fontSize: 20,
@@ -898,7 +898,7 @@ class _HomeState extends State<Home> {
                         height: 10,
                       ),
                       Text(
-                        "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                        "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
                         style: GoogleFonts.inter(
                           color: AppColors.whiteColor,
                           // ,

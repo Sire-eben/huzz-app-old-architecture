@@ -52,7 +52,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
   TabController? _tabController;
 
   final _authController = Get.put(AuthRepository());
-  final _invoiceRepository = Get.find<InvoiceRespository>();
+  final _invoiceRepository = Get.find<InvoiceRepository>();
   final teamController = Get.find<TeamRepository>();
 
   bool? fixedScroll;
@@ -169,17 +169,17 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       children: [
                         DashboardDetails(
                             name: 'Pending',
-                            no: _invoiceRepository.InvoicePendingList.length),
+                            no: _invoiceRepository.invoicePendingList.length),
                         SizedBox(
                             width: MediaQuery.of(context).size.height * 0.02),
                         DashboardDetails(
                             name: 'Overdue',
-                            no: _invoiceRepository.InvoiceDueList.length),
+                            no: _invoiceRepository.invoiceDueList.length),
                         SizedBox(
                             width: MediaQuery.of(context).size.height * 0.02),
                         DashboardDetails(
                             name: 'Deposit',
-                            no: _invoiceRepository.InvoiceDepositList.length),
+                            no: _invoiceRepository.invoiceDepositList.length),
                         SizedBox(
                             width: MediaQuery.of(context).size.height * 0.02),
                         DashboardDetails(

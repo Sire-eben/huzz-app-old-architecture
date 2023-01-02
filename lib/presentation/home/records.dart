@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/presentation/home/insight.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/record_data.dart';
@@ -23,7 +23,7 @@ class Records extends StatefulWidget {
 }
 
 class _RecordsState extends State<Records> {
-  final transactionController = Get.find<TransactionRespository>();
+  final transactionController = Get.find<TransactionRepository>();
   List<TransactionModel> transactionList = [];
   DateTimeRange? dateRange;
 

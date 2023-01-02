@@ -96,7 +96,7 @@ class CustomerRepository extends GetxController {
         _businessController.selectedBusiness.listen((p0) {
           checkPendingCustomerToBeAddedToSever();
           checkPendingCustomerToBeDeletedOnServer();
-          checkPendingCustomerTobeUpdatedToServer();
+          checkPendingCustomerToBeUpdatedToServer();
           //update server with pending job
         });
       }
@@ -589,7 +589,7 @@ class CustomerRepository extends GetxController {
     addPendingJobCustomerToServer();
   }
 
-  Future checkPendingCustomerTobeUpdatedToServer() async {
+  Future checkPendingCustomerToBeUpdatedToServer() async {
     var list = await _businessController.sqliteDb.getOfflineCustomers(
         _businessController.selectedBusiness.value!.businessId!);
     for (var element in list) {

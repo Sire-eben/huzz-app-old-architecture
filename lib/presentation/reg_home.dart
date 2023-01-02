@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/home_respository.dart';
+import 'package:huzz/data/repository/home_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/presentation/auth/create_pin.dart';
 import 'package:huzz/presentation/auth/enter_otp.dart';
@@ -32,7 +32,7 @@ class _RegHome extends State<RegHome> {
     'Set Your PIN'
   ];
   List<Widget> body = [const SendOtp(), const EnterOtp(), const SignUp(), const CreatePin()];
-  final _homeController = Get.find<HomeRespository>();
+  final _homeController = Get.find<HomeRepository>();
   @override
   Widget build(BuildContext context) {
     selectedIndex = 0;
@@ -58,7 +58,7 @@ class _RegHome extends State<RegHome> {
                       left: 20,
                       child: GestureDetector(
                         onTap: () {
-                          if (_homeController.onboardingRegSelectedIndex > 0) {
+                          if (_homeController.onBoardingRegSelectedIndex > 0) {
                             _homeController.selectedOnboardSelectedPrevious();
                           } else {
                             Get.back();
@@ -73,7 +73,7 @@ class _RegHome extends State<RegHome> {
                   ],
                 ),
               ),
-              Text(topText[_homeController.onboardingRegSelectedIndex],
+              Text(topText[_homeController.onBoardingRegSelectedIndex],
                   style: GoogleFonts.inter(
                       color: AppColors.backgroundColor,
                       fontSize: 28,
@@ -84,7 +84,7 @@ class _RegHome extends State<RegHome> {
               Container(
                 margin: const EdgeInsets.only(left: 50, right: 50),
                 child: Text(
-                  bodyText[_homeController.onboardingRegSelectedIndex],
+                  bodyText[_homeController.onBoardingRegSelectedIndex],
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                       fontSize: 14, fontWeight: FontWeight.w400),
@@ -105,7 +105,7 @@ class _RegHome extends State<RegHome> {
                         onTap: () {
                           // print("index number is $index");
                           if (index <=
-                              _homeController.onboardingRegSelectedIndex) {
+                              _homeController.onBoardingRegSelectedIndex) {
                             _homeController.gotoIndex(index);
                           }
                         },
@@ -115,7 +115,7 @@ class _RegHome extends State<RegHome> {
                           width: MediaQuery.of(context).size.width * 0.2,
                           decoration: BoxDecoration(
                             color: (index <=
-                                    _homeController.onboardingRegSelectedIndex)
+                                    _homeController.onBoardingRegSelectedIndex)
                                 ? AppColors.backgroundColor
                                 : AppColors.backgroundColor.withOpacity(0.4),
                             borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -127,7 +127,7 @@ class _RegHome extends State<RegHome> {
               const SizedBox(
                 height: 10,
               ),
-              Expanded(child: body[_homeController.onboardingRegSelectedIndex])
+              Expanded(child: body[_homeController.onBoardingRegSelectedIndex])
             ],
           ),
         ),

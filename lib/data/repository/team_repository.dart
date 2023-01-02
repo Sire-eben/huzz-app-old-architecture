@@ -28,7 +28,7 @@ enum DeleteTeamStatus { Loading, Error, Success, Empty }
 enum TeamStatus { Loading, Available, Error, Empty, UnAuthorized }
 
 class TeamRepository extends GetxController {
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final amountController = TextEditingController();
@@ -36,7 +36,7 @@ class TeamRepository extends GetxController {
   final emailController = TextEditingController();
   final _userController = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRepository>();
-  var uuid = Uuid();
+  var uuid = const Uuid();
 
   final _addingTeamMemberStatus = AddingTeamStatus.Empty.obs;
   final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
@@ -48,10 +48,10 @@ class TeamRepository extends GetxController {
   final teamMemberData = Rx(Teams());
   Teams get teamMember => teamMemberData.value;
 
-  Rx<List<Teams>> _onlineBusinessTeam = Rx([]);
-  Rx<List<Teams>> _offlineBusinessTeam = Rx([]);
-  Rx<List<Teams>> _deleteTeamMemberList = Rx([]);
-  Rx<List<Teams>> _team = Rx([]);
+  final Rx<List<Teams>> _onlineBusinessTeam = Rx([]);
+  final Rx<List<Teams>> _offlineBusinessTeam = Rx([]);
+  final Rx<List<Teams>> _deleteTeamMemberList = Rx([]);
+  final Rx<List<Teams>> _team = Rx([]);
 
   List<Teams> get offlineBusinessTeam => _offlineBusinessTeam.value;
   List<Teams> get onlineBusinessTeam => _onlineBusinessTeam.value;
@@ -79,6 +79,7 @@ class TeamRepository extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
     _userController.mToken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
@@ -131,38 +132,38 @@ class TeamRepository extends GetxController {
 
   Future showContactPickerForTeams(BuildContext context) async {
     // print("contact picker is selected");
-    _searchtext("");
+    _searchText("");
     _searchResult([]);
     await showModalBottomSheet(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         context: context,
         isScrollControlled: true,
         builder: (context) => Padding(
             padding: MediaQuery.of(context).viewInsets,
-            child: Container(
+            child: SizedBox(
               height: Get.width - 50,
               child: buildSelectTeam(context),
             )));
   }
 
-  Rx<List<Contact>> _searchResult = Rx([]);
-  Rx<String> _searchtext = Rx('');
+  final Rx<List<Contact>> _searchResult = Rx([]);
+  final Rx<String> _searchText = Rx('');
   List<Contact> get searchResult => _searchResult.value;
-  String get searchtext => _searchtext.value;
+  String get searchText => _searchText.value;
 
   void searchItem(String val) {
-    _searchtext(val);
+    _searchText(val);
 
     _searchResult([]);
     List<Contact> list = [];
-    contactList.forEach((element) {
+    for (var element in contactList) {
       if (element.displayName.isNotEmpty &&
           element.displayName.toLowerCase().contains(val.toLowerCase())) {
         // print("contact found");
         list.add(element);
       }
-    });
+    }
 
     _searchResult(list);
   }
@@ -197,13 +198,13 @@ class TeamRepository extends GetxController {
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.search,
                   color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(color: Colors.black12),
+                  borderSide: const BorderSide(color: Colors.black12),
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -215,26 +216,26 @@ class TeamRepository extends GetxController {
                   //
                 ),
                 contentPadding:
-                    EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+                    const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
-              child: (searchtext.isEmpty || searchResult.isNotEmpty)
+              child: (searchText.isEmpty || searchResult.isNotEmpty)
                   ? ListView.builder(
                       itemBuilder: (context, index) {
                         var item = (searchResult.isEmpty)
@@ -248,15 +249,16 @@ class TeamRepository extends GetxController {
                               nameController.text = item.displayName;
                               phoneNumberController.text =
                                   item.phones.first.number;
-                              if (item.emails.isNotEmpty)
+                              if (item.emails.isNotEmpty) {
                                 emailController.text =
                                     item.emails.first.address;
+                              }
                             },
                             child: Row(
                               children: [
                                 Expanded(
                                     child: Container(
-                                  margin: EdgeInsets.only(bottom: 10),
+                                  margin: const EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Container(
@@ -268,7 +270,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : '${item.displayName[0]}',
+                                              : item.displayName[0],
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -282,30 +284,28 @@ class TeamRepository extends GetxController {
                                         0.02),
                                 Expanded(
                                   flex: 3,
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${item.displayName}",
-                                          style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              // ,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          (item.phones.isNotEmpty)
-                                              ? "${item.phones.first.number}"
-                                              : "No Phone Number",
-                                          style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              // ,
-                                              color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.displayName,
+                                        style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            // ,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Text(
+                                        (item.phones.isNotEmpty)
+                                            ? item.phones.first.number
+                                            : "No Phone Number",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            // ,
+                                            color: Colors.grey),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -317,11 +317,9 @@ class TeamRepository extends GetxController {
                           ? contactList.length
                           : searchResult.length,
                     )
-                  : Container(
-                      child: Center(
-                        child: Text("No Contact(s) Found"),
-                      ),
-                    ),
+                  : const Center(
+                    child: Text("No Contact(s) Found"),
+                  ),
             ),
           ],
         ),
@@ -357,13 +355,13 @@ class TeamRepository extends GetxController {
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.search,
                   color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
-                  borderSide: BorderSide(color: Colors.black12),
+                  borderSide: const BorderSide(color: Colors.black12),
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -374,28 +372,28 @@ class TeamRepository extends GetxController {
                   color: Colors.grey,
                 ),
                 contentPadding:
-                    EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+                    const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
-              child: (searchtext.isEmpty || searchResult.isNotEmpty)
+              child: (searchText.isEmpty || searchResult.isNotEmpty)
                   ? ListView.separated(
-                      separatorBuilder: (context, index) => Divider(),
+                      separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) {
                         var item = (searchResult.isEmpty)
                             ? contactList[index]
@@ -423,15 +421,16 @@ class TeamRepository extends GetxController {
                                 phoneNumberController.text = no;
                               }
                               nameController.text = item.displayName;
-                              if (item.emails.isNotEmpty)
+                              if (item.emails.isNotEmpty) {
                                 emailController.text =
                                     item.emails.first.address;
+                              }
                             },
                             child: Row(
                               children: [
                                 Expanded(
                                     child: Container(
-                                  margin: EdgeInsets.only(bottom: 10),
+                                  margin: const EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Container(
@@ -443,7 +442,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : '${item.displayName[0]}',
+                                              : item.displayName[0],
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -457,35 +456,33 @@ class TeamRepository extends GetxController {
                                         0.02),
                                 Expanded(
                                   flex: 3,
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${item.displayName}",
-                                          style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              // ,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          (item.phones.isNotEmpty)
-                                              ? "${item.phones.first.number}"
-                                              : "No Phone Number",
-                                          style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              // ,
-                                              color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.displayName,
+                                        style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            // ,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Text(
+                                        (item.phones.isNotEmpty)
+                                            ? item.phones.first.number
+                                            : "No Phone Number",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            // ,
+                                            color: Colors.grey),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Expanded(
                                     child: Container(
-                                  margin: EdgeInsets.only(bottom: 10),
+                                  margin: const EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Column(children: [
@@ -510,11 +507,9 @@ class TeamRepository extends GetxController {
                           ? contactList.length
                           : searchResult.length,
                     )
-                  : Container(
-                      child: Center(
-                        child: Text("No Contact(s) Found"),
-                      ),
-                    ),
+                  : const Center(
+                    child: Text("No Contact(s) Found"),
+                  ),
             ),
           ],
         ),
@@ -527,20 +522,19 @@ class TeamRepository extends GetxController {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
       // print("trying to create team feature");
       var response = await http.post(
-          Uri.parse(ApiLink.createTeam + '$businessId'),
+          Uri.parse(ApiLink.createTeam + businessId),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
       // print("result of create team ${response.body}");
       if (response.statusCode == 200 || response.statusCode == 201) {
         // print("result of create team ${response.body}");
-        var json = jsonDecode(response.body);
 
         _businessController.OnlineBusiness();
         _businessController.updateBusiness(
             _businessController.selectedBusiness.value!.businessCurrency!);
 
         var value = _businessController.selectedBusiness.value;
-        print(value!.teamId);
+        (value!.teamId);
         getOfflineTeam(value.teamId!);
         Get.snackbar(
           "Success",
@@ -637,13 +631,13 @@ class TeamRepository extends GetxController {
         if (json['success']) {
           Get.snackbar('Success', json['message']);
           _updatingTeamMemberStatus(UpdateTeamStatus.Success);
-          print(value!.teamId);
+          (value!.teamId);
           getOnlineTeam(value.teamId!);
           getOnlineTeamMember(value.teamId!);
 
           clearValue();
           // print('team member updated successfully');
-          Get.to(TeamMemberConfirmation());
+          Get.to(const TeamMemberConfirmation());
         }
       } else {
         var json = jsonDecode(response.body);
@@ -681,7 +675,7 @@ class TeamRepository extends GetxController {
         getOnlineTeam(value!.teamId!);
         getOnlineTeamMember(value.teamId!);
 
-        Get.to(TeamConfirmation());
+        Get.to(const TeamConfirmation());
       } else {
         _addingTeamMemberStatus(AddingTeamStatus.Error);
         Get.snackbar("Error", "Unable to update team");
@@ -784,13 +778,13 @@ class TeamRepository extends GetxController {
   }
 
   Future getBusinessTeamYetToBeSavedLocally() async {
-    onlineBusinessTeam.forEach((element) {
+    for (var element in onlineBusinessTeam) {
       if (!checkAvailableTeam(element.teamId!)) {
         // print("Does not contain value");
 
         pendingBusinessTeam.add(element);
       }
-    });
+    }
 
     savePendingTeam();
   }
@@ -827,13 +821,13 @@ class TeamRepository extends GetxController {
 
   bool checkAvailableTeam(String id) {
     bool result = false;
-    offlineBusinessTeam.forEach((element) {
+    for (var element in offlineBusinessTeam) {
       // print("checking whether team exist");
       if (element.teamId == id) {
         // print("Team found");
         result = true;
       }
-    });
+    }
     return result;
   }
 
@@ -857,13 +851,13 @@ class TeamRepository extends GetxController {
   Teams? checkAvailableTeamWithValue(String id) {
     Teams? item;
 
-    offlineBusinessTeam.forEach((element) {
+    for (var element in offlineBusinessTeam) {
       // print("checking whether team member exist");
       if (element.teamId == id) {
         // print("Team found");
         item = element;
       }
-    });
+    }
     return item;
   }
 

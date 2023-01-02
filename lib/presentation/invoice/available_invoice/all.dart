@@ -24,7 +24,7 @@ class All extends StatefulWidget {
 
 class _AllState extends State<All> {
   final _businessController = Get.find<BusinessRepository>();
-  final _invoiceController = Get.find<InvoiceRespository>();
+  final _invoiceController = Get.find<InvoiceRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();
   bool deleteItem = false;
@@ -210,7 +210,7 @@ class _AllState extends State<All> {
                   onRefresh: () async {
                     return Future.delayed(const Duration(seconds: 1), () {
                       _invoiceController.getOnlineInvoice(value!.businessId!);
-                      _invoiceController.GetOfflineInvoices(value.businessId!);
+                      _invoiceController.getOfflineInvoices(value.businessId!);
                     });
                   },
                   child: !deleteItem
@@ -473,7 +473,7 @@ class _AllState extends State<All> {
                                               GestureDetector(
                                                 onTap: () {
                                                   if (_invoiceController
-                                                      .checkifSelectedForDeleted(
+                                                      .checkIfSelectedForDeleted(
                                                           item.id!)) {
                                                     _invoiceController
                                                         .deletedItem
@@ -492,7 +492,7 @@ class _AllState extends State<All> {
                                                   width: 25,
                                                   decoration: BoxDecoration(
                                                     color: (!_invoiceController
-                                                            .checkifSelectedForDeleted(
+                                                            .checkIfSelectedForDeleted(
                                                                 item.id!))
                                                         ? AppColors.whiteColor
                                                         : AppColors
@@ -500,7 +500,7 @@ class _AllState extends State<All> {
                                                     shape: BoxShape.circle,
                                                     border: Border.all(
                                                       color: (!_invoiceController
-                                                              .checkifSelectedForDeleted(
+                                                              .checkIfSelectedForDeleted(
                                                                   item.id!))
                                                           ? const Color(0xffEF6500)
                                                           : Colors.transparent,

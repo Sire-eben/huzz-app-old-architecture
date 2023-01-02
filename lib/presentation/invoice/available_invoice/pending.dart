@@ -24,7 +24,7 @@ class Pending extends StatefulWidget {
 
 class _PendingState extends State<Pending> {
   final _businessController = Get.find<BusinessRepository>();
-  final _invoiceController = Get.find<InvoiceRespository>();
+  final _invoiceController = Get.find<InvoiceRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();
   bool deleteItem = false;
@@ -61,7 +61,7 @@ class _PendingState extends State<Pending> {
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(
-                        '(${_invoiceController.InvoicePendingList.length})',
+                        '(${_invoiceController.invoicePendingList.length})',
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
@@ -100,21 +100,21 @@ class _PendingState extends State<Pending> {
                   onRefresh: () async {
                     return Future.delayed(const Duration(seconds: 1), () {
                       _invoiceController.getOnlineInvoice(value!.businessId!);
-                      _invoiceController.GetOfflineInvoices(value.businessId!);
+                      _invoiceController.getOfflineInvoices(value.businessId!);
                     });
                   },
                   child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
                           ? const Center(child: CircularProgressIndicator())
-                          : (_invoiceController.InvoicePendingList.isNotEmpty)
+                          : (_invoiceController.invoicePendingList.isNotEmpty)
                               ? ListView.builder(
                                   itemCount: _invoiceController
-                                      .InvoicePendingList.length,
+                                      .invoicePendingList.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     var item = _invoiceController
-                                        .InvoicePendingList[index];
+                                        .invoicePendingList[index];
                                     var customer = _customerController
                                         .checkIfCustomerAvailableWithValue(
                                             item.customerId ?? "");
@@ -241,14 +241,14 @@ class _PendingState extends State<Pending> {
                       : (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
                           ? const Center(child: CircularProgressIndicator())
-                          : (_invoiceController.InvoicePendingList.isNotEmpty)
+                          : (_invoiceController.invoicePendingList.isNotEmpty)
                               ? ListView.builder(
                                   itemCount: _invoiceController
-                                      .InvoicePendingList.length,
+                                      .invoicePendingList.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     var item = _invoiceController
-                                        .InvoicePendingList[index];
+                                        .invoicePendingList[index];
                                     // ignore: unused_local_variable
                                     final _isSelected =
                                         _selectedIndex.contains(index);
@@ -377,7 +377,7 @@ class _PendingState extends State<Pending> {
                                               GestureDetector(
                                                 onTap: () {
                                                   if (_invoiceController
-                                                      .checkifSelectedForDeleted(
+                                                      .checkIfSelectedForDeleted(
                                                           item.id!)) {
                                                     _invoiceController
                                                         .deletedItem
@@ -396,7 +396,7 @@ class _PendingState extends State<Pending> {
                                                   width: 25,
                                                   decoration: BoxDecoration(
                                                     color: (!_invoiceController
-                                                            .checkifSelectedForDeleted(
+                                                            .checkIfSelectedForDeleted(
                                                                 item.id!))
                                                         ? AppColors.whiteColor
                                                         : AppColors
@@ -404,7 +404,7 @@ class _PendingState extends State<Pending> {
                                                     shape: BoxShape.circle,
                                                     border: Border.all(
                                                       color: (!_invoiceController
-                                                              .checkifSelectedForDeleted(
+                                                              .checkIfSelectedForDeleted(
                                                                   item.id!))
                                                           ? const Color(0xffEF6500)
                                                           : Colors.transparent,

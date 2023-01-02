@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/payment_item.dart';
@@ -55,7 +55,7 @@ class MoneyOut extends StatefulWidget {
 }
 
 class _MoneyOutState extends State<MoneyOut> {
-  final _transactionController = Get.find<TransactionRespository>();
+  final _transactionController = Get.find<TransactionRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
   final ScrollController _scrollController = ScrollController();

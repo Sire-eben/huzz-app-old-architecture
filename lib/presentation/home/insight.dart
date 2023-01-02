@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/presentation/home/word_cloud.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/data/model/record_data.dart';
@@ -19,7 +19,7 @@ class Insight extends StatefulWidget {
 
 class _InsightState extends State<Insight> {
   DateTimeRange? dateRange;
-  final transactionController = Get.find<TransactionRespository>();
+  final transactionController = Get.find<TransactionRepository>();
 
   final recordFilter = [
     'Today',

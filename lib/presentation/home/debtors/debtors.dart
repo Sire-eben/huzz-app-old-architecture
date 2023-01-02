@@ -22,7 +22,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/util.dart';
 import '../../../data/repository/team_repository.dart';
-import '../../../data/repository/transaction_respository.dart';
+import '../../../data/repository/transaction_repository.dart';
 import '../money_history.dart';
 import 'debtor_reminder.dart';
 
@@ -982,7 +982,7 @@ class _DebtorListingState extends State<DebtorListing> {
                           if (widget.item!.businessTransactionId != null &&
                               widget.item!.businessTransactionId!.isNotEmpty) {
                             final _transactionController =
-                                Get.find<TransactionRespository>();
+                                Get.find<TransactionRepository>();
                             final tItem =
                                 _transactionController.getTransactionById(
                                     widget.item!.businessTransactionId!);

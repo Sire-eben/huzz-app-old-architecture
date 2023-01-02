@@ -483,7 +483,7 @@ class _AddProductState extends State<AddProduct> {
                 if (_productController.addingProductStatus !=
                     AddingProductStatus.Loading) {
                   if (widget.item == null) {
-                    _productController.addBudinessProduct("GOODS", 'Product');
+                    _productController.addBusinessProduct("GOODS", 'Product');
                   } else {
                     _productController.UpdateBusinessProduct(
                         widget.item!, 'Product');
@@ -592,7 +592,7 @@ class _AddProductState extends State<AddProduct> {
                   // Pick an image
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
-                  _productController.MproductImage(File(image!.path));
+                  _productController.mProductImage(File(image!.path));
                   // print("image path ${image.path}");
                 },
                 child: Row(

@@ -86,7 +86,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   int paymentValue = 0;
   bool showService = false;
   final _customerController = Get.find<CustomerRepository>();
-  final _invoiceController = Get.find<InvoiceRespository>();
+  final _invoiceController = Get.find<InvoiceRepository>();
   final _productController = Get.find<ProductRepository>();
   final _bankAccountController = Get.find<BankAccountRepository>();
   final _productKey = GlobalKey<FormState>();

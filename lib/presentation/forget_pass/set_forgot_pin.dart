@@ -4,7 +4,7 @@
 // import 'package:flutter_svg/svg.dart';
 // import 'package:get/get.dart';
 // import 'package:huzz/repository/auth_repository.dart';
-// import 'package:huzz/repository/home_respository.dart';
+// import 'package:huzz/repository/home_repository.dart';
 // import 'package:pin_code_fields/pin_code_fields.dart';
 
 // import '../../../colors.dart';

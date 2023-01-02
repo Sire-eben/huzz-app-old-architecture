@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:huzz/core/util/constants.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/presentation/widget/util.dart';
 import 'package:huzz/data/model/record_receipt.dart';
 import 'package:open_file/open_file.dart';
@@ -14,7 +14,7 @@ import 'package:printing/printing.dart';
 class RecordPdfApi {
   static Future<File> generate(RecordInvoice recordInvoice) async {
     final pdf = Document();
-    var _transactionController = Get.find<TransactionRespository>();
+    var _transactionController = Get.find<TransactionRepository>();
 
     pdf.addPage(MultiPage(
       build: (context) => [
@@ -32,7 +32,7 @@ class RecordPdfApi {
     return PdfRecordApi.saveDocument(name: 'my_monthlyRecord.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(TransactionRespository transactionRespository) =>
+  static Widget buildHeader(TransactionRepository transactionRespository) =>
       Container(
         padding: const EdgeInsets.all(20),
         child: Center(
@@ -213,7 +213,7 @@ class RecordPdfApi {
 class DailyRecordPdfApi {
   static Future<File> generate() async {
     final pdf = Document();
-    final transactionController = Get.find<TransactionRespository>();
+    final transactionController = Get.find<TransactionRepository>();
     final range =
         (transactionController.value.contains("Custom date range")) ? transactionController.customText : transactionController.value.value;
     final huzzImgProvider =
@@ -285,7 +285,7 @@ class DailyRecordPdfApi {
       );
 
   static Widget buildMoneyInOutInvoice(
-      TransactionRespository transactionRespository, Font font) {
+      TransactionRepository transactionRespository, Font font) {
     final headers = [
       'Date',
       'Type',
@@ -386,7 +386,7 @@ class DailyRecordPdfApi {
   }
 
   static Widget buildTotal(
-      TransactionRespository transactionRespository, Font font) {
+      TransactionRepository transactionRespository, Font font) {
     // final amountTotal = recordInvoice.items
     //     .map((item) => item.amount * item.quantity)
     //     .reduce((item1, item2) => item1 + item2);
@@ -431,7 +431,7 @@ class DailyRecordPdfApi {
   }
 
   static Widget buildMoneyInTotal(
-      TransactionRespository transactionRespository, Font font) {
+      TransactionRepository transactionRespository, Font font) {
     // final moneyInTotal = recordInvoice.items
     //     .map((item) => item.amount)
     //     .reduce((item1, item2) => item1 + item2);
@@ -476,7 +476,7 @@ class DailyRecordPdfApi {
   }
 
   static Widget buildMoneyOutTotal(
-      TransactionRespository transactionRespository, Font font) {
+      TransactionRepository transactionRespository, Font font) {
     // final moneyInTotal = recordInvoice.items
     //     .map((item) => item.amount)
     //     .reduce((item1, item2) => item1 + item2);

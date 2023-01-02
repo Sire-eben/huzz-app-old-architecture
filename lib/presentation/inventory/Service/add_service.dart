@@ -146,7 +146,7 @@ class _AddServiceState extends State<AddService> {
                         _productController.productSellingPriceController.text =
                             "0";
                         if (widget.item == null) {
-                          _productController.addBudinessProduct(
+                          _productController.addBusinessProduct(
                               "SERVICES", 'Service');
                         } else {
                           _productController.UpdateBusinessProduct(
@@ -253,7 +253,7 @@ class _AddServiceState extends State<AddService> {
                   // Pick an image
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
-                  _productController.MproductImage(File(image!.path));
+                  _productController.mProductImage(File(image!.path));
                   // print("image path ${image.path}");
                 },
                 child: Row(

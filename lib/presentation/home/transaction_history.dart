@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/records_model.dart';
 import 'package:huzz/data/model/transaction_model.dart';
@@ -17,7 +17,7 @@ class TransactionHistory extends StatefulWidget {
 }
 
 class _TransactionHistoryState extends State<TransactionHistory> {
-  final _transactionController = Get.find<TransactionRespository>();
+  final _transactionController = Get.find<TransactionRepository>();
   final recordFilter = ['This month', 'Last month'];
 
   TransactionModel? transactionModel;

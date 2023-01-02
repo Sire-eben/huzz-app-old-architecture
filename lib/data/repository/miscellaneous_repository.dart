@@ -6,7 +6,6 @@ import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'auth_repository.dart';
 
 class MiscellaneousRepository extends GetxController {
-  final _userController = Get.find<AuthRepository>();
   Rx<List<String>> productTypeList = Rx([]);
 
   Rx<List<String>> businessTransactionExpenseCategoryList = Rx([]);

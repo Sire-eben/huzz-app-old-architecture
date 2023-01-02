@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/presentation/home/reciept.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/data/model/customer_model.dart';
@@ -55,7 +55,7 @@ class MoneyHistory extends StatefulWidget {
 
 class _MoneyHistoryState extends State<MoneyHistory> {
   final recordFilter = ['This month', 'Last month'];
-  final _transactionController = Get.find<TransactionRespository>();
+  final _transactionController = Get.find<TransactionRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();
   String? value;

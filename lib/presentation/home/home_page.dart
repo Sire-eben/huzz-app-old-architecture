@@ -10,14 +10,14 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/presentation/business/create_business.dart';
 import 'package:huzz/presentation/Home/insight.dart';
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
 
   String? value;
   final _authController = Get.put(AuthRepository());
-  final _transactionController = Get.find<TransactionRespository>();
+  final _transactionController = Get.find<TransactionRepository>();
   final _businessController = Get.find<BusinessRepository>();
   final _debtorController = Get.find<DebtorRepository>();
   final teamController = Get.find<TeamRepository>();
@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}"
+                                      "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}"
                                           .toString(),
                                       style: GoogleFonts.inter(
                                         color: AppColors.whiteColor,
@@ -925,7 +925,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                                      "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
                                       style: GoogleFonts.inter(
                                         color: AppColors.whiteColor,
                                         fontSize: 20,
@@ -1819,7 +1819,7 @@ class _HomePageState extends State<HomePage> {
                         height: 10,
                       ),
                       Text(
-                        "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                        "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
                         style: GoogleFonts.inter(
                           color: AppColors.whiteColor,
                           // ,
@@ -2968,7 +2968,7 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.to(() => MoneyOut());
+                      Get.to(() => const MoneyOut());
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,

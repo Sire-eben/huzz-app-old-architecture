@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/presentation/home/debtors/debt_updated_success.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/debtor.dart';
@@ -383,7 +383,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                                 .isNotEmpty) {
                                                           final _transactionController =
                                                               Get.find<
-                                                                  TransactionRespository>();
+                                                                  TransactionRepository>();
                                                           final tItem =
                                                               _transactionController
                                                                   .getTransactionById(

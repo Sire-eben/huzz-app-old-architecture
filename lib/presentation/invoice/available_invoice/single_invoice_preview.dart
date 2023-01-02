@@ -38,7 +38,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
   bool isLoading = true;
   File? image;
   File? generatedInvoice;
-  final _invoiceController = Get.find<InvoiceRespository>();
+  final _invoiceController = Get.find<InvoiceRepository>();
   final _amountController = TextEditingController();
   final teamController = Get.find<TeamRepository>();
   PdfColor themeColor = themeColors.first;
