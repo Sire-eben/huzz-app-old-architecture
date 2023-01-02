@@ -6,7 +6,6 @@ import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/validators.dart';
 import 'package:huzz/core/widgets/appbar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
-import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/generated/assets.gen.dart';
 
@@ -68,7 +67,7 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
             topRight: Radius.circular(22),
           ),
         ),
-        constraints: BoxConstraints(maxHeight: 700),
+        constraints: const BoxConstraints(maxHeight: 700),
         backgroundColor: Colors.white,
         context: context,
         builder: (context) {
@@ -152,9 +151,9 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Send Options'),
+                      const Text('Send Options'),
                       IconButton(
-                        icon: Icon(Icons.share),
+                        icon: const Icon(Icons.share),
                         onPressed: () {},
                       ),
                     ],

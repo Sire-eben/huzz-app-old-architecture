@@ -29,7 +29,7 @@ class _CreateBankAccountScreenState extends State<CreateBankAccountScreen>
     "Driver's License",
   ];
 
-  String? selectedModeOfVerfication;
+  String? selectedModeOfVerification;
 
   @override
   Widget build(BuildContext context) {
@@ -81,13 +81,13 @@ class _CreateBankAccountScreenState extends State<CreateBankAccountScreen>
                     enabledBorder: dropdownNormalBorder,
                   ),
 
-                  value: selectedModeOfVerfication,
+                  value: selectedModeOfVerification,
                   // isExpanded: true,
                   items: modeOfVerification.map(buildMenuItem).toList(),
 
                   onChanged: (optionSelected) {
                     setState(() {
-                      selectedModeOfVerfication = optionSelected;
+                      selectedModeOfVerification = optionSelected;
                     });
                   },
                 ),
