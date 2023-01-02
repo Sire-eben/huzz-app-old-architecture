@@ -12,17 +12,19 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'Product/products.dart';
 
 class ManageInventoryInformationDialog extends StatelessWidget {
+  const ManageInventoryInformationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        SizedBox(height: 7),
+        const SizedBox(height: 7),
         Text(
           'To make recording your sales easier, you can add all your products/services here.',
           textAlign: TextAlign.center,
@@ -78,7 +80,7 @@ class _ManageInventoryState extends State<ManageInventory> {
                   fontSize: 18,
                 ),
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               GestureDetector(
                 onTap: () {
                   Platform.isIOS
@@ -86,10 +88,10 @@ class _ManageInventoryState extends State<ManageInventory> {
                           context: context,
                           barrierDismissible: true,
                           builder: (context) => CupertinoAlertDialog(
-                            content: ManageInventoryInformationDialog(),
+                            content: const ManageInventoryInformationDialog(),
                             actions: [
                               CupertinoButton(
-                                child: Text("OK"),
+                                child: const Text("OK"),
                                 onPressed: () => Get.back(),
                               ),
                             ],
@@ -98,10 +100,10 @@ class _ManageInventoryState extends State<ManageInventory> {
                       : showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            content: ManageInventoryInformationDialog(),
+                            content: const ManageInventoryInformationDialog(),
                             actions: [
                               CupertinoButton(
-                                child: Text("OK"),
+                                child: const Text("OK"),
                                 onPressed: () => Get.back(),
                               ),
                             ],
@@ -120,7 +122,7 @@ class _ManageInventoryState extends State<ManageInventory> {
             ],
           ),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(55),
+            preferredSize: const Size.fromHeight(55),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
@@ -157,7 +159,7 @@ class _ManageInventoryState extends State<ManageInventory> {
                     ),
                     borderRadius: BorderRadius.circular(2.5),
                   ),
-                  tabs: [
+                  tabs: const [
                     Tab(
                       text: 'Products',
                     ),
@@ -170,7 +172,7 @@ class _ManageInventoryState extends State<ManageInventory> {
             ),
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: <Widget>[
             Products(),
             Services(),
