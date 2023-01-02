@@ -575,16 +575,16 @@ class DebtorRepository extends GetxController
     if (deleteDebtorList.isEmpty) {
       return;
     }
-    var deletenext = deleteDebtorList.first;
-    await deleteBusinessDebtor(deletenext);
+    var deleteNext = deleteDebtorList.first;
+    await deleteBusinessDebtor(deleteNext);
     var list = deleteDebtorList;
-    list.remove(deletenext);
+    list.remove(deleteNext);
     _deleteDebtorList(list);
 
     if (deleteDebtorList.isNotEmpty) {
       deleteSelectedItem();
     }
-    getOfflineDebtor(deletenext.businessId!);
+    getOfflineDebtor(deleteNext.businessId!);
   }
 
   void addToDeleteList(Debtor Debtor) {
@@ -712,18 +712,18 @@ class DebtorRepository extends GetxController
       return;
     }
     pendingDeletedDebtorToServer.forEach((element) async {
-      var deletenext = element;
+      var deleteNext = element;
       var response = await http.delete(
           Uri.parse(ApiLink.addDebtor +
-              "/${deletenext.debtorId}?businessId=${deletenext.businessId}"),
+              "/${deleteNext.debtorId}?businessId=${deleteNext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
       if (response.statusCode == 200) {
-        _businessController.sqliteDb.deleteOfflineDebtor(deletenext);
+        _businessController.sqliteDb.deleteOfflineDebtor(deleteNext);
         getOfflineDebtor(
             _businessController.selectedBusiness.value!.businessId!);
       } else {}
 
-      pendingDeletedDebtorToServer.remove(deletenext);
+      pendingDeletedDebtorToServer.remove(deleteNext);
       if (pendingDeletedDebtorToServer.isNotEmpty) {
         deletePendingJobToServer();
       }

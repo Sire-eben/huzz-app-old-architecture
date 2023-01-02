@@ -115,11 +115,11 @@ class _AddMerchantState extends State<AddMerchant> {
                               'Alert', 'Select phone number from your contact');
                         } else {
                           if (widget.item == null)
-                            _customerController.addBusinnessCustomer(
+                            _customerController.addBusinessCustomer(
                                 "EXPENDITURE", 'Merchant');
                           else
                             _customerController
-                                .updateBusinesscustomer(widget.item!);
+                                .updateBusinessCustomer(widget.item!);
                         }
                       }
                     },

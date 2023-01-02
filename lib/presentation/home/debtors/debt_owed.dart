@@ -274,7 +274,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       : (_debtorRepository
                                           .fullyPaidDebtOwned))[index];
                                   var customer = _customerRepository
-                                      .checkifCustomerAvailableWithValue(
+                                      .checkIfCustomerAvailableWithValue(
                                           item.customerId!);
 
                                   return (customer == null)

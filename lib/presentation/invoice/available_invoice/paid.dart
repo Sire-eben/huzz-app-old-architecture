@@ -117,7 +117,7 @@ class _PaidState extends State<Paid> {
                                   var item =
                                       _invoiceController.paidInvoiceList[index];
                                   var customer = _customerController
-                                      .checkifCustomerAvailableWithValue(
+                                      .checkIfCustomerAvailableWithValue(
                                           item.customerId ?? "");
                                   return GestureDetector(
                                     onTap: () async {
@@ -239,7 +239,7 @@ class _PaidState extends State<Paid> {
                                   var item =
                                       _invoiceController.paidInvoiceList[index];
                                   var customer = _customerController
-                                      .checkifCustomerAvailableWithValue(
+                                      .checkIfCustomerAvailableWithValue(
                                           item.customerId ?? "");
                                   return InkWell(
                                     onTap: () {

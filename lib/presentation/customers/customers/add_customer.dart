@@ -115,11 +115,11 @@ class _AddCustomerState extends State<AddCustomer> {
                               'Alert', 'Select phone number from your contact');
                         } else {
                           if (widget.item == null) {
-                            _customerController.addBusinnessCustomer(
+                            _customerController.addBusinessCustomer(
                                 "INCOME", 'Customer');
                           } else {
                             _customerController
-                                .updateBusinesscustomer(widget.item!);
+                                .updateBusinessCustomer(widget.item!);
                           }
                         }
                       }

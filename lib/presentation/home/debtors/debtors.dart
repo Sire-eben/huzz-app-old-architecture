@@ -297,7 +297,7 @@ class _DebtorsState extends State<Debtors> {
                                           .fullyPaidDebt))[index];
                                   // ignore: unused_local_variable
                                   var customer = _customerController
-                                      .checkifCustomerAvailableWithValue(
+                                      .checkIfCustomerAvailableWithValue(
                                           item.customerId ?? "");
                                   // print(
                                   //     'Debtors: ${_debtorController.debtorsList.length}, Name: ${item.customerId}');
@@ -890,7 +890,7 @@ class _DebtorListingState extends State<DebtorListing> {
   @override
   Widget build(BuildContext context) {
     var customer = _customerController
-        .checkifCustomerAvailableWithValue(widget.item!.customerId!);
+        .checkIfCustomerAvailableWithValue(widget.item!.customerId!);
     // print('Debtors: ${customer!.toJson()}');
     // ignore: unnecessary_null_comparison
     if (customer == null) {

@@ -24,7 +24,7 @@ class PdfTransactionApi {
     Customer? customer;
     if (transactionModel.customerId != null) {
       customer = _customerController
-          .checkifCustomerAvailableWithValue(transactionModel.customerId!);
+          .checkIfCustomerAvailableWithValue(transactionModel.customerId!);
     }
 
     pdf.addPage(MultiPage(

@@ -554,17 +554,17 @@ class ProductRepository extends GetxController
     if (deleteProductList.isEmpty) {
       return;
     }
-    var deletenext = deleteProductList.first;
-    await deleteBusinessProduct(deletenext);
+    var deleteNext = deleteProductList.first;
+    await deleteBusinessProduct(deleteNext);
     var list = deleteProductList;
-    list.remove(deletenext);
+    list.remove(deleteNext);
     _deleteProductList(list);
 
     if (deleteProductList.isNotEmpty) {
       deleteSelectedItem();
     }
 
-    await getOfflineProduct(deletenext.businessId!);
+    await getOfflineProduct(deleteNext.businessId!);
   }
 
   void addToDeleteList(Product product) {
@@ -707,19 +707,19 @@ class ProductRepository extends GetxController
       return;
     }
     pendingDeletedProductToServer.forEach((element) async {
-      var deletenext = element;
+      var deleteNext = element;
       var response = await http.delete(
           Uri.parse(ApiLink.addProduct +
-              "/${deletenext.productId}?businessId=${deletenext.businessId}"),
+              "/${deleteNext.productId}?businessId=${deleteNext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
       // print("delete response ${response.body}");
       if (response.statusCode == 200) {
-        _businessController.sqliteDb.deleteProduct(deletenext);
+        _businessController.sqliteDb.deleteProduct(deleteNext);
         getOfflineProduct(
             _businessController.selectedBusiness.value!.businessId!);
       } else {}
 
-      pendingDeletedProductToServer.remove(deletenext);
+      pendingDeletedProductToServer.remove(deleteNext);
       if (pendingDeletedProductToServer.isNotEmpty) {
         deletePendingJobToServer();
       }

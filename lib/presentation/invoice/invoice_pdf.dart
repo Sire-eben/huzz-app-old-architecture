@@ -34,7 +34,7 @@ class PdfInvoiceApi {
   static Future<File> generate(Invoice invoice, PdfColor themeColor) async {
     final pdf = Document();
     var customer = _customerController
-        .checkifCustomerAvailableWithValue(invoice.customerId!);
+        .checkIfCustomerAvailableWithValue(invoice.customerId!);
     var bank = _bankController.checkIfBankAvailableWithValue(invoice.bankId!);
 
     final selectedBusiness = _businessController.selectedBusiness.value!;

@@ -26,7 +26,7 @@ class PdfMoneyInOutApi {
     if (transactionModel.customerId != null) {
       // print("my customer id ${transactionModel.customerId}");
       customer = _customerController
-          .checkifCustomerAvailableWithValue(transactionModel.customerId!);
+          .checkIfCustomerAvailableWithValue(transactionModel.customerId!);
     }
     final selectedBusiness = _businessController.selectedBusiness.value!;
     pw.ImageProvider? businessImgProvider;

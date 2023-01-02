@@ -120,7 +120,7 @@ class _OverdueState extends State<Overdue> {
                                     var item = _invoiceController
                                         .InvoiceDueList[index];
                                     var customer = _customerController
-                                        .checkifCustomerAvailableWithValue(
+                                        .checkIfCustomerAvailableWithValue(
                                             item.customerId ?? "");
                                     return GestureDetector(
                                       onTap: () async {
@@ -250,7 +250,7 @@ class _OverdueState extends State<Overdue> {
                                     final _isSelected =
                                         _selectedIndex.contains(index);
                                     var customer = _customerController
-                                        .checkifCustomerAvailableWithValue(
+                                        .checkIfCustomerAvailableWithValue(
                                             item.customerId ?? "");
                                     return InkWell(
                                       onTap: () async {
