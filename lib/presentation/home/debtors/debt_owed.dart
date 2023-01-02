@@ -389,7 +389,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                           if (tItem != null) {
                                                             //  Get.snackbar("Error","Going to transaction page");
                                                             Get.to(() =>
-                                                                MoneySummary(
+                                                                MoneyHistory(
                                                                   item: tItem
                                                                       .businessTransactionPaymentItemList![0],
                                                                   pageCheck:

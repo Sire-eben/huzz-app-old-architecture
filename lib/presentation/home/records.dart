@@ -112,7 +112,7 @@ class _RecordsState extends State<Records> {
       body: Obx(() {
         return Stack(
           children: [
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: Column(
@@ -379,7 +379,7 @@ class _RecordsState extends State<Records> {
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.03),
-                    child: Container(
+                    child: SizedBox(
                       height: 200,
                       child: Obx(() {
                         // item1=removeDoubleItem(transactionController.allIncomeHoursData);
@@ -881,30 +881,27 @@ class _RecordsState extends State<Records> {
                       ),
                     ),
                   ),
-                  Container(
-                    // alignment: Alignment.centerRight,
-                    child: Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Total Money In',
-                              style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 10,
-                                  color: AppColors.blackColor),
-                            ),
-                            Text(
-                              "${Utils.getCurrency()} ${display(item2.value)}",
-                              style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 10,
-                                  color: AppColors.blueColor),
-                            ),
-                          ],
-                        ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Total Money In',
+                            style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 10,
+                                color: AppColors.blackColor),
+                          ),
+                          Text(
+                            "${Utils.getCurrency()} ${display(item2.value)}",
+                            style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 10,
+                                color: AppColors.blueColor),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -913,7 +910,7 @@ class _RecordsState extends State<Records> {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height / 3,
             child: ListView.separated(
                 separatorBuilder: (context, index) => const Divider(),
@@ -986,7 +983,7 @@ class _RecordsState extends State<Records> {
                           InkWell(
                             onTap: () {
                               Get.back();
-                              Get.to(() => MoneySummary(
+                              Get.to(() => MoneyHistory(
                                     item: item,
                                     pageCheck: false,
                                   ));
@@ -1103,7 +1100,7 @@ class _RecordsState extends State<Records> {
 
   List<RecordsData> removeDoubleItem(List<RecordsData> list) {
     List<RecordsData> newList = [];
-    list.forEach((element) {
+    for (var element in list) {
       if (newList
           .where((element1) => element.label.contains(element1.label))
           .toList()
@@ -1123,7 +1120,7 @@ class _RecordsState extends State<Records> {
           }
         }
       }
-    });
+    }
     return newList;
   }
 }

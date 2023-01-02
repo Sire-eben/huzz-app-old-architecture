@@ -45,15 +45,15 @@ class TransactionHistoryInformationDialog extends StatelessWidget {
   }
 }
 
-class MoneySummary extends StatefulWidget {
+class MoneyHistory extends StatefulWidget {
   PaymentItem? item;
   bool? pageCheck;
-  MoneySummary({super.key, this.item, this.pageCheck});
+  MoneyHistory({super.key, this.item, this.pageCheck});
   @override
-  _MoneySummaryState createState() => _MoneySummaryState();
+  _MoneyHistoryState createState() => _MoneyHistoryState();
 }
 
-class _MoneySummaryState extends State<MoneySummary> {
+class _MoneyHistoryState extends State<MoneyHistory> {
   final recordFilter = ['This month', 'Last month'];
   final _transactionController = Get.find<TransactionRespository>();
   final _customerController = Get.find<CustomerRepository>();
@@ -67,7 +67,7 @@ class _MoneySummaryState extends State<MoneySummary> {
     length: 10,
     decimal: 0,
   );
-  final _amountController = TextEditingController();
+  // final _amountController = TextEditingController();
   @override
   void initState() {
     // _customerController
@@ -127,7 +127,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             context: context,
                             barrierDismissible: true,
                             builder: (context) => CupertinoAlertDialog(
-                              content: TransactionHistoryInformationDialog(),
+                              content: const TransactionHistoryInformationDialog(),
                               actions: [
                                 CupertinoButton(
                                   child: const Text("OK"),
@@ -139,7 +139,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         : showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              content: TransactionHistoryInformationDialog(),
+                              content: const TransactionHistoryInformationDialog(),
                               actions: [
                                 CupertinoButton(
                                   child: const Text("OK"),
@@ -211,7 +211,7 @@ class _MoneySummaryState extends State<MoneySummary> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
@@ -1314,10 +1314,10 @@ class _MoneySummaryState extends State<MoneySummary> {
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_transactionController.addingTransactionStatus ==
                             AddingTransactionStatus.Loading)
-                        ? Container(
+                        ? const SizedBox(
                             width: 30,
                             height: 30,
-                            child: const Center(
+                            child: Center(
                                 child: CircularProgressIndicator(
                                     color: Colors.white)),
                           )

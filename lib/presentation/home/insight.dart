@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
-import 'package:huzz/presentation/home/wordclass.dart';
+import 'package:huzz/presentation/home/word_cloud.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/data/model/recordData.dart';
 import 'package:number_display/number_display.dart';
@@ -104,11 +104,11 @@ class _InsightState extends State<Insight> {
   List<RecordsData> removeDoubleItem(List<RecordsData> list) {
     // print("previous items lenght ${list.length}");
     List<RecordsData> newList = [];
-    list.forEach((element) {
+    for (var element in list) {
       if (element.value > 0) {
         newList.add(element);
       }
-    });
+    }
 
     // print("new item list is ${newList.length}");
     return newList;
@@ -144,7 +144,7 @@ class _InsightState extends State<Insight> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() {
-        return Container(
+        return SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
@@ -304,7 +304,7 @@ class _InsightState extends State<Insight> {
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
-                  child: Container(
+                  child: SizedBox(
                     height: 200,
                     child: Obx(() {
                       // item1=removeDoubleItem(transactionController.allIncomeHoursData);
@@ -506,7 +506,7 @@ class _InsightState extends State<Insight> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 200,
                             child: SfCircularChart(
                                 onTooltipRender: (s) {
@@ -550,7 +550,7 @@ class _InsightState extends State<Insight> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             height: 200,
                             child: SfCircularChart(
                                 onTooltipRender: (s) {

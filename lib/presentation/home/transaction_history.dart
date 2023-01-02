@@ -30,7 +30,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -87,14 +87,14 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: AppColors.backgroundColor.withOpacity(0.2)),
@@ -150,8 +150,8 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.height * 0.03),
               child: Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(12),
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12)),
@@ -186,7 +186,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             ),
             Expanded(
               child: ListView.separated(
-                  separatorBuilder: (context, index) => Divider(),
+                  separatorBuilder: (context, index) => const Divider(),
                   itemCount: itemsRecordList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var item = itemsRecordList[index];
@@ -249,8 +249,8 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.height * 0.03),
               child: Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(12),
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12)),
@@ -285,7 +285,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             ),
             Expanded(
               child: ListView.separated(
-                  separatorBuilder: (context, index) => Divider(),
+                  separatorBuilder: (context, index) => const Divider(),
                   itemCount: paymentHistoryList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var item = paymentHistoryList[index];
@@ -322,13 +322,13 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                       fontSize: 10,
                                       color: AppColors.backgroundColor),
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 Container(
-                                    padding: EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
+                                    padding: const EdgeInsets.all(2),
+                                    decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: AppColors.backgroundColor),
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.arrow_forward,
                                       color: AppColors.whiteColor,
                                       size: 15,
@@ -352,7 +352,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 300,
             ),
@@ -378,7 +378,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -392,7 +392,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -425,7 +425,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -494,11 +494,11 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                         });
                       },
                       child: Container(
-                        padding: EdgeInsets.all(4),
+                        padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: AppColors.backgroundColor.withOpacity(0.2)),
-                        child: Icon(
+                        child: const Icon(
                           Icons.close,
                           size: 20,
                           color: AppColors.backgroundColor,
@@ -593,7 +593,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Expanded(
                 child: ListView.separated(
-                    separatorBuilder: (context, index) => Divider(),
+                    separatorBuilder: (context, index) => const Divider(),
                     itemCount: recordSummaryList.length,
                     itemBuilder: (BuildContext context, int index) {
                       var item = recordSummaryList[index];
@@ -607,7 +607,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                           child: Row(
                             children: [
                               Image.asset(item.image!),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Expanded(
                                 flex: 3,
                                 child: Column(
@@ -651,7 +651,7 @@ class _TransactionHistoryState extends State<TransactionHistory> {
                                   ],
                                 ),
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.visibility,
                                 color: AppColors.backgroundColor,
                                 size: 20,

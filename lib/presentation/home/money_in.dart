@@ -19,7 +19,7 @@ import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:huzz/core/util/util.dart';
-import 'itemCard.dart';
+import 'item_card.dart';
 
 class MoneyInInformationDialog extends StatelessWidget {
   const MoneyInInformationDialog({super.key});
@@ -55,7 +55,7 @@ class MoneyIn extends StatefulWidget {
 }
 
 class _MoneyInState extends State<MoneyIn> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   final _transactionController = Get.find<TransactionRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
@@ -183,7 +183,7 @@ class _MoneyInState extends State<MoneyIn> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: MoneyInInformationDialog(),
+                          content: const MoneyInInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: const Text("OK"),
@@ -195,7 +195,7 @@ class _MoneyInState extends State<MoneyIn> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: MoneyInInformationDialog(),
+                          content: const MoneyInInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: const Text("OK"),
@@ -218,7 +218,7 @@ class _MoneyInState extends State<MoneyIn> {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Scrollbar(
@@ -868,11 +868,9 @@ class _MoneyInState extends State<MoneyIn> {
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Container(
-                                child: Image.asset(
-                                  'assets/images/image.png',
-                                  height: 40,
-                                ),
+                              child: Image.asset(
+                                'assets/images/image.png',
+                                height: 40,
                               ),
                             ),
                           ),
@@ -1139,10 +1137,10 @@ class _MoneyInState extends State<MoneyIn> {
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_transactionController.addingTransactionStatus ==
                             AddingTransactionStatus.Loading)
-                        ? Container(
+                        ? const SizedBox(
                             width: 30,
                             height: 30,
-                            child: const Center(
+                            child: Center(
                                 child: CircularProgressIndicator(
                                     color: Colors.white)),
                           )

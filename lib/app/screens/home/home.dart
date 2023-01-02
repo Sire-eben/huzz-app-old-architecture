@@ -650,7 +650,7 @@ class _HomeState extends State<Home> {
                                     onTap: () {
                                       // print(
                                       //     "item payment transaction id is ${item.businessTransactionId}");
-                                      Get.to(() => MoneySummary(
+                                      Get.to(() => MoneyHistory(
                                             item: item,
                                           ));
                                     },
@@ -1361,7 +1361,7 @@ class _HomeState extends State<Home> {
                                 onTap: () {
                                   // print(
                                   //     "item payment transaction id is ${item.businessTransactionId}");
-                                  Get.to(() => MoneySummary(
+                                  Get.to(() => MoneyHistory(
                                         item: item,
                                       ));
                                 },

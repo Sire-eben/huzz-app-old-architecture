@@ -11,7 +11,7 @@ class ItemCard extends StatelessWidget {
   PaymentItem item;
   final VoidCallback? onDelete;
   final VoidCallback? onEdit;
-  ItemCard({required this.item, this.onDelete, this.onEdit});
+  ItemCard({super.key, required this.item, this.onDelete, this.onEdit});
   @override
   Widget build(BuildContext context) {
     final display = createDisplay(
@@ -25,7 +25,7 @@ class ItemCard extends StatelessWidget {
       child: Container(
         height: MediaQuery.of(context).size.height * 0.08,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
             color: AppColors.backgroundColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10)),

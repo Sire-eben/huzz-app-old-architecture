@@ -987,7 +987,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                     widget.item!.businessTransactionId!);
                             if (tItem != null) {
                               //  Get.snackbar("Error","Going to transaction page");
-                              Get.to(() => MoneySummary(
+                              Get.to(() => MoneyHistory(
                                     item: tItem
                                         .businessTransactionPaymentItemList![0],
                                     pageCheck: false,

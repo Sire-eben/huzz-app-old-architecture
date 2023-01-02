@@ -661,7 +661,7 @@ class _HomePageState extends State<HomePage> {
                                               onTap: () {
                                                 // print(
                                                 //     "item payment transaction id is ${item.businessTransactionId}");
-                                                Get.to(() => MoneySummary(
+                                                Get.to(() => MoneyHistory(
                                                       item: item,
                                                       pageCheck: true,
                                                     ));
@@ -1499,7 +1499,7 @@ class _HomePageState extends State<HomePage> {
                                                 .allPaymentItem[index];
                                             return InkWell(
                                               onTap: () {
-                                                Get.to(() => MoneySummary(
+                                                Get.to(() => MoneyHistory(
                                                       item: item,
                                                       pageCheck: true,
                                                     ));
@@ -2279,7 +2279,7 @@ class _HomePageState extends State<HomePage> {
                                   _transactionController.allPaymentItem[index];
                               return InkWell(
                                 onTap: () {
-                                  Get.to(() => MoneySummary(item: item));
+                                  Get.to(() => MoneyHistory(item: item));
                                 },
                                 child: Row(
                                   mainAxisAlignment:
@@ -3151,7 +3151,7 @@ class _HomePageState extends State<HomePage> {
                 child: InkWell(
                   onTap: () {
                     Get.back();
-                    Get.to(CreateBusiness());
+                    Get.to(const CreateBusiness());
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

@@ -19,7 +19,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'itemCard.dart';
+import 'item_card.dart';
 
 class MoneyOutInformationDialog extends StatelessWidget {
   const MoneyOutInformationDialog({super.key});
@@ -48,6 +48,8 @@ class MoneyOutInformationDialog extends StatelessWidget {
 }
 
 class MoneyOut extends StatefulWidget {
+  const MoneyOut({super.key});
+
   @override
   _MoneyOutState createState() => _MoneyOutState();
 }
@@ -56,7 +58,7 @@ class _MoneyOutState extends State<MoneyOut> {
   final _transactionController = Get.find<TransactionRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     _transactionController.clearValue();
@@ -97,7 +99,7 @@ class _MoneyOutState extends State<MoneyOut> {
           _transactionController.image = imageTemporary;
         },
       );
-    } on PlatformException catch (e) {}
+    } on PlatformException {}
   }
 
   Future pickImageFromCamera() async {
@@ -110,7 +112,7 @@ class _MoneyOutState extends State<MoneyOut> {
           _transactionController.image = imageTemporary;
         },
       );
-    } on PlatformException catch (e) {}
+    } on PlatformException {}
   }
 
   Future pickDate(BuildContext context) async {
@@ -182,7 +184,7 @@ class _MoneyOutState extends State<MoneyOut> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: MoneyOutInformationDialog(),
+                          content: const MoneyOutInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: const Text("OK"),
@@ -194,7 +196,7 @@ class _MoneyOutState extends State<MoneyOut> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: MoneyOutInformationDialog(),
+                          content: const MoneyOutInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: const Text("OK"),
@@ -217,7 +219,7 @@ class _MoneyOutState extends State<MoneyOut> {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Scrollbar(
@@ -930,11 +932,9 @@ class _MoneyOutState extends State<MoneyOut> {
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Container(
-                                child: Image.asset(
-                                  'assets/images/image.png',
-                                  height: 40,
-                                ),
+                              child: Image.asset(
+                                'assets/images/image.png',
+                                height: 40,
                               ),
                             ),
                           ),
@@ -1205,10 +1205,10 @@ class _MoneyOutState extends State<MoneyOut> {
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_transactionController.addingTransactionStatus ==
                             AddingTransactionStatus.Loading)
-                        ? Container(
+                        ? const SizedBox(
                             width: 30,
                             height: 30,
-                            child: const Center(
+                            child: Center(
                                 child: CircularProgressIndicator(
                                     color: Colors.white)),
                           )

@@ -11,7 +11,7 @@ import 'package:huzz/data/repository/bank_account_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
-import 'package:huzz/presentation/home/itemCard.dart';
+import 'package:huzz/presentation/home/item_card.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
