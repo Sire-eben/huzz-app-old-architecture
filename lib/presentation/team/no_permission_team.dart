@@ -39,7 +39,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
@@ -78,7 +78,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             NoTeamsWidget(
               fName: firstName,
               lName: lastName,

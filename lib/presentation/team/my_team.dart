@@ -8,7 +8,7 @@ import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
-import 'package:huzz/presentation/team/update_member.dart';
+import 'package:huzz/presentation/team/team_member_information_dialog.dart';
 import 'package:huzz/presentation/widget/no_team_widget.dart';
 import 'package:huzz/presentation/widget/team_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -17,17 +17,19 @@ import '../widget/loading_widget.dart';
 import 'add_member.dart';
 
 class NoAccessDialog extends StatelessWidget {
+  const NoAccessDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        SizedBox(height: 7),
+        const SizedBox(height: 7),
         Text(
           "You are not authorized to perform this action",
           textAlign: TextAlign.center,
@@ -85,7 +87,7 @@ class _MyTeamState extends State<MyTeam> {
       }
       return RefreshIndicator(
         onRefresh: () async {
-          return Future.delayed(Duration(seconds: 1), () {
+          return Future.delayed(const Duration(seconds: 1), () {
             _teamController.getOnlineTeam(value!.teamId);
           });
         },
@@ -100,7 +102,7 @@ class _MyTeamState extends State<MyTeam> {
                   backgroundColor: Colors.white,
                   elevation: 0,
                   leading: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back,
                       color: AppColors.backgroundColor,
                     ),
@@ -129,9 +131,9 @@ class _MyTeamState extends State<MyTeam> {
                     ? Container()
                     : FloatingActionButton.extended(
                         onPressed: () {
-                          Get.to(() => AddMember());
+                          Get.to(() => const AddMember());
                         },
-                        icon: Icon(Icons.add),
+                        icon: const Icon(Icons.add),
                         backgroundColor: AppColors.backgroundColor,
                         label: Text(
                           'Add new member',
@@ -188,12 +190,12 @@ class _MyTeamState extends State<MyTeam> {
                                                             "CREATOR" &&
                                                         item.teamMemberStatus ==
                                                             "INVITE_LINK_SENT")
-                                                    ? StatusWidget(
+                                                    ? const StatusWidget(
                                                         color: AppColors
                                                             .backgroundColor,
                                                         text: "Pending",
                                                       )
-                                                    : StatusWidget(
+                                                    : const StatusWidget(
                                                         color: AppColors
                                                             .orangeBorderColor,
                                                         text: "Invited",
@@ -226,7 +228,7 @@ class _MyTeamState extends State<MyTeam> {
                                                                     .deleteTeamMemberStatus ==
                                                                 DeleteTeamStatus
                                                                     .Loading
-                                                            ? CupertinoActivityIndicator(
+                                                            ? const CupertinoActivityIndicator(
                                                                 radius: 10,
                                                               )
                                                             : SvgPicture.asset(
@@ -241,8 +243,7 @@ class _MyTeamState extends State<MyTeam> {
                                       },
                                     );
                                   } else if (_teamController
-                                          .onlineBusinessTeam.length ==
-                                      0) {
+                                          .onlineBusinessTeam.isEmpty) {
                                     return NoTeamWidget();
                                   } else {
                                     return Container();
@@ -261,7 +262,7 @@ class _MyTeamState extends State<MyTeam> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               NoTeamsWidget(
                                 fName: firstName,
                                 lName: lastName,
@@ -285,7 +286,7 @@ class _MyTeamState extends State<MyTeam> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
             ),
             title: Text(
@@ -306,7 +307,7 @@ class _MyTeamState extends State<MyTeam> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -320,7 +321,7 @@ class _MyTeamState extends State<MyTeam> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -343,7 +344,7 @@ class _MyTeamState extends State<MyTeam> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: InkWell(
                         onTap: () {
@@ -352,7 +353,7 @@ class _MyTeamState extends State<MyTeam> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -392,7 +393,7 @@ class StatusWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(width: 1, color: color!),

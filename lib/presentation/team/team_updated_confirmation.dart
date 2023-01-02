@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class TeamMemberConfirmation extends StatefulWidget {
-  TeamMemberConfirmation({Key? key}) : super(key: key);
+  const TeamMemberConfirmation({Key? key}) : super(key: key);
 
   @override
   State<TeamMemberConfirmation> createState() => _TeamMemberConfirmationState();
@@ -23,17 +23,17 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             Center(
@@ -56,7 +56,7 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Center(
@@ -64,7 +64,7 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
                 'assets/images/checker.png',
               ),
             ),
-            Spacer(),
+            const Spacer(),
             InkWell(
               onTap: () {
                 Get.back();
@@ -87,7 +87,7 @@ class _TeamMemberConfirmationState extends State<TeamMemberConfirmation> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
           ],
