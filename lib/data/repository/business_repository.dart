@@ -13,7 +13,7 @@ import 'package:huzz/data/repository/miscellaneous_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/data/model/offline_business.dart';
-import 'package:huzz/data/sharepreference/sharepref.dart';
+import 'package:huzz/data/sharepreference/share_pref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:huzz/presentation/business/create_business.dart';
 import 'auth_repository.dart';

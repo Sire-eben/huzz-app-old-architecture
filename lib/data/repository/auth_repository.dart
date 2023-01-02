@@ -24,7 +24,7 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/data/model/user.dart';
 import 'package:huzz/data/model/user_referral_model.dart';
-import 'package:huzz/data/sharepreference/sharepref.dart';
+import 'package:huzz/data/sharepreference/share_pref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/user_team_invite_model.dart';
