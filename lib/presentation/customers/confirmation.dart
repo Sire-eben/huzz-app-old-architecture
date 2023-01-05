@@ -21,7 +21,7 @@ class ConfirmationCustomer extends StatelessWidget {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -29,7 +29,7 @@ class ConfirmationCustomer extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           Center(
@@ -52,7 +52,7 @@ class ConfirmationCustomer extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Center(
@@ -60,7 +60,7 @@ class ConfirmationCustomer extends StatelessWidget {
               'assets/images/checker.png',
             ),
           ),
-          Spacer(),
+          const Spacer(),
           InkWell(
             onTap: () {
               Get.to(Dashboard(
@@ -69,7 +69,7 @@ class ConfirmationCustomer extends StatelessWidget {
             },
             child: Container(
               height: 55,
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
               decoration: BoxDecoration(
@@ -86,7 +86,7 @@ class ConfirmationCustomer extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
         ],

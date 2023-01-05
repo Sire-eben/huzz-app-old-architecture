@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/presentation/widget/util.dart';
 import 'package:huzz/data/model/business.dart';
@@ -17,14 +17,15 @@ import 'package:pdf/widgets.dart';
 class PdfTransactionApi {
   // ignore: avoid_init_to_null
 
-  static final _businessController = Get.find<BusinessRespository>();
+  static final _businessController = Get.find<BusinessRepository>();
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(TransactionModel transactionModel) async {
     final pdf = Document();
     Customer? customer;
-    if (transactionModel.customerId != null)
+    if (transactionModel.customerId != null) {
       customer = _customerController
-          .checkifCustomerAvailableWithValue(transactionModel.customerId!);
+          .checkIfCustomerAvailableWithValue(transactionModel.customerId!);
+    }
 
     pdf.addPage(MultiPage(
       build: (context) => [
@@ -51,7 +52,7 @@ class PdfTransactionApi {
   }
 
   static Widget buildHeader(Business item) => Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: PdfColors.blue,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +66,7 @@ class PdfTransactionApi {
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: PdfColors.white)),
                 Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
-                    style: TextStyle(color: PdfColors.white)),
+                    style: const TextStyle(color: PdfColors.white)),
               ]),
             ],
           ),
@@ -87,7 +88,7 @@ class PdfTransactionApi {
               height: 40,
               width: 40,
               decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
+                  const BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
               child: Center(
                 child: Text(item.businessName![0],
                     style: TextStyle(
@@ -100,10 +101,10 @@ class PdfTransactionApi {
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text(item.businessEmail ?? "",
-              style: TextStyle(color: PdfColors.white)),
+              style: const TextStyle(color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text(item.businessPhoneNumber!,
-              style: TextStyle(color: PdfColors.white)),
+              style: const TextStyle(color: PdfColors.white)),
         ],
       );
 
@@ -143,7 +144,7 @@ class PdfTransactionApi {
       border: null,
       headerStyle:
           TextStyle(fontWeight: FontWeight.bold, color: PdfColors.blue),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
+      headerDecoration: const BoxDecoration(color: PdfColors.grey300),
       cellHeight: 30,
       cellAlignments: {
         0: Alignment.centerLeft,
@@ -161,9 +162,9 @@ class PdfTransactionApi {
     // items
     //     .map((item) => item.amount! * item.quality!)
     //     .reduce((item1, item2) => item1 + item2);
-    items.forEach((element) {
+    for (var element in items) {
       netTotal = netTotal + (element.amount! * element.quality!);
-    });
+    }
 
     final total = netTotal;
 
@@ -173,7 +174,7 @@ class PdfTransactionApi {
         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             color: PdfColors.orange,
             child: Text(
               'Total',
@@ -201,11 +202,10 @@ class PdfTransactionApi {
       List<PaymentItem> items, dynamic amount, dynamic balance) {
     dynamic netTotal = 0;
 
-    items.forEach((element) {
+    for (var element in items) {
       netTotal = netTotal + (element.amount! * element.quality!);
-    });
+    }
 
-    final total = netTotal;
 
     return Container(
         alignment: Alignment.centerRight,

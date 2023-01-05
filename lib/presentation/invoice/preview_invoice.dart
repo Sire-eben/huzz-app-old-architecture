@@ -53,7 +53,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
@@ -72,7 +72,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               // Text(
               //   '(#00000001)',
               //   style: GoogleFonts.inter(
@@ -88,11 +88,11 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
         ),
         backgroundColor: Colors.white,
         body: isLoading
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SafeArea(
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: Column(
@@ -118,12 +118,12 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                                 .map((color) => Container(
                                       height: 24,
                                       width: 24,
-                                      margin: EdgeInsets.only(left: 10),
+                                      margin: const EdgeInsets.only(left: 10),
                                       color: Color(color.toInt()),
                                       child: GestureDetector(
                                         onTap: () => generatePdf(color),
                                         child: themeColor == color
-                                            ? Icon(
+                                            ? const Icon(
                                                 Icons.check,
                                                 color: Colors.white,
                                               )
@@ -131,7 +131,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                                       ),
                                     ))
                                 .toList(),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(
@@ -241,7 +241,7 @@ class _PreviewInvoiceState extends State<PreviewInvoice> {
                               horizontal:
                                   MediaQuery.of(context).size.height * 0.03),
                           height: 50,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: AppColors.backgroundColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),

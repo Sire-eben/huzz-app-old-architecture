@@ -6,26 +6,26 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/bank.dart';
 
-class ItemCard extends StatelessWidget {
+class BankCard extends StatelessWidget {
   Bank item;
   final VoidCallback? onDelete;
   final VoidCallback? onEdit;
-  ItemCard({required this.item, this.onDelete, this.onEdit});
+  BankCard({super.key, required this.item, this.onDelete, this.onEdit});
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.08,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
             color: AppColors.backgroundColor.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10)),
         child: Row(
           children: [
             Expanded(
-              flex: 3,
+              flex: 5,
               child: Text(
                 item.bankAccountName!,
                 style: GoogleFonts.inter(
@@ -34,11 +34,11 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Text(
                 item.bankAccountNumber!,
                 style: GoogleFonts.inter(
@@ -47,11 +47,11 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Text(
                 item.bankName!,
                 style: GoogleFonts.inter(
@@ -60,7 +60,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             Expanded(
               child: GestureDetector(
                 onTap: () {
@@ -71,7 +71,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Expanded(
@@ -82,7 +82,7 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             )
           ],

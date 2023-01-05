@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/presentation/widget/util.dart';
 import 'package:huzz/core/util/util.dart' as utils;
@@ -22,27 +22,27 @@ import 'package:printing/printing.dart';
 import '../../data/model/invoice.dart';
 
 class PdfInvoiceApi {
-  static final _businessController = Get.find<BusinessRespository>();
+  static final _businessController = Get.find<BusinessRepository>();
   static final _customerController = Get.find<CustomerRepository>();
   static final _bankController = Get.find<BankAccountRepository>();
   static final display = createDisplay(
       length: 5,
       decimal: 0,
-      placeholder: '${utils.Utils.getCurrency()}',
+      placeholder: utils.Utils.getCurrency(),
       units: ['K', 'M', 'B', 'T']);
 
   static Future<File> generate(Invoice invoice, PdfColor themeColor) async {
     final pdf = Document();
     var customer = _customerController
-        .checkifCustomerAvailableWithValue(invoice.customerId!);
-    var bank = _bankController.checkifBankAvailableWithValue(invoice.bankId!);
+        .checkIfCustomerAvailableWithValue(invoice.customerId!);
+    var bank = _bankController.checkIfBankAvailableWithValue(invoice.bankId!);
 
     final selectedBusiness = _businessController.selectedBusiness.value!;
     pw.ImageProvider? businessImgProvider;
-    if (selectedBusiness.buisnessLogoFileStoreId != null &&
-        selectedBusiness.buisnessLogoFileStoreId!.isNotEmpty) {
+    if (selectedBusiness.businessLogoFileStoreId != null &&
+        selectedBusiness.businessLogoFileStoreId!.isNotEmpty) {
       businessImgProvider =
-          await networkImage(selectedBusiness.buisnessLogoFileStoreId!);
+          await networkImage(selectedBusiness.businessLogoFileStoreId!);
     }
 
     final huzzImgProvider =
@@ -282,10 +282,10 @@ class PdfInvoiceApi {
   static Widget buildSubTotal(Invoice invoice) {
     dynamic totalAmount = 0;
     dynamic totalQty = 0;
-    invoice.paymentItemRequestList!.forEach((element) {
+    for (var element in invoice.paymentItemRequestList!) {
       totalAmount = totalAmount + element.totalAmount!;
       totalQty = totalQty + element.quality!;
-    });
+    }
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

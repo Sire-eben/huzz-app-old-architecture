@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/presentation/business/create_business.dart';
-import 'package:huzz/presentation/home/debtors/debtorstab.dart';
+import 'package:huzz/presentation/home/debtors/debtors_tab.dart';
 import 'package:huzz/presentation/home/insight.dart';
 import 'package:huzz/presentation/home/money_history.dart';
 import 'package:huzz/presentation/home/money_in.dart';
@@ -19,9 +19,9 @@ import 'package:random_color/random_color.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import '../../../data/model/business.dart';
 import '../../../data/model/notification_model.dart';
-import '../../../data/repository/business_respository.dart';
+import '../../../data/repository/business_repository.dart';
 import '../../../data/repository/debtors_repository.dart';
-import '../../../data/repository/transaction_respository.dart';
+import '../../../data/repository/transaction_repository.dart';
 
 class DebtInformationDialog extends StatelessWidget {
   const DebtInformationDialog({super.key});
@@ -64,13 +64,13 @@ class _HomeState extends State<Home> {
   );
 
   String? value;
-  final _transactionController = Get.find<TransactionRespository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _transactionController = Get.find<TransactionRepository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _debtorController = Get.find<DebtorRepository>();
   // final _authController = Get.find<AuthRepository>();
   int selectedValue = 0;
   final transactionList = [];
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
 
   @override
   Widget build(BuildContext context) {
@@ -128,34 +128,32 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  Container(
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(Notifications());
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/bell.svg',
-                            height: 20,
-                            width: 20,
-                          ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(Notifications());
+                        },
+                        child: SvgPicture.asset(
+                          'assets/images/bell.svg',
+                          height: 20,
+                          width: 20,
                         ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(const Settings());
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/settings.svg',
-                            color: AppColors.backgroundColor,
-                            height: 20,
-                            width: 20,
-                          ),
+                      ),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.02),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(const Settings());
+                        },
+                        child: SvgPicture.asset(
+                          'assets/images/settings.svg',
+                          color: AppColors.backgroundColor,
+                          height: 20,
+                          width: 20,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -190,7 +188,7 @@ class _HomeState extends State<Home> {
                             height: 10,
                           ),
                           Text(
-                            "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                            "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
                             style: GoogleFonts.inter(
                               color: AppColors.whiteColor,
                               fontSize: 20,
@@ -650,7 +648,7 @@ class _HomeState extends State<Home> {
                                     onTap: () {
                                       // print(
                                       //     "item payment transaction id is ${item.businessTransactionId}");
-                                      Get.to(() => MoneySummary(
+                                      Get.to(() => MoneyHistory(
                                             item: item,
                                           ));
                                     },
@@ -840,33 +838,31 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              Container(
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(Notifications());
-                      },
-                      child: SvgPicture.asset(
-                        'assets/images/bell.svg',
-                        height: 20,
-                        width: 20,
-                      ),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(Notifications());
+                    },
+                    child: SvgPicture.asset(
+                      'assets/images/bell.svg',
+                      height: 20,
+                      width: 20,
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(const Settings());
-                      },
-                      child: SvgPicture.asset(
-                        'assets/images/settings.svg',
-                        color: AppColors.backgroundColor,
-                        height: 20,
-                        width: 20,
-                      ),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(const Settings());
+                    },
+                    child: SvgPicture.asset(
+                      'assets/images/settings.svg',
+                      color: AppColors.backgroundColor,
+                      height: 20,
+                      width: 20,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -902,7 +898,7 @@ class _HomeState extends State<Home> {
                         height: 10,
                       ),
                       Text(
-                        "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                        "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
                         style: GoogleFonts.inter(
                           color: AppColors.whiteColor,
                           // ,
@@ -1361,7 +1357,7 @@ class _HomeState extends State<Home> {
                                 onTap: () {
                                   // print(
                                   //     "item payment transaction id is ${item.businessTransactionId}");
-                                  Get.to(() => MoneySummary(
+                                  Get.to(() => MoneyHistory(
                                         item: item,
                                       ));
                                 },
@@ -2051,7 +2047,7 @@ class _HomeState extends State<Home> {
                   child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.to(() => MoneyOut());
+                      Get.to(() => const MoneyOut());
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
@@ -2160,7 +2156,7 @@ class _HomeState extends State<Home> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Expanded(
                 flex: 3,
-                child: Container(
+                child: SizedBox(
                   height:
                       (_businessController.offlineBusiness.length * 50) + 20,
                   width: MediaQuery.of(context).size.width,
@@ -2207,7 +2203,7 @@ class _HomeState extends State<Home> {
                               Expanded(
                                   flex: 2,
                                   child: Text(
-                                    '${item.business!.businessName!}',
+                                    item.business!.businessName!,
                                     style: GoogleFonts.inter(
                                         fontSize: 13,
                                         color: Colors.black,
@@ -2243,7 +2239,7 @@ class _HomeState extends State<Home> {
                 child: InkWell(
                   onTap: () {
                     // Get.to(() => AddNewSale());
-                    Get.to(CreateBusiness());
+                    Get.to(const CreateBusiness());
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../data/repository/auth_respository.dart';
-import '../../data/repository/business_respository.dart';
+import '../../data/repository/auth_repository.dart';
+import '../../data/repository/business_repository.dart';
 import '../widget/team_widget.dart';
 
 class NoPermissionTeam extends StatefulWidget {
@@ -15,7 +15,7 @@ class NoPermissionTeam extends StatefulWidget {
 
 class _NoPermissionTeamState extends State<NoPermissionTeam> {
   final controller = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
 
   String? values, date;
   late String firstName, lastName;
@@ -39,7 +39,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
@@ -78,7 +78,7 @@ class _NoPermissionTeamState extends State<NoPermissionTeam> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             NoTeamsWidget(
               fName: firstName,
               lName: lastName,

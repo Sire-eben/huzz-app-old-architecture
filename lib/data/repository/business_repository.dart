@@ -8,15 +8,15 @@ import 'package:country_currency_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/data/repository/file_upload_respository.dart';
-import 'package:huzz/data/repository/miscellaneous_respository.dart';
+import 'package:huzz/data/repository/file_upload_repository.dart';
+import 'package:huzz/data/repository/miscellaneous_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/data/model/offline_business.dart';
-import 'package:huzz/data/sharepreference/sharepref.dart';
+import 'package:huzz/data/sharepreference/share_pref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:huzz/presentation/business/create_business.dart';
-import 'auth_respository.dart';
+import 'auth_repository.dart';
 
 enum CreateBusinessStatus { Loading, Empty, Error, Success }
 
@@ -24,8 +24,8 @@ enum BusinessStatus { Loading, Empty, Error, Available, UnAuthorized }
 
 enum UpdateBusinessStatus { Loading, Empty, Error, Success }
 
-class BusinessRespository extends GetxController {
-  Rx<List<OfflineBusiness>> _offlineBusiness = Rx([]);
+class BusinessRepository extends GetxController {
+  final Rx<List<OfflineBusiness>> _offlineBusiness = Rx([]);
   List<OfflineBusiness> get offlineBusiness => _offlineBusiness.value;
   List<OfflineBusiness> pendingJob = [];
   List<Business> businessListFromServer = [];
@@ -58,7 +58,7 @@ class BusinessRespository extends GetxController {
     pref = SharePref();
     await pref!.init();
 
-    _userController.Mtoken.listen((p0) {
+    _userController.mToken.listen((p0) {
       // print("available token is $p0");
       if (p0.isNotEmpty || p0 != "0") {
       // print("trying to get online business since is the token is valid");
@@ -100,7 +100,6 @@ class BusinessRespository extends GetxController {
         result.isNotEmpty
             ? _businessStatus(BusinessStatus.Available)
             : _businessStatus(BusinessStatus.Empty);
-        ;
         getBusinessYetToBeSavedLocally();
         checkIfUpdateAvailable();
       }
@@ -129,33 +128,33 @@ class BusinessRespository extends GetxController {
     }
   }
 
-  bool checkifBusinessAvailable(String id) {
+  bool checkIfBusinessAvailable(String id) {
     bool result = false;
-    offlineBusiness.forEach((element) {
+    for (var element in offlineBusiness) {
       if (element.businessId == id) {
         // print("business  found");
         result = true;
       }
-    });
+    }
     return result;
   }
 
-  Business? checkifBusinessAvailableWithValue(String id) {
+  Business? checkIfBusinessAvailableWithValue(String id) {
     Business? item;
 
-    offlineBusiness.forEach((element) {
+    for (var element in offlineBusiness) {
       // print("checking transaction whether exist");
       if (element.businessId == id) {
         // print("Customer   found");
         item = element.business;
       }
-    });
+    }
     return item;
   }
 
   Future checkIfUpdateAvailable() async {
     businessListFromServer.forEach((element) async {
-      var item = checkifBusinessAvailableWithValue(element.businessId!);
+      var item = checkIfBusinessAvailableWithValue(element.businessId!);
       if (item != null) {
         // print("item Customer is found");
         // print("updated offline ${item.updatedTime!.toIso8601String()}");
@@ -175,9 +174,9 @@ class BusinessRespository extends GetxController {
     if (pendingUpdatedBusinessList.isEmpty) {
       return;
     }
-    var updatednext = pendingUpdatedBusinessList.first;
-    await sqliteDb.updateOfflineBusiness(updatednext);
-    pendingUpdatedBusinessList.remove(updatednext);
+    var updatedNext = pendingUpdatedBusinessList.first;
+    await sqliteDb.updateOfflineBusiness(updatedNext);
+    pendingUpdatedBusinessList.remove(updatedNext);
     if (pendingUpdatedBusinessList.isNotEmpty) {
       updatePendingJob();
     }
@@ -186,7 +185,7 @@ class BusinessRespository extends GetxController {
 
   Future setBusinessList(List<Business> list) async {
     businessListFromServer.addAll(list);
-    // print("online data business lenght ${list.length}");
+    // print("online data business length ${list.length}");
     getBusinessYetToBeSavedLocally();
   }
 
@@ -194,14 +193,14 @@ class BusinessRespository extends GetxController {
 // if(offlineBusiness.length==businessListFromServer.length)
 // return;
 
-    businessListFromServer.forEach((element) {
-      if (!checkifBusinessAvailable(element.businessId!)) {
+    for (var element in businessListFromServer) {
+      if (!checkIfBusinessAvailable(element.businessId!)) {
         // print("does not contain value");
         var re =
             OfflineBusiness(businessId: element.businessId, business: element);
         pendingJob.add(re);
       }
-    });
+    }
 
     savePendingJob();
   }
@@ -240,10 +239,6 @@ class BusinessRespository extends GetxController {
     // print("token ${_userController.token}");
     try {
       _createBusinessStatus(CreateBusinessStatus.Loading);
-      final currency = CountryPickerUtils.getCountryByIsoCode(
-              _userController.countryCodeFLag)
-          .currencyCode
-          .toString();
       final response = await http.post(Uri.parse(ApiLink.createBusiness),
           body: jsonEncode(
             {
@@ -253,7 +248,7 @@ class BusinessRespository extends GetxController {
               "phoneNumber": businessPhoneNumber.text.trim(),
               "email": businessEmail.text.trim(),
               "currency": businessCurrency.text,
-              "buisnessLogoFileStoreId": null,
+              "businessLogoFileStoreId": null,
               "yearFounded": "",
               "businessRegistered": false,
               "businessRegistrationType": null,
@@ -277,7 +272,7 @@ class BusinessRespository extends GetxController {
 
           _createBusinessStatus(CreateBusinessStatus.Success);
           _userController.getUserData();
-          Get.offAll(() => BusinessCreatedSuccesful());
+          Get.offAll(() => const BusinessCreatedSuccesful());
         } else {}
       } else {
         Get.snackbar("Error", "Error creating business, try again!");
@@ -304,7 +299,7 @@ class BusinessRespository extends GetxController {
     try {
       _updateBusinessStatus(UpdateBusinessStatus.Loading);
       String? imageId;
-      var uploadController = Get.find<FileUploadRespository>();
+      var uploadController = Get.find<FileUploadRepository>();
       if (businessImage.value != null) {
         imageId = await uploadController.uploadFile(businessImage.value!.path);
       }
@@ -343,7 +338,7 @@ class BusinessRespository extends GetxController {
             "Success",
             "Business Information Updated",
           );
-          Timer(Duration(milliseconds: 2000), () {
+          Timer(const Duration(milliseconds: 2000), () {
             Get.back();
           });
         } else {

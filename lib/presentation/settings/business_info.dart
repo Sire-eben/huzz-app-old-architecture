@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/data/model/bank.dart';
 import 'package:huzz/data/model/business.dart';
@@ -18,10 +18,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'bankCard.dart';
+import 'bank_card.dart';
 
 class BusinessInfo extends StatefulWidget {
-  BusinessInfo({Key? key});
+  const BusinessInfo({super.key});
 
   @override
   _BusinessInfoState createState() => _BusinessInfoState();
@@ -29,7 +29,7 @@ class BusinessInfo extends StatefulWidget {
 
 class _BusinessInfoState extends State<BusinessInfo> {
   final controller = Get.find<AuthRepository>();
-  final businessController = Get.find<BusinessRespository>();
+  final businessController = Get.find<BusinessRepository>();
   final bankInfoController = Get.find<BankAccountRepository>();
   final teamController = Get.find<TeamRepository>();
 
@@ -59,7 +59,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
 
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
-  ScrollController _scrollController = ScrollController();
+  // ScrollController _scrollController = ScrollController();
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     // businessImage = bankInfoController.BankImage as String?;
@@ -96,7 +97,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -112,474 +113,469 @@ class _BusinessInfoState extends State<BusinessInfo> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          return Future.delayed(Duration(seconds: 1), () {
+          return Future.delayed(const Duration(seconds: 1), () {
             businessController.OnlineBusiness();
           });
         },
         child: Obx(() {
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            child: Container(
-              // width: MediaQuery.of(context).size.width,
-              // height: MediaQuery.of(context).size.height,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 20,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () => showModalBottomSheet(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20))),
+                        context: context,
+                        builder: (context) => buildAddImage()),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // ignore: unnecessary_null_comparison
+                          (businessController.businessImage.value != null)
+                              ? Image.file(
+                                  businessController.businessImage.value!,
+                                  width: 100,
+                                  height: 100,
+                                )
+                              : businessController.selectedBusiness.value!
+                                          .businessLogoFileStoreId ==
+                                      null
+                                  ? Image.asset(
+                                      'assets/images/Group 3647.png',
+                                    )
+                                  : CircleAvatar(
+                                      radius: 50.0,
+                                      backgroundImage: NetworkImage(
+                                          "${businessController.selectedBusiness.value!.businessLogoFileStoreId}"),
+                                      backgroundColor: Colors.transparent,
+                                    )
+                        ],
+                      ),
                     ),
-                    GestureDetector(
-                      onTap: () => showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20))),
-                          context: context,
-                          builder: (context) => buildAddImage()),
-                      child: Center(
-                        child: Row(
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                      child: Text(
+                    "Business Logo",
+                    style: GoogleFonts.inter(
+                      color: AppColors.blackColor,
+                      fontSize: 12,
+                    ),
+                  )),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField(
+                    label: "Business Name",
+                    validatorText: "Business Name required",
+                    colors: AppColors.blackColor,
+                    hint:
+                        "${businessController.selectedBusiness.value!.businessName}",
+                    textEditingController: businessController.businessName,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // ignore: unnecessary_null_comparison
-                            (businessController.businessImage.value != null)
-                                ? Image.file(
-                                    businessController.businessImage.value!,
-                                    width: 100,
-                                    height: 100,
-                                  )
-                                : businessController.selectedBusiness.value!
-                                            .buisnessLogoFileStoreId ==
-                                        null
-                                    ? Image.asset(
-                                        'assets/images/Group 3647.png',
-                                      )
-                                    : CircleAvatar(
-                                        radius: 50.0,
-                                        backgroundImage: NetworkImage(
-                                            "${businessController.selectedBusiness.value!.buisnessLogoFileStoreId}"),
-                                        backgroundColor: Colors.transparent,
-                                      )
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                        child: Text(
-                      "Business Logo",
-                      style: GoogleFonts.inter(
-                        color: AppColors.blackColor,
-                        fontSize: 12,
-                      ),
-                    )),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    CustomTextField(
-                      label: "Business Name",
-                      validatorText: "Business Name required",
-                      colors: AppColors.blackColor,
-                      hint:
-                          "${businessController.selectedBusiness.value!.businessName}",
-                      textEditingController: businessController.businessName,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Phone Number',
+                            Text(
+                              'Phone Number',
+                              style: GoogleFonts.inter(
+                                  color: Colors.black, fontSize: 12),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 5),
+                              child: Text(
+                                "*",
                                 style: GoogleFonts.inter(
-                                    color: Colors.black, fontSize: 12),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 5),
-                                child: Text(
-                                  "*",
-                                  style: GoogleFonts.inter(
-                                      color: Colors.red, fontSize: 12),
-                                ),
-                              ),
-                            ],
-                          )
-                        ]),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                            color: AppColors.backgroundColor, width: 2.0),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              showCountryCode(context);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                    right: BorderSide(
-                                        color: AppColors.backgroundColor,
-                                        width: 2)),
-                              ),
-                              height: 50,
-                              width: 80,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(width: 10),
-                                  Flag.fromString(countryFlag,
-                                      height: 30, width: 30),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Icon(
-                                    Icons.arrow_drop_down,
-                                    size: 24,
-                                    color: AppColors.backgroundColor
-                                        .withOpacity(0.5),
-                                  )
-                                ],
+                                    color: Colors.red, fontSize: 12),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              enabled: false,
-                              controller:
-                                  businessController.businessPhoneNumber,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText:
-                                      "${businessController.selectedBusiness.value!.businessPhoneNumber}",
-                                  hintStyle: GoogleFonts.inter(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                  prefixText: "+$countryCode ",
-                                  prefixStyle: GoogleFonts.inter(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black)),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                        ],
-                      ),
+                          ],
+                        )
+                      ]),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                          color: AppColors.backgroundColor, width: 2.0),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      height: 30,
-                      margin: EdgeInsets.only(
-                        right: 20,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Email',
-                            style: GoogleFonts.inter(
-                                color: Colors.black, fontSize: 12),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                        ],
-                      ),
-                    ),
-                    TextFormField(
-                      controller: businessController.businessEmail,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColors.backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColors.backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColors.backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        hintText:
-                            "${businessController.selectedBusiness.value!.businessEmail}",
-                        hintStyle:
-                            Theme.of(context).textTheme.headline4!.copyWith(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                      ),
-                    ),
-                    CustomTextField(
-                      label: "Address",
-                      validatorText: "Address is needed",
-                      colors: AppColors.blackColor,
-                      hint:
-                          "${businessController.selectedBusiness.value!.businessAddress}",
-                      textEditingController:
-                          businessController.businessAddressController,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Currency',
-                          style: GoogleFonts.inter(
-                              color: Colors.black, fontSize: 12),
+                        GestureDetector(
+                          onTap: () {
+                            showCountryCode(context);
+                          },
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                  right: BorderSide(
+                                      color: AppColors.backgroundColor,
+                                      width: 2)),
+                            ),
+                            height: 50,
+                            width: 80,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(width: 10),
+                                Flag.fromString(countryFlag,
+                                    height: 30, width: 30),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  Icons.arrow_drop_down,
+                                  size: 24,
+                                  color: AppColors.backgroundColor
+                                      .withOpacity(0.5),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          width: 5,
+                        const SizedBox(
+                          width: 10,
                         ),
-                        Text(
-                          '*',
-                          style: GoogleFonts.inter(
-                              color: Colors.red, fontSize: 12),
+                        Expanded(
+                          child: TextFormField(
+                            enabled: false,
+                            controller:
+                                businessController.businessPhoneNumber,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText:
+                                    "${businessController.selectedBusiness.value!.businessPhoneNumber}",
+                                hintStyle: GoogleFonts.inter(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                                prefixText: "+$countryCode ",
+                                prefixStyle: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black)),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    height: 30,
+                    margin: const EdgeInsets.only(
+                      right: 20,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 1,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            width: 2, color: AppColors.backgroundColor),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: value,
-                          focusColor: AppColors.whiteColor,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColors.backgroundColor,
-                          ),
-                          iconSize: 30,
-                          items: items.map(buildMenuItem).toList(),
-                          onChanged: (value) =>
-                              setState(() => this.value = value),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Email',
+                          style: GoogleFonts.inter(
+                              color: Colors.black, fontSize: 12),
                         ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextFormField(
+                    controller: businessController.businessEmail,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColors.backgroundColor, width: 2),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColors.backgroundColor, width: 2),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      border: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColors.backgroundColor, width: 2),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10))),
+                      hintText:
+                          "${businessController.selectedBusiness.value!.businessEmail}",
+                      hintStyle:
+                          Theme.of(context).textTheme.headline4!.copyWith(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.normal,
+                              ),
+                    ),
+                  ),
+                  CustomTextField(
+                    label: "Address",
+                    validatorText: "Address is needed",
+                    colors: AppColors.blackColor,
+                    hint:
+                        "${businessController.selectedBusiness.value!.businessAddress}",
+                    textEditingController:
+                        businessController.businessAddressController,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Currency',
+                        style: GoogleFonts.inter(
+                            color: Colors.black, fontSize: 12),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '*',
+                        style: GoogleFonts.inter(
+                            color: Colors.red, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 1,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          width: 2, color: AppColors.backgroundColor),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: value,
+                        focusColor: AppColors.whiteColor,
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down,
+                          color: AppColors.backgroundColor,
+                        ),
+                        iconSize: 30,
+                        items: items.map(buildMenuItem).toList(),
+                        onChanged: (value) =>
+                            setState(() => this.value = value),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    teamController.teamMember.teamMemberStatus == 'CREATOR' ||
-                            teamController.teamMember.authoritySet!
-                                .contains('VIEW_BANK_INFO')
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  teamController.teamMember.teamMemberStatus == 'CREATOR' ||
+                          teamController.teamMember.authoritySet!
+                              .contains('VIEW_BANK_INFO')
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'Bank Accounts',
+                                  style: GoogleFonts.inter(
+                                      color: Colors.black, fontSize: 12),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if (teamController
+                                            .teamMember.teamMemberStatus ==
+                                        'CREATOR' ||
+                                    teamController.teamMember.authoritySet!
+                                        .contains('CREATE_BANK_INFO')) {
+                                  bankInfoController.clearValue();
+                                  showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(20))),
+                                      context: context,
+                                      builder: (context) => addBusiness());
+                                } else {
+                                  Get.snackbar('Alert',
+                                      'You need to be authorized to perform this operation');
+                                }
+                              },
+                              child: Row(
                                 children: [
-                                  Text(
-                                    'Bank Accounts',
-                                    style: GoogleFonts.inter(
-                                        color: Colors.black, fontSize: 12),
+                                  Image.asset(
+                                    'assets/images/Group 3890.png',
+                                    scale: 1.2,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
+                                  ),
+                                  Text(
+                                    'Add Bank Account',
+                                    style: GoogleFonts.inter(
+                                        color: AppColors.backgroundColor,
+                                        fontSize: 12),
                                   ),
                                 ],
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  if (teamController
-                                              .teamMember.teamMemberStatus ==
-                                          'CREATOR' ||
-                                      teamController.teamMember.authoritySet!
-                                          .contains('CREATE_BANK_INFO')) {
-                                    bankInfoController.clearValue();
-                                    showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(20))),
-                                        context: context,
-                                        builder: (context) => addBusiness());
-                                  } else {
-                                    Get.snackbar('Alert',
-                                        'You need to be authorized to perform this operation');
-                                  }
-                                },
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      child: Image.asset(
-                                        'assets/images/Group 3890.png',
-                                        scale: 1.2,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      'Add Bank Account',
-                                      style: GoogleFonts.inter(
-                                          color: AppColors.backgroundColor,
-                                          fontSize: 12),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )
-                        : Container(),
-                    SizedBox(height: 20),
-                    if (bankInfoController.addingBankStatus ==
-                        AddingBankInfoStatus.UnAuthorized) ...[
+                            ),
+                          ],
+                        )
+                      : Container(),
+                  const SizedBox(height: 20),
+                  if (bankInfoController.addingBankStatus ==
+                      AddingBankInfoStatus.UnAuthorized) ...[
+                    Center(
+                      child: Text(
+                        'You need to be authorized\nto view this module',
+                        style: GoogleFonts.inter(
+                            fontSize: 14,
+                            color: AppColors.orangeBorderColor,
+                            fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ] else ...[
+                    if (bankInfoController.offlineBusinessBank.isNotEmpty)
+                      ...bankInfoController.offlineBusinessBank
+                          .map((e) => BankCard(
+                              item: e,
+                              onDelete: () {
+                                if (teamController
+                                            .teamMember.teamMemberStatus ==
+                                        'CREATOR' ||
+                                    teamController.teamMember.authoritySet!
+                                        .contains('DELETE_BANK_INFO')) {
+                                  // print('deleting bank account...');
+                                  bankInfoController.addToDeleteList(e);
+                                } else {
+                                  Get.snackbar('Alert',
+                                      'You need to be authorized to perform this operation');
+                                }
+                              },
+                              onEdit: () {
+                                if (teamController
+                                            .teamMember.teamMemberStatus ==
+                                        'CREATOR' ||
+                                    teamController.teamMember.authoritySet!
+                                        .contains('UPDATE_BANK_INFO')) {
+                                  // print('edit bank account');
+                                  bankInfoController.setItem(e);
+                                  showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(20))),
+                                      context: context,
+                                      builder: (context) =>
+                                          EditBankAccount(e));
+                                } else {
+                                  Get.snackbar('Alert',
+                                      'You need to be authorized to perform this operation');
+                                }
+                              }))
+                          .toList(),
+                    if (bankInfoController.offlineBusinessBank.isEmpty)
                       Center(
                         child: Text(
-                          'You need to be authorized\nto view this module',
+                          'No bank account has been added yet',
                           style: GoogleFonts.inter(
-                              fontSize: 14,
-                              color: AppColors.orangeBorderColor,
-                              fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ] else ...[
-                      if (bankInfoController.offlineBusinessBank.isNotEmpty)
-                        ...bankInfoController.offlineBusinessBank
-                            .map((e) => BankCard(
-                                item: e,
-                                onDelete: () {
-                                  if (teamController
-                                              .teamMember.teamMemberStatus ==
-                                          'CREATOR' ||
-                                      teamController.teamMember.authoritySet!
-                                          .contains('DELETE_BANK_INFO')) {
-                                    // print('deleting bank account...');
-                                    bankInfoController.addToDeleteList(e);
-                                  } else {
-                                    Get.snackbar('Alert',
-                                        'You need to be authorized to perform this operation');
-                                  }
-                                },
-                                onEdit: () {
-                                  if (teamController
-                                              .teamMember.teamMemberStatus ==
-                                          'CREATOR' ||
-                                      teamController.teamMember.authoritySet!
-                                          .contains('UPDATE_BANK_INFO')) {
-                                    // print('edit bank account');
-                                    bankInfoController.setItem(e);
-                                    showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(20))),
-                                        context: context,
-                                        builder: (context) =>
-                                            EditBankAccount(e));
-                                  } else {
-                                    Get.snackbar('Alert',
-                                        'You need to be authorized to perform this operation');
-                                  }
-                                }))
-                            .toList(),
-                      if (bankInfoController.offlineBusinessBank.isEmpty)
-                        Center(
-                          child: Text(
-                            'No bank account has been added yet',
-                            style: GoogleFonts.inter(
-                              color: AppColors.hintColor,
-                              fontSize: 10,
-                            ),
+                            color: AppColors.hintColor,
+                            fontSize: 10,
                           ),
                         ),
-                    ],
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Obx(() {
-                      return InkWell(
-                        onTap: () {
-                          if (businessController.updateBusinessStatus !=
-                              UpdateBusinessStatus.Loading)
-                            businessController.updateBusiness(value!);
-                        },
-                        child: Container(
-                          height: 50,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                              color: AppColors.backgroundColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: (businessController.updateBusinessStatus ==
-                                  UpdateBusinessStatus.Loading)
-                              ? Center(
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    child: Center(
-                                        child: CircularProgressIndicator(
-                                            color: Colors.white)),
-                                  ),
-                                )
-                              : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Save',
-                                      style: GoogleFonts.inter(
-                                          color: Colors.white, fontSize: 18),
-                                    ),
-                                  ],
-                                ),
-                        ),
-                      );
-                    }),
-                    SizedBox(
-                      height: 10,
-                    ),
+                      ),
                   ],
-                ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Obx(() {
+                    return InkWell(
+                      onTap: () {
+                        if (businessController.updateBusinessStatus !=
+                            UpdateBusinessStatus.Loading) {
+                          businessController.updateBusiness(value!);
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: const BoxDecoration(
+                            color: AppColors.backgroundColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: (businessController.updateBusinessStatus ==
+                                UpdateBusinessStatus.Loading)
+                            ? const Center(
+                                child: SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                          color: Colors.white)),
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Save',
+                                    style: GoogleFonts.inter(
+                                        color: Colors.white, fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                      ),
+                    );
+                  }),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
               ),
             ),
           );
@@ -609,14 +605,14 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xffE6F4F2),
                       shape: BoxShape.circle,
                     ),
@@ -624,7 +620,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.close,
                         color: AppColors.backgroundColor,
                       ),
@@ -632,7 +628,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   )
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
@@ -641,7 +637,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               GestureDetector(
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();
@@ -666,7 +662,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Center(
@@ -679,14 +675,14 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               GestureDetector(
                 onTap: () {
                   Get.back();
                 },
                 child: Container(
                   height: 55,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(
@@ -726,7 +722,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
               children: [
                 Center(
                   child: Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     height: 3,
                     width: 70,
                     decoration: BoxDecoration(
@@ -735,14 +731,14 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
                       height: 30,
                       width: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xffE6F4F2),
                         shape: BoxShape.circle,
                       ),
@@ -750,7 +746,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         onTap: () {
                           Get.back();
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.close,
                           color: AppColors.backgroundColor,
                         ),
@@ -766,12 +762,12 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 CustomTextField(
                   label: "Account Number ",
                   validatorText: "Account Number required",
                   textEditingController:
-                      bankInfoController.accoutNumberController,
+                      bankInfoController.accountNumberController,
                 ),
                 CustomTextField(
                   label: "Account holder Name",
@@ -797,7 +793,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     },
                     child: Container(
                       height: 55,
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         horizontal: 5,
                       ),
                       decoration: BoxDecoration(
@@ -806,7 +802,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Center(
                         child: (bankInfoController.addingBankStatus ==
                                 AddingBankInfoStatus.Loading)
-                            ? CircularProgressIndicator(color: Colors.white)
+                            ? const CircularProgressIndicator(color: Colors.white)
                             : Text(
                                 'Add Bank Account',
                                 style: GoogleFonts.inter(
@@ -847,7 +843,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     Get.back();
                   },
                   child: Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     height: 6,
                     width: 80,
                     decoration: BoxDecoration(
@@ -856,12 +852,12 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 CustomTextField(
                   label: "Account Number ",
                   validatorText: "Account Number required",
                   textEditingController:
-                      bankInfoController.accoutNumberController,
+                      bankInfoController.accountNumberController,
                 ),
                 CustomTextField(
                   label: "Account holder Name",
@@ -894,7 +890,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Center(
                         child: (bankInfoController.addingBankStatus ==
                                 AddingBankInfoStatus.Loading)
-                            ? Container(
+                            ? const SizedBox(
                                 height: 30,
                                 width: 30,
                                 child: CircularProgressIndicator(
@@ -924,7 +920,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 250,
             ),
@@ -942,100 +938,96 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 ),
               ],
             ),
-            content: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20,
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Enter New Number',
+                  style:
+                      GoogleFonts.inter(color: Colors.black, fontSize: 12),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                        color: AppColors.backgroundColor, width: 2.0),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
-                  Container(
-                    child: Text(
-                      'Enter New Number',
-                      style:
-                          GoogleFonts.inter(color: Colors.black, fontSize: 12),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          color: AppColors.backgroundColor, width: 2.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            showCountryCode(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  right: BorderSide(
-                                      color: AppColors.backgroundColor,
-                                      width: 2)),
-                            ),
-                            height: 50,
-                            width: 80,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(width: 10),
-                                Flag.fromString(countryFlag,
-                                    height: 30, width: 30),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(
-                                  Icons.arrow_drop_down,
-                                  size: 24,
-                                  color: AppColors.backgroundColor
-                                      .withOpacity(0.5),
-                                )
-                              ],
-                            ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          showCountryCode(context);
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            border: Border(
+                                right: BorderSide(
+                                    color: AppColors.backgroundColor,
+                                    width: 2)),
+                          ),
+                          height: 50,
+                          width: 80,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(width: 10),
+                              Flag.fromString(countryFlag,
+                                  height: 30, width: 30),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.arrow_drop_down,
+                                size: 24,
+                                color: AppColors.backgroundColor
+                                    .withOpacity(0.5),
+                              )
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "8123456789",
+                              hintStyle: GoogleFonts.inter(
+                                  color: Colors.black.withOpacity(0.5),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                              prefixText: "+$countryCode ",
+                              prefixStyle: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
                         ),
-                        Expanded(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "8123456789",
-                                hintStyle: GoogleFonts.inter(
-                                    color: Colors.black.withOpacity(0.5),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
-                                prefixText: "+$countryCode ",
-                                prefixStyle: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black)),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -1049,7 +1041,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1078,7 +1070,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1125,7 +1117,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 235,
             ),
@@ -1147,7 +1139,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   left: 20,
                 ),
                 child: Text(
@@ -1159,10 +1151,10 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: PinCodeTextField(
                   length: 4,
@@ -1180,7 +1172,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     fieldWidth: 50,
                     activeFillColor: Colors.white,
                   ),
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                   backgroundColor: Colors.white,
                   enableActiveFill: true,
                   errorAnimationController: errorController,
@@ -1203,7 +1195,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   appContext: context,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -1211,18 +1203,18 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 style: GoogleFonts.inter(
                     color: AppColors.backgroundColor, fontSize: 12),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 "Resend via sms",
                 style:
-                    GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
+                    GoogleFonts.inter(color: const Color(0xffEF6500), fontSize: 12),
               ),
             ]),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -1233,7 +1225,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1262,7 +1254,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1293,7 +1285,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 235,
             ),
@@ -1317,13 +1309,13 @@ class _BusinessInfoState extends State<BusinessInfo> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 25, right: 55, bottom: 20),
+                padding: const EdgeInsets.only(left: 25, right: 55, bottom: 20),
                 child: InkWell(
                   onTap: () {},
                   child: Container(
                     height: 45,
                     width: 150,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                     ),
                     decoration: BoxDecoration(

@@ -29,7 +29,7 @@ class IncomeSuccess extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -46,29 +46,27 @@ class IncomeSuccess extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                child: Column(
-                  children: [
-                    Text(
-                      'Your $title has',
-                      style: GoogleFonts.inter(
-                        color: AppColors.backgroundColor,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w400,
-                      ),
+              Column(
+                children: [
+                  Text(
+                    'Your $title has',
+                    style: GoogleFonts.inter(
+                      color: AppColors.backgroundColor,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
                     ),
-                    Text(
-                      'been added successfully',
-                      style: GoogleFonts.inter(
-                        color: AppColors.backgroundColor,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  ),
+                  Text(
+                    'been added successfully',
+                    style: GoogleFonts.inter(
+                      color: AppColors.backgroundColor,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               SvgPicture.asset('assets/images/income_added.svg'),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -84,7 +82,7 @@ class IncomeSuccess extends StatelessWidget {
                           horizontal:
                               MediaQuery.of(context).size.height * 0.03),
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
@@ -104,16 +102,16 @@ class IncomeSuccess extends StatelessWidget {
                       : InkWell(
                           onTap: () async {
                             final date = DateTime.now();
-                            final dueDate = date.add(Duration(days: 7));
+                            final dueDate = date.add(const Duration(days: 7));
 
                             // ignore: unused_local_variable
                             final moneyInvoice = MoneyInOutInvoice(
-                              supplier: Supplier(
+                              supplier: const Supplier(
                                 name: 'Business Name',
                                 mail: 'tunmisehassan@gmail.com',
                                 phone: '+234 8123 456 789',
                               ),
-                              customer: Customer(
+                              customer: const Customer(
                                 name: 'Joshua Olatunde',
                                 phone: '+234 903 872 6495',
                               ),
@@ -124,22 +122,22 @@ class IncomeSuccess extends StatelessWidget {
                                 number: '${DateTime.now().year}-9999',
                               ),
                               items: [
-                                InvoiceItem(
+                                const InvoiceItem(
                                   item: 'MacBook',
                                   quantity: 3,
                                   amount: 500000,
                                 ),
-                                InvoiceItem(
+                                const InvoiceItem(
                                   item: 'MacBook',
                                   quantity: 3,
                                   amount: 500000,
                                 ),
-                                InvoiceItem(
+                                const InvoiceItem(
                                   item: 'MacBook',
                                   quantity: 3,
                                   amount: 500000,
                                 ),
-                                InvoiceItem(
+                                const InvoiceItem(
                                   item: 'MacBook',
                                   quantity: 3,
                                   amount: 500000,
@@ -161,7 +159,7 @@ class IncomeSuccess extends StatelessWidget {
                                 border: Border.all(
                                     color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                                    const BorderRadius.all(Radius.circular(10))),
                             child: Center(
                               child: Text(
                                 'View Receipt',

@@ -7,13 +7,13 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/mixins/form_mixin.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/validators.dart';
-import 'package:huzz/core/widgets/appbar.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
-import 'package:huzz/core/widgets/dropdowns/buildmenuitem.dart';
+import 'package:huzz/core/widgets/dropdowns/build_menu_item.dart';
 import 'package:huzz/core/widgets/dropdowns/dropdown_outline.dart';
 import 'package:huzz/core/widgets/state/success.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/generated/assets.gen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -83,7 +83,7 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
 
                   hint: const Text('Select'),
                   disabledHint: const Text('Choose category'),
-                  dropdownColor: AppColors.lightbackgroundColor,
+                  dropdownColor: AppColors.lightBackgroundColor,
                   elevation: 0,
                   decoration: const InputDecoration(
                     errorBorder: dropdownErrorBorder,
@@ -183,7 +183,7 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
                     child: Container(
                       padding: const EdgeInsets.all(Insets.sm),
                       decoration: const BoxDecoration(
-                        color: AppColors.lightbackgroundColor,
+                        color: AppColors.lightBackgroundColor,
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(

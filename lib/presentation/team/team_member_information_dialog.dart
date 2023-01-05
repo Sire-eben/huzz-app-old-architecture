@@ -6,29 +6,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/presentation/widget/expandable_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import '../../data/model/team.dart';
-import '../../data/repository/auth_respository.dart';
-import '../../model/user_teamInvite_model.dart';
+import '../../data/repository/auth_repository.dart';
+import '../../model/user_team_invite_model.dart';
 
-class InformationDialog extends StatelessWidget {
+class TeamMemberInformationDialog extends StatelessWidget {
   final String? title;
 
-  const InformationDialog({super.key, this.title});
+  const TeamMemberInformationDialog({super.key, this.title});
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        SizedBox(height: 7),
+        const SizedBox(height: 7),
         Text(
           "Manage member authorization for your business team",
           textAlign: TextAlign.center,
@@ -76,7 +76,7 @@ class _UpdateMemberState extends State<UpdateMember> {
 
   final controller = Get.find<AuthRepository>();
   final _teamController = Get.find<TeamRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController updatePhoneNumberController =
       TextEditingController();
@@ -303,7 +303,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -315,7 +315,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -503,7 +503,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -515,7 +515,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -703,7 +703,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -715,7 +715,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -903,7 +903,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -915,7 +915,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -1103,7 +1103,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -1115,7 +1115,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -1303,7 +1303,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -1315,7 +1315,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -1504,7 +1504,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),
@@ -1516,7 +1516,7 @@ class _UpdateMemberState extends State<UpdateMember> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: InformationDialog(),
+                          content: TeamMemberInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: Text("OK"),

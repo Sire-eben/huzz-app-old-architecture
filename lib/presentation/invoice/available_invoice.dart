@@ -10,21 +10,23 @@ import 'package:huzz/presentation/invoice/available_invoice/overdue.dart';
 import 'package:huzz/presentation/invoice/available_invoice/paid.dart';
 import 'package:huzz/presentation/invoice/available_invoice/pending.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import '../../data/repository/team_repository.dart';
 
 class ManageInvoiceInformationDialog extends StatelessWidget {
+  const ManageInvoiceInformationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        SizedBox(height: 7),
+        const SizedBox(height: 7),
         Text(
           'This is where you can create new invoices for your customers or update payments for existing invoices.',
           textAlign: TextAlign.center,
@@ -50,7 +52,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
   TabController? _tabController;
 
   final _authController = Get.put(AuthRepository());
-  final _invoiceRepository = Get.find<InvoiceRespository>();
+  final _invoiceRepository = Get.find<InvoiceRepository>();
   final teamController = Get.find<TeamRepository>();
 
   bool? fixedScroll;
@@ -89,7 +91,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
   _smoothScrollToTop() {
     _scrollController!.animateTo(
       0,
-      duration: Duration(microseconds: 300),
+      duration: const Duration(microseconds: 300),
       curve: Curves.ease,
     );
     setState(() {
@@ -105,9 +107,9 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
           child: Scaffold(
             backgroundColor: Colors.white,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(210),
+              preferredSize: const Size.fromHeight(210),
               child: Container(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +123,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                               fontSize: 18,
                               color: AppColors.backgroundColor),
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
                             Platform.isIOS
@@ -129,10 +131,10 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) => CupertinoAlertDialog(
-                                      content: ManageInvoiceInformationDialog(),
+                                      content: const ManageInvoiceInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: Text("OK"),
+                                          child: const Text("OK"),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -141,10 +143,10 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                                 : showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      content: ManageInvoiceInformationDialog(),
+                                      content: const ManageInvoiceInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: Text("OK"),
+                                          child: const Text("OK"),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -167,17 +169,17 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       children: [
                         DashboardDetails(
                             name: 'Pending',
-                            no: _invoiceRepository.InvoicePendingList.length),
+                            no: _invoiceRepository.invoicePendingList.length),
                         SizedBox(
                             width: MediaQuery.of(context).size.height * 0.02),
                         DashboardDetails(
                             name: 'Overdue',
-                            no: _invoiceRepository.InvoiceDueList.length),
+                            no: _invoiceRepository.invoiceDueList.length),
                         SizedBox(
                             width: MediaQuery.of(context).size.height * 0.02),
                         DashboardDetails(
                             name: 'Deposit',
-                            no: _invoiceRepository.InvoiceDepositList.length),
+                            no: _invoiceRepository.invoiceDepositList.length),
                         SizedBox(
                             width: MediaQuery.of(context).size.height * 0.02),
                         DashboardDetails(
@@ -221,7 +223,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                       ),
                       indicatorSize: TabBarIndicatorSize.label,
                       indicatorColor: AppColors.backgroundColor,
-                      tabs: [
+                      tabs: const [
                         Tab(text: 'All'),
                         Tab(text: 'Pending'),
                         Tab(text: 'Paid'),
@@ -233,7 +235,7 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
               },
               body: TabBarView(
                 controller: _tabController,
-                children: <Widget>[All(), Pending(), Paid(), Overdue()],
+                children: const <Widget>[All(), Pending(), Paid(), Overdue()],
               ),
             ),
           ),
@@ -253,7 +255,7 @@ class DashboardDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: AppColors.backgroundColor.withOpacity(0.3)),

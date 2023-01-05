@@ -10,14 +10,14 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/presentation/business/create_business.dart';
 import 'package:huzz/presentation/Home/insight.dart';
@@ -31,9 +31,9 @@ import 'package:huzz/presentation/wallet/create_bank_account.dart';
 import 'package:huzz/presentation/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import '../../data/repository/team_repository.dart';
-import 'debtors/debtorstab.dart';
+import 'debtors/debtors_tab.dart';
 import 'money_history.dart';
 
 class DebtInformationDialog extends StatelessWidget {
@@ -78,8 +78,8 @@ class _HomePageState extends State<HomePage> {
 
   String? value;
   final _authController = Get.put(AuthRepository());
-  final _transactionController = Get.find<TransactionRespository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _transactionController = Get.find<TransactionRepository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _debtorController = Get.find<DebtorRepository>();
   final teamController = Get.find<TeamRepository>();
 
@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}"
+                                      "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}"
                                           .toString(),
                                       style: GoogleFonts.inter(
                                         color: AppColors.whiteColor,
@@ -474,7 +474,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     padding: const EdgeInsets.all(Insets.sm),
                                     decoration: const BoxDecoration(
-                                      color: AppColors.secondbgColor,
+                                      color: AppColors.secondBgColor,
                                       borderRadius:
                                           BorderRadius.all(Corners.smRadius),
                                     ),
@@ -499,7 +499,7 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                               padding: const EdgeInsets.all(Insets.md),
                               decoration: BoxDecoration(
-                                color: AppColors.secondbgColor.withOpacity(0.1),
+                                color: AppColors.secondBgColor.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
@@ -661,7 +661,7 @@ class _HomePageState extends State<HomePage> {
                                               onTap: () {
                                                 // print(
                                                 //     "item payment transaction id is ${item.businessTransactionId}");
-                                                Get.to(() => MoneySummary(
+                                                Get.to(() => MoneyHistory(
                                                       item: item,
                                                       pageCheck: true,
                                                     ));
@@ -925,7 +925,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                                      "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
                                       style: GoogleFonts.inter(
                                         color: AppColors.whiteColor,
                                         fontSize: 20,
@@ -1499,7 +1499,7 @@ class _HomePageState extends State<HomePage> {
                                                 .allPaymentItem[index];
                                             return InkWell(
                                               onTap: () {
-                                                Get.to(() => MoneySummary(
+                                                Get.to(() => MoneyHistory(
                                                       item: item,
                                                       pageCheck: true,
                                                     ));
@@ -1819,7 +1819,7 @@ class _HomePageState extends State<HomePage> {
                         height: 10,
                       ),
                       Text(
-                        "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
+                        "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
                         style: GoogleFonts.inter(
                           color: AppColors.whiteColor,
                           // ,
@@ -2279,7 +2279,7 @@ class _HomePageState extends State<HomePage> {
                                   _transactionController.allPaymentItem[index];
                               return InkWell(
                                 onTap: () {
-                                  Get.to(() => MoneySummary(item: item));
+                                  Get.to(() => MoneyHistory(item: item));
                                 },
                                 child: Row(
                                   mainAxisAlignment:
@@ -2968,7 +2968,7 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.to(() => MoneyOut());
+                      Get.to(() => const MoneyOut());
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
@@ -3151,7 +3151,7 @@ class _HomePageState extends State<HomePage> {
                 child: InkWell(
                   onTap: () {
                     Get.back();
-                    Get.to(CreateBusiness());
+                    Get.to(const CreateBusiness());
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

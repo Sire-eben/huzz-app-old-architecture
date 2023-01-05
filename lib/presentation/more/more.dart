@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/presentation/widget/more_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import '../../data/repository/team_repository.dart';
 import '../team/my_team.dart';
 import '../team/no_permission_team.dart';
@@ -82,8 +82,8 @@ class _MoreState extends State<More> {
             InkWell(
               onTap: (() {
                 _teamController.teamStatus == TeamStatus.UnAuthorized
-                    ? Get.to(() => NoPermissionTeam())
-                    : Get.to(() => MyTeam());
+                    ? Get.to(() => const NoPermissionTeam())
+                    : Get.to(() => const MyTeam());
               }),
               child: MoreWidget(
                 image: 'assets/images/teamIcon.png',
@@ -91,7 +91,7 @@ class _MoreState extends State<More> {
                 description: 'Collaborate with coworkers',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
 
@@ -111,7 +111,7 @@ class _MoreState extends State<More> {
               ),
               child: Image.asset('assets/images/bank_wallet.png'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             // InkWell(
@@ -130,12 +130,12 @@ class _MoreState extends State<More> {
               ),
               child: Image.asset('assets/images/my_store.png'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             InkWell(
               onTap: (() {
-                Get.to(() => HelpsAndSupport());
+                Get.to(() => const HelpsAndSupport());
               }),
               child: MoreWidget(
                 image: 'assets/images/call.png',

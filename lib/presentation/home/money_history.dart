@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/presentation/home/reciept.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/data/model/customer_model.dart';
@@ -45,17 +45,17 @@ class TransactionHistoryInformationDialog extends StatelessWidget {
   }
 }
 
-class MoneySummary extends StatefulWidget {
+class MoneyHistory extends StatefulWidget {
   PaymentItem? item;
   bool? pageCheck;
-  MoneySummary({super.key, this.item, this.pageCheck});
+  MoneyHistory({super.key, this.item, this.pageCheck});
   @override
-  _MoneySummaryState createState() => _MoneySummaryState();
+  _MoneyHistoryState createState() => _MoneyHistoryState();
 }
 
-class _MoneySummaryState extends State<MoneySummary> {
+class _MoneyHistoryState extends State<MoneyHistory> {
   final recordFilter = ['This month', 'Last month'];
-  final _transactionController = Get.find<TransactionRespository>();
+  final _transactionController = Get.find<TransactionRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();
   String? value;
@@ -67,7 +67,7 @@ class _MoneySummaryState extends State<MoneySummary> {
     length: 10,
     decimal: 0,
   );
-  final _amountController = TextEditingController();
+  // final _amountController = TextEditingController();
   @override
   void initState() {
     // _customerController
@@ -124,30 +124,30 @@ class _MoneySummaryState extends State<MoneySummary> {
                   onTap: () {
                     Platform.isIOS
                         ? showCupertinoDialog(
-                            context: context,
-                            barrierDismissible: true,
-                            builder: (context) => CupertinoAlertDialog(
-                              content: TransactionHistoryInformationDialog(),
-                              actions: [
-                                CupertinoButton(
-                                  child: const Text("OK"),
-                                  onPressed: () => Get.back(),
-                                ),
-                              ],
-                            ),
-                          )
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (context) => CupertinoAlertDialog(
+                        content: const TransactionHistoryInformationDialog(),
+                        actions: [
+                          CupertinoButton(
+                            child: const Text("OK"),
+                            onPressed: () => Get.back(),
+                          ),
+                        ],
+                      ),
+                    )
                         : showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              content: TransactionHistoryInformationDialog(),
-                              actions: [
-                                CupertinoButton(
-                                  child: const Text("OK"),
-                                  onPressed: () => Get.back(),
-                                ),
-                              ],
-                            ),
-                          );
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        content: const TransactionHistoryInformationDialog(),
+                        actions: [
+                          CupertinoButton(
+                            child: const Text("OK"),
+                            onPressed: () => Get.back(),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(left: 4.0, top: 2.0),
@@ -189,21 +189,21 @@ class _MoneySummaryState extends State<MoneySummary> {
         ),
         actions: [
           (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
-                  teamController.teamMember.authoritySet!
-                      .contains('DELETE_BUSINESS_TRANSACTION'))
+              teamController.teamMember.authoritySet!
+                  .contains('DELETE_BUSINESS_TRANSACTION'))
               ? GestureDetector(
-                  onTap: () {
-                    if (teamController.teamMember.teamMemberStatus ==
-                            'CREATOR' ||
-                        teamController.teamMember.authoritySet!
-                            .contains('DELETE_BUSINESS_TRANSACTION')) {
-                      _displayDialog(context);
-                    } else {
-                      Get.snackbar('Alert',
-                          'You need to be authorized to perform this operation');
-                    }
-                  },
-                  child: SvgPicture.asset('assets/images/delete.svg'))
+              onTap: () {
+                if (teamController.teamMember.teamMemberStatus ==
+                    'CREATOR' ||
+                    teamController.teamMember.authoritySet!
+                        .contains('DELETE_BUSINESS_TRANSACTION')) {
+                  _displayDialog(context);
+                } else {
+                  Get.snackbar('Alert',
+                      'You need to be authorized to perform this operation');
+                }
+              },
+              child: SvgPicture.asset('assets/images/delete.svg'))
               : Container(),
           SizedBox(
             width: MediaQuery.of(context).size.height * 0.02,
@@ -211,7 +211,7 @@ class _MoneySummaryState extends State<MoneySummary> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
@@ -238,91 +238,91 @@ class _MoneySummaryState extends State<MoneySummary> {
                     : MediaQuery.of(context).size.height * 0.01),
             (transactionModel!.balance != 0)
                 ? Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.05),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Total Amt.',
-                              style: GoogleFonts.inter(
-                                color: AppColors.blackColor,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            Text(
-                              '${Utils.getCurrency()}${display(transactionModel!.totalAmount!)}',
-                              style: GoogleFonts.inter(
-                                color: AppColors.backgroundColor,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.05),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Total Amt.',
+                        style: GoogleFonts.inter(
+                          color: AppColors.blackColor,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
                         ),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Bal.',
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
-                              Text(
-                                '${Utils.getCurrency()}${display(transactionModel!.balance!)}',
-                                style: GoogleFonts.inter(
-                                  color: AppColors.orangeBorderColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              )
-                            ]),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Paid Amt.',
-                              style: GoogleFonts.inter(
-                                color: AppColors.blackColor,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            Text(
-                              '${Utils.getCurrency()}${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
-                              style: GoogleFonts.inter(
-                                color: AppColors.backgroundColor,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height * 0.01),
+                      Text(
+                        '${Utils.getCurrency()}${display(transactionModel!.totalAmount!)}',
+                        style: GoogleFonts.inter(
+                          color: AppColors.backgroundColor,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Bal.',
+                          style: GoogleFonts.inter(
+                            color: AppColors.blackColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height *
+                                0.01),
+                        Text(
+                          '${Utils.getCurrency()}${display(transactionModel!.balance!)}',
+                          style: GoogleFonts.inter(
+                            color: AppColors.orangeBorderColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
                         )
-                      ],
-                    ),
+                      ]),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Paid Amt.',
+                        style: GoogleFonts.inter(
+                          color: AppColors.blackColor,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(
+                          height:
+                          MediaQuery.of(context).size.height * 0.01),
+                      Text(
+                        '${Utils.getCurrency()}${display(transactionModel!.totalAmount! - transactionModel!.balance!)}',
+                        style: GoogleFonts.inter(
+                          color: AppColors.backgroundColor,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   )
+                ],
+              ),
+            )
                 : Container(),
             SizedBox(
                 height: (transactionModel!.balance == 0)
@@ -330,170 +330,170 @@ class _MoneySummaryState extends State<MoneySummary> {
                     : MediaQuery.of(context).size.height * 0.01),
             (transactionModel!.balance != 0)
                 ? (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
-                        teamController.teamMember.authoritySet!
-                            .contains('UPDATE_BUSINESS_TRANSACTION'))
-                    ? GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                              isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))),
-                              context: context,
-                              builder: (context) => buildSaveInvoice());
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color:
-                                  AppColors.backgroundColor.withOpacity(0.2)),
-                          child: Center(
-                            child: Text(
-                              'Update payment',
-                              style: GoogleFonts.inter(
-                                color: AppColors.blackColor,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    : Container()
+                teamController.teamMember.authoritySet!
+                    .contains('UPDATE_BUSINESS_TRANSACTION'))
+                ? GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20))),
+                    context: context,
+                    builder: (context) => buildSaveInvoice());
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color:
+                    AppColors.backgroundColor.withOpacity(0.2)),
+                child: Center(
+                  child: Text(
+                    'Update payment',
+                    style: GoogleFonts.inter(
+                      color: AppColors.blackColor,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            )
+                : Container()
                 : Container(),
             (transactionModel!.customerId != null)
                 ? Obx(() {
-                    if (transactionModel!.customerId != null) {
-                      // print("my customer id ${transactionModel!.customerId}");
-                      customer =
-                          _customerController.checkifCustomerAvailableWithValue(
-                              transactionModel!.customerId!);
-                    }
-                    return Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.height * 0.05,
-                          vertical: MediaQuery.of(context).size.height * 0.02),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Customer`s Name',
-                                style: GoogleFonts.inter(
-                                  color: AppColors.backgroundColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                customer!.name!,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
+              if (transactionModel!.customerId != null) {
+                // print("my customer id ${transactionModel!.customerId}");
+                customer =
+                    _customerController.checkIfCustomerAvailableWithValue(
+                        transactionModel!.customerId!);
+              }
+              return Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.05,
+                    vertical: MediaQuery.of(context).size.height * 0.02),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Customer`s Name',
+                          style: GoogleFonts.inter(
+                            color: AppColors.backgroundColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
                           ),
-                          const SizedBox(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Phone Number',
-                                style: GoogleFonts.inter(
-                                  color: AppColors.backgroundColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              Text(
-                                customer!.phone!,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
+                        ),
+                        Text(
+                          customer!.name!,
+                          style: GoogleFonts.inter(
+                            color: AppColors.blackColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
                           ),
-                          SizedBox(
-                              height: (customer!.email == null ||
-                                      customer!.email == '')
-                                  ? 0
-                                  : 5),
-                          (customer!.email == null || customer!.email == '')
-                              ? Container()
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Email',
-                                      style: GoogleFonts.inter(
-                                        color: AppColors.backgroundColor,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    Text(
-                                      customer!.email!,
-                                      style: GoogleFonts.inter(
-                                        color: AppColors.blackColor,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                          SizedBox(
-                              height: (transactionModel!
-                                              .businessTransactionFileStoreId ==
-                                          null ||
-                                      transactionModel!
-                                          .businessTransactionFileStoreId!
-                                          .isEmpty)
-                                  ? 0
-                                  : 5),
-                          (customer!.email == null || customer!.email == '')
-                              ? Container()
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Transaction Image',
-                                      style: GoogleFonts.inter(
-                                        color: AppColors.backgroundColor,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    (transactionModel!
-                                                    .businessTransactionFileStoreId ==
-                                                null ||
-                                            transactionModel!
-                                                .businessTransactionFileStoreId!
-                                                .isEmpty)
-                                        ? Image.asset(
-                                            "assets/images/Rectangle 1015.png",
-                                            height: 50,
-                                          )
-                                        : Image.network(
-                                            transactionModel!
-                                                .businessTransactionFileStoreId!,
-                                            height: 50,
-                                          ),
-                                  ],
-                                )
-                        ],
-                      ),
-                    );
-                  })
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Phone Number',
+                          style: GoogleFonts.inter(
+                            color: AppColors.backgroundColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          customer!.phone!,
+                          style: GoogleFonts.inter(
+                            color: AppColors.blackColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                        height: (customer!.email == null ||
+                            customer!.email == '')
+                            ? 0
+                            : 5),
+                    (customer!.email == null || customer!.email == '')
+                        ? Container()
+                        : Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Email',
+                          style: GoogleFonts.inter(
+                            color: AppColors.backgroundColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          customer!.email!,
+                          style: GoogleFonts.inter(
+                            color: AppColors.blackColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                        height: (transactionModel!
+                            .businessTransactionFileStoreId ==
+                            null ||
+                            transactionModel!
+                                .businessTransactionFileStoreId!
+                                .isEmpty)
+                            ? 0
+                            : 5),
+                    (customer!.email == null || customer!.email == '')
+                        ? Container()
+                        : Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Transaction Image',
+                          style: GoogleFonts.inter(
+                            color: AppColors.backgroundColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                          ),
+                        ),
+                        (transactionModel!
+                            .businessTransactionFileStoreId ==
+                            null ||
+                            transactionModel!
+                                .businessTransactionFileStoreId!
+                                .isEmpty)
+                            ? Image.asset(
+                          "assets/images/Rectangle 1015.png",
+                          height: 50,
+                        )
+                            : Image.network(
+                          transactionModel!
+                              .businessTransactionFileStoreId!,
+                          height: 50,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              );
+            })
                 : Container(),
             Align(
               alignment: Alignment.centerLeft,
@@ -570,7 +570,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     return Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
+                          MediaQuery.of(context).size.height * 0.03),
                       child: Container(
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.height * 0.01),
@@ -689,7 +689,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     return Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal:
-                              MediaQuery.of(context).size.height * 0.03),
+                          MediaQuery.of(context).size.height * 0.03),
                       child: Container(
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.height * 0.01),
@@ -722,9 +722,9 @@ class _MoneySummaryState extends State<MoneySummary> {
                                   // print(
                                   //     "Payment Mode: ${transactionModel!.paymentMethod}");
                                   Get.to(() => IncomeReceipt(
-                                        transaction: transactionModel!,
-                                        pageCheck: widget.pageCheck,
-                                      ));
+                                    transaction: transactionModel!,
+                                    pageCheck: widget.pageCheck,
+                                  ));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -1019,7 +1019,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         child: Container(
                           padding: EdgeInsets.symmetric(
                               horizontal:
-                                  MediaQuery.of(context).size.height * 0.015),
+                              MediaQuery.of(context).size.height * 0.015),
                           child: Row(
                             children: [
                               Image.asset(item.image!),
@@ -1084,12 +1084,12 @@ class _MoneySummaryState extends State<MoneySummary> {
       });
 
   DropdownMenuItem<String> buildDropDown(String item) => DropdownMenuItem(
-        value: item,
-        child: Text(
-          item,
-          style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w600),
-        ),
-      );
+    value: item,
+    child: Text(
+      item,
+      style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w600),
+    ),
+  );
 
   Widget buildSaveInvoice() =>
       StatefulBuilder(builder: (BuildContext context, StateSetter myState) {
@@ -1188,86 +1188,86 @@ class _MoneySummaryState extends State<MoneySummary> {
                 ),
               ),
               (teamController.teamMember.teamMemberStatus == 'CREATOR' ||
-                      teamController.teamMember.authoritySet!
-                          .contains('UPDATE_BUSINESS_TRANSACTION'))
+                  teamController.teamMember.authoritySet!
+                      .contains('UPDATE_BUSINESS_TRANSACTION'))
                   ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 1;
+                      });
+                    },
+                    child: Row(
                       children: [
-                        InkWell(
-                          onTap: () {
+                        Radio<int>(
+                          value: 1,
+                          activeColor: AppColors.backgroundColor,
+                          groupValue: paymentType,
+                          onChanged: (value) {
                             myState(() {
                               paymentType = 1;
                             });
                           },
-                          child: Row(
-                            children: [
-                              Radio<int>(
-                                value: 1,
-                                activeColor: AppColors.backgroundColor,
-                                groupValue: paymentType,
-                                onChanged: (value) {
-                                  myState(() {
-                                    paymentType = 1;
-                                  });
-                                },
-                              ),
-                              Text(
-                                'Paying Fully',
-                                style: GoogleFonts.inter(
-                                  color: AppColors.backgroundColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
+                        ),
+                        Text(
+                          'Paying Fully',
+                          style: GoogleFonts.inter(
+                            color: AppColors.backgroundColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            myState(() {
-                              paymentType = 0;
-                            });
-                          },
-                          child: Row(
-                            children: [
-                              Radio<int>(
-                                  value: 0,
-                                  activeColor: AppColors.backgroundColor,
-                                  groupValue: paymentType,
-                                  onChanged: (value) {
-                                    myState(() {
-                                      value = 0;
-                                      paymentType = 0;
-                                    });
-                                  }),
-                              Text(
-                                'Paying Partly',
-                                style: GoogleFonts.inter(
-                                  color: AppColors.backgroundColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
                       ],
-                    )
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      myState(() {
+                        paymentType = 0;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Radio<int>(
+                            value: 0,
+                            activeColor: AppColors.backgroundColor,
+                            groupValue: paymentType,
+                            onChanged: (value) {
+                              myState(() {
+                                value = 0;
+                                paymentType = 0;
+                              });
+                            }),
+                        Text(
+                          'Paying Partly',
+                          style: GoogleFonts.inter(
+                            color: AppColors.backgroundColor,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
                   : Container(),
               paymentType == 0
                   ? CustomTextFieldInvoiceOptional(
-                      label: 'Amount',
-                      hint: '${Utils.getCurrency()} 0.00',
-                      inputformater: [FilteringTextInputFormatter.digitsOnly],
-                      keyType: Platform.isIOS
-                          ? const TextInputType.numberWithOptions(
-                              signed: true, decimal: true)
-                          : TextInputType.number,
-                      textEditingController:
-                          _transactionController.amountController,
-                    )
+                label: 'Amount',
+                hint: '${Utils.getCurrency()} 0.00',
+                inputformater: [FilteringTextInputFormatter.digitsOnly],
+                keyType: Platform.isIOS
+                    ? const TextInputType.numberWithOptions(
+                    signed: true, decimal: true)
+                    : TextInputType.number,
+                textEditingController:
+                _transactionController.amountController,
+              )
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Obx(() {
@@ -1280,16 +1280,16 @@ class _MoneySummaryState extends State<MoneySummary> {
                       //         .replaceAll('₦', ''));
 
                       var result =
-                          await _transactionController.updateTransactionHistory(
-                              transactionModel!.id!,
-                              transactionModel!.businessId!,
-                              (paymentType == 0)
-                                  ? _transactionController
-                                      .amountController!.text
-                                      .replaceAll('₦', '')
-                                      .replaceAll(',', '')
-                                  : (transactionModel!.balance ?? 0),
-                              (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
+                      await _transactionController.updateTransactionHistory(
+                          transactionModel!.id!,
+                          transactionModel!.businessId!,
+                          (paymentType == 0)
+                              ? _transactionController
+                              .amountController!.text
+                              .replaceAll('₦', '')
+                              .replaceAll(',', '')
+                              : (transactionModel!.balance ?? 0),
+                          (paymentType == 0) ? "DEPOSIT" : "FULLY_PAID");
 
                       if (result != null) {
                         // print("result is not null");
@@ -1313,23 +1313,23 @@ class _MoneySummaryState extends State<MoneySummary> {
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_transactionController.addingTransactionStatus ==
-                            AddingTransactionStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: const Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          )
+                        AddingTransactionStatus.Loading)
+                        ? const SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: Center(
+                          child: CircularProgressIndicator(
+                              color: Colors.white)),
+                    )
                         : Center(
-                            child: Text(
-                              'Save',
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
+                      child: Text(
+                        'Save',
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
                   ),
                 );
               }),

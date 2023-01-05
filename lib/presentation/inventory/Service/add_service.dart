@@ -54,7 +54,7 @@ class _AddServiceState extends State<AddService> {
         elevation: 0,
       ),
       body: Obx(() {
-        return Container(
+        return SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
@@ -145,12 +145,13 @@ class _AddServiceState extends State<AddService> {
                           AddingProductStatus.Loading) {
                         _productController.productSellingPriceController.text =
                             "0";
-                        if (widget.item == null)
-                          _productController.addBudinessProduct(
+                        if (widget.item == null) {
+                          _productController.addBusinessProduct(
                               "SERVICES", 'Service');
-                        else
+                        } else {
                           _productController.UpdateBusinessProduct(
                               widget.item!, 'Service');
+                        }
                       }
                     },
                     child: Container(
@@ -161,10 +162,10 @@ class _AddServiceState extends State<AddService> {
                           borderRadius: BorderRadius.circular(10)),
                       child: (_productController.addingProductStatus ==
                               AddingProductStatus.Loading)
-                          ? Container(
+                          ? const SizedBox(
                               width: 30,
                               height: 30,
-                              child: const Center(
+                              child: Center(
                                   child: CircularProgressIndicator(
                                       color: Colors.white)),
                             )
@@ -252,7 +253,7 @@ class _AddServiceState extends State<AddService> {
                   // Pick an image
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
-                  _productController.MproductImage(File(image!.path));
+                  _productController.mProductImage(File(image!.path));
                   // print("image path ${image.path}");
                 },
                 child: Row(

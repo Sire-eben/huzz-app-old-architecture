@@ -2,28 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/extension.dart';
-import 'package:huzz/core/widgets/appbar.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
-import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/presentation/wallet/account_upgrade/id_verification.dart';
 
 enum FaceCapture { initial, loading, successful, unsuccessful }
 
 // ignore: must_be_immutable
-class FaceCaptureCreen extends StatefulWidget {
+class FaceCaptureScreen extends StatefulWidget {
   FaceCapture faceCapture;
 
-  FaceCaptureCreen({
+  FaceCaptureScreen({
     super.key,
     this.faceCapture = FaceCapture.initial,
   });
 
   @override
-  State<FaceCaptureCreen> createState() => _FaceCaptureCreenState();
+  State<FaceCaptureScreen> createState() => _FaceCaptureScreenState();
 }
 
-class _FaceCaptureCreenState extends State<FaceCaptureCreen> {
+class _FaceCaptureScreenState extends State<FaceCaptureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +97,7 @@ class _FaceCaptureCreenState extends State<FaceCaptureCreen> {
                         ? Button(
                             label: 'Proceed',
                             action: () {
-                              context.push(IdVerificationScreen());
+                              context.push(const IdVerificationScreen());
                             },
                           )
                         : Button(

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../data/repository/auth_respository.dart';
-import '../../data/repository/business_respository.dart';
+import '../../data/repository/auth_repository.dart';
+import '../../data/repository/business_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class TeamConfirmation extends StatefulWidget {
-  TeamConfirmation({Key? key}) : super(key: key);
+  const TeamConfirmation({Key? key}) : super(key: key);
 
   @override
   State<TeamConfirmation> createState() => _TeamConfirmationState();
@@ -17,7 +17,7 @@ class TeamConfirmation extends StatefulWidget {
 class _TeamConfirmationState extends State<TeamConfirmation> {
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final controller = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   bool isLoadingTeamInviteLink = false;
   String? values, teamInviteLink, busName;
 
@@ -28,7 +28,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
     final value = _businessController.selectedBusiness.value!.businessId;
     // print('BusinessId: $value');
     busName = _businessController.selectedBusiness.value!.businessName;
-    final teamId = _businessController.selectedBusiness.value!.teamId;
+    // final teamId = _businessController.selectedBusiness.value!.teamId;
     // print('Business TeamId: $teamId');
     shareBusinessIdLink(value.toString());
   }
@@ -39,16 +39,16 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
         setState(() {
           isLoadingTeamInviteLink = true;
         });
-        final appId = "com.app.huzz";
+        const appId = "com.app.huzz";
         final url = "https://huzz.africa/businessId=$businessId";
         final DynamicLinkParameters parameters = DynamicLinkParameters(
           uriPrefix: 'https://huzz.page.link',
           link: Uri.parse(url),
-          androidParameters: AndroidParameters(
+          androidParameters: const AndroidParameters(
             packageName: appId,
             minimumVersion: 1,
           ),
-          iosParameters: IOSParameters(
+          iosParameters: const IOSParameters(
             bundleId: appId,
             appStoreId: "1596574133",
             minimumVersion: '1',
@@ -72,7 +72,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final value = _businessController.selectedBusiness.value;
+      // final value = _businessController.selectedBusiness.value;
       return Scaffold(
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
@@ -83,17 +83,17 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
             onTap: () {
               Get.back();
             },
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               Center(
@@ -116,7 +116,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Center(
@@ -124,7 +124,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   'assets/images/checker.png',
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               InkWell(
                 onTap: () {
                   // print(teamInviteLink);
@@ -135,14 +135,14 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                 child: Container(
                   height: 55,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                     child: isLoadingTeamInviteLink
-                        ? CircularProgressIndicator(
+                        ? const CircularProgressIndicator(
                             color: Colors.white,
                           )
                         : Text(
@@ -155,7 +155,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               InkWell(
                 onTap: () {
                   Get.back();
@@ -178,7 +178,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
             ],

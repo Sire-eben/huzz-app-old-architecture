@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'business_respository.dart';
-import 'miscellaneous_respository.dart';
+import 'business_repository.dart';
+import 'miscellaneous_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/core/util/util.dart';
-import 'package:huzz/presentation/inventory/Product/productConfirm.dart';
+import 'package:huzz/presentation/inventory/Product/product_confirm.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import 'auth_respository.dart';
-import 'file_upload_respository.dart';
+import 'auth_repository.dart';
+import 'file_upload_repository.dart';
 
 enum AddingProductStatus { Loading, Error, Success, Empty }
 
@@ -26,8 +26,8 @@ enum ProductStatus { Loading, Available, Error, Empty, UnAuthorized }
 class ProductRepository extends GetxController
     with GetSingleTickerProviderStateMixin {
   final _userController = Get.find<AuthRepository>();
-  Rx<List<Product>> _onlineBusinessProduct = Rx([]);
-  Rx<List<Product>> _offlineBusinessProduct = Rx([]);
+  final Rx<List<Product>> _onlineBusinessProduct = Rx([]);
+  final Rx<List<Product>> _offlineBusinessProduct = Rx([]);
   List<Product> get offlineBusinessProduct => _offlineBusinessProduct.value;
   List<Product> get onlineBusinessProduct => _onlineBusinessProduct.value;
   List<Product> pendingBusinessProduct = [];
@@ -35,9 +35,9 @@ class ProductRepository extends GetxController
   Rx<String?> selectedUnit = Rx(null);
 
   Product? selectedProduct;
-  final _uploadImageController = Get.find<FileUploadRespository>();
-  Rx<List<Product>> _productService = Rx([]);
-  Rx<List<Product>> _productGoods = Rx([]);
+  final _uploadImageController = Get.find<FileUploadRepository>();
+  final Rx<List<Product>> _productService = Rx([]);
+  final Rx<List<Product>> _productGoods = Rx([]);
   final isProductService = false.obs;
   final _productStatus = ProductStatus.Empty.obs;
 
@@ -45,8 +45,8 @@ class ProductRepository extends GetxController
   List<Product> get productGoods => _productGoods.value;
   ProductStatus get productStatus => _productStatus.value;
 
-  Rx<dynamic> MproductImage = Rx(null);
-  dynamic get productImage => MproductImage.value;
+  Rx<dynamic> mProductImage = Rx(null);
+  dynamic get productImage => mProductImage.value;
   SqliteDb sqliteDb = SqliteDb();
   final productNameController = TextEditingController();
   MoneyMaskedTextController productCostPriceController =
@@ -58,24 +58,24 @@ class ProductRepository extends GetxController
   final productQuantityController = TextEditingController();
   final productUnitController = TextEditingController();
   final serviceDescription = TextEditingController();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _addingProductStatus = AddingProductStatus.Empty.obs;
   final _addingServiceStatus = AddingServiceStatus.Empty.obs;
-  final _uploadFileController = Get.find<FileUploadRespository>();
+  final _uploadFileController = Get.find<FileUploadRepository>();
   AddingProductStatus get addingProductStatus => _addingProductStatus.value;
   AddingServiceStatus get addingServiceStatus => _addingServiceStatus.value;
   TabController? tabController;
-  Rx<List<Product>> _deleteProductList = Rx([]);
+  final Rx<List<Product>> _deleteProductList = Rx([]);
   List<Product> get deleteProductList => _deleteProductList.value;
   List<Product> pendingUpdatedProductList = [];
   List<Product> pendingToUpdatedProductToServer = [];
   List<Product> pendingToBeAddedProductToServer = [];
   List<Product> pendingDeletedProductToServer = [];
-  Rx<dynamic> _totalProduct = 0.0.obs;
-  Rx<dynamic> _totalService = 0.0.obs;
+  final Rx<dynamic> _totalProduct = 0.0.obs;
+  final Rx<dynamic> _totalService = 0.0.obs;
   dynamic get totalProduct => _totalProduct.value;
   dynamic get totalService => _totalService.value;
-  var uuid = Uuid();
+  var uuid = const Uuid();
   final _miscellaneousController = Get.find<MiscellaneousRepository>();
   @override
   void onInit() async {
@@ -90,7 +90,7 @@ class ProductRepository extends GetxController
       }
     });
     //  await sqliteDb.openDatabae();
-    _userController.Mtoken.listen((p0) {
+    _userController.mToken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
@@ -121,7 +121,7 @@ class ProductRepository extends GetxController
         });
       }
     });
-    _userController.MonlineStatus.listen((po) {
+    _userController.monLineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           checkPendingCustomerTobeUpdatedToServer();
@@ -180,7 +180,7 @@ class ProductRepository extends GetxController
     }
   }
 
-  Future addBudinessProduct(String type, String title) async {
+  Future addBusinessProduct(String type, String title) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       addProductOnline(type, title);
     } else {
@@ -223,7 +223,7 @@ class ProductRepository extends GetxController
         quantity: int.parse(productQuantityController.text),
         productType: type,
         description: serviceDescription.text,
-        productLogoFileStoreId: outFile == null ? null : outFile.path);
+        productLogoFileStoreId: outFile?.path);
 
     // print("product offline saving ${product.toJson()}");
     _businessController.sqliteDb.insertProduct(product);
@@ -264,7 +264,7 @@ class ProductRepository extends GetxController
             outFile == null ? newproduct.productLogoFileStoreId : outFile.path);
 
     // print("product offline saving ${product.toJson()}");
-    _businessController.sqliteDb.updateOfflineProdcut(product);
+    _businessController.sqliteDb.updateOfflineProduct(product);
     clearValue();
     Get.off(Confirmation(
       text: "Updated",
@@ -273,7 +273,7 @@ class ProductRepository extends GetxController
   }
 
   void clearValue() {
-    MproductImage(Null);
+    mProductImage(Null);
     productNameController.text = "";
     serviceDescription.text = "";
     productCostPriceController.clear();
@@ -392,26 +392,26 @@ class ProductRepository extends GetxController
         _productStatus(ProductStatus.Error);
       }
     } catch (error) {
-      print(error.toString());
+      (error.toString());
       _productStatus(ProductStatus.Error);
     }
   }
 
   Future getBusinessProductYetToBeSavedLocally() async {
-    onlineBusinessProduct.forEach((element) {
-      if (!checkifProductAvailable(element.productId!)) {
+    for (var element in onlineBusinessProduct) {
+      if (!checkIfProductAvailable(element.productId!)) {
         // print("does not contain value");
 
         pendingBusinessProduct.add(element);
       }
-    });
+    }
 
     savePendingJob();
   }
 
   Future checkIfUpdateAvailable() async {
     onlineBusinessProduct.forEach((element) async {
-      var item = checkifProductAvailableWithValue(element.productId!);
+      var item = checkIfProductAvailableWithValue(element.productId!);
       if (item != null) {
         // print("item product is found");
         // print("updated offline ${item.updatedTime!.toIso8601String()}");
@@ -430,24 +430,24 @@ class ProductRepository extends GetxController
     // print('getting products');
     List<Product> goods = [];
     List<Product> services = [];
-    dynamic totalproduct = 0.0;
-    dynamic totalservice = 0.0;
-    offlineBusinessProduct.forEach((element) {
+    dynamic totalProduct = 0.0;
+    dynamic totalService = 0.0;
+    for (var element in offlineBusinessProduct) {
       if (element.productType == "SERVICES") {
         services.add(element);
-        totalservice = totalservice + element.costPrice;
+        totalService = totalService + element.costPrice;
       } else if (element.productType == "GOODS") {
         goods.add(element);
-        totalproduct =
-            totalproduct + element.sellingPrice * element.quantityLeft;
+        totalProduct =
+            totalProduct + element.sellingPrice * element.quantityLeft;
       }
-    });
+    }
     _productGoods(goods);
     _productService(services);
-    _totalService(totalservice);
-    _totalProduct(totalproduct);
-    // print("product price $totalproduct");
-    // print("service price $totalservice");
+    _totalService(totalService);
+    _totalProduct(totalProduct);
+    // print("product price $totalProduct");
+    // print("service price $totalService");
   }
 
   Future updatePendingJob() async {
@@ -455,50 +455,50 @@ class ProductRepository extends GetxController
       return;
     }
 
-    var updatednext = pendingUpdatedProductList.first;
-    await _businessController.sqliteDb.updateOfflineProdcut(updatednext);
-    pendingUpdatedProductList.remove(updatednext);
+    var updatedNext = pendingUpdatedProductList.first;
+    await _businessController.sqliteDb.updateOfflineProduct(updatedNext);
+    pendingUpdatedProductList.remove(updatedNext);
     if (pendingUpdatedProductList.isNotEmpty) {
       updatePendingJob();
     }
-    getOfflineProduct(updatednext.businessId!);
+    getOfflineProduct(updatedNext.businessId!);
   }
 
   Future savePendingJob() async {
     if (pendingBusinessProduct.isEmpty) {
       return;
     }
-    var savenext = pendingBusinessProduct.first;
-    await _businessController.sqliteDb.insertProduct(savenext);
-    pendingBusinessProduct.remove(savenext);
+    var saveNext = pendingBusinessProduct.first;
+    await _businessController.sqliteDb.insertProduct(saveNext);
+    pendingBusinessProduct.remove(saveNext);
     if (pendingBusinessProduct.isNotEmpty) {
       savePendingJob();
     }
-    getOfflineProduct(savenext.businessId!);
+    getOfflineProduct(saveNext.businessId!);
   }
 
-  bool checkifProductAvailable(String id) {
+  bool checkIfProductAvailable(String id) {
     bool result = false;
-    offlineBusinessProduct.forEach((element) {
+    for (var element in offlineBusinessProduct) {
       // print("checking transaction whether exist");
       if (element.productId == id) {
         // print("product   found");
         result = true;
       }
-    });
+    }
     return result;
   }
 
-  Product? checkifProductAvailableWithValue(String id) {
+  Product? checkIfProductAvailableWithValue(String id) {
     Product? item;
 
-    offlineBusinessProduct.forEach((element) {
+    for (var element in offlineBusinessProduct) {
       // print("checking transaction whether exist");
       if (element.productId == id) {
         // print("product   found");
         item = element;
       }
-    });
+    }
     return item;
   }
 
@@ -529,7 +529,7 @@ class ProductRepository extends GetxController
     product.deleted = true;
 
     if (!product.isAddingPending!) {
-      _businessController.sqliteDb.updateOfflineProdcut(product);
+      _businessController.sqliteDb.updateOfflineProduct(product);
     } else {
       _businessController.sqliteDb.deleteProduct(product);
     }
@@ -537,15 +537,15 @@ class ProductRepository extends GetxController
     getOfflineProduct(_businessController.selectedBusiness.value!.businessId!);
   }
 
-  bool checkifSelectedForDelted(String id) {
+  bool checkIfSelectedForDeleted(String id) {
     bool result = false;
-    deleteProductList.forEach((element) {
+    for (var element in deleteProductList) {
       // print("checking transaction whether exist");
       if (element.productId == id) {
         // print("product   found");
         result = true;
       }
-    });
+    }
     return result;
   }
 
@@ -554,17 +554,17 @@ class ProductRepository extends GetxController
     if (deleteProductList.isEmpty) {
       return;
     }
-    var deletenext = deleteProductList.first;
-    await deleteBusinessProduct(deletenext);
+    var deleteNext = deleteProductList.first;
+    await deleteBusinessProduct(deleteNext);
     var list = deleteProductList;
-    list.remove(deletenext);
+    list.remove(deleteNext);
     _deleteProductList(list);
 
     if (deleteProductList.isNotEmpty) {
       deleteSelectedItem();
     }
 
-    await getOfflineProduct(deletenext.businessId!);
+    await getOfflineProduct(deleteNext.businessId!);
   }
 
   void addToDeleteList(Product product) {
@@ -583,23 +583,23 @@ class ProductRepository extends GetxController
     // ignore: unused_local_variable
     var list = await _businessController.sqliteDb.getOfflineProducts(
         _businessController.selectedBusiness.value!.businessId!);
-    offlineBusinessProduct.forEach((element) {
+    for (var element in offlineBusinessProduct) {
       if (element.isAddingPending!) {
         pendingToBeAddedProductToServer.add(element);
       }
 
       // print(
       //     "product available for uploading to server ${pendingToBeAddedProductToServer.length}");
-    });
+    }
     addPendingJobProductToServer();
   }
 
   Future checkPendingCustomerTobeUpdatedToServer() async {
-    offlineBusinessProduct.forEach((element) {
+    for (var element in offlineBusinessProduct) {
       if (element.isUpdatingPending! && !element.isAddingPending!) {
         pendingToUpdatedProductToServer.add(element);
       }
-    });
+    }
 
     updatePendingJob();
   }
@@ -608,11 +608,11 @@ class ProductRepository extends GetxController
     var list = await _businessController.sqliteDb.getOfflineProducts(
         _businessController.selectedBusiness.value!.businessId!);
 
-    list.forEach((element) {
+    for (var element in list) {
       if (element.deleted!) {
         pendingDeletedProductToServer.add(element);
       }
-    });
+    }
     deletePendingJobToServer();
   }
 
@@ -622,21 +622,21 @@ class ProductRepository extends GetxController
     }
 
     pendingToBeAddedProductToServer.forEach((element) async {
-      var savenext = element;
+      var saveNext = element;
 
-      if (savenext.productLogoFileStoreId != null &&
-          savenext.productLogoFileStoreId != '') {
-        if (File(savenext.productLogoFileStoreId!).existsSync()) {
+      if (saveNext.productLogoFileStoreId != null &&
+          saveNext.productLogoFileStoreId != '') {
+        if (File(saveNext.productLogoFileStoreId!).existsSync()) {
           String image = await _uploadImageController
-              .uploadFile(savenext.productLogoFileStoreId!);
+              .uploadFile(saveNext.productLogoFileStoreId!);
 
-          File _file = File(savenext.productLogoFileStoreId!);
-          savenext.productLogoFileStoreId = image;
+          File _file = File(saveNext.productLogoFileStoreId!);
+          saveNext.productLogoFileStoreId = image;
           _file.deleteSync();
         }
       }
       var response = await http.post(Uri.parse(ApiLink.addProduct),
-          body: jsonEncode(savenext.toJson()),
+          body: jsonEncode(saveNext.toJson()),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
@@ -648,14 +648,14 @@ class ProductRepository extends GetxController
           getOnlineProduct(
               _businessController.selectedBusiness.value!.businessId!);
 
-          _businessController.sqliteDb.deleteProduct(savenext);
+          _businessController.sqliteDb.deleteProduct(saveNext);
 
-          pendingToBeAddedProductToServer.remove(savenext);
+          pendingToBeAddedProductToServer.remove(saveNext);
         }
       }
 
       if (pendingToBeAddedProductToServer.isNotEmpty) {
-        print(
+        (
             "pendon product remained ${pendingToBeAddedProductToServer.length}");
         addPendingJobProductToServer();
       }
@@ -667,24 +667,24 @@ class ProductRepository extends GetxController
       return;
     }
     pendingToUpdatedProductToServer.forEach((element) async {
-      var updatenext = element;
+      var updateNext = element;
       String? fileId;
-      if (updatenext.productLogoFileStoreId != null &&
-          !updatenext.productLogoFileStoreId!.contains("https://")) {}
+      if (updateNext.productLogoFileStoreId != null &&
+          !updateNext.productLogoFileStoreId!.contains("https://")) {}
 
       var response = await http
-          .put(Uri.parse(ApiLink.addProduct + "/" + updatenext.productId!),
+          .put(Uri.parse(ApiLink.addProduct + "/" + updateNext.productId!),
               body: jsonEncode({
-                if (!updatenext.productNameChanged!)
+                if (!updateNext.productNameChanged!)
                   "name": productNameController.text,
-                "costPrice": updatenext.costPrice,
-                "sellingPrice": updatenext.sellingPrice,
+                "costPrice": updateNext.costPrice,
+                "sellingPrice": updateNext.sellingPrice,
 // "quantity":productQuantityController.text,
-                "businessId": updatenext.businessId,
-                "productType": updatenext.productType,
+                "businessId": updateNext.businessId,
+                "productType": updateNext.productType,
                 "productLogoFileStoreUrl":
-                    fileId ?? updatenext.productLogoFileStoreId,
-                "description": updatenext.description
+                    fileId ?? updateNext.productLogoFileStoreId,
+                "description": updateNext.description
               }),
               headers: {
             "Content-Type": "application/json",
@@ -695,10 +695,11 @@ class ProductRepository extends GetxController
       if (response.statusCode == 200) {
         getOnlineProduct(
             _businessController.selectedBusiness.value!.businessId!);
-        pendingToUpdatedProductToServer.remove(updatenext);
+        pendingToUpdatedProductToServer.remove(updateNext);
       }
-      if (pendingToUpdatedProductToServer.isNotEmpty)
+      if (pendingToUpdatedProductToServer.isNotEmpty) {
         addPendingJobToBeUpdateToServer();
+      }
     });
   }
 
@@ -707,19 +708,19 @@ class ProductRepository extends GetxController
       return;
     }
     pendingDeletedProductToServer.forEach((element) async {
-      var deletenext = element;
+      var deleteNext = element;
       var response = await http.delete(
           Uri.parse(ApiLink.addProduct +
-              "/${deletenext.productId}?businessId=${deletenext.businessId}"),
+              "/${deleteNext.productId}?businessId=${deleteNext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
       // print("delete response ${response.body}");
       if (response.statusCode == 200) {
-        _businessController.sqliteDb.deleteProduct(deletenext);
+        _businessController.sqliteDb.deleteProduct(deleteNext);
         getOfflineProduct(
             _businessController.selectedBusiness.value!.businessId!);
       } else {}
 
-      pendingDeletedProductToServer.remove(deletenext);
+      pendingDeletedProductToServer.remove(deleteNext);
       if (pendingDeletedProductToServer.isNotEmpty) {
         deletePendingJobToServer();
       }

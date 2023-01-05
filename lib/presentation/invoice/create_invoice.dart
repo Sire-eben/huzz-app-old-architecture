@@ -11,7 +11,7 @@ import 'package:huzz/data/repository/bank_account_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
-import 'package:huzz/presentation/home/itemCard.dart';
+import 'package:huzz/presentation/home/item_card.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_pallete.dart';
@@ -24,6 +24,8 @@ import 'package:random_color/random_color.dart';
 import 'package:huzz/core/util/util.dart';
 
 class CreateInvoiceInformationDialog extends StatelessWidget {
+  const CreateInvoiceInformationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,7 +59,7 @@ class CreateInvoice extends StatefulWidget {
 class _CreateInvoiceState extends State<CreateInvoice> {
   // final _invoiceController = Get.find<TransactionRespository>();
 
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
 
   final TextEditingController customerName = TextEditingController();
   final TextEditingController customerPhone = TextEditingController();
@@ -70,8 +72,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   final TextEditingController discountController = TextEditingController();
   final TextEditingController accountName = TextEditingController();
   final TextEditingController accountNo = TextEditingController();
-  final TextEditingController _searchcontroller = TextEditingController();
-  ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   final payments = ['Select payment mode', 'item1', 'item2'];
   String? value;
@@ -84,7 +86,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   int paymentValue = 0;
   bool showService = false;
   final _customerController = Get.find<CustomerRepository>();
-  final _invoiceController = Get.find<InvoiceRespository>();
+  final _invoiceController = Get.find<InvoiceRepository>();
   final _productController = Get.find<ProductRepository>();
   final _bankAccountController = Get.find<BankAccountRepository>();
   final _productKey = GlobalKey<FormState>();
@@ -156,7 +158,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: CreateInvoiceInformationDialog(),
+                          content: const CreateInvoiceInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: const Text("OK"),
@@ -168,7 +170,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: CreateInvoiceInformationDialog(),
+                          content: const CreateInvoiceInformationDialog(),
                           actions: [
                             CupertinoButton(
                               child: const Text("OK"),
@@ -257,10 +259,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 borderRadius: BorderRadius.circular(10)),
                             child: (_invoiceController.addingInvoiceStatus ==
                                     AddingInvoiceStatus.Loading)
-                                ? Container(
+                                ? const SizedBox(
                                     width: 25,
                                     height: 25,
-                                    child: const Center(
+                                    child: Center(
                                         child: CircularProgressIndicator(
                                             color: Colors.white)),
                                   )
@@ -305,19 +307,21 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 final isLastStep = currentStep == getSteps().length - 1;
 
                 if (isLastStep) {
-                  final date = DateTime.now();
-                  final dueDate = date.add(const Duration(days: 7));
+                  // final date = DateTime.now();
+                  // final dueDate = date.add(const Duration(days: 7));
                   if (_invoiceController.paymentValue == 1) {
                     if (_bankKey.currentState!.validate()) {
-                      if (_invoiceController.productList.isEmpty)
+                      if (_invoiceController.productList.isEmpty) {
                         _invoiceController.addMoreProduct();
+                      }
                       _invoiceController.createBusinessInvoice();
                       setState(() {});
                     }
                   } else {
                     if (_invoiceController.selectedBank != null) {
-                      if (_invoiceController.productList.isEmpty)
+                      if (_invoiceController.productList.isEmpty) {
                         _invoiceController.addMoreProduct();
+                      }
                       _invoiceController.createBusinessInvoice();
                     }
                   }
@@ -410,145 +414,141 @@ class _CreateInvoiceState extends State<CreateInvoice> {
       ];
 
   // ignore: non_constant_identifier_names
-  Container PaymentInfo() {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () =>
-                    setState(() => _invoiceController.paymentValue = 1),
-                child: Row(
+  Column PaymentInfo() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              onTap: () => setState(() => _invoiceController.paymentValue = 1),
+              child: Row(
+                children: [
+                  Radio<int>(
+                      value: 1,
+                      activeColor: AppColors.backgroundColor,
+                      groupValue: _invoiceController.paymentValue,
+                      onChanged: (value) =>
+                          setState(() => _invoiceController.paymentValue = 1)),
+                  Text(
+                    'New Details',
+                    style: GoogleFonts.inter(
+                      color: AppColors.backgroundColor,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            InkWell(
+              onTap: () => setState(() => _invoiceController.paymentValue = 0),
+              child: Row(
+                children: [
+                  Radio<int>(
+                      value: 0,
+                      activeColor: AppColors.backgroundColor,
+                      groupValue: _invoiceController.paymentValue,
+                      onChanged: (value) =>
+                          setState(() => _invoiceController.paymentValue = 0)),
+                  Text(
+                    'Existing Details',
+                    style: GoogleFonts.inter(
+                      color: AppColors.backgroundColor,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        _invoiceController.paymentValue == 0
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border:
+                        Border.all(width: 2, color: AppColors.backgroundColor)),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<Bank>(
+                    value: _invoiceController.selectedBank,
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: AppColors.backgroundColor,
+                    ),
+                    iconSize: 30,
+                    items:
+                        _bankAccountController.offlineBusinessBank.map((value) {
+                      return DropdownMenuItem<Bank>(
+                        value: value,
+                        child: Text(value.bankAccountNumber!),
+                      );
+                    }).toList(),
+                    onChanged: (value) => setState(() {
+                      _invoiceController.selectedBank = value;
+                    }),
+                  ),
+                ),
+              )
+            : Form(
+                key: _bankKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Radio<int>(
-                        value: 1,
-                        activeColor: AppColors.backgroundColor,
-                        groupValue: _invoiceController.paymentValue,
-                        onChanged: (value) => setState(
-                            () => _invoiceController.paymentValue = 1)),
-                    Text(
-                      'New Details',
-                      style: GoogleFonts.inter(
-                        color: AppColors.backgroundColor,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    CustomTextFieldInvoiceOptional(
+                      label: 'Bank Name',
+                      hint: 'bank name',
+                      validatorText: "Bank Name is required",
+                      keyType: TextInputType.name,
+                      textEditingController:
+                          _bankAccountController.bankNameController,
+                    ),
+                    CustomTextFieldInvoiceOptional(
+                      label: 'Account Name',
+                      hint: 'account name',
+                      validatorText: "Account Name is required",
+                      keyType: TextInputType.name,
+                      textEditingController:
+                          _bankAccountController.bankAccountNameController,
+                    ),
+                    CustomTextFieldInvoiceOptional(
+                      label: 'Account Number',
+                      hint: 'account number',
+                      validatorText: "Account Number is required",
+                      keyType: Platform.isIOS
+                          ? const TextInputType.numberWithOptions(
+                              signed: true, decimal: true)
+                          : TextInputType.number,
+                      textEditingController:
+                          _bankAccountController.accountNumberController,
                     ),
                   ],
                 ),
               ),
-              InkWell(
-                onTap: () =>
-                    setState(() => _invoiceController.paymentValue = 0),
-                child: Row(
-                  children: [
-                    Radio<int>(
-                        value: 0,
-                        activeColor: AppColors.backgroundColor,
-                        groupValue: _invoiceController.paymentValue,
-                        onChanged: (value) => setState(
-                            () => _invoiceController.paymentValue = 0)),
-                    Text(
-                      'Existing Details',
-                      style: GoogleFonts.inter(
-                        color: AppColors.backgroundColor,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+        CustomTextField(
+          enabled: false,
+          AllowClickable: true,
+          textEditingController: _invoiceController.dateController,
+          label: "Due Date",
+          hint: 'Select Date',
+          onClick: () {
+            pickDate(context);
+          },
+          prefixIcon: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.calendar_today),
+            color: Colors.orange,
           ),
-          _invoiceController.paymentValue == 0
-              ? Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 2, color: AppColors.backgroundColor)),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<Bank>(
-                      value: _invoiceController.selectedBank,
-                      icon: const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: AppColors.backgroundColor,
-                      ),
-                      iconSize: 30,
-                      items: _bankAccountController.offlineBusinessBank
-                          .map((value) {
-                        return DropdownMenuItem<Bank>(
-                          value: value,
-                          child: Text(value.bankAccountNumber!),
-                        );
-                      }).toList(),
-                      onChanged: (value) => setState(() {
-                        _invoiceController.selectedBank = value;
-                      }),
-                    ),
-                  ),
-                )
-              : Form(
-                  key: _bankKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomTextFieldInvoiceOptional(
-                        label: 'Bank Name',
-                        hint: 'bank name',
-                        validatorText: "Bank Name is required",
-                        keyType: TextInputType.name,
-                        textEditingController:
-                            _bankAccountController.bankNameController,
-                      ),
-                      CustomTextFieldInvoiceOptional(
-                        label: 'Account Name',
-                        hint: 'account name',
-                        validatorText: "Account Name is required",
-                        keyType: TextInputType.name,
-                        textEditingController:
-                            _bankAccountController.bankAccountNameController,
-                      ),
-                      CustomTextFieldInvoiceOptional(
-                        label: 'Account Number',
-                        hint: 'account number',
-                        validatorText: "Account Number is required",
-                        keyType: Platform.isIOS
-                            ? const TextInputType.numberWithOptions(
-                                signed: true, decimal: true)
-                            : TextInputType.number,
-                        textEditingController:
-                            _bankAccountController.accoutNumberController,
-                      ),
-                    ],
-                  ),
-                ),
-          CustomTextField(
-            enabled: false,
-            AllowClickable: true,
-            textEditingController: _invoiceController.dateController,
-            label: "Due Date",
-            hint: 'Select Date',
-            onClick: () {
-              pickDate(context);
-            },
-            prefixIcon: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.calendar_today),
-              color: Colors.orange,
-            ),
-            validatorText: "Select date is needed",
-            keyType: TextInputType.phone,
-          ),
-        ],
-      ),
+          validatorText: "Select date is needed",
+          keyType: TextInputType.phone,
+        ),
+      ],
     );
   }
 
@@ -559,8 +559,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         return Scrollbar(
             // physics: ScrollPhysics(),
             controller: controller,
-            child: Container(
-                child: Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 (_invoiceController.productList.length < 2)
@@ -720,7 +719,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                               // print("value is $value");
                                               myState(() {});
                                             },
-                                            onSubmited: (value) {
+                                            onSubmitted: (value) {
                                               myState(() {});
                                             },
                                             textEditingController:
@@ -806,7 +805,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     Expanded(
                                       child: CustomTextField(
                                         label: "Amount",
-                                        hint: '${Utils.getCurrency()}',
+                                        hint: Utils.getCurrency(),
                                         validatorText: "Amount is needed",
                                         textEditingController:
                                             _invoiceController.amountController,
@@ -940,167 +939,163 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   ],
                 ),
               ],
-            )));
+            ));
       });
 
   // ignore: non_constant_identifier_names
-  Container CustomerInfo() {
-    return Container(
-      child: SingleChildScrollView(
-        child: Form(
-          key: _customerKey,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.height * 0.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: () => setState(
-                              () => _invoiceController.customerType = 1),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Radio<int>(
-                                  value: 1,
-                                  activeColor: AppColors.backgroundColor,
-                                  groupValue: _invoiceController.customerType,
-                                  onChanged: (value) => setState(() =>
-                                      _invoiceController.customerType = 1)),
-                              Text(
-                                'New Customer',
-                                style: GoogleFonts.inter(
-                                  color: AppColors.backgroundColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
+  SingleChildScrollView CustomerInfo() {
+    return SingleChildScrollView(
+      child: Form(
+        key: _customerKey,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.height * 0.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () =>
+                            setState(() => _invoiceController.customerType = 1),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Radio<int>(
+                                value: 1,
+                                activeColor: AppColors.backgroundColor,
+                                groupValue: _invoiceController.customerType,
+                                onChanged: (value) => setState(
+                                    () => _invoiceController.customerType = 1)),
+                            Text(
+                              'New Customer',
+                              style: GoogleFonts.inter(
+                                color: AppColors.backgroundColor,
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        const Spacer(),
-                        InkWell(
-                          onTap: () => setState(
-                              () => _invoiceController.customerType = 0),
-                          child: Row(
-                            children: [
-                              Radio<int>(
-                                  value: 0,
-                                  activeColor: AppColors.backgroundColor,
-                                  groupValue: _invoiceController.customerType,
-                                  onChanged: (value) => setState(() =>
-                                      _invoiceController.customerType = 0)),
-                              Text(
-                                'Existing Customer',
-                                style: GoogleFonts.inter(
-                                  color: AppColors.backgroundColor,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                      ),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () =>
+                            setState(() => _invoiceController.customerType = 0),
+                        child: Row(
+                          children: [
+                            Radio<int>(
+                                value: 0,
+                                activeColor: AppColors.backgroundColor,
+                                groupValue: _invoiceController.customerType,
+                                onChanged: (value) => setState(
+                                    () => _invoiceController.customerType = 0)),
+                            Text(
+                              'Existing Customer',
+                              style: GoogleFonts.inter(
+                                color: AppColors.backgroundColor,
+                                fontStyle: FontStyle.normal,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  _invoiceController.customerType == 1
+                      ? CustomTextFieldWithImageTransaction(
+                          contactName: _customerController.nameController,
+                          contactPhone:
+                              _customerController.phoneNumberController,
+                          contactMail: _customerController.emailController,
+                          label: "Customer name",
+                          validatorText: "Customer name is needed",
+                          hint: 'customer name',
                         )
-                      ],
-                    ),
-                    _invoiceController.customerType == 1
-                        ? CustomTextFieldWithImageTransaction(
-                            contactName: _customerController.nameController,
-                            contactPhone:
-                                _customerController.phoneNumberController,
-                            contactMail: _customerController.emailController,
-                            label: "Customer name",
-                            validatorText: "Customer name is needed",
-                            hint: 'customer name',
-                          )
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Select Customer',
-                                    style: GoogleFonts.inter(
-                                      color: Colors.black,
-                                      fontSize: 12,
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'Select Customer',
+                                  style: GoogleFonts.inter(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "*",
+                                  style: GoogleFonts.inter(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 4),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        width: 2,
+                                        color: AppColors.backgroundColor)),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<Customer>(
+                                    value: _invoiceController.selectedCustomer,
+                                    icon: const Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.backgroundColor,
+                                    ),
+                                    iconSize: 30,
+                                    items: _customerController.customerCustomer
+                                        .map((value) {
+                                      return DropdownMenuItem<Customer>(
+                                        value: value,
+                                        child: Text(value.name!),
+                                      );
+                                    }).toList(),
+                                    onChanged: (value) => setState(
+                                      () => _invoiceController
+                                          .selectedCustomer = value,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "*",
-                                    style: GoogleFonts.inter(
-                                      color: Colors.red,
-                                      fontSize: 12,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 4),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          width: 2,
-                                          color: AppColors.backgroundColor)),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton<Customer>(
-                                      value:
-                                          _invoiceController.selectedCustomer,
-                                      icon: const Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: AppColors.backgroundColor,
-                                      ),
-                                      iconSize: 30,
-                                      items: _customerController
-                                          .customerCustomer
-                                          .map((value) {
-                                        return DropdownMenuItem<Customer>(
-                                          value: value,
-                                          child: Text(value.name!),
-                                        );
-                                      }).toList(),
-                                      onChanged: (value) => setState(
-                                        () => _invoiceController
-                                            .selectedCustomer = value,
-                                      ),
-                                    ),
-                                  ))
-                            ],
-                          ),
-                  ],
-                ),
+                                ))
+                          ],
+                        ),
+                ],
               ),
-              const SizedBox(height: 8),
-              CustomTextFieldInvoiceOptional(
-                label: "Invoice Description",
-                validatorText: "",
-                hint: 'Add a brief invoice description',
-                textEditingController: _invoiceController.noteController,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 8),
+            CustomTextFieldInvoiceOptional(
+              label: "Invoice Description",
+              validatorText: "",
+              hint: 'Add a brief invoice description',
+              textEditingController: _invoiceController.noteController,
+            ),
+          ],
         ),
       ),
     );
   }
 
   // ignore: non_constant_identifier_names
-  Container BusinessInfo(BuildContext context) {
-    return Container(
+  SizedBox BusinessInfo(BuildContext context) {
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Column(
@@ -1354,7 +1349,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 fontWeight: FontWeight.w400,
                 color: AppColors.backgroundColor,
               ),
-              controller: _searchcontroller,
+              controller: _searchController,
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
@@ -1415,7 +1410,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   color: _randomColor.randomColor()),
                               child: Center(
                                   child: Text(
-                                '${item.name![0]}',
+                                item.name![0],
                                 style: GoogleFonts.inter(
                                     fontSize: 30,
                                     color: Colors.white,
@@ -1426,7 +1421,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       Expanded(
                           flex: 2,
                           child: Text(
-                            '${item.name!}',
+                            item.name!,
                             style: GoogleFonts.inter(
                                 fontSize: 13,
                                 color: Colors.black,
@@ -1435,7 +1430,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       Expanded(
                           flex: 2,
                           child: Text(
-                            '${item.phone!}',
+                            item.phone!,
                             style: GoogleFonts.inter(
                                 fontSize: 13,
                                 color: Colors.black,
@@ -1475,7 +1470,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
       );
 
   Widget showAllItems() {
-    return Container(
+    return SizedBox(
         width: MediaQuery.of(context).size.width,
         height: _invoiceController.productList.length * 80,
         child: Scrollbar(

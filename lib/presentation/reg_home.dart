@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/home_respository.dart';
+import 'package:huzz/data/repository/home_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/presentation/auth/create_pin.dart';
 import 'package:huzz/presentation/auth/enter_otp.dart';
@@ -10,6 +10,9 @@ import 'package:huzz/presentation/auth/send_otp.dart';
 import 'package:huzz/presentation/auth/sign_up.dart';
 
 class RegHome extends StatefulWidget {
+  const RegHome({super.key});
+
+  @override
   _RegHome createState() => _RegHome();
 }
 
@@ -28,21 +31,21 @@ class _RegHome extends State<RegHome> {
     'Personal Details',
     'Set Your PIN'
   ];
-  List<Widget> body = [SendOtp(), EnterOtp(), Signup(), CreatePin()];
-  final _homeController = Get.find<HomeRespository>();
+  List<Widget> body = [const SendOtp(), const EnterOtp(), const SignUp(), const CreatePin()];
+  final _homeController = Get.find<HomeRepository>();
   @override
   Widget build(BuildContext context) {
     selectedIndex = 0;
     return Obx(() {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 100,
                 width: MediaQuery.of(context).size.width,
                 child: Stack(
@@ -55,13 +58,13 @@ class _RegHome extends State<RegHome> {
                       left: 20,
                       child: GestureDetector(
                         onTap: () {
-                          if (_homeController.onboardingRegSelectedIndex > 0) {
+                          if (_homeController.onBoardingRegSelectedIndex > 0) {
                             _homeController.selectedOnboardSelectedPrevious();
                           } else {
                             Get.back();
                           }
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back,
                           color: AppColors.backgroundColor,
                         ),
@@ -70,29 +73,29 @@ class _RegHome extends State<RegHome> {
                   ],
                 ),
               ),
-              Text(topText[_homeController.onboardingRegSelectedIndex],
+              Text(topText[_homeController.onBoardingRegSelectedIndex],
                   style: GoogleFonts.inter(
                       color: AppColors.backgroundColor,
                       fontSize: 28,
                       fontWeight: FontWeight.w500)),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                margin: EdgeInsets.only(left: 50, right: 50),
+                margin: const EdgeInsets.only(left: 50, right: 50),
                 child: Text(
-                  bodyText[_homeController.onboardingRegSelectedIndex],
+                  bodyText[_homeController.onBoardingRegSelectedIndex],
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                       fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(left: 20, right: 20),
+                margin: const EdgeInsets.only(left: 20, right: 20),
                 height: 8,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -102,28 +105,29 @@ class _RegHome extends State<RegHome> {
                         onTap: () {
                           // print("index number is $index");
                           if (index <=
-                              _homeController.onboardingRegSelectedIndex)
+                              _homeController.onBoardingRegSelectedIndex) {
                             _homeController.gotoIndex(index);
+                          }
                         },
                         child: Container(
-                          margin: EdgeInsets.only(left: 10),
+                          margin: const EdgeInsets.only(left: 10),
                           height: 5,
                           width: MediaQuery.of(context).size.width * 0.2,
                           decoration: BoxDecoration(
                             color: (index <=
-                                    _homeController.onboardingRegSelectedIndex)
+                                    _homeController.onBoardingRegSelectedIndex)
                                 ? AppColors.backgroundColor
                                 : AppColors.backgroundColor.withOpacity(0.4),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
                       );
                     }),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Expanded(child: body[_homeController.onboardingRegSelectedIndex])
+              Expanded(child: body[_homeController.onBoardingRegSelectedIndex])
             ],
           ),
         ),

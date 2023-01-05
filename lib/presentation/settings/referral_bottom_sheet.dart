@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/user_referral_model.dart';
 import 'package:share_plus/share_plus.dart';
 
-class ReferralBottomsheet extends StatefulWidget {
-  const ReferralBottomsheet({Key? key}) : super(key: key);
+class ReferralBottomSheet extends StatefulWidget {
+  const ReferralBottomSheet({Key? key}) : super(key: key);
 
   @override
-  _ReferralBottomsheetState createState() => _ReferralBottomsheetState();
+  _ReferralBottomSheetState createState() => _ReferralBottomSheetState();
 }
 
-class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
+class _ReferralBottomSheetState extends State<ReferralBottomSheet> {
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final controller = Get.find<AuthRepository>();
   late Future<UserReferralModel?> future;
@@ -33,16 +33,16 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
       setState(() {
         isLoadingReferralLink = true;
       });
-      final appId = "com.app.huzz";
+      const appId = "com.app.huzz";
       final url = "https://huzz.africa/referralCode=$referralCode";
       final DynamicLinkParameters parameters = DynamicLinkParameters(
         uriPrefix: 'https://huzz.page.link',
         link: Uri.parse(url),
-        androidParameters: AndroidParameters(
+        androidParameters: const AndroidParameters(
           packageName: appId,
           minimumVersion: 1,
         ),
-        iosParameters: IOSParameters(
+        iosParameters: const IOSParameters(
           bundleId: appId,
           appStoreId: "1596574133",
           minimumVersion: '1',
@@ -83,7 +83,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
         child: FutureBuilder(
             future: future,
             builder: (context, snapshot) {
-              if (snapshot.hasError)
+              if (snapshot.hasError) {
                 return Container(
                   height: kHeight,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -95,7 +95,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                         snapshot.error.toString(),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       GestureDetector(
                         onTap: () {
                           setState(() {
@@ -113,6 +113,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                     ],
                   ),
                 );
+              }
               if (snapshot.connectionState == ConnectionState.done) {
                 final referralData = snapshot.data as UserReferralModel;
                 return Stack(
@@ -131,13 +132,13 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Image.asset(
                             "assets/images/referral.png",
                             height: 100,
                             width: 100,
                           ),
-                          SizedBox(height: 14),
+                          const SizedBox(height: 14),
                           Text(
                             "Love Huzz? Spread the word and watch your referral count grow. Ask business owners you refer to enter your referral code when they sign up. In the future, your referral count will contribute to your Huzz Loyalty points which you can use to earn awesome rewards.",
                             style: textTheme.caption!.copyWith(
@@ -147,11 +148,11 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 32, vertical: 18),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xffE6F4F2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
@@ -174,16 +175,16 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 24),
+                          const SizedBox(height: 24),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
                                 child: Text.rich(
                                   TextSpan(children: [
-                                    TextSpan(text: "Referral Code: "),
+                                    const TextSpan(text: "Referral Code: "),
                                     TextSpan(
-                                      text: "${referralData.referralCode}",
+                                      text: referralData.referralCode,
                                       style: textTheme.bodyMedium!.copyWith(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.backgroundColor,
@@ -202,13 +203,13 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                   Get.snackbar(
                                     "Success",
                                     "Referral code successfully copied to clipboard",
-                                    icon: Icon(Icons.check),
+                                    icon: const Icon(Icons.check),
                                   );
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 7),
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Color(0xffE6F4F2),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)),
@@ -221,7 +222,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                         height: 20,
                                         width: 20,
                                       ),
-                                      SizedBox(width: 5),
+                                      const SizedBox(width: 5),
                                       Text(
                                         "Copy",
                                         style: textTheme.caption!.copyWith(
@@ -235,7 +236,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                               )
                             ],
                           ),
-                          SizedBox(height: 24),
+                          const SizedBox(height: 24),
                           InkWell(
                             onTap: () {
                               // print(referralData.referralCode);
@@ -253,7 +254,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: Center(
                                 child: isLoadingReferralLink
-                                    ? CircularProgressIndicator(
+                                    ? const CircularProgressIndicator(
                                         color: Colors.white,
                                       )
                                     : Text(
@@ -267,7 +268,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 32),
+                          const SizedBox(height: 32),
                         ],
                       ),
                     ),
@@ -276,7 +277,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                       child: Container(
                         height: 3,
                         width: 36,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
@@ -287,7 +288,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
               }
               return SizedBox(
                 height: kHeight,
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(),
                 ),
               );

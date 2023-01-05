@@ -4,7 +4,7 @@ import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/presentation/customers/customer_tabView.dart';
+import 'package:huzz/presentation/customers/customer_tab_view.dart';
 import 'package:huzz/presentation/invoice/empty_invoice.dart';
 import 'package:huzz/presentation/more/more.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -28,7 +28,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int selectedIndex = 0;
   // _DashboardState({required this.selectedIndex});
-  final _invoiceRepository = Get.find<InvoiceRespository>();
+  final _invoiceRepository = Get.find<InvoiceRepository>();
   final teamController = Get.find<TeamRepository>();
 
   @override
@@ -137,15 +137,15 @@ class _DashboardState extends State<Dashboard> {
       case 0:
         return const HomePage();
       case 1:
-        return CustomerTabView();
+        return const CustomerTabView();
       case 2:
         return const ManageInventory();
       case 3:
         return _invoiceRepository.invoiceStatus == InvoiceStatus.UnAuthorized
             ? const InvoiceNotAuthorized()
-            : (_invoiceRepository.InvoicePendingList.isEmpty &&
-                    _invoiceRepository.InvoiceDueList.isEmpty &&
-                    _invoiceRepository.InvoiceDepositList.isEmpty &&
+            : (_invoiceRepository.invoicePendingList.isEmpty &&
+                    _invoiceRepository.invoiceDueList.isEmpty &&
+                    _invoiceRepository.invoiceDepositList.isEmpty &&
                     _invoiceRepository.paidInvoiceList.isEmpty)
                 ? const EmptyInvoice()
                 : const AvailableInvoice();

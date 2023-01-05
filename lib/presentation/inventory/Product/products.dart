@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/product_repository.dart';
-import 'package:huzz/presentation/inventory/Product/productlist.dart';
+import 'package:huzz/presentation/inventory/Product/product_list.dart';
 import 'package:number_display/number_display.dart';
-import '../../../data/repository/business_respository.dart';
+import '../../../data/repository/business_repository.dart';
 import '../../../data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/util.dart';
@@ -20,7 +20,7 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   final _productController = Get.find<ProductRepository>();
   final teamController = Get.find<TeamRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final display = createDisplay(
       length: 5,
       decimal: 0,
@@ -195,7 +195,7 @@ class _ProductsState extends State<Products> {
               height: 95,
               padding: const EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
-                color: AppColors.secondbgColor,
+                color: AppColors.secondBgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

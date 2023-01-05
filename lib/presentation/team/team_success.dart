@@ -4,14 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class TeamSuccess extends StatelessWidget {
-  TeamSuccess({Key? key}) : super(key: key);
+  const TeamSuccess({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
@@ -31,13 +31,13 @@ class TeamSuccess extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Center(
               child: Image.asset(
                 'assets/images/checker.png',
               ),
             ),
-            Spacer(),
+            const Spacer(),
             InkWell(
               onTap: () {
                 Get.back();
@@ -60,7 +60,7 @@ class TeamSuccess extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
           ],

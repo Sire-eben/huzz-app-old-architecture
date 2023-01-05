@@ -7,7 +7,7 @@ class Business {
   String? businessPhoneNumber;
   String? businessEmail;
   String? businessCurrency;
-  String? buisnessLogoFileStoreId;
+  String? businessLogoFileStoreId;
   bool? deleted;
   DateTime? createdTime;
   DateTime? updatedTime;
@@ -31,7 +31,7 @@ class Business {
       this.businessPhoneNumber,
       this.businessEmail,
       this.businessCurrency,
-      this.buisnessLogoFileStoreId,
+      this.businessLogoFileStoreId,
       this.deleted,
       this.createdTime,
       this.updatedTime,
@@ -55,7 +55,7 @@ class Business {
       businessPhoneNumber: json['phoneNumber'],
       businessEmail: json['email'],
       businessCurrency: json['currency'],
-      buisnessLogoFileStoreId: json['buisnessLogoFileStoreId'],
+      businessLogoFileStoreId: json['buisnessLogoFileStoreId'],
       deleted: json['deleted'],
       createdTime: DateTime.parse(json['timeCreated']),
       updatedTime: json['timeUpdated'] != null
@@ -80,7 +80,7 @@ class Business {
         "phoneNumber": businessPhoneNumber,
         "email": businessEmail,
         "currency": businessCurrency,
-        "buisnessLogoFileStoreId": buisnessLogoFileStoreId,
+        "buisnessLogoFileStoreId": businessLogoFileStoreId,
         "deleted": deleted,
         "timeCreated": createdTime!.toIso8601String(),
         "timeUpdated":

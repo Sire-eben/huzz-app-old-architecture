@@ -8,16 +8,16 @@ import 'package:huzz/data/model/product.dart';
 import 'package:number_display/number_display.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
-class BuildDeleteProduct extends StatefulWidget {
-  const BuildDeleteProduct({Key? key}) : super(key: key);
+class DeleteProduct extends StatefulWidget {
+  const DeleteProduct({Key? key}) : super(key: key);
 
   @override
-  _BuildDeleteProductState createState() => _BuildDeleteProductState();
+  _DeleteProductState createState() => _DeleteProductState();
 }
 
-class _BuildDeleteProductState extends State<BuildDeleteProduct> {
+class _DeleteProductState extends State<DeleteProduct> {
   final TextEditingController textEditingController = TextEditingController();
-  final _productControlller = Get.find<ProductRepository>();
+  final _productController = Get.find<ProductRepository>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -59,38 +59,38 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               child: Row(
                 children: [
                   Text(
-                    'Product (${_productControlller.productGoods.length})',
+                    'Product (${_productController.productGoods.length})',
                     style: GoogleFonts.inter(
                       color: AppColors.blackColor,
                       fontSize: 15,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColors.lightbackgroundColor,
+                    decoration: const BoxDecoration(
+                      color: AppColors.lightBackgroundColor,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.add,
                       size: 20,
                       color: AppColors.backgroundColor,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
-                      color: AppColors.lightbackgroundColor,
+                    decoration: const BoxDecoration(
+                      color: AppColors.lightBackgroundColor,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.delete_outline_outlined,
                       size: 20,
                       color: AppColors.backgroundColor,
@@ -104,24 +104,24 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               left: 20,
               right: 20,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 height: 55,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Color(0xffE6F4F2),
+                  color: const Color(0xffE6F4F2),
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.search,
                       color: AppColors.backgroundColor,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                    Container(
+                    SizedBox(
                       height: 55,
                       width: MediaQuery.of(context).size.width * 0.7,
                       child: TextFormField(
@@ -129,15 +129,15 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                         textInputAction: TextInputAction.none,
                         decoration: InputDecoration(
                           isDense: true,
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: AppColors.backgroundColor, width: 2),
                               borderRadius:
@@ -165,9 +165,9 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               right: 20,
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: _productControlller.productGoods.length,
+                  itemCount: _productController.productGoods.length,
                   itemBuilder: (BuildContext context, int index) {
-                    Product item = _productControlller.productGoods[index];
+                    Product item = _productController.productGoods[index];
                     return ListingProduct(
                       item: item,
                     );
@@ -178,10 +178,10 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               right: 30,
               child: GestureDetector(
                 onTap: () {
-                  _productControlller.deleteSelectedItem();
+                  _productController.deleteSelectedItem();
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 15,
                   ),
@@ -191,12 +191,12 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                   ),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.delete_forever_sharp,
                         size: 18,
                         color: Colors.white,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
@@ -220,7 +220,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
 
   Widget productCount(BuildContext context) => Container(
         height: 95,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.backgroundColor,
           borderRadius: BorderRadius.all(
             Radius.circular(15),
@@ -245,7 +245,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                 ),
                 Center(
                   child: Text(
-                    "${_productControlller.productGoods.length}",
+                    "${_productController.productGoods.length}",
                     style: GoogleFonts.inter(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -257,24 +257,24 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
             ),
             Container(
               height: 95,
-              padding: EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
-                color: AppColors.secondbgColor,
+                color: AppColors.secondBgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  stops: [
+                  stops: const [
                     0.1,
                     0.6,
                     0.8,
                   ],
                   colors: [
-                    Color(0xff0D8372),
-                    Color(0xff07A58E),
+                    const Color(0xff0D8372),
+                    const Color(0xff07A58E),
                     AppColors.backgroundColor.withOpacity(0.5),
                   ],
                 ),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(15),
                   bottomRight: Radius.circular(15),
                 ),
@@ -319,7 +319,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
 // ignore: must_be_immutable
 class ListingProduct extends StatefulWidget {
   Product? item;
-  ListingProduct({
+  ListingProduct({super.key,
     this.item,
   });
 
@@ -340,16 +340,16 @@ class _ListingProductState extends State<ListingProduct> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 10,
             ),
             height: 80,
             decoration: BoxDecoration(
-              color: Color(0xffF5F5F5),
+              color: const Color(0xffF5F5F5),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Color(0xffC3C3C3),
+                color: const Color(0xffC3C3C3),
               ),
             ),
             child: Row(
@@ -365,7 +365,7 @@ class _ListingProductState extends State<ListingProduct> {
                         widget.item!.productLogoFileStoreId!,
                         height: 50,
                       ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
@@ -380,7 +380,7 @@ class _ListingProductState extends State<ListingProduct> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -401,7 +401,7 @@ class _ListingProductState extends State<ListingProduct> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 50,
                         ),
                         Text(
@@ -416,13 +416,13 @@ class _ListingProductState extends State<ListingProduct> {
                     ),
                   ],
                 ),
-                Expanded(
+                const Expanded(
                   child: SizedBox(),
                 ),
                 GestureDetector(
                   onTap: () {
                     if (_productController
-                        .checkifSelectedForDelted(widget.item!.productId!)) {
+                        .checkIfSelectedForDeleted(widget.item!.productId!)) {
                       _productController.removeFromDeleteList(widget.item!);
                     } else {
                       _productController.addToDeleteList(widget.item!);
@@ -430,26 +430,26 @@ class _ListingProductState extends State<ListingProduct> {
                     setState(() {});
                   },
                   child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
                       color: _productController
-                              .checkifSelectedForDelted(widget.item!.productId!)
+                              .checkIfSelectedForDeleted(widget.item!.productId!)
                           ? AppColors.orangeBorderColor
                           : AppColors.whiteColor,
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: Color(0xffEF6500),
+                        color: const Color(0xffEF6500),
                       ),
                     ),
                     child: Visibility(
                       visible: _productController
-                          .checkifSelectedForDelted(widget.item!.productId!),
+                          .checkIfSelectedForDeleted(widget.item!.productId!),
                       child: Icon(
                         Icons.check,
                         size: 15,
-                        color: _productController.checkifSelectedForDelted(
+                        color: _productController.checkIfSelectedForDeleted(
                                 widget.item!.productId!)
                             ? AppColors.whiteColor
                             : AppColors.orangeBorderColor,
@@ -460,7 +460,7 @@ class _ListingProductState extends State<ListingProduct> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           )
         ],

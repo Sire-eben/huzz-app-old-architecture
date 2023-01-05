@@ -6,7 +6,7 @@ import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/data/model/user.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -14,7 +14,7 @@ import 'package:huzz/core/constants/app_themes.dart';
 import '../widget/timer_button.dart';
 
 class PersonalInfo extends StatefulWidget {
-  PersonalInfo({Key? key});
+  const PersonalInfo({super.key});
 
   @override
   _PersonalInfoState createState() => _PersonalInfoState();
@@ -36,6 +36,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   StreamController<ErrorAnimationType>? errorController;
   StreamController<ErrorAnimationType>? otpErrorController;
 
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     otpErrorController = StreamController<ErrorAnimationType>();
@@ -64,7 +65,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -99,120 +100,118 @@ class _PersonalInfoState extends State<PersonalInfo> {
               keyType: TextInputType.name,
               textEditingController: _controller.lastNameController,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Phone Number',
-                            style: GoogleFonts.inter(
-                                color: Colors.black, fontSize: 12),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5),
-                            child: Text(
-                              "*",
-                              style: GoogleFonts.inter(
-                                  color: Colors.red, fontSize: 12),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                          color: AppColors.backgroundColor, width: 2.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            showCountryCode(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  right: BorderSide(
-                                      color: AppColors.backgroundColor,
-                                      width: 2)),
-                            ),
-                            height: 50,
-                            width: 80,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(width: 10),
-                                Flag.fromString(countryFlag,
-                                    height: 30, width: 30),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(
-                                  Icons.arrow_drop_down,
-                                  size: 24,
-                                  color: AppColors.backgroundColor
-                                      .withOpacity(0.5),
-                                )
-                              ],
-                            ),
+                        Text(
+                          'Phone Number',
+                          style: GoogleFonts.inter(
+                              color: Colors.black, fontSize: 12),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            "*",
+                            style: GoogleFonts.inter(
+                                color: Colors.red, fontSize: 12),
                           ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            enabled: false,
-                            controller: _controller.updatePhoneNumberController,
-                            keyboardType: TextInputType.phone,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: phone,
-                                hintStyle: GoogleFonts.inter(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
-                                prefixText: "+$countryCode ",
-                                prefixStyle: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black)),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
                         ),
                       ],
                     ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                        color: AppColors.backgroundColor, width: 2.0),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
-                ],
-              ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          showCountryCode(context);
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            border: Border(
+                                right: BorderSide(
+                                    color: AppColors.backgroundColor,
+                                    width: 2)),
+                          ),
+                          height: 50,
+                          width: 80,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(width: 10),
+                              Flag.fromString(countryFlag,
+                                  height: 30, width: 30),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.arrow_drop_down,
+                                size: 24,
+                                color: AppColors.backgroundColor
+                                    .withOpacity(0.5),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          enabled: false,
+                          controller: _controller.updatePhoneNumberController,
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: phone,
+                              hintStyle: GoogleFonts.inter(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                              prefixText: "+$countryCode ",
+                              prefixStyle: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             CustomTextField(
@@ -223,10 +222,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
               keyType: TextInputType.emailAddress,
               textEditingController: _controller.emailController,
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
-            Spacer(),
+            const Spacer(),
             Obx(() {
               return InkWell(
                 onTap: () {
@@ -236,13 +235,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 child: Container(
                   height: 50,
                   margin: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: (_controller.updateProfileStatus ==
                           UpdateProfileStatus.Loading)
-                      ? Center(
-                          child: Container(
+                      ? const Center(
+                          child: SizedBox(
                             width: 30,
                             height: 30,
                             child: Center(
@@ -264,7 +263,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 ),
               );
             }),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
           ],
@@ -295,7 +294,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 235,
             ),
@@ -316,7 +315,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             content:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   left: 20,
                 ),
                 child: Text(
@@ -328,10 +327,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: PinCodeTextField(
                   length: 4,
@@ -350,7 +349,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     fieldWidth: 50,
                     activeFillColor: Colors.white,
                   ),
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                   backgroundColor: Colors.white,
                   enableActiveFill: true,
                   errorAnimationController: otpErrorController,
@@ -383,9 +382,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 label: "Resend via sms",
                 timeOutInSeconds: 20,
                 activeTextStyle:
-                    GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
+                    GoogleFonts.inter(color: const Color(0xffEF6500), fontSize: 12),
                 onPressed: () {
-                  _controller.sendSmsOtp(isresend: true);
+                  _controller.sendSmsOtp(isResend: true);
                 },
                 buttonType: ButtonType.TextButton,
                 disabledColor: Colors.white,
@@ -394,7 +393,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             ]),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -405,7 +404,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -435,7 +434,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -466,7 +465,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 235,
             ),
@@ -490,13 +489,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 25, right: 55, bottom: 20),
+                padding: const EdgeInsets.only(left: 25, right: 55, bottom: 20),
                 child: InkWell(
                   onTap: () {},
                   child: Container(
                     height: 45,
                     width: 150,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                     ),
                     decoration: BoxDecoration(

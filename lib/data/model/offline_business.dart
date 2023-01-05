@@ -15,8 +15,8 @@ class OfflineBusiness {
 
   Map<String, dynamic> toJson() {
     return {
-      "BusinessId": this.businessId,
-      "BusinessJson": jsonEncode(this.business!.toJson()),
+      "BusinessId": businessId,
+      "BusinessJson": jsonEncode(business!.toJson()),
     };
   }
 }

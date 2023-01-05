@@ -1,8 +1,8 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:huzz/presentation/customers/customer_tabView.dart';
+import 'package:huzz/presentation/customers/customer_tab_view.dart';
 import 'package:huzz/presentation/home/home_page.dart';
-import 'package:huzz/presentation/inventory/productserviceTab.dart';
+import 'package:huzz/presentation/inventory/product_service_tab.dart';
 import 'package:huzz/presentation/invoice/available_invoice.dart';
 import 'package:huzz/presentation/more/more.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -58,7 +58,7 @@ class _ProServiceDashboardState extends State<ProServiceDashboard> {
               activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor)
         ],
-        onItemSelected: (index) => setState(() => this._selectedIndex = index),
+        onItemSelected: (index) => setState(() => _selectedIndex = index),
       ),
     );
   }
@@ -66,7 +66,7 @@ class _ProServiceDashboardState extends State<ProServiceDashboard> {
   Widget buildPages() {
     switch (_selectedIndex) {
       case 0:
-        return CustomerTabView();
+        return const CustomerTabView();
       case 1:
         return const ProductServiceListing();
       case 2:

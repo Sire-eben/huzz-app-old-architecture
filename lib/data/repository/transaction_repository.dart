@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
-import 'package:huzz/data/repository/file_upload_respository.dart';
+import 'package:huzz/data/repository/file_upload_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/core/util/constants.dart';
@@ -16,7 +16,7 @@ import 'package:huzz/data/model/debtor.dart';
 import 'package:huzz/data/model/payment_history.dart';
 import 'package:huzz/data/model/payment_item.dart';
 import 'package:huzz/data/model/product.dart';
-import 'package:huzz/data/model/recordData.dart';
+import 'package:huzz/data/model/record_data.dart';
 import 'package:huzz/data/model/transaction_model.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:path/path.dart' as path;
@@ -24,9 +24,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
 import '../../core/util/util.dart';
-import 'auth_respository.dart';
+import 'auth_repository.dart';
 import 'customer_repository.dart';
-import 'miscellaneous_respository.dart';
+import 'miscellaneous_repository.dart';
 
 enum AddingTransactionStatus { Loading, Error, Success, Empty }
 
@@ -34,28 +34,28 @@ enum TransactionStatus { Loading, Available, Error, Empty, UnAuthorized }
 
 enum GetTransactionStatus { Loading, Available, Error, Empty }
 
-class TransactionRespository extends GetxController {
-  final _uploadImageController = Get.find<FileUploadRespository>();
+class TransactionRepository extends GetxController {
+  final _uploadImageController = Get.find<FileUploadRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
   final _debtorController = Get.find<DebtorRepository>();
   final _userController = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
 
-  Rx<List<TransactionModel>> _offlineTransactions = Rx([]);
+  final Rx<List<TransactionModel>> _offlineTransactions = Rx([]);
   List<TransactionModel> get offlineTransactions => _offlineTransactions.value;
-  List<TransactionModel> OnlineTransaction = [];
+  List<TransactionModel> onlineTransaction = [];
   List<TransactionModel> pendingTransaction = [];
-  Rx<List<PaymentItem>> _allPaymentItem = Rx([]);
+  final Rx<List<PaymentItem>> _allPaymentItem = Rx([]);
   List<PaymentItem> get allPaymentItem => _allPaymentItem.value;
 
   dynamic expenses = 0.0.obs;
   dynamic income = 0.0.obs;
-  final numberofincome = 0.obs;
-  final numberofexpenses = 0.obs;
+  final numberOfIncome = 0.obs;
+  final numberOfExpenses = 0.obs;
   dynamic totalOnlineRecords = 0.obs;
   dynamic totalOfflineRecords = 0.obs;
-  dynamic totalbalance = 0.0.obs;
+  dynamic totalBalance = 0.0.obs;
   bool isBusyAdding = false;
   bool isBusyUpdating = false;
   bool isbusyDeleting = false;
@@ -65,7 +65,7 @@ class TransactionRespository extends GetxController {
   String customText = "";
   SqliteDb sqliteDb = SqliteDb();
   final itemNameController = TextEditingController();
-  MoneyMaskedTextController? amountController = new MoneyMaskedTextController(
+  MoneyMaskedTextController? amountController = MoneyMaskedTextController(
       decimalSeparator: '.', thousandSeparator: ',', precision: 1);
   final quantityController = TextEditingController(text: '1');
   final dateController = TextEditingController();
@@ -74,7 +74,7 @@ class TransactionRespository extends GetxController {
   final paymentSourceController = TextEditingController();
   final receiptFileController = TextEditingController();
   MoneyMaskedTextController amountPaidController =
-      new MoneyMaskedTextController(
+      MoneyMaskedTextController(
           decimalSeparator: '.', thousandSeparator: ',', precision: 1);
 
   // final TextEditingController dateController = TextEditingController();
@@ -85,7 +85,7 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> deletedItem = [];
   final _addingTransactionStatus = AddingTransactionStatus.Empty.obs;
   final _transactionStatus = TransactionStatus.Empty.obs;
-  var uuid = Uuid();
+  var uuid = const Uuid();
 // final _uploadFileController=Get.find<FileUploadRespository>();
   AddingTransactionStatus get addingTransactionStatus =>
       _addingTransactionStatus.value;
@@ -103,7 +103,7 @@ class TransactionRespository extends GetxController {
   String? valuePaymentSource;
   String? selectedPaymentSource;
   String? selectedCategoryExpenses;
-  Rx<List<TransactionModel>> _allTransactionList = Rx([]);
+  final Rx<List<TransactionModel>> _allTransactionList = Rx([]);
   List<TransactionModel> get allTransactionList => _allTransactionList.value;
   List<String> paymentMode = ["FULLY_PAID", "DEPOSIT"];
   String? valuePaymentMode;
@@ -113,15 +113,15 @@ class TransactionRespository extends GetxController {
   List<TransactionModel> pendingJobToBeDelete = [];
   List<TransactionModel> pendingUpdatedTransactionList = [];
 
-  Rx<List<RecordsData>> _allIncomeHoursData = Rx([]);
-  Rx<List<RecordsData>> _allExpenditureHoursData = Rx([]);
-  Rx<List<RecordsData>> _pieIncomeValue = Rx([]);
-  Rx<List<RecordsData>> _pieExpenditureValue = Rx([]);
+  final Rx<List<RecordsData>> _allIncomeHoursData = Rx([]);
+  final Rx<List<RecordsData>> _allExpenditureHoursData = Rx([]);
+  final Rx<List<RecordsData>> _pieIncomeValue = Rx([]);
+  final Rx<List<RecordsData>> _pieExpenditureValue = Rx([]);
   List<RecordsData> get pieIncomeValue => _pieIncomeValue.value;
   List<RecordsData> get pieExpenditure => _pieExpenditureValue.value;
   Rx<String> value = "This month".obs;
-  Rx<List<TransactionModel>> _allIncomeTransaction = Rx([]);
-  Rx<List<TransactionModel>> _allExpenditureTransaction = Rx([]);
+  final Rx<List<TransactionModel>> _allIncomeTransaction = Rx([]);
+  final Rx<List<TransactionModel>> _allExpenditureTransaction = Rx([]);
   List<TransactionModel> get allIncomeTransaction =>
       _allIncomeTransaction.value;
   List<TransactionModel> get allExpenditureTransaction =>
@@ -131,15 +131,16 @@ class TransactionRespository extends GetxController {
       _allExpenditureHoursData.value;
   List<String> expenseCategories = ["FINANCE", "GROCERY", "OTHERS"];
   final _miscellaneousController = Get.find<MiscellaneousRepository>();
-  Rx<dynamic> _recordBalance = Rx(0);
-  Rx<dynamic> _recordMoneyIn = Rx(0);
-  Rx<dynamic> _recordMoneyOut = Rx(0);
+  final Rx<dynamic> _recordBalance = Rx(0);
+  final Rx<dynamic> _recordMoneyIn = Rx(0);
+  final Rx<dynamic> _recordMoneyOut = Rx(0);
   dynamic get recordBalance => _recordBalance.value;
   dynamic get recordMoneyIn => _recordMoneyIn.value;
   dynamic get recordMoneyOut => _recordMoneyOut.value;
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
   @override
   void onInit() async {
+    super.onInit();
     // TODO: implement onInit
     // print("getting transaction repo");
     _miscellaneousController.businessTransactionPaymentSourceList.listen((p0) {
@@ -159,12 +160,12 @@ class TransactionRespository extends GetxController {
         expenseCategories = p0;
       }
     });
-    _userController.Mtoken.listen((p0) async {
+    _userController.mToken.listen((p0) async {
       // print("token gotten $p0");
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
-          await GetOfflineTransactions(value.businessId!);
+          await getOfflineTransactions(value.businessId!);
           getOnlineTransaction(value.businessId!);
 
           // getSpending(value.businessId!);
@@ -176,23 +177,23 @@ class TransactionRespository extends GetxController {
           if (p0 != null && p0.businessId != null) {
             // print("changing textfield in transaction");
             amountController = MoneyMaskedTextController(
-                leftSymbol: '${Utils.getCurrency()}',
+                leftSymbol: Utils.getCurrency(),
                 decimalSeparator: '.',
                 thousandSeparator: ',',
                 precision: 1);
-            amountPaidController = new MoneyMaskedTextController(
-                leftSymbol: '${Utils.getCurrency()}',
+            amountPaidController = MoneyMaskedTextController(
+                leftSymbol: Utils.getCurrency(),
                 decimalSeparator: '.',
                 thousandSeparator: ',',
                 precision: 1);
             // print("business id ${p0.businessId}");
             _offlineTransactions([]);
             _allPaymentItem([]);
-            OnlineTransaction = [];
+            onlineTransaction = [];
             todayTransaction = [];
             _allIncomeHoursData([]);
             _allExpenditureHoursData([]);
-            await GetOfflineTransactions(p0.businessId!);
+            await getOfflineTransactions(p0.businessId!);
             await getOnlineTransaction(p0.businessId!);
             splitCurrentTime();
 
@@ -202,11 +203,11 @@ class TransactionRespository extends GetxController {
         });
       }
     });
-    _userController.MonlineStatus.listen((po) {
+    _userController.monLineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           checkIfTransactionThatIsYetToBeAdded();
-          checkPendingTransactionbeUpdatedToServer();
+          checkPendingTransactionBeUpdatedToServer();
           checkPendingTransactionToBeDeletedOnServer();
           //update server with pending job
         });
@@ -216,37 +217,39 @@ class TransactionRespository extends GetxController {
 
   List<PaymentItem> getAllPaymentItemForRecord(RecordsData record) {
     List<PaymentItem> list = [];
-    record.transactionList.forEach((element) {
+    for (var element in record.transactionList) {
       list.addAll(element.businessTransactionPaymentItemList!);
-    });
+    }
     return list;
   }
 
   List<PaymentItem> getAllPaymentItemForRecordIncome(RecordsData record) {
     List<PaymentItem> list = [];
-    record.transactionList.forEach((element) {
-      if (element.transactionType == "INCOME")
+    for (var element in record.transactionList) {
+      if (element.transactionType == "INCOME") {
         list.addAll(element.businessTransactionPaymentItemList!);
-    });
+      }
+    }
     return list;
   }
 
   List<PaymentItem> getAllPaymentItemForRecordExpenditure(RecordsData record) {
     List<PaymentItem> list = [];
-    record.transactionList.forEach((element) {
-      if (element.transactionType == "EXPENDITURE")
+    for (var element in record.transactionList) {
+      if (element.transactionType == "EXPENDITURE") {
         list.addAll(element.businessTransactionPaymentItemList!);
-    });
+      }
+    }
     return list;
   }
 
   List<PaymentItem> getAllPaymentItemListForIncomeRecord() {
     List<PaymentItem> list = [];
-    allIncomeHoursData.forEach((element) {
+    for (var element in allIncomeHoursData) {
       if (element.value > 0) {
         list.addAll(getAllPaymentItemForRecordIncome(element));
       }
-    });
+    }
     // print("get record income list ${list.length}");
     return list;
   }
@@ -254,11 +257,11 @@ class TransactionRespository extends GetxController {
   List<PaymentItem> getAllPaymentItemListForExpenditure() {
     List<PaymentItem> list1 = [];
 
-    allExpenditureHoursData.forEach((element) {
+    for (var element in allExpenditureHoursData) {
       if (element.value > 0) {
         list1.addAll(getAllPaymentItemForRecordExpenditure(element));
       }
-    });
+    }
     // print("get record expenditure list ${list1.length}");
     return list1;
   }
@@ -273,9 +276,9 @@ class TransactionRespository extends GetxController {
       }
 
       List<PaymentItem> items = [];
-      todayTransaction.forEach((element) {
+      for (var element in todayTransaction) {
         items.addAll(element.businessTransactionPaymentItemList!);
-      });
+      }
 
       _allPaymentItem(items.reversed.toList());
       // print(items);
@@ -290,7 +293,7 @@ class TransactionRespository extends GetxController {
 
   Future getOnlineTransaction(String businessId) async {
     _transactionStatus(TransactionStatus.Loading);
-    OnlineTransaction = [];
+    onlineTransaction = [];
     var response = await http.get(
         Uri.parse(ApiLink.getBusinessTransaction + "?businessId=" + businessId),
         headers: {"Authorization": "Bearer ${_userController.token}"});
@@ -300,7 +303,7 @@ class TransactionRespository extends GetxController {
       var result =
           List.from(json['data']).map((e) => TransactionModel.fromJson(e));
 
-      OnlineTransaction.addAll(result);
+      onlineTransaction.addAll(result);
       // print("online transaction ${result.length}");
       totalOnlineRecords(result.length);
       // getTodayTransaction();
@@ -322,7 +325,7 @@ class TransactionRespository extends GetxController {
   }
 
   Future checkIfUpdateAvailable() async {
-    OnlineTransaction.forEach((element) async {
+    onlineTransaction.forEach((element) async {
       var item = getTransactionById(element.id!);
       if (item != null) {
         // print("item Transaction is found");
@@ -348,12 +351,12 @@ class TransactionRespository extends GetxController {
     if (pendingUpdatedTransactionList.isNotEmpty) {
       updatePendingJob();
     } else {
-      GetOfflineTransactions(
+      getOfflineTransactions(
           _businessController.selectedBusiness.value!.businessId!);
     }
   }
 
-  Future GetOfflineTransactions(String id) async {
+  Future getOfflineTransactions(String id) async {
     _transactionStatus(TransactionStatus.Loading);
     var results = await _businessController.sqliteDb.getOfflineTransactions(id);
     // print("offline transaction ${results.length}");
@@ -372,14 +375,14 @@ class TransactionRespository extends GetxController {
   }
 
   Future splitCurrentTime() async {
-    TimeOfDay _timeday = TimeOfDay(hour: 0, minute: 0);
+    TimeOfDay _timeDay = const TimeOfDay(hour: 0, minute: 0);
     List<String> value = [];
     for (int i = 0; i < 24; ++i) {
-      value.add((_timeday.hour).toString());
-      var timeofday =
-          TimeOfDay(hour: _timeday.hour + 1, minute: _timeday.minute);
-      _timeday = timeofday;
-      // print("splitting day hour " + _timeday.hour.toString() + ":00");
+      value.add((_timeDay.hour).toString());
+      var timeOfDay =
+          TimeOfDay(hour: _timeDay.hour + 1, minute: _timeDay.minute);
+      _timeDay = timeOfDay;
+      // print("splitting day hour " + _timeDay.hour.toString() + ":00");
     }
     getSplitCurrentDate(value);
   }
@@ -450,12 +453,12 @@ class TransactionRespository extends GetxController {
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
     if (offlineTransactions.isNotEmpty) {
-      years.forEach((element1) {
+      for (var element1 in years) {
         dynamic incomeTotalAmount = 0;
         dynamic expenditureTotalAmount = 0;
         List<TransactionModel> currentTran = [];
 
-        offlineTransactions.forEach((element) {
+        for (var element in offlineTransactions) {
           // print(
           //     "alltime testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
@@ -533,12 +536,12 @@ class TransactionRespository extends GetxController {
 
             currentTran.add(element);
           }
-        });
+        }
         _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "y")!,
             incomeTotalAmount, currentTran, _randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(element1.formatDate(pattern: "y")!,
             expenditureTotalAmount, currentTran, _randomColor.randomColor()));
-      });
+      }
     }
 
     _allIncomeHoursData(_hourIncomeData);
@@ -603,11 +606,11 @@ class TransactionRespository extends GetxController {
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
     if (offlineTransactions.isNotEmpty) {
-      months.forEach((element1) {
+      for (var element1 in months) {
         dynamic incomeTotalAmount = 0;
         dynamic expenditureTotalAmount = 0;
         List<TransactionModel> currentTran = [];
-        offlineTransactions.forEach((element) {
+        for (var element in offlineTransactions) {
           // print(
           //     "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
@@ -685,7 +688,7 @@ class TransactionRespository extends GetxController {
             }
             currentTran.add(element);
           }
-        });
+        }
         _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "MMM")!,
             incomeTotalAmount, currentTran, _randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(
@@ -693,7 +696,7 @@ class TransactionRespository extends GetxController {
             expenditureTotalAmount,
             currentTran,
             _randomColor.randomColor()));
-      });
+      }
     }
 
     _allIncomeHoursData(_hourIncomeData);
@@ -758,11 +761,11 @@ class TransactionRespository extends GetxController {
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
     if (offlineTransactions.isNotEmpty) {
-      days.forEach((element1) {
+      for (var element1 in days) {
         dynamic incomeTotalAmount = 0;
         dynamic expenditureTotalAmount = 0;
         List<TransactionModel> currentTran = [];
-        offlineTransactions.forEach((element) {
+        for (var element in offlineTransactions) {
           // print(
           //     "monthly testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
@@ -841,7 +844,7 @@ class TransactionRespository extends GetxController {
             }
             currentTran.add(element);
           }
-        });
+        }
         _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "MMM,dd")!,
             incomeTotalAmount, currentTran, _randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(
@@ -849,7 +852,7 @@ class TransactionRespository extends GetxController {
             expenditureTotalAmount,
             currentTran,
             _randomColor.randomColor()));
-      });
+      }
     }
 
     _allIncomeHoursData(_hourIncomeData);
@@ -899,11 +902,11 @@ class TransactionRespository extends GetxController {
     List<RecordsData> _hourIncomeData = [];
     List<RecordsData> _hourExpenditureData = [];
     if (todayTransaction.isNotEmpty) {
-      hours.forEach((element1) {
+      for (var element1 in hours) {
         dynamic incomeTotalAmount = 0;
         dynamic expenditureTotalAmount = 0;
         List<TransactionModel> currentTran = [];
-        todayTransaction.forEach((element) {
+        for (var element in todayTransaction) {
           if (element.entryDateTime!.isAfter(DateTime(
                   currentDate.year,
                   currentDate.month,
@@ -930,12 +933,12 @@ class TransactionRespository extends GetxController {
             }
             currentTran.add(element);
           }
-        });
+        }
         _hourIncomeData.add(RecordsData(element1 + ":00", incomeTotalAmount,
             currentTran, _randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(element1 + ":00",
             expenditureTotalAmount, currentTran, _randomColor.randomColor()));
-      });
+      }
     }
 
     _allIncomeHoursData(_hourIncomeData);
@@ -1036,11 +1039,11 @@ class TransactionRespository extends GetxController {
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
     if (offlineTransactions.isNotEmpty) {
-      days.forEach((element1) {
+      for (var element1 in days) {
         dynamic incomeTotalAmount = 0;
         dynamic expenditureTotalAmount = 0;
         List<TransactionModel> currentTran = [];
-        offlineTransactions.forEach((element) {
+        for (var element in offlineTransactions) {
           // print(
           //     "data range testing $element1 ${element.entryDateTime!.toIso8601String()} to ${element1.toIso8601String()}");
 
@@ -1118,7 +1121,7 @@ class TransactionRespository extends GetxController {
             }
             currentTran.add(element);
           }
-        });
+        }
         _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "yMMMd")!,
             incomeTotalAmount, currentTran, _randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(
@@ -1126,7 +1129,7 @@ class TransactionRespository extends GetxController {
             expenditureTotalAmount,
             currentTran,
             _randomColor.randomColor()));
-      });
+      }
     }
 
     _allIncomeHoursData(_hourIncomeData);
@@ -1190,12 +1193,12 @@ class TransactionRespository extends GetxController {
     List<RecordsData> _pieIncome = [];
     List<RecordsData> _pieExpenditure = [];
     if (offlineTransactions.isNotEmpty) {
-      days.forEach((element1) {
+      for (var element1 in days) {
         dynamic incomeTotalAmount = 0;
         dynamic expenditureTotalAmount = 0;
         List<TransactionModel> currentTran = [];
 
-        offlineTransactions.forEach((element) {
+        for (var element in offlineTransactions) {
           // print(
           //     "weekly testing $element1 ${element.entryDateTime!.toIso8601String()}");
 
@@ -1274,12 +1277,12 @@ class TransactionRespository extends GetxController {
 
             currentTran.add(element);
           }
-        });
+        }
         _hourIncomeData.add(RecordsData(element1.formatDate(pattern: "E")!,
             incomeTotalAmount, currentTran, _randomColor.randomColor()));
         _hourExpenditureData.add(RecordsData(element1.formatDate(pattern: "E")!,
             expenditureTotalAmount, currentTran, _randomColor.randomColor()));
-      });
+      }
     }
 
     _allIncomeHoursData(_hourIncomeData);
@@ -1327,7 +1330,7 @@ class TransactionRespository extends GetxController {
     _transactionStatus(TransactionStatus.Loading);
     List<TransactionModel> _todayTransaction = [];
     final date = DateTime.now();
-    offlineTransactions.forEach((element) {
+    for (var element in offlineTransactions) {
       // print("element test date ${element.createdTime!.toIso8601String()}");
       final d = DateTime(element.entryDateTime!.year,
           element.entryDateTime!.month, element.entryDateTime!.day);
@@ -1336,7 +1339,7 @@ class TransactionRespository extends GetxController {
 
         // print("found date for today");
       }
-    });
+    }
     todayTransaction = _todayTransaction;
     await getAllPaymentItem();
     calculateOverView();
@@ -1344,11 +1347,11 @@ class TransactionRespository extends GetxController {
   }
 
   Future getTransactionYetToBeSavedLocally() async {
-    OnlineTransaction.forEach((element) {
-      if (!checkifTransactionAvailable(element.id!)) {
+    for (var element in onlineTransaction) {
+      if (!checkIfTransactionAvailable(element.id!)) {
         if (!element.isPending) pendingTransaction.add(element);
       }
-    });
+    }
     // print("does contain value ${pendingTransaction.first.isPending}");
     // print("item yet to be save yet ${pendingTransaction.length}");
     savePendingJob();
@@ -1357,15 +1360,15 @@ class TransactionRespository extends GetxController {
   // ignore: non_constant_identifier_names
   Future PendingTransaction() async {}
 
-  bool checkifTransactionAvailable(String id) {
+  bool checkIfTransactionAvailable(String id) {
     bool result = false;
-    offlineTransactions.forEach((element) {
+    for (var element in offlineTransactions) {
       // print("checking transaction whether exist");
       if (element.id == id) {
         // print("transaction   found");
         result = true;
       }
-    });
+    }
     return result;
   }
 
@@ -1379,10 +1382,10 @@ class TransactionRespository extends GetxController {
     if (pendingTransaction.isNotEmpty) {
       savePendingJob();
     }
-    GetOfflineTransactions(savenext.businessId!);
+    getOfflineTransactions(savenext.businessId!);
   }
 
-  Future getSpendings(String id) async {
+  Future getSpending(String id) async {
     final now = DateTime.now();
     var day = now.day >= 10 ? now.day.toString() : "0" + now.day.toString();
     var month =
@@ -1401,15 +1404,15 @@ class TransactionRespository extends GetxController {
       var totalIncome = json['data']['totalIncomeAmount'];
       var totalExpenses = json['data']['totalExpenditureAmount'];
       var balance = json['data']['differences'];
-      var numberofIncome = json['data']['numberOfIncomeTransactions'];
-      var numberofExpenses = json['data']['numberOfExpenditureTransactions'];
-      var Debtor = json['totalIncomeBalanceAmount'] ?? 0;
+      var numberOfIncome = json['data']['numberOfIncomeTransactions'];
+      var numberOfExpenses = json['data']['numberOfExpenditureTransactions'];
+      var debtor = json['totalIncomeBalanceAmount'] ?? 0;
       income(totalIncome);
       expenses(totalExpenses);
-      totalbalance(balance);
-      numberofexpenses(numberofExpenses);
-      numberofincome(numberofIncome);
-      debtors(Debtor);
+      totalBalance(balance);
+      numberOfExpenses(numberOfExpenses);
+      numberOfIncome(numberOfIncome);
+      debtors(debtor);
     }
   }
 
@@ -1503,14 +1506,14 @@ class TransactionRespository extends GetxController {
   Future createTransactionOnline(String type) async {
     try {
       _addingTransactionStatus(AddingTransactionStatus.Loading);
-      String? fileid;
+      String? field;
       String? customerId;
 
       if (quantityController.text.isEmpty) {
         quantityController.text = "1";
       }
       if (image != null) {
-        fileid = await _uploadImageController.uploadFile(image!.path);
+        field = await _uploadImageController.uploadFile(image!.path);
       }
 
       if (addCustomer) {
@@ -1518,8 +1521,9 @@ class TransactionRespository extends GetxController {
           customerId =
               await _customerController.addBusinessCustomerWithString(type);
         } else {
-          if (selectedCustomer != null)
+          if (selectedCustomer != null) {
             customerId = selectedCustomer!.customerId;
+          }
         }
       } else {
         customerId = null;
@@ -1538,7 +1542,7 @@ class TransactionRespository extends GetxController {
         "businessId": _businessController.selectedBusiness.value!.businessId,
         "paymentMode": selectedPaymentMode,
         "customerId": customerId,
-        "businessTransactionFileStoreId": fileid,
+        "businessTransactionFileStoreId": field,
         "expenseCategory": selectedCategoryExpenses,
         "entryDateTime": (date == null)
             ? null
@@ -1567,7 +1571,7 @@ class TransactionRespository extends GetxController {
 
         getOnlineTransaction(
             _businessController.selectedBusiness.value!.businessId!);
-        GetOfflineTransactions(
+        getOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
 
         _debtorController.getOfflineDebtor(
@@ -1597,19 +1601,18 @@ class TransactionRespository extends GetxController {
 
   TransactionModel? getTransactionById(String id) {
     TransactionModel? result;
-    offlineTransactions.forEach((element) {
+    for (var element in offlineTransactions) {
       // print("comparing with ${element.id} to $id");
       if (element.id == id) {
         result = element;
         // print("search transaction is found");
-        return;
+        continue;
       }
-    });
+    }
     return result;
   }
 
   Future createTransactionOffline(String type) async {
-    String? fileid;
     String? customerId;
     File? outFile;
     if (image != null) {
@@ -1643,19 +1646,19 @@ class TransactionRespository extends GetxController {
 
     TransactionModel? value;
 
-    dynamic totalamount = 0;
-    productList.forEach((element) {
-      totalamount = totalamount + (element.totalAmount!);
-    });
+    dynamic totalAmount = 0;
+    for (var element in productList) {
+      totalAmount = totalAmount + (element.totalAmount!);
+    }
     // print("payment mode is $selectedPaymentMode");
     value = TransactionModel(
       expenseCategory: selectedCategoryExpenses,
       paymentMethod: selectedPaymentMode,
       paymentSource: selectedPaymentSource,
       id: uuid.v1(),
-      totalAmount: totalamount,
+      totalAmount: totalAmount,
       balance: (selectedPaymentMode == "DEPOSIT")
-          ? totalamount - amountPaidController.numberValue
+          ? totalAmount - amountPaidController.numberValue
           : 0,
       createdTime: DateTime.now(),
       entryDateTime: DateTime(
@@ -1673,7 +1676,7 @@ class TransactionRespository extends GetxController {
         isPendingUpdating: true,
         amountPaid: (selectedPaymentMode == "DEPOSIT")
             ? amountPaidController.numberValue
-            : totalamount,
+            : totalAmount,
         paymentMode: selectedPaymentMode,
         createdDateTime: DateTime.now(),
         updateDateTime: DateTime.now(),
@@ -1703,7 +1706,7 @@ class TransactionRespository extends GetxController {
 
     getOnlineTransaction(
         _businessController.selectedBusiness.value!.businessId!);
-    GetOfflineTransactions(
+    getOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
 
     _userController.clearProduct();
@@ -1722,12 +1725,12 @@ class TransactionRespository extends GetxController {
     var list = await _businessController.sqliteDb.getOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
     //print("number of transaction is ${list.length}");
-    list.forEach((element) {
+    for (var element in list) {
       if (element.isPending) {
         pendingTransactionToBeAdded.add(element);
         // print("is pending to be added");
       }
-    });
+    }
     // print(
     //     "number of transaction that is yet to saved on server is ${pendingTransactionToBeAdded.length}");
     saveTransactionOnline();
@@ -1742,57 +1745,57 @@ class TransactionRespository extends GetxController {
     // print("loading transaction to server ");
     try {
 // if(!isBusyAdding){
-      var savenext = pendingTransactionToBeAdded.first;
+      var saveNext = pendingTransactionToBeAdded.first;
       isBusyAdding = true;
-      // print("saved next is ${savenext.toJson()}");
-      if (savenext.customerId != null && savenext.customerId != " ") {
+      // print("saved next is ${saveNext.toJson()}");
+      if (saveNext.customerId != null && saveNext.customerId != " ") {
         // print("saved yet customer is not null");
 
-        var customervalue = await _businessController.sqliteDb
-            .getOfflineCustomer(savenext.customerId!);
-        if (customervalue != null && customervalue.isCreatedFromTransaction!) {
+        var customerValue = await _businessController.sqliteDb
+            .getOfflineCustomer(saveNext.customerId!);
+        if (customerValue != null && customerValue.isCreatedFromTransaction!) {
           String? customerId = await _customerController
-              .addBusinessCustomerWithStringWithValue(customervalue);
-          savenext.customerId = customerId;
-          _businessController.sqliteDb.deleteCustomer(customervalue);
+              .addBusinessCustomerWithStringWithValue(customerValue);
+          saveNext.customerId = customerId;
+          _businessController.sqliteDb.deleteCustomer(customerValue);
         } else {
           // print("saved yet customer is null");
         }
       }
-      if (savenext.businessTransactionFileStoreId != null &&
-          savenext.businessTransactionFileStoreId != '') {
+      if (saveNext.businessTransactionFileStoreId != null &&
+          saveNext.businessTransactionFileStoreId != '') {
         String image = await _uploadImageController
-            .uploadFile(savenext.businessTransactionFileStoreId!);
+            .uploadFile(saveNext.businessTransactionFileStoreId!);
 
-        File _file = File(savenext.businessTransactionFileStoreId!);
-        savenext.businessTransactionFileStoreId = image;
+        File _file = File(saveNext.businessTransactionFileStoreId!);
+        saveNext.businessTransactionFileStoreId = image;
         _file.deleteSync();
       }
-      // print("server payment mode ${savenext.paymentMethod}");
+      // print("server payment mode ${saveNext.paymentMethod}");
 
-      var firstItem = savenext.businessTransactionPaymentHistoryList![0];
+      var firstItem = saveNext.businessTransactionPaymentHistoryList![0];
       // print("server first payment is ${firstItem.toJson()} ");
 
-      savenext.businessTransactionPaymentHistoryList!.remove(firstItem);
-//       savenext.businessTransactionPaymentHistoryList!.forEach((element) {
+      saveNext.businessTransactionPaymentHistoryList!.remove(firstItem);
+//       saveNext.businessTransactionPaymentHistoryList!.forEach((element) {
 // print("server rest payment is ${element.toJson()} ");
 //       });
       String body = jsonEncode({
-        "paymentItemRequestList": savenext.businessTransactionPaymentItemList!
+        "paymentItemRequestList": saveNext.businessTransactionPaymentItemList!
             .map((e) => e.toJson(""))
             .toList(),
-        "transactionType": savenext.transactionType,
-        "paymentSource": savenext.paymentSource,
-        "businessId": savenext.businessId,
-        "paymentMode": savenext.paymentMethod,
-        "customerId": savenext.customerId,
-        "expenseCategory": savenext.expenseCategory,
+        "transactionType": saveNext.transactionType,
+        "paymentSource": saveNext.paymentSource,
+        "businessId": saveNext.businessId,
+        "paymentMode": saveNext.paymentMethod,
+        "customerId": saveNext.customerId,
+        "expenseCategory": saveNext.expenseCategory,
         "businessTransactionFileStoreId":
-            savenext.businessTransactionFileStoreId,
-        "entryDateTime": savenext.entryDateTime!.toIso8601String(),
-        "amountPaid": (savenext.paymentMethod == "DEPOSIT")
+            saveNext.businessTransactionFileStoreId,
+        "entryDateTime": saveNext.entryDateTime!.toIso8601String(),
+        "amountPaid": (saveNext.paymentMethod == "DEPOSIT")
             ? firstItem.amountPaid
-            : savenext.totalAmount,
+            : saveNext.totalAmount,
 
         // "businessTransactionPaymentHistoryList":
 
@@ -1814,25 +1817,25 @@ class TransactionRespository extends GetxController {
       if (response.statusCode == 200) {
         // print("transaction response ${response.body}");
         var json = jsonDecode(response.body);
-        if (savenext.businessTransactionPaymentHistoryList!.isNotEmpty) {
+        if (saveNext.businessTransactionPaymentHistoryList!.isNotEmpty) {
           var response = TransactionModel.fromJson(json['data']);
           response.businessTransactionPaymentHistoryList =
-              savenext.businessTransactionPaymentHistoryList!;
-          await updateTransactionHisotryList(response);
+              saveNext.businessTransactionPaymentHistoryList!;
+          await updateTransactionHistoryList(response);
 //update Transaction
 
         }
-        await deleteItem(savenext);
-        var debtor = _debtorController.getDebtorByTransactionId(savenext.id!);
+        await deleteItem(saveNext);
+        var debtor = _debtorController.getDebtorByTransactionId(saveNext.id!);
         if (debtor != null) {
           _businessController.sqliteDb.deleteOfflineDebtor(debtor);
           _debtorController.getOfflineDebtor(
               _businessController.selectedBusiness.value!.businessId!);
         }
-        pendingTransactionToBeAdded.remove(savenext);
-// pendingTransaction.remove(savenext);
+        pendingTransactionToBeAdded.remove(saveNext);
+// pendingTransaction.remove(saveNext);
 
-// deletedItem.add(savenext);
+// deletedItem.add(saveNext);
         // saveTransactionOnline();
 
         if (pendingTransactionToBeAdded.isNotEmpty) {
@@ -1844,7 +1847,7 @@ class TransactionRespository extends GetxController {
 // getSpending(_businessController.selectedBusiness.value!.businessId!);
         } else {
           // print("done uploading  transaction to server ");
-          await GetOfflineTransactions(
+          await getOfflineTransactions(
               _businessController.selectedBusiness.value!.businessId!);
           getOnlineTransaction(
               _businessController.selectedBusiness.value!.businessId!);
@@ -1858,7 +1861,7 @@ class TransactionRespository extends GetxController {
 //   print("pending transaction is uploaded finished");
 //   deleteItems();
 
-        Future.delayed(Duration(seconds: 5));
+        Future.delayed(const Duration(seconds: 5));
       }
     } catch (ex) {}
   }
@@ -1868,9 +1871,9 @@ class TransactionRespository extends GetxController {
   }
 
   void deleteItems() {
-    deletedItem.forEach((element) {
+    for (var element in deletedItem) {
       _businessController.sqliteDb.deleteOfflineTransaction(element);
-    });
+    }
   }
 
   clearValue() {
@@ -1897,53 +1900,53 @@ class TransactionRespository extends GetxController {
   }
 
   Future calculateRecordOverView() async {
-    dynamic Balance = 0;
-    dynamic MoneyIn = 0;
-    dynamic Moneyout = 0;
-    allExpenditureHoursData.forEach((element) {
-      Moneyout = Moneyout + element.value;
-    });
+    dynamic balance = 0;
+    dynamic moneyIn = 0;
+    dynamic moneyOut = 0;
+    for (var element in allExpenditureHoursData) {
+      moneyOut = moneyOut + element.value;
+    }
 
-    allIncomeHoursData.forEach((element) {
-      MoneyIn = MoneyIn + element.value;
-    });
+    for (var element in allIncomeHoursData) {
+      moneyIn = moneyIn + element.value;
+    }
 
-    Balance = MoneyIn - Moneyout;
-    _recordMoneyOut(Moneyout);
-    _recordMoneyIn(MoneyIn);
-    _recordBalance(Balance);
-    // print("record money in  $MoneyIn");
+    balance = moneyIn - moneyOut;
+    _recordMoneyOut(moneyOut);
+    _recordMoneyIn(moneyIn);
+    _recordBalance(balance);
+    // print("record money in  $moneyIn");
     // print("record money out $recordMoneyOut");
-    // print("record balance $Balance");
+    // print("record balance $balance");
   }
 
   Future calculateOverView() async {
     dynamic todayBalance = 0;
     dynamic todayMoneyIn = 0;
-    dynamic todayMoneyout = 0;
+    dynamic todayMoneyOut = 0;
     // print("total transaction size is ${todayTransaction.length}");
-    todayTransaction.forEach((element) {
+    for (var element in todayTransaction) {
       if (element.totalAmount == null) {
-        return;
+        continue;
       }
       if (element.transactionType == "INCOME") {
         todayMoneyIn = todayMoneyIn + (element.totalAmount - element.balance);
       } else {
         // print("total amount is ${element.totalAmount} ${element.toJson()}");
-        todayMoneyout = todayMoneyout + (element.totalAmount - element.balance);
+        todayMoneyOut = todayMoneyOut + (element.totalAmount - element.balance);
       }
-    });
+    }
 
-    todayBalance = todayMoneyIn - todayMoneyout;
+    todayBalance = todayMoneyIn - todayMoneyOut;
     income(todayMoneyIn * 1.0);
-    expenses(todayMoneyout * 1.0);
-    totalbalance(todayBalance * 1.0);
+    expenses(todayMoneyOut * 1.0);
+    totalBalance(todayBalance * 1.0);
   }
 
   void addMoreProduct() {
     // print("qunatity text is ${amountController!.numberValue}");
     if (selectedValue == 0) {
-      if (selectedProduct != null)
+      if (selectedProduct != null) {
         productList.add(PaymentItem(
             productId: selectedProduct!.productId!,
             itemName: selectedProduct!.productName,
@@ -1962,15 +1965,17 @@ class TransactionRespository extends GetxController {
             quality: (quantityController.text.isEmpty)
                 ? 1
                 : int.parse(quantityController.text)));
+      }
     } else {
       if (itemNameController.text.isNotEmpty &&
-          amountController!.numberValue > 0)
+          amountController!.numberValue > 0) {
         productList.add(PaymentItem(
             itemName: itemNameController.text,
             quality: int.parse(quantityController.text),
             amount: amountController!.numberValue,
             totalAmount: amountController!.numberValue *
                 int.parse(quantityController.text)));
+      }
     }
 
     selectedProduct = null;
@@ -2100,7 +2105,7 @@ class TransactionRespository extends GetxController {
 
   Future updateTransaction(TransactionModel transactionModel) async {
     _businessController.sqliteDb.updateOfflineTransaction(transactionModel);
-    await GetOfflineTransactions(
+    await getOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
   }
 
@@ -2118,14 +2123,14 @@ class TransactionRespository extends GetxController {
     return result;
   }
 
-  Future checkPendingTransactionbeUpdatedToServer() async {
+  Future checkPendingTransactionBeUpdatedToServer() async {
     var list = await _businessController.sqliteDb.getOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
-    list.forEach((element) {
+    for (var element in list) {
       if (element.isHistoryPending! && !element.isPending) {
         pendingJobToBeUpdated.add(element);
       }
-    });
+    }
     pendingTransactionToBeUpdate();
   }
 
@@ -2156,18 +2161,17 @@ class TransactionRespository extends GetxController {
           // print("update history to server ${response.body}");
         }
       });
-    } catch (ex) {
     } finally {
       pendingJobToBeUpdated.remove(updatedNext);
       if (pendingJobToBeUpdated.isNotEmpty) {
-        checkPendingTransactionbeUpdatedToServer();
+        checkPendingTransactionBeUpdatedToServer();
       }
       getOnlineTransaction(
           _businessController.selectedBusiness.value!.businessId!);
     }
   }
 
-  Future updateTransactionHisotryList(TransactionModel transactionModel) async {
+  Future updateTransactionHistoryList(TransactionModel transactionModel) async {
     var updatedNext = transactionModel;
     try {
       updatedNext.businessTransactionPaymentHistoryList!
@@ -2189,7 +2193,6 @@ class TransactionRespository extends GetxController {
             });
         // print("update history to server ${response.body}");
       });
-    } catch (ex) {
     } finally {
       await getOnlineTransaction(
           _businessController.selectedBusiness.value!.businessId!);
@@ -2226,7 +2229,7 @@ class TransactionRespository extends GetxController {
         if (debtor != null) _debtorController.deleteBusinessDebtor(debtor);
         _debtorController.getOnlineDebtor(
             _businessController.selectedBusiness.value!.businessId!);
-        await GetOfflineTransactions(
+        await getOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
 
         Get.back();
@@ -2236,7 +2239,7 @@ class TransactionRespository extends GetxController {
         await _businessController.sqliteDb
             .deleteOfflineTransaction(transactionModel);
 
-        await GetOfflineTransactions(
+        await getOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
         _debtorController.getOnlineDebtor(
             _businessController.selectedBusiness.value!.businessId!);
@@ -2253,7 +2256,7 @@ class TransactionRespository extends GetxController {
     if (transactionModel.isPending) {
       _transactionStatus(TransactionStatus.Available);
       _businessController.sqliteDb.deleteOfflineTransaction(transactionModel);
-      await GetOfflineTransactions(
+      await getOfflineTransactions(
           _businessController.selectedBusiness.value!.businessId!);
 
       _userController.clearProduct();
@@ -2285,12 +2288,12 @@ class TransactionRespository extends GetxController {
     var list = await _businessController.sqliteDb.getOfflineTransactions(
         _businessController.selectedBusiness.value!.businessId!);
     // print("checking transaction to be deleted list ${list.length}");
-    list.forEach((element) {
+    for (var element in list) {
       if (element.deleted!) {
         pendingJobToBeDelete.add(element);
         // print("Transaction to be deleted is found ");
       }
-    });
+    }
     // print("Transaction to be deleted ${pendingJobToBeDelete.length}");
     deletePendingJobToServer();
   }
@@ -2310,12 +2313,11 @@ class TransactionRespository extends GetxController {
         _businessController.sqliteDb.deleteOfflineTransaction(deleteNext);
       }
       pendingJobToBeDelete.remove(deleteNext);
-    } catch (ex) {
     } finally {
       if (pendingJobToBeDelete.isNotEmpty) {
         deletePendingJobToServer();
       } else {
-        await GetOfflineTransactions(
+        await getOfflineTransactions(
             _businessController.selectedBusiness.value!.businessId!);
       }
     }

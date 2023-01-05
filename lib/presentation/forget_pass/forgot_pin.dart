@@ -6,24 +6,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/data/repository/home_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
+import 'package:huzz/data/repository/home_repository.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class ForgotPIN extends StatefulWidget {
+  const ForgotPIN({super.key});
+
   @override
   State<ForgotPIN> createState() => _ForgotPINState();
 }
 
 class _ForgotPINState extends State<ForgotPIN> {
   final _authController = Get.find<AuthRepository>();
-  final _homeController = Get.find<HomeRespository>();
+  // final _homeController = Get.find<HomeRespository>();
   StreamController<ErrorAnimationType>? errorController;
 
   String countryFlag = "NG";
   String countryCode = "234";
 
+  @override
   void initState() {
     // print('Referral deeplink: ${_authController.hasReferralDeeplink.value}');
     // print(
@@ -42,19 +45,19 @@ class _ForgotPINState extends State<ForgotPIN> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (_authController.Otpverifystatus == OtpVerifyStatus.Error) {
+      if (_authController.otpVerifyStatus == OtpVerifyStatus.Error) {
         errorController!.add(ErrorAnimationType.shake);
       }
 
       return Scaffold(
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: 100,
                   width: MediaQuery.of(context).size.width,
                   child: Stack(
@@ -69,7 +72,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                           onTap: () {
                             Get.back();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back,
                             color: AppColors.backgroundColor,
                           ),
@@ -85,11 +88,11 @@ class _ForgotPINState extends State<ForgotPIN> {
                           fontSize: 28,
                           fontWeight: FontWeight.w500)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 50, right: 50),
+                  margin: const EdgeInsets.only(left: 50, right: 50),
                   child: Text(
                     'To make sure it’s really you, we’ll send a secret code to your phone number via SMS',
                     textAlign: TextAlign.center,
@@ -97,12 +100,12 @@ class _ForgotPINState extends State<ForgotPIN> {
                         fontSize: 12, fontWeight: FontWeight.w400),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       left: 20,
                     ),
                     child: Text(
@@ -113,18 +116,18 @@ class _ForgotPINState extends State<ForgotPIN> {
                         fontWeight: FontWeight.w400,
                       ),
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
+                  margin: const EdgeInsets.only(left: 20, right: 20),
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
                         color: AppColors.backgroundColor, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -135,7 +138,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                           showCountryCode(context);
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                                 right: BorderSide(
                                     color: AppColors.backgroundColor,
@@ -146,10 +149,10 @@ class _ForgotPINState extends State<ForgotPIN> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Flag.fromString(countryFlag,
                                   height: 30, width: 30),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Icon(
@@ -162,7 +165,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
@@ -183,30 +186,31 @@ class _ForgotPINState extends State<ForgotPIN> {
                                   color: Colors.black)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                     ],
                   ),
                 ),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 Obx(() {
                   return GestureDetector(
                     onTap: () {
-                      if (_authController.Otpauthstatus !=
-                          OtpAuthStatus.Loading)
+                      if (_authController.otpAuthStatus !=
+                          OtpAuthStatus.Loading) {
                         _authController.sendForgetOtp();
+                      }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(left: 50, right: 50),
+                      margin: const EdgeInsets.only(left: 50, right: 50),
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: (_authController.Otpauthstatus ==
+                      child: (_authController.otpAuthStatus ==
                               OtpAuthStatus.Loading)
-                          ? Container(
+                          ? const SizedBox(
                               width: 30,
                               height: 30,
                               child: Center(
@@ -223,16 +227,16 @@ class _ForgotPINState extends State<ForgotPIN> {
                                   style: GoogleFonts.inter(
                                       color: Colors.white, fontSize: 18),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Container(
-                                  padding: EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
+                                  padding: const EdgeInsets.all(3),
+                                  decoration: const BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(50))),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.arrow_forward,
                                     color: AppColors.backgroundColor,
                                     size: 16,
@@ -243,7 +247,7 @@ class _ForgotPINState extends State<ForgotPIN> {
                     ),
                   );
                 }),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 )
               ]),

@@ -10,11 +10,9 @@ class Inventory extends StatefulWidget {
 class _InventoryState extends State<Inventory> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Center(
-          child: Text('Inventory'),
-        ),
+    return const Scaffold(
+      body: Center(
+        child: Text('Inventory'),
       ),
     );
   }

@@ -103,7 +103,7 @@ class Validators {
         return "Password is required";
       }
       if (value.length < minLength) {
-        return "Password must be atleast $minLength characters";
+        return "Password must be at least $minLength characters";
       }
       return null;
     };
@@ -118,7 +118,7 @@ class Validators {
         return "Password is required";
       }
       if (value.length < minLength) {
-        return "Password must be atleast $minLength characters";
+        return "Password must be at least $minLength characters";
       }
       if (value != password) {
         return error ?? "Passwords do not match";

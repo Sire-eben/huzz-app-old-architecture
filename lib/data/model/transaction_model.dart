@@ -56,9 +56,9 @@ class TransactionModel {
           : DateTime.parse(json['entryDateTime']),
       transactionType: json['transactionType'],
       paymentSource: json['paymentSource'],
-      businessTransactionFileStoreId: json['businessTransactionFileStoreId'] ?? null,
-      customerId: json['customerId'] ?? null,
-      businessId: json['businessId'] ?? null,
+      businessTransactionFileStoreId: json['businessTransactionFileStoreId'],
+      customerId: json['customerId'],
+      businessId: json['businessId'],
       deleted: json['deleted'] ?? false,
       expenseCategory: json['expenseCategory'],
       paymentMethod: json['paymentMode'],
@@ -88,7 +88,7 @@ class TransactionModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "totalAmount": totalAmount==null?0:totalAmount,
+        "totalAmount": totalAmount ?? 0,
         "createdDateTime": createdTime == null
             ? DateTime.now().toIso8601String()
             : createdTime!.toIso8601String(),
@@ -100,8 +100,8 @@ class TransactionModel {
         "paymentSource": paymentSource,
         "paymentMode": paymentMethod,
         "businessTransactionFileStoreId": businessTransactionFileStoreId ?? "",
-        "customerId": customerId ?? null,
-        "businessId": businessId ?? null,
+        "customerId": customerId,
+        "businessId": businessId,
         "deleted": deleted,
         "expenseCategory": expenseCategory,
         "balance": balance,

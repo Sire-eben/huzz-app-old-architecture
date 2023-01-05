@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/presentation/app_scaffold.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'debtorstab.dart';
 
-class DebtorsConfirmation extends StatelessWidget {
-  const DebtorsConfirmation({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class Confirmation extends StatelessWidget {
+  String text, title;
+  Confirmation({Key? key, required this.text, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class DebtorsConfirmation extends StatelessWidget {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -27,12 +30,12 @@ class DebtorsConfirmation extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SizedBox(
-            height: 20,
+          const SizedBox(
+            height: 100,
           ),
           Center(
             child: Text(
-              'Your reminder has been',
+              '$title Successfully ',
               style: GoogleFonts.inter(
                 color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
@@ -42,7 +45,7 @@ class DebtorsConfirmation extends StatelessWidget {
           ),
           Center(
             child: Text(
-              'sent successfully',
+              text,
               style: GoogleFonts.inter(
                 color: AppColors.backgroundColor,
                 fontWeight: FontWeight.w600,
@@ -50,22 +53,24 @@ class DebtorsConfirmation extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 120,
+          const SizedBox(
+            height: 50,
           ),
           Center(
             child: Image.asset(
               'assets/images/checker.png',
             ),
           ),
-          Spacer(),
+          const Spacer(),
           InkWell(
             onTap: () {
-              Get.to(DebtorsTab());
+              Get.offAll(Dashboard(
+                selectedIndex: 2,
+              ));
             },
             child: Container(
               height: 55,
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
               decoration: BoxDecoration(
@@ -73,17 +78,16 @@ class DebtorsConfirmation extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               child: Center(
                 child: Text(
-                  'Proceed',
+                  'Continue',
                   style: GoogleFonts.inter(
                     color: AppColors.whiteColor,
-                    fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
         ],

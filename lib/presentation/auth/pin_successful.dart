@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/presentation/app_scaffold.dart';
 import 'package:huzz/presentation/business/create_business.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
-class PinSuccesful extends StatelessWidget {
+class PinSuccessful extends StatelessWidget {
+  const PinSuccessful({super.key});
+
   @override
   Widget build(BuildContext context) {
     final _authController = Get.find<AuthRepository>();
     return Scaffold(
-        body: Container(
+        body: SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 100,
             width: MediaQuery.of(context).size.width,
             child: Stack(
@@ -33,7 +35,7 @@ class PinSuccesful extends StatelessWidget {
                     onTap: () {
                       Get.back();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: AppColors.backgroundColor,
                     ),
@@ -42,7 +44,7 @@ class PinSuccesful extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          SizedBox(
               width: MediaQuery.of(context).size.width * 0.5,
               child: Text(
                 "Account Created Successfully",
@@ -50,24 +52,24 @@ class PinSuccesful extends StatelessWidget {
                 style: GoogleFonts.inter(
                     fontSize: 30, color: AppColors.backgroundColor),
               )),
-          Spacer(),
+          const Spacer(),
           Center(
             child: Image.asset(
               'assets/images/checker.png',
             ),
           ),
-          Spacer(),
+          const Spacer(),
           GestureDetector(
             onTap: () {
               _authController.hasTeamInviteDeeplink.value == true
                   ? Get.offAll(() => Dashboard())
-                  : Get.to(CreateBusiness());
+                  : Get.to(const CreateBusiness());
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(left: 50, right: 50),
+              margin: const EdgeInsets.only(left: 50, right: 50),
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: AppColors.backgroundColor,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Row(
@@ -78,7 +80,7 @@ class PinSuccesful extends StatelessWidget {
                     'Proceed',
                     style: GoogleFonts.inter(color: Colors.white, fontSize: 18),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                 ],

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class TermsOfUse extends StatefulWidget {
+class FaqWebView extends StatefulWidget {
+  const FaqWebView({super.key});
+
   @override
-  _TermsOfUseState createState() => _TermsOfUseState();
+  _FaqWebViewState createState() => _FaqWebViewState();
 }
 
-class _TermsOfUseState extends State<TermsOfUse> {
+class _FaqWebViewState extends State<FaqWebView> {
   bool isLoading = true;
   final _key = UniqueKey();
   WebViewController? controller;
@@ -22,7 +24,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
             size: 16,
@@ -31,7 +33,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
         backgroundColor: AppColors.backgroundColor,
         centerTitle: true,
         title: Text(
-          'Terms of use',
+          'FAQs',
           style: GoogleFonts.inter(
             color: AppColors.whiteColor,
             fontSize: 16,
@@ -43,7 +45,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
           WillPopScope(
             onWillPop: () async {
               String? url = await controller!.currentUrl();
-              if (url == "https://huzz.africa/mobile/terms-of-use") {
+              if (url == "https://huzz.africa/mobile/faq") {
                 return true;
               } else {
                 controller!.goBack();
@@ -53,7 +55,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
             child: Builder(builder: (context) {
               return WebView(
                   key: _key,
-                  initialUrl: "https://huzz.africa/mobile/terms-of-use",
+                  initialUrl: "https://huzz.africa/mobile/faq",
                   javascriptMode: JavascriptMode.unrestricted,
                   onPageFinished: (finish) {
                     setState(() {
@@ -66,7 +68,7 @@ class _TermsOfUseState extends State<TermsOfUse> {
             }),
           ),
           isLoading
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.backgroundColor,
                   ),

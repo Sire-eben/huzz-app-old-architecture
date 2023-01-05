@@ -4,14 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Privacy extends StatefulWidget {
-  const Privacy({super.key});
+class PrivacyPolicy extends StatefulWidget {
+  const PrivacyPolicy({super.key});
 
   @override
-  _PrivacyState createState() => _PrivacyState();
+  _PrivacyPolicyState createState() => _PrivacyPolicyState();
 }
 
-class _PrivacyState extends State<Privacy> {
+class _PrivacyPolicyState extends State<PrivacyPolicy> {
   bool isLoading = true;
   final _key = UniqueKey();
   WebViewController? controller;
@@ -24,7 +24,7 @@ class _PrivacyState extends State<Privacy> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
             size: 16,
@@ -68,7 +68,7 @@ class _PrivacyState extends State<Privacy> {
             }),
           ),
           isLoading
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(
                     color: AppColors.backgroundColor,
                   ),

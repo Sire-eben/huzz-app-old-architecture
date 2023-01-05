@@ -9,9 +9,9 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_icons.dart';
 import 'package:huzz/core/constants/app_strings.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../data/repository/auth_respository.dart';
-import '../terms_of_condition.dart';
-import 'faq_webview.dart';
+import '../../data/repository/auth_repository.dart';
+import '../terms_of_use.dart';
+import 'faq_web_view.dart';
 
 class HelpsAndSupport extends StatefulWidget {
   const HelpsAndSupport({Key? key}) : super(key: key);
@@ -41,7 +41,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -81,17 +81,17 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () {
-                          Get.to(Privacy());
+                          Get.to(const PrivacyPolicy());
                         },
                         child: Ink(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Color(0xffE6F4F2),
+                            color: const Color(0xffE6F4F2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -108,14 +108,14 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   ),
                                   shape: BoxShape.circle,
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Image(
                                       image: AssetImage(AppIcons.privacyPolicy),
                                       width: 20,
                                       height: 20),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
@@ -126,7 +126,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               SvgPicture.asset(
                                 AppIcons.chevronRight,
                                 height: 20,
@@ -138,7 +138,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   //TERMS OF USE
@@ -148,17 +148,17 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () {
                           Get.to(TermsOfUse());
                         },
                         child: Ink(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Color(0xffE6F4F2),
+                            color: const Color(0xffE6F4F2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -175,14 +175,14 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   ),
                                   shape: BoxShape.circle,
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Image(
                                       image: AssetImage(AppIcons.privacyPolicy),
                                       width: 20,
                                       height: 20),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
@@ -193,7 +193,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               SvgPicture.asset(
                                 AppIcons.chevronRight,
                                 height: 20,
@@ -205,7 +205,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // FAQ
@@ -215,17 +215,17 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () {
-                          Get.to(FaqWeb());
+                          Get.to(const FaqWebView());
                         },
                         child: Ink(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Color(0xffE6F4F2),
+                            color: const Color(0xffE6F4F2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -250,7 +250,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
@@ -261,7 +261,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               SvgPicture.asset(
                                 AppIcons.chevronRight,
                                 height: 20,
@@ -273,7 +273,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // Mail
@@ -283,11 +283,11 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () async {
                           if (_authController.onlineStatus ==
                               OnlineStatus.Onilne) {
-                            final toEmail = 'info@huzz.africa';
+                            const toEmail = 'info@huzz.africa';
                             final subject = emailSubject;
                             final messageBody = emailMessage;
                             final url =
@@ -304,12 +304,12 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                           }
                         },
                         child: Ink(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Color(0xffE6F4F2),
+                            color: const Color(0xffE6F4F2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -334,7 +334,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
@@ -345,7 +345,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               SvgPicture.asset(
                                 AppIcons.chevronRight,
                                 height: 20,
@@ -357,7 +357,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // WhatsApp Connect
@@ -367,7 +367,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () async {
                           // final action = await AlertDialogs.yesCancelDialog(
                           //     context, 'Open WhatsApp', 'Click confirm to proceed');
@@ -380,12 +380,12 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                           _displayDialog(context);
                         },
                         child: Ink(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Color(0xffE6F4F2),
+                            color: const Color(0xffE6F4F2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -410,7 +410,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
@@ -421,7 +421,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               SvgPicture.asset(
                                 AppIcons.chevronRight,
                                 height: 20,
@@ -433,7 +433,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // Telegram Connect
@@ -443,7 +443,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: InkWell(
                         highlightColor:
                             AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        splashColor: AppColors.secondBgColor.withOpacity(0.3),
                         onTap: () async {
                           // final action = await AlertDialogs.yesCancelDialog(
                           //     context, 'Open WhatsApp', 'Click confirm to proceed');
@@ -456,12 +456,12 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                           _displayTelegramDialog(context);
                         },
                         child: Ink(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           height: 55,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Color(0xffE6F4F2),
+                            color: const Color(0xffE6F4F2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Row(
@@ -486,7 +486,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
@@ -497,7 +497,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                                   fontSize: 14,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               SvgPicture.asset(
                                 AppIcons.chevronRight,
                                 height: 20,
@@ -537,14 +537,14 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 280,
             ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Expanded(
@@ -559,19 +559,17 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                 ),
               ],
             ),
-            content: Container(
-              child: Text(
-                AppStrings.continueToProceed,
-                style: GoogleFonts.inter(
-                  color: AppColors.blackColor,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 11,
-                ),
+            content: Text(
+              AppStrings.continueToProceed,
+              style: GoogleFonts.inter(
+                color: AppColors.blackColor,
+                fontWeight: FontWeight.normal,
+                fontSize: 11,
               ),
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -585,7 +583,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -614,7 +612,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -645,14 +643,14 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 280,
             ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Expanded(
@@ -667,19 +665,17 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                 ),
               ],
             ),
-            content: Container(
-              child: Text(
-                AppStrings.continueToProceed,
-                style: GoogleFonts.inter(
-                  color: AppColors.blackColor,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 11,
-                ),
+            content: Text(
+              AppStrings.continueToProceed,
+              style: GoogleFonts.inter(
+                color: AppColors.blackColor,
+                fontWeight: FontWeight.normal,
+                fontSize: 11,
               ),
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -693,7 +689,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -722,7 +718,7 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(

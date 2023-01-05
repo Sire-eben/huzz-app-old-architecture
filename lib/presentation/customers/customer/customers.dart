@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/presentation/customers/customers/add_customer.dart';
@@ -20,25 +20,25 @@ class Customers extends StatefulWidget {
 }
 
 class _CustomersState extends State<Customers> {
-  final _searchcontroller = TextEditingController();
-  RandomColor _randomColor = RandomColor();
+  final _searchController = TextEditingController();
+  final RandomColor _randomColor = RandomColor();
   final _customerController = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();
-  String searchtext = "";
+  String searchText = "";
   List<Customer> searchResult = [];
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
 
   void searchItem(String val) {
     // print("search text $val");
-    searchtext = val;
+    searchText = val;
     setState(() {});
 
     searchResult.clear();
-    _customerController.customerCustomer.forEach((element) {
+    for (var element in _customerController.customerCustomer) {
       if (element.name!.toLowerCase().contains(val.toLowerCase())) {
         searchResult.add(element);
       }
-    });
+    }
     setState(() {});
   }
 
@@ -67,18 +67,18 @@ class _CustomersState extends State<Customers> {
                         fontWeight: FontWeight.w400,
                         color: AppColors.backgroundColor,
                       ),
-                      controller: _searchcontroller,
+                      controller: _searchController,
                       cursorColor: Colors.white,
                       autofocus: false,
                       onChanged: searchItem,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(
+                        prefixIcon: const Icon(
                           Icons.search,
                           color: AppColors.backgroundColor,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(0),
-                          borderSide: BorderSide(color: Colors.black12),
+                          borderSide: const BorderSide(color: Colors.black12),
                         ),
                         fillColor: Colors.white,
                         filled: true,
@@ -88,18 +88,18 @@ class _CustomersState extends State<Customers> {
                           fontWeight: FontWeight.w400,
                           color: Colors.grey,
                         ),
-                        contentPadding: EdgeInsets.only(
+                        contentPadding: const EdgeInsets.only(
                             left: 16, right: 8, top: 8, bottom: 8),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             width: 2,
                             color: AppColors.backgroundColor,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             width: 2,
                             color: AppColors.backgroundColor,
                           ),
@@ -117,7 +117,7 @@ class _CustomersState extends State<Customers> {
                               bottom:
                                   MediaQuery.of(context).size.height * 0.02),
                           decoration: BoxDecoration(
-                            color: Color(0xffF5F5F5),
+                            color: const Color(0xffF5F5F5),
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                                 width: 2, color: Colors.grey.withOpacity(0.2)),
@@ -128,7 +128,7 @@ class _CustomersState extends State<Customers> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SvgPicture.asset('assets/images/customers.svg'),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Text(
                                   'Customer',
                                   style: GoogleFonts.inter(
@@ -136,7 +136,7 @@ class _CustomersState extends State<Customers> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Text(
                                   'Your customers will show here.',
                                   style: GoogleFonts.inter(
@@ -144,7 +144,7 @@ class _CustomersState extends State<Customers> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 Text(
                                   'You need to be authorized\nto view this module',
                                   style: GoogleFonts.inter(
@@ -168,13 +168,13 @@ class _CustomersState extends State<Customers> {
                           padding: EdgeInsets.only(
                               bottom:
                                   MediaQuery.of(context).size.height * 0.02),
-                          child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                          child: (searchText.isEmpty || searchResult.isNotEmpty)
                               ? (_customerController
                                       .customerCustomer.isNotEmpty)
                                   ? RefreshIndicator(
                                       onRefresh: () async {
                                         return Future.delayed(
-                                            Duration(seconds: 1), () {
+                                            const Duration(seconds: 1), () {
                                           _customerController.getOnlineCustomer(
                                               value!.businessId!);
                                           _customerController
@@ -185,7 +185,7 @@ class _CustomersState extends State<Customers> {
                                       child: (_customerController
                                                   .customerStatus ==
                                               CustomerStatus.Loading)
-                                          ? Center(
+                                          ? const Center(
                                               child:
                                                   CircularProgressIndicator())
                                           : (_customerController
@@ -195,11 +195,11 @@ class _CustomersState extends State<Customers> {
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   physics:
-                                                      AlwaysScrollableScrollPhysics(),
+                                                      const AlwaysScrollableScrollPhysics(),
                                                   shrinkWrap: true,
                                                   separatorBuilder:
                                                       (context, index) =>
-                                                          Divider(),
+                                                          const Divider(),
                                                   itemCount:
                                                       (searchResult.isEmpty)
                                                           ? _customerController
@@ -219,7 +219,7 @@ class _CustomersState extends State<Customers> {
                                                         Expanded(
                                                             child: Container(
                                                           margin:
-                                                              EdgeInsets.only(
+                                                              const EdgeInsets.only(
                                                                   bottom: 10),
                                                           child: Align(
                                                             alignment: Alignment
@@ -238,7 +238,7 @@ class _CustomersState extends State<Customers> {
                                                                           item.name!
                                                                               .isEmpty
                                                                       ? ""
-                                                                      : '${item.name![0]}',
+                                                                      : item.name![0],
                                                                   style: GoogleFonts.inter(
                                                                       fontSize:
                                                                           30,
@@ -258,33 +258,31 @@ class _CustomersState extends State<Customers> {
                                                                 0.02),
                                                         Expanded(
                                                           flex: 3,
-                                                          child: Container(
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  item.name!,
-                                                                  style: GoogleFonts.inter(
-                                                                      fontSize:
-                                                                          12,
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400),
-                                                                ),
-                                                                Text(
-                                                                  item.phone!,
-                                                                  style: GoogleFonts.inter(
-                                                                      fontSize:
-                                                                          12,
-                                                                      color: Colors
-                                                                          .grey),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                item.name!,
+                                                                style: GoogleFonts.inter(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400),
+                                                              ),
+                                                              Text(
+                                                                item.phone!,
+                                                                style: GoogleFonts.inter(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                         GestureDetector(
@@ -301,7 +299,7 @@ class _CustomersState extends State<Customers> {
                                                                 'assets/images/edit.svg')),
                                                         Row(
                                                           children: [
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               width: 10,
                                                             ),
                                                             GestureDetector(
@@ -322,8 +320,8 @@ class _CustomersState extends State<Customers> {
                                               : (_customerController
                                                           .customerStatus ==
                                                       CustomerStatus.Empty)
-                                                  ? Text('No Item')
-                                                  : Text('Empty'),
+                                                  ? const Text('No Item')
+                                                  : const Text('Empty'),
                                     )
                                   : Container(
                                       padding: EdgeInsets.only(
@@ -340,7 +338,7 @@ class _CustomersState extends State<Customers> {
                                                   .height *
                                               0.02),
                                       decoration: BoxDecoration(
-                                        color: Color(0xffF5F5F5),
+                                        color: const Color(0xffF5F5F5),
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
                                             width: 2,
@@ -356,7 +354,7 @@ class _CustomersState extends State<Customers> {
                                           children: [
                                             SvgPicture.asset(
                                                 'assets/images/customers.svg'),
-                                            SizedBox(height: 5),
+                                            const SizedBox(height: 5),
                                             Text(
                                               'Customer',
                                               style: GoogleFonts.inter(
@@ -364,7 +362,7 @@ class _CustomersState extends State<Customers> {
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w600),
                                             ),
-                                            SizedBox(height: 5),
+                                            const SizedBox(height: 5),
                                             Text(
                                               'Your customers will show here. Click the',
                                               style: GoogleFonts.inter(
@@ -383,11 +381,9 @@ class _CustomersState extends State<Customers> {
                                         ),
                                       ),
                                     )
-                              : Container(
-                                  child: Center(
-                                    child: Text("No Customer Found"),
-                                  ),
-                                ),
+                              : const Center(
+                                child: Text("No Customer Found"),
+                              ),
                         ))
                       ] else ...[
                         Expanded(
@@ -395,13 +391,13 @@ class _CustomersState extends State<Customers> {
                           padding: EdgeInsets.only(
                               bottom:
                                   MediaQuery.of(context).size.height * 0.02),
-                          child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                          child: (searchText.isEmpty || searchResult.isNotEmpty)
                               ? (_customerController
                                       .customerCustomer.isNotEmpty)
                                   ? RefreshIndicator(
                                       onRefresh: () async {
                                         return Future.delayed(
-                                            Duration(seconds: 1), () {
+                                            const Duration(seconds: 1), () {
                                           _customerController.getOnlineCustomer(
                                               value!.businessId!);
                                           _customerController
@@ -412,7 +408,7 @@ class _CustomersState extends State<Customers> {
                                       child: (_customerController
                                                   .customerStatus ==
                                               CustomerStatus.Loading)
-                                          ? Center(
+                                          ? const Center(
                                               child:
                                                   CircularProgressIndicator())
                                           : (_customerController
@@ -422,11 +418,11 @@ class _CustomersState extends State<Customers> {
                                                   scrollDirection:
                                                       Axis.vertical,
                                                   physics:
-                                                      AlwaysScrollableScrollPhysics(),
+                                                      const AlwaysScrollableScrollPhysics(),
                                                   shrinkWrap: true,
                                                   separatorBuilder:
                                                       (context, index) =>
-                                                          Divider(),
+                                                          const Divider(),
                                                   itemCount:
                                                       (searchResult.isEmpty)
                                                           ? _customerController
@@ -446,7 +442,7 @@ class _CustomersState extends State<Customers> {
                                                         Expanded(
                                                             child: Container(
                                                           margin:
-                                                              EdgeInsets.only(
+                                                              const EdgeInsets.only(
                                                                   bottom: 10),
                                                           child: Align(
                                                             alignment: Alignment
@@ -465,7 +461,7 @@ class _CustomersState extends State<Customers> {
                                                                           item.name!
                                                                               .isEmpty
                                                                       ? ""
-                                                                      : '${item.name![0]}',
+                                                                      : item.name![0],
                                                                   style: GoogleFonts.inter(
                                                                       fontSize:
                                                                           30,
@@ -485,33 +481,31 @@ class _CustomersState extends State<Customers> {
                                                                 0.02),
                                                         Expanded(
                                                           flex: 3,
-                                                          child: Container(
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  item.name!,
-                                                                  style: GoogleFonts.inter(
-                                                                      fontSize:
-                                                                          12,
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400),
-                                                                ),
-                                                                Text(
-                                                                  item.phone!,
-                                                                  style: GoogleFonts.inter(
-                                                                      fontSize:
-                                                                          12,
-                                                                      color: Colors
-                                                                          .grey),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                item.name!,
+                                                                style: GoogleFonts.inter(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400),
+                                                              ),
+                                                              Text(
+                                                                item.phone!,
+                                                                style: GoogleFonts.inter(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .grey),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                         (teamController.teamMember
@@ -546,7 +540,7 @@ class _CustomersState extends State<Customers> {
                                                                         'DELETE_CUSTOMER'))
                                                             ? Row(
                                                                 children: [
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 10,
                                                                   ),
                                                                   GestureDetector(
@@ -569,8 +563,8 @@ class _CustomersState extends State<Customers> {
                                               : (_customerController
                                                           .customerStatus ==
                                                       CustomerStatus.Empty)
-                                                  ? Text('No Item')
-                                                  : Text('Empty'),
+                                                  ? const Text('No Item')
+                                                  : const Text('Empty'),
                                     )
                                   : Container(
                                       padding: EdgeInsets.only(
@@ -587,7 +581,7 @@ class _CustomersState extends State<Customers> {
                                                   .height *
                                               0.02),
                                       decoration: BoxDecoration(
-                                        color: Color(0xffF5F5F5),
+                                        color: const Color(0xffF5F5F5),
                                         borderRadius: BorderRadius.circular(10),
                                         border: Border.all(
                                             width: 2,
@@ -611,7 +605,7 @@ class _CustomersState extends State<Customers> {
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w600),
                                             ),
-                                            SizedBox(height: 5),
+                                            const SizedBox(height: 5),
                                             Text(
                                               'Your customers will show here. Click the',
                                               style: GoogleFonts.inter(
@@ -630,11 +624,10 @@ class _CustomersState extends State<Customers> {
                                         ),
                                       ),
                                     )
-                              : Container(
-                                  child: Center(
-                                    child: Text("No Customer Found"),
-                                  ),
-                                ),
+                              : const Center(
+
+                                child: Text("No Customer Found"),
+                              ),
                         ))
                       ],
                     ],
@@ -651,7 +644,7 @@ class _CustomersState extends State<Customers> {
                       onPressed: () {
                         Get.to(() => AddCustomer());
                       },
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                       backgroundColor: AppColors.backgroundColor,
                       label: Text(
                         'Add Customer',
@@ -667,7 +660,7 @@ class _CustomersState extends State<Customers> {
                           onPressed: () {
                             Get.to(() => AddCustomer());
                           },
-                          icon: Icon(Icons.add),
+                          icon: const Icon(Icons.add),
                           backgroundColor: AppColors.backgroundColor,
                           label: Text(
                             'Add Customer',
@@ -686,7 +679,7 @@ class _CustomersState extends State<Customers> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 300,
             ),
@@ -712,7 +705,7 @@ class _CustomersState extends State<Customers> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -727,7 +720,7 @@ class _CustomersState extends State<Customers> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -759,7 +752,7 @@ class _CustomersState extends State<Customers> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(

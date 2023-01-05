@@ -3,11 +3,11 @@ import "package:flutter/material.dart";
 
 class AppColors {
   AppColors._();
-  static const Color lightbackgroundColor = Color(0xffE6F4F2);
+  static const Color lightBackgroundColor = Color(0xffE6F4F2);
   static const Color orangeBorderColor = Color(0xFFEF6500);
   static const Color primaryColor = Color(0xff07A58E);
   static const Color backgroundColor = Color(0xff07A58E);
-  static const Color secondbgColor = Color(0xff0D8372);
+  static const Color secondBgColor = Color(0xff0D8372);
   static const Color orangeColor = Color(0xffF4D8C4);
   static const Color whiteColor = Color(0xffffffff);
   static const Color blackColor = Color(0xff000000);
@@ -15,7 +15,7 @@ class AppColors {
   static const Color hintColor = Color(0xffC4C4C4);
   static const Color wineColor = Color(0xffC82525);
   static const Color blueColor = Color(0xff0065D3);
-  static const Color lightblueColor = Color(0xff56718E);
+  static const Color lightBlueColor = Color(0xff56718E);
   static const Color brownColor = Color(0xffA0616A);
   static const Color error = Color(0xffEF6500);
 }
@@ -24,7 +24,7 @@ class AppThemes {
   AppThemes._();
 
   static TextStyle style12PriBold = GoogleFonts.inter(
-    color: Color(0xff07A58E),
+    color: const Color(0xff07A58E),
     fontStyle: FontStyle.normal,
     fontSize: 12,
     fontWeight: FontWeight.w600,

@@ -8,7 +8,7 @@ class TeamsWidget extends StatelessWidget {
   final Widget? deleteAction;
   final Widget? editAction;
   final Widget? status;
-  TeamsWidget({
+  const TeamsWidget({
     Key? key,
     this.name,
     this.position,
@@ -62,7 +62,7 @@ class TeamsWidget extends StatelessWidget {
                       color: AppColors.blackColor,
                       fontWeight: FontWeight.w500),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     Text(
@@ -72,7 +72,7 @@ class TeamsWidget extends StatelessWidget {
                           color: AppColors.blackColor,
                           fontWeight: FontWeight.w400),
                     ),
-                    SizedBox(width: 40),
+                    const SizedBox(width: 40),
                     status!
                   ],
                 ),
@@ -90,7 +90,7 @@ class TeamsWidget extends StatelessWidget {
 class NoTeamsWidget extends StatelessWidget {
   final String? fName, lName, position;
 
-  NoTeamsWidget({
+  const NoTeamsWidget({
     Key? key,
     this.fName,
     this.lName,
@@ -113,7 +113,7 @@ class NoTeamsWidget extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Container(
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: AppColors.backgroundColor),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -130,7 +130,7 @@ class NoTeamsWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -143,7 +143,7 @@ class NoTeamsWidget extends StatelessWidget {
                         color: AppColors.blackColor,
                         fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(width: 2),
+                  const SizedBox(width: 2),
                   Text(
                     lName!,
                     style: GoogleFonts.inter(
@@ -153,7 +153,7 @@ class NoTeamsWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 position!,
                 style: GoogleFonts.inter(

@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/presentation/reg_home.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/onboarding_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class OnboardingMain extends StatefulWidget {
-  const OnboardingMain({super.key});
+class OnBoardingMain extends StatefulWidget {
+  const OnBoardingMain({super.key});
 
   @override
-  _OnboardingMainState createState() => _OnboardingMainState();
+  _OnBoardingMainState createState() => _OnBoardingMainState();
 }
 
-class _OnboardingMainState extends State<OnboardingMain> {
+class _OnBoardingMainState extends State<OnBoardingMain> {
   int selectedIndex = 0;
   List<OnBoardingModel> boards = OnBoardingModel.values;
   final _authController = Get.find<AuthRepository>();

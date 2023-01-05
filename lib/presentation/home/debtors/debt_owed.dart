@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/presentation/home/debtors/debt_updated_success.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/presentation/widget/custom_form_field.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/debtor.dart';
@@ -34,7 +34,7 @@ class _DebtOwnedState extends State<DebtOwned> {
   final _customerRepository = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();
 
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
   final itemNameController = TextEditingController();
   final amountController = TextEditingController();
   final quantityController = TextEditingController();
@@ -65,7 +65,7 @@ class _DebtOwnedState extends State<DebtOwned> {
           ? Stack(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 14,
                   ),
@@ -78,7 +78,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                       ] else ...[
                         Container(
                           height: 95,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: AppColors.backgroundColor,
                             borderRadius: BorderRadius.all(
                               Radius.circular(15),
@@ -116,23 +116,23 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 child: Container(
                                   height: 95,
                                   decoration: BoxDecoration(
-                                    color: AppColors.secondbgColor,
+                                    color: AppColors.secondBgColor,
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
-                                      stops: [
+                                      stops: const [
                                         0.1,
                                         0.6,
                                         0.8,
                                       ],
                                       colors: [
-                                        Color(0xff0D8372),
-                                        Color(0xff07A58E),
+                                        const Color(0xff0D8372),
+                                        const Color(0xff07A58E),
                                         AppColors.backgroundColor
                                             .withOpacity(0.5),
                                       ],
                                     ),
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(15),
                                       bottomRight: Radius.circular(15),
                                     ),
@@ -162,9 +162,9 @@ class _DebtOwnedState extends State<DebtOwned> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 14),
+                        const SizedBox(height: 14),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
@@ -172,7 +172,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
                               value: value,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.keyboard_arrow_down,
                                 size: 14,
                                 color: AppColors.backgroundColor,
@@ -190,7 +190,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                           ),
                         ),
                       ],
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Expanded(
                         child: ((value == "Pending")
                                 ? (_debtorRepository.debtOwnedList.isEmpty)
@@ -198,7 +198,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     .fullyPaidDebtOwned.isEmpty))
                             ? Container(
                                 decoration: BoxDecoration(
-                                  color: Color(0xffF5F5F5),
+                                  color: const Color(0xffF5F5F5),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
@@ -213,7 +213,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         width: 50,
                                         color: AppColors.backgroundColor,
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       Text(
                                         'Add Debt Owed',
                                         style: GoogleFonts.inter(
@@ -221,7 +221,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      SizedBox(height: 5),
+                                      const SizedBox(height: 5),
                                       Text(
                                         _debtorRepository.debtorStatus !=
                                                 DebtorStatus.UnAuthorized
@@ -242,7 +242,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                           ),
                                         ),
                                       ],
-                                      SizedBox(height: 20),
+                                      const SizedBox(height: 20),
                                       if (_debtorRepository.debtorStatus ==
                                           DebtorStatus.UnAuthorized) ...[
                                         Text(
@@ -262,7 +262,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                             : ListView.separated(
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
-                                separatorBuilder: (context, index) => Divider(),
+                                separatorBuilder: (context, index) =>
+                                    const Divider(),
                                 itemCount: ((value == "Pending")
                                     ? (_debtorRepository.debtOwnedList.length)
                                     : (_debtorRepository
@@ -273,7 +274,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       : (_debtorRepository
                                           .fullyPaidDebtOwned))[index];
                                   var customer = _customerRepository
-                                      .checkifCustomerAvailableWithValue(
+                                      .checkIfCustomerAvailableWithValue(
                                           item.customerId!);
 
                                   return (customer == null)
@@ -282,8 +283,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                           children: [
                                             Expanded(
                                                 child: Container(
-                                              margin:
-                                                  EdgeInsets.only(bottom: 10),
+                                              margin: const EdgeInsets.only(
+                                                  bottom: 10),
                                               child: Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Container(
@@ -299,9 +300,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               customer.name !=
                                                                   null &&
                                                               customer.name!
-                                                                      .length >
-                                                                  0
-                                                          ? '${customer.name![0]}'
+                                                                  .isNotEmpty
+                                                          ? customer.name![0]
                                                           : "",
                                                       style: GoogleFonts.inter(
                                                           fontSize: 30,
@@ -318,53 +318,49 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                     0.02),
                                             Expanded(
                                               flex: 4,
-                                              child: Container(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      customer.name!,
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 12,
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    Text(
-                                                      customer.phone!,
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 12,
-                                                          color: Colors.grey),
-                                                    ),
-                                                  ],
-                                                ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    customer.name!,
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 12,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
+                                                  Text(
+                                                    customer.phone!,
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 12,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             Expanded(
                                               flex: 4,
-                                              child: Container(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Balance: ${Utils.getCurrency()}${display(item.balance!)}",
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 13,
-                                                          color: AppColors
-                                                              .orangeBorderColor,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    Text(
-                                                      "Paid: ${Utils.getCurrency()}${display((item.totalAmount! - item.balance!))}",
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 11,
-                                                          color: Colors.grey),
-                                                    ),
-                                                  ],
-                                                ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Balance: ${Utils.getCurrency()}${display(item.balance!)}",
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 13,
+                                                        color: AppColors
+                                                            .orangeBorderColor,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
+                                                  Text(
+                                                    "Paid: ${Utils.getCurrency()}${display((item.totalAmount! - item.balance!))}",
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 11,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             Expanded(
@@ -387,16 +383,16 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                                 .isNotEmpty) {
                                                           final _transactionController =
                                                               Get.find<
-                                                                  TransactionRespository>();
-                                                          final Titem =
+                                                                  TransactionRepository>();
+                                                          final tItem =
                                                               _transactionController
                                                                   .getTransactionById(
                                                                       item.businessTransactionId!);
-                                                          if (Titem != null) {
+                                                          if (tItem != null) {
                                                             //  Get.snackbar("Error","Going to transaction page");
                                                             Get.to(() =>
-                                                                MoneySummary(
-                                                                  item: Titem
+                                                                MoneyHistory(
+                                                                  item: tItem
                                                                       .businessTransactionPaymentItemList![0],
                                                                   pageCheck:
                                                                       false,
@@ -408,7 +404,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                           }
                                                         } else {
                                                           showModalBottomSheet(
-                                                              shape: RoundedRectangleBorder(
+                                                              shape: const RoundedRectangleBorder(
                                                                   borderRadius:
                                                                       BorderRadius.vertical(
                                                                           top: Radius.circular(
@@ -425,7 +421,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                           'assets/images/edit_pri.svg'))
                                                   : Container(),
                                             ),
-                                            SizedBox(width: 4),
+                                            const SizedBox(width: 4),
                                             (teamController.teamMember
                                                             .teamMemberStatus ==
                                                         'CREATOR' ||
@@ -442,7 +438,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                                   .deletingItem
                                                                   .value ==
                                                               item
-                                                          ? CupertinoActivityIndicator(
+                                                          ? const CupertinoActivityIndicator(
                                                               radius: 10,
                                                             )
                                                           : SvgPicture.asset(
@@ -456,7 +452,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                         );
                                 }),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       if (_debtorRepository.debtorStatus ==
                           DebtorStatus.UnAuthorized) ...[
                         Container(),
@@ -469,7 +465,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 onTap: () {
                                   showModalBottomSheet(
                                       isScrollControlled: true,
-                                      shape: RoundedRectangleBorder(
+                                      shape: const RoundedRectangleBorder(
                                           borderRadius: BorderRadius.vertical(
                                               top: Radius.circular(20))),
                                       context: context,
@@ -483,12 +479,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.add,
                                         size: 22,
                                         color: AppColors.whiteColor,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 5,
                                       ),
                                       Center(
@@ -507,7 +503,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                               )
                             : Container(),
                       ],
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),
@@ -523,7 +519,7 @@ class _DebtOwnedState extends State<DebtOwned> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
             ),
             title: Text(
@@ -544,7 +540,7 @@ class _DebtOwnedState extends State<DebtOwned> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -558,7 +554,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -581,7 +577,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: InkWell(
                         onTap: () async {
@@ -590,7 +586,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -645,7 +641,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
@@ -657,7 +653,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -726,114 +722,110 @@ class _DebtOwnedState extends State<DebtOwned> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     statusType == 0
-                        ? Container(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Amount',
-                                      style: GoogleFonts.inter(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 5),
-                                      child: Text(
-                                        "*",
-                                        style: GoogleFonts.inter(
-                                            color: Colors.red, fontSize: 12),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      'Balance: ${Utils.getCurrency()}${display(debtor.balance)}',
-                                      style: GoogleFonts.inter(
-                                        color: AppColors.orangeBorderColor,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Text(
-                                      // debtOwnedModel.balance!,
-                                      '',
-                                      style: GoogleFonts.inter(
-                                        color: AppColors.orangeBorderColor,
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        : Container(),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    (statusType == 0)
-                        ? Container(
-                            child: TextFormField(
-                              controller: textEditingController,
-                              keyboardType: TextInputType.number,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "Amount is needed";
-                                } else if (int.parse(value) > debtor.balance) {
-                                  return "Amount must be between the range of balance";
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                isDense: true,
-
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColors.backgroundColor,
-                                        width: 2),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColors.backgroundColor,
-                                        width: 2),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColors.backgroundColor,
-                                        width: 2),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                // labelText: label,
-                                hintText: '${Utils.getCurrency()} 0.00',
-
-                                hintStyle: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(
-                                      color: Colors.black26,
-                                      fontSize: 14,
+                        ? Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Amount',
+                                    style: GoogleFonts.inter(
+                                      color: Colors.black,
+                                      fontSize: 16,
                                       fontStyle: FontStyle.normal,
                                       fontWeight: FontWeight.normal,
                                     ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 5),
+                                    child: Text(
+                                      "*",
+                                      style: GoogleFonts.inter(
+                                          color: Colors.red, fontSize: 12),
+                                    ),
+                                  ),
+                                ],
                               ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'Balance: ${Utils.getCurrency()}${display(debtor.balance)}',
+                                    style: GoogleFonts.inter(
+                                      color: AppColors.orangeBorderColor,
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(
+                                    // debtOwnedModel.balance!,
+                                    '',
+                                    style: GoogleFonts.inter(
+                                      color: AppColors.orangeBorderColor,
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    (statusType == 0)
+                        ? TextFormField(
+                            controller: textEditingController,
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Amount is needed";
+                              } else if (int.parse(value) > debtor.balance) {
+                                return "Amount must be between the range of balance";
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              isDense: true,
+
+                              focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColors.backgroundColor,
+                                      width: 2),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColors.backgroundColor,
+                                      width: 2),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: AppColors.backgroundColor,
+                                      width: 2),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              // labelText: label,
+                              hintText: '${Utils.getCurrency()} 0.00',
+
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .headline4!
+                                  .copyWith(
+                                    color: Colors.black26,
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.normal,
+                                    fontWeight: FontWeight.normal,
+                                  ),
                             ),
                           )
                         : Container()
@@ -853,7 +845,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                             statusType == 1
                                 ? debtor.balance
                                 : int.parse(textEditingController.text));
-                        Get.to(DebtUpdatedSuccess());
+                        Get.to(const DebtUpdatedSuccess());
                       }
                     }
                   },
@@ -861,13 +853,13 @@ class _DebtOwnedState extends State<DebtOwned> {
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
                         child: (_debtorRepository.addingDebtorStatus ==
                                 AddingDebtorStatus.Loading)
-                            ? Container(
+                            ? const SizedBox(
                                 width: 30,
                                 height: 30,
                                 child: Center(
@@ -885,7 +877,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                     );
                   }),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
               ],
@@ -905,7 +897,7 @@ class _DebtOwnedState extends State<DebtOwned> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Center(
@@ -918,7 +910,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               InkWell(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -932,12 +924,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: newCustomersInfo(),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Obx(() {
@@ -975,12 +967,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                     margin: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     height: 50,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_debtorRepository.addingDebtorStatus ==
                             AddingDebtorStatus.Loading)
-                        ? Container(
+                        ? const SizedBox(
                             width: 30,
                             height: 30,
                             child: Center(
@@ -990,12 +982,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.add,
                                 size: 22,
                                 color: AppColors.whiteColor,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Center(
@@ -1012,7 +1004,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   ),
                 );
               }),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               )
             ],
@@ -1086,7 +1078,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               GestureDetector(
                                 onTap: () {
                                   _customerRepository
@@ -1097,7 +1089,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                     SvgPicture.asset(
                                       'assets/images/select_from_contact.svg',
                                     ),
-                                    SizedBox(width: 5),
+                                    const SizedBox(width: 5),
                                     Text(
                                       "Select from Contact",
                                       style: GoogleFonts.inter(
@@ -1107,7 +1099,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               CustomTextFieldInvoiceOptional(
                                 label: 'Name',
                                 keyType: TextInputType.name,
@@ -1128,7 +1120,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
                                 keyType: Platform.isIOS
-                                    ? TextInputType.numberWithOptions(
+                                    ? const TextInputType.numberWithOptions(
                                         signed: true, decimal: true)
                                     : TextInputType.number,
                                 textEditingController:
@@ -1149,7 +1141,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                       fontSize: 12,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Text(
@@ -1161,12 +1153,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 4),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
@@ -1176,7 +1168,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<Customer>(
                                     value: _debtorRepository.selectedCustomer,
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.keyboard_arrow_down,
                                       color: AppColors.backgroundColor,
                                     ),
@@ -1208,7 +1200,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
                                 keyType: Platform.isIOS
-                                    ? TextInputType.numberWithOptions(
+                                    ? const TextInputType.numberWithOptions(
                                         signed: true, decimal: true)
                                     : TextInputType.number,
                                 validatorText: "Amount you owe is required",
@@ -1229,22 +1221,22 @@ class _DebtOwnedState extends State<DebtOwned> {
       DropdownMenuItem(
         value: item,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           height: 50,
           decoration: BoxDecoration(
             border: Border.all(
               width: 1,
-              color: Color(0xffCFD1D2),
+              color: const Color(0xffCFD1D2),
             ),
             borderRadius: BorderRadius.circular(10),
-            color: Color(0xffDCF2EF),
+            color: const Color(0xffDCF2EF),
           ),
           child: Row(
             children: [
               Container(
                 height: 30,
                 width: 30,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppColors.blueColor,
                 ),
@@ -1257,7 +1249,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                       )),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Center(
@@ -1266,7 +1258,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   style: GoogleFonts.inter(fontSize: 12),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Center(
@@ -1292,7 +1284,7 @@ class _DebtOwnedState extends State<DebtOwned> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
@@ -1303,7 +1295,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                     borderRadius: BorderRadius.circular(10)),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              CustomTextField(
+              const CustomTextField(
                 label: "Enter Name *",
                 validatorText: "merchant name is needed",
                 hint: 'E.g.  Debtors Name',
@@ -1317,12 +1309,12 @@ class _DebtOwnedState extends State<DebtOwned> {
                       hint: '₦0',
                       inputformater: [FilteringTextInputFormatter.digitsOnly],
                       keyType: Platform.isIOS
-                          ? TextInputType.numberWithOptions(
+                          ? const TextInputType.numberWithOptions(
                               signed: true, decimal: true)
                           : TextInputType.number,
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: CustomTextField(
                       label: "Select Product",
                       validatorText: "Select Product ",
@@ -1339,7 +1331,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   margin: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.height * 0.03),
                   height: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
@@ -1353,7 +1345,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               )
             ],
@@ -1392,51 +1384,47 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
         SizedBox(width: MediaQuery.of(context).size.width * 0.02),
         Expanded(
           flex: 5,
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'name',
-                  style: GoogleFonts.inter(
-                      fontSize: 12,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400),
-                ),
-                Text(
-                  'phone',
-                  style: GoogleFonts.inter(fontSize: 12, color: Colors.grey),
-                ),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'name',
+                style: GoogleFonts.inter(
+                    fontSize: 12,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400),
+              ),
+              Text(
+                'phone',
+                style: GoogleFonts.inter(fontSize: 12, color: Colors.grey),
+              ),
+            ],
           ),
         ),
         Expanded(
           flex: 3,
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Balance: ${widget.item!.balance!}",
-                  style: GoogleFonts.inter(
-                      fontSize: 13,
-                      color: AppColors.backgroundColor,
-                      fontWeight: FontWeight.w400),
-                ),
-                Text(
-                  "Paid: ${(widget.item!.totalAmount! - widget.item!.balance!)}",
-                  style: GoogleFonts.inter(fontSize: 11, color: Colors.grey),
-                ),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Balance: ${widget.item!.balance!}",
+                style: GoogleFonts.inter(
+                    fontSize: 13,
+                    color: AppColors.backgroundColor,
+                    fontWeight: FontWeight.w400),
+              ),
+              Text(
+                "Paid: ${(widget.item!.totalAmount! - widget.item!.balance!)}",
+                style: GoogleFonts.inter(fontSize: 11, color: Colors.grey),
+              ),
+            ],
           ),
         ),
         Expanded(
           child: GestureDetector(
               onTap: () {
                 showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(20))),
                     context: context,
@@ -1454,7 +1442,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
         return Container(
           padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
           child: SingleChildScrollView(
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             controller: controller,
             child: Form(
               key: _key,
@@ -1476,7 +1464,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -1488,7 +1476,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -1557,117 +1545,110 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       statusType == 0
-                          ? Container(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Amount',
-                                        style: GoogleFonts.inter(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontStyle: FontStyle.normal,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        child: Text(
-                                          "*",
-                                          style: GoogleFonts.inter(
-                                              color: Colors.red, fontSize: 12),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        'Balance: ' + debtor.balance.toString(),
-                                        style: GoogleFonts.inter(
-                                          color: AppColors.orangeBorderColor,
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      Text(
-                                        // debtOwnedModel.balance!,
-                                        '',
-                                        style: GoogleFonts.inter(
-                                          color: AppColors.orangeBorderColor,
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          : Container(),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      (statusType == 0)
-                          ? Container(
-                              child: TextFormField(
-                                controller: textEditingController,
-                                keyboardType: TextInputType.number,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Amount is needed";
-                                  } else if (int.parse(value) >
-                                      debtor.balance) {
-                                    return "Amount must be between the range of balance";
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  isDense: true,
-
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: AppColors.backgroundColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: AppColors.backgroundColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: AppColors.backgroundColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  // labelText: label,
-                                  hintText: '${Utils.getCurrency()} 0.00',
-
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(
-                                        color: Colors.black26,
-                                        fontSize: 14,
+                          ? Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Amount',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.black,
+                                        fontSize: 16,
                                         fontStyle: FontStyle.normal,
                                         fontWeight: FontWeight.normal,
                                       ),
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 5),
+                                      child: Text(
+                                        "*",
+                                        style: GoogleFonts.inter(
+                                            color: Colors.red, fontSize: 12),
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      'Balance: ' + debtor.balance.toString(),
+                                      style: GoogleFonts.inter(
+                                        color: AppColors.orangeBorderColor,
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Text(
+                                      // debtOwnedModel.balance!,
+                                      '',
+                                      style: GoogleFonts.inter(
+                                        color: AppColors.orangeBorderColor,
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      (statusType == 0)
+                          ? TextFormField(
+                              controller: textEditingController,
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Amount is needed";
+                                } else if (int.parse(value) > debtor.balance) {
+                                  return "Amount must be between the range of balance";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                isDense: true,
+
+                                focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.backgroundColor,
+                                        width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.backgroundColor,
+                                        width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.backgroundColor,
+                                        width: 2),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                // labelText: label,
+                                hintText: '${Utils.getCurrency()} 0.00',
+
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline4!
+                                    .copyWith(
+                                      color: Colors.black26,
+                                      fontSize: 14,
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                               ),
                             )
                           : Container()
@@ -1687,20 +1668,20 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                               statusType == 1
                                   ? 0
                                   : int.parse(textEditingController.text));
-                          Get.to(DebtUpdatedSuccess());
+                          Get.to(const DebtUpdatedSuccess());
                         }
                       }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
                         child: (_debtorController.addingDebtorStatus ==
                                 AddingDebtorStatus.Loading)
-                            ? Container(
+                            ? const SizedBox(
                                 width: 30,
                                 height: 30,
                                 child: Center(
@@ -1717,7 +1698,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                 ],

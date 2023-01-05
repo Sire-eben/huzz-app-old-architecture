@@ -6,7 +6,7 @@ import 'package:random_color/random_color.dart';
 // ignore: must_be_immutable
 class WordCloud extends StatelessWidget {
   List<PaymentItem> itemList;
-  WordCloud(this.itemList);
+  WordCloud(this.itemList, {super.key});
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = <Widget>[];
@@ -32,10 +32,10 @@ class WordCloud extends StatelessWidget {
 
 // ignore: must_be_immutable
 class ScatterItem extends StatelessWidget {
-  ScatterItem(this.item, this.index);
+  ScatterItem(this.item, this.index, {super.key});
   final String item;
   final int index;
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
   @override
   Widget build(BuildContext context) {
     final TextStyle style = Theme.of(context).textTheme.bodyText1!.copyWith(

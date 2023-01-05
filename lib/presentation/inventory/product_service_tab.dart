@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'Product/productlist.dart';
-import 'Service/servicelist.dart';
+import 'Product/product_list.dart';
+import 'Service/service_list.dart';
 
 class ProductServiceListing extends StatefulWidget {
   const ProductServiceListing({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
             ),
           ),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(55),
+            preferredSize: const Size.fromHeight(55),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
@@ -73,7 +73,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  tabs: [
+                  tabs: const [
                     Tab(
                       text: 'Products',
                     ),
@@ -86,7 +86,7 @@ class _ProductServiceListingState extends State<ProductServiceListing> {
             ),
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: <Widget>[
             ProductListing(),
             ServiceListing(),

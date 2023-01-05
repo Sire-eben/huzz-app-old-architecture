@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class EmptyInvoiceInfo extends StatelessWidget {
+  const EmptyInvoiceInfo({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(

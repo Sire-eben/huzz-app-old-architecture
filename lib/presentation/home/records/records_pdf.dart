@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:huzz/core/util/constants.dart';
-import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/data/repository/transaction_repository.dart';
 import 'package:huzz/presentation/widget/util.dart';
 import 'package:huzz/data/model/record_receipt.dart';
 import 'package:open_file/open_file.dart';
@@ -14,9 +14,7 @@ import 'package:printing/printing.dart';
 class RecordPdfApi {
   static Future<File> generate(RecordInvoice recordInvoice) async {
     final pdf = Document();
-    var _transactionController = Get.find<TransactionRespository>();
-    final huzzImgProvider =
-        await imageFromAssetBundle('assets/images/huzz_logo.png');
+    var _transactionController = Get.find<TransactionRepository>();
 
     pdf.addPage(MultiPage(
       build: (context) => [
@@ -34,9 +32,9 @@ class RecordPdfApi {
     return PdfRecordApi.saveDocument(name: 'my_monthlyRecord.pdf', pdf: pdf);
   }
 
-  static Widget buildHeader(TransactionRespository transactionRespository) =>
+  static Widget buildHeader(TransactionRepository transactionRespository) =>
       Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Center(
             child: Text(
                 'YOUR TRANSACTIONS(${transactionRespository.value.value})',
@@ -61,8 +59,8 @@ class RecordPdfApi {
     }).toList();
 
     return Table.fromTextArray(
-      cellPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-      headerPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+      cellPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+      headerPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
       headers: headers,
       data: data,
       border: null,
@@ -70,8 +68,8 @@ class RecordPdfApi {
           fontWeight: FontWeight.bold, color: PdfColors.black, fontSize: 18),
       headerStyle: TextStyle(
           fontWeight: FontWeight.bold, color: PdfColors.white, fontSize: 18),
-      headerDecoration: BoxDecoration(color: PdfColor.fromInt(0xff07A58E)),
-      rowDecoration: BoxDecoration(color: PdfColors.grey100),
+      headerDecoration: const BoxDecoration(color: PdfColor.fromInt(0xff07A58E)),
+      rowDecoration: const BoxDecoration(color: PdfColors.grey100),
       cellHeight: 30,
       cellAlignments: {
         0: Alignment.centerLeft,
@@ -93,8 +91,8 @@ class RecordPdfApi {
         .map((item) => item.moneyOut)
         .reduce((item1, item2) => item1 + item2);
 
-    final moneyINtotal = moneyInTotal;
-    final moneyOUTtotal = moneyOutTotal;
+    final moneyINTotal = moneyInTotal;
+    final moneyOUTTotal = moneyOutTotal;
 
     return Container(
       alignment: Alignment.centerRight,
@@ -103,7 +101,7 @@ class RecordPdfApi {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             color: PdfColors.orange,
             child: Text(
               'TOTAL',
@@ -115,7 +113,7 @@ class RecordPdfApi {
             ),
           ),
           Text(
-            Utils.formatPrice(moneyINtotal),
+            Utils.formatPrice(moneyINTotal),
             style: TextStyle(
               color: PdfColors.black,
               fontSize: 15,
@@ -123,7 +121,7 @@ class RecordPdfApi {
             ),
           ),
           Text(
-            Utils.formatPrice(moneyOUTtotal),
+            Utils.formatPrice(moneyOUTTotal),
             style: TextStyle(
               color: PdfColors.black,
               fontSize: 15,
@@ -145,13 +143,13 @@ class RecordPdfApi {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          border: Border.all(color: PdfColor.fromInt(0xff07A58E))),
+          border: Border.all(color: const PdfColor.fromInt(0xff07A58E))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
-            color: PdfColor.fromInt(0xff07A58E),
+            padding: const EdgeInsets.all(8),
+            color: const PdfColor.fromInt(0xff07A58E),
             child: Text(
               'AVAILABLE BALANCE',
               style: TextStyle(
@@ -215,9 +213,9 @@ class RecordPdfApi {
 class DailyRecordPdfApi {
   static Future<File> generate() async {
     final pdf = Document();
-    final transactionController = Get.find<TransactionRespository>();
+    final transactionController = Get.find<TransactionRepository>();
     final range =
-        "${(transactionController.value.contains("Custom date range")) ? transactionController.customText : transactionController.value.value}";
+        (transactionController.value.contains("Custom date range")) ? transactionController.customText : transactionController.value.value;
     final huzzImgProvider =
         await imageFromAssetBundle('assets/images/huzz_logo.png');
     final font = await PdfGoogleFonts.interRegular();
@@ -247,7 +245,7 @@ class DailyRecordPdfApi {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
         "POWERED BY",
-        style: TextStyle(
+        style: const TextStyle(
           color: PdfColors.black,
         ),
       ),
@@ -262,7 +260,7 @@ class DailyRecordPdfApi {
         Text(
           "Huzz",
           style: TextStyle(
-            color: PdfColor.fromInt(0xff07A58E),
+            color: const PdfColor.fromInt(0xff07A58E),
             fontSize: 16,
             font: font,
           ),
@@ -272,7 +270,7 @@ class DailyRecordPdfApi {
   }
 
   static Widget buildHeader(String range, Font font) => Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Center(
           child: Text(
             'YOUR TRANSACTIONS ( $range )',
@@ -287,7 +285,7 @@ class DailyRecordPdfApi {
       );
 
   static Widget buildMoneyInOutInvoice(
-      TransactionRespository transactionRespository, Font font) {
+      TransactionRepository transactionRespository, Font font) {
     final headers = [
       'Date',
       'Type',
@@ -299,9 +297,9 @@ class DailyRecordPdfApi {
     List<List<dynamic>> data = [];
     for (int i = 0; i < transactionRespository.allIncomeHoursData.length; ++i) {
       var item1 = transactionRespository.allExpenditureHoursData[i];
-      var item2 = transactionRespository.allIncomeHoursData[i];
-      item1.transactionList.forEach((element) {
-        element.businessTransactionPaymentItemList!.forEach((element1) {
+      // var item2 = transactionRespository.allIncomeHoursData[i];
+      for (var element in item1.transactionList) {
+        for (var element1 in element.businessTransactionPaymentItemList!) {
           data.add([
             '${element.entryDateTime!.formatDate(pattern: "dd, MMM y")} ${element.entryDateTime!.formatDate(pattern: "hh:mm a")}',
             // element.entryDateTime!.formatDate(pattern: "hh:mm a"),
@@ -313,8 +311,8 @@ class DailyRecordPdfApi {
             '${Utils.formatPrice(element1.amount)}',
             element1.isFullyPaid! ? "Full Payment" : "Part Payment",
           ]);
-        });
-      });
+        }
+      }
     }
 
 // item2.transactionList.forEach((element) {
@@ -349,7 +347,7 @@ class DailyRecordPdfApi {
     // }).toList();
 
     return Table.fromTextArray(
-      cellPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      cellPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       headers: headers,
       data: data,
       border: null,
@@ -364,10 +362,10 @@ class DailyRecordPdfApi {
         fontSize: 10,
         font: font,
       ),
-      headerDecoration: BoxDecoration(
+      headerDecoration: const BoxDecoration(
         color: PdfColor.fromInt(0xff07A58E),
       ),
-      cellDecoration: (_, __, ___) => BoxDecoration(
+      cellDecoration: (_, __, ___) => const BoxDecoration(
         color: PdfColors.grey100,
         border: Border.symmetric(
             vertical: BorderSide(
@@ -388,7 +386,7 @@ class DailyRecordPdfApi {
   }
 
   static Widget buildTotal(
-      TransactionRespository transactionRespository, Font font) {
+      TransactionRepository transactionRespository, Font font) {
     // final amountTotal = recordInvoice.items
     //     .map((item) => item.amount * item.quantity)
     //     .reduce((item1, item2) => item1 + item2);
@@ -398,13 +396,13 @@ class DailyRecordPdfApi {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          border: Border.all(color: PdfColor.fromInt(0xffEF6500))),
+          border: Border.all(color: const PdfColor.fromInt(0xffEF6500))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
-            color: PdfColor.fromInt(0xffEF6500),
+            padding: const EdgeInsets.all(8),
+            color: const PdfColor.fromInt(0xffEF6500),
             child: Text(
               'AVAILABLE BALANCE',
               style: TextStyle(
@@ -416,7 +414,7 @@ class DailyRecordPdfApi {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Text(
               Utils.formatPrice(transactionRespository.recordBalance),
               style: TextStyle(
@@ -433,7 +431,7 @@ class DailyRecordPdfApi {
   }
 
   static Widget buildMoneyInTotal(
-      TransactionRespository transactionRespository, Font font) {
+      TransactionRepository transactionRespository, Font font) {
     // final moneyInTotal = recordInvoice.items
     //     .map((item) => item.amount)
     //     .reduce((item1, item2) => item1 + item2);
@@ -443,13 +441,13 @@ class DailyRecordPdfApi {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          border: Border.all(color: PdfColor.fromInt(0xff07A58E))),
+          border: Border.all(color: const PdfColor.fromInt(0xff07A58E))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
-            color: PdfColor.fromInt(0xff07A58E),
+            padding: const EdgeInsets.all(8),
+            color: const PdfColor.fromInt(0xff07A58E),
             child: Text(
               'TOTAL MONEY IN',
               style: TextStyle(
@@ -461,7 +459,7 @@ class DailyRecordPdfApi {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Text(
               Utils.formatPrice(transactionRespository.recordMoneyIn),
               style: TextStyle(
@@ -478,7 +476,7 @@ class DailyRecordPdfApi {
   }
 
   static Widget buildMoneyOutTotal(
-      TransactionRespository transactionRespository, Font font) {
+      TransactionRepository transactionRespository, Font font) {
     // final moneyInTotal = recordInvoice.items
     //     .map((item) => item.amount)
     //     .reduce((item1, item2) => item1 + item2);
@@ -488,13 +486,13 @@ class DailyRecordPdfApi {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          border: Border.all(color: PdfColor.fromInt(0xff07A58E))),
+          border: Border.all(color: const PdfColor.fromInt(0xff07A58E))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
-            color: PdfColor.fromInt(0xff07A58E),
+            padding: const EdgeInsets.all(8),
+            color: const PdfColor.fromInt(0xff07A58E),
             child: Text(
               'TOTAL MONEY OUT',
               style: TextStyle(
@@ -506,7 +504,7 @@ class DailyRecordPdfApi {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Text(
               Utils.formatPrice(transactionRespository.recordMoneyOut),
               style: TextStyle(

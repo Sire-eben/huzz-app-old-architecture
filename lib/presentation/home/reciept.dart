@@ -49,11 +49,11 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: isLoading
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SafeArea(
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: Column(
@@ -79,12 +79,12 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                                 .map((color) => Container(
                                       height: 24,
                                       width: 24,
-                                      margin: EdgeInsets.only(left: 10),
+                                      margin: const EdgeInsets.only(left: 10),
                                       color: Color(color.toInt()),
                                       child: GestureDetector(
                                         onTap: () => generatePdf(color),
                                         child: themeColor == color
-                                            ? Icon(
+                                            ? const Icon(
                                                 Icons.check,
                                                 color: Colors.white,
                                               )
@@ -92,7 +92,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                                       ),
                                     ))
                                 .toList(),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(
@@ -202,7 +202,7 @@ class _IncomeReceiptState extends State<IncomeReceipt> {
                               horizontal:
                                   MediaQuery.of(context).size.height * 0.03),
                           height: 50,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: AppColors.backgroundColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),

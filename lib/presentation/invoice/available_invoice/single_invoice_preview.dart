@@ -21,7 +21,7 @@ import '../../../data/repository/team_repository.dart';
 
 class PreviewSingleInvoice extends StatefulWidget {
   final Invoice? invoice;
-  PreviewSingleInvoice({
+  const PreviewSingleInvoice({
     Key? key,
     this.invoice,
   }) : super(key: key);
@@ -38,7 +38,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
   bool isLoading = true;
   File? image;
   File? generatedInvoice;
-  final _invoiceController = Get.find<InvoiceRespository>();
+  final _invoiceController = Get.find<InvoiceRepository>();
   final _amountController = TextEditingController();
   final teamController = Get.find<TeamRepository>();
   PdfColor themeColor = themeColors.first;
@@ -69,7 +69,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
           this.image = imageTemporary;
         },
       );
-    } on PlatformException catch (e) {
+    } on PlatformException {
       // print('$e');
     }
   }
@@ -85,7 +85,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
           this.image = imageTemporary;
         },
       );
-    } on PlatformException catch (e) {
+    } on PlatformException {
       // print('$e');
     }
   }
@@ -97,7 +97,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
@@ -117,11 +117,11 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
         ),
         backgroundColor: Colors.white,
         body: isLoading
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SafeArea(
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: Column(
@@ -147,12 +147,12 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                 .map((color) => Container(
                                       height: 24,
                                       width: 24,
-                                      margin: EdgeInsets.only(left: 10),
+                                      margin: const EdgeInsets.only(left: 10),
                                       color: Color(color.toInt()),
                                       child: GestureDetector(
                                         onTap: () => generatePdf(color),
                                         child: themeColor == color
-                                            ? Icon(
+                                            ? const Icon(
                                                 Icons.check,
                                                 color: Colors.white,
                                               )
@@ -160,7 +160,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                       ),
                                     ))
                                 .toList(),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Text(
@@ -191,7 +191,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                                                 .contains(
                                                     'UPDATE_BUSINESS_INVOICE')) {
                                               showModalBottomSheet(
-                                                  shape: RoundedRectangleBorder(
+                                                  shape: const RoundedRectangleBorder(
                                                       borderRadius:
                                                           BorderRadius.vertical(
                                                               top: Radius
@@ -337,7 +337,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               horizontal:
                                   MediaQuery.of(context).size.height * 0.03),
                           height: 50,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: AppColors.backgroundColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
@@ -378,7 +378,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                       Get.back();
                     },
                     child: Container(
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       height: 6,
                       width: 80,
                       decoration: BoxDecoration(
@@ -399,7 +399,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               shape: BoxShape.circle,
                               color:
                                   AppColors.backgroundColor.withOpacity(0.2)),
-                          child: Icon(
+                          child: const Icon(
                             Icons.close,
                             color: AppColors.backgroundColor,
                             size: 18,
@@ -486,7 +486,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                   paymentType == 0
                       ? CustomTextFieldInvoiceOptional(
                           label: 'Amount',
-                          hint: '${Utils.getCurrency()}',
+                          hint: Utils.getCurrency(),
                           keyType: TextInputType.phone,
                           textEditingController: _amountController,
                         )
@@ -697,7 +697,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           horizontal:
                               MediaQuery.of(context).size.height * 0.01),
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_invoiceController.addingInvoiceStatus ==
@@ -705,7 +705,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                           ? Container(
                               width: 30,
                               height: 30,
-                              child: Center(
+                              child: const Center(
                                   child: CircularProgressIndicator(
                                       color: Colors.white)),
                             )

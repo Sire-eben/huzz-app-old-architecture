@@ -7,7 +7,7 @@ class SharePref {
   static String firstTimeAppOpen = " First Time  app open";
   static String dateTokenExpired = " Time when token expired";
   static String selectedLastBusiness = "Selected Last Business";
-  static String miscellanous = "Miscellanous";
+  static String miscellaneous = "Miscellaneous";
   SharedPreferences? _preferences;
   SharePref() {
     //print("sharepref init");
@@ -26,7 +26,7 @@ class SharePref {
   }
 
   String read() {
-    final key = 'token';
+    const key = 'token';
     String value = _preferences!.getString(key)!;
     // print('read: $value');
     return value.isEmpty ? "0" : value;
@@ -55,7 +55,7 @@ class SharePref {
   bool getFirstTimeOpen() {
     var value = _preferences!.getBool(firstTimeAppOpen);
     // print("Am I a new User?  $value");
-    return value == null ? true : value;
+    return value ?? true;
   }
 
   void setDateTokenExpired(DateTime time) {
@@ -67,17 +67,17 @@ class SharePref {
   }
 
   void setMiscellaneous(String data) {
-    _preferences!.setString(miscellanous, data);
+    _preferences!.setString(miscellaneous, data);
   }
 
   String getMiscellaneous() {
-    var value = _preferences!.getString(miscellanous);
-    return value == null ? "" : value;
+    var value = _preferences!.getString(miscellaneous);
+    return value ?? "";
   }
 
   String getLastSelectedBusiness() {
     var value = _preferences!.getString(selectedLastBusiness);
-    return value == null ? "" : value;
+    return value ?? "";
   }
 
   DateTime getDateTokenExpired() {

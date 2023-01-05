@@ -33,8 +33,9 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void _incrementCounter() {
-    if (_productController.productQuantityController.text.isEmpty)
+    if (_productController.productQuantityController.text.isEmpty) {
       _productController.productQuantityController.text = "0";
+    }
 
     _counter = int.parse(_productController.productQuantityController.text);
     setState(() {
@@ -44,8 +45,9 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void _decrementCounter() {
-    if (_productController.productQuantityController.text.isEmpty)
+    if (_productController.productQuantityController.text.isEmpty) {
       _productController.productQuantityController.text = "0";
+    }
     _counter = int.parse(_productController.productQuantityController.text);
     setState(() {
       if (_counter < 1) {
@@ -163,7 +165,7 @@ class _AddProductState extends State<AddProduct> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
+                SizedBox(
                   width: 175,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -237,7 +239,7 @@ class _AddProductState extends State<AddProduct> {
                     ],
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 175,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -368,7 +370,7 @@ class _AddProductState extends State<AddProduct> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Container(
+                  SizedBox(
                     width: 120,
                     child: TextFormField(
                       controller: _productController.productQuantityController,
@@ -480,11 +482,12 @@ class _AddProductState extends State<AddProduct> {
               onTap: () {
                 if (_productController.addingProductStatus !=
                     AddingProductStatus.Loading) {
-                  if (widget.item == null)
-                    _productController.addBudinessProduct("GOODS", 'Product');
-                  else
+                  if (widget.item == null) {
+                    _productController.addBusinessProduct("GOODS", 'Product');
+                  } else {
                     _productController.UpdateBusinessProduct(
                         widget.item!, 'Product');
+                  }
                 }
               },
               child: Container(
@@ -498,10 +501,10 @@ class _AddProductState extends State<AddProduct> {
                     borderRadius: BorderRadius.circular(10)),
                 child: (_productController.addingProductStatus ==
                         AddingProductStatus.Loading)
-                    ? Container(
+                    ? const SizedBox(
                         width: 30,
                         height: 30,
-                        child: const Center(
+                        child: Center(
                           child: CircularProgressIndicator(
                             color: Colors.white,
                           ),
@@ -589,7 +592,7 @@ class _AddProductState extends State<AddProduct> {
                   // Pick an image
                   final XFile? image =
                       await _picker.pickImage(source: ImageSource.gallery);
-                  _productController.MproductImage(File(image!.path));
+                  _productController.mProductImage(File(image!.path));
                   // print("image path ${image.path}");
                 },
                 child: Row(

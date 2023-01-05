@@ -1,16 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/core/di/appbinding.dart';
+import 'package:huzz/core/di/app_binding.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/constants/app_pallete.dart';
 import 'package:huzz/core/routes/app_router.dart';
-import 'presentation/splashscreen.dart';
+import 'presentation/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(HuzzApp());
+  runApp(const HuzzApp());
 }
 
 class HuzzApp extends StatefulWidget {
@@ -29,7 +28,7 @@ class _HuzzAppState extends State<HuzzApp> {
       theme: AppThemes.defaultTheme(context),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

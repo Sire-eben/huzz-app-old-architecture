@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/presentation/inventory/Product/add_product.dart';
-import 'package:huzz/presentation/inventory/Service/servicelist.dart';
+import 'package:huzz/presentation/inventory/Service/service_list.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:number_display/number_display.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -20,7 +20,7 @@ class ProductListing extends StatefulWidget {
 }
 
 class _ProductListingState extends State<ProductListing> {
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final teamController = Get.find<TeamRepository>();
   final display = createDisplay(
       roundingType: RoundingType.floor,
@@ -30,22 +30,22 @@ class _ProductListingState extends State<ProductListing> {
       units: ['K', 'M', 'B', 'T']);
 
   final TextEditingController textEditingController = TextEditingController();
-  Rx<List<Product>> _searchResult = Rx([]);
+  final Rx<List<Product>> _searchResult = Rx([]);
   List<Product> get searchResult => _searchResult.value;
-  var searchtext = '';
+  var searchText = '';
   bool isDelete = false;
   final _productController = Get.find<ProductRepository>();
   void searchItem(String val) {
-    searchtext = val;
+    searchText = val;
     // searchResult.clear();
     List<Product> list = [];
     setState(() {});
-    _productController.productGoods.forEach((element) {
+    for (var element in _productController.productGoods) {
       if (element.productName!.toLowerCase().contains(val.toLowerCase())) {
         // searchResult.add(element);
         list.add(element);
       }
-    });
+    }
     _searchResult(list);
   }
 
@@ -295,7 +295,7 @@ class _ProductListingState extends State<ProductListing> {
                             height: 30,
                             width: 30,
                             decoration: const BoxDecoration(
-                              color: AppColors.lightbackgroundColor,
+                              color: AppColors.lightBackgroundColor,
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -316,7 +316,7 @@ class _ProductListingState extends State<ProductListing> {
               bottom: 30,
               left: 20,
               right: 20,
-              child: (searchtext.isEmpty || searchResult.isNotEmpty)
+              child: (searchText.isEmpty || searchResult.isNotEmpty)
                   ? Obx(() {
                       return RefreshIndicator(
                         onRefresh: () async {
@@ -362,11 +362,9 @@ class _ProductListingState extends State<ProductListing> {
                                       ),
                       );
                     })
-                  : Container(
-                      child: const Center(
-                        child: Text("No Product Found"),
-                      ),
-                    ),
+                  : const Center(
+                    child: Text("No Product Found"),
+                  ),
             ),
           ],
         ),
@@ -413,11 +411,11 @@ class _ProductListingState extends State<ProductListing> {
                 height: 95,
                 padding: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: AppColors.secondbgColor,
+                  color: AppColors.secondBgColor,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    stops: [
+                    stops: const [
                       0.1,
                       0.6,
                       0.8,
@@ -733,7 +731,7 @@ class _ProductListingState extends State<ProductListing> {
 // ignore: must_be_immutable
 class ListingProduct extends StatefulWidget {
   Product? item;
-  ListingProduct({
+  ListingProduct({super.key,
     this.item,
   });
 
@@ -894,7 +892,7 @@ class _ListingProductState extends State<ListingProduct> {
 // ignore: must_be_immutable
 class ListingProductDelete extends StatefulWidget {
   Product? item;
-  ListingProductDelete({
+  ListingProductDelete({super.key,
     this.item,
   });
 
@@ -998,7 +996,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                 GestureDetector(
                   onTap: () {
                     if (_productController
-                        .checkifSelectedForDelted(widget.item!.productId!)) {
+                        .checkIfSelectedForDeleted(widget.item!.productId!)) {
                       _productController.removeFromDeleteList(widget.item!);
                     } else {
                       _productController.addToDeleteList(widget.item!);
@@ -1011,7 +1009,7 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                     width: 30,
                     decoration: BoxDecoration(
                       color: _productController
-                              .checkifSelectedForDelted(widget.item!.productId!)
+                              .checkIfSelectedForDeleted(widget.item!.productId!)
                           ? AppColors.orangeBorderColor
                           : AppColors.whiteColor,
                       shape: BoxShape.circle,
@@ -1021,11 +1019,11 @@ class _ListingProductDeleteState extends State<ListingProductDelete> {
                     ),
                     child: Visibility(
                       visible: _productController
-                          .checkifSelectedForDelted(widget.item!.productId!),
+                          .checkIfSelectedForDeleted(widget.item!.productId!),
                       child: Icon(
                         Icons.check,
                         size: 15,
-                        color: _productController.checkifSelectedForDelted(
+                        color: _productController.checkIfSelectedForDeleted(
                                 widget.item!.productId!)
                             ? AppColors.whiteColor
                             : AppColors.orangeBorderColor,

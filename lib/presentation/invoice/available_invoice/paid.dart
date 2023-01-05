@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/presentation/invoice/available_invoice/single_invoice_preview.dart';
@@ -16,19 +16,21 @@ import '../create_invoice.dart';
 import 'empty_invoice_info.dart';
 
 class Paid extends StatefulWidget {
+  const Paid({super.key});
+
   @override
   _PaidState createState() => _PaidState();
 }
 
 class _PaidState extends State<Paid> {
-  final _businessController = Get.find<BusinessRespository>();
-  final _invoiceController = Get.find<InvoiceRespository>();
+  final _businessController = Get.find<BusinessRepository>();
+  final _invoiceController = Get.find<InvoiceRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();
   bool deleteItem = false;
   bool visible = true;
-  List<Invoice> _items = [];
-  List _selectedIndex = [];
+  final List<Invoice> _items = [];
+  final List _selectedIndex = [];
   final display = createDisplay(
     length: 10,
     decimal: 0,
@@ -98,7 +100,7 @@ class _PaidState extends State<Paid> {
                 onRefresh: () async {
                   return Future.delayed(const Duration(seconds: 1), () {
                     _invoiceController.getOnlineInvoice(value!.businessId!);
-                    _invoiceController.GetOfflineInvoices(value.businessId!);
+                    _invoiceController.getOfflineInvoices(value.businessId!);
                   });
                 },
                 child: !deleteItem
@@ -115,7 +117,7 @@ class _PaidState extends State<Paid> {
                                   var item =
                                       _invoiceController.paidInvoiceList[index];
                                   var customer = _customerController
-                                      .checkifCustomerAvailableWithValue(
+                                      .checkIfCustomerAvailableWithValue(
                                           item.customerId ?? "");
                                   return GestureDetector(
                                     onTap: () async {
@@ -223,7 +225,7 @@ class _PaidState extends State<Paid> {
                                     ),
                                   );
                                 })
-                            : EmptyInvoiceInfo()
+                            : const EmptyInvoiceInfo()
                     : (_invoiceController.invoiceStatus ==
                             InvoiceStatus.Loading)
                         ? const Center(child: CircularProgressIndicator())
@@ -236,10 +238,8 @@ class _PaidState extends State<Paid> {
                                 itemBuilder: (BuildContext context, int index) {
                                   var item =
                                       _invoiceController.paidInvoiceList[index];
-                                  final _isSelected =
-                                      _selectedIndex.contains(index);
                                   var customer = _customerController
-                                      .checkifCustomerAvailableWithValue(
+                                      .checkIfCustomerAvailableWithValue(
                                           item.customerId ?? "");
                                   return InkWell(
                                     onTap: () {
@@ -341,7 +341,7 @@ class _PaidState extends State<Paid> {
                                             GestureDetector(
                                               onTap: () {
                                                 if (_invoiceController
-                                                    .checkifSelectedForDeleted(
+                                                    .checkIfSelectedForDeleted(
                                                         item.id!)) {
                                                   _invoiceController.deletedItem
                                                       .remove(item);
@@ -358,7 +358,7 @@ class _PaidState extends State<Paid> {
                                                 width: 25,
                                                 decoration: BoxDecoration(
                                                   color: (!_invoiceController
-                                                          .checkifSelectedForDeleted(
+                                                          .checkIfSelectedForDeleted(
                                                               item.id!))
                                                       ? AppColors.whiteColor
                                                       : AppColors
@@ -366,7 +366,7 @@ class _PaidState extends State<Paid> {
                                                   shape: BoxShape.circle,
                                                   border: Border.all(
                                                     color: (!_invoiceController
-                                                            .checkifSelectedForDeleted(
+                                                            .checkIfSelectedForDeleted(
                                                                 item.id!))
                                                         ? const Color(
                                                             0xffEF6500)
@@ -391,7 +391,7 @@ class _PaidState extends State<Paid> {
                                   );
                                 },
                               )
-                            : EmptyInvoiceInfo(),
+                            : const EmptyInvoiceInfo(),
               ))
             ],
           ),

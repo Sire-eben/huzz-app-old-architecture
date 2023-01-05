@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/presentation/inventory/Service/add_service.dart';
@@ -22,29 +22,29 @@ class ServiceListing extends StatefulWidget {
 class _ServiceListingState extends State<ServiceListing> {
   final TextEditingController textEditingController = TextEditingController();
   final _productController = Get.find<ProductRepository>();
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final teamController = Get.find<TeamRepository>();
   final display = createDisplay(
       roundingType: RoundingType.floor,
       length: 15,
       decimal: 5,
-      placeholder: '${Utils.getCurrency()}',
+      placeholder: Utils.getCurrency(),
       units: ['K', 'M', 'B', 'T']);
 
   bool isDelete = false;
-  String searchtext = "";
+  String searchText = "";
   List<Product> searchResult = [];
   void searchItem(String val) {
     // print("search text $val");
-    searchtext = val;
+    searchText = val;
     setState(() {});
 
     searchResult.clear();
-    _productController.productServices.forEach((element) {
+    for (var element in _productController.productServices) {
       if (element.productName!.toLowerCase().contains(val.toLowerCase())) {
         searchResult.add(element);
       }
-    });
+    }
     setState(() {});
   }
 
@@ -225,7 +225,7 @@ class _ServiceListingState extends State<ServiceListing> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Container(
+                      SizedBox(
                         height: 55,
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
@@ -295,7 +295,7 @@ class _ServiceListingState extends State<ServiceListing> {
                               height: 30,
                               width: 30,
                               decoration: const BoxDecoration(
-                                color: AppColors.lightbackgroundColor,
+                                color: AppColors.lightBackgroundColor,
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(
@@ -316,7 +316,7 @@ class _ServiceListingState extends State<ServiceListing> {
                 bottom: 30,
                 left: 20,
                 right: 20,
-                child: (searchtext.isEmpty || searchResult.isNotEmpty)
+                child: (searchText.isEmpty || searchResult.isNotEmpty)
                     ? Obx(() {
                         return RefreshIndicator(
                           onRefresh: () async {
@@ -337,13 +337,13 @@ class _ServiceListingState extends State<ServiceListing> {
                                       ProductStatus.Available)
                                   ? ListView.builder(
                                       scrollDirection: Axis.vertical,
-                                      itemCount: (searchtext.isEmpty)
+                                      itemCount: (searchText.isEmpty)
                                           ? _productController
                                               .productServices.length
                                           : searchResult.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        var item = (searchtext.isEmpty)
+                                        var item = (searchText.isEmpty)
                                             ? _productController
                                                 .productServices[index]
                                             : searchResult[index];
@@ -362,11 +362,9 @@ class _ServiceListingState extends State<ServiceListing> {
                                       : const Text('Empty'),
                         );
                       })
-                    : Container(
-                        child: const Center(
-                          child: Text("No Service Found"),
-                        ),
-                      ),
+                    : const Center(
+                      child: Text("No Service Found"),
+                    ),
               ),
             ],
           ));
@@ -413,11 +411,11 @@ class _ServiceListingState extends State<ServiceListing> {
                 height: 95,
                 padding: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: AppColors.secondbgColor,
+                  color: AppColors.secondBgColor,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    stops: [
+                    stops: const [
                       0.1,
                       0.6,
                       0.8,
@@ -541,7 +539,7 @@ class _ServiceListingState extends State<ServiceListing> {
                       const SizedBox(
                         width: 20,
                       ),
-                      Container(
+                      SizedBox(
                         height: 80,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -653,7 +651,7 @@ class _ServiceListingState extends State<ServiceListing> {
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
+                SizedBox(
                   width: 120,
                   child: TextFormField(
                     controller: textEditingController,
@@ -733,7 +731,7 @@ class _ServiceListingState extends State<ServiceListing> {
 // ignore: must_be_immutable
 class ListingServices extends StatefulWidget {
   Product? item;
-  ListingServices({
+  ListingServices({super.key,
     this.item,
   });
 
@@ -858,7 +856,7 @@ class _ListingServicesState extends State<ListingServices> {
 // ignore: must_be_immutable
 class ListingServicesDelete extends StatefulWidget {
   Product? item;
-  ListingServicesDelete({
+  ListingServicesDelete({super.key,
     this.item,
   });
 
@@ -958,7 +956,7 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                   GestureDetector(
                     onTap: () {
                       if (_productController
-                          .checkifSelectedForDelted(widget.item!.productId!)) {
+                          .checkIfSelectedForDeleted(widget.item!.productId!)) {
                         _productController.removeFromDeleteList(widget.item!);
                       } else {
                         _productController.addToDeleteList(widget.item!);
@@ -970,7 +968,7 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                       height: 30,
                       width: 30,
                       decoration: BoxDecoration(
-                        color: _productController.checkifSelectedForDelted(
+                        color: _productController.checkIfSelectedForDeleted(
                                 widget.item!.productId!)
                             ? AppColors.orangeBorderColor
                             : AppColors.whiteColor,
@@ -981,11 +979,11 @@ class _ListingServicesDeleteState extends State<ListingServicesDelete> {
                       ),
                       child: Visibility(
                         visible: _productController
-                            .checkifSelectedForDelted(widget.item!.productId!),
+                            .checkIfSelectedForDeleted(widget.item!.productId!),
                         child: Icon(
                           Icons.check,
                           size: 15,
-                          color: _productController.checkifSelectedForDelted(
+                          color: _productController.checkIfSelectedForDeleted(
                                   widget.item!.productId!)
                               ? AppColors.whiteColor
                               : AppColors.orangeBorderColor,

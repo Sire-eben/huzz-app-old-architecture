@@ -2,11 +2,10 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/data/sharepreference/sharepref.dart';
-import 'auth_respository.dart';
+import 'package:huzz/data/sharepreference/share_pref.dart';
+import 'auth_repository.dart';
 
 class MiscellaneousRepository extends GetxController {
-  final _userController = Get.find<AuthRepository>();
   Rx<List<String>> productTypeList = Rx([]);
 
   Rx<List<String>> businessTransactionExpenseCategoryList = Rx([]);

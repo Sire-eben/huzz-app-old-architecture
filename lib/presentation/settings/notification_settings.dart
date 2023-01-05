@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/auth_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class NotificationSettings extends StatefulWidget {
@@ -38,7 +38,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
@@ -81,7 +81,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                         activeColor: AppColors.backgroundColor,
                         value: debtorRemind,
                         onChanged: (newValue) =>
-                            setState(() => this.debtorRemind = newValue))
+                            setState(() => debtorRemind = newValue))
                   ],
                 ),
               ),
@@ -100,12 +100,12 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                 fontSize: 12,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 4),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
@@ -121,7 +121,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                     ),
                                   ),
                                   value: debtorsValue,
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.keyboard_arrow_down,
                                     color: AppColors.backgroundColor,
                                   ),
@@ -129,7 +129,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                   items:
                                       debtors.map(buildIntervalItem).toList(),
                                   onChanged: (value) =>
-                                      setState(() => this.debtorsValue = value),
+                                      setState(() => debtorsValue = value),
                                 ),
                               ),
                             ),
@@ -155,7 +155,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                         activeColor: AppColors.backgroundColor,
                         value: debtOwnedRemind,
                         onChanged: (newValue) =>
-                            setState(() => this.debtOwnedRemind = newValue))
+                            setState(() => debtOwnedRemind = newValue))
                   ],
                 ),
               ),
@@ -174,12 +174,12 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                 fontSize: 12,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 4),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
@@ -195,7 +195,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                     ),
                                   ),
                                   value: debtOwnedValue,
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.keyboard_arrow_down,
                                     color: AppColors.backgroundColor,
                                   ),
@@ -203,7 +203,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                                   items:
                                       debtOwned.map(buildIntervalItem).toList(),
                                   onChanged: (value) => setState(
-                                      () => this.debtOwnedValue = value),
+                                      () => debtOwnedValue = value),
                                 ),
                               ),
                             ),

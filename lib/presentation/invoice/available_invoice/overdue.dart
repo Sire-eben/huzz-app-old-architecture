@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
@@ -19,20 +19,22 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'empty_invoice_info.dart';
 
 class Overdue extends StatefulWidget {
+  const Overdue({super.key});
+
   @override
   _OverdueState createState() => _OverdueState();
 }
 
 class _OverdueState extends State<Overdue> {
-  final _businessController = Get.find<BusinessRespository>();
+  final _businessController = Get.find<BusinessRepository>();
   final _productController = Get.find<ProductRepository>();
-  final _invoiceController = Get.find<InvoiceRespository>();
+  final _invoiceController = Get.find<InvoiceRepository>();
   final _customerController = Get.find<CustomerRepository>();
   final teamController = Get.find<TeamRepository>();
   bool deleteItem = false;
   bool visible = true;
-  List<Invoice> _items = [];
-  List _selectedIndex = [];
+  final List<Invoice> _items = [];
+  final List _selectedIndex = [];
   final display = createDisplay(
     length: 10,
     decimal: 0,
@@ -64,7 +66,7 @@ class _OverdueState extends State<Overdue> {
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                       Text(
-                        '(${_invoiceController.InvoiceDueList.length})',
+                        '(${_invoiceController.invoiceDueList.length})',
                         style: GoogleFonts.inter(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
@@ -102,23 +104,23 @@ class _OverdueState extends State<Overdue> {
                   onRefresh: () async {
                     return Future.delayed(const Duration(seconds: 1), () {
                       _invoiceController.getOnlineInvoice(value!.businessId!);
-                      _invoiceController.GetOfflineInvoices(value.businessId!);
+                      _invoiceController.getOfflineInvoices(value.businessId!);
                     });
                   },
                   child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
                           ? const Center(child: CircularProgressIndicator())
-                          : (_invoiceController.InvoiceDueList.isNotEmpty)
+                          : (_invoiceController.invoiceDueList.isNotEmpty)
                               ? ListView.builder(
                                   itemCount:
-                                      _invoiceController.InvoiceDueList.length,
+                                      _invoiceController.invoiceDueList.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     var item = _invoiceController
-                                        .InvoiceDueList[index];
+                                        .invoiceDueList[index];
                                     var customer = _customerController
-                                        .checkifCustomerAvailableWithValue(
+                                        .checkIfCustomerAvailableWithValue(
                                             item.customerId ?? "");
                                     return GestureDetector(
                                       onTap: () async {
@@ -233,22 +235,22 @@ class _OverdueState extends State<Overdue> {
                                       ),
                                     );
                                   })
-                              : EmptyInvoiceInfo()
+                              : const EmptyInvoiceInfo()
                       : (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
                           ? const Center(child: CircularProgressIndicator())
-                          : (_invoiceController.InvoiceDueList.isNotEmpty)
+                          : (_invoiceController.invoiceDueList.isNotEmpty)
                               ? ListView.builder(
                                   itemCount:
-                                      _invoiceController.InvoiceDueList.length,
+                                      _invoiceController.invoiceDueList.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     var item = _invoiceController
-                                        .InvoiceDueList[index];
+                                        .invoiceDueList[index];
                                     final _isSelected =
                                         _selectedIndex.contains(index);
                                     var customer = _customerController
-                                        .checkifCustomerAvailableWithValue(
+                                        .checkIfCustomerAvailableWithValue(
                                             item.customerId ?? "");
                                     return InkWell(
                                       onTap: () async {
@@ -359,7 +361,7 @@ class _OverdueState extends State<Overdue> {
                                               GestureDetector(
                                                 onTap: () {
                                                   if (_invoiceController
-                                                      .checkifSelectedForDeleted(
+                                                      .checkIfSelectedForDeleted(
                                                           item.id!)) {
                                                     _invoiceController
                                                         .deletedItem
@@ -378,7 +380,7 @@ class _OverdueState extends State<Overdue> {
                                                   width: 25,
                                                   decoration: BoxDecoration(
                                                     color: (!_invoiceController
-                                                            .checkifSelectedForDeleted(
+                                                            .checkIfSelectedForDeleted(
                                                                 item.id!))
                                                         ? AppColors.whiteColor
                                                         : AppColors
@@ -386,7 +388,7 @@ class _OverdueState extends State<Overdue> {
                                                     shape: BoxShape.circle,
                                                     border: Border.all(
                                                       color: (!_invoiceController
-                                                              .checkifSelectedForDeleted(
+                                                              .checkIfSelectedForDeleted(
                                                                   item.id!))
                                                           ? const Color(
                                                               0xffEF6500)
@@ -412,7 +414,7 @@ class _OverdueState extends State<Overdue> {
                                     );
                                   },
                                 )
-                              : EmptyInvoiceInfo(),
+                              : const EmptyInvoiceInfo(),
                 ),
               )
             ],

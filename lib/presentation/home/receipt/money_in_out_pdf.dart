@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:get/get.dart';
-import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/business_repository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/presentation/widget/util.dart';
 import 'package:huzz/data/model/business.dart';
@@ -16,7 +16,7 @@ import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
 class PdfMoneyInOutApi {
-  static final _businessController = Get.find<BusinessRespository>();
+  static final _businessController = Get.find<BusinessRepository>();
   static final _customerController = Get.find<CustomerRepository>();
   static Future<File> generate(
       TransactionModel transactionModel, PdfColor themeColor) async {
@@ -26,14 +26,14 @@ class PdfMoneyInOutApi {
     if (transactionModel.customerId != null) {
       // print("my customer id ${transactionModel.customerId}");
       customer = _customerController
-          .checkifCustomerAvailableWithValue(transactionModel.customerId!);
+          .checkIfCustomerAvailableWithValue(transactionModel.customerId!);
     }
     final selectedBusiness = _businessController.selectedBusiness.value!;
     pw.ImageProvider? businessImgProvider;
-    if (selectedBusiness.buisnessLogoFileStoreId != null &&
-        selectedBusiness.buisnessLogoFileStoreId!.isNotEmpty) {
+    if (selectedBusiness.businessLogoFileStoreId != null &&
+        selectedBusiness.businessLogoFileStoreId!.isNotEmpty) {
       businessImgProvider =
-          await networkImage(selectedBusiness.buisnessLogoFileStoreId!);
+          await networkImage(selectedBusiness.businessLogoFileStoreId!);
     }
 
     final huzzImgProvider =
@@ -58,7 +58,7 @@ class PdfMoneyInOutApi {
   static Widget buildHeader(Business item, ImageProvider? businessImgProvider,
           PdfColor themeColor) =>
       Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           color: themeColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +73,7 @@ class PdfMoneyInOutApi {
                             fontWeight: FontWeight.bold,
                             color: PdfColors.white)),
                     Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
-                        style: TextStyle(color: PdfColors.white)),
+                        style: const TextStyle(color: PdfColors.white)),
                   ]),
                 ],
               ),
@@ -121,10 +121,10 @@ class PdfMoneyInOutApi {
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text(item.businessEmail ?? "",
-              style: TextStyle(color: PdfColors.white)),
+              style: const TextStyle(color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text(item.businessPhoneNumber!,
-              style: TextStyle(color: PdfColors.white)),
+              style: const TextStyle(color: PdfColors.white)),
         ],
       );
 
@@ -166,7 +166,7 @@ class PdfMoneyInOutApi {
       headers: headers,
       data: data,
       border: null,
-      cellStyle: TextStyle(fontSize: 15),
+      cellStyle: const TextStyle(fontSize: 15),
       headerStyle: TextStyle(
           fontWeight: FontWeight.bold, color: themeColor, fontSize: 17),
       cellHeight: 38,
@@ -196,10 +196,10 @@ class PdfMoneyInOutApi {
     dynamic netTotal = 0;
     dynamic qtyTotal = 0;
 
-    transactionModel.businessTransactionPaymentItemList!.forEach((element) {
+    for (var element in transactionModel.businessTransactionPaymentItemList!) {
       netTotal = netTotal + (element.amount! * element.quality!);
       qtyTotal = qtyTotal + element.quality!;
-    });
+    }
 
     final total = netTotal;
     final outstanding = transactionModel.balance;
@@ -213,7 +213,7 @@ class PdfMoneyInOutApi {
           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               color: PdfColors.orange,
               child: Text(
                 'Total',
@@ -259,14 +259,14 @@ class PdfMoneyInOutApi {
                 children: [
                   Text(
                     'PARTLY PAID',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: PdfColors.black,
                       fontSize: 14,
                     ),
                   ),
                   Text(
                     Utils.formatPrice(paid * 1.0),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: PdfColors.black,
                       fontSize: 14,
                     ),

@@ -5,13 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/presentation/customers/merchants/merchants.dart';
-import '../../data/repository/auth_respository.dart';
+import '../../data/repository/auth_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'customer/customers.dart';
 
 class ManageCustomerInformationDialog extends StatelessWidget {
   final int tabIndex;
-  ManageCustomerInformationDialog(this.tabIndex);
+  const ManageCustomerInformationDialog(this.tabIndex, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +19,11 @@ class ManageCustomerInformationDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        SizedBox(height: 7),
+        const SizedBox(height: 7),
         if (tabIndex == 0)
           Text(
             'Your customers are the people you sell products or services to.',
@@ -47,6 +47,8 @@ class ManageCustomerInformationDialog extends StatelessWidget {
 }
 
 class CustomerTabView extends StatefulWidget {
+  const CustomerTabView({super.key});
+
   @override
   _CustomerTabViewState createState() => _CustomerTabViewState();
 }
@@ -85,7 +87,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
                 fontSize: 18,
               ),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             GestureDetector(
               onTap: () {
                 Platform.isIOS
@@ -97,7 +99,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
                               _tabController.index),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -110,7 +112,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
                               _tabController.index),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -129,9 +131,9 @@ class _CustomerTabViewState extends State<CustomerTabView>
           ],
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(55),
+          preferredSize: const Size.fromHeight(55),
           child: Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 20,
             ),
             child: Container(
@@ -163,7 +165,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
                 indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(2.5),
                     color: AppColors.backgroundColor),
-                tabs: [
+                tabs: const [
                   Tab(text: 'Customers'),
                   Tab(text: 'Merchants'),
                 ],
@@ -174,7 +176,7 @@ class _CustomerTabViewState extends State<CustomerTabView>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget>[
+        children: const <Widget>[
           Customers(
             pageName: 'Customers',
           ),
