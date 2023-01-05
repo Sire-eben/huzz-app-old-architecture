@@ -1,4 +1,4 @@
-// ignore_for_file: must_call_super, non_constant_identifier_names
+// ignore_for_file: must_call_super, non_constant_identifier_names, constant_identifier_names
 
 import 'dart:async';
 import 'dart:convert';
@@ -61,7 +61,7 @@ class BusinessRepository extends GetxController {
     _userController.mToken.listen((p0) {
       // print("available token is $p0");
       if (p0.isNotEmpty || p0 != "0") {
-      // print("trying to get online business since is the token is valid");
+        // print("trying to get online business since is the token is valid");
         OnlineBusiness();
       }
     });

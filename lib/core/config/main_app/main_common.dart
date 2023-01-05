@@ -12,17 +12,6 @@ Future<void> mainCommon({@required Environment? environment}) async {
   await dotenv.load(fileName: '.env');
   await registerAllDependencies();
 
-  // TODO: change this to flavouring
-  // switch (environment) {
-  //   case Environment.DEVELOPMENT:
-  //     break;
-  //   case Environment.STAGING:
-  //     break;
-  //   case Environment.PRODUCTION:
-  //   default:
-  // }
-
-
   await runZonedGuarded(
     () async => runApp(const HuzzApp()),
     (dynamic error, StackTrace stackTrace) =>

@@ -854,8 +854,8 @@ class CustomerRepository extends GetxController {
                   fontWeight: FontWeight.w400,
                   color: Colors.grey,
                 ),
-                contentPadding:
-                    const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+                contentPadding: const EdgeInsets.only(
+                    left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(
@@ -964,8 +964,8 @@ class CustomerRepository extends GetxController {
                           : searchResult.length,
                     )
                   : const Center(
-                    child: Text("No Contact(s) Found"),
-                  ),
+                      child: Text("No Contact(s) Found"),
+                    ),
             ),
             // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
@@ -1022,8 +1022,8 @@ class CustomerRepository extends GetxController {
                   fontWeight: FontWeight.w400,
                   color: Colors.grey,
                 ),
-                contentPadding:
-                    const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+                contentPadding: const EdgeInsets.only(
+                    left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(
@@ -1142,8 +1142,8 @@ class CustomerRepository extends GetxController {
                           : searchResult.length,
                     )
                   : const Center(
-                    child: Text("No Contact(s) Found"),
-                  ),
+                      child: Text("No Contact(s) Found"),
+                    ),
             ),
             // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 

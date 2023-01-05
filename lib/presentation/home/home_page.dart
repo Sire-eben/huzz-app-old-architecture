@@ -2968,7 +2968,7 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.to(() => const MoneyOut());
+                      Get.to(() => MoneyOut());
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
