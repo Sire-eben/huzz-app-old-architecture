@@ -453,7 +453,7 @@ class _HomeState extends State<Home> {
                           child: Container(
                               padding: EdgeInsets.all(Insets.md),
                               decoration: BoxDecoration(
-                                color: AppColors.secondbgColor.withOpacity(0.1),
+                                color: AppColors.secondBgColor.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(

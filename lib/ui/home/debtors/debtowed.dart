@@ -115,7 +115,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 child: Container(
                                   height: 95,
                                   decoration: BoxDecoration(
-                                    color: AppColors.secondbgColor,
+                                    color: AppColors.secondBgColor,
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,

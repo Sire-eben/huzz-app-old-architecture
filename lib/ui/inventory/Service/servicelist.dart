@@ -243,8 +243,7 @@ class _ServiceListingState extends State<ServiceListing> {
                                     BorderRadius.all(Radius.circular(10))),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: AppColors.backgroundColor,
-                                    width: 2),
+                                    color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             hintText: 'Search',
@@ -295,7 +294,7 @@ class _ServiceListingState extends State<ServiceListing> {
                               height: 30,
                               width: 30,
                               decoration: BoxDecoration(
-                                color: AppColors.lightbackgroundColor,
+                                color: AppColors.lightBackgroundColor,
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
@@ -412,7 +411,7 @@ class _ServiceListingState extends State<ServiceListing> {
                 height: 95,
                 padding: EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: AppColors.secondbgColor,
+                  color: AppColors.secondBgColor,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,

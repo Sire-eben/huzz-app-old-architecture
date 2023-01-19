@@ -71,7 +71,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
-                      color: AppColors.lightbackgroundColor,
+                      color: AppColors.lightBackgroundColor,
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -87,7 +87,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
-                      color: AppColors.lightbackgroundColor,
+                      color: AppColors.lightBackgroundColor,
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -259,7 +259,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               height: 95,
               padding: EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
-                color: AppColors.secondbgColor,
+                color: AppColors.secondBgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

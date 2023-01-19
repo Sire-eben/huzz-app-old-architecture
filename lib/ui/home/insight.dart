@@ -87,7 +87,7 @@ class _InsightState extends State<Insight> {
     _PieChartData('Tue', 28, AppColors.wineColor),
     _PieChartData('Wed', 34, AppColors.backgroundColor),
     _PieChartData('Thur', 32, AppColors.blueColor),
-    _PieChartData('Fri', 40, AppColors.lightblueColor),
+    // _PieChartData('Fri', 40, AppColors.lightblueColor),
     _PieChartData('Sat', 28, AppColors.purpleColor),
     _PieChartData('Sun', 32, AppColors.brownColor)
   ];
@@ -97,7 +97,7 @@ class _InsightState extends State<Insight> {
     _PieChartData('Tue', 10, AppColors.wineColor),
     _PieChartData('Wed', 40, AppColors.backgroundColor),
     _PieChartData('Thur', 32, AppColors.blueColor),
-    _PieChartData('Fri', 20, AppColors.lightblueColor),
+    // _PieChartData('Fri', 20, AppColors.lightblueColor),
     _PieChartData('Sat', 15, AppColors.purpleColor),
     _PieChartData('Sun', 32, AppColors.brownColor)
   ];

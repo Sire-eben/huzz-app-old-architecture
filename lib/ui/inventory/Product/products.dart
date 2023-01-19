@@ -195,7 +195,7 @@ class _ProductsState extends State<Products> {
               height: 95,
               padding: EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
-                color: AppColors.secondbgColor,
+                color: AppColors.secondBgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

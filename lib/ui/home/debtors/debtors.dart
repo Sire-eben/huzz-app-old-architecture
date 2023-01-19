@@ -140,7 +140,7 @@ class _DebtorsState extends State<Debtors> {
                                 child: Container(
                                   height: 95,
                                   decoration: BoxDecoration(
-                                    color: AppColors.secondbgColor,
+                                    color: AppColors.secondBgColor,
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
