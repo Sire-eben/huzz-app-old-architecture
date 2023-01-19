@@ -81,7 +81,7 @@ class Product {
         "productLogoFileStoreUrl": productLogoFileStoreId,
         "deleted": deleted,
         "isAddingPending": isAddingPending ?? false,
-        "isUpdatePending": isUpdatingPending ?? false,
+        "isUpdatePendig": isUpdatingPending ?? false,
         "productNameChanged": productNameChanged ?? false,
         "description": description
       };

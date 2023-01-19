@@ -8,7 +8,7 @@ class BaseWidget<T extends ChangeNotifier> extends StatefulWidget {
   final void Function(T)? onModelReady;
   final bool? singleInstanceModel;
 
-  const BaseWidget.value({super.key,
+  const BaseWidget.value({
     @required this.builder,
     @required this.model,
     this.child,

@@ -7,11 +7,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/data/repository/auth_repository.dart';
-import 'package:huzz/data/repository/business_repository.dart';
-import 'package:huzz/data/repository/file_upload_repository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
+import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/presentation/customers/confirmation.dart';
+import 'package:huzz/ui/customers/confirmation.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
@@ -29,25 +29,25 @@ class CustomerRepository extends GetxController {
   final amountController = TextEditingController();
   final totalAmountController = TextEditingController();
   final balanceController = TextEditingController();
-  final _businessController = Get.find<BusinessRepository>();
+  final _businessController = Get.find<BusinessRespository>();
   final _userController = Get.find<AuthRepository>();
   final _addingCustomerStatus = AddingCustomerStatus.Empty.obs;
-  var uuid = const Uuid();
+  var uuid = Uuid();
 
-  final Rx<List<Customer>> _onlineBusinessCustomer = Rx([]);
-  final Rx<List<Customer>> _offlineBusinessCustomer = Rx([]);
+  Rx<List<Customer>> _onlineBusinessCustomer = Rx([]);
+  Rx<List<Customer>> _offlineBusinessCustomer = Rx([]);
   List<Customer> get offlineBusinessCustomer => _offlineBusinessCustomer.value;
   List<Customer> get onlineBusinessCustomer => _onlineBusinessCustomer.value;
   List<Customer> pendingBusinessCustomer = [];
   AddingCustomerStatus get addingCustomerStatus => _addingCustomerStatus.value;
   TabController? tabController;
-  final Rx<List<Customer>> _deleteCustomerList = Rx([]);
+  Rx<List<Customer>> _deleteCustomerList = Rx([]);
 
   List<Customer> get deleteCustomerList => _deleteCustomerList.value;
   List<Customer> pendingUpdatedCustomerList = [];
 
-  final Rx<List<Customer>> _customerCustomer = Rx([]);
-  final Rx<List<Customer>> _customerMerchant = Rx([]);
+  Rx<List<Customer>> _customerCustomer = Rx([]);
+  Rx<List<Customer>> _customerMerchant = Rx([]);
 
   final isCustomerService = false.obs;
   final _customerStatus = CustomerStatus.Empty.obs;
@@ -58,18 +58,17 @@ class CustomerRepository extends GetxController {
 
   List<Contact> contactList = [];
 
-  Rx<File?> customerImage = Rx(null);
-  final _uploadFileController = Get.find<FileUploadRepository>();
+  Rx<File?> CustomerImage = Rx(null);
+  final _uploadFileController = Get.find<FileUploadRespository>();
   SqliteDb sqliteDb = SqliteDb();
-  final RandomColor _randomColor = RandomColor();
+  RandomColor _randomColor = RandomColor();
   List<Customer> pendingJobToBeAdded = [];
   List<Customer> pendingJobToBeUpdated = [];
   List<Customer> pendingJobToBeDelete = [];
 
   @override
   void onInit() {
-    super.onInit();
-    _userController.mToken.listen((p0) {
+    _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.businessId != null) {
@@ -78,7 +77,7 @@ class CustomerRepository extends GetxController {
         }
         _businessController.selectedBusiness.listen((p0) async {
           if (p0 != null && p0.businessId != null) {
-            // print("business id ${p0.businessId}");
+            print("business id ${p0.businessId}");
             _offlineBusinessCustomer([]);
 
             _onlineBusinessCustomer([]);
@@ -91,12 +90,12 @@ class CustomerRepository extends GetxController {
       }
     });
 
-    _userController.monLineStatus.listen((po) {
+    _userController.MonlineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           checkPendingCustomerToBeAddedToSever();
           checkPendingCustomerToBeDeletedOnServer();
-          checkPendingCustomerToBeUpdatedToServer();
+          checkPendingCustomerTobeUpdatedToServer();
           //update server with pending job
         });
       }
@@ -106,19 +105,19 @@ class CustomerRepository extends GetxController {
   }
 
   Future getPhoneContact() async {
-    // print("trying phone contact list");
+    print("trying phone contact list");
     try {
       if (await FlutterContacts.requestPermission()) {
         contactList = await FlutterContacts.getContacts(
             withProperties: true, withPhoto: false);
-        // print("phone contacts ${contactList.length}");
+        print("phone contacts ${contactList.length}");
       }
     } catch (ex) {
-      // print("contact error is ${ex.toString()}");
+      print("contact error is ${ex.toString()}");
     }
   }
 
-  Future addBusinessCustomer(String type, String name) async {
+  Future addBusinnessCustomer(String type, String name) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       addBusinessCustomerOnline(type, name);
     } else {
@@ -126,7 +125,7 @@ class CustomerRepository extends GetxController {
     }
   }
 
-  Future updateBusinessCustomer(Customer item) async {
+  Future updateBusinesscustomer(Customer item) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       updateCustomerOnline(item);
     } else {
@@ -158,7 +157,7 @@ class CustomerRepository extends GetxController {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-      // print("customer adding response ${response.body}");
+      print("customer adding response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -179,7 +178,7 @@ class CustomerRepository extends GetxController {
         Get.snackbar("Error", "Unable to add customer");
       }
     } catch (ex) {
-      // print("error occurred ${ex.toString()}");
+      print("error occurred ${ex.toString()}");
       _addingCustomerStatus(AddingCustomerStatus.Error);
       Get.snackbar("Error", "Unknown error occurred.. try again");
     }
@@ -187,10 +186,8 @@ class CustomerRepository extends GetxController {
 
   Future<String?> addBusinessCustomerWithString(String transactionType) async {
     try {
-      /**
-        print(
-            "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
-      */
+      print(
+          "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
           body: jsonEncode({
             "email": emailController.text,
@@ -204,7 +201,7 @@ class CustomerRepository extends GetxController {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-      // print("adding customer response ${response.body}");
+      print("adding customer response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -227,17 +224,15 @@ class CustomerRepository extends GetxController {
   Future<String?> addBusinessCustomerWithStringWithValue(
       Customer customer) async {
     try {
-      /**
-        print(
-            "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
-      */
+      print(
+          "adding customer phone ${phoneNumberController.text} name ${nameController.text}");
       var response = await http.post(Uri.parse(ApiLink.addCustomer),
           body: jsonEncode(customer.toJson()),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
-      // print("adding customer response ${response.body}");
+      print("adding customer response ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
@@ -301,9 +296,9 @@ class CustomerRepository extends GetxController {
       _addingCustomerStatus(AddingCustomerStatus.Loading);
       String? fileId;
 
-      if (customerImage.value != null) {
+      if (CustomerImage.value != null) {
         fileId =
-            await _uploadFileController.uploadFile(customerImage.value!.path);
+            await _uploadFileController.uploadFile(CustomerImage.value!.path);
       }
       var response = await http
           .put(Uri.parse(ApiLink.add_customer + "/" + customer.customerId!),
@@ -320,7 +315,7 @@ class CustomerRepository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      // print("update Customer response ${response.body}");
+      print("update Customer response ${response.body}");
       if (response.statusCode == 200) {
         _addingCustomerStatus(AddingCustomerStatus.Success);
         getOnlineCustomer(
@@ -357,21 +352,21 @@ class CustomerRepository extends GetxController {
           await _businessController.sqliteDb.getOfflineCustomers(businessId);
       var list = result.where((c) => c.deleted == false).toList();
       _offlineBusinessCustomer(list);
-      // print("offline Customer found ${result.length}");
+      print("offline Customer found ${result.length}");
       setCustomerDifferent();
       list.isNotEmpty
           ? _customerStatus(CustomerStatus.Available)
           : _customerStatus(CustomerStatus.Empty);
     } catch (error) {
       _customerStatus(CustomerStatus.Error);
-      (error.toString());
+      print(error.toString());
     }
   }
 
   Future getOnlineCustomer(String businessId) async {
     try {
       _customerStatus(CustomerStatus.Loading);
-      // print("trying to get Customer online for $businessId");
+      print("trying to get Customer online for $businessId");
 
       final response = await http.get(
           Uri.parse(ApiLink.getBusinessCustomer +
@@ -387,7 +382,7 @@ class CustomerRepository extends GetxController {
               '&businessTransactionType=EXPENDITURE'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      // print("result of get Customer online ${response.body}");
+      print("result of get Customer online ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         var json1 = jsonDecode(response1.body);
@@ -415,32 +410,32 @@ class CustomerRepository extends GetxController {
       }
     } catch (error) {
       _customerStatus(CustomerStatus.Error);
-      // print(error.toString());
+      print(error.toString());
     }
   }
 
   Future getBusinessCustomerYetToBeSavedLocally() async {
-    for (var element in onlineBusinessCustomer) {
-      // print("value is customer id is${element.customerId}");
-      if (!checkIfCustomerAvailable(element.customerId!)) {
-        // print("doesnt contain value");
+    onlineBusinessCustomer.forEach((element) {
+      print("value is customer id is${element.customerId}");
+      if (!checkifCustomerAvailable(element.customerId!)) {
+        print("doesnt contain value");
 
         pendingBusinessCustomer.add(element);
       }
-    }
+    });
 
     savePendingJob();
   }
 
   Future checkIfUpdateAvailable() async {
     onlineBusinessCustomer.forEach((element) async {
-      var item = checkIfCustomerAvailableWithValue(element.customerId!);
+      var item = checkifCustomerAvailableWithValue(element.customerId!);
       if (item != null) {
-        // print("item Customer is found");
-        // print("updated offline ${item.updatedTime!.toIso8601String()}");
-        // print("updated online ${element.updatedTime!.toIso8601String()}");
+        print("item Customer is found");
+        print("updated offline ${item.updatedTime!.toIso8601String()}");
+        print("updated online ${element.updatedTime!.toIso8601String()}");
         if (!element.updatedTime!.isAtSameMomentAs(item.updatedTime!)) {
-          // print("found Customer to updated");
+          print("found Customer to updated");
           pendingUpdatedCustomerList.add(element);
         }
       }
@@ -454,13 +449,13 @@ class CustomerRepository extends GetxController {
       _customerStatus(CustomerStatus.Loading);
       List<Customer> customer = [];
       List<Customer> merchant = [];
-      for (var element in offlineBusinessCustomer) {
+      offlineBusinessCustomer.forEach((element) {
         if (element.businessTransactionType == "INCOME") {
           customer.add(element);
         } else {
           merchant.add(element);
         }
-      }
+      });
       _customerCustomer(customer);
       _customerMerchant(merchant);
       (customer.isNotEmpty && merchant.isNotEmpty)
@@ -476,15 +471,15 @@ class CustomerRepository extends GetxController {
       if (pendingUpdatedCustomerList.isEmpty) {
         return;
       }
-      var updatedNext = pendingUpdatedCustomerList.first;
-      await _businessController.sqliteDb.updateOfflineCustomer(updatedNext);
-      pendingUpdatedCustomerList.remove(updatedNext);
+      var updatednext = pendingUpdatedCustomerList.first;
+      await _businessController.sqliteDb.updateOfflineCustomer(updatednext);
+      pendingUpdatedCustomerList.remove(updatednext);
       if (pendingUpdatedCustomerList.isNotEmpty) {
         updatePendingJob();
       }
-      getOfflineCustomer(updatedNext.businessId!);
+      getOfflineCustomer(updatednext.businessId!);
     } catch (error) {
-      (error.toString());
+      print(error.toString());
     }
   }
 
@@ -492,39 +487,39 @@ class CustomerRepository extends GetxController {
     if (pendingBusinessCustomer.isEmpty) {
       return;
     }
-    var saveNext = pendingBusinessCustomer.first;
-    await _businessController.sqliteDb.insertCustomer(saveNext);
-    pendingBusinessCustomer.remove(saveNext);
+    var savenext = pendingBusinessCustomer.first;
+    await _businessController.sqliteDb.insertCustomer(savenext);
+    pendingBusinessCustomer.remove(savenext);
     if (pendingBusinessCustomer.isNotEmpty) {
       savePendingJob();
     }
-    getOfflineCustomer(saveNext.businessId!);
+    getOfflineCustomer(savenext.businessId!);
   }
 
-  bool checkIfCustomerAvailable(String id) {
+  bool checkifCustomerAvailable(String id) {
     bool result = false;
-    for (var element in offlineBusinessCustomer) {
-      // print("checking transaction whether exist");
+    offlineBusinessCustomer.forEach((element) {
+      print("checking transaction whether exist");
       if (element.customerId == id) {
-        // print("Customer   found");
+        print("Customer   found");
         result = true;
       }
-    }
+    });
     return result;
   }
 
-  Customer? checkIfCustomerAvailableWithValue(String id) {
+  Customer? checkifCustomerAvailableWithValue(String id) {
     Customer? item;
 
-    for (var element in offlineBusinessCustomer) {
-      // print("checking customer whether exist");
+    offlineBusinessCustomer.forEach((element) {
+      print("checking customer whether exist");
       if (element.customerId == id) {
-        // print("Customer   found");
+        print("Customer   found");
         item = element;
       } else {
-        // print("customer not found");
+        print("customer not found");
       }
-    }
+    });
     return item;
   }
 
@@ -533,7 +528,7 @@ class CustomerRepository extends GetxController {
         Uri.parse(ApiLink.add_customer +
             "/${customer.customerId}?businessId=${customer.businessId}"),
         headers: {"Authorization": "Bearer ${_userController.token}"});
-    // print("delete response ${response.body}");
+    print("delete response ${response.body}");
     if (response.statusCode == 200) {
       _businessController.sqliteDb.deleteCustomer(customer);
       getOfflineCustomer(
@@ -558,61 +553,59 @@ class CustomerRepository extends GetxController {
     getOfflineCustomer(_businessController.selectedBusiness.value!.businessId!);
   }
 
-  bool checkIfSelectedForDeleted(String id) {
+  bool checkifSelectedForDelted(String id) {
     bool result = false;
-    for (var element in deleteCustomerList) {
-      // print("checking transaction whether exist");
+    deleteCustomerList.forEach((element) {
+      print("checking transaction whether exist");
       if (element.customerId == id) {
-        // print("Customer   found");
+        print("Customer   found");
         result = true;
       }
-    }
+    });
     return result;
   }
 
   Future checkPendingCustomerToBeAddedToSever() async {
-    // print("checking customer that is pending to be added");
+    print("checking customer that is pending to be added");
 
     var list = await _businessController.sqliteDb.getOfflineCustomers(
         _businessController.selectedBusiness.value!.businessId!);
-    // print("offline customer length ${list.length}");
-    for (var element in list) {
+    print("offline customer lenght ${list.length}");
+    list.forEach((element) {
       if (element.isAddingPending!) {
         pendingJobToBeAdded.add(element);
-        // print("item is found to be added");
+        print("item is found to be added");
       }
-    }
-    /**
-      print(
-          "number of customer to be added to server ${pendingJobToBeAdded.length}");
-    */
+    });
+    print(
+        "number of customer to be added to server ${pendingJobToBeAdded.length}");
     addPendingJobCustomerToServer();
   }
 
-  Future checkPendingCustomerToBeUpdatedToServer() async {
+  Future checkPendingCustomerTobeUpdatedToServer() async {
     var list = await _businessController.sqliteDb.getOfflineCustomers(
         _businessController.selectedBusiness.value!.businessId!);
-    for (var element in list) {
+    list.forEach((element) {
       if (element.isUpdatingPending! && !element.isAddingPending!) {
         pendingJobToBeUpdated.add(element);
       }
-    }
+    });
 
     addPendingJobToBeUpdateToServer();
   }
 
   Future checkPendingCustomerToBeDeletedOnServer() async {
-    // print("checking customer to be deleted");
+    print("checking customer to be deleted");
     var list = await _businessController.sqliteDb.getOfflineCustomers(
         _businessController.selectedBusiness.value!.businessId!);
-    // print("checking customer to be deleted list ${list.length}");
-    for (var element in list) {
+    print("checking customer to be deleted list ${list.length}");
+    list.forEach((element) {
       if (element.deleted!) {
         pendingJobToBeDelete.add(element);
-        // print("Customer to be deleted is found ");
+        print("Customer to be deleted is found ");
       }
-    }
-    // print("customer to be deleted ${pendingJobToBeDelete.length}");
+    });
+    print("customer to be deleted ${pendingJobToBeDelete.length}");
     deletePendingJobToServer();
   }
 
@@ -642,7 +635,7 @@ class CustomerRepository extends GetxController {
             _businessController.selectedBusiness.value!.businessId!);
 
         _businessController.sqliteDb.deleteCustomer(savenext);
-        // print("pending to be added is delete");
+        print("pending to be added is delete");
         return json['data']['id'];
       }
     }
@@ -658,23 +651,23 @@ class CustomerRepository extends GetxController {
     }
 
     pendingJobToBeUpdated.forEach((element) async {
-      var updateNext = element;
+      var updatenext = element;
 
       var response = await http
-          .put(Uri.parse(ApiLink.add_customer + "/" + updateNext.customerId!),
+          .put(Uri.parse(ApiLink.add_customer + "/" + updatenext.customerId!),
               body: jsonEncode({
-                "email": updateNext.email,
-                "phone": updateNext.phone,
-                "name": updateNext.name,
-                "businessId": updateNext.businessId,
-                "businessTransactionType": updateNext.businessTransactionType
+                "email": updatenext.email,
+                "phone": updatenext.phone,
+                "name": updatenext.name,
+                "businessId": updatenext.businessId,
+                "businessTransactionType": updatenext.businessTransactionType
               }),
               headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      // print("update Customer response ${response.body}");
+      print("update Customer response ${response.body}");
       if (response.statusCode == 200) {
         _addingCustomerStatus(AddingCustomerStatus.Success);
         getOnlineCustomer(
@@ -691,36 +684,36 @@ class CustomerRepository extends GetxController {
     }
 
     pendingJobToBeDelete.forEach((element) async {
-      var deleteNext = pendingJobToBeDelete.first;
+      var deletenext = pendingJobToBeDelete.first;
       var response = await http.delete(
           Uri.parse(ApiLink.add_customer +
-              "/${deleteNext.customerId}?businessId=${deleteNext.businessId}"),
+              "/${deletenext.customerId}?businessId=${deletenext.businessId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
-      // print("previous deleted response ${response.body}");
+      print("previous deleted response ${response.body}");
       if (response.statusCode == 200) {
-        _businessController.sqliteDb.deleteCustomer(deleteNext);
+        _businessController.sqliteDb.deleteCustomer(deletenext);
         getOfflineCustomer(
             _businessController.selectedBusiness.value!.businessId!);
       } else {
-        _businessController.sqliteDb.deleteCustomer(deleteNext);
+        _businessController.sqliteDb.deleteCustomer(deletenext);
         getOfflineCustomer(
             _businessController.selectedBusiness.value!.businessId!);
       }
 
       pendingJobToBeDelete.forEach((element) async {
-        var deleteNext = pendingJobToBeDelete.first;
+        var deletenext = pendingJobToBeDelete.first;
         var response = await http.delete(
             Uri.parse(ApiLink.add_customer +
-                "/${deleteNext.customerId}?businessId=${deleteNext.businessId}"),
+                "/${deletenext.customerId}?businessId=${deletenext.businessId}"),
             headers: {"Authorization": "Bearer ${_userController.token}"});
-        // print("previous deleted response ${response.body}");
+        print("previous deleted response ${response.body}");
         if (response.statusCode == 200) {
-          _businessController.sqliteDb.deleteCustomer(deleteNext);
+          _businessController.sqliteDb.deleteCustomer(deletenext);
           getOfflineCustomer(
               _businessController.selectedBusiness.value!.businessId!);
         } else {}
 
-        pendingJobToBeDelete.remove(deleteNext);
+        pendingJobToBeDelete.remove(deletenext);
         if (pendingJobToBeDelete.isNotEmpty) {
           deletePendingJobToServer();
         }
@@ -732,32 +725,32 @@ class CustomerRepository extends GetxController {
     if (deleteCustomerList.isEmpty) {
       return;
     }
-    var deleteNext = deleteCustomerList.first;
-    await deleteBusinessCustomer(deleteNext);
+    var deletenext = deleteCustomerList.first;
+    await deleteBusinessCustomer(deletenext);
     var list = deleteCustomerList;
-    list.remove(deleteNext);
+    list.remove(deletenext);
     _deleteCustomerList(list);
 
     if (deleteCustomerList.isNotEmpty) {
       deleteSelectedItem();
     }
-    getOfflineCustomer(deleteNext.businessId!);
+    getOfflineCustomer(deletenext.businessId!);
   }
 
-  void addToDeleteList(Customer customer) {
+  void addToDeleteList(Customer Customer) {
     var list = deleteCustomerList;
-    list.add(customer);
+    list.add(Customer);
     _deleteCustomerList(list);
   }
 
-  void removeFromDeleteList(Customer customer) {
+  void removeFromDeleteList(Customer Customer) {
     var list = deleteCustomerList;
-    list.remove(customer);
+    list.remove(Customer);
     _deleteCustomerList(list);
   }
 
   void clearValue() {
-    customerImage(null);
+    CustomerImage(null);
     nameController.text = "";
     emailController.text = "";
     phoneNumberController.text = "";
@@ -770,46 +763,46 @@ class CustomerRepository extends GetxController {
   }
 
   Future showContactPicker(BuildContext context) async {
-    // print("contact picker is selected");
-    _searchText("");
+    print("contact picker is selected");
+    _searchtext("");
     _searchResult([]);
     await showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         context: context,
         isScrollControlled: true,
         builder: (context) => Padding(
             padding: MediaQuery.of(context).viewInsets,
-            child: SizedBox(
+            child: Container(
               height: Get.width -
                   100, //height or you can use Get.width-100 to set height
               child: buildSelectContact(context),
             )));
   }
 
-  final Rx<List<Contact>> _searchResult = Rx([]);
-  final Rx<String> _searchText = Rx('');
+  Rx<List<Contact>> _searchResult = Rx([]);
+  Rx<String> _searchtext = Rx('');
   List<Contact> get searchResult => _searchResult.value;
-  String get searchText => _searchText.value;
+  String get searchtext => _searchtext.value;
 
   void searchItem(String val) {
-    _searchText(val);
+    _searchtext(val);
 
     _searchResult([]);
     List<Contact> list = [];
-    for (var element in contactList) {
+    contactList.forEach((element) {
       if (element.displayName.isNotEmpty &&
           element.displayName.toLowerCase().contains(val.toLowerCase())) {
-        // print("contact found");
+        print("contact found");
         list.add(element);
       }
-    }
+    });
 
     _searchResult(list);
   }
 
   Widget buildSelectContact(BuildContext context) {
-    // print("contact on phone ${contactList.length}");
+    print("contact on phone ${contactList.length}");
     return Obx(() {
       return Container(
         padding: EdgeInsets.only(
@@ -838,13 +831,13 @@ class CustomerRepository extends GetxController {
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.search,
                   color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
-                  borderSide: const BorderSide(color: Colors.black12),
+                  borderSide: BorderSide(color: Colors.black12),
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -854,18 +847,18 @@ class CustomerRepository extends GetxController {
                   fontWeight: FontWeight.w400,
                   color: Colors.grey,
                 ),
-                contentPadding: const EdgeInsets.only(
-                    left: 16, right: 8, top: 8, bottom: 8),
+                contentPadding:
+                    EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
@@ -873,10 +866,10 @@ class CustomerRepository extends GetxController {
               ),
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Expanded(
               // width: MediaQuery.of(context).size.width,
-              child: (searchText.isEmpty || searchResult.isNotEmpty)
+              child: (searchtext.isEmpty || searchResult.isNotEmpty)
                   ? ListView.builder(
                       itemBuilder: (context, index) {
                         var item = (searchResult.isEmpty)
@@ -890,16 +883,15 @@ class CustomerRepository extends GetxController {
                               nameController.text = item.displayName;
                               phoneNumberController.text =
                                   item.phones.first.number;
-                              if (item.emails.isNotEmpty) {
+                              if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
-                              }
                             },
                             child: Row(
                               children: [
                                 Expanded(
                                     child: Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
+                                  margin: EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Container(
@@ -911,7 +903,7 @@ class CustomerRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : item.displayName[0],
+                                              : '${item.displayName[0]}',
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -924,30 +916,32 @@ class CustomerRepository extends GetxController {
                                         0.02),
                                 Expanded(
                                   flex: 3,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.displayName,
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      Text(
-                                        (item.phones.isNotEmpty)
-                                            ? item.phones.first.number
-                                            : "No Phone Number",
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12, color: Colors.grey),
-                                      ),
-                                    ],
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${item.displayName}",
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        Text(
+                                          (item.phones.isNotEmpty)
+                                              ? "${item.phones.first.number}"
+                                              : "No Phone Number",
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12, color: Colors.grey),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Expanded(
                                     child: Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
+                                  margin: EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: SvgPicture.asset(
@@ -963,8 +957,10 @@ class CustomerRepository extends GetxController {
                           ? contactList.length
                           : searchResult.length,
                     )
-                  : const Center(
-                      child: Text("No Contact(s) Found"),
+                  : Container(
+                      child: Center(
+                        child: Text("No Contact(s) Found"),
+                      ),
                     ),
             ),
             // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -977,7 +973,7 @@ class CustomerRepository extends GetxController {
   }
 
   Widget buildSelectTeam(BuildContext context) {
-    // print("contact on phone ${contactList.length}");
+    print("contact on phone ${contactList.length}");
     return Obx(() {
       return Container(
         padding: EdgeInsets.only(
@@ -1006,13 +1002,13 @@ class CustomerRepository extends GetxController {
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.search,
                   color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
-                  borderSide: const BorderSide(color: Colors.black12),
+                  borderSide: BorderSide(color: Colors.black12),
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -1022,18 +1018,18 @@ class CustomerRepository extends GetxController {
                   fontWeight: FontWeight.w400,
                   color: Colors.grey,
                 ),
-                contentPadding: const EdgeInsets.only(
-                    left: 16, right: 8, top: 8, bottom: 8),
+                contentPadding:
+                    EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
@@ -1041,11 +1037,11 @@ class CustomerRepository extends GetxController {
               ),
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Expanded(
-              child: (searchText.isEmpty || searchResult.isNotEmpty)
+              child: (searchtext.isEmpty || searchResult.isNotEmpty)
                   ? ListView.separated(
-                      separatorBuilder: (context, index) => const Divider(),
+                      separatorBuilder: (context, index) => Divider(),
                       itemBuilder: (context, index) {
                         var item = (searchResult.isEmpty)
                             ? contactList[index]
@@ -1058,17 +1054,16 @@ class CustomerRepository extends GetxController {
                               nameController.text = item.displayName;
                               phoneNumberController.text =
                                   item.phones.first.number;
-                              if (item.emails.isNotEmpty) {
+                              if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
-                              }
                               //  Navigator.pop(context);
                             },
                             child: Row(
                               children: [
                                 Expanded(
                                     child: Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
+                                  margin: EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Container(
@@ -1080,7 +1075,7 @@ class CustomerRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : item.displayName[0],
+                                              : '${item.displayName[0]}',
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -1093,30 +1088,32 @@ class CustomerRepository extends GetxController {
                                         0.02),
                                 Expanded(
                                   flex: 3,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.displayName,
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      Text(
-                                        (item.phones.isNotEmpty)
-                                            ? item.phones.first.number
-                                            : "No Phone Number",
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12, color: Colors.grey),
-                                      ),
-                                    ],
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${item.displayName}",
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        Text(
+                                          (item.phones.isNotEmpty)
+                                              ? "${item.phones.first.number}"
+                                              : "No Phone Number",
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12, color: Colors.grey),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Expanded(
                                     child: Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
+                                  margin: EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Column(children: [
@@ -1141,8 +1138,10 @@ class CustomerRepository extends GetxController {
                           ? contactList.length
                           : searchResult.length,
                     )
-                  : const Center(
-                      child: Text("No Contact(s) Found"),
+                  : Container(
+                      child: Center(
+                        child: Text("No Contact(s) Found"),
+                      ),
                     ),
             ),
             // SizedBox(height: MediaQuery.of(context).size.height * 0.02),

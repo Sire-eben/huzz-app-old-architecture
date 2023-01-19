@@ -4,39 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/util/constants.dart';
-import 'package:huzz/core/util/util.dart';
-import 'package:huzz/presentation/business/create_business.dart';
-import 'package:huzz/presentation/home/debtors/debtors_tab.dart';
-import 'package:huzz/presentation/home/insight.dart';
-import 'package:huzz/presentation/home/money_history.dart';
-import 'package:huzz/presentation/home/money_in.dart';
-import 'package:huzz/presentation/home/money_out.dart';
-import 'package:huzz/presentation/home/records.dart';
-import 'package:huzz/presentation/settings/settings.dart';
+import 'package:huzz/util/constants.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import '../../../data/model/business.dart';
 import '../../../data/model/notification_model.dart';
-import '../../../data/repository/business_repository.dart';
+import '../../../data/repository/business_respository.dart';
 import '../../../data/repository/debtors_repository.dart';
-import '../../../data/repository/transaction_repository.dart';
+import '../../../data/repository/transaction_respository.dart';
+import '../../../ui/create_business.dart';
+import '../../../ui/home/debtors/debtorstab.dart';
+import '../../../ui/home/insight.dart';
+import '../../../ui/home/money_history.dart';
+import '../../../ui/home/money_in.dart';
+import '../../../ui/home/money_out.dart';
+import '../../../ui/home/records.dart';
+import '../../../ui/settings/settings.dart';
+import '../../../util/util.dart';
 
 class DebtInformationDialog extends StatelessWidget {
-  const DebtInformationDialog({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(
+        Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        const SizedBox(height: 7),
+        SizedBox(height: 7),
         Text(
           "Total debts is the sum of the debts you owe and the debts others owe you. It gives you a sense of your potential revenue.",
           textAlign: TextAlign.center,
@@ -50,8 +48,6 @@ class DebtInformationDialog extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
-  const Home({super.key});
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -64,13 +60,13 @@ class _HomeState extends State<Home> {
   );
 
   String? value;
-  final _transactionController = Get.find<TransactionRepository>();
-  final _businessController = Get.find<BusinessRepository>();
+  final _transactionController = Get.find<TransactionRespository>();
+  final _businessController = Get.find<BusinessRespository>();
   final _debtorController = Get.find<DebtorRepository>();
   // final _authController = Get.find<AuthRepository>();
   int selectedValue = 0;
   final transactionList = [];
-  final RandomColor _randomColor = RandomColor();
+  RandomColor _randomColor = RandomColor();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +91,7 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
-                          shape: const RoundedRectangleBorder(
+                          shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20))),
                           context: context,
@@ -103,64 +99,66 @@ class _HomeState extends State<Home> {
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.7,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 4),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                               width: 3, color: AppColors.backgroundColor)),
                       child: Row(
                         children: [
-                          const SizedBox(
+                          SizedBox(
                             width: 10,
                           ),
                           buildMenuItem(
                               "${_businessController.selectedBusiness.value!.businessName}"),
-                          const Expanded(child: SizedBox()),
-                          const Icon(
+                          Expanded(child: SizedBox()),
+                          Icon(
                             Icons.keyboard_arrow_down,
                             color: AppColors.backgroundColor,
                           ),
-                          const SizedBox(
+                          SizedBox(
                             width: 10,
                           )
                         ],
                       ),
                     ),
                   ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(Notifications());
-                        },
-                        child: SvgPicture.asset(
-                          'assets/images/bell.svg',
-                          height: 20,
-                          width: 20,
+                  Container(
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(Notifications());
+                          },
+                          child: SvgPicture.asset(
+                            'assets/images/bell.svg',
+                            height: 20,
+                            width: 20,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.02),
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(const Settings());
-                        },
-                        child: SvgPicture.asset(
-                          'assets/images/settings.svg',
-                          color: AppColors.backgroundColor,
-                          height: 20,
-                          width: 20,
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.02),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(Settings());
+                          },
+                          child: SvgPicture.asset(
+                            'assets/images/settings.svg',
+                            color: AppColors.backgroundColor,
+                            height: 20,
+                            width: 20,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Obx(() {
                 return Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -169,7 +167,7 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 13, vertical: 4),
                             decoration: BoxDecoration(
                               color: AppColors.whiteColor,
@@ -184,29 +182,29 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 10,
                           ),
                           Text(
-                            "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
+                            "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                             style: GoogleFonts.inter(
                               color: AppColors.whiteColor,
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const Spacer(),
+                          Spacer(),
                           Row(
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Get.to(() => const Records());
+                                  Get.to(() => Records());
                                 },
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(
+                                  padding: EdgeInsets.symmetric(
                                       horizontal: 7, vertical: 4),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xff056B5C),
+                                    color: Color(0xff056B5C),
                                     borderRadius: BorderRadius.circular(24),
                                   ),
                                   child: Row(
@@ -221,14 +219,14 @@ class _HomeState extends State<Home> {
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5),
                                       Container(
-                                        padding: const EdgeInsets.all(2),
-                                        decoration: const BoxDecoration(
+                                        padding: EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
                                           color: Colors.white,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.arrow_forward_outlined,
                                           color: Color(0xff056B5C),
                                           size: 14,
@@ -238,16 +236,16 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 7),
+                              SizedBox(width: 7),
                               InkWell(
                                 onTap: () {
-                                  Get.to(() => const Insight());
+                                  Get.to(() => Insight());
                                 },
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(
+                                  padding: EdgeInsets.symmetric(
                                       horizontal: 7, vertical: 4),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xff056B5C),
+                                    color: Color(0xff056B5C),
                                     borderRadius: BorderRadius.circular(24),
                                   ),
                                   child: Row(
@@ -262,10 +260,10 @@ class _HomeState extends State<Home> {
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5),
                                       Container(
-                                        padding: const EdgeInsets.all(2),
-                                        decoration: const BoxDecoration(
+                                        padding: EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
                                           color: Colors.white,
                                           shape: BoxShape.circle,
                                         ),
@@ -288,24 +286,24 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 4, vertical: 4),
                             decoration: BoxDecoration(
-                              color: const Color(0xff016BCC),
+                              color: Color(0xff016BCC),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Row(
                               children: [
                                 Container(
-                                    padding: const EdgeInsets.all(2),
-                                    decoration: const BoxDecoration(
+                                    padding: EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Colors.white),
                                     child: SvgPicture.asset(
                                       "assets/images/money_in.svg",
                                       height: 8,
                                     )),
-                                const SizedBox(
+                                SizedBox(
                                   width: 5,
                                 ),
                                 Text(
@@ -319,7 +317,7 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                           ),
-                          const Spacer(),
+                          Spacer(),
                           Text(
                             "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                             style: GoogleFonts.inter(
@@ -328,27 +326,27 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const Spacer(),
+                          Spacer(),
                           Container(
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 4, vertical: 4),
                             decoration: BoxDecoration(
-                              color: const Color(0xffDD8F48),
+                              color: Color(0xffDD8F48),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                    padding: const EdgeInsets.all(2),
-                                    decoration: const BoxDecoration(
+                                    padding: EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Colors.white),
                                     child: SvgPicture.asset(
                                       "assets/images/money_out.svg",
                                       height: 8,
                                     )),
-                                const SizedBox(
+                                SizedBox(
                                   width: 5,
                                 ),
                                 Text(
@@ -362,7 +360,7 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                           ),
-                          const Spacer(),
+                          Spacer(),
                           Text(
                             "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                             style: GoogleFonts.inter(
@@ -379,7 +377,7 @@ class _HomeState extends State<Home> {
                   decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(12),
-                    image: const DecorationImage(
+                    image: DecorationImage(
                       image: AssetImage("assets/images/home_rectangle.png"),
                       fit: BoxFit.fill,
                     ),
@@ -497,7 +495,7 @@ class _HomeState extends State<Home> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               InkWell(
                 onTap: () {
-                  Get.to(() => const DebtorsTab());
+                  Get.to(() => DebtorsTab());
                 },
                 child: Container(
                     padding: EdgeInsets.symmetric(
@@ -516,7 +514,7 @@ class _HomeState extends State<Home> {
                               width: MediaQuery.of(context).size.width * 0.08,
                               padding: EdgeInsets.all(
                                   MediaQuery.of(context).size.width * 0.015),
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: Color(0xffEF6500),
                                   shape: BoxShape.circle),
                               child:
@@ -540,11 +538,10 @@ class _HomeState extends State<Home> {
                                         barrierDismissible: true,
                                         builder: (context) =>
                                             CupertinoAlertDialog(
-                                          content:
-                                              const DebtInformationDialog(),
+                                          content: DebtInformationDialog(),
                                           actions: [
                                             CupertinoButton(
-                                              child: const Text("OK"),
+                                              child: Text("OK"),
                                               onPressed: () => Get.back(),
                                             ),
                                           ],
@@ -553,19 +550,19 @@ class _HomeState extends State<Home> {
                                     : showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          content:
-                                              const DebtInformationDialog(),
+                                          content: DebtInformationDialog(),
                                           actions: [
                                             CupertinoButton(
-                                              child: const Text("OK"),
+                                              child: Text("OK"),
                                               onPressed: () => Get.back(),
                                             ),
                                           ],
                                         ),
                                       );
                               },
-                              child: const Padding(
-                                padding: EdgeInsets.only(left: 4.0, top: 2.0),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 4.0, top: 2.0),
                                 child: Icon(
                                   Icons.info_outline_rounded,
                                   size: 18,
@@ -580,7 +577,7 @@ class _HomeState extends State<Home> {
                                 "No debtors yet",
                                 style: GoogleFonts.inter(
                                   fontSize: 15,
-                                  color: const Color(0xffF58D40),
+                                  color: Color(0xffF58D40),
                                   fontWeight: FontWeight.w600,
                                 ),
                               )
@@ -590,13 +587,13 @@ class _HomeState extends State<Home> {
                                     "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
                                     style: GoogleFonts.inter(
                                         fontSize: 15,
-                                        color: const Color(0xffF58D40),
+                                        color: Color(0xffF58D40),
                                         fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.02),
-                                  const Icon(
+                                  Icon(
                                     Icons.arrow_forward_ios,
                                     size: 15,
                                     color: Color(0xffF58D40),
@@ -620,14 +617,14 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height * 0.02),
                 decoration: BoxDecoration(
-                    color: const Color(0xffF5F5F5),
+                    color: Color(0xffF5F5F5),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                         width: 2, color: Colors.grey.withOpacity(0.2))),
                 child: Obx(() {
                   return RefreshIndicator(
                     onRefresh: () async {
-                      return Future.delayed(const Duration(seconds: 1), () {
+                      return Future.delayed(Duration(seconds: 1), () {
                         _debtorController.dispose();
                         _transactionController.dispose();
                         _transactionController.getAllPaymentItem();
@@ -636,7 +633,7 @@ class _HomeState extends State<Home> {
                     },
                     child: (_transactionController.transactionStatus ==
                             TransactionStatus.Loading)
-                        ? const Center(child: CircularProgressIndicator())
+                        ? Center(child: CircularProgressIndicator())
                         : (_transactionController.allPaymentItem.isNotEmpty)
                             ? ListView.separated(
                                 scrollDirection: Axis.vertical,
@@ -646,9 +643,9 @@ class _HomeState extends State<Home> {
                                       .allPaymentItem[index];
                                   return InkWell(
                                     onTap: () {
-                                      // print(
-                                      //     "item payment transaction id is ${item.businessTransactionId}");
-                                      Get.to(() => MoneyHistory(
+                                      print(
+                                          "item payment transaction id is ${item.businessTransactionId}");
+                                      Get.to(() => MoneySummary(
                                             item: item,
                                           ));
                                     },
@@ -690,7 +687,7 @@ class _HomeState extends State<Home> {
                                             ],
                                           ),
                                         ),
-                                        const Spacer(),
+                                        Spacer(),
                                         Expanded(
                                           flex: 3,
                                           child: Column(
@@ -715,15 +712,14 @@ class _HomeState extends State<Home> {
                                                 ),
                                               ]),
                                         ),
-                                        const SizedBox(
+                                        SizedBox(
                                           width: 10,
                                         )
                                       ],
                                     ),
                                   );
                                 },
-                                separatorBuilder: (context, index) =>
-                                    const Divider(),
+                                separatorBuilder: (context, index) => Divider(),
                                 itemCount: _transactionController
                                     .allPaymentItem.length)
                             : Center(
@@ -733,7 +729,7 @@ class _HomeState extends State<Home> {
                                   children: [
                                     SvgPicture.asset(
                                         'assets/images/empty_transaction.svg'),
-                                    const SizedBox(
+                                    SizedBox(
                                       height: 10,
                                     ),
                                     Text(
@@ -743,7 +739,7 @@ class _HomeState extends State<Home> {
                                           color: Colors.black,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    const SizedBox(
+                                    SizedBox(
                                       height: 5,
                                     ),
                                     Text(
@@ -771,12 +767,12 @@ class _HomeState extends State<Home> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () => showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
+              shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(20))),
               context: context,
               builder: (context) => buildAddTransaction()),
-          icon: const Icon(Icons.add),
+          icon: Icon(Icons.add),
           backgroundColor: AppColors.backgroundColor,
           label: Text(
             'Add transaction',
@@ -805,7 +801,7 @@ class _HomeState extends State<Home> {
               GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
+                      shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20))),
                       context: context,
@@ -813,63 +809,64 @@ class _HomeState extends State<Home> {
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.7,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                           width: 3, color: AppColors.backgroundColor)),
                   child: Row(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         width: 10,
                       ),
                       buildMenuItem(
                           "${_businessController.selectedBusiness.value!.businessName}"),
-                      const Expanded(child: SizedBox()),
-                      const Icon(
+                      Expanded(child: SizedBox()),
+                      Icon(
                         Icons.keyboard_arrow_down,
                         color: AppColors.backgroundColor,
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 10,
                       )
                     ],
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(Notifications());
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/bell.svg',
-                      height: 20,
-                      width: 20,
+              Container(
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(Notifications());
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/bell.svg',
+                        height: 20,
+                        width: 20,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(const Settings());
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/settings.svg',
-                      color: AppColors.backgroundColor,
-                      height: 20,
-                      width: 20,
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(Settings());
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/settings.svg',
+                        color: AppColors.backgroundColor,
+                        height: 20,
+                        width: 20,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Obx(() {
             return Container(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -878,8 +875,8 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 13, vertical: 4),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                         decoration: BoxDecoration(
                           color: AppColors.whiteColor,
                           borderRadius: BorderRadius.circular(16),
@@ -894,11 +891,11 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 10,
                       ),
                       Text(
-                        "${Utils.getCurrency()}${display(_transactionController.totalBalance.value)}",
+                        "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                         style: GoogleFonts.inter(
                           color: AppColors.whiteColor,
                           // ,
@@ -906,18 +903,18 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const Spacer(),
+                      Spacer(),
                       Row(
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.to(() => const Records());
+                              Get.to(() => Records());
                             },
                             child: Container(
-                              padding: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 7, vertical: 4),
                               decoration: BoxDecoration(
-                                color: const Color(0xff056B5C),
+                                color: Color(0xff056B5C),
                                 borderRadius: BorderRadius.circular(24),
                               ),
                               child: Row(
@@ -932,14 +929,14 @@ class _HomeState extends State<Home> {
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                  const SizedBox(width: 5),
+                                  SizedBox(width: 5),
                                   Container(
-                                    padding: const EdgeInsets.all(2),
-                                    decoration: const BoxDecoration(
+                                    padding: EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.circle,
                                     ),
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.arrow_forward_outlined,
                                       color: Color(0xff056B5C),
                                       size: 14,
@@ -949,16 +946,16 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 7),
+                          SizedBox(width: 7),
                           InkWell(
                             onTap: () {
-                              Get.to(() => const Insight());
+                              Get.to(() => Insight());
                             },
                             child: Container(
-                              padding: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 7, vertical: 4),
                               decoration: BoxDecoration(
-                                color: const Color(0xff056B5C),
+                                color: Color(0xff056B5C),
                                 borderRadius: BorderRadius.circular(24),
                               ),
                               child: Row(
@@ -974,10 +971,10 @@ class _HomeState extends State<Home> {
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                  const SizedBox(width: 5),
+                                  SizedBox(width: 5),
                                   Container(
-                                    padding: const EdgeInsets.all(2),
-                                    decoration: const BoxDecoration(
+                                    padding: EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.circle,
                                     ),
@@ -1000,24 +997,24 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 4),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                         decoration: BoxDecoration(
-                          color: const Color(0xff016BCC),
+                          color: Color(0xff016BCC),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Row(
                           children: [
                             Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: const BoxDecoration(
+                                padding: EdgeInsets.all(2),
+                                decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Colors.white),
                                 child: SvgPicture.asset(
                                   "assets/images/money_in.svg",
                                   height: 8,
                                 )),
-                            const SizedBox(
+                            SizedBox(
                               width: 5,
                             ),
                             Text(
@@ -1032,7 +1029,7 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-                      const Spacer(),
+                      Spacer(),
                       Text(
                         "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                         style: GoogleFonts.inter(
@@ -1042,27 +1039,27 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const Spacer(),
+                      Spacer(),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 4),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                         decoration: BoxDecoration(
-                          color: const Color(0xffDD8F48),
+                          color: Color(0xffDD8F48),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: const BoxDecoration(
+                                padding: EdgeInsets.all(2),
+                                decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Colors.white),
                                 child: SvgPicture.asset(
                                   "assets/images/money_out.svg",
                                   height: 8,
                                 )),
-                            const SizedBox(
+                            SizedBox(
                               width: 5,
                             ),
                             Text(
@@ -1076,7 +1073,7 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-                      const Spacer(),
+                      Spacer(),
                       Text(
                         "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                         style: GoogleFonts.inter(
@@ -1093,7 +1090,7 @@ class _HomeState extends State<Home> {
               decoration: BoxDecoration(
                 color: AppColors.backgroundColor,
                 borderRadius: BorderRadius.circular(12),
-                image: const DecorationImage(
+                image: DecorationImage(
                   image: AssetImage("assets/images/home_rectangle.png"),
                   fit: BoxFit.fill,
                 ),
@@ -1211,7 +1208,7 @@ class _HomeState extends State<Home> {
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           InkWell(
             onTap: () {
-              Get.to(() => const DebtorsTab());
+              Get.to(() => DebtorsTab());
             },
             child: Container(
                 padding: EdgeInsets.symmetric(
@@ -1230,7 +1227,7 @@ class _HomeState extends State<Home> {
                           width: MediaQuery.of(context).size.width * 0.08,
                           padding: EdgeInsets.all(
                               MediaQuery.of(context).size.width * 0.015),
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                               color: Color(0xffEF6500), shape: BoxShape.circle),
                           child: SvgPicture.asset('assets/images/debtors.svg'),
                         ),
@@ -1250,10 +1247,10 @@ class _HomeState extends State<Home> {
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) => CupertinoAlertDialog(
-                                      content: const DebtInformationDialog(),
+                                      content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: Text("OK"),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -1262,18 +1259,18 @@ class _HomeState extends State<Home> {
                                 : showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      content: const DebtInformationDialog(),
+                                      content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: Text("OK"),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
                                     ),
                                   );
                           },
-                          child: const Padding(
-                            padding: EdgeInsets.only(left: 4.0, top: 2.0),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 4.0, top: 2.0),
                             child: Icon(
                               Icons.info_outline_rounded,
                               size: 18,
@@ -1288,7 +1285,7 @@ class _HomeState extends State<Home> {
                             "No debtors yet",
                             style: GoogleFonts.inter(
                               fontSize: 15,
-                              color: const Color(0xffF58D40),
+                              color: Color(0xffF58D40),
                               fontWeight: FontWeight.w600,
                             ),
                           )
@@ -1298,13 +1295,13 @@ class _HomeState extends State<Home> {
                                 "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
                                 style: GoogleFonts.inter(
                                     fontSize: 15,
-                                    color: const Color(0xffF58D40),
+                                    color: Color(0xffF58D40),
                                     fontWeight: FontWeight.w600),
                               ),
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
-                              const Icon(
+                              Icon(
                                 Icons.arrow_forward_ios,
                                 size: 15,
                                 color: Color(0xffF58D40),
@@ -1326,14 +1323,14 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).size.height * 0.02),
             decoration: BoxDecoration(
-                color: const Color(0xffF5F5F5),
+                color: Color(0xffF5F5F5),
                 borderRadius: BorderRadius.circular(10),
                 border:
                     Border.all(width: 2, color: Colors.grey.withOpacity(0.2))),
             child: Obx(() {
               return RefreshIndicator(
                 onRefresh: () async {
-                  return Future.delayed(const Duration(seconds: 1), () {
+                  return Future.delayed(Duration(seconds: 1), () {
                     _debtorController.dispose();
                     _transactionController.dispose();
                     _transactionController.getAllPaymentItem();
@@ -1343,7 +1340,7 @@ class _HomeState extends State<Home> {
                 child: (_transactionController.transactionStatus ==
                         TransactionStatus.Loading)
                     ? Obx(() {
-                        return const Center(child: CircularProgressIndicator());
+                        return Center(child: CircularProgressIndicator());
                       })
                     : (_transactionController.transactionStatus ==
                             TransactionStatus.Available)
@@ -1355,9 +1352,9 @@ class _HomeState extends State<Home> {
                                   _transactionController.allPaymentItem[index];
                               return InkWell(
                                 onTap: () {
-                                  // print(
-                                  //     "item payment transaction id is ${item.businessTransactionId}");
-                                  Get.to(() => MoneyHistory(
+                                  print(
+                                      "item payment transaction id is ${item.businessTransactionId}");
+                                  Get.to(() => MoneySummary(
                                         item: item,
                                       ));
                                 },
@@ -1396,7 +1393,7 @@ class _HomeState extends State<Home> {
                                         ],
                                       ),
                                     ),
-                                    const Spacer(),
+                                    Spacer(),
                                     Expanded(
                                       flex: 3,
                                       child: Column(
@@ -1420,21 +1417,20 @@ class _HomeState extends State<Home> {
                                             ),
                                           ]),
                                     ),
-                                    const SizedBox(
+                                    SizedBox(
                                       width: 10,
                                     )
                                   ],
                                 ),
                               );
                             },
-                            separatorBuilder: (context, index) =>
-                                const Divider(),
+                            separatorBuilder: (context, index) => Divider(),
                             itemCount:
                                 _transactionController.allPaymentItem.length)
                         : (_transactionController.transactionStatus ==
                                 TransactionStatus.Empty)
-                            ? const Text('Not Item')
-                            : const Text('Empty'),
+                            ? Text('Not Item')
+                            : Text('Empty'),
               );
             }),
           ))
@@ -1459,7 +1455,7 @@ class _HomeState extends State<Home> {
               GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
+                      shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20))),
                       context: context,
@@ -1467,15 +1463,14 @@ class _HomeState extends State<Home> {
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.65,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                           width: 3, color: AppColors.backgroundColor)),
                   child: Row(
                     children: [
-                      const SizedBox(
+                      SizedBox(
                         width: 10,
                       ),
                       buildMenuItem(_businessController
@@ -1483,19 +1478,19 @@ class _HomeState extends State<Home> {
                               null
                           ? "No Business"
                           : "${_businessController.selectedBusiness.value!.businessName}"),
-                      const Expanded(child: SizedBox()),
-                      const Icon(
+                      Expanded(child: SizedBox()),
+                      Icon(
                         Icons.keyboard_arrow_down,
                         color: AppColors.backgroundColor,
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 10,
                       )
                     ],
                   ),
                 ),
               ),
-              const Spacer(),
+              Spacer(),
               GestureDetector(
                 onTap: () {
                   Get.to(Notifications());
@@ -1504,22 +1499,22 @@ class _HomeState extends State<Home> {
                   decoration: BoxDecoration(
                       color: AppColors.backgroundColor.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(6)),
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10),
                   child: SvgPicture.asset(
                     'assets/images/bell.svg',
                   ),
                 ),
               ),
-              const Spacer(),
+              Spacer(),
               GestureDetector(
                 onTap: () {
-                  Get.to(const Settings());
+                  Get.to(Settings());
                 },
                 child: Container(
                   decoration: BoxDecoration(
                       color: AppColors.backgroundColor.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(6)),
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10),
                   child: SvgPicture.asset(
                     'assets/images/settings.svg',
                   ),
@@ -1529,7 +1524,7 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -1538,8 +1533,8 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 13, vertical: 4),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 13, vertical: 4),
                       decoration: BoxDecoration(
                         color: AppColors.whiteColor,
                         borderRadius: BorderRadius.circular(6),
@@ -1553,7 +1548,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -1564,18 +1559,18 @@ class _HomeState extends State<Home> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const Spacer(),
+                    Spacer(),
                     Row(
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(() => const Records());
+                            Get.to(() => Records());
                           },
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 7, vertical: 4),
                             decoration: BoxDecoration(
-                              color: const Color(0xff056B5C),
+                              color: Color(0xff056B5C),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Row(
@@ -1589,14 +1584,14 @@ class _HomeState extends State<Home> {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                const SizedBox(width: 5),
+                                SizedBox(width: 5),
                                 Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: const BoxDecoration(
+                                  padding: EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
                                   ),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.arrow_forward_outlined,
                                     color: Color(0xff056B5C),
                                     size: 14,
@@ -1606,16 +1601,16 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 7),
+                        SizedBox(width: 7),
                         InkWell(
                           onTap: () {
-                            Get.to(() => const Insight());
+                            Get.to(() => Insight());
                           },
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 7, vertical: 4),
                             decoration: BoxDecoration(
-                              color: const Color(0xff056B5C),
+                              color: Color(0xff056B5C),
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Row(
@@ -1629,10 +1624,10 @@ class _HomeState extends State<Home> {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                const SizedBox(width: 5),
+                                SizedBox(width: 5),
                                 Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: const BoxDecoration(
+                                  padding: EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
                                   ),
@@ -1655,23 +1650,22 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 4, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                       decoration: BoxDecoration(
-                        color: const Color(0xff016BCC),
+                        color: Color(0xff016BCC),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Row(
                         children: [
                           Container(
-                              padding: const EdgeInsets.all(2),
-                              decoration: const BoxDecoration(
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                               child: SvgPicture.asset(
                                 "assets/images/money_in.svg",
                                 height: 8,
                               )),
-                          const SizedBox(
+                          SizedBox(
                             width: 5,
                           ),
                           Text(
@@ -1685,7 +1679,7 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    const Spacer(),
+                    Spacer(),
                     Text(
                       "${Utils.getCurrency()}0.0",
                       style: GoogleFonts.inter(
@@ -1695,26 +1689,25 @@ class _HomeState extends State<Home> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const Spacer(),
+                    Spacer(),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 4, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                       decoration: BoxDecoration(
-                        color: const Color(0xffDD8F48),
+                        color: Color(0xffDD8F48),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                              padding: const EdgeInsets.all(2),
-                              decoration: const BoxDecoration(
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                               child: SvgPicture.asset(
                                 "assets/images/money_out.svg",
                                 height: 8,
                               )),
-                          const SizedBox(
+                          SizedBox(
                             width: 5,
                           ),
                           Text(
@@ -1728,7 +1721,7 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                    const Spacer(),
+                    Spacer(),
                     Text(
                       "${Utils.getCurrency()}0.0",
                       style: GoogleFonts.inter(
@@ -1745,7 +1738,7 @@ class _HomeState extends State<Home> {
             decoration: BoxDecoration(
               color: AppColors.backgroundColor,
               borderRadius: BorderRadius.circular(12),
-              image: const DecorationImage(
+              image: DecorationImage(
                 image: AssetImage("assets/images/home_rectangle.png"),
                 fit: BoxFit.fill,
               ),
@@ -1851,7 +1844,7 @@ class _HomeState extends State<Home> {
           // SizedBox(height: MediaQuery.of(context).size.height * 0.015),
           InkWell(
             onTap: () {
-              Get.to(const DebtorsTab());
+              Get.to(DebtorsTab());
             },
             child: Container(
                 padding: EdgeInsets.symmetric(
@@ -1870,7 +1863,7 @@ class _HomeState extends State<Home> {
                           width: MediaQuery.of(context).size.width * 0.08,
                           padding: EdgeInsets.all(
                               MediaQuery.of(context).size.width * 0.015),
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                               color: Color(0xffEF6500), shape: BoxShape.circle),
                           child: SvgPicture.asset('assets/images/debtors.svg'),
                         ),
@@ -1890,10 +1883,10 @@ class _HomeState extends State<Home> {
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) => CupertinoAlertDialog(
-                                      content: const DebtInformationDialog(),
+                                      content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: Text("OK"),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -1902,18 +1895,18 @@ class _HomeState extends State<Home> {
                                 : showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      content: const DebtInformationDialog(),
+                                      content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: Text("OK"),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
                                     ),
                                   );
                           },
-                          child: const Padding(
-                            padding: EdgeInsets.only(left: 4.0, top: 2.0),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 4.0, top: 2.0),
                             child: Icon(
                               Icons.info_outline_rounded,
                               size: 18,
@@ -1928,7 +1921,7 @@ class _HomeState extends State<Home> {
                             "No debtors yet",
                             style: GoogleFonts.inter(
                               fontSize: 15,
-                              color: const Color(0xffF58D40),
+                              color: Color(0xffF58D40),
                               fontWeight: FontWeight.w600,
                             ),
                           )
@@ -1938,13 +1931,13 @@ class _HomeState extends State<Home> {
                                 "${_debtorController.isTotalDebtNegative ? "-" : ""}${Utils.getCurrency()}${display((_debtorController.totalDebt as num).abs())}",
                                 style: GoogleFonts.inter(
                                     fontSize: 15,
-                                    color: const Color(0xffF58D40),
+                                    color: Color(0xffF58D40),
                                     fontWeight: FontWeight.w600),
                               ),
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
-                              const Icon(
+                              Icon(
                                 Icons.arrow_forward_ios,
                                 size: 15,
                                 color: Color(0xffF58D40),
@@ -1968,7 +1961,7 @@ class _HomeState extends State<Home> {
                   right: MediaQuery.of(context).size.height * 0.02,
                   bottom: MediaQuery.of(context).size.height * 0.02),
               decoration: BoxDecoration(
-                  color: const Color(0xffF5F5F5),
+                  color: Color(0xffF5F5F5),
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                       width: 2, color: Colors.grey.withOpacity(0.2))),
@@ -1978,7 +1971,7 @@ class _HomeState extends State<Home> {
                     right: MediaQuery.of(context).size.height * 0.02,
                     bottom: MediaQuery.of(context).size.height * 0.02),
                 decoration: BoxDecoration(
-                  color: const Color(0xffF5F5F5),
+                  color: Color(0xffF5F5F5),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
@@ -1987,7 +1980,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset('assets/images/empty_transaction.svg'),
-                      const SizedBox(
+                      SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -1997,7 +1990,7 @@ class _HomeState extends State<Home> {
                             color: Colors.black,
                             fontWeight: FontWeight.w600),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 5,
                       ),
                       Text(
@@ -2047,12 +2040,12 @@ class _HomeState extends State<Home> {
                   child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.to(() => const MoneyOut());
+                      Get.to(() => MoneyOut());
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
                       decoration: BoxDecoration(
-                        color: const Color(0xffEF6500),
+                        color: Color(0xffEF6500),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
@@ -2091,12 +2084,12 @@ class _HomeState extends State<Home> {
                   child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.to(() => const MoneyIn());
+                      Get.to(() => MoneyIn());
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
                       decoration: BoxDecoration(
-                        color: const Color(0xff0065D3),
+                        color: Color(0xff0065D3),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
@@ -2156,7 +2149,7 @@ class _HomeState extends State<Home> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Expanded(
                 flex: 3,
-                child: SizedBox(
+                child: Container(
                   height:
                       (_businessController.offlineBusiness.length * 50) + 20,
                   width: MediaQuery.of(context).size.width,
@@ -2177,7 +2170,7 @@ class _HomeState extends State<Home> {
                             children: [
                               Expanded(
                                   child: Container(
-                                margin: const EdgeInsets.only(bottom: 10),
+                                margin: EdgeInsets.only(bottom: 10),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
@@ -2203,7 +2196,7 @@ class _HomeState extends State<Home> {
                               Expanded(
                                   flex: 2,
                                   child: Text(
-                                    item.business!.businessName!,
+                                    '${item.business!.businessName!}',
                                     style: GoogleFonts.inter(
                                         fontSize: 13,
                                         color: Colors.black,
@@ -2239,7 +2232,7 @@ class _HomeState extends State<Home> {
                 child: InkWell(
                   onTap: () {
                     // Get.to(() => AddNewSale());
-                    Get.to(const CreateBusiness());
+                    Get.to(CreateBusiness());
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -2247,7 +2240,7 @@ class _HomeState extends State<Home> {
                         horizontal: MediaQuery.of(context).size.height * 0.03,
                         vertical: 20),
                     height: 50,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Center(

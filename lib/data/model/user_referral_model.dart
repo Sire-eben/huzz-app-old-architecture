@@ -1,3 +1,4 @@
+import 'dart:convert';
 
 class UserReferralModel {
   final String id;

@@ -6,16 +6,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:huzz/data/repository/auth_repository.dart';
-import 'package:huzz/data/repository/business_repository.dart';
+import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/presentation/team/confirmation.dart';
-import 'package:huzz/presentation/team/team_updated_confirmation.dart';
+import 'package:huzz/ui/team/team_updated_confirmation.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:random_color/random_color.dart';
 import 'package:uuid/uuid.dart';
+import '../../ui/team/confirmation.dart';
 
 enum AddingTeamStatus { Loading, Error, Success, Empty }
 
@@ -28,15 +28,15 @@ enum DeleteTeamStatus { Loading, Error, Success, Empty }
 enum TeamStatus { Loading, Available, Error, Empty, UnAuthorized }
 
 class TeamRepository extends GetxController {
-  final RandomColor _randomColor = RandomColor();
+  RandomColor _randomColor = RandomColor();
   final nameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final amountController = TextEditingController();
   final totalAmountController = TextEditingController();
   final emailController = TextEditingController();
   final _userController = Get.find<AuthRepository>();
-  final _businessController = Get.find<BusinessRepository>();
-  var uuid = const Uuid();
+  final _businessController = Get.find<BusinessRespository>();
+  var uuid = Uuid();
 
   final _addingTeamMemberStatus = AddingTeamStatus.Empty.obs;
   final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
@@ -48,10 +48,10 @@ class TeamRepository extends GetxController {
   final teamMemberData = Rx(Teams());
   Teams get teamMember => teamMemberData.value;
 
-  final Rx<List<Teams>> _onlineBusinessTeam = Rx([]);
-  final Rx<List<Teams>> _offlineBusinessTeam = Rx([]);
-  final Rx<List<Teams>> _deleteTeamMemberList = Rx([]);
-  final Rx<List<Teams>> _team = Rx([]);
+  Rx<List<Teams>> _onlineBusinessTeam = Rx([]);
+  Rx<List<Teams>> _offlineBusinessTeam = Rx([]);
+  Rx<List<Teams>> _deleteTeamMemberList = Rx([]);
+  Rx<List<Teams>> _team = Rx([]);
 
   List<Teams> get offlineBusinessTeam => _offlineBusinessTeam.value;
   List<Teams> get onlineBusinessTeam => _onlineBusinessTeam.value;
@@ -79,8 +79,7 @@ class TeamRepository extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
-    _userController.mToken.listen((p0) {
+    _userController.Mtoken.listen((p0) {
       if (p0.isNotEmpty || p0 != "0") {
         final value = _businessController.selectedBusiness.value;
         if (value != null && value.teamId != null) {
@@ -90,7 +89,7 @@ class TeamRepository extends GetxController {
         }
         _businessController.selectedBusiness.listen((p0) {
           if (p0 != null && p0.teamId != null) {
-            // print("team id ${p0.teamId}");
+            print("team id ${p0.teamId}");
             // _offlineBusinessTeam([]);
             _onlineBusinessTeam([]);
             _team([]);
@@ -102,7 +101,7 @@ class TeamRepository extends GetxController {
       }
     });
 
-    _userController.monLineStatus.listen((po) {
+    _userController.MonlineStatus.listen((po) {
       if (po == OnlineStatus.Onilne) {
         _businessController.selectedBusiness.listen((p0) {
           getOnlineTeamMember(p0!.teamId);
@@ -118,58 +117,58 @@ class TeamRepository extends GetxController {
   }
 
   Future getPhoneContact() async {
-    // print("trying phone contact list");
+    print("trying phone contact list");
     try {
       if (await FlutterContacts.requestPermission()) {
         contactList = await FlutterContacts.getContacts(
             withProperties: true, withPhoto: false);
-        // print("phone contacts ${contactList.length}");
+        print("phone contacts ${contactList.length}");
       }
     } catch (ex) {
-      // print("contact error is ${ex.toString()}");
+      print("contact error is ${ex.toString()}");
     }
   }
 
   Future showContactPickerForTeams(BuildContext context) async {
-    // print("contact picker is selected");
-    _searchText("");
+    print("contact picker is selected");
+    _searchtext("");
     _searchResult([]);
     await showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         context: context,
         isScrollControlled: true,
         builder: (context) => Padding(
             padding: MediaQuery.of(context).viewInsets,
-            child: SizedBox(
+            child: Container(
               height: Get.width - 50,
               child: buildSelectTeam(context),
             )));
   }
 
-  final Rx<List<Contact>> _searchResult = Rx([]);
-  final Rx<String> _searchText = Rx('');
+  Rx<List<Contact>> _searchResult = Rx([]);
+  Rx<String> _searchtext = Rx('');
   List<Contact> get searchResult => _searchResult.value;
-  String get searchText => _searchText.value;
+  String get searchtext => _searchtext.value;
 
   void searchItem(String val) {
-    _searchText(val);
+    _searchtext(val);
 
     _searchResult([]);
     List<Contact> list = [];
-    for (var element in contactList) {
+    contactList.forEach((element) {
       if (element.displayName.isNotEmpty &&
           element.displayName.toLowerCase().contains(val.toLowerCase())) {
-        // print("contact found");
+        print("contact found");
         list.add(element);
       }
-    }
+    });
 
     _searchResult(list);
   }
 
   Widget buildSelectContact(BuildContext context) {
-    // print("contact on phone ${contactList.length}");
+    print("contact on phone ${contactList.length}");
     return Obx(() {
       return Container(
         padding: EdgeInsets.only(
@@ -198,13 +197,13 @@ class TeamRepository extends GetxController {
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.search,
                   color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
-                  borderSide: const BorderSide(color: Colors.black12),
+                  borderSide: BorderSide(color: Colors.black12),
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -216,26 +215,26 @@ class TeamRepository extends GetxController {
                   //
                 ),
                 contentPadding:
-                    const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+                    EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Expanded(
-              child: (searchText.isEmpty || searchResult.isNotEmpty)
+              child: (searchtext.isEmpty || searchResult.isNotEmpty)
                   ? ListView.builder(
                       itemBuilder: (context, index) {
                         var item = (searchResult.isEmpty)
@@ -249,16 +248,15 @@ class TeamRepository extends GetxController {
                               nameController.text = item.displayName;
                               phoneNumberController.text =
                                   item.phones.first.number;
-                              if (item.emails.isNotEmpty) {
+                              if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
-                              }
                             },
                             child: Row(
                               children: [
                                 Expanded(
                                     child: Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
+                                  margin: EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Container(
@@ -270,7 +268,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : item.displayName[0],
+                                              : '${item.displayName[0]}',
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -284,28 +282,30 @@ class TeamRepository extends GetxController {
                                         0.02),
                                 Expanded(
                                   flex: 3,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.displayName,
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            // ,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      Text(
-                                        (item.phones.isNotEmpty)
-                                            ? item.phones.first.number
-                                            : "No Phone Number",
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            // ,
-                                            color: Colors.grey),
-                                      ),
-                                    ],
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${item.displayName}",
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12,
+                                              // ,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        Text(
+                                          (item.phones.isNotEmpty)
+                                              ? "${item.phones.first.number}"
+                                              : "No Phone Number",
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12,
+                                              // ,
+                                              color: Colors.grey),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -317,9 +317,11 @@ class TeamRepository extends GetxController {
                           ? contactList.length
                           : searchResult.length,
                     )
-                  : const Center(
-                    child: Text("No Contact(s) Found"),
-                  ),
+                  : Container(
+                      child: Center(
+                        child: Text("No Contact(s) Found"),
+                      ),
+                    ),
             ),
           ],
         ),
@@ -328,7 +330,7 @@ class TeamRepository extends GetxController {
   }
 
   Widget buildSelectTeam(BuildContext context) {
-    // print("contact on phone ${contactList.length}");
+    print("contact on phone ${contactList.length}");
     return Obx(() {
       return Container(
         padding: EdgeInsets.only(
@@ -355,13 +357,13 @@ class TeamRepository extends GetxController {
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.search,
                   color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
-                  borderSide: const BorderSide(color: Colors.black12),
+                  borderSide: BorderSide(color: Colors.black12),
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -372,28 +374,28 @@ class TeamRepository extends GetxController {
                   color: Colors.grey,
                 ),
                 contentPadding:
-                    const EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
+                    EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Expanded(
-              child: (searchText.isEmpty || searchResult.isNotEmpty)
+              child: (searchtext.isEmpty || searchResult.isNotEmpty)
                   ? ListView.separated(
-                      separatorBuilder: (context, index) => const Divider(),
+                      separatorBuilder: (context, index) => Divider(),
                       itemBuilder: (context, index) {
                         var item = (searchResult.isEmpty)
                             ? contactList[index]
@@ -406,7 +408,7 @@ class TeamRepository extends GetxController {
                               if (item.phones.first.number.length == 11) {
                                 var no = item.phones.first.number
                                     .replaceFirst('0', '');
-                                // print('contact selected $no');
+                                print('contact selected $no');
                                 phoneNumberController.text = no;
                               } else {
                                 var no = item.phones.first.number
@@ -417,20 +419,19 @@ class TeamRepository extends GetxController {
                                     .replaceAll('-', '')
                                     .replaceAll('(', '')
                                     .replaceAll(')', '');
-                                // print('contact selected $no');
+                                print('contact selected $no');
                                 phoneNumberController.text = no;
                               }
                               nameController.text = item.displayName;
-                              if (item.emails.isNotEmpty) {
+                              if (item.emails.isNotEmpty)
                                 emailController.text =
                                     item.emails.first.address;
-                              }
                             },
                             child: Row(
                               children: [
                                 Expanded(
                                     child: Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
+                                  margin: EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Container(
@@ -442,7 +443,7 @@ class TeamRepository extends GetxController {
                                             child: Text(
                                           item.displayName.isEmpty
                                               ? ""
-                                              : item.displayName[0],
+                                              : '${item.displayName[0]}',
                                           style: GoogleFonts.inter(
                                               fontSize: 30,
                                               color: Colors.white,
@@ -456,33 +457,35 @@ class TeamRepository extends GetxController {
                                         0.02),
                                 Expanded(
                                   flex: 3,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.displayName,
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            // ,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      Text(
-                                        (item.phones.isNotEmpty)
-                                            ? item.phones.first.number
-                                            : "No Phone Number",
-                                        style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            // ,
-                                            color: Colors.grey),
-                                      ),
-                                    ],
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${item.displayName}",
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12,
+                                              // ,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        Text(
+                                          (item.phones.isNotEmpty)
+                                              ? "${item.phones.first.number}"
+                                              : "No Phone Number",
+                                          style: GoogleFonts.inter(
+                                              fontSize: 12,
+                                              // ,
+                                              color: Colors.grey),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Expanded(
                                     child: Container(
-                                  margin: const EdgeInsets.only(bottom: 10),
+                                  margin: EdgeInsets.only(bottom: 10),
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Column(children: [
@@ -507,9 +510,11 @@ class TeamRepository extends GetxController {
                           ? contactList.length
                           : searchResult.length,
                     )
-                  : const Center(
-                    child: Text("No Contact(s) Found"),
-                  ),
+                  : Container(
+                      child: Center(
+                        child: Text("No Contact(s) Found"),
+                      ),
+                    ),
             ),
           ],
         ),
@@ -520,21 +525,22 @@ class TeamRepository extends GetxController {
   Future createTeam(String businessId) async {
     try {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
-      // print("trying to create team feature");
+      print("trying to create team feature");
       var response = await http.post(
-          Uri.parse(ApiLink.createTeam + businessId),
+          Uri.parse(ApiLink.createTeam + '$businessId'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
       // print("result of create team ${response.body}");
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // print("result of create team ${response.body}");
+        print("result of create team ${response.body}");
+        var json = jsonDecode(response.body);
 
         _businessController.OnlineBusiness();
         _businessController.updateBusiness(
             _businessController.selectedBusiness.value!.businessCurrency!);
 
         var value = _businessController.selectedBusiness.value;
-        (value!.teamId);
+        print(value!.teamId);
         getOfflineTeam(value.teamId!);
         Get.snackbar(
           "Success",
@@ -548,7 +554,7 @@ class TeamRepository extends GetxController {
       }
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
-      // print('creating team feature error ${error.toString()}');
+      print('creating team feature error ${error.toString()}');
     }
   }
 
@@ -561,13 +567,13 @@ class TeamRepository extends GetxController {
   Future inviteTeamMemberOnline(
       String? businessId, Map<String, dynamic> item) async {
     try {
-      // print('Team Member Phone: ${item['phoneNumber']}');
-      // print('Team Member TeamId: ${item['teamId']}');
-      // print('Team Member Email: ${item['email']}');
-      // print('Team Member Invite Link: ${item['teamInviteUrl']}');
+      print('Team Member Phone: ${item['phoneNumber']}');
+      print('Team Member TeamId: ${item['teamId']}');
+      print('Team Member Email: ${item['email']}');
+      print('Team Member Invite Link: ${item['teamInviteUrl']}');
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
       var value = _businessController.selectedBusiness.value;
-      // print("trying to invite team members: ${jsonEncode(item)}");
+      print("trying to invite team members: ${jsonEncode(item)}");
       var response = await http.post(
           Uri.parse(ApiLink.inviteTeamMember + '/${value!.businessId}'),
           body: json.encode(item),
@@ -576,7 +582,7 @@ class TeamRepository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      // print("result of invite team member online: ${response.body}");
+      print("result of invite team member online: ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
@@ -584,14 +590,14 @@ class TeamRepository extends GetxController {
         if (json['success']) {
           Get.snackbar('Success', json['message']);
           _addingTeamMemberStatus(AddingTeamStatus.Success);
-          // print(value.teamId);
+          print(value.teamId);
           // getOnlineTeam(value.teamId!);
           var teamMemberId = json['data']['id'];
-          // print('Added Member MemberId: ${json['data']['id']}');
+          print('Added Member MemberId: ${json['data']['id']}');
           updateTeamInviteStatusOnline(teamMemberId, item);
           clearValue();
 
-          // print('invite sent successfully');
+          print('invite sent successfully');
           // await getBusinessCustomerYetToBeSavedLocally();
           // checkIfUpdateAvailable();
         }
@@ -603,18 +609,18 @@ class TeamRepository extends GetxController {
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
       Get.snackbar("Error", "Error inviting team, try again!");
-      //print('add team feature error ${error.toString()}');
+      print('add team feature error ${error.toString()}');
     }
   }
 
   Future updateTeamMember(String? id, Map<String, dynamic> item) async {
     try {
-      // print('Team Member TeamId: ${item['teamId']}');
-      // print('Team Member Id: $id');
+      print('Team Member TeamId: ${item['teamId']}');
+      print('Team Member Id: $id');
 
       _updatingTeamMemberStatus(UpdateTeamStatus.Loading);
       var value = _businessController.selectedBusiness.value;
-      // print("trying to update team members: ${jsonEncode(item)}");
+      print("trying to update team members: ${jsonEncode(item)}");
       var response = await http.put(
           Uri.parse(ApiLink.updateInviteTeamStatus + '/$id'),
           body: json.encode(item),
@@ -623,7 +629,7 @@ class TeamRepository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      // print("result of update team member: ${response.body}");
+      print("result of update team member: ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
@@ -631,13 +637,13 @@ class TeamRepository extends GetxController {
         if (json['success']) {
           Get.snackbar('Success', json['message']);
           _updatingTeamMemberStatus(UpdateTeamStatus.Success);
-          (value!.teamId);
+          print(value!.teamId);
           getOnlineTeam(value.teamId!);
           getOnlineTeamMember(value.teamId!);
 
           clearValue();
-          // print('team member updated successfully');
-          Get.to(const TeamMemberConfirmation());
+          print('team member updated successfully');
+          Get.to(TeamMemberConfirmation());
         }
       } else {
         var json = jsonDecode(response.body);
@@ -647,7 +653,7 @@ class TeamRepository extends GetxController {
     } catch (error) {
       _updatingTeamMemberStatus(UpdateTeamStatus.Error);
       Get.snackbar("Error", "Error updating team member, try again!");
-      // print('update team member error ${error.toString()}');
+      print('update team member error ${error.toString()}');
     }
   }
 
@@ -669,13 +675,13 @@ class TeamRepository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      // print("update team response ${response.body}");
+      print("update team response ${response.body}");
       if (response.statusCode == 200) {
         _addingTeamMemberStatus(AddingTeamStatus.Success);
         getOnlineTeam(value!.teamId!);
         getOnlineTeamMember(value.teamId!);
 
-        Get.to(const TeamConfirmation());
+        Get.to(TeamConfirmation());
       } else {
         _addingTeamMemberStatus(AddingTeamStatus.Error);
         Get.snackbar("Error", "Unable to update team");
@@ -717,24 +723,24 @@ class TeamRepository extends GetxController {
   Future getOnlineTeam(String? businessId) async {
     try {
       _teamStatus(TeamStatus.Loading);
-      // print("trying to get team members online");
+      print("trying to get team members online");
       var response = await http.get(
           Uri.parse(ApiLink.getTeamMember + '/$businessId'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      // print("result of get teams online ${response.body}");
+      print("result of get teams online ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
-          // print('here 1');
+          print('here 1');
           var result =
               List.from(json['data']).map((e) => Teams.fromJson(e)).toList();
-          // print('here 2');
+          print('here 2');
           _onlineBusinessTeam(result);
           result.isNotEmpty
               ? _teamStatus(TeamStatus.Available)
               : _teamStatus(TeamStatus.Empty);
-          // print("Teams member length ${result.length}");
+          print("Teams member length ${result.length}");
           // await getBusinessTeamYetToBeSavedLocally();
           // checkAvailableTeamToUpdate();
         }
@@ -745,21 +751,21 @@ class TeamRepository extends GetxController {
       }
     } catch (error) {
       _teamStatus(TeamStatus.Error);
-      // print('add team feature error ${error.toString()}');
+      print('add team feature error ${error.toString()}');
     }
   }
 
   Future getOnlineTeamMember(String? businessId) async {
     try {
       teamMembersStatus(TeamMemberStatus.Loading);
-      // print("trying to get team member data online");
+      print("trying to get team member data online");
       var response = await http.get(
           Uri.parse(ApiLink.getTeamMemberData +
               '/$businessId' +
               '/${_userController.user!.phoneNumber}'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      // print("result of get team member data ${response.body}");
+      print("result of get team member data ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         teamMembersStatus(TeamMemberStatus.Success);
@@ -768,23 +774,23 @@ class TeamRepository extends GetxController {
           teamMemberData(teamMember);
         }
       } else if (response.statusCode == 500) {
-        // print("result of get team member error data ${response.body}");
+        print("result of get team member error data ${response.body}");
         teamMembersStatus(TeamMemberStatus.UnAuthorized);
       }
     } catch (error) {
       teamMembersStatus(TeamMemberStatus.Error);
-      // print('team member data error ${error.toString()}');
+      print('team member data error ${error.toString()}');
     }
   }
 
   Future getBusinessTeamYetToBeSavedLocally() async {
-    for (var element in onlineBusinessTeam) {
+    onlineBusinessTeam.forEach((element) {
       if (!checkAvailableTeam(element.teamId!)) {
-        // print("Does not contain value");
+        print("Does not contain value");
 
         pendingBusinessTeam.add(element);
       }
-    }
+    });
 
     savePendingTeam();
   }
@@ -815,19 +821,19 @@ class TeamRepository extends GetxController {
       }
       getOfflineTeam(updatednext.teamId!);
     } catch (error) {
-      // print(error.toString());
+      print(error.toString());
     }
   }
 
   bool checkAvailableTeam(String id) {
     bool result = false;
-    for (var element in offlineBusinessTeam) {
-      // print("checking whether team exist");
+    offlineBusinessTeam.forEach((element) {
+      print("checking whether team exist");
       if (element.teamId == id) {
-        // print("Team found");
+        print("Team found");
         result = true;
       }
-    }
+    });
     return result;
   }
 
@@ -835,11 +841,11 @@ class TeamRepository extends GetxController {
     onlineBusinessTeam.forEach((element) async {
       var item = checkAvailableTeamWithValue(element.teamId!);
       if (item != null) {
-        // print("item team is found");
-        // print("updated offline ${item.updatedDateTime!.toIso8601String()}");
-        // print("updated online ${element.updatedDateTime!.toIso8601String()}");
+        print("item team is found");
+        print("updated offline ${item.updatedDateTime!.toIso8601String()}");
+        print("updated online ${element.updatedDateTime!.toIso8601String()}");
         if (!element.updatedDateTime!.isAtSameMomentAs(item.updatedDateTime!)) {
-          // print("found team to be updated");
+          print("found team to be updated");
           pendingUpdatedTeamMember.add(element);
         }
       }
@@ -851,18 +857,18 @@ class TeamRepository extends GetxController {
   Teams? checkAvailableTeamWithValue(String id) {
     Teams? item;
 
-    for (var element in offlineBusinessTeam) {
-      // print("checking whether team member exist");
+    offlineBusinessTeam.forEach((element) {
+      print("checking whether team member exist");
       if (element.teamId == id) {
-        // print("Team found");
+        print("Team found");
         item = element;
       }
-    }
+    });
     return item;
   }
 
   Future deleteTeamMember(Teams item) async {
-    // print('deleting team member...');
+    print('deleting team member...');
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       await deleteTeamMemberOnline(item);
       // await getOnlineTeam(
@@ -874,14 +880,14 @@ class TeamRepository extends GetxController {
 
   Future deleteTeamMemberOnline(Teams teams) async {
     try {
-      // print('deleting team member online...');
+      print('deleting team member online...');
       _deleteTeamMemberStatus(DeleteTeamStatus.Loading);
-      // print(teams.teamId);
+      print(teams.teamId);
       var response = await http.delete(
           Uri.parse(ApiLink.deleteTeamMember + "/${teams.teamId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      // print("delete response ${response.body}");
+      print("delete response ${response.body}");
       if (response.statusCode == 200) {
         Get.snackbar('Success', 'Team member deleted successfully');
         _deleteTeamMemberStatus(DeleteTeamStatus.Success);
@@ -901,7 +907,7 @@ class TeamRepository extends GetxController {
       }
     } catch (error) {
       _deleteTeamMemberStatus(DeleteTeamStatus.Error);
-      // print('delete online team member error: ' + error.toString());
+      print('delete online team member error: ' + error.toString());
     }
   }
 

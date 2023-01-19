@@ -44,18 +44,18 @@ class Customer {
       isCreatedFromDebtors: json['isCreatedFromDebtors'] ?? false);
 
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "phone": phone,
-        "email": email,
-        "id": customerId,
-        "businessId": businessId,
-        "businessTransactionType": businessTransactionType,
+        "name": this.name,
+        "phone": this.phone,
+        "email": this.email,
+        "id": this.customerId,
+        "businessId": this.businessId,
+        "businessTransactionType": this.businessTransactionType,
         "createdDateTime": createdTime == null
             ? DateTime.now().toIso8601String()
-            : createdTime!.toIso8601String(),
+            : this.createdTime!.toIso8601String(),
         "updatedDateTime": updatedTime == null
             ? DateTime.now().toIso8601String()
-            : updatedTime!.toIso8601String(),
+            : this.updatedTime!.toIso8601String(),
         "deleted": deleted,
         "isAddingPending": isAddingPending,
         "isUpdatingPending": isUpdatingPending,
