@@ -3,44 +3,28 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/util/util.dart';
+import 'package:huzz/core/util/extension.dart';
+import 'package:huzz/core/util/util.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/widgets/image.dart';
+import 'package:huzz/core/widgets/wallet/wallet_info_dialog.dart';
+import 'package:huzz/generated/assets.gen.dart';
+import 'package:huzz/ui/wallet/account_upgrade/upgrade_account.dart';
+import 'package:huzz/ui/wallet/request_payment.dart';
+import 'package:huzz/ui/wallet/transfer.dart';
 
-class WalletInInformationDialog extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.info_outline_rounded,
-          size: 27,
-        ),
-        SizedBox(height: 7),
-        Text(
-          'This is where you can have access to your wallet.',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-            fontSize: 14,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class Wallet extends StatefulWidget {
-  const Wallet({Key? key}) : super(key: key);
+class WalletScreen extends StatefulWidget {
+  const WalletScreen({Key? key}) : super(key: key);
 
   @override
-  State<Wallet> createState() => _WalletState();
+  State<WalletScreen> createState() => _WalletScreenState();
 }
 
-class _WalletState extends State<Wallet> {
-  bool viewBal = true;
+class _WalletScreenState extends State<WalletScreen> {
+  bool showBal = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +32,7 @@ class _WalletState extends State<Wallet> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -59,7 +43,7 @@ class _WalletState extends State<Wallet> {
         title: Row(
           children: [
             Text(
-              'My Wallet',
+              'My WalletScreen',
               style: GoogleFonts.inter(
                 color: AppColors.backgroundColor,
                 fontStyle: FontStyle.normal,
@@ -67,7 +51,7 @@ class _WalletState extends State<Wallet> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             GestureDetector(
               onTap: () {
                 Platform.isIOS
@@ -75,10 +59,10 @@ class _WalletState extends State<Wallet> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: WalletInInformationDialog(),
+                          content: const WalletInfoDialog(),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -87,10 +71,10 @@ class _WalletState extends State<Wallet> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: WalletInInformationDialog(),
+                          content: const WalletInfoDialog(),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -111,11 +95,23 @@ class _WalletState extends State<Wallet> {
       ),
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+        padding: const EdgeInsets.all(Insets.lg),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.symmetric(
+                vertical: Insets.lg,
+                horizontal: Insets.md,
+              ),
+              height: 160,
+              decoration: BoxDecoration(
+                color: AppColors.backgroundColor,
+                borderRadius: BorderRadius.circular(12),
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/home_rectangle.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -158,14 +154,14 @@ class _WalletState extends State<Wallet> {
                           activeTrackColor: AppColors.orangeBorderColor,
                           inactiveThumbColor: AppColors.orangeColor,
                           inactiveTrackColor: AppColors.whiteColor,
-                          value: viewBal,
+                          value: showBal,
                           onChanged: (newValue) =>
-                              setState(() => viewBal = newValue))
+                              setState(() => showBal = newValue))
                     ],
                   ),
                   Center(
                     child: Text(
-                      '${Utils.getCurrency()}0.0',
+                      showBal ? '${Utils.getCurrency()}0.0' : '******',
                       style: GoogleFonts.inter(
                         color: AppColors.whiteColor,
                         fontSize: 24,
@@ -173,18 +169,18 @@ class _WalletState extends State<Wallet> {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      WalletOption(
-                        onTap: () {},
+                      WalletScreenOption(
+                        onTap: () => context.push(const TransferScreen()),
                         image: 'assets/images/transfer.png',
                         name: 'Transfer',
                       ),
-                      SizedBox(width: 20),
-                      WalletOption(
-                        onTap: () {},
+                      const SizedBox(width: 20),
+                      WalletScreenOption(
+                        onTap: () => context.push(const RequestPaymentScreen()),
                         image: 'assets/images/payment.svg',
                         name: 'Request Payment',
                       )
@@ -192,17 +188,98 @@ class _WalletState extends State<Wallet> {
                   ),
                 ],
               ),
-              height: 140,
-              decoration: BoxDecoration(
-                color: AppColors.backgroundColor,
-                borderRadius: BorderRadius.circular(12),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/home_rectangle.png"),
-                  fit: BoxFit.fill,
-                ),
-              ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+            const Gap(Insets.lg),
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: Insets.sm,
+                      horizontal: Insets.md,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.secondBgColor.withOpacity(.1),
+                    ),
+                    child: Row(children: [
+                      Container(
+                        height: 20,
+                        width: 20,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.primaryColor,
+                        ),
+                        child: LocalSvgIcon(
+                          Assets.icons.linear.star1,
+                          color: Colors.white,
+                          size: 12,
+                        ),
+                      ),
+                      const Gap(Insets.sm),
+                      const Text(
+                        'Tier One',
+                        style: TextStyles.t3,
+                      ),
+                      const Spacer(),
+                      const Text(
+                        'Max. #20,000',
+                        style: TextStyles.t2,
+                      )
+                    ]),
+                  ),
+                ),
+                const Gap(Insets.md),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.all(Insets.sm),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.orangeBorderColor,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Upgrade',
+                          style: TextStyles.t3.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                        LocalSvgIcon(
+                          Assets.icons.bulk.arrowCircleRight,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
+                  ).onTap(
+                    (() => context.push(const UpgradeAccountScreen())),
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LocalSvgIcon(
+                  Assets.icons.twotone.timer1,
+                  size: 80,
+                ),
+                const Gap(Insets.md),
+                const Text(
+                  'Transaction History',
+                  style: TextStyles.h5,
+                ),
+                const Gap(Insets.sm),
+                const Text(
+                  'Your recent transactions will show here. Click the\nAdd transaction button to record your first transaction',
+                  textAlign: TextAlign.center,
+                  style: TextStyles.t3,
+                ),
+              ],
+            ))
           ],
         ),
       ),
@@ -210,10 +287,10 @@ class _WalletState extends State<Wallet> {
   }
 }
 
-class WalletOption extends StatelessWidget {
+class WalletScreenOption extends StatelessWidget {
   final String? image, name;
   final VoidCallback? onTap;
-  const WalletOption({
+  const WalletScreenOption({
     Key? key,
     this.image,
     this.name,
@@ -225,17 +302,17 @@ class WalletOption extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(4),
+        padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: Color(0xff056B5C),
+          color: const Color(0xff056B5C),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              padding: EdgeInsets.all(3),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(3),
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
@@ -251,7 +328,7 @@ class WalletOption extends StatelessWidget {
                       width: 16,
                     ),
             ),
-            SizedBox(width: 6),
+            const SizedBox(width: 6),
             Text(
               name!,
               style: GoogleFonts.inter(
@@ -260,7 +337,7 @@ class WalletOption extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(width: 6),
+            const SizedBox(width: 6),
           ],
         ),
       ),
