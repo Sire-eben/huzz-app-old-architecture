@@ -23,16 +23,25 @@ class HuzzApp extends StatefulWidget {
 class _HuzzAppState extends State<HuzzApp> {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      initialBinding: AppBinding(),
-      useInheritedMediaQuery: true,
-      theme: ThemeData(
-          fontFamily: 'InterRegular',
-          primaryColor: AppColors.backgroundColor,
-          primarySwatch: Palette.primaryColor),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: generateRoute,
-      home: SplashScreen(),
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: GetMaterialApp(
+        initialBinding: AppBinding(),
+        useInheritedMediaQuery: true,
+        theme: ThemeData(
+            fontFamily: 'InterRegular',
+            primaryColor: AppColors.backgroundColor,
+            primarySwatch: Palette.primaryColor),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: generateRoute,
+        home: SplashScreen(),
+      ),
     );
   }
 }
