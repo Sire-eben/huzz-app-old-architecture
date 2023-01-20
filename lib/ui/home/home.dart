@@ -8,9 +8,13 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/ui/wallet/create_bank_account.dart';
+import 'package:huzz/ui/wallet/wallet.dart';
+import 'package:huzz/ui/widget/loading_widget.dart';
 import 'package:huzz/util/constants.dart';
 import 'package:huzz/util/util.dart';
 import 'package:huzz/ui/create_business.dart';
@@ -53,6 +57,8 @@ class DebtInformationDialog extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -181,7 +187,7 @@ class _HomeState extends State<Home> {
             ],
           ),
           body: teamController.teamMembersStatus == TeamMemberStatus.Loading
-              ? Container()
+              ? LoadingWidget()
               : Container(
                   padding: EdgeInsets.all(Insets.lg),
                   width: MediaQuery.of(context).size.width,
@@ -196,7 +202,7 @@ class _HomeState extends State<Home> {
                         // Gap(Insets.lg),
                         Obx(() {
                           return Container(
-                            padding: EdgeInsets.all(Insets.md),
+                            padding: const EdgeInsets.all(Insets.md),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -206,11 +212,11 @@ class _HomeState extends State<Home> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                         horizontal: Insets.lg,
                                         vertical: Insets.sm,
                                       ),
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: AppColors.whiteColor,
                                         borderRadius:
                                             BorderRadius.all(Corners.mdRadius),
@@ -224,7 +230,7 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     Text(
@@ -236,7 +242,7 @@ class _HomeState extends State<Home> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Row(
                                       children: [
                                         InkWell(
@@ -244,10 +250,10 @@ class _HomeState extends State<Home> {
                                             Get.to(() => Records());
                                           },
                                           child: Container(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 7, vertical: 4),
                                             decoration: BoxDecoration(
-                                              color: Color(0xff056B5C),
+                                              color: const Color(0xff056B5C),
                                               borderRadius:
                                                   BorderRadius.circular(24),
                                             ),
@@ -265,14 +271,16 @@ class _HomeState extends State<Home> {
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                                 ),
-                                                SizedBox(width: 5),
+                                                const SizedBox(width: 5),
                                                 Container(
-                                                  padding: EdgeInsets.all(2),
-                                                  decoration: BoxDecoration(
+                                                  padding:
+                                                      const EdgeInsets.all(2),
+                                                  decoration:
+                                                      const BoxDecoration(
                                                     color: Colors.white,
                                                     shape: BoxShape.circle,
                                                   ),
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons
                                                         .arrow_forward_outlined,
                                                     color: Color(0xff056B5C),
@@ -283,16 +291,16 @@ class _HomeState extends State<Home> {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: 7),
+                                        const SizedBox(width: 7),
                                         InkWell(
                                           onTap: () {
                                             Get.to(() => Insight());
                                           },
                                           child: Container(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 7, vertical: 4),
                                             decoration: BoxDecoration(
-                                              color: Color(0xff056B5C),
+                                              color: const Color(0xff056B5C),
                                               borderRadius:
                                                   BorderRadius.circular(24),
                                             ),
@@ -310,10 +318,12 @@ class _HomeState extends State<Home> {
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                                 ),
-                                                SizedBox(width: 5),
+                                                const SizedBox(width: 5),
                                                 Container(
-                                                  padding: EdgeInsets.all(2),
-                                                  decoration: BoxDecoration(
+                                                  padding:
+                                                      const EdgeInsets.all(2),
+                                                  decoration:
+                                                      const BoxDecoration(
                                                     color: Colors.white,
                                                     shape: BoxShape.circle,
                                                   ),
@@ -337,24 +347,24 @@ class _HomeState extends State<Home> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 4, vertical: 4),
                                       decoration: BoxDecoration(
-                                        color: Color(0xff016BCC),
+                                        color: const Color(0xff016BCC),
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: Row(
                                         children: [
                                           Container(
-                                              padding: EdgeInsets.all(2),
-                                              decoration: BoxDecoration(
+                                              padding: const EdgeInsets.all(2),
+                                              decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   color: Colors.white),
                                               child: SvgPicture.asset(
                                                 "assets/images/money_in.svg",
                                                 height: 8,
                                               )),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           Text(
@@ -369,7 +379,7 @@ class _HomeState extends State<Home> {
                                         ],
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       "${Utils.getCurrency()}${display(_transactionController.income.value)}",
                                       style: GoogleFonts.inter(
@@ -379,12 +389,12 @@ class _HomeState extends State<Home> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 4, vertical: 4),
                                       decoration: BoxDecoration(
-                                        color: Color(0xffDD8F48),
+                                        color: const Color(0xffDD8F48),
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: Row(
@@ -392,15 +402,15 @@ class _HomeState extends State<Home> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                              padding: EdgeInsets.all(2),
-                                              decoration: BoxDecoration(
+                                              padding: const EdgeInsets.all(2),
+                                              decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   color: Colors.white),
                                               child: SvgPicture.asset(
                                                 "assets/images/money_out.svg",
                                                 height: 8,
                                               )),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           Text(
@@ -415,7 +425,7 @@ class _HomeState extends State<Home> {
                                         ],
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       "${Utils.getCurrency()}${display(_transactionController.expenses.value)}",
                                       style: GoogleFonts.inter(
@@ -430,22 +440,59 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                             // height: 130,
-                            width: context.width,
+                            width: context.getWidth(),
                             height: 140,
                             decoration: BoxDecoration(
                               color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(12),
                               // image: DecorationImage(
                               //   image: AssetImage(
-                              //       "assets/images/home_rectangle.png"),
+                              //       "assets/images/HomePage_rectangle.png"),
                               //   fit: BoxFit.fill,
                               // ),
                             ),
                           );
+                        }).onTap(() {
+                          context.push(const WalletScreen());
                         }),
+                        const Gap(Insets.md),
+                        Container(
+                            width: context.getWidth(),
+                            padding: const EdgeInsets.all(Insets.md),
+                            decoration: const BoxDecoration(
+                              color: AppColors.primaryColor,
+                              borderRadius: BorderRadius.all(Corners.mdRadius),
+                            ),
+                            child: Row(
+                              children: [
+                                Text('NO BANK ACCOUNT YET?',
+                                    style: TextStyles.t3.copyWith(
+                                      color: Colors.white,
+                                    )),
+                                const Spacer(),
+                                InkWell(
+                                  onTap: () => context
+                                      .push(const CreateBankAccountScreen()),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(Insets.sm),
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.secondBgColor,
+                                      borderRadius:
+                                          BorderRadius.all(Corners.smRadius),
+                                    ),
+                                    child: Text(
+                                      'Create Account',
+                                      style: TextStyles.b2.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
 
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02),
+                        const Gap(Insets.md),
+
                         InkWell(
                           onTap: () {
                             Get.to(() => DebtorsTab());
@@ -572,7 +619,7 @@ class _HomeState extends State<Home> {
                             child: Container(
                           padding: EdgeInsets.only(
                               bottom:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  MediaQuery.of(context).size.height * 0.01),
                           decoration: BoxDecoration(
                               color: Color.fromARGB(161, 245, 245, 245),
                               borderRadius: BorderRadius.circular(10),
@@ -596,7 +643,7 @@ class _HomeState extends State<Home> {
                                   ?
                                   // Obx(() {
                                   // return
-                                  Center(child: CircularProgressIndicator())
+                                  Center(child: LoadingWidget())
                                   // ;
                                   // })
                                   : (_transactionController

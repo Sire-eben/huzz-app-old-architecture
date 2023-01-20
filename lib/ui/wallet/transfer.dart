@@ -116,18 +116,17 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
                 ),
                 TextInputField(
                   labelText: 'Narration',
+                  maxLines: 5,
                   inputType: TextInputType.text,
                   validator: Validators.validateString(minLength: 5),
                 ),
-                const Gap(Insets.xl * 3),
+                const Gap(Insets.xl),
                 Button(
                   label: 'Continue',
                   action: () {
-                    enterPinBottomSheet(context, bottom);
-                    // TODO: Implement form validation first later
-                    // if (formKey.currentState!.validate()) {
-                    //   enterPinBottomSheet(context, bottom);
-                    // }
+                    if (formKey.currentState!.validate()) {
+                      enterPinBottomSheet(context, bottom);
+                    }
                   },
                 ),
               ],
