@@ -8,7 +8,7 @@ class ApiLink {
   static String sendVoiceOtp = v2baseurl + "otp/send/voice";
   static String verifyOtp = baseurl + "otp/verify";
   static String signupUser = baseurl + "auth/signup";
-  static String signInUser = baseurl + "auth/login";
+  static String signinUser = baseurl + "auth/login";
   static String getUser = baseurl + "user/me";
   static String createBusiness = baseurl + "business";
   static String updateBusiness = baseurl + "business/";

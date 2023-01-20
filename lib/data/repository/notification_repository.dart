@@ -3,13 +3,15 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:huzz/data/repository/auth_repository.dart';
+import 'package:http/http.dart' as http;
+import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/api_link.dart';
 
 class NotificationRepository extends GetxController {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   final controller = Get.find<AuthRepository>();
 
-  AndroidNotificationChannel channel = const AndroidNotificationChannel(
+  AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
     description:
@@ -22,8 +24,8 @@ class NotificationRepository extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    controller.mToken.listen((p0) {
-      // print("getting push notification");
+    controller.Mtoken.listen((p0) {
+      print("getting push notification");
       setupInteractedMessage();
       sendFCMTokenToServer();
     });
@@ -47,12 +49,12 @@ class NotificationRepository extends GetxController {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      ('User granted permission');
+      print('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      // print('User granted provisional permission');
+      print('User granted provisional permission');
     } else {
-      // print('User declined or has not accepted permission');
+      print('User declined or has not accepted permission');
     }
   }
 
@@ -73,7 +75,7 @@ class NotificationRepository extends GetxController {
     // Stream listener
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
     FirebaseMessaging.onMessage.listen((event) {
-      // print("new message gotten ${event.data}");
+      print("new message gotten ${event.data}");
 
       RemoteNotification? notification = event.notification;
       AndroidNotification? android = event.notification!.android;
@@ -97,15 +99,26 @@ class NotificationRepository extends GetxController {
   }
 
   void _handleMessage(RemoteMessage message) {
-    // print("message is gotten ${message.toString()}");
+    print("message is gotten ${message.toString()}");
   }
 
   Future sendFCMTokenToServer() async {
-    // print("trying to get the fcm");
-    // print("user phone token $token");
+    print("trying to get the fcm");
+    String? token = await messaging.getToken();
+    print("user phone token $token");
 
+    final resposne = await http.put(Uri.parse(ApiLink.updateProfile),
+        body: jsonEncode({
+          "firebaseToken": token,
+          // "profileImageFileStoreId": imageId,
+          // "phoneNumber": countryText + updatePhoneNumberController.text.trim()
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${controller.token}"
+        });
 
-    // print("update token ${resposne.body}");
+    print("update token ${resposne.body}");
     // var response = await http.post(
     //     Uri.parse(
     //         "http://foodgital2.herokuapp.com/notification/activate-user-notification"),

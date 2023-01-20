@@ -8,7 +8,7 @@ class LocalAuthApi {
     try {
       return await _auth.canCheckBiometrics;
     } on PlatformException catch (e) {
-      (e);
+      print(e);
       return false;
     }
   }
@@ -22,7 +22,7 @@ class LocalAuthApi {
         localizedReason: 'Scan Fingerprint to Authenticate',
       );
     } on PlatformException catch (e) {
-      (e);
+      print(e);
       return false;
     }
   }
