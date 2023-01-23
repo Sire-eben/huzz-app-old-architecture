@@ -4,15 +4,18 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';
+import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/ui/home/insight.dart';
 import 'package:huzz/ui/home/money_in.dart';
@@ -22,6 +25,7 @@ import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/ui/wallet/create_bank_account.dart';
+import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
@@ -54,14 +58,14 @@ class DebtInformationDialog extends StatelessWidget {
   }
 }
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   final display = createDisplay(
     roundingType: RoundingType.floor,
     length: 15,
@@ -134,7 +138,7 @@ class _HomeState extends State<Home> {
       return Scaffold(
           backgroundColor: Colors.white,
           body: teamController.teamMembersStatus == TeamMemberStatus.Loading
-              ? Container()
+              ? LoadingWidget()
               : Container(
                   padding:
                       EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
@@ -162,63 +166,47 @@ class _HomeState extends State<Home> {
                                     builder: (context) =>
                                         buildSelectBusiness());
                               },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                        width: 3,
-                                        color: AppColors.backgroundColor)),
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    buildMenuItem(
-                                        "${_businessController.selectedBusiness.value!.businessName}"),
-                                    const Expanded(child: SizedBox()),
-                                    const Icon(
-                                      Icons.keyboard_arrow_down,
-                                      color: AppColors.backgroundColor,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
                               child: Row(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Notifications());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/bell.svg',
-                                      height: 20,
-                                      width: 20,
-                                    ),
+                                  const SizedBox(
+                                    width: 10,
                                   ),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Settings());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/settings.svg',
-                                      color: AppColors.backgroundColor,
-                                      height: 20,
-                                      width: 20,
-                                    ),
+                                  buildMenuItem(
+                                      "${_businessController.selectedBusiness.value!.businessName}"),
+                                  const Gap(Insets.xl),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    color: AppColors.backgroundColor,
                                   ),
                                 ],
                               ),
+                            ),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(const Notifications());
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/images/bell.svg',
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                ),
+                                const Gap(Insets.lg),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(const Settings());
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/images/settings.svg',
+                                    color: AppColors.backgroundColor,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                ),
+                                const Gap(Insets.sm),
+                              ],
                             ),
                           ],
                         ),
@@ -469,7 +457,9 @@ class _HomeState extends State<Home> {
                                 fit: BoxFit.fill,
                               ),
                             ),
-                          );
+                          ).onTap(() {
+                            Get.to(WalletScreen());
+                          });
                         }),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),

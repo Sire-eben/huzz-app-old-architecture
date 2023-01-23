@@ -123,11 +123,9 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
                 Button(
                   label: 'Continue',
                   action: () {
-                    enterPinBottomSheet(context, bottom);
-                    // TODO: Implement form validation first later
-                    // if (formKey.currentState!.validate()) {
-                    //   enterPinBottomSheet(context, bottom);
-                    // }
+                    if (formKey.currentState!.validate()) {
+                      enterPinBottomSheet(context, bottom);
+                    }
                   },
                 ),
               ],

@@ -8,6 +8,7 @@ import 'package:huzz/app/screens/home/home.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
+import 'package:huzz/ui/home/home_page.dart';
 import 'package:huzz/ui/invoice/empty_invoice.dart';
 import 'package:huzz/ui/more/more.dart';
 import 'package:huzz/ui/widget/loading_widget.dart';
@@ -151,7 +152,7 @@ class _DashboardState extends State<Dashboard> {
   Widget buildPages() {
     switch (selectedIndex) {
       case 0:
-        return Home();
+        return HomePage();
       case 1:
         return CustomerTabView();
       case 2:

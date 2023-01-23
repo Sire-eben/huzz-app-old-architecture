@@ -24,16 +24,14 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
       appBar: Appbar(title: 'Request Payment'),
       body: SingleChildScrollView(
         reverse: true,
-        child: Container(
-          height: context.getHeight(),
-          width: context.getWidth(),
+        child: Padding(
           padding: const EdgeInsets.all(Insets.lg),
           child: Form(
             key: formKey,
             child: Column(children: [
               TextInputField(
                 labelText: 'What is this payment for?',
-                maxLines: 10,
+                maxLines: 5,
                 inputType: TextInputType.multiline,
                 validator: Validators.validateString(),
               ),
@@ -42,14 +40,13 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
                 inputType: TextInputType.number,
                 validator: Validators.validateAmount(),
               ),
-              const Spacer(),
+              const Gap(Insets.xl * 3),
               Button(
                   label: 'Send Request',
                   action: () {
-                    // if(formKey.currentState!.validate()){
-                    // uploadDocumentSheet(context);
-                    // }
-                    sendRequestSheet(context);
+                    if (formKey.currentState!.validate()) {
+                      sendRequestSheet(context);
+                    }
                   }),
               const Gap(Insets.xl * 2),
             ]),
