@@ -295,7 +295,7 @@ class _ServiceListingState extends State<ServiceListing> {
                               height: 30,
                               width: 30,
                               decoration: const BoxDecoration(
-                                color: AppColors.lightbackgroundColor,
+                                color: AppColors.lightBackgroundColor,
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(

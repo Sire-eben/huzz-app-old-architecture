@@ -5,7 +5,7 @@ import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/ui/account/face_capture.dart';
+import 'package:huzz/ui/wallet/account_upgrade/face_capture.dart';
 
 class UpgradeAccountScreen extends StatefulWidget {
   const UpgradeAccountScreen({super.key});
@@ -45,7 +45,7 @@ class _UpgradeAccountScreenState extends State<UpgradeAccountScreen> {
             const Gap(Insets.xl),
             Button(
               label: 'Face Capture',
-              action: () => context.push(FaceCaptureCreen()),
+              action: () => context.push(FaceCaptureScreen()),
             ),
             const Gap(Insets.md),
             const Align(

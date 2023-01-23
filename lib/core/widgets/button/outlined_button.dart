@@ -21,13 +21,12 @@ class OutlineButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 49,
+      height: 52,
       width: double.maxFinite,
       child: ElevatedButton(
         style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
               backgroundColor: backgroundColor == null
-                  ? MaterialStateProperty.all<Color>(
-                      AppColors.primaryColor.withOpacity(.5))
+                  ? MaterialStateProperty.all<Color>(AppColors.whiteColor)
                   : MaterialStateProperty.all<Color>(backgroundColor!),
               side: MaterialStateProperty.all<BorderSide>(
                 BorderSide(

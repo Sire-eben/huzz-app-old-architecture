@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/util.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
@@ -9,8 +11,6 @@ import 'package:huzz/ui/inventory/Product/add_product.dart';
 import 'package:huzz/ui/inventory/Service/servicelist.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:number_display/number_display.dart';
-import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/util/util.dart';
 
 class ProductListing extends StatefulWidget {
   const ProductListing({Key? key}) : super(key: key);
@@ -295,7 +295,7 @@ class _ProductListingState extends State<ProductListing> {
                             height: 30,
                             width: 30,
                             decoration: const BoxDecoration(
-                              color: AppColors.lightbackgroundColor,
+                              color: AppColors.lightBackgroundColor,
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -345,6 +345,7 @@ class _ProductListingState extends State<ProductListing> {
                                           ? _productController
                                               .productGoods[index]
                                           : searchResult[index];
+                                      print("product item ${item.toJson()}");
                                       return (isDelete)
                                           ? ListingProductDelete(
                                               item: item,
@@ -417,7 +418,7 @@ class _ProductListingState extends State<ProductListing> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    stops: [
+                    stops: const [
                       0.1,
                       0.6,
                       0.8,

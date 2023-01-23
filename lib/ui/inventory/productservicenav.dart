@@ -70,7 +70,7 @@ class _ProServiceDashboardState extends State<ProServiceDashboard> {
       case 1:
         return const ProductServiceListing();
       case 2:
-        return const HomePage();
+        return const Home();
       case 3:
         return const AvailableInvoice();
       case 4:

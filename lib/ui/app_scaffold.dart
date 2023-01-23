@@ -1,15 +1,18 @@
+// ignore_for_file: unused_element
+
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/core/widgets/image.dart';
+import 'package:huzz/app/screens/home/home.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
-import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
 import 'package:huzz/ui/invoice/empty_invoice.dart';
 import 'package:huzz/ui/more/more.dart';
+import 'package:huzz/ui/widget/loading_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:new_version/new_version.dart';
-import 'home/home_page.dart';
 import 'inventory/manage_inventory.dart';
 import 'invoice/available_invoice.dart';
 
@@ -22,14 +25,21 @@ class Dashboard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardState createState() =>
+      _DashboardState(selectedIndex: selectedIndex!);
 }
 
 class _DashboardState extends State<Dashboard> {
   int selectedIndex = 0;
-  // _DashboardState({required this.selectedIndex});
+  _DashboardState({required this.selectedIndex});
   final _invoiceRepository = Get.find<InvoiceRespository>();
   final teamController = Get.find<TeamRepository>();
+
+  void _selectPage(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
 
   @override
   void initState() {
@@ -73,95 +83,91 @@ class _DashboardState extends State<Dashboard> {
   final inactiveColor = Colors.grey;
   @override
   Widget build(BuildContext context) {
-    final _items = <_Item>[
-      _Item(
-        title: 'Home',
-        inactiveIcon: Assets.icons.linear.home,
-        icon: Assets.icons.bulk.home,
-      ),
-      _Item(
-        title: 'Customers',
-        inactiveIcon: Assets.icons.linear.people,
-        icon: Assets.icons.bulk.people,
-      ),
-      _Item(
-        title: 'Inventory',
-        inactiveIcon: Assets.icons.linear.shop,
-        icon: Assets.icons.bulk.shop,
-      ),
-      _Item(
-        title: 'Invoice',
-        inactiveIcon: Assets.icons.linear.note1,
-        icon: Assets.icons.bulk.note1,
-      ),
-      _Item(
-        title: 'More',
-        inactiveIcon: Assets.icons.linear.moreCircle,
-        icon: Assets.icons.bulk.moreCircle,
-      ),
-    ];
-
     return Scaffold(
       body: buildPages(),
       backgroundColor: Colors.white,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        // showSelectedLabels: true,
-        currentIndex: selectedIndex,
-        selectedItemColor: Colors.black54,
-        items: _items
-            .map(
-              (item) => BottomNavigationBarItem(
-                label: item.title,
-                tooltip: item.title,
-                activeIcon: LocalSvgIcon(
-                  item.icon,
-                  size: 20,
-                  color: AppColors.primaryColor,
+      bottomNavigationBar: Obx(() {
+        return (teamController.teamMembersStatus == TeamMemberStatus.Loading)
+            ? Center(
+                child: LoadingWidget(
+                  color: AppColors.backgroundColor,
                 ),
-                icon: LocalSvgIcon(
-                  item.inactiveIcon,
-                  size: 20,
-                  color: AppColors.primaryColor.withOpacity(0.7),
-                ),
-              ),
-            )
-            .toList(),
-        onTap: (index) => setState(() => selectedIndex = index),
-      ),
+              )
+            : BottomNavyBar(
+                showElevation: false,
+                selectedIndex: selectedIndex,
+                items: <BottomNavyBarItem>[
+                  BottomNavyBarItem(
+                      icon: Icon(Icons.home),
+                      title: Text(
+                        'Home',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColors.backgroundColor,
+                      inactiveColor: inactiveColor),
+                  BottomNavyBarItem(
+                      icon: Icon(
+                        CupertinoIcons.person_3_fill,
+                        size: 32,
+                      ),
+                      title: Text(
+                        'Customers',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColors.backgroundColor,
+                      inactiveColor: inactiveColor),
+                  BottomNavyBarItem(
+                      icon: Icon(Icons.inventory),
+                      title: Text(
+                        'Inventory',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColors.backgroundColor,
+                      inactiveColor: inactiveColor),
+                  BottomNavyBarItem(
+                      icon: Icon(Icons.receipt),
+                      title: Text(
+                        'Invoice',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColors.backgroundColor,
+                      inactiveColor: inactiveColor),
+                  BottomNavyBarItem(
+                      icon: Icon(Icons.grid_view_rounded),
+                      title: Text(
+                        'More',
+                        style: AppThemes.style12PriBold,
+                      ),
+                      activeColor: AppColors.backgroundColor,
+                      inactiveColor: inactiveColor),
+                ],
+                onItemSelected: (index) =>
+                    setState(() => this.selectedIndex = index),
+              );
+      }),
     );
   }
 
   Widget buildPages() {
     switch (selectedIndex) {
       case 0:
-        return const HomePage();
+        return Home();
       case 1:
         return CustomerTabView();
       case 2:
-        return const ManageInventory();
+        return ManageInventory();
       case 3:
         return _invoiceRepository.invoiceStatus == InvoiceStatus.UnAuthorized
-            ? const InvoiceNotAuthorized()
-            : (_invoiceRepository.InvoicePendingList.isEmpty &&
-                    _invoiceRepository.InvoiceDueList.isEmpty &&
-                    _invoiceRepository.InvoiceDepositList.isEmpty &&
-                    _invoiceRepository.paidInvoiceList.isEmpty)
-                ? const EmptyInvoice()
-                : const AvailableInvoice();
+            ? InvoiceNotAuthorized()
+            : (_invoiceRepository.InvoicePendingList.length == 0 &&
+                    _invoiceRepository.InvoiceDueList.length == 0 &&
+                    _invoiceRepository.InvoiceDepositList.length == 0 &&
+                    _invoiceRepository.paidInvoiceList.length == 0)
+                ? EmptyInvoice()
+                : AvailableInvoice();
       case 4:
       default:
-        return const More();
+        return More();
     }
   }
-}
-
-class _Item {
-  const _Item({
-    required this.title,
-    required this.icon,
-    required this.inactiveIcon,
-  });
-
-  final String title, icon, inactiveIcon;
 }

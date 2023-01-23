@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/extension.dart';
-import 'package:huzz/core/widgets/appbar.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
-import 'package:huzz/core/widgets/dropdowns/buildmenuitem.dart';
+import 'package:huzz/core/widgets/dropdowns/build_menu_item.dart';
 import 'package:huzz/core/widgets/dropdowns/dropdown_outline.dart';
 import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/generated/assets.gen.dart';
@@ -84,7 +84,7 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
             ),
             const Gap(Insets.xl),
             Button(
-              backgroundColor: AppColors.lightbackgroundColor,
+              backgroundColor: AppColors.lightBackgroundColor,
               label: 'Face Capture',
               action: () {},
             ),
@@ -106,7 +106,7 @@ class _IdVerificationScreenState extends State<IdVerificationScreen> {
 
               hint: const Text('Select'),
               disabledHint: const Text('Choose category'),
-              dropdownColor: AppColors.lightbackgroundColor,
+              dropdownColor: AppColors.lightBackgroundColor,
               elevation: 0,
               decoration: const InputDecoration(
                 errorBorder: dropdownErrorBorder,
@@ -166,7 +166,7 @@ class UploadButton extends StatelessWidget {
       width: context.width,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.lightbackgroundColor,
+            backgroundColor: AppColors.lightBackgroundColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             )),

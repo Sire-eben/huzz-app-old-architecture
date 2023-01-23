@@ -10,10 +10,11 @@ import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/widgets/image.dart';
-import 'package:huzz/core/widgets/switch.dart';
 import 'package:huzz/core/widgets/wallet/wallet_info_dialog.dart';
 import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/ui/account/upgrade_account.dart';
+import 'package:huzz/ui/wallet/account_upgrade/upgrade_account.dart';
+import 'package:huzz/ui/wallet/request_payment.dart';
+import 'package:huzz/ui/wallet/transfer.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({Key? key}) : super(key: key);
@@ -108,7 +109,7 @@ class _WalletScreenState extends State<WalletScreen> {
                 borderRadius: BorderRadius.circular(12),
                 image: const DecorationImage(
                   image: AssetImage("assets/images/home_rectangle.png"),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
               child: Column(
@@ -173,13 +174,13 @@ class _WalletScreenState extends State<WalletScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       WalletScreenOption(
-                        onTap: () {},
+                        onTap: () => context.push(const TransferScreen()),
                         image: 'assets/images/transfer.png',
                         name: 'Transfer',
                       ),
                       const SizedBox(width: 20),
                       WalletScreenOption(
-                        onTap: () {},
+                        onTap: () => context.push(const RequestPaymentScreen()),
                         image: 'assets/images/payment.svg',
                         name: 'Request Payment',
                       )

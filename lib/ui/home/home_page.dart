@@ -1,43 +1,36 @@
-// ignore_for_file: unrelated_type_equality_checks
-
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
-import 'package:huzz/core/widgets/image.dart';
-import 'package:huzz/core/widgets/state/loading.dart';
+import 'package:huzz/core/util/util.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
-import 'package:huzz/generated/assets.gen.dart';
-import 'package:huzz/core/util/constants.dart';
-import 'package:huzz/core/util/util.dart';
 import 'package:huzz/ui/business/create_business.dart';
-import 'package:huzz/ui/Home/insight.dart';
-import 'package:huzz/ui/Home/money_in.dart';
-import 'package:huzz/ui/Home/money_out.dart';
-import 'package:huzz/ui/Home/records.dart';
+import 'package:huzz/ui/home/insight.dart';
+import 'package:huzz/ui/home/money_in.dart';
+import 'package:huzz/ui/home/money_out.dart';
+import 'package:huzz/ui/home/records.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
-import 'package:huzz/ui/wallet/wallet.dart';
+import 'package:huzz/ui/wallet/create_bank_account.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/team_repository.dart';
+import '../widget/loading_widget.dart';
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
 class DebtInformationDialog extends StatelessWidget {
-  const DebtInformationDialog({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -61,14 +54,14 @@ class DebtInformationDialog extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeState createState() => _HomeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeState extends State<Home> {
   final display = createDisplay(
     roundingType: RoundingType.floor,
     length: 15,
@@ -84,10 +77,10 @@ class _HomePageState extends State<HomePage> {
 
   int selectedValue = 0;
   final transactionList = [];
-  final RandomColor _randomColor = RandomColor();
+  RandomColor _randomColor = RandomColor();
 
   Future<void> initDynamicLinks() async {
-    // print("Initial DynamicLinks");
+    print("Initial DynamicLinks");
     FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
     // Incoming Links Listener
@@ -95,8 +88,10 @@ class _HomePageState extends State<HomePage> {
       final Uri uri = dynamicLinkData.link;
       final queryParams = uri.queryParameters;
       if (queryParams.isNotEmpty) {
+        print("Incoming Link :" + uri.toString());
         //  your code here
       } else {
+        print("No Current Links");
         // your code here
       }
     });
@@ -106,13 +101,16 @@ class _HomePageState extends State<HomePage> {
         .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
     final Uri uri = data!.link;
     if (uri != null) {
+      print("Found The Searched Link: " + uri.toString());
       // your code here
     } else {
+      print("Search Link Not Found");
       // your code here
     }
   }
 
   Future<void> initFirebase() async {
+    print("Initial Firebase");
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     // await Future.delayed(Duration(seconds: 3));
@@ -129,66 +127,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      print(teamController.teamMember.toJson());
       _authController.checkTeamInvite();
       _authController.checkDeletedTeamBusiness();
+      print('Team Status: ${teamController.teamMembersStatus.value}');
       return Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.white,
-            title: GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20))),
-                    context: context,
-                    builder: (context) => buildSelectBusiness());
-              },
-              child: Row(
-                children: [
-                  const Gap(Insets.lg),
-                  buildMenuItem(
-                      "${_businessController.selectedBusiness.value!.businessName}"),
-                  const Gap(Insets.lg),
-                  const Icon(
-                    Icons.arrow_drop_down,
-                    color: AppColors.backgroundColor,
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  Get.to(const Notifications());
-                },
-                icon: LocalSvgIcon(
-                  Assets.icons.linear.notification,
-                  size: 20,
-                ),
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  Get.to(const Settings());
-                },
-                icon: LocalSvgIcon(
-                  Assets.icons.linear.setting,
-                  size: 20,
-                ),
-              ),
-            ],
-          ),
           body: teamController.teamMembersStatus == TeamMemberStatus.Loading
-              ? const Center(
-                  child: LoadingWidget(),
-                )
+              ? Container()
               : Container(
-                  padding: const EdgeInsets.all(Insets.lg),
-                  width: context.getWidth(),
-                  height: context.getHeight(),
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -196,10 +147,86 @@ class _HomePageState extends State<HomePage> {
                               TeamMemberStatus.UnAuthorized ||
                           teamController.teamMembersStatus ==
                               TeamMemberStatus.Error) ...[
-                        // Gap(Insets.lg),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(20))),
+                                    context: context,
+                                    builder: (context) =>
+                                        buildSelectBusiness());
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 4),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        width: 3,
+                                        color: AppColors.backgroundColor)),
+                                child: Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    buildMenuItem(
+                                        "${_businessController.selectedBusiness.value!.businessName}"),
+                                    const Expanded(child: SizedBox()),
+                                    const Icon(
+                                      Icons.keyboard_arrow_down,
+                                      color: AppColors.backgroundColor,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(const Notifications());
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/images/bell.svg',
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(const Settings());
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/images/settings.svg',
+                                      color: AppColors.backgroundColor,
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
                         Obx(() {
                           return Container(
-                            padding: const EdgeInsets.all(Insets.md),
+                            padding: const EdgeInsets.all(12),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -210,19 +237,16 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Container(
                                       padding: const EdgeInsets.symmetric(
-                                        horizontal: Insets.lg,
-                                        vertical: Insets.sm,
-                                      ),
-                                      decoration: const BoxDecoration(
+                                          horizontal: 13, vertical: 4),
+                                      decoration: BoxDecoration(
                                         color: AppColors.whiteColor,
-                                        borderRadius:
-                                            BorderRadius.all(Corners.mdRadius),
+                                        borderRadius: BorderRadius.circular(16),
                                       ),
                                       child: Text(
-                                        "Today's balance",
+                                        "Today's BALANCE",
                                         style: GoogleFonts.inter(
                                           color: AppColors.blackColor,
-                                          fontSize: 12,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
@@ -231,8 +255,7 @@ class _HomePageState extends State<HomePage> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}"
-                                          .toString(),
+                                      "${Utils.getCurrency()}${display(_transactionController.totalbalance.value)}",
                                       style: GoogleFonts.inter(
                                         color: AppColors.whiteColor,
                                         fontSize: 20,
@@ -244,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Records());
+                                            Get.to(() => const Records());
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
@@ -291,7 +314,7 @@ class _HomePageState extends State<HomePage> {
                                         const SizedBox(width: 7),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Insight());
+                                            Get.to(() => const Insight());
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
@@ -436,34 +459,68 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            // height: 130,
-                            width: context.getWidth(),
-                            height: 140,
+                            height: 130,
                             decoration: BoxDecoration(
                               color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(12),
-                              // image: DecorationImage(
-                              //   image: AssetImage(
-                              //       "assets/images/HomePage_rectangle.png"),
-                              //   fit: BoxFit.fill,
-                              // ),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/home_rectangle.png"),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           );
-                        }).onTap(() {
-                          context.push(const WalletScreen());
                         }),
-
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
-
+                        Container(
+                            width: double.maxFinite,
+                            padding: const EdgeInsets.all(Insets.md),
+                            decoration: const BoxDecoration(
+                              color: AppColors.primaryColor,
+                              borderRadius: BorderRadius.all(Corners.mdRadius),
+                            ),
+                            child: Row(
+                              children: [
+                                Text('NO BANK ACCOUNT YET?',
+                                    style: TextStyles.t3.copyWith(
+                                      color: Colors.white,
+                                    )),
+                                const Spacer(),
+                                InkWell(
+                                  onTap: () => context
+                                      .push(const CreateBankAccountScreen()),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(Insets.sm),
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.secondbgColor,
+                                      borderRadius:
+                                          BorderRadius.all(Corners.smRadius),
+                                    ),
+                                    child: Text(
+                                      'Create Account',
+                                      style: TextStyles.b2.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
                         InkWell(
                           onTap: () {
                             Get.to(() => const DebtorsTab());
                           },
                           child: Container(
-                              padding: const EdgeInsets.all(Insets.md),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.height *
+                                          0.02),
                               decoration: BoxDecoration(
-                                color: AppColors.secondbgColor.withOpacity(0.1),
+                                color:
+                                    AppColors.backgroundColor.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
@@ -473,15 +530,26 @@ class _HomePageState extends State<HomePage> {
                                   Row(
                                     children: [
                                       Container(
-                                        padding:
-                                            const EdgeInsets.all(Insets.sm),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.08,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.08,
+                                        padding: EdgeInsets.all(
+                                            MediaQuery.of(context).size.width *
+                                                0.015),
                                         decoration: const BoxDecoration(
-                                            color: AppColors.error,
+                                            color: Color(0xffEF6500),
                                             shape: BoxShape.circle),
                                         child: SvgPicture.asset(
                                             'assets/images/debtors.svg'),
                                       ),
-                                      const Gap(Insets.md),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02),
                                       Text(
                                         'Total debts',
                                         style: GoogleFonts.inter(
@@ -498,7 +566,7 @@ class _HomePageState extends State<HomePage> {
                                                   builder: (context) =>
                                                       CupertinoAlertDialog(
                                                     content:
-                                                        const DebtInformationDialog(),
+                                                        DebtInformationDialog(),
                                                     actions: [
                                                       CupertinoButton(
                                                         child: const Text("OK"),
@@ -513,7 +581,7 @@ class _HomePageState extends State<HomePage> {
                                                   builder: (context) =>
                                                       AlertDialog(
                                                     content:
-                                                        const DebtInformationDialog(),
+                                                        DebtInformationDialog(),
                                                     actions: [
                                                       CupertinoButton(
                                                         child: const Text("OK"),
@@ -571,7 +639,8 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               )),
                         ),
-                        const Gap(Insets.md),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
                         Text(
                           "Today's transactions",
                           style: GoogleFonts.inter(
@@ -579,19 +648,19 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black,
                               fontWeight: FontWeight.w600),
                         ),
-                        const Gap(Insets.md),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
                         Expanded(
                             child: Container(
                           padding: EdgeInsets.only(
                               bottom:
                                   MediaQuery.of(context).size.height * 0.02),
                           decoration: BoxDecoration(
-                              color: const Color.fromARGB(161, 245, 245, 245),
+                              color: const Color(0xffF5F5F5),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
                                   width: 2,
-                                  color:
-                                      AppColors.primaryColor.withOpacity(0.1))),
+                                  color: Colors.grey.withOpacity(0.2))),
                           child: Obx(() {
                             return RefreshIndicator(
                               onRefresh: () async {
@@ -623,8 +692,8 @@ class _HomePageState extends State<HomePage> {
                                                 .allPaymentItem[index];
                                             return InkWell(
                                               onTap: () {
-                                                // print(
-                                                //     "item payment transaction id is ${item.businessTransactionId}");
+                                                print(
+                                                    "item payment transaction id is ${item.businessTransactionId}");
                                                 Get.to(() => MoneySummary(
                                                       item: item,
                                                       pageCheck: true,
@@ -826,33 +895,35 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.to(const Notifications());
-                                  },
-                                  child: SvgPicture.asset(
-                                    'assets/images/bell.svg',
-                                    height: 20,
-                                    width: 20,
+                            Container(
+                              child: Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(const Notifications());
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/images/bell.svg',
+                                      height: 20,
+                                      width: 20,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.02),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.to(const Settings());
-                                  },
-                                  child: SvgPicture.asset(
-                                    'assets/images/settings.svg',
-                                    color: AppColors.backgroundColor,
-                                    height: 20,
-                                    width: 20,
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.02),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(const Settings());
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/images/settings.svg',
+                                      color: AppColors.backgroundColor,
+                                      height: 20,
+                                      width: 20,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -901,7 +972,7 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Records());
+                                            Get.to(() => const Records());
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
@@ -948,7 +1019,7 @@ class _HomePageState extends State<HomePage> {
                                         const SizedBox(width: 7),
                                         InkWell(
                                           onTap: () {
-                                            Get.to(() => Insight());
+                                            Get.to(() => const Insight());
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
@@ -1099,7 +1170,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(12),
                               image: const DecorationImage(
                                 image: AssetImage(
-                                    "assets/images/HomePage_rectangle.png"),
+                                    "assets/images/home_rectangle.png"),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -1171,7 +1242,7 @@ class _HomePageState extends State<HomePage> {
                                                         builder: (context) =>
                                                             CupertinoAlertDialog(
                                                           content:
-                                                              const DebtInformationDialog(),
+                                                              DebtInformationDialog(),
                                                           actions: [
                                                             CupertinoButton(
                                                               child: const Text(
@@ -1187,7 +1258,7 @@ class _HomePageState extends State<HomePage> {
                                                         builder: (context) =>
                                                             AlertDialog(
                                                           content:
-                                                              const DebtInformationDialog(),
+                                                              DebtInformationDialog(),
                                                           actions: [
                                                             CupertinoButton(
                                                               child: const Text(
@@ -1321,7 +1392,7 @@ class _HomePageState extends State<HomePage> {
                                                             builder: (context) =>
                                                                 CupertinoAlertDialog(
                                                               content:
-                                                                  const DebtInformationDialog(),
+                                                                  DebtInformationDialog(),
                                                               actions: [
                                                                 CupertinoButton(
                                                                   child:
@@ -1340,7 +1411,7 @@ class _HomePageState extends State<HomePage> {
                                                                 (context) =>
                                                                     AlertDialog(
                                                               content:
-                                                                  const DebtInformationDialog(),
+                                                                  DebtInformationDialog(),
                                                               actions: [
                                                                 CupertinoButton(
                                                                   child:
@@ -1463,6 +1534,8 @@ class _HomePageState extends State<HomePage> {
                                                 .allPaymentItem[index];
                                             return InkWell(
                                               onTap: () {
+                                                print(
+                                                    "item payment transaction id is ${item.businessTransactionId}");
                                                 Get.to(() => MoneySummary(
                                                       item: item,
                                                       pageCheck: true,
@@ -1725,31 +1798,33 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(const Notifications());
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/bell.svg',
-                      height: 20,
-                      width: 20,
+              Container(
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(const Notifications());
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/bell.svg',
+                        height: 20,
+                        width: 20,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(const Settings());
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/settings.svg',
-                      color: AppColors.backgroundColor,
-                      height: 20,
-                      width: 20,
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(const Settings());
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/settings.svg',
+                        color: AppColors.backgroundColor,
+                        height: 20,
+                        width: 20,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
@@ -1796,7 +1871,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.to(() => Records());
+                              Get.to(() => const Records());
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
@@ -1838,7 +1913,7 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(width: 7),
                           InkWell(
                             onTap: () {
-                              Get.to(() => Insight());
+                              Get.to(() => const Insight());
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
@@ -1982,7 +2057,7 @@ class _HomePageState extends State<HomePage> {
                 color: AppColors.backgroundColor,
                 borderRadius: BorderRadius.circular(12),
                 image: const DecorationImage(
-                  image: AssetImage("assets/images/HomePage_rectangle.png"),
+                  image: AssetImage("assets/images/home_rectangle.png"),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -2090,7 +2165,7 @@ class _HomePageState extends State<HomePage> {
           //       color: AppColors.backgroundColor,
           //       borderRadius: BorderRadius.circular(12),
           //       image: DecorationImage(
-          //         image: AssetImage("assets/images/HomePage_rectangle.png"),
+          //         image: AssetImage("assets/images/home_rectangle.png"),
           //         fit: BoxFit.fill,
           //       ),
           //     ),
@@ -2138,7 +2213,7 @@ class _HomePageState extends State<HomePage> {
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) => CupertinoAlertDialog(
-                                      content: const DebtInformationDialog(),
+                                      content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
                                           child: const Text("OK"),
@@ -2150,7 +2225,7 @@ class _HomePageState extends State<HomePage> {
                                 : showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      content: const DebtInformationDialog(),
+                                      content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
                                           child: const Text("OK"),
@@ -2243,6 +2318,8 @@ class _HomePageState extends State<HomePage> {
                                   _transactionController.allPaymentItem[index];
                               return InkWell(
                                 onTap: () {
+                                  print(
+                                      "item payment transaction id is ${item.businessTransactionId}");
                                   Get.to(() => MoneySummary(item: item));
                                 },
                                 child: Row(
@@ -2455,7 +2532,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(() => Records());
+                            Get.to(() => const Records());
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -2496,7 +2573,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(width: 7),
                         InkWell(
                           onTap: () {
-                            Get.to(() => Insight());
+                            Get.to(() => const Insight());
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -2637,7 +2714,7 @@ class _HomePageState extends State<HomePage> {
               color: AppColors.backgroundColor,
               borderRadius: BorderRadius.circular(12),
               image: const DecorationImage(
-                image: AssetImage("assets/images/HomePage_rectangle.png"),
+                image: AssetImage("assets/images/home_rectangle.png"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -2654,7 +2731,7 @@ class _HomePageState extends State<HomePage> {
           // color: AppColors.backgroundColor,
           // borderRadius: BorderRadius.circular(10),
           // image: DecorationImage(
-          // image: AssetImage("assets/images/HomePage_rectangle.png"),
+          // image: AssetImage("assets/images/home_rectangle.png"),
           // fit: BoxFit.cover,
           // ),
           // ),
@@ -2781,7 +2858,7 @@ class _HomePageState extends State<HomePage> {
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) => CupertinoAlertDialog(
-                                      content: const DebtInformationDialog(),
+                                      content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
                                           child: const Text("OK"),
@@ -2793,7 +2870,7 @@ class _HomePageState extends State<HomePage> {
                                 : showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      content: const DebtInformationDialog(),
+                                      content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
                                           child: const Text("OK"),
@@ -2877,7 +2954,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      LocalSvgIcon(Assets.icons.bulk.transactionMinus),
+                      SvgPicture.asset('assets/images/empty_transaction.svg'),
                       const SizedBox(
                         height: 10,
                       ),
@@ -2893,7 +2970,14 @@ class _HomePageState extends State<HomePage> {
                         height: 5,
                       ),
                       Text(
-                        'Your recent transactions will show here. Click the\nAdd transaction button to record your first transaction.',
+                        'Your recent transactions will show here. Click the',
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        'Add transaction button to record your first transaction.',
                         style: GoogleFonts.inter(
                           fontSize: 10,
                           color: Colors.black,
@@ -2976,7 +3060,7 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: () {
                       Get.back();
-                      Get.to(() => MoneyIn());
+                      Get.to(() => const MoneyIn());
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.08,
@@ -3041,7 +3125,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Expanded(
                 flex: 3,
-                child: SizedBox(
+                child: Container(
                   height:
                       (_businessController.offlineBusiness.length * 50) + 20,
                   width: MediaQuery.of(context).size.width,
@@ -3062,44 +3146,58 @@ class _HomePageState extends State<HomePage> {
                             Navigator.pop(context);
                           },
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              CircleAvatar(
-                                  radius: 20,
-                                  backgroundColor: _randomColor.randomColor(),
-                                  child: Center(
-                                      child: Text(
-                                    (item.business == null ||
-                                            item.business!.businessName!
-                                                .isEmpty)
-                                        ? ''
-                                        : item.business!.businessName![0],
+                              Expanded(
+                                  child: Container(
+                                margin: const EdgeInsets.only(bottom: 10),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: _randomColor.randomColor()),
+                                      child: Center(
+                                          child: Text(
+                                        (item.business == null ||
+                                                item.business!.businessName!
+                                                    .isEmpty)
+                                            ? ''
+                                            : item.business!.businessName![0],
+                                        style: GoogleFonts.inter(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            // ,
+                                            fontWeight: FontWeight.w600),
+                                      ))),
+                                ),
+                              )),
+                              Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    '${item.business!.businessName!}',
                                     style: GoogleFonts.inter(
-                                        fontSize: 20,
-                                        color: Colors.white,
+                                        fontSize: 13,
+                                        color: Colors.black,
                                         // ,
                                         fontWeight: FontWeight.w600),
-                                  ))),
-                              const Gap(Insets.lg),
-                              Text(
-                                item.business!.businessName.toString(),
-                                style: GoogleFonts.inter(
-                                    fontSize: 13,
-                                    color: Colors.black,
-                                    // ,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              const Spacer(),
-                              Radio<Business>(
-                                  value: item.business!,
-                                  activeColor: AppColors.backgroundColor,
-                                  groupValue: _businessController
-                                      .selectedBusiness.value,
-                                  onChanged: (value) {
-                                    _businessController.selectedBusiness(value);
-                                    _businessController.setLastBusiness(value!);
-                                    Navigator.pop(context);
-                                  }),
+                                  )),
+                              Expanded(
+                                  child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Radio<Business>(
+                                    value: item.business!,
+                                    activeColor: AppColors.backgroundColor,
+                                    groupValue: _businessController
+                                        .selectedBusiness.value,
+                                    onChanged: (value) {
+                                      _businessController
+                                          .selectedBusiness(value);
+                                      _businessController
+                                          .setLastBusiness(value!);
+                                      Navigator.pop(context);
+                                    }),
+                              )),
                             ],
                           ),
                         );
@@ -3147,10 +3245,7 @@ class _HomePageState extends State<HomePage> {
         value: item,
         child: Text(
           item,
-          style: GoogleFonts.inter(
-            fontSize: 14,
-            color: Colors.black,
-          ),
+          style: GoogleFonts.inter(fontSize: 14),
         ),
       );
 }
