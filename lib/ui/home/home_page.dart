@@ -153,20 +153,19 @@ class _HomePageState extends State<HomePage> {
                               TeamMemberStatus.Error) ...[
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20))),
-                                    context: context,
-                                    builder: (context) =>
-                                        buildSelectBusiness());
-                              },
-                              child: Row(
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                context: context,
+                                builder: (context) => buildSelectBusiness());
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
                                 children: [
                                   const SizedBox(
                                     width: 10,
@@ -180,35 +179,31 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ],
                               ),
-                            ),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
+                              Row(
+                                children: [
+                                  LocalSvgIcon(
+                                    Assets.icons.linear.notification,
+                                    size: 22,
+                                  ).onTap(() {
                                     Get.to(const Notifications());
-                                  },
-                                  child: SvgPicture.asset(
-                                    'assets/images/bell.svg',
-                                    height: 20,
-                                    width: 20,
+                                  }),
+                                  const Gap(Insets.lg),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(const Settings());
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/images/settings.svg',
+                                      color: AppColors.backgroundColor,
+                                      height: 20,
+                                      width: 20,
+                                    ),
                                   ),
-                                ),
-                                const Gap(Insets.lg),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.to(const Settings());
-                                  },
-                                  child: SvgPicture.asset(
-                                    'assets/images/settings.svg',
-                                    color: AppColors.backgroundColor,
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                ),
-                                const Gap(Insets.sm),
-                              ],
-                            ),
-                          ],
+                                  const Gap(Insets.sm),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
