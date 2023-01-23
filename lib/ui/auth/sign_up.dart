@@ -1,22 +1,29 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:flag/flag.dart';
+import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/mixins/form_mixin.dart';
+import 'package:huzz/core/util/validators.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
+import 'package:huzz/core/widgets/button/continue_btn.dart';
+import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/ui/auth/create_pin.dart';
-import 'package:huzz/ui/widget/custom_form_field.dart';
 
 class Signup extends StatefulWidget {
+  const Signup({super.key});
+
+  @override
   _SignUpState createState() => _SignUpState();
 }
 
-class _SignUpState extends State<Signup> {
+class _SignUpState extends State<Signup> with FormMixin {
   final _authController = Get.find<AuthRepository>();
 
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   String countryFlag = "NG";
   String countryCode = "234";
 
@@ -25,100 +32,58 @@ class _SignUpState extends State<Signup> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor,
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 70,
-                width: MediaQuery.of(context).size.width,
-                child: Stack(
-                  children: [
-                    Positioned(
-                        top: 20,
-                        child: SvgPicture.asset('assets/images/Vector.svg')),
-                    Positioned(
-                      top: 40,
-                      left: 20,
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                          // if (_homeController.onboardingRegSelectedIndex > 0) {
-                          //   _homeController.selectedOnboardSelectedPrevious();
-                          // } else {
-                          //   Get.back();
-                          // }
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
+      appBar: Appbar(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(Insets.lg),
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text('Personal Details',
+                      style: GoogleFonts.inter(
                           color: AppColors.backgroundColor,
-                        ),
-                      ),
-                    ),
-                  ],
+                          fontSize: 28,
+                          fontWeight: FontWeight.w500)),
                 ),
-              ),
-              Center(
-                child: Text('Personal Details',
+                const Gap(Insets.md),
+                Center(
+                  child: Text(
+                    'let’s get to know you better',
+                    textAlign: TextAlign.center,
                     style: GoogleFonts.inter(
-                        color: AppColors.backgroundColor,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w500)),
-              ),
-              SizedBox(
-                height: 2,
-              ),
-              Center(
-                child: Text(
-                  'let’s get to know you better',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                      fontSize: 14, fontWeight: FontWeight.w400),
+                        fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: CustomTextField(
-                  label: "First Name",
-                  validatorText: "First name is needed",
-                  textEditingController: _authController.firstNameController,
+                const Gap(Insets.md),
+                TextInputField(
+                  controller: _authController.firstNameController,
+                  labelText: "First Name",
+                  validator: Validators.validateString(
+                    error: "First name is needed",
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 3,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: CustomTextField(
-                  label: "Last Name",
-                  validatorText: "Last name is needed",
-                  textEditingController: _authController.lastNameController,
+                TextInputField(
+                  controller: _authController.lastNameController,
+                  labelText: "Last Name",
+                  validator: Validators.validateString(
+                    error: "Last name is needed",
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 3,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: CustomTextFieldInvoiceOptional(
-                  label: "Email",
-                  textEditingController: _authController.emailController,
+                TextInputField(
+                  inputType: TextInputType.emailAddress,
+                  controller: _authController.emailController,
+                  labelText: "Email",
+                  validator: (input) => Validators.validateEmail(input),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Text(
+                // PhoneNumberTextInputField(
+                //   labelText: "Phone Number",
+                //   controller: _authController.phoneNumberController,
+                // ),
+                Text(
                   "Phone Number",
                   style: GoogleFonts.inter(
                     color: Colors.black,
@@ -126,19 +91,17 @@ class _SignUpState extends State<Signup> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  height: 50,
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 58,
+                  margin: const EdgeInsets.only(bottom: Insets.md),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        color: AppColors.backgroundColor, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: AppColors.backgroundColor, width: 1.2),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -149,7 +112,7 @@ class _SignUpState extends State<Signup> {
                           // showCountryCode(context);
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                                 right: BorderSide(
                                     color: AppColors.backgroundColor,
@@ -160,10 +123,10 @@ class _SignUpState extends State<Signup> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Flag.fromString(countryFlag,
                                   height: 30, width: 30),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Icon(
@@ -176,7 +139,7 @@ class _SignUpState extends State<Signup> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
@@ -198,70 +161,32 @@ class _SignUpState extends State<Signup> {
                                   color: Colors.black)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                     ],
                   ),
                 ),
-              ),
-              if (!_authController.hasReferralDeeplink.value) ...[
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: CustomTextField(
-                    label: "Referral Code (Optional)",
-                    textEditingController:
-                        _authController.referralCodeController,
-                  ),
-                ),
+
+                if (!_authController.hasReferralDeeplink.value) ...[
+                  // Gap(Insets.md),
+                  TextInputField(
+                    labelText: "Referral Code (Optional)",
+                    controller: _authController.referralCodeController,
+                    // validator: Validators.validateString(),
+                  )
+                ],
+                const Gap(Insets.lg),
+                ContinueButton(
+                  label: 'Continue',
+                  action: () {
+                    if (formKey.currentState!.validate()) {
+                      Get.to(() => CreatePin());
+                    }
+                  },
+                )
               ],
-              SizedBox(height: 24),
-              InkWell(
-                onTap: () {
-                  if (_formKey.currentState!.validate())
-                    // _homeController.selectOnboardSelectedNext();
-                    Get.to(() => CreatePin());
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColors.backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Continue',
-                        style: GoogleFonts.inter(
-                            color: Colors.white, fontSize: 18),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(50))),
-                        child: Icon(
-                          Icons.arrow_forward,
-                          color: AppColors.backgroundColor,
-                          size: 16,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 50),
-            ],
+            ),
           ),
         ),
       ),
