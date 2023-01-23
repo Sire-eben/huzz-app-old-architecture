@@ -1,7 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
-import 'package:huzz/ui/home/home.dart';
+import 'package:huzz/ui/home/home_page.dart';
 import 'package:huzz/ui/inventory/productserviceTab.dart';
 import 'package:huzz/ui/invoice/available_invoice.dart';
 import 'package:huzz/ui/more/more.dart';

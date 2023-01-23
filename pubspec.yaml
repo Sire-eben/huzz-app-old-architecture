@@ -4,11 +4,7 @@ description: A new Flutter
 
 publish_to: "none"
 
-<<<<<<< HEAD
 version: 1.19.0+31
-=======
-version: 1.12.1+27
->>>>>>> dev
 
 environment:
   sdk: ">=2.18.2 <3.0.0"

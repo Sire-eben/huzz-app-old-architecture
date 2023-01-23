@@ -10,7 +10,7 @@ import 'package:huzz/data/model/product.dart';
 import 'package:huzz/data/model/product_model.dart';
 import 'package:number_display/number_display.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../../util/util.dart';
+import 'package:huzz/core/util/util.dart';
 
 class ServiceListing extends StatefulWidget {
   const ServiceListing({Key? key}) : super(key: key);
@@ -413,7 +413,7 @@ class _ServiceListingState extends State<ServiceListing> {
                 height: 95,
                 padding: const EdgeInsets.only(right: 8),
                 decoration: BoxDecoration(
-                  color: AppColors.secondBgColor,
+                  color: AppColors.secondbgColor,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,

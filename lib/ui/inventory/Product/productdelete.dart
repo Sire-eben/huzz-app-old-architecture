@@ -260,7 +260,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               height: 95,
               padding: const EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
-                color: AppColors.secondBgColor,
+                color: AppColors.secondbgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

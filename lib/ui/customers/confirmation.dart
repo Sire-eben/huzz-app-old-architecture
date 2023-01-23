@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/ui/dashboard.dart';
+import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 // ignore: must_be_immutable

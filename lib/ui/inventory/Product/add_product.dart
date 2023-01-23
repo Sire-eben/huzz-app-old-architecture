@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/util/util.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../../../util/util.dart';
 
 // ignore: must_be_immutable
 class AddProduct extends StatefulWidget {
@@ -82,7 +82,7 @@ class _AddProductState extends State<AddProduct> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -100,12 +100,12 @@ class _AddProductState extends State<AddProduct> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             GestureDetector(
               onTap: () => showModalBottomSheet(
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(20))),
                   context: context,
@@ -132,7 +132,7 @@ class _AddProductState extends State<AddProduct> {
                           ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Center(
@@ -144,7 +144,7 @@ class _AddProductState extends State<AddProduct> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -156,7 +156,7 @@ class _AddProductState extends State<AddProduct> {
                 textEditingController: _productController.productNameController,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -170,7 +170,8 @@ class _AddProductState extends State<AddProduct> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+                          margin: const EdgeInsets.only(
+                              left: 20, right: 20, top: 9),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -179,11 +180,11 @@ class _AddProductState extends State<AddProduct> {
                                 style: GoogleFonts.inter(
                                     color: Colors.black, fontSize: 12),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 1,
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 5),
+                                margin: const EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
                                   style: GoogleFonts.inter(
@@ -193,12 +194,13 @@ class _AddProductState extends State<AddProduct> {
                             ],
                           )),
                       Container(
-                        margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                        margin:
+                            const EdgeInsets.only(left: 20, right: 20, top: 10),
                         child: TextFormField(
                           controller:
                               _productController.productCostPriceController,
                           keyboardType: Platform.isIOS
-                              ? TextInputType.numberWithOptions(
+                              ? const TextInputType.numberWithOptions(
                                   signed: true, decimal: true)
                               : TextInputType.number,
                           inputFormatters: [
@@ -206,17 +208,17 @@ class _AddProductState extends State<AddProduct> {
                           ],
                           decoration: InputDecoration(
                             isDense: true,
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            border: OutlineInputBorder(
+                            border: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
@@ -242,7 +244,8 @@ class _AddProductState extends State<AddProduct> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+                          margin: const EdgeInsets.only(
+                              left: 20, right: 20, top: 9),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -251,11 +254,11 @@ class _AddProductState extends State<AddProduct> {
                                 style: GoogleFonts.inter(
                                     color: Colors.black, fontSize: 12),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 1,
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 5),
+                                margin: const EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
                                   style: GoogleFonts.inter(
@@ -265,12 +268,13 @@ class _AddProductState extends State<AddProduct> {
                             ],
                           )),
                       Container(
-                        margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                        margin:
+                            const EdgeInsets.only(left: 20, right: 20, top: 10),
                         child: TextFormField(
                           controller:
                               _productController.productSellingPriceController,
                           keyboardType: Platform.isIOS
-                              ? TextInputType.numberWithOptions(
+                              ? const TextInputType.numberWithOptions(
                                   signed: true, decimal: true)
                               : TextInputType.number,
                           inputFormatters: [
@@ -278,17 +282,17 @@ class _AddProductState extends State<AddProduct> {
                           ],
                           decoration: InputDecoration(
                             isDense: true,
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
-                            border: OutlineInputBorder(
+                            border: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: AppColors.backgroundColor, width: 2),
                                 borderRadius:
@@ -309,7 +313,7 @@ class _AddProductState extends State<AddProduct> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -319,7 +323,7 @@ class _AddProductState extends State<AddProduct> {
                 children: [
                   Container(
                     height: 50,
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       left: 20,
                       right: 20,
                     ),
@@ -331,11 +335,11 @@ class _AddProductState extends State<AddProduct> {
                           style: GoogleFonts.inter(
                               color: Colors.black, fontSize: 12),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 1,
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 5),
+                          margin: const EdgeInsets.only(top: 5),
                           child: Text(
                             "*",
                             style: GoogleFonts.inter(
@@ -345,23 +349,23 @@ class _AddProductState extends State<AddProduct> {
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   GestureDetector(
                     onTap: _decrementCounter,
                     child: Container(
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: AppColors.backgroundColor,
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.remove,
                         size: 18,
                         color: AppColors.whiteColor,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
@@ -369,23 +373,23 @@ class _AddProductState extends State<AddProduct> {
                     child: TextFormField(
                       controller: _productController.productQuantityController,
                       keyboardType: Platform.isIOS
-                          ? TextInputType.numberWithOptions(
+                          ? const TextInputType.numberWithOptions(
                               signed: true, decimal: true)
                           : TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: InputDecoration(
                         isDense: true,
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -404,18 +408,18 @@ class _AddProductState extends State<AddProduct> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   GestureDetector(
                     onTap: _incrementCounter,
                     child: Container(
                       height: 40,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: AppColors.backgroundColor,
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.add,
                         size: 18,
                         color: AppColors.whiteColor,
@@ -425,7 +429,7 @@ class _AddProductState extends State<AddProduct> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -435,15 +439,15 @@ class _AddProductState extends State<AddProduct> {
                 style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
               width: MediaQuery.of(context).size.width * 1,
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 10,
               ),
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
               decoration: BoxDecoration(
@@ -454,7 +458,7 @@ class _AddProductState extends State<AddProduct> {
                 child: DropdownButton<String>(
                   value: _productController.selectedUnit.value,
                   focusColor: AppColors.whiteColor,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.keyboard_arrow_down,
                     color: AppColors.backgroundColor,
                   ),
@@ -471,7 +475,7 @@ class _AddProductState extends State<AddProduct> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             InkWell(
               onTap: () {
                 if (_productController.addingProductStatus !=
@@ -486,7 +490,7 @@ class _AddProductState extends State<AddProduct> {
               child: Container(
                 height: 50,
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(
+                margin: const EdgeInsets.symmetric(
                   horizontal: 15,
                 ),
                 decoration: BoxDecoration(
@@ -497,7 +501,7 @@ class _AddProductState extends State<AddProduct> {
                     ? Container(
                         width: 30,
                         height: 30,
-                        child: Center(
+                        child: const Center(
                           child: CircularProgressIndicator(
                             color: Colors.white,
                           ),
@@ -515,7 +519,7 @@ class _AddProductState extends State<AddProduct> {
                       ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
           ],
@@ -546,14 +550,14 @@ class _AddProductState extends State<AddProduct> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xffE6F4F2),
                       shape: BoxShape.circle,
                     ),
@@ -561,7 +565,7 @@ class _AddProductState extends State<AddProduct> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.close,
                         color: AppColors.backgroundColor,
                       ),
@@ -569,7 +573,7 @@ class _AddProductState extends State<AddProduct> {
                   )
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
@@ -578,7 +582,7 @@ class _AddProductState extends State<AddProduct> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               GestureDetector(
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();
@@ -604,7 +608,7 @@ class _AddProductState extends State<AddProduct> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Center(
@@ -617,14 +621,14 @@ class _AddProductState extends State<AddProduct> {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               GestureDetector(
                 onTap: () {
                   Get.back();
                 },
                 child: Container(
                   height: 55,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(
@@ -653,10 +657,10 @@ class _AddProductState extends State<AddProduct> {
           decoration: BoxDecoration(
             border: Border.all(
               width: 1,
-              color: Color(0xffCFD1D2),
+              color: const Color(0xffCFD1D2),
             ),
             borderRadius: BorderRadius.circular(10),
-            color: Color(0xffDCF2EF),
+            color: const Color(0xffDCF2EF),
           ),
           child: Center(
             child: Text(
