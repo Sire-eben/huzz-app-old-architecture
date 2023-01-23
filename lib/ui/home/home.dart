@@ -21,6 +21,7 @@ import 'package:huzz/ui/Home/insight.dart';
 import 'package:huzz/ui/Home/money_in.dart';
 import 'package:huzz/ui/Home/money_out.dart';
 import 'package:huzz/ui/Home/records.dart';
+import 'package:huzz/ui/create_business.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';

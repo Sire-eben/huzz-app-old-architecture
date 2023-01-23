@@ -11,8 +11,6 @@ import 'package:huzz/ui/inventory/Product/add_product.dart';
 import 'package:huzz/ui/inventory/Service/servicelist.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:number_display/number_display.dart';
-import 'package:huzz/core/constants/app_themes.dart';
-import '../../../util/util.dart';
 
 class ProductListing extends StatefulWidget {
   const ProductListing({Key? key}) : super(key: key);
