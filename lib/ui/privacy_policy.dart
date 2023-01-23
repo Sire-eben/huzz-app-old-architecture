@@ -5,8 +5,6 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Privacy extends StatefulWidget {
-  const Privacy({super.key});
-
   @override
   _PrivacyState createState() => _PrivacyState();
 }

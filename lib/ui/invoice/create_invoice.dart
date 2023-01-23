@@ -21,7 +21,7 @@ import 'package:huzz/data/model/payment_item.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:intl/intl.dart';
 import 'package:random_color/random_color.dart';
-import 'package:huzz/core/util/util.dart';
+import '../../util/util.dart';
 
 class CreateInvoiceInformationDialog extends StatelessWidget {
   @override
@@ -30,11 +30,11 @@ class CreateInvoiceInformationDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(
+        Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        const SizedBox(height: 7),
+        SizedBox(height: 7),
         Text(
           'When you`ve filled the customer, items and payment info, you can generate an invoice you can download and share to your customer.',
           textAlign: TextAlign.center,
@@ -129,7 +129,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -148,7 +148,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(width: 4),
+            SizedBox(width: 4),
             GestureDetector(
               onTap: () {
                 Platform.isIOS
@@ -159,7 +159,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           content: CreateInvoiceInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -171,7 +171,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           content: CreateInvoiceInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: Text("OK"),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -206,7 +206,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               controlsBuilder:
                   (BuildContext context, ControlsDetails controlsDetails) {
                 return Padding(
-                  padding: const EdgeInsets.only(top: 40),
+                  padding: EdgeInsets.only(top: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -225,17 +225,17 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: const BoxDecoration(
+                                padding: EdgeInsets.all(2),
+                                decoration: BoxDecoration(
                                     color: AppColors.backgroundColor,
                                     shape: BoxShape.circle),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.arrow_back,
                                   color: AppColors.whiteColor,
                                   size: 15,
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8),
                               Text(
                                 'Back',
                                 style: GoogleFonts.inter(
@@ -260,7 +260,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 ? Container(
                                     width: 25,
                                     height: 25,
-                                    child: const Center(
+                                    child: Center(
                                         child: CircularProgressIndicator(
                                             color: Colors.white)),
                                   )
@@ -275,13 +275,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                           color: Colors.white,
                                         ),
                                       ),
-                                      const SizedBox(width: 4),
+                                      SizedBox(width: 4),
                                       Container(
-                                        padding: const EdgeInsets.all(2),
-                                        decoration: const BoxDecoration(
+                                        padding: EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
                                             color: Colors.white,
                                             shape: BoxShape.circle),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.arrow_forward,
                                           color: AppColors.backgroundColor,
                                           size: 15,
@@ -297,7 +297,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 );
               },
               elevation: 0,
-              physics: const ScrollPhysics(),
+              physics: ScrollPhysics(),
               type: StepperType.horizontal,
               steps: getSteps(),
               currentStep: currentStep,
@@ -306,7 +306,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
 
                 if (isLastStep) {
                   final date = DateTime.now();
-                  final dueDate = date.add(const Duration(days: 7));
+                  final dueDate = date.add(Duration(days: 7));
                   if (_invoiceController.paymentValue == 1) {
                     if (_bankKey.currentState!.validate()) {
                       if (_invoiceController.productList.isEmpty)
@@ -468,8 +468,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           _invoiceController.paymentValue == 0
               ? Container(
                   width: MediaQuery.of(context).size.width,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
@@ -477,7 +476,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<Bank>(
                       value: _invoiceController.selectedBank,
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.keyboard_arrow_down,
                         color: AppColors.backgroundColor,
                       ),
@@ -521,7 +520,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         hint: 'account number',
                         validatorText: "Account Number is required",
                         keyType: Platform.isIOS
-                            ? const TextInputType.numberWithOptions(
+                            ? TextInputType.numberWithOptions(
                                 signed: true, decimal: true)
                             : TextInputType.number,
                         textEditingController:
@@ -541,7 +540,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             },
             prefixIcon: IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.calendar_today),
+              icon: Icon(Icons.calendar_today),
               color: Colors.orange,
             ),
             validatorText: "Select date is needed",
@@ -696,9 +695,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                                 _invoiceController
                                                     .amountController,
                                             keyType: Platform.isIOS
-                                                ? const TextInputType
-                                                        .numberWithOptions(
-                                                    signed: true, decimal: true)
+                                                ? TextInputType
+                                                    .numberWithOptions(
+                                                        signed: true,
+                                                        decimal: true)
                                                 : TextInputType.number),
                                       ),
                                       SizedBox(
@@ -711,9 +711,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                             label: "Quantity",
                                             hint: '4',
                                             keyType: Platform.isIOS
-                                                ? const TextInputType
-                                                        .numberWithOptions(
-                                                    signed: true, decimal: true)
+                                                ? TextInputType
+                                                    .numberWithOptions(
+                                                        signed: true,
+                                                        decimal: true)
                                                 : TextInputType.number,
                                             validatorText: "Quantity is needed",
                                             onChanged: (value) {
@@ -749,7 +750,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         fontSize: 12,
                                       ),
                                     ),
-                                    const SizedBox(
+                                    SizedBox(
                                       width: 5,
                                     ),
                                     Text(
@@ -761,12 +762,12 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     )
                                   ],
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   height: 8,
                                 ),
                                 Container(
                                     width: MediaQuery.of(context).size.width,
-                                    padding: const EdgeInsets.symmetric(
+                                    padding: EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 4),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
@@ -776,7 +777,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     child: DropdownButtonHideUnderline(
                                         child: DropdownButton<Product>(
                                       value: _invoiceController.selectedProduct,
-                                      icon: const Icon(
+                                      icon: Icon(
                                         Icons.keyboard_arrow_down,
                                         color: AppColors.backgroundColor,
                                       ),
@@ -811,8 +812,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                         textEditingController:
                                             _invoiceController.amountController,
                                         keyType: Platform.isIOS
-                                            ? const TextInputType
-                                                    .numberWithOptions(
+                                            ? TextInputType.numberWithOptions(
                                                 signed: true, decimal: true)
                                             : TextInputType.number,
                                       ),
@@ -833,8 +833,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                           FilteringTextInputFormatter.digitsOnly
                                         ],
                                         keyType: Platform.isIOS
-                                            ? const TextInputType
-                                                    .numberWithOptions(
+                                            ? TextInputType.numberWithOptions(
                                                 signed: true, decimal: true)
                                             : TextInputType.number,
                                       ),
@@ -868,7 +867,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         }
                         showModalBottomSheet(
                             isScrollControlled: true,
-                            shape: const RoundedRectangleBorder(
+                            shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(20))),
                             context: context,
@@ -898,7 +897,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.add, color: Colors.white),
+                              Icon(Icons.add, color: Colors.white),
                               SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.02),
@@ -920,17 +919,17 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           // FilteringTextInputFormatter.digitsOnly
                           // ],
                           keyType: Platform.isIOS
-                              ? const TextInputType.numberWithOptions(
+                              ? TextInputType.numberWithOptions(
                                   signed: true, decimal: true)
                               : TextInputType.number),
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
                     Expanded(
                       child: CustomTextFieldInvoiceOptional(
                         label: 'Discount(%)',
                         hint: '0',
                         keyType: Platform.isIOS
-                            ? const TextInputType.numberWithOptions(
+                            ? TextInputType.numberWithOptions(
                                 signed: true, decimal: true)
                             : TextInputType.number,
                         textEditingController:
@@ -984,7 +983,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             ],
                           ),
                         ),
-                        const Spacer(),
+                        Spacer(),
                         InkWell(
                           onTap: () => setState(
                               () => _invoiceController.customerType = 0),
@@ -1032,7 +1031,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                       fontSize: 12,
                                     ),
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 5,
                                   ),
                                   Text(
@@ -1044,12 +1043,12 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                   )
                                 ],
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 height: 8,
                               ),
                               Container(
                                   width: MediaQuery.of(context).size.width,
-                                  padding: const EdgeInsets.symmetric(
+                                  padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 4),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
@@ -1060,7 +1059,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                     child: DropdownButton<Customer>(
                                       value:
                                           _invoiceController.selectedCustomer,
-                                      icon: const Icon(
+                                      icon: Icon(
                                         Icons.keyboard_arrow_down,
                                         color: AppColors.backgroundColor,
                                       ),
@@ -1084,7 +1083,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   ],
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               CustomTextFieldInvoiceOptional(
                 label: "Invoice Description",
                 validatorText: "",
@@ -1117,23 +1116,23 @@ class _CreateInvoiceState extends State<CreateInvoice> {
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          const CustomTextFieldOptional(
+          CustomTextFieldOptional(
             label: "Business Name",
             validatorText: "Business name is needed",
           ),
-          const CustomTextFieldOptional(
+          CustomTextFieldOptional(
             label: "Email",
             validatorText: "email is needed",
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Container(
-            margin: const EdgeInsets.only(left: 20, right: 20),
+            margin: EdgeInsets.only(left: 20, right: 20),
             width: MediaQuery.of(context).size.width,
             height: 50,
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: AppColors.backgroundColor, width: 2.0),
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -1144,7 +1143,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     showCountryCode(context);
                   },
                   child: Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       border: Border(
                           right: BorderSide(
                               color: AppColors.backgroundColor, width: 2)),
@@ -1154,9 +1153,9 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(width: 10),
+                        SizedBox(width: 10),
                         Flag.fromString(countryFlag, height: 30, width: 30),
-                        const SizedBox(
+                        SizedBox(
                           width: 5,
                         ),
                         Icon(
@@ -1168,7 +1167,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     ),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 10,
                 ),
                 Expanded(
@@ -1188,7 +1187,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                             color: Colors.black)),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 10,
                 ),
               ],
@@ -1207,7 +1206,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.height * 0.03),
               height: 50,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   color: AppColors.backgroundColor,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Center(
@@ -1266,7 +1265,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(top: 10),
+                  margin: EdgeInsets.only(top: 10),
                   height: 6,
                   width: 100,
                   decoration: BoxDecoration(
@@ -1274,7 +1273,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       borderRadius: BorderRadius.circular(10)),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                const CustomTextField(
+                CustomTextField(
                   label: "Item Name",
                   validatorText: "Item name is needed",
                   hint: 'E.g. Television',
@@ -1287,14 +1286,14 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                         validatorText: "amount is needed",
                         inputformater: [FilteringTextInputFormatter.digitsOnly],
                         keyType: Platform.isIOS
-                            ? const TextInputType.numberWithOptions(
+                            ? TextInputType.numberWithOptions(
                                 signed: true, decimal: true)
                             : TextInputType.number,
                         hint: '0',
                       ),
                     ),
-                    const SizedBox(width: 20),
-                    const Expanded(
+                    SizedBox(width: 20),
+                    Expanded(
                       child: CustomTextField(
                         label: "Quantity",
                         validatorText: "quantity is needed",
@@ -1309,7 +1308,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 50,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Center(
@@ -1323,7 +1322,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     ),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 20,
                 )
               ],
@@ -1358,13 +1357,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               cursorColor: Colors.white,
               autofocus: false,
               decoration: InputDecoration(
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.search,
                   color: AppColors.backgroundColor,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
-                  borderSide: const BorderSide(color: Colors.black12),
+                  borderSide: BorderSide(color: Colors.black12),
                 ),
                 fillColor: Colors.white,
                 filled: true,
@@ -1374,18 +1373,18 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   fontWeight: FontWeight.w400,
                   color: Colors.grey,
                 ),
-                contentPadding: const EdgeInsets.only(
-                    left: 16, right: 8, top: 8, bottom: 8),
+                contentPadding:
+                    EdgeInsets.only(left: 16, right: 8, top: 8, bottom: 8),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(
+                  borderSide: BorderSide(
                     width: 2,
                     color: AppColors.backgroundColor,
                   ),
@@ -1397,7 +1396,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
               child: ListView.separated(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                separatorBuilder: (context, index) => const Divider(),
+                separatorBuilder: (context, index) => Divider(),
                 itemCount: customerList.length,
                 itemBuilder: (context, index) {
                   var item = customerList[index];
@@ -1405,7 +1404,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     children: [
                       Expanded(
                           child: Container(
-                        margin: const EdgeInsets.only(bottom: 10),
+                        margin: EdgeInsets.only(bottom: 10),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Container(
@@ -1456,7 +1455,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 margin: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.height * 0.03),
                 height: 50,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Center(
@@ -1481,8 +1480,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         child: Scrollbar(
           controller: _scrollController,
           child: ListView.separated(
-              physics: const ScrollPhysics(),
-              separatorBuilder: (context, index) => const SizedBox(height: 10),
+              physics: ScrollPhysics(),
+              separatorBuilder: (context, index) => SizedBox(height: 10),
               itemCount: _invoiceController.productList.length,
               itemBuilder: (context, index) => ItemCard(
                     item: _invoiceController.productList[index],
@@ -1500,7 +1499,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           _invoiceController.productList[index]);
 
                       showModalBottomSheet(
-                          shape: const RoundedRectangleBorder(
+                          shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20))),
                           context: context,
@@ -1578,7 +1577,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColors.backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
@@ -1616,7 +1615,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       Get.back();
                     },
                     child: Container(
-                      margin: const EdgeInsets.only(top: 10),
+                      margin: EdgeInsets.only(top: 10),
                       height: 6,
                       width: 80,
                       decoration: BoxDecoration(
@@ -1740,12 +1739,12 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 fontSize: 12,
                               ),
                             ),
-                            const SizedBox(
+                            SizedBox(
                               height: 8,
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              padding: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 4),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
@@ -1755,7 +1754,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton<Product>(
                                   value: _invoiceController.selectedProduct,
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.keyboard_arrow_down,
                                     color: AppColors.backgroundColor,
                                   ),
@@ -1828,7 +1827,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 50,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Center(
@@ -1842,7 +1841,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                       ),
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   )
                 ],

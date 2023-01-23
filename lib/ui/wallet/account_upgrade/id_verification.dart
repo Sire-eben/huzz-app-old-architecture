@@ -8,7 +8,7 @@ import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/state/success.dart';
-import 'package:huzz/ui/app_scaffold.dart';
+import 'package:huzz/ui/dashboard.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:huzz/core/widgets/dropdowns/build_menu_item.dart';
 import 'package:huzz/core/widgets/dropdowns/dropdown_outline.dart';

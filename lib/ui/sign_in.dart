@@ -7,9 +7,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/ui/forget_pass/forgot_pin.dart';
-import 'package:huzz/ui/reg_home.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'forget_pass/forgot_pin.dart';
+import 'reg_home.dart';
 
 class Signin extends StatefulWidget {
   _SiginState createState() => _SiginState();

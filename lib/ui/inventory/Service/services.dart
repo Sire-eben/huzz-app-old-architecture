@@ -7,7 +7,7 @@ import 'package:huzz/ui/inventory/Service/servicelist.dart';
 import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/util/util.dart';
+import '../../../util/util.dart';
 import 'add_service.dart';
 
 class Services extends StatefulWidget {
@@ -41,7 +41,7 @@ class _ServicesState extends State<Services> {
                         onPressed: () {
                           Get.to(() => AddService());
                         },
-                        icon: const Icon(Icons.add),
+                        icon: Icon(Icons.add),
                         backgroundColor: AppColors.backgroundColor,
                         label: Text(
                           'New Service',
@@ -54,7 +54,7 @@ class _ServicesState extends State<Services> {
                     : Container(),
             body: RefreshIndicator(
               onRefresh: () async {
-                return Future.delayed(const Duration(seconds: 1), () {
+                return Future.delayed(Duration(seconds: 1), () {
                   _businessController.OnlineBusiness();
                 });
               },
@@ -81,9 +81,9 @@ class _ServicesState extends State<Services> {
                     left: 20,
                     right: 20,
                     child: Container(
-                      padding: const EdgeInsets.all(14),
+                      padding: EdgeInsets.all(14),
                       decoration: BoxDecoration(
-                        color: const Color(0xffF5F5F5),
+                        color: Color(0xffF5F5F5),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                           width: 2,
@@ -99,7 +99,7 @@ class _ServicesState extends State<Services> {
                             height: 50,
                             color: AppColors.backgroundColor,
                           ),
-                          const SizedBox(height: 5),
+                          SizedBox(height: 5),
                           Text(
                             'Service',
                             style: GoogleFonts.inter(
@@ -108,7 +108,7 @@ class _ServicesState extends State<Services> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const SizedBox(height: 5),
+                          SizedBox(height: 5),
                           Text(
                             (_productController.productStatus !=
                                     ProductStatus.UnAuthorized)
@@ -131,7 +131,7 @@ class _ServicesState extends State<Services> {
                               ),
                             ),
                           ],
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10),
                           if (_productController.productStatus ==
                               ProductStatus.UnAuthorized) ...[
                             Text(
@@ -151,12 +151,12 @@ class _ServicesState extends State<Services> {
               ),
             ),
           )
-        : const ServiceListing();
+        : ServiceListing();
   }
 
   Widget serviceCount(BuildContext context) => Container(
         height: 95,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.backgroundColor,
           borderRadius: BorderRadius.all(
             Radius.circular(15),
@@ -193,9 +193,9 @@ class _ServicesState extends State<Services> {
             ),
             Container(
               height: 95,
-              padding: const EdgeInsets.only(right: 9),
+              padding: EdgeInsets.only(right: 9),
               decoration: BoxDecoration(
-                color: AppColors.secondbgColor,
+                color: AppColors.secondBgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -205,12 +205,12 @@ class _ServicesState extends State<Services> {
                     0.8,
                   ],
                   colors: [
-                    const Color(0xff0D8372),
-                    const Color(0xff07A58E),
+                    Color(0xff0D8372),
+                    Color(0xff07A58E),
                     AppColors.backgroundColor.withOpacity(0.5),
                   ],
                 ),
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   topRight: Radius.circular(15),
                   bottomRight: Radius.circular(15),
                 ),

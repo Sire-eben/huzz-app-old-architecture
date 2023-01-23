@@ -16,8 +16,7 @@ import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../../data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-
-import 'package:huzz/core/util/util.dart';
+import '../../../util/util.dart';
 import '../money_history.dart';
 
 // ignore: must_be_immutable
@@ -116,7 +115,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                 child: Container(
                                   height: 95,
                                   decoration: BoxDecoration(
-                                    color: AppColors.secondbgColor,
+                                    color: AppColors.secondBgColor,
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
@@ -274,7 +273,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                           .fullyPaidDebtOwned))[index];
                                   var customer = _customerRepository
                                       .checkifCustomerAvailableWithValue(
-                                          item.customerId!);
+                                          item.customerId.toString());
 
                                   return (customer == null)
                                       ? Container()
@@ -299,9 +298,8 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               customer.name !=
                                                                   null &&
                                                               customer.name!
-                                                                      .length >
-                                                                  0
-                                                          ? '${customer.name![0]}'
+                                                                  .isNotEmpty
+                                                          ? customer.name![0]
                                                           : "",
                                                       style: GoogleFonts.inter(
                                                           fontSize: 30,
@@ -324,7 +322,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      customer.name!,
+                                                      customer.name.toString(),
                                                       style: GoogleFonts.inter(
                                                           fontSize: 12,
                                                           color: Colors.black,
@@ -332,7 +330,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               FontWeight.w400),
                                                     ),
                                                     Text(
-                                                      customer.phone!,
+                                                      customer.phone.toString(),
                                                       style: GoogleFonts.inter(
                                                           fontSize: 12,
                                                           color: Colors.grey),
@@ -358,7 +356,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                               FontWeight.w400),
                                                     ),
                                                     Text(
-                                                      "Paid: ${Utils.getCurrency()}${display((item.totalAmount! - item.balance!))}",
+                                                      "Paid: ${Utils.getCurrency()}${display((item.totalAmount - item.balance!))}",
                                                       style: GoogleFonts.inter(
                                                           fontSize: 11,
                                                           color: Colors.grey),
@@ -408,7 +406,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                           }
                                                         } else {
                                                           showModalBottomSheet(
-                                                              shape: RoundedRectangleBorder(
+                                                              shape: const RoundedRectangleBorder(
                                                                   borderRadius:
                                                                       BorderRadius.vertical(
                                                                           top: Radius.circular(
@@ -425,7 +423,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                                                           'assets/images/edit_pri.svg'))
                                                   : Container(),
                                             ),
-                                            SizedBox(width: 4),
+                                            const SizedBox(width: 4),
                                             (teamController.teamMember
                                                             .teamMemberStatus ==
                                                         'CREATOR' ||
@@ -1418,7 +1416,7 @@ class _DebtorOwnedListingState extends State<DebtorOwnedListing> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Balance: ${widget.item!.balance!}",
+                  "Balance: ${widget.item!.balance.toString()}",
                   style: GoogleFonts.inter(
                       fontSize: 13,
                       color: AppColors.backgroundColor,

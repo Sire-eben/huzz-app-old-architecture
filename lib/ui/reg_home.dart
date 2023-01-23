@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/home_respository.dart';
+import 'package:huzz/ui/create_pin.dart';
+import 'package:huzz/ui/enter_otp.dart';
+import 'package:huzz/ui/sign_up.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/ui/auth/create_pin.dart';
-import 'package:huzz/ui/auth/enter_otp.dart';
-import 'package:huzz/ui/auth/send_otp.dart';
-import 'package:huzz/ui/auth/sign_up.dart';
+import 'send_otp.dart';
 
 class RegHome extends StatefulWidget {
   _RegHome createState() => _RegHome();

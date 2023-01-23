@@ -10,8 +10,8 @@ import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/continue_btn.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/ui/create_pin.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/ui/auth/create_pin.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});

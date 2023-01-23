@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/home/insight.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/recordData.dart';
 import 'package:huzz/data/model/transaction_model.dart';
-import 'package:huzz/core/util/util.dart';
+import 'package:huzz/util/constants.dart';
 import 'package:number_display/number_display.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import '../../util/util.dart';
 import 'money_history.dart';
 import 'records/download_records.dart';
 import 'records/records_pdf.dart';
 
 class Records extends StatefulWidget {
-  const Records({super.key});
-
   @override
   _RecordsState createState() => _RecordsState();
 }
@@ -45,7 +43,7 @@ class _RecordsState extends State<Records> {
   Future<DateTimeRange?> pickDateRanges(BuildContext context) async {
     final initialDateRange = DateTimeRange(
       start: DateTime.now(),
-      end: DateTime.now().add(const Duration(hours: 24 * 3)),
+      end: DateTime.now().add(Duration(hours: 24 * 3)),
     );
     final newDateRange = await showDateRangePicker(
       initialEntryMode: DatePickerEntryMode.input,
@@ -59,6 +57,7 @@ class _RecordsState extends State<Records> {
 
     setState(() {
       dateRange = newDateRange;
+      print(dateRange);
     });
     return dateRange;
   }
@@ -68,6 +67,9 @@ class _RecordsState extends State<Records> {
   @override
   void initState() {
     super.initState();
+    print('Total Online Records: ${transactionController.totalOnlineRecords}');
+    print(
+        'Total Offline Records: ${transactionController.totalOfflineRecords}');
     if (transactionController.value.value.contains("This Year")) {
       transactionController.getYearRecord();
     } else if (transactionController.value.value.contains("Today")) {
@@ -90,7 +92,7 @@ class _RecordsState extends State<Records> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -122,13 +124,13 @@ class _RecordsState extends State<Records> {
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 30),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                       height: 100,
                       decoration: BoxDecoration(
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.circular(12),
-                        image: const DecorationImage(
+                        image: DecorationImage(
                           image: AssetImage("assets/images/home_rectangle.png"),
                           fit: BoxFit.fill,
                         ),
@@ -237,11 +239,11 @@ class _RecordsState extends State<Records> {
                                 Container(
                                   height: 10,
                                   width: 10,
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: AppColors.orangeBorderColor),
                                 ),
-                                const SizedBox(width: 2),
+                                SizedBox(width: 2),
                                 Text(
                                   'Money Out (${Utils.getCurrency()})',
                                   style: GoogleFonts.inter(
@@ -252,17 +254,17 @@ class _RecordsState extends State<Records> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 10),
                             Row(
                               children: [
                                 Container(
                                   height: 10,
                                   width: 10,
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: AppColors.blueColor),
                                 ),
-                                const SizedBox(width: 2),
+                                SizedBox(width: 2),
                                 Text(
                                   'Money in (${Utils.getCurrency()})',
                                   style: GoogleFonts.inter(
@@ -275,19 +277,19 @@ class _RecordsState extends State<Records> {
                             ),
                           ],
                         ),
-                        const Spacer(),
+                        Spacer(),
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => const Insight());
+                            Get.to(() => Insight());
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               color: AppColors.backgroundColor,
                             ),
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 5),
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            margin: EdgeInsets.symmetric(horizontal: 5),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -296,7 +298,7 @@ class _RecordsState extends State<Records> {
                                   style: GoogleFonts.inter(
                                       fontSize: 11, color: Colors.white),
                                 ),
-                                const SizedBox(width: 4),
+                                SizedBox(width: 4),
                                 SvgPicture.asset(
                                   'assets/images/graph.svg',
                                   color: Colors.white,
@@ -308,14 +310,14 @@ class _RecordsState extends State<Records> {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
                                   width: 2, color: AppColors.backgroundColor)),
                           child: DropdownButton<String>(
                             value: transactionController.value.value,
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.keyboard_arrow_down,
                               size: 14,
                               color: AppColors.backgroundColor,
@@ -382,6 +384,8 @@ class _RecordsState extends State<Records> {
                     child: Container(
                       height: 200,
                       child: Obx(() {
+                        print(
+                            "TESTX: ${transactionController.allExpenditureHoursData.toList()}");
                         // item1=removeDoubleItem(transactionController.allIncomeHoursData);
                         // item2=removeDoubleItem(transactionController.allExpenditureHoursData);
                         return SfCartesianChart(
@@ -417,8 +421,8 @@ class _RecordsState extends State<Records> {
                                   splineType: SplineType.cardinal,
                                   cardinalSplineTension: 0.9,
                                   // Enable data label
-                                  dataLabelSettings: const DataLabelSettings(
-                                      isVisible: false)),
+                                  dataLabelSettings:
+                                      DataLabelSettings(isVisible: false)),
                               SplineSeries<RecordsData, String>(
                                   dataSource: transactionController
                                       .allExpenditureHoursData
@@ -438,7 +442,7 @@ class _RecordsState extends State<Records> {
                                     isVisible: false,
                                     builder: (data, point, series, pointIndex,
                                             seriesIndex) =>
-                                        const Text("bb"),
+                                        Text("bb"),
                                   )),
                             ]);
                       }),
@@ -460,12 +464,12 @@ class _RecordsState extends State<Records> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            const SizedBox(width: 5),
+                            SizedBox(width: 5),
                             Text(
                               (transactionController.value.value
                                       .contains("Custom date range"))
                                   ? transactionController.customText
-                                  : transactionController.value.value,
+                                  : '${transactionController.value.value}',
                               style: GoogleFonts.inter(
                                 color: AppColors.blackColor,
                                 fontSize: 9,
@@ -474,7 +478,7 @@ class _RecordsState extends State<Records> {
                             ),
                           ],
                         ),
-                        const Spacer(),
+                        Spacer(),
                         GestureDetector(
                           onTap: () async {
                             final recordsData =
@@ -488,9 +492,9 @@ class _RecordsState extends State<Records> {
                               borderRadius: BorderRadius.circular(16),
                               color: AppColors.backgroundColor,
                             ),
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 7),
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            margin: EdgeInsets.symmetric(horizontal: 5),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -499,7 +503,7 @@ class _RecordsState extends State<Records> {
                                   style: GoogleFonts.inter(
                                       fontSize: 11, color: Colors.white),
                                 ),
-                                const SizedBox(width: 4),
+                                SizedBox(width: 4),
                                 SvgPicture.asset(
                                   'assets/images/download.svg',
                                   color: Colors.white,
@@ -518,7 +522,7 @@ class _RecordsState extends State<Records> {
                     padding: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.03),
                     child: Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: AppColors.backgroundColor.withOpacity(0.2)),
@@ -567,6 +571,8 @@ class _RecordsState extends State<Records> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Obx(() {
+                    print(
+                        "record size is ${transactionController.allExpenditureHoursData.length}");
                     return (transactionController.recordMoneyIn == 0 &&
                             transactionController.recordMoneyOut == 0)
                         ? Expanded(
@@ -608,7 +614,7 @@ class _RecordsState extends State<Records> {
                                     child: InkWell(
                                       onTap: () {
                                         showModalBottomSheet(
-                                            shape: const RoundedRectangleBorder(
+                                            shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.vertical(
                                                         top: Radius.circular(
@@ -796,7 +802,7 @@ class _RecordsState extends State<Records> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                item1.label,
+                '${item1.label}',
                 style: GoogleFonts.inter(
                   color: AppColors.blackColor,
                   fontStyle: FontStyle.normal,
@@ -809,11 +815,11 @@ class _RecordsState extends State<Records> {
                     Get.back();
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(4),
+                    padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: AppColors.backgroundColor.withOpacity(0.2)),
-                    child: const Icon(
+                    child: Icon(
                       Icons.close,
                       size: 20,
                       color: AppColors.backgroundColor,
@@ -916,7 +922,7 @@ class _RecordsState extends State<Records> {
           Container(
             height: MediaQuery.of(context).size.height / 3,
             child: ListView.separated(
-                separatorBuilder: (context, index) => const Divider(),
+                separatorBuilder: (context, index) => Divider(),
                 itemCount: paymentList.length,
                 itemBuilder: (BuildContext context, int index) {
                   var item = paymentList[index];
@@ -937,7 +943,7 @@ class _RecordsState extends State<Records> {
                             width: 20,
                             height: 20,
                           ),
-                          const SizedBox(width: 10),
+                          SizedBox(width: 10),
                           Expanded(
                             flex: 3,
                             child: Column(
@@ -991,7 +997,7 @@ class _RecordsState extends State<Records> {
                                     pageCheck: false,
                                   ));
                             },
-                            child: const Icon(
+                            child: Icon(
                               Icons.visibility,
                               color: AppColors.backgroundColor,
                               size: 20,
@@ -1074,7 +1080,7 @@ class _RecordsState extends State<Records> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 50,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Center(
@@ -1102,6 +1108,7 @@ class _RecordsState extends State<Records> {
       );
 
   List<RecordsData> removeDoubleItem(List<RecordsData> list) {
+    print("previous items length ${list.length}");
     List<RecordsData> newList = [];
     list.forEach((element) {
       if (newList
@@ -1124,6 +1131,7 @@ class _RecordsState extends State<Records> {
         }
       }
     });
+    print("new item list is ${newList.length}");
     return newList;
   }
 }

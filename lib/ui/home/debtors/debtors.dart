@@ -20,9 +20,9 @@ import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/util/util.dart';
 import '../../../data/repository/team_repository.dart';
 import '../../../data/repository/transaction_respository.dart';
+import '../../../util/util.dart';
 import '../money_history.dart';
 import 'debtorreminder.dart';
 
@@ -140,7 +140,7 @@ class _DebtorsState extends State<Debtors> {
                                 child: Container(
                                   height: 95,
                                   decoration: BoxDecoration(
-                                    color: AppColors.secondbgColor,
+                                    color: AppColors.secondBgColor,
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,

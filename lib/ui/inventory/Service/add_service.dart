@@ -10,7 +10,7 @@ import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:huzz/core/util/util.dart';
+import '../../../util/util.dart';
 
 // ignore: must_be_immutable
 class AddService extends StatefulWidget {
@@ -39,7 +39,7 @@ class _AddServiceState extends State<AddService> {
           onTap: () {
             Get.back();
           },
-          child: const Icon(
+          child: Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -65,7 +65,7 @@ class _AddServiceState extends State<AddService> {
                 children: [
                   GestureDetector(
                     onTap: () => showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
+                        shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(20))),
                         context: context,
@@ -93,7 +93,7 @@ class _AddServiceState extends State<AddService> {
                                 ),
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 5,
                   ),
                   Center(
@@ -105,7 +105,7 @@ class _AddServiceState extends State<AddService> {
                       ),
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 20,
                   ),
                   CustomTextField(
@@ -121,7 +121,7 @@ class _AddServiceState extends State<AddService> {
                     hint: '${Utils.getCurrency()}0.00',
                     inputformater: [FilteringTextInputFormatter.digitsOnly],
                     keyType: Platform.isIOS
-                        ? const TextInputType.numberWithOptions(
+                        ? TextInputType.numberWithOptions(
                             signed: true, decimal: true)
                         : TextInputType.number,
                     textEditingController:
@@ -164,7 +164,7 @@ class _AddServiceState extends State<AddService> {
                           ? Container(
                               width: 30,
                               height: 30,
-                              child: const Center(
+                              child: Center(
                                   child: CircularProgressIndicator(
                                       color: Colors.white)),
                             )
@@ -180,7 +180,7 @@ class _AddServiceState extends State<AddService> {
                             ),
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 20,
                   ),
                 ],
@@ -213,14 +213,14 @@ class _AddServiceState extends State<AddService> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Color(0xffE6F4F2),
                       shape: BoxShape.circle,
                     ),
@@ -228,7 +228,7 @@ class _AddServiceState extends State<AddService> {
                       onTap: () {
                         Get.back();
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.close,
                         color: AppColors.backgroundColor,
                       ),
@@ -236,7 +236,7 @@ class _AddServiceState extends State<AddService> {
                   )
                 ],
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: 5),
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
@@ -245,7 +245,7 @@ class _AddServiceState extends State<AddService> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              const SizedBox(height: 100),
+              SizedBox(height: 100),
               GestureDetector(
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();
@@ -271,7 +271,7 @@ class _AddServiceState extends State<AddService> {
                   ],
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 5,
               ),
               Center(
@@ -284,14 +284,14 @@ class _AddServiceState extends State<AddService> {
                   ),
                 ),
               ),
-              const Spacer(),
+              Spacer(),
               GestureDetector(
                 onTap: () {
                   Get.back();
                 },
                 child: Container(
                   height: 55,
-                  margin: const EdgeInsets.symmetric(
+                  margin: EdgeInsets.symmetric(
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(

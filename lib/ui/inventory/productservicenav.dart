@@ -1,7 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
-import 'package:huzz/ui/home/home_page.dart';
+import 'package:huzz/ui/home/home.dart';
 import 'package:huzz/ui/inventory/productserviceTab.dart';
 import 'package:huzz/ui/invoice/available_invoice.dart';
 import 'package:huzz/ui/more/more.dart';
@@ -32,29 +32,29 @@ class _ProServiceDashboardState extends State<ProServiceDashboard> {
         selectedIndex: _selectedIndex,
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              icon: const Icon(Icons.people),
-              title: const Text('Customers'),
+              icon: Icon(Icons.people),
+              title: Text('Customers'),
               textAlign: TextAlign.center,
               activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
-              icon: const Icon(Icons.inventory),
-              title: const Text('Inventory'),
+              icon: Icon(Icons.inventory),
+              title: Text('Inventory'),
               activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
-              icon: const Icon(Icons.home),
-              title: const Text('Home'),
+              icon: Icon(Icons.home),
+              title: Text('Home'),
               activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
-              icon: const Icon(Icons.receipt),
-              title: const Text('Invoice'),
+              icon: Icon(Icons.receipt),
+              title: Text('Invoice'),
               activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor),
           BottomNavyBarItem(
-              icon: const Icon(Icons.dashboard),
-              title: const Text('More'),
+              icon: Icon(Icons.dashboard),
+              title: Text('More'),
               activeColor: AppColors.backgroundColor,
               inactiveColor: inactiveColor)
         ],
@@ -68,14 +68,14 @@ class _ProServiceDashboardState extends State<ProServiceDashboard> {
       case 0:
         return CustomerTabView();
       case 1:
-        return const ProductServiceListing();
+        return ProductServiceListing();
       case 2:
-        return const HomePage();
+        return Home();
       case 3:
-        return const AvailableInvoice();
+        return AvailableInvoice();
       case 4:
       default:
-        return const More();
+        return More();
     }
   }
 }

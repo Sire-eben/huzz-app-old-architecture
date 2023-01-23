@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
@@ -12,10 +11,11 @@ import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/ui/invoice/available_invoice/single_invoice_preview.dart';
 import 'package:huzz/ui/invoice/create_invoice.dart';
 import 'package:huzz/data/model/invoice.dart';
-import 'package:huzz/core/util/util.dart';
+import 'package:huzz/util/constants.dart';
 import 'package:number_display/number_display.dart';
 import '../../../data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import '../../../util/util.dart';
 import 'empty_invoice_info.dart';
 
 class Overdue extends StatefulWidget {
@@ -45,7 +45,7 @@ class _OverdueState extends State<Overdue> {
       return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
+          padding: EdgeInsets.only(left: 20, right: 20, bottom: 50),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
@@ -79,6 +79,7 @@ class _OverdueState extends State<Overdue> {
                           onTap: () {
                             setState(() {
                               deleteItem = !deleteItem;
+                              print(deleteItem);
                             });
                           },
                           child: Container(
@@ -87,7 +88,8 @@ class _OverdueState extends State<Overdue> {
                               decoration: BoxDecoration(
                                   color: !deleteItem
                                       ? Colors.transparent
-                                      : AppColors.backgroundColor
+                                      : AppColors
+                                          .backgroundColor
                                           .withOpacity(0.2),
                                   shape: BoxShape.circle),
                               child:
@@ -100,7 +102,7 @@ class _OverdueState extends State<Overdue> {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async {
-                    return Future.delayed(const Duration(seconds: 1), () {
+                    return Future.delayed(Duration(seconds: 1), () {
                       _invoiceController.getOnlineInvoice(value!.businessId!);
                       _invoiceController.GetOfflineInvoices(value.businessId!);
                     });
@@ -108,8 +110,8 @@ class _OverdueState extends State<Overdue> {
                   child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? const Center(child: CircularProgressIndicator())
-                          : (_invoiceController.InvoiceDueList.isNotEmpty)
+                          ? Center(child: CircularProgressIndicator())
+                          : (_invoiceController.InvoiceDueList.length != 0)
                               ? ListView.builder(
                                   itemCount:
                                       _invoiceController.InvoiceDueList.length,
@@ -164,7 +166,7 @@ class _OverdueState extends State<Overdue> {
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
-                                                    const SizedBox(
+                                                    SizedBox(
                                                       height: 5,
                                                     ),
 
@@ -186,7 +188,7 @@ class _OverdueState extends State<Overdue> {
                                                                   FontWeight
                                                                       .w600,
                                                               fontSize: 14,
-                                                              color: const Color(
+                                                              color: Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
@@ -222,7 +224,7 @@ class _OverdueState extends State<Overdue> {
                                                           .size
                                                           .width *
                                                       0.05),
-                                              const Icon(
+                                              Icon(
                                                 Icons.arrow_forward_ios,
                                                 color:
                                                     AppColors.backgroundColor,
@@ -236,8 +238,8 @@ class _OverdueState extends State<Overdue> {
                               : EmptyInvoiceInfo()
                       : (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? const Center(child: CircularProgressIndicator())
-                          : (_invoiceController.InvoiceDueList.isNotEmpty)
+                          ? Center(child: CircularProgressIndicator())
+                          : (_invoiceController.InvoiceDueList.length != 0)
                               ? ListView.builder(
                                   itemCount:
                                       _invoiceController.InvoiceDueList.length,
@@ -261,6 +263,9 @@ class _OverdueState extends State<Overdue> {
                                             _selectedIndex.remove(index);
                                           }
                                         });
+
+                                        print('selected');
+                                        print(_items.toString());
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(
@@ -300,7 +305,7 @@ class _OverdueState extends State<Overdue> {
                                                           fontSize: 16,
                                                           color: Colors.black),
                                                     ),
-                                                    const SizedBox(
+                                                    SizedBox(
                                                       height: 5,
                                                     ),
                                                     Row(
@@ -315,7 +320,7 @@ class _OverdueState extends State<Overdue> {
                                                                   FontWeight
                                                                       .w600,
                                                               fontSize: 14,
-                                                              color: const Color(
+                                                              color: Color(
                                                                   0xffEF6500)),
                                                         ),
                                                         Text(
@@ -372,7 +377,7 @@ class _OverdueState extends State<Overdue> {
                                                   setState(() {});
                                                 },
                                                 child: AnimatedContainer(
-                                                  duration: const Duration(
+                                                  duration: Duration(
                                                       milliseconds: 200),
                                                   height: 25,
                                                   width: 25,
@@ -388,15 +393,14 @@ class _OverdueState extends State<Overdue> {
                                                       color: (!_invoiceController
                                                               .checkifSelectedForDeleted(
                                                                   item.id!))
-                                                          ? const Color(
-                                                              0xffEF6500)
+                                                          ? Color(0xffEF6500)
                                                           : Colors.transparent,
                                                       width: 2,
                                                     ),
                                                   ),
                                                   child: Visibility(
                                                     visible: visible,
-                                                    child: const Icon(
+                                                    child: Icon(
                                                       Icons.check,
                                                       size: 15,
                                                       color:
@@ -431,10 +435,10 @@ class _OverdueState extends State<Overdue> {
                           _displayDialog(context);
                         }
                       } else {
-                        Get.to(() => const CreateInvoice());
+                        Get.to(() => CreateInvoice());
                       }
                     },
-                    icon: (!deleteItem) ? Container() : const Icon(Icons.add),
+                    icon: (!deleteItem) ? Container() : Icon(Icons.add),
                     backgroundColor: AppColors.backgroundColor,
                     label: Text(
                       deleteItem ? 'Delete Item' : 'New Invoice',
@@ -454,7 +458,7 @@ class _OverdueState extends State<Overdue> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: const EdgeInsets.symmetric(
+            insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 300,
             ),
@@ -482,7 +486,7 @@ class _OverdueState extends State<Overdue> {
             ),
             actions: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -496,7 +500,7 @@ class _OverdueState extends State<Overdue> {
                         },
                         child: Container(
                           height: 45,
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -532,7 +536,7 @@ class _OverdueState extends State<Overdue> {
                         },
                         child: Container(
                           height: 45,
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(

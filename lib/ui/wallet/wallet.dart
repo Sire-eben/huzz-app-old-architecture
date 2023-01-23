@@ -201,7 +201,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: AppColors.secondbgColor.withOpacity(.1),
+                      color: AppColors.secondBgColor.withOpacity(.1),
                     ),
                     child: Row(children: [
                       Container(

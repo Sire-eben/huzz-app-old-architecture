@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'business_respository.dart';
 import 'miscellaneous_respository.dart';
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/core/util/util.dart';
+import 'package:huzz/util/util.dart';
 import 'package:huzz/ui/inventory/Product/productConfirm.dart';
 import 'package:huzz/data/model/product.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';

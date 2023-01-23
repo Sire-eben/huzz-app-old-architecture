@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,9 +10,6 @@ import 'package:huzz/data/model/onboarding_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class OnboardingMain extends StatefulWidget {
-  const OnboardingMain({super.key});
-
-  @override
   _OnboardingMainState createState() => _OnboardingMainState();
 }
 
@@ -27,14 +23,14 @@ class _OnboardingMainState extends State<OnboardingMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SizedBox(
+        child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              Container(
                 height: 100,
                 width: MediaQuery.of(context).size.width,
                 child: Stack(
@@ -71,7 +67,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                         ),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 20,
                     )
                   ],
@@ -80,7 +76,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
-              SizedBox(
+              Container(
                 height: MediaQuery.of(context).size.height * 0.2,
                 child: Image.asset(boards[selectedIndex].asset!),
               ),
@@ -88,7 +84,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                 height: MediaQuery.of(context).size.height * 0.15,
               ),
               Container(
-                margin: const EdgeInsets.only(left: 50, right: 50),
+                margin: EdgeInsets.only(left: 50, right: 50),
                 child: AutoSizeText(
                   boards[selectedIndex].title!,
                   textAlign: TextAlign.center,
@@ -104,7 +100,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
               Container(
-                margin: const EdgeInsets.only(left: 30, right: 30),
+                margin: EdgeInsets.only(left: 30, right: 30),
                 child: AutoSizeText(
                   boards[selectedIndex].body!,
                   textAlign: TextAlign.center,
@@ -138,11 +134,11 @@ class _OnboardingMainState extends State<OnboardingMain> {
                             child: Container(
                               height: 70,
                               width: 70,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50)),
                                   color: AppColors.backgroundColor),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.arrow_forward,
                                 color: Colors.white,
                                 size: 30,
@@ -184,9 +180,9 @@ class _OnboardingMainState extends State<OnboardingMain> {
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(left: 50, right: 50),
+                        margin: EdgeInsets.only(left: 50, right: 50),
                         height: 50,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             color: AppColors.backgroundColor,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
@@ -199,16 +195,16 @@ class _OnboardingMainState extends State<OnboardingMain> {
                               style: GoogleFonts.inter(
                                   color: Colors.white, fontSize: 18),
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 10,
                             ),
                             Container(
-                              padding: const EdgeInsets.all(3),
-                              decoration: const BoxDecoration(
+                              padding: EdgeInsets.all(3),
+                              decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50))),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.arrow_forward,
                                 color: AppColors.backgroundColor,
                                 size: 16,

@@ -6,33 +6,32 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/home/reciept.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
+import 'package:huzz/util/colors.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/payment_item.dart';
 import 'package:huzz/data/model/records_model.dart';
 import 'package:huzz/data/model/transaction_model.dart';
-import 'package:huzz/core/util/util.dart';
+import 'package:huzz/util/constants.dart';
 import 'package:number_display/number_display.dart';
 import '../../data/repository/team_repository.dart';
+import '../../util/util.dart';
 
 class TransactionHistoryInformationDialog extends StatelessWidget {
-  const TransactionHistoryInformationDialog({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(
+        Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        const SizedBox(height: 7),
+        SizedBox(height: 7),
         Text(
           "This is where you can get more information about a money in or money out transaction.",
           textAlign: TextAlign.center,
@@ -48,7 +47,7 @@ class TransactionHistoryInformationDialog extends StatelessWidget {
 class MoneySummary extends StatefulWidget {
   PaymentItem? item;
   bool? pageCheck;
-  MoneySummary({super.key, this.item, this.pageCheck});
+  MoneySummary({this.item, this.pageCheck});
   @override
   _MoneySummaryState createState() => _MoneySummaryState();
 }
@@ -97,7 +96,7 @@ class _MoneySummaryState extends State<MoneySummary> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -119,7 +118,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(width: 4),
+                SizedBox(width: 4),
                 GestureDetector(
                   onTap: () {
                     Platform.isIOS
@@ -130,7 +129,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               content: TransactionHistoryInformationDialog(),
                               actions: [
                                 CupertinoButton(
-                                  child: const Text("OK"),
+                                  child: Text("OK"),
                                   onPressed: () => Get.back(),
                                 ),
                               ],
@@ -142,15 +141,15 @@ class _MoneySummaryState extends State<MoneySummary> {
                               content: TransactionHistoryInformationDialog(),
                               actions: [
                                 CupertinoButton(
-                                  child: const Text("OK"),
+                                  child: Text("OK"),
                                   onPressed: () => Get.back(),
                                 ),
                               ],
                             ),
                           );
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 4.0, top: 2.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 4.0, top: 2.0),
                     child: Icon(
                       Icons.info_outline_rounded,
                       size: 18,
@@ -218,7 +217,7 @@ class _MoneySummaryState extends State<MoneySummary> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: AppColors.orangeBorderColor.withOpacity(0.2)),
@@ -336,7 +335,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         onTap: () {
                           showModalBottomSheet(
                               isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
+                              shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.vertical(
                                       top: Radius.circular(20))),
                               context: context,
@@ -344,7 +343,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.8,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          padding: EdgeInsets.symmetric(vertical: 12),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               color:
@@ -399,7 +398,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 5),
+                          SizedBox(height: 5),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -516,8 +515,8 @@ class _MoneySummaryState extends State<MoneySummary> {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.height * 0.03),
               child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12)),
@@ -561,7 +560,7 @@ class _MoneySummaryState extends State<MoneySummary> {
             ),
             Expanded(
               child: ListView.separated(
-                  separatorBuilder: (context, index) => const Divider(),
+                  separatorBuilder: (context, index) => Divider(),
                   itemCount: transactionModel!
                       .businessTransactionPaymentItemList!.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -635,8 +634,8 @@ class _MoneySummaryState extends State<MoneySummary> {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.height * 0.03),
               child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12)),
@@ -680,7 +679,7 @@ class _MoneySummaryState extends State<MoneySummary> {
             ),
             Expanded(
               child: ListView.separated(
-                  separatorBuilder: (context, index) => const Divider(),
+                  separatorBuilder: (context, index) => Divider(),
                   itemCount: transactionModel!
                       .businessTransactionPaymentHistoryList!.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -736,13 +735,13 @@ class _MoneySummaryState extends State<MoneySummary> {
                                           fontSize: 10,
                                           color: AppColors.backgroundColor),
                                     ),
-                                    const SizedBox(width: 4),
+                                    SizedBox(width: 4),
                                     Container(
-                                        padding: const EdgeInsets.all(2),
-                                        decoration: const BoxDecoration(
+                                        padding: EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: AppColors.backgroundColor),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.arrow_forward,
                                           color: AppColors.whiteColor,
                                           size: 15,
@@ -768,7 +767,7 @@ class _MoneySummaryState extends State<MoneySummary> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: const EdgeInsets.symmetric(
+            insetPadding: EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 300,
             ),
@@ -794,7 +793,7 @@ class _MoneySummaryState extends State<MoneySummary> {
             ),
             actions: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -808,7 +807,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         },
                         child: Container(
                           height: 45,
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -841,7 +840,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         },
                         child: Container(
                           height: 45,
-                          padding: const EdgeInsets.symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
@@ -910,11 +909,11 @@ class _MoneySummaryState extends State<MoneySummary> {
                         });
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(4),
+                        padding: EdgeInsets.all(4),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: AppColors.backgroundColor.withOpacity(0.2)),
-                        child: const Icon(
+                        child: Icon(
                           Icons.close,
                           size: 20,
                           color: AppColors.backgroundColor,
@@ -1009,7 +1008,7 @@ class _MoneySummaryState extends State<MoneySummary> {
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Expanded(
                 child: ListView.separated(
-                    separatorBuilder: (context, index) => const Divider(),
+                    separatorBuilder: (context, index) => Divider(),
                     itemCount: recordSummaryList.length,
                     itemBuilder: (BuildContext context, int index) {
                       var item = recordSummaryList[index];
@@ -1023,7 +1022,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                           child: Row(
                             children: [
                               Image.asset(item.image!),
-                              const SizedBox(width: 10),
+                              SizedBox(width: 10),
                               Expanded(
                                 flex: 3,
                                 child: Column(
@@ -1067,7 +1066,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                                   ],
                                 ),
                               ),
-                              const Icon(
+                              Icon(
                                 Icons.visibility,
                                 color: AppColors.backgroundColor,
                                 size: 20,
@@ -1141,7 +1140,7 @@ class _MoneySummaryState extends State<MoneySummary> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 10,
               ),
               InkWell(
@@ -1168,7 +1167,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: AppColors.backgroundColor.withOpacity(0.2)),
-                      child: const Icon(
+                      child: Icon(
                         Icons.close,
                         color: AppColors.backgroundColor,
                         size: 18,
@@ -1262,7 +1261,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                       hint: '${Utils.getCurrency()} 0.00',
                       inputformater: [FilteringTextInputFormatter.digitsOnly],
                       keyType: Platform.isIOS
-                          ? const TextInputType.numberWithOptions(
+                          ? TextInputType.numberWithOptions(
                               signed: true, decimal: true)
                           : TextInputType.number,
                       textEditingController:
@@ -1309,7 +1308,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                     margin: EdgeInsets.symmetric(
                         horizontal: MediaQuery.of(context).size.height * 0.01),
                     height: 50,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: (_transactionController.addingTransactionStatus ==
@@ -1317,7 +1316,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                         ? Container(
                             width: 30,
                             height: 30,
-                            child: const Center(
+                            child: Center(
                                 child: CircularProgressIndicator(
                                     color: Colors.white)),
                           )
@@ -1333,7 +1332,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                   ),
                 );
               }),
-              const SizedBox(
+              SizedBox(
                 height: 10,
               ),
             ],

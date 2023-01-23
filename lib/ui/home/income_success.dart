@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import 'package:huzz/ui/app_scaffold.dart';
+import 'package:huzz/ui/dashboard.dart';
 import 'package:huzz/ui/home/reciept.dart';
 import 'package:huzz/data/model/money_reciept_model.dart';
 import 'package:huzz/data/model/transaction_model.dart';
@@ -159,7 +159,8 @@ class IncomeSuccess extends StatelessWidget {
                             height: 50,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: AppColors.backgroundColor, width: 2),
+                                    color: AppColors.backgroundColor,
+                                    width: 2),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: Center(

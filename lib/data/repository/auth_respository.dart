@@ -12,13 +12,12 @@ import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/file_upload_respository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/api_link.dart';
-import 'package:huzz/ui/auth/enter_otp.dart';
-import 'package:huzz/ui/auth/pin_successful.dart';
-import 'package:huzz/ui/auth/sign_in.dart';
-import 'package:huzz/ui/business/create_business.dart';
-import 'package:huzz/ui/app_scaffold.dart';
+import 'package:huzz/ui/create_business.dart';
+import 'package:huzz/ui/dashboard.dart';
 import 'package:huzz/ui/forget_pass/enter_forget_pin.dart';
+import 'package:huzz/ui/pin_successful.dart';
 import 'package:huzz/ui/reg_home.dart';
+import 'package:huzz/ui/sign_in.dart';
 import 'package:huzz/ui/team/team_success.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/business.dart';
@@ -28,6 +27,7 @@ import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/user_teamInvite_model.dart';
+import '../../ui/enter_otp.dart';
 import 'fingerprint_repository.dart';
 
 enum SignupStatus { Empty, Loading, Error, Success }
