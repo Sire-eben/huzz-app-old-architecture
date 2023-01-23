@@ -1,7 +1,12 @@
+import 'package:country_picker/country_picker.dart';
+import 'package:flag/flag_widget.dart';
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:gap/gap.dart";
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/util/text_input.dart';
+import 'package:huzz/core/util/validators.dart';
+import 'package:huzz/core/widgets/image.dart';
 
 class TextInputField extends StatelessWidget {
   final String? labelText, prefixText;
@@ -60,7 +65,7 @@ class TextInputField extends StatelessWidget {
       borderRadius: BorderRadius.all(Corners.mdRadius),
       borderSide: BorderSide(
         color: AppColors.primaryColor,
-        width: 0.9,
+        width: 1.2,
       ),
     );
 
@@ -107,7 +112,7 @@ class TextInputField extends StatelessWidget {
                   labelStyle: labelStyle,
                   hintStyle: hintStyle ??
                       TextStyle(
-                        color: AppColors.primaryColor.withOpacity(0.8),
+                        color: Colors.black54,
                       ),
                   enabledBorder: underlinedInputBorder,
                   focusedBorder: underlinedInputBorder.copyWith(
@@ -128,6 +133,92 @@ class TextInputField extends StatelessWidget {
         ),
         const Gap(Insets.md),
       ],
+    );
+  }
+}
+
+class PhoneNumberTextInputField extends StatefulWidget {
+  final String? labelText;
+  final PhoneNumber? initialValue;
+  final Function(String input)? onChanged;
+  final Function(Country selectedCountry)? onSelect;
+  final Function(PhoneNumber?)? onSaved;
+  final FocusNode? focusNode;
+  final String? hintText;
+  final TextEditingController? controller;
+  final bool enabled;
+  final TextStyle? labelStyle, style;
+
+  const PhoneNumberTextInputField({
+    Key? key,
+    this.labelText,
+    this.initialValue,
+    this.onChanged,
+    this.onSelect,
+    this.onSaved,
+    this.focusNode,
+    this.hintText,
+    this.controller,
+    this.labelStyle,
+    this.style,
+    this.enabled = true,
+  }) : super(key: key);
+
+  @override
+  State<PhoneNumberTextInputField> createState() =>
+      _PhoneNumberTextInputFieldState();
+}
+
+class _PhoneNumberTextInputFieldState extends State<PhoneNumberTextInputField> {
+  String countryFlag = "NG";
+  late PhoneNumberCountry phoneNumberCountry;
+  @override
+  void initState() {
+    super.initState();
+    phoneNumberCountry = phoneNumberCountryList()[0];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextInputField(
+      style: widget.style,
+      prefixIcon: GestureDetector(
+        onTap: () => showCountryPicker(
+          context: context,
+          onSelect: (value) {},
+        ),
+        child: SizedBox(
+          width: 44,
+          child: Padding(
+            padding: const EdgeInsets.all(Insets.sm),
+            child: Center(
+              child: Flag.fromString(countryFlag, height: 30, width: 30),
+            ),
+          ),
+        ),
+      ),
+      labelText: widget.labelText ?? "Phone Number",
+      hintText: widget.hintText ?? "8123456789",
+      initialValue: widget.initialValue?.number,
+      inputType: TextInputType.number,
+      onChanged: widget.onChanged,
+      onSaved: (input) => widget.onSaved?.call(
+        PhoneNumber(
+          number:
+              "${phoneNumberCountry.countryCode}${input!.startsWith("0") ? input.substring(1) : input}",
+          dialCode: phoneNumberCountry.countryCode,
+        ),
+      ),
+      validator: (input) => Validators.validatePhoneNumber(
+          maxLength: phoneNumberCountry.maxLength)(input),
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(phoneNumberCountry.maxLength),
+        FilteringTextInputFormatter.digitsOnly,
+      ],
+      focusNode: widget.focusNode,
+      controller: widget.controller,
+      enabled: widget.enabled,
+      labelStyle: widget.labelStyle,
     );
   }
 }

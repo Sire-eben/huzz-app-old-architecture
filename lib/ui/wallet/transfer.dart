@@ -116,11 +116,10 @@ class _TransferScreenState extends State<TransferScreen> with FormMixin {
                 ),
                 TextInputField(
                   labelText: 'Narration',
-                  maxLines: 5,
                   inputType: TextInputType.text,
                   validator: Validators.validateString(minLength: 5),
                 ),
-                const Gap(Insets.xl),
+                const Gap(Insets.xl * 3),
                 Button(
                   label: 'Continue',
                   action: () {

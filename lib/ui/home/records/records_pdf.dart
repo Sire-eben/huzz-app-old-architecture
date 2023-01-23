@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:get/get.dart';
+import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/widget/util.dart';
 import 'package:huzz/data/model/record_receipt.dart';
-import 'package:huzz/util/constants.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';

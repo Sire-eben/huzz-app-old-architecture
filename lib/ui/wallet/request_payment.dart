@@ -40,7 +40,7 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
                 inputType: TextInputType.number,
                 validator: Validators.validateAmount(),
               ),
-              const Gap(Insets.xl),
+              const Gap(Insets.xl * 3),
               Button(
                   label: 'Send Request',
                   action: () {

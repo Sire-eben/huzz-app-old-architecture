@@ -7,8 +7,8 @@ import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/widget/custom_drop_field.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../data/repository/auth_respository.dart';
-import 'dashboard.dart';
+import '../../data/repository/auth_respository.dart';
+import '../app_scaffold.dart';
 
 class CreateBusiness extends StatefulWidget {
   _CreateBusinessState createState() => _CreateBusinessState();

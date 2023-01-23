@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/ui/sign_in.dart';
+import 'package:huzz/data/repository/home_respository.dart';
+import 'package:huzz/ui/auth/sign_in.dart';
+import 'package:huzz/ui/privacy_policy.dart';
 import 'package:huzz/ui/terms_of_condition.dart';
 import 'package:huzz/core/constants/app_themes.dart';
-import '../data/repository/home_respository.dart';
-import 'privacy_policy.dart';
 import 'sign_up.dart';
 
 class SendOtp extends StatefulWidget {

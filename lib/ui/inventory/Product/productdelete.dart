@@ -25,7 +25,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -66,31 +66,31 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.lightBackgroundColor,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.add,
                       size: 20,
                       color: AppColors.backgroundColor,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.lightBackgroundColor,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.delete_outline_outlined,
                       size: 20,
                       color: AppColors.backgroundColor,
@@ -104,21 +104,22 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
               left: 20,
               right: 20,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 height: 55,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Color(0xffE6F4F2),
+                  color: const Color(0xffE6F4F2),
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.search,
                       color: AppColors.backgroundColor,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Container(
@@ -129,15 +130,15 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                         textInputAction: TextInputAction.none,
                         decoration: InputDecoration(
                           isDense: true,
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: AppColors.backgroundColor, width: 2),
                               borderRadius:
@@ -181,7 +182,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                   _productControlller.deleteSelectedItem();
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 15,
                   ),
@@ -191,12 +192,12 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                   ),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.delete_forever_sharp,
                         size: 18,
                         color: Colors.white,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
@@ -220,7 +221,7 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
 
   Widget productCount(BuildContext context) => Container(
         height: 95,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.backgroundColor,
           borderRadius: BorderRadius.all(
             Radius.circular(15),
@@ -257,9 +258,9 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
             ),
             Container(
               height: 95,
-              padding: EdgeInsets.only(right: 8),
+              padding: const EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
-                color: AppColors.secondBgColor,
+                color: AppColors.secondbgColor,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -269,12 +270,12 @@ class _BuildDeleteProductState extends State<BuildDeleteProduct> {
                     0.8,
                   ],
                   colors: [
-                    Color(0xff0D8372),
-                    Color(0xff07A58E),
+                    const Color(0xff0D8372),
+                    const Color(0xff07A58E),
                     AppColors.backgroundColor.withOpacity(0.5),
                   ],
                 ),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(15),
                   bottomRight: Radius.circular(15),
                 ),
@@ -340,16 +341,16 @@ class _ListingProductState extends State<ListingProduct> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 10,
             ),
             height: 80,
             decoration: BoxDecoration(
-              color: Color(0xffF5F5F5),
+              color: const Color(0xffF5F5F5),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Color(0xffC3C3C3),
+                color: const Color(0xffC3C3C3),
               ),
             ),
             child: Row(
@@ -365,7 +366,7 @@ class _ListingProductState extends State<ListingProduct> {
                         widget.item!.productLogoFileStoreId!,
                         height: 50,
                       ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
@@ -380,7 +381,7 @@ class _ListingProductState extends State<ListingProduct> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -401,7 +402,7 @@ class _ListingProductState extends State<ListingProduct> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 50,
                         ),
                         Text(
@@ -416,7 +417,7 @@ class _ListingProductState extends State<ListingProduct> {
                     ),
                   ],
                 ),
-                Expanded(
+                const Expanded(
                   child: SizedBox(),
                 ),
                 GestureDetector(
@@ -430,7 +431,7 @@ class _ListingProductState extends State<ListingProduct> {
                     setState(() {});
                   },
                   child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 200),
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(
@@ -440,7 +441,7 @@ class _ListingProductState extends State<ListingProduct> {
                           : AppColors.whiteColor,
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: Color(0xffEF6500),
+                        color: const Color(0xffEF6500),
                       ),
                     ),
                     child: Visibility(
@@ -460,7 +461,7 @@ class _ListingProductState extends State<ListingProduct> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           )
         ],
