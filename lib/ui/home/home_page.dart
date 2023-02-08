@@ -4,15 +4,18 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';
+import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
+import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/ui/home/insight.dart';
 import 'package:huzz/ui/home/money_in.dart';
@@ -127,14 +130,14 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      print(teamController.teamMember.toJson());
+      // debugPrint(teamController.teamMember.toJson());
       _authController.checkTeamInvite();
       _authController.checkDeletedTeamBusiness();
-      print('Team Status: ${teamController.teamMembersStatus.value}');
+      // print('Team Status: ${teamController.teamMembersStatus.value}');
       return Scaffold(
           backgroundColor: Colors.white,
           body: teamController.teamMembersStatus == TeamMemberStatus.Loading
-              ? Container()
+              ? LoadingWidget()
               : Container(
                   padding:
                       EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
@@ -143,69 +146,49 @@ class _HomeState extends State<Home> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // ignore: unrelated_type_equality_checks
                       if (teamController.teamMembersStatus ==
                               TeamMemberStatus.UnAuthorized ||
                           teamController.teamMembersStatus ==
                               TeamMemberStatus.Error) ...[
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20))),
-                                    context: context,
-                                    builder: (context) =>
-                                        buildSelectBusiness());
-                              },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                        width: 3,
-                                        color: AppColors.backgroundColor)),
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    buildMenuItem(
-                                        "${_businessController.selectedBusiness.value!.businessName}"),
-                                    const Expanded(child: SizedBox()),
-                                    const Icon(
-                                      Icons.keyboard_arrow_down,
-                                      color: AppColors.backgroundColor,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Row(
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                context: context,
+                                builder: (context) => buildSelectBusiness());
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Notifications());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/bell.svg',
-                                      height: 20,
-                                      width: 20,
-                                    ),
+                                  const SizedBox(
+                                    width: 10,
                                   ),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02),
+                                  buildMenuItem(_businessController
+                                      .selectedBusiness.value!.businessName
+                                      .toString()),
+                                  const Gap(Insets.xl),
+                                  const Icon(
+                                    Icons.arrow_drop_down,
+                                    color: AppColors.backgroundColor,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  LocalSvgIcon(
+                                    Assets.icons.linear.notification,
+                                    size: 22,
+                                  ).onTap(() {
+                                    Get.to(const Notifications());
+                                  }),
+                                  const Gap(Insets.lg),
                                   GestureDetector(
                                     onTap: () {
                                       Get.to(const Settings());
@@ -217,10 +200,11 @@ class _HomeState extends State<Home> {
                                       width: 20,
                                     ),
                                   ),
+                                  const Gap(Insets.sm),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
@@ -854,63 +838,42 @@ class _HomeState extends State<Home> {
                       ] else ...[
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20))),
-                                    context: context,
-                                    builder: (context) =>
-                                        buildSelectBusiness());
-                              },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                        width: 3,
-                                        color: AppColors.backgroundColor)),
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    buildMenuItem(
-                                        "${_businessController.selectedBusiness.value!.businessName}"),
-                                    const Expanded(child: SizedBox()),
-                                    const Icon(
-                                      Icons.keyboard_arrow_down,
-                                      color: AppColors.backgroundColor,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Row(
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                context: context,
+                                builder: (context) => buildSelectBusiness());
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Notifications());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/bell.svg',
-                                      height: 20,
-                                      width: 20,
-                                    ),
+                                  const SizedBox(
+                                    width: 10,
                                   ),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02),
+                                  buildMenuItem(_businessController
+                                      .selectedBusiness.value!.businessName
+                                      .toString()),
+                                  const Gap(Insets.xl),
+                                  const Icon(
+                                    Icons.arrow_drop_down,
+                                    color: AppColors.backgroundColor,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  LocalSvgIcon(
+                                    Assets.icons.linear.notification,
+                                    size: 22,
+                                  ).onTap(() {
+                                    Get.to(const Notifications());
+                                  }),
+                                  const Gap(Insets.lg),
                                   GestureDetector(
                                     onTap: () {
                                       Get.to(const Settings());
@@ -922,10 +885,11 @@ class _HomeState extends State<Home> {
                                       width: 20,
                                     ),
                                   ),
+                                  const Gap(Insets.sm),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
@@ -1700,7 +1664,7 @@ class _HomeState extends State<Home> {
           floatingActionButton: Obx(() {
             return (teamController.teamMembersStatus ==
                     TeamMemberStatus.Loading)
-                ? Container()
+                ? LoadingWidget()
                 : (teamController.teamMember.authoritySet == null ||
                         teamController.teamMember.teamMemberStatus == 'CREATOR')
                     ? FloatingActionButton.extended(
@@ -2426,52 +2390,36 @@ class _HomeState extends State<Home> {
                       context: context,
                       builder: (context) => buildSelectBusiness());
                 },
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 3, color: AppColors.backgroundColor)),
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      buildMenuItem(_businessController
-                                  .selectedBusiness.value ==
-                              null
-                          ? "No Business"
-                          : "${_businessController.selectedBusiness.value!.businessName}"),
-                      const Expanded(child: SizedBox()),
-                      const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: AppColors.backgroundColor,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      )
-                    ],
-                  ),
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    buildMenuItem(_businessController.selectedBusiness.value ==
+                            null
+                        ? "No Business"
+                        : "${_businessController.selectedBusiness.value!.businessName}"),
+                    const Expanded(child: SizedBox()),
+                    const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: AppColors.backgroundColor,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    )
+                  ],
                 ),
               ),
-              const Spacer(),
+              const Gap(Insets.xl),
               GestureDetector(
                 onTap: () {
                   Get.to(const Notifications());
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.backgroundColor.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(6)),
-                  padding: const EdgeInsets.all(10),
-                  child: SvgPicture.asset(
-                    'assets/images/bell.svg',
-                  ),
+                child: SvgPicture.asset(
+                  'assets/images/bell.svg',
                 ),
               ),
-              const Spacer(),
+              const Gap(Insets.lg),
               GestureDetector(
                 onTap: () {
                   Get.to(const Settings());

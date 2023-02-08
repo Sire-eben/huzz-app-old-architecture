@@ -3,15 +3,25 @@ import 'package:country_currency_pickers/utils/utils.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/mixins/form_mixin.dart';
+import 'package:huzz/core/util/validators.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
+import 'package:huzz/core/widgets/button/button.dart';
+import 'package:huzz/core/widgets/textfield/textfield.dart';
+import 'package:huzz/core/widgets/unfocus_scope.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/ui/forget_pass/forgot_pin.dart';
-import 'package:huzz/ui/reg_home.dart';
+import 'package:huzz/ui/auth/reg_home.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class Signin extends StatefulWidget {
+  const Signin({super.key});
+
+  @override
   _SiginState createState() => _SiginState();
 }
 
@@ -23,6 +33,7 @@ class _SiginState extends State<Signin> {
   String countryFlag = "NG";
   String countryCode = "234";
 
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     _authController.pinController = TextEditingController();
@@ -42,326 +53,278 @@ class _SiginState extends State<Signin> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor,
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 40,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 20),
-              child: GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: Icon(
-                  Icons.arrow_back,
-                  color: AppColors.backgroundColor,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-                child: Text(
-              "Welcome back",
-              style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 24,
-                  color: AppColors.backgroundColor),
-            )),
-            SizedBox(
-              height: 20,
-            ),
-            Center(
-                child: Text(
-              "Keep your business going with Huzz",
-              style: GoogleFonts.inter(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400),
-            )),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-            ),
-            Container(
-                margin: EdgeInsets.only(
-                  left: 20,
-                ),
-                child: Text(
-                  "Phone Number",
-                  style: GoogleFonts.inter(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
-                )),
-            SizedBox(
-              height: 10,
-            ),
-
-            Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border:
-                    Border.all(color: AppColors.backgroundColor, width: 2.0),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      showCountryCode(context);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          right: BorderSide(
-                              color: AppColors.backgroundColor, width: 2),
-                        ),
-                      ),
-                      height: 50,
-                      width: 80,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(width: 10),
-                          Flag.fromString(countryFlag, height: 30, width: 30),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Icon(
-                            Icons.arrow_drop_down,
-                            size: 24,
-                            color: AppColors.backgroundColor.withOpacity(0.5),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _authController.phoneNumberController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "8123456789",
-                          hintStyle: GoogleFonts.inter(
-                              color: Colors.black.withOpacity(0.5),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
-                          prefixText: "+$countryCode ",
-                          prefixStyle: GoogleFonts.inter(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black)),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(left: 20),
-              child: Text(
-                "Enter your 4 digits PIN",
-                style: GoogleFonts.inter(
-                    fontSize: 12,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                margin: EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                ),
-                child: PinCodeTextField(
-                  length: 4,
-                  obscureText: true,
-                  animationType: AnimationType.fade,
-                  controller: _authController.pinController,
-                  pinTheme: PinTheme(
-                    inactiveColor: AppColors.backgroundColor,
-                    activeColor: AppColors.backgroundColor,
-                    selectedColor: AppColors.backgroundColor,
-                    selectedFillColor: Colors.white,
-                    inactiveFillColor: Colors.white,
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(5),
-                    fieldHeight: 70,
-                    fieldWidth: 70,
-                    activeFillColor: Colors.white,
-                  ),
-                  animationDuration: Duration(milliseconds: 300),
-                  enableActiveFill: true,
-                  errorAnimationController: errorController,
-                  onCompleted: (v) {
-                    print("Completed");
-                  },
-                  onChanged: (value) {
-                    print(value);
-                    // setState(() {
-                    //   currentText = value;
-                    // });
-                  },
-                  beforeTextPaste: (text) {
-                    print("Allowing to paste $text");
-                    //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                    //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                    return true;
-                  },
-                  appContext: context,
-                ),
-              ),
-            ),
-            // SizedBox(height: 40),
-            // GestureDetector(
-            //   onTap: () {
-            //     Get.to(FingerPrint());
-            //   },
-            //   child: Container(
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         Icon(
-            //           Icons.fingerprint,
-            //           color: AppColors.backgroundColor,
-            //         ),
-            //         SizedBox(
-            //           width: 10,
-            //         ),
-            //         Text(
-            //           "SIGN IN WITH YOUR FINGERPRINT",
-            //           style: GoogleFonts.inter(
-            //             color: AppColors.backgroundColor,
-            //             fontSize: 12,
-            //             fontWeight: FontWeight.w700,
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      extendBodyBehindAppBar: true,
+      appBar: Appbar(
+        backgroundColor: Colors.transparent,
+      ),
+      body: SingleChildScrollView(
+        child: UnfocusScope(
+          child: Padding(
+            padding: const EdgeInsets.all(Insets.lg),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                GestureDetector(
+                const Gap(Insets.xl * 3),
+                Center(
+                    child: Text(
+                  "Welcome back",
+                  style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 24,
+                      color: AppColors.backgroundColor),
+                )),
+                const Gap(Insets.lg),
+                const Center(
+                    child: Text("Keep your business going with Huzz",
+                        style: TextStyles.b2)),
+                const Gap(Insets.xl * 2),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Phone Number",
+                    style: TextStyles.b2,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: context.width,
+                  height: 68,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                        color: AppColors.backgroundColor, width: 2.0),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          showCountryCode(context);
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            border: Border(
+                              right: BorderSide(
+                                  color: AppColors.backgroundColor, width: 2),
+                            ),
+                          ),
+                          height: 50,
+                          width: 80,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(width: 10),
+                              Flag.fromString(countryFlag,
+                                  height: 30, width: 30),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.arrow_drop_down,
+                                size: 24,
+                                color:
+                                    AppColors.backgroundColor.withOpacity(0.5),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: TextInputField(
+                          controller: _authController.phoneNumberController,
+                          validator: Validators.validatePhoneNumber(),
+                          inputType: TextInputType.number,
+                          decoration: InputDecoration(
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              border: InputBorder.none,
+                              hintText: "8123456789",
+                              hintStyle: TextStyles.t3,
+                              prefixText: "+$countryCode ",
+                              prefixStyle: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(Insets.lg),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Enter your 4 digits PIN",
+                    style: TextStyles.b2,
+                  ),
+                ),
+                const Gap(Insets.md),
+                Center(
+                  child: PinCodeTextField(
+                    length: 4,
+                    obscureText: true,
+                    animationType: AnimationType.fade,
+                    controller: _authController.pinController,
+                    pinTheme: PinTheme(
+                      inactiveColor: AppColors.backgroundColor,
+                      activeColor: AppColors.backgroundColor,
+                      selectedColor: AppColors.backgroundColor,
+                      selectedFillColor: Colors.white,
+                      inactiveFillColor: Colors.white,
+                      shape: PinCodeFieldShape.underline,
+                      borderRadius: BorderRadius.circular(5),
+                      fieldHeight: 70,
+                      fieldWidth: 70,
+                      activeFillColor: Colors.white,
+                    ),
+                    keyboardType: TextInputType.number,
+                    animationDuration: const Duration(milliseconds: 300),
+                    enableActiveFill: true,
+                    errorAnimationController: errorController,
+                    onCompleted: (v) {
+                      // print("Completed");
+                    },
+                    onChanged: (value) {
+                      print(value);
+                      // setState(() {
+                      //   currentText = value;
+                      // });
+                    },
+                    beforeTextPaste: (text) {
+                      print("Allowing to paste $text");
+                      //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                      //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                      return true;
+                    },
+                    appContext: context,
+                  ),
+                ),
+                const Gap(Insets.lg),
+                InkWell(
                   onTap: () {
                     Get.to(ForgotPIN());
                   },
-                  child: Container(
-                    child: Text(
-                      "Forgot PIN?",
-                      style: GoogleFonts.inter(
-                        color: AppColors.orangeBorderColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  child: Text(
+                    "Forgot PIN?",
+                    style: GoogleFonts.inter(
+                      color: AppColors.orangeBorderColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                GestureDetector(
+                const Gap(Insets.lg),
+                InkWell(
                   onTap: () {
                     Get.to(RegHome());
                   },
-                  child: Container(
-                    child: Text(
-                      "Sign up",
-                      style: GoogleFonts.inter(
-                        color: AppColors.backgroundColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  child: Text(
+                    "Don't have an account? Sign up",
+                    style: GoogleFonts.inter(
+                      color: AppColors.backgroundColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
+                const Gap(Insets.lg),
+                Obx(() {
+                  return Button(
+                    label: "Login",
+                    showLoading:
+                        _authController.signinStatus == SigninStatus.Loading
+                            ? true
+                            : false,
+                    action: () {
+                      if (_authController.phoneNumberController.text == '') {
+                        Get.snackbar(
+                            'Alert', 'Enter your phone number to continue!',
+                            titleText: const Text(
+                              'Alert',
+                              // style: AppThemes.style14blackBold,
+                            ),
+                            messageText: const Text(
+                              'Enter your phone number to continue!',
+                              // style: AppThemes.style14black,
+                            ),
+                            icon: const Icon(Icons.info,
+                                color: AppColors.orangeBorderColor));
+                        print('phone cannot be empty');
+                      } else if (_authController.signinStatus !=
+                          SigninStatus.Loading) _authController.signIn();
+                    },
+                  );
+                }),
+                // Obx(() {
+                //   return GestureDetector(
+                //     onTap: () {
+                //       if (_authController.phoneNumberController.text == '') {
+                //         Get.snackbar(
+                //             'Alert', 'Enter your phone number to continue!',
+                //             titleText: const Text(
+                //               'Alert',
+                //               // style: AppThemes.style14blackBold,
+                //             ),
+                //             messageText: const Text(
+                //               'Enter your phone number to continue!',
+                //               // style: AppThemes.style14black,
+                //             ),
+                //             icon: const Icon(Icons.info,
+                //                 color: AppColors.orangeBorderColor));
+                //         print('phone cannot be empty');
+                //       } else if (_authController.signinStatus !=
+                //           SigninStatus.Loading) _authController.signIn();
+                //     },
+                //     child: Container(
+                //       width: MediaQuery.of(context).size.width,
+                //       margin: const EdgeInsets.only(left: 50, right: 50),
+                //       height: 50,
+                //       decoration: const BoxDecoration(
+                //           color: AppColors.backgroundColor,
+                //           borderRadius:
+                //               BorderRadius.all(Radius.circular(10))),
+                //       child: (_authController.signinStatus ==
+                //               SigninStatus.Loading)
+                //           ? Container(
+                //               width: 30,
+                //               height: 30,
+                //               child: const Center(
+                //                   child: CircularProgressIndicator(
+                //                       color: Colors.white)),
+                //             )
+                //           : Row(
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               crossAxisAlignment: CrossAxisAlignment.center,
+                //               children: [
+                //                 Text(
+                //                   'Login',
+                //                   style: GoogleFonts.inter(
+                //                       color: Colors.white, fontSize: 18),
+                //                 ),
+                //               ],
+                //             ),
+                //     ),
+                //   );
+                // }),
+
+                const SizedBox(
+                  height: 30,
+                ),
               ],
             ),
-            Expanded(child: SizedBox()),
-            Obx(() {
-              return GestureDetector(
-                onTap: () {
-                  if (_authController.phoneNumberController.text == '') {
-                    Get.snackbar(
-                        'Alert', 'Enter your phone number to continue!',
-                        titleText: Text(
-                          'Alert',
-                          // style: AppThemes.style14blackBold,
-                        ),
-                        messageText: Text(
-                          'Enter your phone number to continue!',
-                          // style: AppThemes.style14black,
-                        ),
-                        icon: Icon(Icons.info,
-                            color: AppColors.orangeBorderColor));
-                    print('phone cannot be empty');
-                  } else if (_authController.signinStatus !=
-                      SigninStatus.Loading) _authController.signIn();
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(left: 50, right: 50),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColors.backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: (_authController.signinStatus == SigninStatus.Loading)
-                      ? Container(
-                          width: 30,
-                          height: 30,
-                          child: Center(
-                              child: CircularProgressIndicator(
-                                  color: Colors.white)),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Login',
-                              style: GoogleFonts.inter(
-                                  color: Colors.white, fontSize: 18),
-                            ),
-                          ],
-                        ),
-                ),
-              );
-            }),
-            SizedBox(
-              height: 30,
-            ),
-          ],
+          ),
         ),
       ),
     );

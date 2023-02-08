@@ -225,7 +225,7 @@ class PdfInvoiceApi {
       cellStyle: const TextStyle(fontSize: 15),
       headerStyle: TextStyle(
           fontWeight: FontWeight.bold, color: themeColor, fontSize: 20),
-      cellHeight: 38,
+      cellHeight: 48,
       cellDecoration: (r, __, c) {
         return c == data.length
             ? pw.BoxDecoration(

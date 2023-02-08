@@ -4,10 +4,10 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huzz/app/screens/home/home.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/customers/customer_tabView.dart';
+import 'package:huzz/ui/home/home_page.dart';
 import 'package:huzz/ui/invoice/empty_invoice.dart';
 import 'package:huzz/ui/more/more.dart';
 import 'package:huzz/ui/widget/loading_widget.dart';
@@ -98,7 +98,7 @@ class _DashboardState extends State<Dashboard> {
                 selectedIndex: selectedIndex,
                 items: <BottomNavyBarItem>[
                   BottomNavyBarItem(
-                      icon: Icon(Icons.home),
+                      icon: const Icon(Icons.home),
                       title: Text(
                         'Home',
                         style: AppThemes.style12PriBold,
@@ -106,7 +106,7 @@ class _DashboardState extends State<Dashboard> {
                       activeColor: AppColors.backgroundColor,
                       inactiveColor: inactiveColor),
                   BottomNavyBarItem(
-                      icon: Icon(
+                      icon: const Icon(
                         CupertinoIcons.person_3_fill,
                         size: 32,
                       ),
@@ -117,7 +117,7 @@ class _DashboardState extends State<Dashboard> {
                       activeColor: AppColors.backgroundColor,
                       inactiveColor: inactiveColor),
                   BottomNavyBarItem(
-                      icon: Icon(Icons.inventory),
+                      icon: const Icon(Icons.inventory),
                       title: Text(
                         'Inventory',
                         style: AppThemes.style12PriBold,
@@ -125,7 +125,7 @@ class _DashboardState extends State<Dashboard> {
                       activeColor: AppColors.backgroundColor,
                       inactiveColor: inactiveColor),
                   BottomNavyBarItem(
-                      icon: Icon(Icons.receipt),
+                      icon: const Icon(Icons.receipt),
                       title: Text(
                         'Invoice',
                         style: AppThemes.style12PriBold,
@@ -133,7 +133,7 @@ class _DashboardState extends State<Dashboard> {
                       activeColor: AppColors.backgroundColor,
                       inactiveColor: inactiveColor),
                   BottomNavyBarItem(
-                      icon: Icon(Icons.grid_view_rounded),
+                      icon: const Icon(Icons.grid_view_rounded),
                       title: Text(
                         'More',
                         style: AppThemes.style12PriBold,
@@ -151,23 +151,23 @@ class _DashboardState extends State<Dashboard> {
   Widget buildPages() {
     switch (selectedIndex) {
       case 0:
-        return Home();
+        return const Home();
       case 1:
         return CustomerTabView();
       case 2:
-        return ManageInventory();
+        return const ManageInventory();
       case 3:
         return _invoiceRepository.invoiceStatus == InvoiceStatus.UnAuthorized
-            ? InvoiceNotAuthorized()
-            : (_invoiceRepository.InvoicePendingList.length == 0 &&
-                    _invoiceRepository.InvoiceDueList.length == 0 &&
-                    _invoiceRepository.InvoiceDepositList.length == 0 &&
-                    _invoiceRepository.paidInvoiceList.length == 0)
-                ? EmptyInvoice()
-                : AvailableInvoice();
+            ? const InvoiceNotAuthorized()
+            : (_invoiceRepository.InvoicePendingList.isEmpty &&
+                    _invoiceRepository.InvoiceDueList.isEmpty &&
+                    _invoiceRepository.InvoiceDepositList.isEmpty &&
+                    _invoiceRepository.paidInvoiceList.isEmpty)
+                ? const EmptyInvoice()
+                : const AvailableInvoice();
       case 4:
       default:
-        return More();
+        return const More();
     }
   }
 }

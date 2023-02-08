@@ -2,13 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
+import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CreatePin extends StatefulWidget {
+  const CreatePin({super.key});
+
+  @override
   _CreatePinState createState() => _CreatePinState();
 }
 
@@ -16,6 +22,7 @@ class _CreatePinState extends State<CreatePin> {
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
   final _authController = Get.find<AuthRepository>();
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     _authController.pinController = TextEditingController();
@@ -36,14 +43,17 @@ class _CreatePinState extends State<CreatePin> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       resizeToAvoidBottomInset: false,
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+      extendBodyBehindAppBar: true,
+      appBar: Appbar(
+        backgroundColor: Colors.transparent,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(Insets.lg),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 height: 70,
                 width: MediaQuery.of(context).size.width,
                 child: Stack(
@@ -51,27 +61,10 @@ class _CreatePinState extends State<CreatePin> {
                     Positioned(
                         top: 20,
                         child: SvgPicture.asset('assets/images/Vector.svg')),
-                    Positioned(
-                      top: 40,
-                      left: 20,
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                          // if (_homeController.onboardingRegSelectedIndex > 0) {
-                          //   _homeController.selectedOnboardSelectedPrevious();
-                          // } else {
-                          //   Get.back();
-                          // }
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: AppColors.backgroundColor,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
+              const Gap(Insets.lg),
               Center(
                 child: Text('Set Your PIN',
                     style: GoogleFonts.inter(
@@ -105,21 +98,21 @@ class _CreatePinState extends State<CreatePin> {
               SizedBox(
                 height: 10,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                margin: EdgeInsets.only(top: 5),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Insets.xl),
                 child: PinCodeTextField(
                   length: 4,
                   obscureText: true,
                   animationType: AnimationType.fade,
                   controller: _authController.pinController,
+                  keyboardType: TextInputType.number,
                   pinTheme: PinTheme(
                     inactiveColor: AppColors.backgroundColor,
                     activeColor: AppColors.backgroundColor,
                     selectedColor: AppColors.backgroundColor,
                     selectedFillColor: Colors.white,
                     inactiveFillColor: Colors.white,
-                    shape: PinCodeFieldShape.box,
+                    shape: PinCodeFieldShape.underline,
                     borderRadius: BorderRadius.circular(5),
                     fieldHeight: 50,
                     fieldWidth: 50,
@@ -148,33 +141,31 @@ class _CreatePinState extends State<CreatePin> {
                   appContext: context,
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              const Gap(Insets.xl),
               Center(
                   child: Text(
-                "Confirm a 4 digit pin",
+                "Confirm your pin",
                 style: GoogleFonts.inter(
                   color: Colors.black,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                 ),
               )),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                margin: EdgeInsets.only(top: 5),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Insets.xl),
                 child: PinCodeTextField(
                   length: 4,
                   obscureText: true,
                   animationType: AnimationType.fade,
                   controller: _authController.confirmPinController,
+                  keyboardType: TextInputType.number,
                   pinTheme: PinTheme(
                     inactiveColor: AppColors.backgroundColor,
                     activeColor: AppColors.backgroundColor,
                     selectedColor: AppColors.backgroundColor,
                     selectedFillColor: Colors.white,
                     inactiveFillColor: Colors.white,
-                    shape: PinCodeFieldShape.box,
+                    shape: PinCodeFieldShape.underline,
                     borderRadius: BorderRadius.circular(5),
                     fieldHeight: 50,
                     fieldWidth: 50,
@@ -203,10 +194,10 @@ class _CreatePinState extends State<CreatePin> {
                   appContext: context,
                 ),
               ),
-              Expanded(child: SizedBox()),
+              const Gap(Insets.xl * 3),
               Obx(() {
-                return GestureDetector(
-                  onTap: () {
+                return Button(
+                  action: () {
                     if (_authController.pinController == '' ||
                         _authController.confirmPinController.text == '') {
                       Get.snackbar('Alert', 'Enter your pin to continue!',
@@ -231,44 +222,11 @@ class _CreatePinState extends State<CreatePin> {
 
                     // Get.to(PinSuccesful());
                   },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(left: 50, right: 50),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: AppColors.backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child:
-                        (_authController.signupStatus == SignupStatus.Loading)
-                            ? Container(
-                                width: 30,
-                                height: 30,
-                                child: Center(
-                                    child: CircularProgressIndicator(
-                                        color: Colors.white)),
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Create User',
-                                    style: GoogleFonts.inter(
-                                        color: Colors.white, fontSize: 18),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  //  Container(padding: EdgeInsets.all(3),
-                                  //    decoration:BoxDecoration(
-                                  //      color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(50))
-
-                                  //    ),
-                                  //    child: Icon(Icons.arrow_forward,color: AppColors.backgroundColor,size: 16,),
-                                  //  )
-                                ],
-                              ),
-                  ),
+                  showLoading:
+                      _authController.signupStatus == SignupStatus.Loading
+                          ? true
+                          : false,
+                  label: 'Sign up',
                 );
               }),
               SizedBox(
