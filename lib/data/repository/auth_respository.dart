@@ -577,12 +577,9 @@ class AuthRepository extends GetxController {
         "Authorization": "Bearer $token"
       });
 
-      String data =
-          const Utf8Decoder(allowMalformed: true).convert(response.bodyBytes);
-
-      // print("response of update personal info ${response.body}");
+      print("response of update personal info ${response.body}");
       if (response.statusCode == 200) {
-        var json = jsonDecode(data);
+        var json = jsonDecode(response.body);
         print("user detail $json");
         var user = User.fromJsonSettngs(json);
         user.businessList = this.user!.businessList;
