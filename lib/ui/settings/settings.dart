@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +55,7 @@ class _SettingsState extends State<Settings> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -93,7 +95,7 @@ class _SettingsState extends State<Settings> {
                             controller.profileImage.value!,
                           ))
                       : (controller.user!.profileImageFileStoreUrl!.isEmpty)
-                          ? CircleAvatar(
+                          ? const CircleAvatar(
                               radius: 50,
                               backgroundImage: AssetImage(
                                 "assets/images/profileImg.png",
@@ -112,7 +114,7 @@ class _SettingsState extends State<Settings> {
             right: 115,
             child: GestureDetector(
               onTap: () => showModalBottomSheet(
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(20))),
                   context: context,
@@ -154,20 +156,21 @@ class _SettingsState extends State<Settings> {
                       Text(
                         controller.user!.firstName == null
                             ? 'First Name'
-                            : firstName,
+                            : utf8.decode(firstName.codeUnits),
                         style: GoogleFonts.inter(
                           color: AppColors.blackColor,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 2,
                       ),
+                      // Text(utf8.decode(controller.user!.firstName)),
                       Text(
                         controller.user!.lastName == null
                             ? 'Last Name'
-                            : lastName!,
+                            : utf8.decode(lastName!.codeUnits),
                         style: GoogleFonts.inter(
                           color: AppColors.blackColor,
                           fontWeight: FontWeight.w600,
@@ -176,16 +179,17 @@ class _SettingsState extends State<Settings> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // Personal Account
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     height: 55,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: Color(0xffE6F4F2),
+                      color: const Color(0xffE6F4F2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Row(
@@ -210,7 +214,7 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
@@ -221,7 +225,7 @@ class _SettingsState extends State<Settings> {
                             fontSize: 14,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         GestureDetector(
                           onTap: () {
                             Get.to(PersonalInfo());
@@ -232,7 +236,7 @@ class _SettingsState extends State<Settings> {
                             width: 20,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         InkWell(
@@ -251,16 +255,17 @@ class _SettingsState extends State<Settings> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // Business Account
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     height: 55,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: Color(0xffE6F4F2),
+                      color: const Color(0xffE6F4F2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Row(
@@ -285,7 +290,7 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
@@ -296,7 +301,7 @@ class _SettingsState extends State<Settings> {
                             fontSize: 14,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         GestureDetector(
                           onTap: () {
                             Get.to(BusinessInfo());
@@ -307,7 +312,7 @@ class _SettingsState extends State<Settings> {
                             width: 20,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Obx(() {
@@ -323,7 +328,7 @@ class _SettingsState extends State<Settings> {
                                 ? Container(
                                     height: 20,
                                     width: 20,
-                                    child: CircularProgressIndicator(
+                                    child: const CircularProgressIndicator(
                                         color: AppColors.orangeBorderColor),
                                   )
                                 : SvgPicture.asset(
@@ -336,21 +341,21 @@ class _SettingsState extends State<Settings> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // Notification
                   GestureDetector(
                     onTap: () {
-                      Get.to(Notifications());
+                      Get.to(const Notifications());
                     },
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       height: 55,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
+                        color: const Color(0xffE6F4F2),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(
@@ -375,7 +380,7 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -386,7 +391,7 @@ class _SettingsState extends State<Settings> {
                               fontSize: 14,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           SvgPicture.asset(
                             "assets/images/setting.svg",
                             height: 20,
@@ -396,7 +401,7 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // Referral
@@ -406,12 +411,12 @@ class _SettingsState extends State<Settings> {
                       builder: (context) => const ReferralBottomsheet(),
                     ),
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       height: 55,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
+                        color: const Color(0xffE6F4F2),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(
@@ -435,7 +440,7 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -450,7 +455,7 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
 
@@ -463,12 +468,12 @@ class _SettingsState extends State<Settings> {
                       });
                     },
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       height: 55,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: Color(0xffE6F4F2),
+                        color: const Color(0xffE6F4F2),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Row(
@@ -479,7 +484,7 @@ class _SettingsState extends State<Settings> {
                             height: 30,
                             width: 30,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -490,13 +495,13 @@ class _SettingsState extends State<Settings> {
                               fontSize: 14,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                         ],
                       ),
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // LogOut
@@ -508,7 +513,7 @@ class _SettingsState extends State<Settings> {
                               _displayVerifyPhoneDialog(context);
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                               height: 55,
                               width: MediaQuery.of(context).size.width,
@@ -521,7 +526,7 @@ class _SettingsState extends State<Settings> {
                                   ? Container(
                                       width: 30,
                                       height: 30,
-                                      child: Center(
+                                      child: const Center(
                                           child: CircularProgressIndicator(
                                               color: Colors.white)),
                                     )
@@ -568,14 +573,14 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xffE6F4F2),
                       shape: BoxShape.circle,
                     ),
@@ -583,7 +588,7 @@ class _SettingsState extends State<Settings> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.close,
                         color: AppColors.backgroundColor,
                       ),
@@ -591,7 +596,7 @@ class _SettingsState extends State<Settings> {
                   )
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
@@ -600,7 +605,7 @@ class _SettingsState extends State<Settings> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               GestureDetector(
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();
@@ -630,7 +635,7 @@ class _SettingsState extends State<Settings> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Center(
@@ -643,7 +648,7 @@ class _SettingsState extends State<Settings> {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               GestureDetector(
                 onTap: () async {
                   await controller.updateProfileImage();
@@ -652,7 +657,7 @@ class _SettingsState extends State<Settings> {
                 },
                 child: Container(
                   height: 55,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(
@@ -664,7 +669,7 @@ class _SettingsState extends State<Settings> {
                           child: Container(
                             width: 30,
                             height: 30,
-                            child: Center(
+                            child: const Center(
                                 child: CircularProgressIndicator(
                                     color: Colors.white)),
                           ),
@@ -691,7 +696,7 @@ class _SettingsState extends State<Settings> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 55,
               vertical: 240,
             ),
@@ -711,7 +716,7 @@ class _SettingsState extends State<Settings> {
             ),
             content: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Expanded(
@@ -723,7 +728,7 @@ class _SettingsState extends State<Settings> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -737,7 +742,7 @@ class _SettingsState extends State<Settings> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -759,7 +764,7 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     InkWell(
                       onTap: () {
                         Get.back();
@@ -769,7 +774,7 @@ class _SettingsState extends State<Settings> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -800,14 +805,14 @@ class _SettingsState extends State<Settings> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 280,
             ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Expanded(
@@ -834,7 +839,7 @@ class _SettingsState extends State<Settings> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -848,7 +853,7 @@ class _SettingsState extends State<Settings> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -878,7 +883,7 @@ class _SettingsState extends State<Settings> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -910,7 +915,7 @@ class _SettingsState extends State<Settings> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 55,
               vertical: 250,
             ),
@@ -930,7 +935,7 @@ class _SettingsState extends State<Settings> {
             ),
             content: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Expanded(
@@ -942,7 +947,7 @@ class _SettingsState extends State<Settings> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -956,7 +961,7 @@ class _SettingsState extends State<Settings> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -978,7 +983,7 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     InkWell(
                       onTap: () {
                         controller.logout();
@@ -987,7 +992,7 @@ class _SettingsState extends State<Settings> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1019,7 +1024,7 @@ class _SettingsState extends State<Settings> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 55,
               vertical: 240,
             ),
@@ -1048,7 +1053,7 @@ class _SettingsState extends State<Settings> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -1062,7 +1067,7 @@ class _SettingsState extends State<Settings> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1094,7 +1099,7 @@ class _SettingsState extends State<Settings> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(

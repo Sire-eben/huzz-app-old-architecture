@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'business.dart';
 
 class User {
@@ -31,12 +33,8 @@ class User {
       email: json['user']['email'],
       profileImageFileStoreUrl: json['user']['profileImageFileStoreUrl'] ?? "",
       signatureImageFileStoreId:
-          json['user']['signatureImageFileStoreId'] == null
-              ? ""
-              : json['user']['signatureImageFileStoreId'],
-      profileImageFileStoreId: json['user']['profileImageFileStoreId'] == null
-          ? ""
-          : json['user']['profileImageFileStoreId'],
+          json['user']['signatureImageFileStoreId'] ?? "",
+      profileImageFileStoreId: json['user']['profileImageFileStoreId'] ?? "",
       businessList: json['businessList'] != null
           ? List.from(json['businessList'])
               .map((e) => Business.fromJson(e))
@@ -50,12 +48,8 @@ class User {
         phoneNumberVerified: json['phoneNumberVerified'],
         email: json['email'],
         profileImageFileStoreUrl: json['profileImageFileStoreUrl'] ?? "",
-        signatureImageFileStoreId: json['signatureImageFileStoreId'] == null
-            ? ""
-            : json['signatureImageFileStoreId'],
-        profileImageFileStoreId: json['profileImageFileStoreId'] == null
-            ? ""
-            : json['profileImageFileStoreId'],
+        signatureImageFileStoreId: json['signatureImageFileStoreId'] ?? "",
+        profileImageFileStoreId: json['profileImageFileStoreId'] ?? "",
 // businessList: json['businessList']!=null? List.from(json['businessList']).map((e) => Business.fromJson(e)).toList():[]
       );
 

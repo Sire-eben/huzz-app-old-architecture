@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
@@ -21,7 +22,7 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'bankCard.dart';
 
 class BusinessInfo extends StatefulWidget {
-  BusinessInfo({Key? key});
+  const BusinessInfo({super.key});
 
   @override
   _BusinessInfoState createState() => _BusinessInfoState();
@@ -96,7 +97,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -112,7 +113,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          return Future.delayed(Duration(seconds: 1), () {
+          return Future.delayed(const Duration(seconds: 1), () {
             businessController.OnlineBusiness();
           });
         },
@@ -128,12 +129,12 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     GestureDetector(
                       onTap: () => showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20))),
                           context: context,
@@ -165,7 +166,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Center(
@@ -176,18 +177,21 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         fontSize: 12,
                       ),
                     )),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     CustomTextField(
                       label: "Business Name",
                       validatorText: "Business Name required",
                       colors: AppColors.blackColor,
-                      hint:
-                          "${businessController.selectedBusiness.value!.businessName}",
+                      hint: utf8.decode(businessController
+                          .selectedBusiness.value!.businessName
+                          .toString()
+                          .codeUnits),
+                      // "${businessController.selectedBusiness.value!.businessName}",
                       textEditingController: businessController.businessName,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -202,11 +206,11 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                 style: GoogleFonts.inter(
                                     color: Colors.black, fontSize: 12),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 5),
+                                margin: const EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
                                   style: GoogleFonts.inter(
@@ -216,7 +220,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             ],
                           )
                         ]),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
@@ -226,7 +230,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         color: Colors.white,
                         border: Border.all(
                             color: AppColors.backgroundColor, width: 2.0),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -237,7 +242,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                               showCountryCode(context);
                             },
                             child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 border: Border(
                                     right: BorderSide(
                                         color: AppColors.backgroundColor,
@@ -248,24 +253,23 @@ class _BusinessInfoState extends State<BusinessInfo> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   Flag.fromString(countryFlag,
                                       height: 30, width: 30),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Icon(
                                     Icons.arrow_drop_down,
                                     size: 24,
-                                    color: AppColors
-                                        .backgroundColor
+                                    color: AppColors.backgroundColor
                                         .withOpacity(0.5),
                                   )
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Expanded(
@@ -288,18 +292,18 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                       color: Colors.black)),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
                       height: 30,
-                      margin: EdgeInsets.only(
+                      margin: const EdgeInsets.only(
                         right: 20,
                       ),
                       child: Row(
@@ -310,7 +314,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             style: GoogleFonts.inter(
                                 color: Colors.black, fontSize: 12),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                         ],
@@ -321,17 +325,17 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         isDense: true,
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -356,7 +360,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       textEditingController:
                           businessController.businessAddressController,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -368,7 +372,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           style: GoogleFonts.inter(
                               color: Colors.black, fontSize: 12),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
@@ -378,12 +382,12 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 1,
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       decoration: BoxDecoration(
@@ -395,7 +399,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         child: DropdownButton<String>(
                           value: value,
                           focusColor: AppColors.whiteColor,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.keyboard_arrow_down,
                             color: AppColors.backgroundColor,
                           ),
@@ -406,7 +410,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     teamController.teamMember.teamMemberStatus == 'CREATOR' ||
@@ -422,7 +426,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                     style: GoogleFonts.inter(
                                         color: Colors.black, fontSize: 12),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                 ],
@@ -437,7 +441,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                     bankInfoController.clearValue();
                                     showModalBottomSheet(
                                         isScrollControlled: true,
-                                        shape: RoundedRectangleBorder(
+                                        shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.vertical(
                                                 top: Radius.circular(20))),
                                         context: context,
@@ -455,7 +459,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                         scale: 1.2,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 5,
                                     ),
                                     Text(
@@ -470,7 +474,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             ],
                           )
                         : Container(),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     if (bankInfoController.addingBankStatus ==
                         AddingBankInfoStatus.UnAuthorized) ...[
                       Center(
@@ -511,7 +515,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                     bankInfoController.setItem(e);
                                     showModalBottomSheet(
                                         isScrollControlled: true,
-                                        shape: RoundedRectangleBorder(
+                                        shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.vertical(
                                                 top: Radius.circular(20))),
                                         context: context,
@@ -534,7 +538,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           ),
                         ),
                     ],
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Obx(() {
@@ -547,7 +551,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         child: Container(
                           height: 50,
                           margin: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: AppColors.backgroundColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
@@ -557,7 +561,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                   child: Container(
                                     width: 30,
                                     height: 30,
-                                    child: Center(
+                                    child: const Center(
                                         child: CircularProgressIndicator(
                                             color: Colors.white)),
                                   ),
@@ -576,7 +580,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         ),
                       );
                     }),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                   ],
@@ -610,14 +614,14 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xffE6F4F2),
                       shape: BoxShape.circle,
                     ),
@@ -625,7 +629,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.close,
                         color: AppColors.backgroundColor,
                       ),
@@ -633,7 +637,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   )
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 'Upload Image',
                 style: GoogleFonts.inter(
@@ -642,7 +646,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               GestureDetector(
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();
@@ -667,7 +671,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Center(
@@ -680,14 +684,14 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               GestureDetector(
                 onTap: () {
                   Get.back();
                 },
                 child: Container(
                   height: 55,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 15,
                   ),
                   decoration: BoxDecoration(
@@ -727,7 +731,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
               children: [
                 Center(
                   child: Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     height: 3,
                     width: 70,
                     decoration: BoxDecoration(
@@ -736,14 +740,14 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
                       height: 30,
                       width: 30,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xffE6F4F2),
                         shape: BoxShape.circle,
                       ),
@@ -751,7 +755,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         onTap: () {
                           Get.back();
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.close,
                           color: AppColors.backgroundColor,
                         ),
@@ -767,7 +771,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 CustomTextField(
                   label: "Account Number ",
                   validatorText: "Account Number required",
@@ -798,7 +802,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     },
                     child: Container(
                       height: 55,
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         horizontal: 5,
                       ),
                       decoration: BoxDecoration(
@@ -807,7 +811,8 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Center(
                         child: (bankInfoController.addingBankStatus ==
                                 AddingBankInfoStatus.Loading)
-                            ? CircularProgressIndicator(color: Colors.white)
+                            ? const CircularProgressIndicator(
+                                color: Colors.white)
                             : Text(
                                 'Add Bank Account',
                                 style: GoogleFonts.inter(
@@ -848,7 +853,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     Get.back();
                   },
                   child: Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     height: 6,
                     width: 80,
                     decoration: BoxDecoration(
@@ -857,7 +862,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 CustomTextField(
                   label: "Account Number ",
                   validatorText: "Account Number required",
@@ -898,7 +903,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             ? Container(
                                 height: 30,
                                 width: 30,
-                                child: CircularProgressIndicator(
+                                child: const CircularProgressIndicator(
                                     color: Colors.white))
                             : Text(
                                 'Update Bank Account',
@@ -925,7 +930,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 250,
             ),
@@ -948,7 +953,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -958,7 +963,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           GoogleFonts.inter(color: Colors.black, fontSize: 12),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
@@ -968,7 +973,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       color: Colors.white,
                       border: Border.all(
                           color: AppColors.backgroundColor, width: 2.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -979,7 +984,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             showCountryCode(context);
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               border: Border(
                                   right: BorderSide(
                                       color: AppColors.backgroundColor,
@@ -990,24 +995,23 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Flag.fromString(countryFlag,
                                     height: 30, width: 30),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Icon(
                                   Icons.arrow_drop_down,
                                   size: 24,
-                                  color: AppColors
-                                      .backgroundColor
+                                  color: AppColors.backgroundColor
                                       .withOpacity(0.5),
                                 )
                               ],
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Expanded(
@@ -1026,7 +1030,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                     color: Colors.black)),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                       ],
@@ -1037,7 +1041,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 20,
                 ),
@@ -1051,7 +1055,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1080,7 +1084,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1127,7 +1131,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 235,
             ),
@@ -1149,7 +1153,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   left: 20,
                 ),
                 child: Text(
@@ -1161,7 +1165,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
@@ -1182,7 +1186,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     fieldWidth: 50,
                     activeFillColor: Colors.white,
                   ),
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                   backgroundColor: Colors.white,
                   enableActiveFill: true,
                   errorAnimationController: errorController,
@@ -1205,7 +1209,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                   appContext: context,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -1213,18 +1217,18 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 style: GoogleFonts.inter(
                     color: AppColors.backgroundColor, fontSize: 12),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 "Resend via sms",
-                style:
-                    GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
+                style: GoogleFonts.inter(
+                    color: const Color(0xffEF6500), fontSize: 12),
               ),
             ]),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -1235,7 +1239,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1264,7 +1268,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -1295,7 +1299,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 235,
             ),
@@ -1319,13 +1323,13 @@ class _BusinessInfoState extends State<BusinessInfo> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 25, right: 55, bottom: 20),
+                padding: const EdgeInsets.only(left: 25, right: 55, bottom: 20),
                 child: InkWell(
                   onTap: () {},
                   child: Container(
                     height: 45,
                     width: 150,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                     ),
                     decoration: BoxDecoration(

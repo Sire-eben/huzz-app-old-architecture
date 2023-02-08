@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -153,26 +154,28 @@ class _HomeState extends State<Home> {
                               TeamMemberStatus.Error) ...[
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04),
-                        InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))),
-                                context: context,
-                                builder: (context) => buildSelectBusiness());
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(20))),
+                                    context: context,
+                                    builder: (context) =>
+                                        buildSelectBusiness());
+                              },
+                              child: Row(
                                 children: [
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  buildMenuItem(_businessController
+                                  buildMenuItem(utf8.decode(_businessController
                                       .selectedBusiness.value!.businessName
-                                      .toString()),
+                                      .toString()
+                                      .codeUnits)),
                                   const Gap(Insets.xl),
                                   const Icon(
                                     Icons.arrow_drop_down,
@@ -180,31 +183,31 @@ class _HomeState extends State<Home> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  LocalSvgIcon(
-                                    Assets.icons.linear.notification,
-                                    size: 22,
-                                  ).onTap(() {
-                                    Get.to(const Notifications());
-                                  }),
-                                  const Gap(Insets.lg),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Settings());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/settings.svg',
-                                      color: AppColors.backgroundColor,
-                                      height: 20,
-                                      width: 20,
-                                    ),
+                            ),
+                            Row(
+                              children: [
+                                LocalSvgIcon(
+                                  Assets.icons.linear.notification,
+                                  size: 22,
+                                ).onTap(() {
+                                  Get.to(const Notifications());
+                                }),
+                                const Gap(Insets.lg),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(const Settings());
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/images/settings.svg',
+                                    color: AppColors.backgroundColor,
+                                    height: 20,
+                                    width: 20,
                                   ),
-                                  const Gap(Insets.sm),
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
+                                const Gap(Insets.sm),
+                              ],
+                            ),
+                          ],
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
@@ -838,26 +841,28 @@ class _HomeState extends State<Home> {
                       ] else ...[
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04),
-                        InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))),
-                                context: context,
-                                builder: (context) => buildSelectBusiness());
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(20))),
+                                    context: context,
+                                    builder: (context) =>
+                                        buildSelectBusiness());
+                              },
+                              child: Row(
                                 children: [
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  buildMenuItem(_businessController
+                                  buildMenuItem(utf8.decode(_businessController
                                       .selectedBusiness.value!.businessName
-                                      .toString()),
+                                      .toString()
+                                      .codeUnits)),
                                   const Gap(Insets.xl),
                                   const Icon(
                                     Icons.arrow_drop_down,
@@ -865,31 +870,31 @@ class _HomeState extends State<Home> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  LocalSvgIcon(
-                                    Assets.icons.linear.notification,
-                                    size: 22,
-                                  ).onTap(() {
-                                    Get.to(const Notifications());
-                                  }),
-                                  const Gap(Insets.lg),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Settings());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/settings.svg',
-                                      color: AppColors.backgroundColor,
-                                      height: 20,
-                                      width: 20,
-                                    ),
+                            ),
+                            Row(
+                              children: [
+                                LocalSvgIcon(
+                                  Assets.icons.linear.notification,
+                                  size: 22,
+                                ).onTap(() {
+                                  Get.to(const Notifications());
+                                }),
+                                const Gap(Insets.lg),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(const Settings());
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/images/settings.svg',
+                                    color: AppColors.backgroundColor,
+                                    height: 20,
+                                    width: 20,
                                   ),
-                                  const Gap(Insets.sm),
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
+                                const Gap(Insets.sm),
+                              ],
+                            ),
+                          ],
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
@@ -3111,7 +3116,8 @@ class _HomeState extends State<Home> {
                                                 item.business!.businessName!
                                                     .isEmpty)
                                             ? ''
-                                            : item.business!.businessName![0],
+                                            : utf8.decode(item.business!
+                                                .businessName![0].codeUnits),
                                         style: GoogleFonts.inter(
                                             fontSize: 20,
                                             color: Colors.white,
@@ -3123,7 +3129,9 @@ class _HomeState extends State<Home> {
                               Expanded(
                                   flex: 2,
                                   child: Text(
-                                    '${item.business!.businessName!}',
+                                    utf8.decode(item.business!.businessName
+                                        .toString()
+                                        .codeUnits),
                                     style: GoogleFonts.inter(
                                         fontSize: 13,
                                         color: Colors.black,
@@ -3161,7 +3169,7 @@ class _HomeState extends State<Home> {
                 child: InkWell(
                   onTap: () {
                     Get.back();
-                    Get.to(CreateBusiness());
+                    Get.to(const CreateBusiness());
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
