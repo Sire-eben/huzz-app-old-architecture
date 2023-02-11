@@ -594,7 +594,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColors.orangeBorderColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(

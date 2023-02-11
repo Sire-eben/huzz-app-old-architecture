@@ -1132,7 +1132,7 @@ class _DebtorListingState extends State<DebtorListing> {
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColors.orangeBorderColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
