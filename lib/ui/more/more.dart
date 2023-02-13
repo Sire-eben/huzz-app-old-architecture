@@ -101,7 +101,7 @@ class _MoreState extends State<More> {
                 Get.to(() => const WalletScreen());
               }),
               child: MoreWidget(
-                image: 'assets/images/bank_wallet.png',
+                image: 'assets/images/wallett.png',
                 title: 'Bank/wallet',
                 description: 'Receive funds/transfer',
               ),
