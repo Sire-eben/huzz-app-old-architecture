@@ -59,7 +59,7 @@ class MoneyIn extends StatefulWidget {
 }
 
 class _MoneyInState extends State<MoneyIn> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   final _transactionController = Get.find<TransactionRespository>();
   final _customerController = Get.find<CustomerRepository>();
   final _productController = Get.find<ProductRepository>();
@@ -259,6 +259,7 @@ class _MoneyInState extends State<MoneyIn> {
           Insets.lg,
         ),
         child: Scrollbar(
+          trackVisibility: false,
           controller: _scrollController,
           child: ListView(
             children: [

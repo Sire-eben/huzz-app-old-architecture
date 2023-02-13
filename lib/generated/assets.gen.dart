@@ -268,10 +268,10 @@ class $AssetsImagesGen {
   String get emptyTransaction => 'assets/images/empty_transaction.svg';
 
   /// File path: assets/images/entre 1.png
-  AssetGenImage get entre1 => const AssetGenImage('assets/images/entre 1.png');
+  AssetGenImage get entre11 => const AssetGenImage('assets/images/entre11.png');
 
   /// File path: assets/images/entre1.svg
-  String get entre2 => 'assets/images/entre1.svg';
+  String get entre1 => 'assets/images/entre1.svg';
 
   /// File path: assets/images/exclamation.svg
   String get exclamation => 'assets/images/exclamation.svg';
