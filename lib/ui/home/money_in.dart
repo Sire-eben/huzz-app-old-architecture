@@ -204,11 +204,13 @@ class _MoneyInState extends State<MoneyIn> {
                         context: context,
                         barrierDismissible: true,
                         builder: (context) => CupertinoAlertDialog(
-                          content: MoneyInInformationDialog(),
+                          content: const MoneyInInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK",
-                                style: TextStyle(color: AppColors.primaryColor),),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -217,11 +219,13 @@ class _MoneyInState extends State<MoneyIn> {
                     : showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          content: MoneyInInformationDialog(),
+                          content: const MoneyInInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK",
-                                style: TextStyle(color: AppColors.primaryColor),),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],

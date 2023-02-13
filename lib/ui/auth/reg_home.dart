@@ -11,6 +11,9 @@ import 'package:huzz/ui/auth/send_otp.dart';
 import 'package:huzz/ui/auth/sign_up.dart';
 
 class RegHome extends StatefulWidget {
+  const RegHome({super.key});
+
+  @override
   _RegHome createState() => _RegHome();
 }
 
@@ -29,7 +32,12 @@ class _RegHome extends State<RegHome> {
     'Personal Details',
     'Set Your PIN'
   ];
-  List<Widget> body = [SendOtp(), EnterOtp(), Signup(), CreatePin()];
+  List<Widget> body = [
+    SendOtp(),
+    EnterOtp(),
+    const Signup(),
+    const CreatePin()
+  ];
   final _homeController = Get.find<HomeRespository>();
   @override
   Widget build(BuildContext context) {
@@ -37,6 +45,20 @@ class _RegHome extends State<RegHome> {
     return Obx(() {
       return Scaffold(
         resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            onPressed: () {
+              if (_homeController.onboardingRegSelectedIndex > 0) {
+                _homeController.selectedOnboardSelectedPrevious();
+              } else {
+                Get.back();
+              }
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
+        ),
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -51,23 +73,6 @@ class _RegHome extends State<RegHome> {
                     Positioned(
                         top: 20,
                         child: SvgPicture.asset('assets/images/Vector.svg')),
-                    Positioned(
-                      top: 50,
-                      left: 20,
-                      child: GestureDetector(
-                        onTap: () {
-                          if (_homeController.onboardingRegSelectedIndex > 0) {
-                            _homeController.selectedOnboardSelectedPrevious();
-                          } else {
-                            Get.back();
-                          }
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: AppColors.backgroundColor,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -76,11 +81,11 @@ class _RegHome extends State<RegHome> {
                       color: AppColors.backgroundColor,
                       fontSize: 28,
                       fontWeight: FontWeight.w500)),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                margin: EdgeInsets.only(left: 50, right: 50),
+                margin: const EdgeInsets.only(left: 50, right: 50),
                 child: Text(
                   bodyText[_homeController.onboardingRegSelectedIndex],
                   textAlign: TextAlign.center,
@@ -88,12 +93,12 @@ class _RegHome extends State<RegHome> {
                       fontSize: 14, fontWeight: FontWeight.w400),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(left: 20, right: 20),
+                margin: const EdgeInsets.only(left: 20, right: 20),
                 height: 8,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -108,7 +113,7 @@ class _RegHome extends State<RegHome> {
                           }
                         },
                         child: Container(
-                          margin: EdgeInsets.only(left: 10),
+                          margin: const EdgeInsets.only(left: 10),
                           height: 5,
                           width: MediaQuery.of(context).size.width * 0.2,
                           decoration: BoxDecoration(
@@ -116,13 +121,14 @@ class _RegHome extends State<RegHome> {
                                     _homeController.onboardingRegSelectedIndex)
                                 ? AppColors.backgroundColor
                                 : AppColors.backgroundColor.withOpacity(0.4),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
                       );
                     }),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Expanded(child: body[_homeController.onboardingRegSelectedIndex])

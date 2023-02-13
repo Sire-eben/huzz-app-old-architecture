@@ -142,18 +142,19 @@ class _SiginState extends State<Signin> {
                           validator: Validators.validatePhoneNumber(),
                           inputType: TextInputType.number,
                           decoration: InputDecoration(
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              border: InputBorder.none,
-                              hintText: "8123456789",
-                              hintStyle: TextStyles.t3,
-                              prefixText: "+$countryCode ",
-                              prefixStyle: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black)),
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            hintText: "8123456789",
+                            hintStyle: TextStyles.t3,
+                            prefixText: "+$countryCode ",
+                            prefixStyle: GoogleFonts.inter(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -183,7 +184,7 @@ class _SiginState extends State<Signin> {
                       selectedColor: AppColors.backgroundColor,
                       selectedFillColor: Colors.white,
                       inactiveFillColor: Colors.white,
-                      shape: PinCodeFieldShape.underline,
+                      shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(5),
                       fieldHeight: 70,
                       fieldWidth: 70,
@@ -197,13 +198,11 @@ class _SiginState extends State<Signin> {
                       // print("Completed");
                     },
                     onChanged: (value) {
-                      print(value);
                       // setState(() {
                       //   currentText = value;
                       // });
                     },
                     beforeTextPaste: (text) {
-                      print("Allowing to paste $text");
                       //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
                       //but you can show anything you want here, like your pop up saying wrong paste format or etc
                       return true;
@@ -228,7 +227,7 @@ class _SiginState extends State<Signin> {
                 const Gap(Insets.lg),
                 InkWell(
                   onTap: () {
-                    Get.to(RegHome());
+                    Get.to(const RegHome());
                   },
                   child: Text(
                     "Don't have an account? Sign up",
@@ -261,9 +260,10 @@ class _SiginState extends State<Signin> {
                             ),
                             icon: const Icon(Icons.info,
                                 color: AppColors.orangeBorderColor));
-                        print('phone cannot be empty');
                       } else if (_authController.signinStatus !=
-                          SigninStatus.Loading) _authController.signIn();
+                          SigninStatus.Loading) {
+                        _authController.signIn();
+                      }
                     },
                   );
                 }),
@@ -342,10 +342,7 @@ class _SiginState extends State<Signin> {
         final currency = CountryPickerUtils.getCountryByIsoCode(countryFlag)
             .currencyCode
             .toString();
-        print("currency of country is $currency");
         setState(() {});
-
-        print('Select country: ${country.toJson()}');
       },
     );
   }
