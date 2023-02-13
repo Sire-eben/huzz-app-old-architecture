@@ -89,7 +89,8 @@ class _ManageInventoryState extends State<ManageInventory> {
                             content: ManageInventoryInformationDialog(),
                             actions: [
                               CupertinoButton(
-                                child: Text("OK"),
+                                child: const Text("OK",
+                                  style: TextStyle(color: AppColors.primaryColor),),
                                 onPressed: () => Get.back(),
                               ),
                             ],
@@ -101,7 +102,8 @@ class _ManageInventoryState extends State<ManageInventory> {
                             content: ManageInventoryInformationDialog(),
                             actions: [
                               CupertinoButton(
-                                child: Text("OK"),
+                                child: const Text("OK",
+                                  style: TextStyle(color: AppColors.primaryColor),),
                                 onPressed: () => Get.back(),
                               ),
                             ],

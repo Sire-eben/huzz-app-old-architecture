@@ -35,6 +35,9 @@ class AppThemes {
         primaryColor: AppColors.primaryColor,
         indicatorColor: AppColors.primaryColor,
         scaffoldBackgroundColor: AppColors.whiteColor,
+        textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: AppColors.primaryColor, //<-- SEE HERE
+     ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all(Colors.white),

@@ -117,6 +117,16 @@ class _MoneyOutState extends State<MoneyOut> {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
       context: context,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primaryColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
       initialDate: _transactionController.date ?? initialDate,
       firstDate: DateTime(DateTime.now().year - 5),
       lastDate: DateTime(DateTime.now().year + 5),
@@ -136,6 +146,16 @@ class _MoneyOutState extends State<MoneyOut> {
     final initialTime = TimeOfDay.now();
     final newTime = await showTimePicker(
       context: context,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primaryColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
       initialTime: _transactionController.time ?? initialTime,
     );
 
@@ -185,7 +205,9 @@ class _MoneyOutState extends State<MoneyOut> {
                           content: MoneyOutInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
+
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -197,7 +219,8 @@ class _MoneyOutState extends State<MoneyOut> {
                           content: MoneyOutInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text("OK",
+                              style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],

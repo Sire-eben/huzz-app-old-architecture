@@ -121,6 +121,16 @@ class _MoneyInState extends State<MoneyIn> {
       initialDate: _transactionController.date ?? initialDate,
       firstDate: DateTime(DateTime.now().year - 5),
       lastDate: DateTime(DateTime.now().year + 5),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primaryColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (newDate == null) return;
@@ -135,8 +145,19 @@ class _MoneyInState extends State<MoneyIn> {
 
   Future pickTime(BuildContext context) async {
     final initialTime = TimeOfDay.now();
+
     final newTime = await showTimePicker(
       context: context,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primaryColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
       initialTime: _transactionController.time ?? initialTime,
     );
 
@@ -186,7 +207,8 @@ class _MoneyInState extends State<MoneyIn> {
                           content: MoneyInInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -198,7 +220,8 @@ class _MoneyInState extends State<MoneyIn> {
                           content: MoneyInInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],

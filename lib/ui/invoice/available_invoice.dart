@@ -135,7 +135,8 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                                           const ManageInvoiceInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: const Text("OK",
+                                            style: TextStyle(color: AppColors.primaryColor),),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -148,7 +149,9 @@ class _AvailableInvoiceState extends State<AvailableInvoice>
                                           const ManageInvoiceInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+
+                                          child: Text("OK",
+                                            style: TextStyle(color: AppColors.primaryColor),),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
