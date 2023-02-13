@@ -25,6 +25,8 @@ import 'package:random_color/random_color.dart';
 import 'package:huzz/core/util/util.dart';
 
 class CreateInvoiceInformationDialog extends StatelessWidget {
+  const CreateInvoiceInformationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -465,8 +467,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           _invoiceController.paymentValue == 0
               ? Container(
                   width: MediaQuery.of(context).size.width,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Insets.md / 1.2,
+                    horizontal: Insets.md,
+                  ),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(

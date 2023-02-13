@@ -106,7 +106,7 @@ class CustomTextField extends StatelessWidget {
               initialValue: initialValue,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(
-                  vertical: Insets.md / 1.2,
+                  vertical: Insets.md / 0.8,
                   horizontal: Insets.md,
                 ),
                 isDense: true,
@@ -296,50 +296,58 @@ class CustomTextFieldOnly extends StatelessWidget {
   final List<TextInputFormatter>? inputformater;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
-      child: TextFormField(
-          inputFormatters: inputformater ?? [],
-          onChanged: onChanged,
-          maxLength: maxLength,
-          controller: textEditingController,
-          enabled: enabled,
-          keyboardType: keyType,
-          textInputAction: keyAction,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return validatorText;
-            }
-            return null;
-          },
-          initialValue: initialValue,
-          decoration: InputDecoration(
-            isDense: true,
-            prefixText: pretext,
-            suffixText: sufText,
-            focusedBorder: const OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColors.backgroundColor, width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            enabledBorder: const OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColors.backgroundColor, width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            border: const OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColors.backgroundColor, width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            hintText: hint,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                  fontSize: 14,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.normal,
-                ),
-          ),
-          onFieldSubmitted: onSubmited),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Gap(Insets.sm),
+        Text(
+          label!,
+          style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
+        ),
+        const Gap(Insets.md),
+        TextFormField(
+            inputFormatters: inputformater ?? [],
+            onChanged: onChanged,
+            maxLength: maxLength,
+            controller: textEditingController,
+            enabled: enabled,
+            keyboardType: keyType,
+            textInputAction: keyAction,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return validatorText;
+              }
+              return null;
+            },
+            initialValue: initialValue,
+            decoration: InputDecoration(
+              isDense: true,
+              prefixText: pretext,
+              suffixText: sufText,
+              focusedBorder: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: AppColors.backgroundColor, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              enabledBorder: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: AppColors.backgroundColor, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              border: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: AppColors.backgroundColor, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              hintText: hint,
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                    fontSize: 14,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.normal,
+                  ),
+            ),
+            onFieldSubmitted: onSubmited),
+      ],
     );
   }
 }
@@ -394,12 +402,12 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-              margin: const EdgeInsets.only(top: 10),
-              child: Text(
-                label!,
-                style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
-              )),
+          const Gap(Insets.md),
+          Text(
+            label!,
+            style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
+          ),
+          const Gap(Insets.sm / 2),
           GestureDetector(
             onTap: () {
               if (AllowClickable!) onClick!();
@@ -422,6 +430,10 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
                   },
                   initialValue: initialValue,
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: Insets.md / 0.8,
+                      horizontal: Insets.md,
+                    ),
                     isDense: true,
                     prefixText: pretext,
                     suffixText: sufText,
@@ -542,6 +554,10 @@ class CustomTextFieldOption extends StatelessWidget {
                   },
                   initialValue: initialValue,
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: Insets.md / 0.8,
+                      horizontal: Insets.md,
+                    ),
                     isDense: true,
                     prefixText: pretext,
                     suffixText: sufText,
@@ -577,7 +593,8 @@ class CustomTextFieldOption extends StatelessWidget {
 
 class CustomTextFieldWithImage extends StatefulWidget {
   const CustomTextFieldWithImage(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -738,6 +755,10 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                       },
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
@@ -889,6 +910,10 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                       // },
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
@@ -954,7 +979,8 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
 
 class CustomAddMemberTextField extends StatefulWidget {
   const CustomAddMemberTextField(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -1117,6 +1143,10 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                       },
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
@@ -1206,6 +1236,10 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                             fontWeight: FontWeight.w500,
                           ),
                           decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: Insets.md / 0.8,
+                              horizontal: Insets.md,
+                            ),
                             border: InputBorder.none,
                             hintText: "8123456789",
                             hintStyle: GoogleFonts.inter(
@@ -1274,6 +1308,10 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                       },
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
@@ -1339,7 +1377,8 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
 
 class CustomTextFieldWithImageTransaction extends StatefulWidget {
   const CustomTextFieldWithImageTransaction(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -1483,6 +1522,10 @@ class _CustomTextFieldWithImageTransactionState
                       },
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
@@ -1572,6 +1615,10 @@ class _CustomTextFieldWithImageTransactionState
                             return null;
                           },
                           decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: Insets.md / 0.8,
+                                horizontal: Insets.md,
+                              ),
                               border: InputBorder.none,
                               hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
@@ -1630,6 +1677,10 @@ class _CustomTextFieldWithImageTransactionState
                       textInputAction: widget.keyAction,
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
@@ -1687,7 +1738,8 @@ class _CustomTextFieldWithImageTransactionState
 
 class CustomTextFieldInvoice extends StatefulWidget {
   const CustomTextFieldInvoice(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -1850,6 +1902,10 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                       },
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
@@ -1933,6 +1989,10 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                         child: TextFormField(
                           controller: widget.contactPhone,
                           decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: Insets.md / 0.8,
+                                horizontal: Insets.md,
+                              ),
                               border: InputBorder.none,
                               hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
@@ -1980,6 +2040,10 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                       },
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
@@ -2028,6 +2092,10 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                       },
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
@@ -2093,6 +2161,10 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                       },
                       initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
                         prefixText: widget.pretext,
                         suffixText: widget.sufText,
