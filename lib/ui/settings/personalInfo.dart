@@ -67,7 +67,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
       appBar: Appbar(
         title: "Personal Information",
       ),
-      body: UnfocusScope(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
