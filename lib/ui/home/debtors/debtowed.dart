@@ -581,7 +581,7 @@ class _DebtOwnedState extends State<DebtOwned> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: InkWell(
                         onTap: () async {
@@ -590,11 +590,11 @@ class _DebtOwnedState extends State<DebtOwned> {
                         },
                         child: Container(
                           height: 45,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           decoration: BoxDecoration(
-                              color: AppColors.orangeBorderColor,
+                              color: AppColors.backgroundColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
