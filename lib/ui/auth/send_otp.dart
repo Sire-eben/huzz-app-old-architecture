@@ -111,6 +111,7 @@ class _SendOtpState extends State<SendOtp> {
                       ),
                       Expanded(
                         child: TextFormField(
+                          cursorColor: AppColors.primaryColor,
                           controller: _authController.phoneNumberController,
                           decoration: InputDecoration(
                               border: InputBorder.none,

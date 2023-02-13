@@ -62,7 +62,8 @@ class _WalletScreenState extends State<WalletScreen> {
                           content: const WalletInfoDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -74,7 +75,8 @@ class _WalletScreenState extends State<WalletScreen> {
                           content: const WalletInfoDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],

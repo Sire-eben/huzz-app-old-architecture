@@ -556,7 +556,8 @@ class _HomeState extends State<Home> {
                                                         DebtInformationDialog(),
                                                     actions: [
                                                       CupertinoButton(
-                                                        child: const Text("OK"),
+                                                        child: const Text("OK",
+                                                          style: TextStyle(color: AppColors.primaryColor),),
                                                         onPressed: () =>
                                                             Get.back(),
                                                       ),
@@ -571,7 +572,8 @@ class _HomeState extends State<Home> {
                                                         DebtInformationDialog(),
                                                     actions: [
                                                       CupertinoButton(
-                                                        child: const Text("OK"),
+                                                        child: const Text("OK",
+                                                          style: TextStyle(color: AppColors.primaryColor),),
                                                         onPressed: () =>
                                                             Get.back(),
                                                       ),
@@ -1215,7 +1217,8 @@ class _HomeState extends State<Home> {
                                                           actions: [
                                                             CupertinoButton(
                                                               child: const Text(
-                                                                  "OK"),
+                                                                  "OK",
+                                                                style: TextStyle(color: AppColors.primaryColor),),
                                                               onPressed: () =>
                                                                   Get.back(),
                                                             ),
@@ -1231,7 +1234,8 @@ class _HomeState extends State<Home> {
                                                           actions: [
                                                             CupertinoButton(
                                                               child: const Text(
-                                                                  "OK"),
+                                                                  "OK",
+                                                                style: TextStyle(color: AppColors.primaryColor),),
                                                               onPressed: () =>
                                                                   Get.back(),
                                                             ),
@@ -1366,7 +1370,8 @@ class _HomeState extends State<Home> {
                                                                 CupertinoButton(
                                                                   child:
                                                                       const Text(
-                                                                          "OK"),
+                                                                          "OK",
+                                                                        style: TextStyle(color: AppColors.primaryColor),),
                                                                   onPressed:
                                                                       () => Get
                                                                           .back(),
@@ -1385,7 +1390,8 @@ class _HomeState extends State<Home> {
                                                                 CupertinoButton(
                                                                   child:
                                                                       const Text(
-                                                                          "OK"),
+                                                                          "OK",
+                                                                        style: TextStyle(color: AppColors.primaryColor),),
                                                                   onPressed:
                                                                       () => Get
                                                                           .back(),
@@ -2185,7 +2191,8 @@ class _HomeState extends State<Home> {
                                       content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: const Text("OK",
+                                            style: TextStyle(color: AppColors.primaryColor),),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -2197,7 +2204,8 @@ class _HomeState extends State<Home> {
                                       content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: const Text("OK",
+                                            style: TextStyle(color: AppColors.primaryColor),),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -2814,7 +2822,8 @@ class _HomeState extends State<Home> {
                                       content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: const Text("OK",
+                                            style: TextStyle(color: AppColors.primaryColor),),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -2826,7 +2835,8 @@ class _HomeState extends State<Home> {
                                       content: DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: const Text("OK",
+                                            style: TextStyle(color: AppColors.primaryColor),),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],

@@ -130,7 +130,8 @@ class _MoneySummaryState extends State<MoneySummary> {
                               content: TransactionHistoryInformationDialog(),
                               actions: [
                                 CupertinoButton(
-                                  child: const Text("OK"),
+                                  child: const Text("OK",
+                                    style: TextStyle(color: AppColors.primaryColor),),
                                   onPressed: () => Get.back(),
                                 ),
                               ],
@@ -142,7 +143,8 @@ class _MoneySummaryState extends State<MoneySummary> {
                               content: TransactionHistoryInformationDialog(),
                               actions: [
                                 CupertinoButton(
-                                  child: const Text("OK"),
+                                  child: const Text("OK",
+                                    style: TextStyle(color: AppColors.primaryColor),),
                                   onPressed: () => Get.back(),
                                 ),
                               ],

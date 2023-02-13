@@ -306,7 +306,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                           content: InformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -318,7 +319,8 @@ class _UpdateMemberState extends State<UpdateMember> {
                           content: InformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],
