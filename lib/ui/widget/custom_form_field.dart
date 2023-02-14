@@ -844,6 +844,10 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                           controller: widget.contactPhone,
                           decoration: InputDecoration(
                               border: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
                               hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
@@ -875,21 +879,6 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                       const SizedBox(
                         width: 5,
                       ),
-                      // (widget.validatorText != null &&
-                      //         widget.validatorText!.isNotEmpty)
-                      //     ? Row(
-                      //         children: [
-                      //           Container(
-                      //               margin: EdgeInsets.only(top: 5),
-                      //               child: Text(
-                      //                 "*",
-                      //                 style: GoogleFonts.inter(
-                      //                     color: Colors.red, fontSize: 12),
-                      //               )),
-                      //           SizedBox(width: 8),
-                      //         ],
-                      //       )
-                      //     : Container()
                     ],
                   ),
                 ),
@@ -1236,11 +1225,15 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                             fontWeight: FontWeight.w500,
                           ),
                           decoration: InputDecoration(
+                            border: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
                             contentPadding: const EdgeInsets.symmetric(
                               vertical: Insets.md / 0.8,
                               horizontal: Insets.md,
                             ),
-                            border: InputBorder.none,
                             hintText: "8123456789",
                             hintStyle: GoogleFonts.inter(
                                 color: Colors.black.withOpacity(0.5),
