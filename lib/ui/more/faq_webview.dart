@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class FaqWeb extends StatefulWidget {
+  const FaqWeb({super.key});
+
   @override
   _FaqWebState createState() => _FaqWebState();
 }
@@ -65,13 +68,7 @@ class _FaqWebState extends State<FaqWeb> {
                   });
             }),
           ),
-          isLoading
-              ? Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.backgroundColor,
-                  ),
-                )
-              : Container(),
+          isLoading ? const LoadingWidget() : const SizedBox.shrink(),
         ],
       ),
     );
