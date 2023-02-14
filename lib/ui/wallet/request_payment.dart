@@ -39,11 +39,7 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
                 inputType: TextInputType.number,
                 validator: Validators.validateAmount(),
               ),
-<<<<<<< HEAD
               const Gap(Insets.xl),
-=======
-              const Gap(Insets.xl * 3),
->>>>>>> 1d838468783131dda717d077445733e6aa6aba0b
               Button(
                   label: 'Send Request',
                   action: () {

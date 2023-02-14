@@ -142,7 +142,7 @@ class _DashboardState extends State<Dashboard> {
                       inactiveColor: inactiveColor),
                 ],
                 onItemSelected: (index) =>
-                    setState(() => this.selectedIndex = index),
+                    setState(() => selectedIndex = index),
               );
       }),
     );
@@ -151,11 +151,7 @@ class _DashboardState extends State<Dashboard> {
   Widget buildPages() {
     switch (selectedIndex) {
       case 0:
-<<<<<<< HEAD
-        return const Home();
-=======
-        return HomePage();
->>>>>>> 1d838468783131dda717d077445733e6aa6aba0b
+        return const HomePage();
       case 1:
         return CustomerTabView();
       case 2:

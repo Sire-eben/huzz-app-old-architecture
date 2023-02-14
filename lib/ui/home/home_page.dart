@@ -151,7 +151,6 @@ class _HomePageState extends State<HomePage> {
                               TeamMemberStatus.Error) ...[
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04),
-<<<<<<< HEAD
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -218,59 +217,6 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ],
-=======
-                        InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))),
-                                context: context,
-                                builder: (context) => buildSelectBusiness());
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  buildMenuItem(
-                                      "${_businessController.selectedBusiness.value!.businessName}"),
-                                  const Gap(Insets.xl),
-                                  Icon(
-                                    Icons.arrow_drop_down,
-                                    color: AppColors.backgroundColor,
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  LocalSvgIcon(
-                                    Assets.icons.linear.notification,
-                                    size: 22,
-                                  ).onTap(() {
-                                    Get.to(const Notifications());
-                                  }),
-                                  const Gap(Insets.lg),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Settings());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/settings.svg',
-                                      color: AppColors.backgroundColor,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                  ),
-                                  const Gap(Insets.sm),
-                                ],
-                              ),
-                            ],
-                          ),
->>>>>>> 1d838468783131dda717d077445733e6aa6aba0b
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),

@@ -62,17 +62,8 @@ class TextInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const underlinedInputBorder = OutlineInputBorder(
-<<<<<<< HEAD
         borderSide: BorderSide(color: AppColors.backgroundColor, width: 2),
         borderRadius: BorderRadius.all(Radius.circular(10)));
-=======
-      borderRadius: BorderRadius.all(Corners.mdRadius),
-      borderSide: BorderSide(
-        color: AppColors.primaryColor,
-        width: 1.2,
-      ),
-    );
->>>>>>> 1d838468783131dda717d077445733e6aa6aba0b
 
     final underlinedInputErrorBorder = OutlineInputBorder(
       borderRadius: const BorderRadius.all(Corners.mdRadius),
