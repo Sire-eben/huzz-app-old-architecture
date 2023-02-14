@@ -62,7 +62,10 @@ class _WalletScreenState extends State<WalletScreen> {
                           content: const WalletInfoDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -74,7 +77,10 @@ class _WalletScreenState extends State<WalletScreen> {
                           content: const WalletInfoDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -103,7 +109,7 @@ class _WalletScreenState extends State<WalletScreen> {
                 vertical: Insets.lg,
                 horizontal: Insets.md,
               ),
-              height: 160,
+              height: 192,
               decoration: BoxDecoration(
                 color: AppColors.backgroundColor,
                 borderRadius: BorderRadius.circular(12),
@@ -196,7 +202,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   flex: 3,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: Insets.sm,
+                      vertical: Insets.md / 0.9,
                       horizontal: Insets.md,
                     ),
                     decoration: BoxDecoration(
@@ -209,7 +215,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         width: 20,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: AppColors.primaryColor,
+                          color: AppColors.blackColor,
                         ),
                         child: LocalSvgIcon(
                           Assets.icons.linear.star1,
@@ -234,7 +240,8 @@ class _WalletScreenState extends State<WalletScreen> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    padding: const EdgeInsets.all(Insets.sm),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Insets.sm, vertical: Insets.md / 0.9),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: AppColors.orangeBorderColor,

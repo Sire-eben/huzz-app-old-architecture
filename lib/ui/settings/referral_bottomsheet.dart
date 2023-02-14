@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/user_referral_model.dart';
+import 'package:huzz/ui/widget/loading_widget.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ReferralBottomsheet extends StatefulWidget {
@@ -47,7 +48,6 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
           appStoreId: "1596574133",
           minimumVersion: '1',
         ),
-        
       );
       final shortLink = await dynamicLinks.buildShortLink(parameters);
       referralLink = shortLink.shortUrl.toString();
@@ -83,7 +83,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
         child: FutureBuilder(
             future: future,
             builder: (context, snapshot) {
-              if (snapshot.hasError)
+              if (snapshot.hasError) {
                 return Container(
                   height: kHeight,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -113,6 +113,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                     ],
                   ),
                 );
+              }
               if (snapshot.connectionState == ConnectionState.done) {
                 final referralData = snapshot.data as UserReferralModel;
                 return Stack(
@@ -181,8 +182,9 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                               Expanded(
                                 child: Text.rich(
                                   TextSpan(children: [
-                                    TextSpan(text: "Referral Code: "),
+                                    const TextSpan(text: "Referral Code: "),
                                     TextSpan(
+                                      // ignore: unnecessary_string_interpolations
                                       text: "${referralData.referralCode}",
                                       style: textTheme.bodyMedium!.copyWith(
                                         fontWeight: FontWeight.w700,
@@ -253,9 +255,7 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: Center(
                                 child: isLoadingReferralLink
-                                    ? CircularProgressIndicator(
-                                        color: Colors.white,
-                                      )
+                                    ? LoadingWidget()
                                     : Text(
                                         'Share Referral Link',
                                         style: GoogleFonts.inter(
@@ -286,11 +286,10 @@ class _ReferralBottomsheetState extends State<ReferralBottomsheet> {
                 );
               }
               return SizedBox(
-                height: kHeight,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
+                  height: kHeight,
+                  child: LoadingWidget(
+                    color: AppColors.backgroundColor,
+                  ));
             }),
       ),
     );

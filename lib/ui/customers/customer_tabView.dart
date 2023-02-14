@@ -97,7 +97,8 @@ class _CustomerTabViewState extends State<CustomerTabView>
                               _tabController.index),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -110,7 +111,8 @@ class _CustomerTabViewState extends State<CustomerTabView>
                               _tabController.index),
                           actions: [
                             CupertinoButton(
-                              child: Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],

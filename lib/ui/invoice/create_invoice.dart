@@ -19,11 +19,14 @@ import 'package:huzz/data/model/bank.dart';
 import 'package:huzz/data/model/customer_model.dart';
 import 'package:huzz/data/model/payment_item.dart';
 import 'package:huzz/data/model/product.dart';
+import 'package:huzz/ui/widget/loading_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:random_color/random_color.dart';
 import 'package:huzz/core/util/util.dart';
 
 class CreateInvoiceInformationDialog extends StatelessWidget {
+  const CreateInvoiceInformationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,7 +60,7 @@ class CreateInvoice extends StatefulWidget {
 class _CreateInvoiceState extends State<CreateInvoice> {
   // final _invoiceController = Get.find<TransactionRespository>();
 
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
 
   final TextEditingController customerName = TextEditingController();
   final TextEditingController customerPhone = TextEditingController();
@@ -71,7 +74,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   final TextEditingController accountName = TextEditingController();
   final TextEditingController accountNo = TextEditingController();
   final TextEditingController _searchcontroller = TextEditingController();
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   final payments = ['Select payment mode', 'item1', 'item2'];
   String? value;
@@ -257,13 +260,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                                 borderRadius: BorderRadius.circular(10)),
                             child: (_invoiceController.addingInvoiceStatus ==
                                     AddingInvoiceStatus.Loading)
-                                ? Container(
-                                    width: 25,
-                                    height: 25,
-                                    child: const Center(
-                                        child: CircularProgressIndicator(
-                                            color: Colors.white)),
-                                  )
+                                ? LoadingWidget()
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
@@ -309,15 +306,17 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                   final dueDate = date.add(const Duration(days: 7));
                   if (_invoiceController.paymentValue == 1) {
                     if (_bankKey.currentState!.validate()) {
-                      if (_invoiceController.productList.isEmpty)
+                      if (_invoiceController.productList.isEmpty) {
                         _invoiceController.addMoreProduct();
+                      }
                       _invoiceController.createBusinessInvoice();
                       setState(() {});
                     }
                   } else {
                     if (_invoiceController.selectedBank != null) {
-                      if (_invoiceController.productList.isEmpty)
+                      if (_invoiceController.productList.isEmpty) {
                         _invoiceController.addMoreProduct();
+                      }
                       _invoiceController.createBusinessInvoice();
                     }
                   }
@@ -468,8 +467,10 @@ class _CreateInvoiceState extends State<CreateInvoice> {
           _invoiceController.paymentValue == 0
               ? Container(
                   width: MediaQuery.of(context).size.width,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Insets.md / 1.2,
+                    horizontal: Insets.md,
+                  ),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(

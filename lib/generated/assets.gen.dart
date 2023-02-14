@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
 
@@ -266,9 +266,6 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/empty_transaction.svg
   String get emptyTransaction => 'assets/images/empty_transaction.svg';
-
-  /// File path: assets/images/entre1.svg
-  String get entre1 => 'assets/images/entre1.svg';
 
   /// File path: assets/images/entre11.png
   AssetGenImage get entre11 => const AssetGenImage('assets/images/entre11.png');
@@ -656,7 +653,6 @@ class $AssetsImagesGen {
         edit,
         editPri,
         emptyTransaction,
-        entre1,
         entre11,
         exclamation,
         expenseTransaction,

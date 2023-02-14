@@ -4,8 +4,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/mixins/form_mixin.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
-import 'package:huzz/data/repository/home_respository.dart';
 import 'package:huzz/ui/auth/sign_in.dart';
 import 'package:huzz/ui/privacy_policy.dart';
 import 'package:huzz/ui/terms_of_condition.dart';
@@ -13,12 +13,13 @@ import 'package:huzz/core/constants/app_themes.dart';
 import 'sign_up.dart';
 
 class SendOtp extends StatefulWidget {
+  const SendOtp({super.key});
+
+  @override
   _SendOtpState createState() => _SendOtpState();
 }
 
-class _SendOtpState extends State<SendOtp> {
-  final _homeController = Get.find<HomeRespository>();
-  GlobalKey<FormState> _formKey = GlobalKey();
+class _SendOtpState extends State<SendOtp> with FormMixin {
   final _authController = Get.find<AuthRepository>();
   String countryFlag = "NG";
   String countryCode = "234";
@@ -38,14 +39,14 @@ class _SendOtpState extends State<SendOtp> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       left: 20,
                     ),
                     child: Text(
@@ -56,18 +57,18 @@ class _SendOtpState extends State<SendOtp> {
                         fontWeight: FontWeight.w400,
                       ),
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
+                  margin: const EdgeInsets.only(left: 20, right: 20),
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
                         color: AppColors.backgroundColor, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -78,7 +79,7 @@ class _SendOtpState extends State<SendOtp> {
                           showCountryCode(context);
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                                 right: BorderSide(
                                     color: AppColors.backgroundColor,
@@ -90,10 +91,10 @@ class _SendOtpState extends State<SendOtp> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Flag.fromString(countryFlag,
                                   height: 30, width: 30),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Icon(
@@ -106,13 +107,18 @@ class _SendOtpState extends State<SendOtp> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
                         child: TextFormField(
+                          cursorColor: AppColors.primaryColor,
                           controller: _authController.phoneNumberController,
                           decoration: InputDecoration(
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
                               border: InputBorder.none,
                               hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
@@ -132,16 +138,16 @@ class _SendOtpState extends State<SendOtp> {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                     ],
                   ),
                 ),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 GestureDetector(
                   onTap: () {
-                    Get.to(Signin());
+                    Get.to(const Signin());
                   },
                   child: Center(
                     child: RichText(
@@ -163,9 +169,9 @@ class _SendOtpState extends State<SendOtp> {
                     ),
                   ),
                 ),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
                 Container(
-                    margin: EdgeInsets.only(left: 50, right: 50),
+                    margin: const EdgeInsets.only(left: 50, right: 50),
                     child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
@@ -202,7 +208,7 @@ class _SendOtpState extends State<SendOtp> {
                                   ..onTap = privacyPolicy,
                               )
                             ]))),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Obx(() {
@@ -211,39 +217,39 @@ class _SendOtpState extends State<SendOtp> {
                       if (_authController.phoneNumberController.text == '') {
                         Get.snackbar(
                             'Alert', 'Enter your phone number to continue!',
-                            titleText: Text(
+                            titleText: const Text(
                               'Alert',
                             ),
-                            messageText: Text(
+                            messageText: const Text(
                               'Enter your phone number to continue!',
                             ),
-                            icon: Icon(Icons.info,
+                            icon: const Icon(Icons.info,
                                 color: AppColors.orangeBorderColor));
-                        print('phone cannot be empty');
+                        // print('phone cannot be empty');
                       } else if (_authController
                               .phoneNumberController.text.length >
                           10) {
                         Get.snackbar('Alert', 'Invalid phone number!',
-                            titleText: Text(
+                            titleText: const Text(
                               'Alert',
                             ),
-                            messageText: Text(
+                            messageText: const Text(
                               'Invalid phone number!',
                             ),
-                            icon: Icon(Icons.info,
+                            icon: const Icon(Icons.info,
                                 color: AppColors.orangeBorderColor));
                         print('phone cannot be empty');
                       } else {
                         // _authController.sendSmsOtp();
                         // _homeController.selectOnboardSelectedNext();
-                        Get.to(() => Signup());
+                        Get.to(() => const Signup());
                       }
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(left: 50, right: 50),
+                      margin: const EdgeInsets.only(left: 50, right: 50),
                       height: 50,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_authController.Otpauthstatus ==
@@ -251,7 +257,7 @@ class _SendOtpState extends State<SendOtp> {
                           ? Container(
                               width: 30,
                               height: 30,
-                              child: Center(
+                              child: const Center(
                                   child: CircularProgressIndicator(
                                       color: Colors.white)),
                             )
@@ -264,16 +270,16 @@ class _SendOtpState extends State<SendOtp> {
                                   style: GoogleFonts.inter(
                                       color: Colors.white, fontSize: 18),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Container(
-                                  padding: EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
+                                  padding: const EdgeInsets.all(3),
+                                  decoration: const BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(50))),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.arrow_forward,
                                     color: AppColors.backgroundColor,
                                     size: 16,
@@ -284,7 +290,7 @@ class _SendOtpState extends State<SendOtp> {
                     ),
                   );
                 }),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 )
               ]),
@@ -298,7 +304,7 @@ class _SendOtpState extends State<SendOtp> {
   }
 
   Future privacyPolicy() async {
-    Get.to(Privacy());
+    Get.to(const Privacy());
   }
 
   Future showCountryCode(BuildContext context) async {

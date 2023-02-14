@@ -4,6 +4,7 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
@@ -12,7 +13,8 @@ import 'package:huzz/core/constants/app_themes.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -57,98 +59,93 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              margin: EdgeInsets.only(left: 0, right: 0, top: 9),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    label!,
-                    style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
-                  ),
-                  SizedBox(
-                    width: 1,
-                  ),
-                  (validatorText != null && validatorText!.isNotEmpty)
-                      ? Container(
-                          margin: EdgeInsets.only(top: 5),
-                          child: Text(
-                            "*",
-                            style: GoogleFonts.inter(
-                                color: Colors.red, fontSize: 12),
-                          ))
-                      : Container()
-                ],
-              )),
-          GestureDetector(
-            onTap: () {
-              if (AllowClickable!) onClick!();
-            },
-            child: Container(
-              margin: EdgeInsets.only(top: 10),
-              child: TextFormField(
-                  inputFormatters: inputformater == null ? [] : inputformater,
-                  autofocus: true,
-                  onChanged: this.onChanged,
-                  maxLength: this.maxLength,
-                  controller: textEditingController,
-                  enabled: enabled,
-                  keyboardType: this.keyType,
-                  textInputAction: this.keyAction,
-                  validator: (validate == null)
-                      ? (value) {
-                          if (value == null || value.isEmpty) {
-                            return validatorText;
-                          }
-                          return null;
-                        }
-                      : validate,
-                  initialValue: this.initialValue,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    prefixText: this.pretext,
-                    suffixText: this.sufText,
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: AppColors.backgroundColor, width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: AppColors.backgroundColor, width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: AppColors.backgroundColor, width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    hintText: hint,
-                    prefixIcon: prefixIcon,
-                    suffixIcon: suffixIcon,
-                    hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                          color: colors ?? Colors.black26,
-                          fontFamily: 'InterRegular',
-                          fontSize: 14,
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.normal,
-                        ),
-                  ),
-                  onFieldSubmitted: onSubmited),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Gap(Insets.sm),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              label!,
+              style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
             ),
-          )
-        ],
-      ),
+            const Gap(Insets.sm),
+            (validatorText != null && validatorText!.isNotEmpty)
+                ? Container(
+                    margin: const EdgeInsets.only(top: 5),
+                    child: Text(
+                      "*",
+                      style: GoogleFonts.inter(color: Colors.red, fontSize: 12),
+                    ))
+                : const SizedBox.shrink()
+          ],
+        ),
+        GestureDetector(
+          onTap: () {
+            if (AllowClickable!) onClick!();
+          },
+          child: TextFormField(
+              inputFormatters: inputformater ?? [],
+              autofocus: true,
+              onChanged: onChanged,
+              maxLength: maxLength,
+              controller: textEditingController,
+              enabled: enabled,
+              keyboardType: keyType,
+              textInputAction: keyAction,
+              validator: (validate == null)
+                  ? (value) {
+                      if (value == null || value.isEmpty) {
+                        return validatorText;
+                      }
+                      return null;
+                    }
+                  : validate,
+              initialValue: initialValue,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: Insets.md / 0.8,
+                  horizontal: Insets.md,
+                ),
+                isDense: true,
+                prefixText: pretext,
+                suffixText: sufText,
+                focusedBorder: const OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: AppColors.backgroundColor, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: AppColors.backgroundColor, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                border: const OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: AppColors.backgroundColor, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                hintText: hint,
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
+                hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                      color: colors ?? Colors.black26,
+                      fontFamily: 'InterRegular',
+                      fontSize: 14,
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.normal,
+                    ),
+              ),
+              onFieldSubmitted: onSubmited),
+        )
+      ],
     );
   }
 }
 
 class CustomTextFieldOptional extends StatelessWidget {
   const CustomTextFieldOptional(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -189,14 +186,14 @@ class CustomTextFieldOptional extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 9),
               child: Text(
                 label!,
                 style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
@@ -206,35 +203,35 @@ class CustomTextFieldOptional extends StatelessWidget {
               if (AllowClickable!) onClick!();
             },
             child: Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
               child: TextFormField(
-                  inputFormatters: inputformater == null ? [] : inputformater,
-                  onChanged: this.onChanged,
-                  maxLength: this.maxLength,
+                  inputFormatters: inputformater ?? [],
+                  onChanged: onChanged,
+                  maxLength: maxLength,
                   controller: textEditingController,
                   enabled: enabled,
-                  keyboardType: this.keyType,
-                  textInputAction: this.keyAction,
+                  keyboardType: keyType,
+                  textInputAction: keyAction,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return validatorText;
                     }
                     return null;
                   },
-                  initialValue: this.initialValue,
+                  initialValue: initialValue,
                   decoration: InputDecoration(
                     isDense: true,
-                    prefixText: this.pretext,
-                    suffixText: this.sufText,
-                    focusedBorder: OutlineInputBorder(
+                    prefixText: pretext,
+                    suffixText: sufText,
+                    focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -258,7 +255,8 @@ class CustomTextFieldOptional extends StatelessWidget {
 
 class CustomTextFieldOnly extends StatelessWidget {
   const CustomTextFieldOnly(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -298,57 +296,66 @@ class CustomTextFieldOnly extends StatelessWidget {
   final List<TextInputFormatter>? inputformater;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(left: 20, right: 20, top: 10),
-      child: TextFormField(
-          inputFormatters: inputformater == null ? [] : inputformater,
-          onChanged: this.onChanged,
-          maxLength: this.maxLength,
-          controller: textEditingController,
-          enabled: enabled,
-          keyboardType: this.keyType,
-          textInputAction: this.keyAction,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return validatorText;
-            }
-            return null;
-          },
-          initialValue: this.initialValue,
-          decoration: InputDecoration(
-            isDense: true,
-            prefixText: this.pretext,
-            suffixText: this.sufText,
-            focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColors.backgroundColor, width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColors.backgroundColor, width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            border: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColors.backgroundColor, width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            hintText: hint,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                  fontSize: 14,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.normal,
-                ),
-          ),
-          onFieldSubmitted: onSubmited),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Gap(Insets.sm),
+        Text(
+          label!,
+          style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
+        ),
+        const Gap(Insets.md),
+        TextFormField(
+            inputFormatters: inputformater ?? [],
+            onChanged: onChanged,
+            maxLength: maxLength,
+            controller: textEditingController,
+            enabled: enabled,
+            keyboardType: keyType,
+            textInputAction: keyAction,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return validatorText;
+              }
+              return null;
+            },
+            initialValue: initialValue,
+            decoration: InputDecoration(
+              isDense: true,
+              prefixText: pretext,
+              suffixText: sufText,
+              focusedBorder: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: AppColors.backgroundColor, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              enabledBorder: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: AppColors.backgroundColor, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              border: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: AppColors.backgroundColor, width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              hintText: hint,
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                    fontSize: 14,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.normal,
+                  ),
+            ),
+            onFieldSubmitted: onSubmited),
+      ],
     );
   }
 }
 
 class CustomTextFieldInvoiceOptional extends StatelessWidget {
   const CustomTextFieldInvoiceOptional(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -389,52 +396,56 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Text(
-                label!,
-                style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
-              )),
+          const Gap(Insets.md),
+          Text(
+            label!,
+            style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
+          ),
+          const Gap(Insets.sm / 2),
           GestureDetector(
             onTap: () {
               if (AllowClickable!) onClick!();
             },
             child: Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               child: TextFormField(
-                  inputFormatters: inputformater == null ? [] : inputformater,
-                  onChanged: this.onChanged,
-                  maxLength: this.maxLength,
+                  inputFormatters: inputformater ?? [],
+                  onChanged: onChanged,
+                  maxLength: maxLength,
                   controller: textEditingController,
                   enabled: enabled,
-                  keyboardType: this.keyType,
-                  textInputAction: this.keyAction,
+                  keyboardType: keyType,
+                  textInputAction: keyAction,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return validatorText;
                     }
                     return null;
                   },
-                  initialValue: this.initialValue,
+                  initialValue: initialValue,
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: Insets.md / 0.8,
+                      horizontal: Insets.md,
+                    ),
                     isDense: true,
-                    prefixText: this.pretext,
-                    suffixText: this.sufText,
-                    focusedBorder: OutlineInputBorder(
+                    prefixText: pretext,
+                    suffixText: sufText,
+                    focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -457,8 +468,9 @@ class CustomTextFieldInvoiceOptional extends StatelessWidget {
 }
 
 class CustomTextFieldOption extends StatelessWidget {
-  CustomTextFieldOption(
-      {this.hint,
+  const CustomTextFieldOption(
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -499,21 +511,21 @@ class CustomTextFieldOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 9),
               child: Row(
                 children: [
                   Text(
                     label!,
                     style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                   ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   Text(
                     '(Optional)',
                     style: GoogleFonts.inter(color: Colors.grey, fontSize: 12),
@@ -525,35 +537,39 @@ class CustomTextFieldOption extends StatelessWidget {
               if (AllowClickable!) onClick!();
             },
             child: Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
               child: TextFormField(
-                  inputFormatters: inputformater == null ? [] : inputformater,
-                  onChanged: this.onChanged,
-                  maxLength: this.maxLength,
+                  inputFormatters: inputformater ?? [],
+                  onChanged: onChanged,
+                  maxLength: maxLength,
                   controller: textEditingController,
                   enabled: enabled,
-                  keyboardType: this.keyType,
-                  textInputAction: this.keyAction,
+                  keyboardType: keyType,
+                  textInputAction: keyAction,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return validatorText;
                     }
                     return null;
                   },
-                  initialValue: this.initialValue,
+                  initialValue: initialValue,
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: Insets.md / 0.8,
+                      horizontal: Insets.md,
+                    ),
                     isDense: true,
-                    prefixText: this.pretext,
-                    suffixText: this.sufText,
-                    focusedBorder: OutlineInputBorder(
+                    prefixText: pretext,
+                    suffixText: sufText,
+                    focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: AppColors.backgroundColor, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -577,7 +593,8 @@ class CustomTextFieldOption extends StatelessWidget {
 
 class CustomTextFieldWithImage extends StatefulWidget {
   const CustomTextFieldWithImage(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -632,14 +649,14 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 9),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -647,7 +664,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                     widget.label!,
                     style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   (widget.validatorText != null &&
@@ -655,20 +672,20 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                       ? Row(
                           children: [
                             Container(
-                                margin: EdgeInsets.only(top: 5),
+                                margin: const EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
                                   style: GoogleFonts.inter(
                                       color: Colors.red, fontSize: 12),
                                 )),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Container(
                                 child: Text(
                               "OR",
                               style: GoogleFonts.inter(
                                   color: Colors.black, fontSize: 12),
                             )),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             InkWell(
                               onTap: () async {
                                 _customerController.showContactPicker(context);
@@ -686,7 +703,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                               child: SvgPicture.asset(
                                   'assets/images/select_from_contact.svg'),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             InkWell(
                               onTap: () async {
                                 _customerController.showContactPicker(context);
@@ -702,7 +719,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                                 // });
                               },
                               child: Container(
-                                  margin: EdgeInsets.only(top: 5),
+                                  margin: const EdgeInsets.only(top: 5),
                                   child: Text(
                                     "Select from Contact",
                                     style: GoogleFonts.inter(
@@ -722,36 +739,40 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactName,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return widget.validatorText;
                         }
                         return null;
                       },
-                      initialValue: this.widget.initialValue,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -770,14 +791,14 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
+                  margin: const EdgeInsets.only(left: 20, right: 20),
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
                         color: AppColors.backgroundColor, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -788,7 +809,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                           showCountryCode(context);
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                                 right: BorderSide(
                                     color: AppColors.backgroundColor,
@@ -799,10 +820,10 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Flag.fromString(countryFlag,
                                   height: 30, width: 30),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Icon(
@@ -815,7 +836,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
@@ -835,7 +856,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                                   color: Colors.black)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                     ],
@@ -851,7 +872,7 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                         style: GoogleFonts.inter(
                             color: Colors.black, fontSize: 12),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       // (widget.validatorText != null &&
@@ -873,36 +894,40 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactMail,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
                       // validator: (value) {
                       //   if (value == null || value.isEmpty) {
                       //     return widget.validatorText;
                       //   }
                       //   return null;
                       // },
-                      initialValue: this.widget.initialValue,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -954,7 +979,8 @@ class _CustomTextFieldWithImageState extends State<CustomTextFieldWithImage> {
 
 class CustomAddMemberTextField extends StatefulWidget {
   const CustomAddMemberTextField(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -1009,14 +1035,14 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 9),
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 9),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -1024,7 +1050,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                     widget.label!,
                     style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   (widget.validatorText != null &&
@@ -1032,20 +1058,20 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                       ? Row(
                           children: [
                             Container(
-                                margin: EdgeInsets.only(top: 5),
+                                margin: const EdgeInsets.only(top: 5),
                                 child: Text(
                                   "*",
                                   style: GoogleFonts.inter(
                                       color: Colors.red, fontSize: 12),
                                 )),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Container(
                                 child: Text(
                               "OR",
                               style: GoogleFonts.inter(
                                   color: Colors.black, fontSize: 12),
                             )),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             InkWell(
                               onTap: () async {
                                 _teamController
@@ -1064,7 +1090,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                               child: SvgPicture.asset(
                                   'assets/images/select_from_contact.svg'),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             InkWell(
                               onTap: () async {
                                 _teamController
@@ -1081,7 +1107,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                                 // });
                               },
                               child: Container(
-                                  margin: EdgeInsets.only(top: 5),
+                                  margin: const EdgeInsets.only(top: 5),
                                   child: Text(
                                     "Select from Contact",
                                     style: GoogleFonts.inter(
@@ -1101,36 +1127,40 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactName,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return widget.validatorText;
                         }
                         return null;
                       },
-                      initialValue: this.widget.initialValue,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -1149,14 +1179,14 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
+                  margin: const EdgeInsets.only(left: 20, right: 20),
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
                         color: AppColors.backgroundColor, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -1167,7 +1197,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                           showCountryCode(context);
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                                 right: BorderSide(
                                     color: AppColors.backgroundColor,
@@ -1178,10 +1208,10 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Flag.fromString(countryFlag,
                                   height: 30, width: 30),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Icon(
@@ -1194,7 +1224,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
@@ -1206,6 +1236,10 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                             fontWeight: FontWeight.w500,
                           ),
                           decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: Insets.md / 0.8,
+                              horizontal: Insets.md,
+                            ),
                             border: InputBorder.none,
                             hintText: "8123456789",
                             hintStyle: GoogleFonts.inter(
@@ -1220,7 +1254,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                     ],
@@ -1236,7 +1270,7 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                         style: GoogleFonts.inter(
                             color: Colors.black, fontSize: 12),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       (widget.validatorText != null &&
@@ -1244,13 +1278,13 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                           ? Row(
                               children: [
                                 Container(
-                                    margin: EdgeInsets.only(top: 5),
+                                    margin: const EdgeInsets.only(top: 5),
                                     child: Text(
                                       "*",
                                       style: GoogleFonts.inter(
                                           color: Colors.red, fontSize: 12),
                                     )),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                               ],
                             )
                           : Container()
@@ -1258,36 +1292,40 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactMail,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return widget.validatorText;
                         }
                         return null;
                       },
-                      initialValue: this.widget.initialValue,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -1339,7 +1377,8 @@ class _CustomAddMemberTextFieldState extends State<CustomAddMemberTextField> {
 
 class CustomTextFieldWithImageTransaction extends StatefulWidget {
   const CustomTextFieldWithImageTransaction(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -1402,7 +1441,7 @@ class _CustomTextFieldWithImageTransactionState
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -1416,30 +1455,30 @@ class _CustomTextFieldWithImageTransactionState
                 widget.label!,
                 style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               (widget.validatorText != null && widget.validatorText!.isNotEmpty)
                   ? Row(
                       children: [
                         Container(
-                            margin: EdgeInsets.only(top: 5),
+                            margin: const EdgeInsets.only(top: 5),
                             child: Text(
                               "*",
                               style: GoogleFonts.inter(
                                   color: Colors.red, fontSize: 12),
                             )),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Container(
                             child: Text(
                           "OR",
                           style: GoogleFonts.inter(
                               color: Colors.black, fontSize: 12),
                         )),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         SvgPicture.asset(
                             'assets/images/select_from_contact.svg'),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
                             print("contact should show");
@@ -1447,7 +1486,7 @@ class _CustomTextFieldWithImageTransactionState
                                 .showContactPicker(context);
                           },
                           child: Container(
-                              margin: EdgeInsets.only(top: 5),
+                              margin: const EdgeInsets.only(top: 5),
                               child: Text(
                                 "Select from Contact",
                                 style: GoogleFonts.inter(
@@ -1467,36 +1506,40 @@ class _CustomTextFieldWithImageTransactionState
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactName,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Name is required";
                         }
                         return null;
                       },
-                      initialValue: this.widget.initialValue,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -1521,7 +1564,7 @@ class _CustomTextFieldWithImageTransactionState
                     color: Colors.white,
                     border: Border.all(
                         color: AppColors.backgroundColor, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -1532,7 +1575,7 @@ class _CustomTextFieldWithImageTransactionState
                           showCountryCode(context);
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                                 right: BorderSide(
                                     color: AppColors.backgroundColor,
@@ -1543,10 +1586,10 @@ class _CustomTextFieldWithImageTransactionState
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Flag.fromString(countryFlag,
                                   height: 30, width: 30),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Icon(
@@ -1559,7 +1602,7 @@ class _CustomTextFieldWithImageTransactionState
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
@@ -1572,7 +1615,14 @@ class _CustomTextFieldWithImageTransactionState
                             return null;
                           },
                           decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: Insets.md / 0.8,
+                                horizontal: Insets.md,
+                              ),
                               border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
                               hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),
@@ -1585,7 +1635,7 @@ class _CustomTextFieldWithImageTransactionState
                                   color: Colors.black)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                     ],
@@ -1599,7 +1649,7 @@ class _CustomTextFieldWithImageTransactionState
                       style:
                           GoogleFonts.inter(color: Colors.black, fontSize: 12),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     // (widget.validatorText != null &&
@@ -1620,30 +1670,34 @@ class _CustomTextFieldWithImageTransactionState
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactMail,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
-                      initialValue: this.widget.initialValue,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -1687,7 +1741,8 @@ class _CustomTextFieldWithImageTransactionState
 
 class CustomTextFieldInvoice extends StatefulWidget {
   const CustomTextFieldInvoice(
-      {this.hint,
+      {super.key,
+      this.hint,
       this.label,
       this.pretext,
       this.sufText,
@@ -1751,7 +1806,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -1765,20 +1820,20 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                 widget.label!,
                 style: GoogleFonts.inter(color: Colors.black, fontSize: 12),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               (widget.validatorText != null && widget.validatorText!.isNotEmpty)
                   ? Row(
                       children: [
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Container(
                             child: Text(
                           "OR",
                           style: GoogleFonts.inter(
                               color: Colors.black, fontSize: 12),
                         )),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
                             print("contact should show");
@@ -1797,7 +1852,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                           child: SvgPicture.asset(
                               'assets/images/select_from_contact.svg'),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         InkWell(
                           onTap: () async {
                             print("contact should show");
@@ -1814,7 +1869,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                             // });
                           },
                           child: Container(
-                              margin: EdgeInsets.only(top: 5),
+                              margin: const EdgeInsets.only(top: 5),
                               child: Text(
                                 "Select from Contact",
                                 style: GoogleFonts.inter(
@@ -1834,36 +1889,40 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactName,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return widget.validatorText;
                         }
                         return null;
                       },
-                      initialValue: this.widget.initialValue,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -1888,7 +1947,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                     color: Colors.white,
                     border: Border.all(
                         color: AppColors.backgroundColor, width: 2.0),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -1899,7 +1958,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                           showCountryCode(context);
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             border: Border(
                                 right: BorderSide(
                                     color: AppColors.backgroundColor,
@@ -1910,10 +1969,10 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Flag.fromString(countryFlag,
                                   height: 30, width: 30),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Icon(
@@ -1926,13 +1985,17 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
                         child: TextFormField(
                           controller: widget.contactPhone,
                           decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: Insets.md / 0.8,
+                                horizontal: Insets.md,
+                              ),
                               border: InputBorder.none,
                               hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
@@ -1946,7 +2009,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                                   color: Colors.black)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                     ],
@@ -1964,36 +2027,40 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactMail,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return widget.validatorText;
                         }
                         return null;
                       },
-                      initialValue: this.widget.initialValue,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -2012,36 +2079,40 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactAmount,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return widget.validatorText;
                         }
                         return null;
                       },
-                      initialValue: this.widget.initialValue,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
@@ -2066,7 +2137,7 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                       style:
                           GoogleFonts.inter(color: Colors.black, fontSize: 12),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     Text(
@@ -2077,36 +2148,40 @@ class _CustomTextFieldInvoiceState extends State<CustomTextFieldInvoice> {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   child: TextFormField(
-                      onChanged: this.widget.onChanged,
-                      maxLength: this.widget.maxLength,
+                      onChanged: widget.onChanged,
+                      maxLength: widget.maxLength,
                       controller: widget.contactAddress,
                       enabled: widget.enabled,
-                      keyboardType: this.widget.keyType,
-                      textInputAction: this.widget.keyAction,
+                      keyboardType: widget.keyType,
+                      textInputAction: widget.keyAction,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return widget.validatorText;
                         }
                         return null;
                       },
-                      initialValue: this.widget.initialValue,
+                      initialValue: widget.initialValue,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: Insets.md / 0.8,
+                          horizontal: Insets.md,
+                        ),
                         isDense: true,
-                        prefixText: this.widget.pretext,
-                        suffixText: this.widget.sufText,
-                        focusedBorder: OutlineInputBorder(
+                        prefixText: widget.pretext,
+                        suffixText: widget.sufText,
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: AppColors.backgroundColor, width: 2),
                             borderRadius:

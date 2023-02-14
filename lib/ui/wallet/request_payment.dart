@@ -7,7 +7,6 @@ import 'package:huzz/core/util/validators.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
-import 'package:huzz/generated/assets.gen.dart';
 
 class RequestPaymentScreen extends StatefulWidget {
   const RequestPaymentScreen({super.key});
@@ -40,7 +39,7 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
                 inputType: TextInputType.number,
                 validator: Validators.validateAmount(),
               ),
-              const Gap(Insets.xl * 3),
+              const Gap(Insets.xl),
               Button(
                   label: 'Send Request',
                   action: () {

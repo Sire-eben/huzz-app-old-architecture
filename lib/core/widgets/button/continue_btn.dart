@@ -3,13 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class ContinueButton extends StatelessWidget {
-  final String label;
   final VoidCallback action;
 
   const ContinueButton({
     super.key,
     required this.action,
-    required this.label,
   });
 
   @override
@@ -29,7 +27,7 @@ class ContinueButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              label,
+              'Continue',
               style: GoogleFonts.inter(color: Colors.white, fontSize: 18),
             ),
             const SizedBox(

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -35,6 +36,8 @@ import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
 class DebtInformationDialog extends StatelessWidget {
+  const DebtInformationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -81,10 +84,9 @@ class _HomePageState extends State<HomePage> {
 
   int selectedValue = 0;
   final transactionList = [];
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
 
   Future<void> initDynamicLinks() async {
-    print("Initial DynamicLinks");
     FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
     // Incoming Links Listener
@@ -92,10 +94,8 @@ class _HomePageState extends State<HomePage> {
       final Uri uri = dynamicLinkData.link;
       final queryParams = uri.queryParameters;
       if (queryParams.isNotEmpty) {
-        print("Incoming Link :" + uri.toString());
         //  your code here
       } else {
-        print("No Current Links");
         // your code here
       }
     });
@@ -105,16 +105,13 @@ class _HomePageState extends State<HomePage> {
         .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
     final Uri uri = data!.link;
     if (uri != null) {
-      print("Found The Searched Link: " + uri.toString());
       // your code here
     } else {
-      print("Search Link Not Found");
       // your code here
     }
   }
 
   Future<void> initFirebase() async {
-    print("Initial Firebase");
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     // await Future.delayed(Duration(seconds: 3));
@@ -131,10 +128,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      print(teamController.teamMember.toJson());
+      // debugPrint(teamController.teamMember.toJson());
       _authController.checkTeamInvite();
       _authController.checkDeletedTeamBusiness();
-      print('Team Status: ${teamController.teamMembersStatus.value}');
+      // print('Team Status: ${teamController.teamMembersStatus.value}');
       return Scaffold(
           backgroundColor: Colors.white,
           body: teamController.teamMembersStatus == TeamMemberStatus.Loading
@@ -147,69 +144,86 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // ignore: unrelated_type_equality_checks
                       if (teamController.teamMembersStatus ==
                               TeamMemberStatus.UnAuthorized ||
                           teamController.teamMembersStatus ==
                               TeamMemberStatus.Error) ...[
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04),
-                        InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))),
-                                context: context,
-                                builder: (context) => buildSelectBusiness());
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  buildMenuItem(
-                                      "${_businessController.selectedBusiness.value!.businessName}"),
-                                  const Gap(Insets.xl),
-                                  Icon(
-                                    Icons.arrow_drop_down,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(20))),
+                                    context: context,
+                                    builder: (context) =>
+                                        buildSelectBusiness());
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 4),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    width: 3,
                                     color: AppColors.backgroundColor,
                                   ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  LocalSvgIcon(
-                                    Assets.icons.linear.notification,
-                                    size: 22,
-                                  ).onTap(() {
-                                    Get.to(const Notifications());
-                                  }),
-                                  const Gap(Insets.lg),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Settings());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/settings.svg',
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildMenuItem(utf8.decode(
+                                        _businessController.selectedBusiness
+                                            .value!.businessName
+                                            .toString()
+                                            .codeUnits)),
+                                    const Gap(Insets.xl),
+                                    const Icon(
+                                      Icons.arrow_drop_down,
                                       color: AppColors.backgroundColor,
-                                      height: 20,
-                                      width: 20,
                                     ),
-                                  ),
-                                  const Gap(Insets.sm),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                            Row(
+                              children: [
+                                LocalSvgIcon(
+                                  Assets.icons.linear.notification,
+                                  size: 22,
+                                ).onTap(() {
+                                  Get.to(const Notifications());
+                                }),
+                                const Gap(Insets.lg),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(const Settings());
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/images/settings.svg',
+                                    color: AppColors.backgroundColor,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                ),
+                                const Gap(Insets.sm),
+                              ],
+                            ),
+                          ],
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
                         Obx(() {
                           return Container(
                             padding: const EdgeInsets.all(12),
+                            // ignore: sort_child_properties_last
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -551,10 +565,15 @@ class _HomePageState extends State<HomePage> {
                                                   builder: (context) =>
                                                       CupertinoAlertDialog(
                                                     content:
-                                                        DebtInformationDialog(),
+                                                        const DebtInformationDialog(),
                                                     actions: [
                                                       CupertinoButton(
-                                                        child: const Text("OK"),
+                                                        child: const Text(
+                                                          "OK",
+                                                          style: TextStyle(
+                                                              color: AppColors
+                                                                  .primaryColor),
+                                                        ),
                                                         onPressed: () =>
                                                             Get.back(),
                                                       ),
@@ -566,10 +585,15 @@ class _HomePageState extends State<HomePage> {
                                                   builder: (context) =>
                                                       AlertDialog(
                                                     content:
-                                                        DebtInformationDialog(),
+                                                        const DebtInformationDialog(),
                                                     actions: [
                                                       CupertinoButton(
-                                                        child: const Text("OK"),
+                                                        child: const Text(
+                                                          "OK",
+                                                          style: TextStyle(
+                                                              color: AppColors
+                                                                  .primaryColor),
+                                                        ),
                                                         onPressed: () =>
                                                             Get.back(),
                                                       ),
@@ -677,8 +701,6 @@ class _HomePageState extends State<HomePage> {
                                                 .allPaymentItem[index];
                                             return InkWell(
                                               onTap: () {
-                                                print(
-                                                    "item payment transaction id is ${item.businessTransactionId}");
                                                 Get.to(() => MoneySummary(
                                                       item: item,
                                                       pageCheck: true,
@@ -842,7 +864,7 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GestureDetector(
+                            InkWell(
                               onTap: () {
                                 showModalBottomSheet(
                                     shape: const RoundedRectangleBorder(
@@ -857,58 +879,52 @@ class _HomePageState extends State<HomePage> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 4),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                        width: 3,
-                                        color: AppColors.backgroundColor)),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    width: 3,
+                                    color: AppColors.backgroundColor,
+                                  ),
+                                ),
                                 child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    buildMenuItem(
-                                        "${_businessController.selectedBusiness.value!.businessName}"),
-                                    const Expanded(child: SizedBox()),
+                                    buildMenuItem(utf8.decode(
+                                        _businessController.selectedBusiness
+                                            .value!.businessName
+                                            .toString()
+                                            .codeUnits)),
+                                    // const Gap(Insets.xl),
                                     const Icon(
-                                      Icons.keyboard_arrow_down,
+                                      Icons.arrow_drop_down,
                                       color: AppColors.backgroundColor,
                                     ),
-                                    const SizedBox(
-                                      width: 10,
-                                    )
                                   ],
                                 ),
                               ),
                             ),
-                            Container(
-                              child: Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Notifications());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/bell.svg',
-                                      height: 20,
-                                      width: 20,
-                                    ),
+                            Row(
+                              children: [
+                                LocalSvgIcon(
+                                  Assets.icons.linear.notification,
+                                  size: 22,
+                                ).onTap(() {
+                                  Get.to(const Notifications());
+                                }),
+                                const Gap(Insets.lg),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(const Settings());
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/images/settings.svg',
+                                    color: AppColors.backgroundColor,
+                                    height: 20,
+                                    width: 20,
                                   ),
-                                  SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.02),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(const Settings());
-                                    },
-                                    child: SvgPicture.asset(
-                                      'assets/images/settings.svg',
-                                      color: AppColors.backgroundColor,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                const Gap(Insets.sm),
+                              ],
                             ),
                           ],
                         ),
@@ -1227,11 +1243,15 @@ class _HomePageState extends State<HomePage> {
                                                         builder: (context) =>
                                                             CupertinoAlertDialog(
                                                           content:
-                                                              DebtInformationDialog(),
+                                                              const DebtInformationDialog(),
                                                           actions: [
                                                             CupertinoButton(
                                                               child: const Text(
-                                                                  "OK"),
+                                                                "OK",
+                                                                style: TextStyle(
+                                                                    color: AppColors
+                                                                        .primaryColor),
+                                                              ),
                                                               onPressed: () =>
                                                                   Get.back(),
                                                             ),
@@ -1243,11 +1263,15 @@ class _HomePageState extends State<HomePage> {
                                                         builder: (context) =>
                                                             AlertDialog(
                                                           content:
-                                                              DebtInformationDialog(),
+                                                              const DebtInformationDialog(),
                                                           actions: [
                                                             CupertinoButton(
                                                               child: const Text(
-                                                                  "OK"),
+                                                                "OK",
+                                                                style: TextStyle(
+                                                                    color: AppColors
+                                                                        .primaryColor),
+                                                              ),
                                                               onPressed: () =>
                                                                   Get.back(),
                                                             ),
@@ -1377,12 +1401,16 @@ class _HomePageState extends State<HomePage> {
                                                             builder: (context) =>
                                                                 CupertinoAlertDialog(
                                                               content:
-                                                                  DebtInformationDialog(),
+                                                                  const DebtInformationDialog(),
                                                               actions: [
                                                                 CupertinoButton(
                                                                   child:
                                                                       const Text(
-                                                                          "OK"),
+                                                                    "OK",
+                                                                    style: TextStyle(
+                                                                        color: AppColors
+                                                                            .primaryColor),
+                                                                  ),
                                                                   onPressed:
                                                                       () => Get
                                                                           .back(),
@@ -1396,12 +1424,16 @@ class _HomePageState extends State<HomePage> {
                                                                 (context) =>
                                                                     AlertDialog(
                                                               content:
-                                                                  DebtInformationDialog(),
+                                                                  const DebtInformationDialog(),
                                                               actions: [
                                                                 CupertinoButton(
                                                                   child:
                                                                       const Text(
-                                                                          "OK"),
+                                                                    "OK",
+                                                                    style: TextStyle(
+                                                                        color: AppColors
+                                                                            .primaryColor),
+                                                                  ),
                                                                   onPressed:
                                                                       () => Get
                                                                           .back(),
@@ -1519,8 +1551,6 @@ class _HomePageState extends State<HomePage> {
                                                 .allPaymentItem[index];
                                             return InkWell(
                                               onTap: () {
-                                                print(
-                                                    "item payment transaction id is ${item.businessTransactionId}");
                                                 Get.to(() => MoneySummary(
                                                       item: item,
                                                       pageCheck: true,
@@ -1685,7 +1715,7 @@ class _HomePageState extends State<HomePage> {
           floatingActionButton: Obx(() {
             return (teamController.teamMembersStatus ==
                     TeamMemberStatus.Loading)
-                ? Container()
+                ? LoadingWidget()
                 : (teamController.teamMember.authoritySet == null ||
                         teamController.teamMember.teamMemberStatus == 'CREATOR')
                     ? FloatingActionButton.extended(
@@ -2198,10 +2228,14 @@ class _HomePageState extends State<HomePage> {
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) => CupertinoAlertDialog(
-                                      content: DebtInformationDialog(),
+                                      content: const DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor),
+                                          ),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -2210,10 +2244,14 @@ class _HomePageState extends State<HomePage> {
                                 : showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      content: DebtInformationDialog(),
+                                      content: const DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor),
+                                          ),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -2303,8 +2341,6 @@ class _HomePageState extends State<HomePage> {
                                   _transactionController.allPaymentItem[index];
                               return InkWell(
                                 onTap: () {
-                                  print(
-                                      "item payment transaction id is ${item.businessTransactionId}");
                                   Get.to(() => MoneySummary(item: item));
                                 },
                                 child: Row(
@@ -2411,52 +2447,36 @@ class _HomePageState extends State<HomePage> {
                       context: context,
                       builder: (context) => buildSelectBusiness());
                 },
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 3, color: AppColors.backgroundColor)),
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      buildMenuItem(_businessController
-                                  .selectedBusiness.value ==
-                              null
-                          ? "No Business"
-                          : "${_businessController.selectedBusiness.value!.businessName}"),
-                      const Expanded(child: SizedBox()),
-                      const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: AppColors.backgroundColor,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      )
-                    ],
-                  ),
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    buildMenuItem(_businessController.selectedBusiness.value ==
+                            null
+                        ? "No Business"
+                        : "${_businessController.selectedBusiness.value!.businessName}"),
+                    const Expanded(child: SizedBox()),
+                    const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: AppColors.backgroundColor,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    )
+                  ],
                 ),
               ),
-              const Spacer(),
+              const Gap(Insets.xl),
               GestureDetector(
                 onTap: () {
                   Get.to(const Notifications());
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.backgroundColor.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(6)),
-                  padding: const EdgeInsets.all(10),
-                  child: SvgPicture.asset(
-                    'assets/images/bell.svg',
-                  ),
+                child: SvgPicture.asset(
+                  'assets/images/bell.svg',
                 ),
               ),
-              const Spacer(),
+              const Gap(Insets.lg),
               GestureDetector(
                 onTap: () {
                   Get.to(const Settings());
@@ -2843,10 +2863,14 @@ class _HomePageState extends State<HomePage> {
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) => CupertinoAlertDialog(
-                                      content: DebtInformationDialog(),
+                                      content: const DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor),
+                                          ),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -2855,10 +2879,14 @@ class _HomePageState extends State<HomePage> {
                                 : showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      content: DebtInformationDialog(),
+                                      content: const DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK"),
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor),
+                                          ),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -3148,7 +3176,8 @@ class _HomePageState extends State<HomePage> {
                                                 item.business!.businessName!
                                                     .isEmpty)
                                             ? ''
-                                            : item.business!.businessName![0],
+                                            : utf8.decode(item.business!
+                                                .businessName![0].codeUnits),
                                         style: GoogleFonts.inter(
                                             fontSize: 20,
                                             color: Colors.white,
@@ -3160,7 +3189,9 @@ class _HomePageState extends State<HomePage> {
                               Expanded(
                                   flex: 2,
                                   child: Text(
-                                    '${item.business!.businessName!}',
+                                    utf8.decode(item.business!.businessName
+                                        .toString()
+                                        .codeUnits),
                                     style: GoogleFonts.inter(
                                         fontSize: 13,
                                         color: Colors.black,
@@ -3198,7 +3229,7 @@ class _HomePageState extends State<HomePage> {
                 child: InkWell(
                   onTap: () {
                     Get.back();
-                    Get.to(CreateBusiness());
+                    Get.to(const CreateBusiness());
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

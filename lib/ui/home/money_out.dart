@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/product_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
@@ -117,6 +118,16 @@ class _MoneyOutState extends State<MoneyOut> {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
       context: context,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primaryColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
       initialDate: _transactionController.date ?? initialDate,
       firstDate: DateTime(DateTime.now().year - 5),
       lastDate: DateTime(DateTime.now().year + 5),
@@ -136,6 +147,16 @@ class _MoneyOutState extends State<MoneyOut> {
     final initialTime = TimeOfDay.now();
     final newTime = await showTimePicker(
       context: context,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primaryColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
       initialTime: _transactionController.time ?? initialTime,
     );
 
@@ -185,7 +206,10 @@ class _MoneyOutState extends State<MoneyOut> {
                           content: MoneyOutInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -197,7 +221,10 @@ class _MoneyOutState extends State<MoneyOut> {
                           content: MoneyOutInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text(
+                                "OK",
+                                style: TextStyle(color: AppColors.primaryColor),
+                              ),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -1153,74 +1180,56 @@ class _MoneyOutState extends State<MoneyOut> {
                   : Container(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.04),
               Obx(() {
-                return InkWell(
-                  onTap: () {
-                    if (_transactionController.addingTransactionStatus !=
-                        AddingTransactionStatus.Loading) {
-                      if (_transactionController.productList.isEmpty) {
-                        _transactionController.addMoreProduct();
-                      }
-
-                      if (_transactionController.productList.isNotEmpty) {
-                        if (_transactionController.selectedPaymentMode !=
-                                null &&
-                            _transactionController.selectedPaymentSource !=
-                                null &&
-                            _transactionController.selectedCategoryExpenses !=
-                                null) {
-                          if (_transactionController.addCustomer) {
-                            if (_transactionController.selectedCustomer !=
-                                    null ||
-                                _customerController
-                                        .nameController.text.isNotEmpty &&
-                                    _customerController.phoneNumberController
-                                        .text.isNotEmpty) {
-                            } else {
-                              Get.snackbar(
-                                  "Error", "Fill up your contact details");
-                              return;
-                            }
-                          }
-
-                          //  _transactionController.createTransaction("INCOME");
-                          _transactionController
-                              .createBusinessTransaction("EXPENDITURE");
-                        } else {
-                          Get.snackbar(
-                              "Error", "Fill up important information");
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: Insets.lg),
+                  child: Button(
+                    action: () {
+                      if (_transactionController.addingTransactionStatus !=
+                          AddingTransactionStatus.Loading) {
+                        if (_transactionController.productList.isEmpty) {
+                          _transactionController.addMoreProduct();
                         }
-                      } else {
-                        Get.snackbar("Error",
-                            "You need to have at least one product to proceed");
+
+                        if (_transactionController.productList.isNotEmpty) {
+                          if (_transactionController.selectedPaymentMode !=
+                                  null &&
+                              _transactionController.selectedPaymentSource !=
+                                  null &&
+                              _transactionController.selectedCategoryExpenses !=
+                                  null) {
+                            if (_transactionController.addCustomer) {
+                              if (_transactionController.selectedCustomer !=
+                                      null ||
+                                  _customerController
+                                          .nameController.text.isNotEmpty &&
+                                      _customerController.phoneNumberController
+                                          .text.isNotEmpty) {
+                              } else {
+                                Get.snackbar(
+                                    "Error", "Fill up your contact details");
+                                return;
+                              }
+                            }
+
+                            //  _transactionController.createTransaction("INCOME");
+                            _transactionController
+                                .createBusinessTransaction("EXPENDITURE");
+                          } else {
+                            Get.snackbar(
+                                "Error", "Fill up important information");
+                          }
+                        } else {
+                          Get.snackbar("Error",
+                              "You need to have at least one product to proceed");
+                        }
                       }
-                    }
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.height * 0.03),
-                    height: 50,
-                    decoration: const BoxDecoration(
-                        color: AppColors.backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: (_transactionController.addingTransactionStatus ==
-                            AddingTransactionStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child: const Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          )
-                        : Center(
-                            child: Text(
-                              'Save',
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
+                    },
+                    showLoading:
+                        (_transactionController.addingTransactionStatus ==
+                                AddingTransactionStatus.Loading)
+                            ? true
+                            : false,
+                    label: "Save",
                   ),
                 );
               }),

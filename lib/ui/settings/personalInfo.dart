@@ -1,11 +1,16 @@
 // ignore_for_file: close_sinks
 
 import 'dart:async';
+import 'dart:convert';
 import 'package:country_picker/country_picker.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
+import 'package:huzz/core/widgets/button/button.dart';
+import 'package:huzz/core/widgets/unfocus_scope.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/data/model/user.dart';
@@ -14,7 +19,7 @@ import 'package:huzz/core/constants/app_themes.dart';
 import '../widget/timer_button.dart';
 
 class PersonalInfo extends StatefulWidget {
-  PersonalInfo({Key? key});
+  const PersonalInfo({super.key});
 
   @override
   _PersonalInfoState createState() => _PersonalInfoState();
@@ -36,6 +41,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   StreamController<ErrorAnimationType>? errorController;
   StreamController<ErrorAnimationType>? otpErrorController;
 
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     otpErrorController = StreamController<ErrorAnimationType>();
@@ -57,53 +63,36 @@ class _PersonalInfoState extends State<PersonalInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.whiteColor,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: AppColors.backgroundColor,
-          ),
-        ),
-        title: Text(
-          "Personal Information",
-          style: GoogleFonts.inter(
-            color: AppColors.backgroundColor,
-            fontSize: 18,
-          ),
-        ),
-        elevation: 0,
+      resizeToAvoidBottomInset: true,
+      appBar: Appbar(
+        title: "Personal Information",
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomTextField(
-              label: "First Name",
-              validatorText: "First name is needed",
-              hint: firstName,
-              colors: AppColors.blackColor,
-              keyType: TextInputType.name,
-              textEditingController: _controller.firstNameController,
-            ),
-            CustomTextField(
-              label: "Last Name",
-              validatorText: "Last name is needed",
-              hint: lastName,
-              colors: AppColors.blackColor,
-              keyType: TextInputType.name,
-              textEditingController: _controller.lastNameController,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              child: Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomTextField(
+                label: "First Name",
+                validatorText: "First name is needed",
+                hint: utf8.decode(firstName.toString().codeUnits),
+                colors: AppColors.blackColor,
+                keyType: TextInputType.name,
+                textEditingController: _controller.firstNameController,
+              ),
+              CustomTextField(
+                label: "Last Name",
+                validatorText: "Last name is needed",
+                hint: utf8.decode(lastName.toString().codeUnits),
+                colors: AppColors.blackColor,
+                keyType: TextInputType.name,
+                textEditingController: _controller.lastNameController,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -118,11 +107,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             style: GoogleFonts.inter(
                                 color: Colors.black, fontSize: 12),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
+                          const SizedBox(width: 5),
                           Container(
-                            margin: EdgeInsets.only(top: 5),
+                            margin: const EdgeInsets.only(top: 5),
                             child: Text(
                               "*",
                               style: GoogleFonts.inter(
@@ -133,7 +120,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
@@ -143,7 +130,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       color: Colors.white,
                       border: Border.all(
                           color: AppColors.backgroundColor, width: 2.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -154,7 +141,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             showCountryCode(context);
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               border: Border(
                                   right: BorderSide(
                                       color: AppColors.backgroundColor,
@@ -165,26 +152,23 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Flag.fromString(countryFlag,
                                     height: 30, width: 30),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Icon(
                                   Icons.arrow_drop_down,
                                   size: 24,
-                                  color: AppColors
-                                      .backgroundColor
+                                  color: AppColors.backgroundColor
                                       .withOpacity(0.5),
                                 )
                               ],
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        const Gap(Insets.lg),
                         Expanded(
                           child: TextFormField(
                             enabled: false,
@@ -204,71 +188,41 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                     color: Colors.black)),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        const Gap(Insets.lg),
                       ],
                     ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            CustomTextField(
-              label: "Email",
-              validatorText: "Email required",
-              hint: email,
-              colors: AppColors.blackColor,
-              keyType: TextInputType.emailAddress,
-              textEditingController: _controller.emailController,
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Spacer(),
-            Obx(() {
-              return InkWell(
-                onTap: () {
-                  if (_controller.updateProfileStatus !=
-                      UpdateProfileStatus.Loading) _controller.updateProfile();
-                },
-                child: Container(
-                  height: 50,
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                      color: AppColors.backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: (_controller.updateProfileStatus ==
-                          UpdateProfileStatus.Loading)
-                      ? Center(
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
-                          ),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Save',
-                              style: GoogleFonts.inter(
-                                  color: Colors.white, fontSize: 18),
-                            ),
-                          ],
-                        ),
-                ),
-              );
-            }),
-            SizedBox(
-              height: 40,
-            ),
-          ],
+              const Gap(Insets.lg),
+              CustomTextField(
+                label: "Email",
+                validatorText: "Email required",
+                hint: email,
+                colors: AppColors.blackColor,
+                keyType: TextInputType.emailAddress,
+                textEditingController: _controller.emailController,
+              ),
+              const Gap(Insets.lg),
+              const Gap(Insets.xl),
+              Obx(() {
+                return Button(
+                  label: 'Save',
+                  showLoading: _controller.updateProfileStatus ==
+                          UpdateProfileStatus.Loading
+                      ? true
+                      : false,
+                  action: () {
+                    if (_controller.updateProfileStatus !=
+                        UpdateProfileStatus.Loading) {
+                      _controller.updateProfile();
+                    }
+                  },
+                );
+              }),
+              const Gap(Insets.lg),
+            ],
+          ),
         ),
       ),
     );
@@ -296,7 +250,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 235,
             ),
@@ -317,7 +271,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             content:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   left: 20,
                 ),
                 child: Text(
@@ -329,7 +283,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
@@ -351,7 +305,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     fieldWidth: 50,
                     activeFillColor: Colors.white,
                   ),
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                   backgroundColor: Colors.white,
                   enableActiveFill: true,
                   errorAnimationController: otpErrorController,
@@ -383,8 +337,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
               TimerButton(
                 label: "Resend via sms",
                 timeOutInSeconds: 20,
-                activeTextStyle:
-                    GoogleFonts.inter(color: Color(0xffEF6500), fontSize: 12),
+                activeTextStyle: GoogleFonts.inter(
+                    color: const Color(0xffEF6500), fontSize: 12),
                 onPressed: () {
                   _controller.sendSmsOtp(isresend: true);
                 },
@@ -395,7 +349,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             ]),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -406,7 +360,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -436,7 +390,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       child: Container(
                         height: 45,
                         width: 100,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         decoration: BoxDecoration(
@@ -467,7 +421,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
+            insetPadding: const EdgeInsets.symmetric(
               horizontal: 50,
               vertical: 235,
             ),
@@ -491,13 +445,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 25, right: 55, bottom: 20),
+                padding: const EdgeInsets.only(left: 25, right: 55, bottom: 20),
                 child: InkWell(
                   onTap: () {},
                   child: Container(
                     height: 45,
                     width: 150,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                     ),
                     decoration: BoxDecoration(

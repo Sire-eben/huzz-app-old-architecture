@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/widget/custom_drop_field.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
@@ -11,6 +12,9 @@ import '../../data/repository/auth_respository.dart';
 import '../app_scaffold.dart';
 
 class CreateBusiness extends StatefulWidget {
+  const CreateBusiness({super.key});
+
+  @override
   _CreateBusinessState createState() => _CreateBusinessState();
 }
 
@@ -33,27 +37,8 @@ class _CreateBusinessState extends State<CreateBusiness> {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: AppColors.backgroundColor,
-            ),
-            onPressed: () {
-              Get.back();
-            },
-          ),
-          title: Text(
-            'Create Your Business',
-            style: GoogleFonts.inter(
-              color: AppColors.backgroundColor,
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-            ),
-          ),
+        appBar: Appbar(
+          title: 'Create Your Business',
         ),
         body: SingleChildScrollView(
           child: Padding(
