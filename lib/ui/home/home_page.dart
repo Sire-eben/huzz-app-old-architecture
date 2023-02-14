@@ -35,6 +35,8 @@ import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
 class DebtInformationDialog extends StatelessWidget {
+  const DebtInformationDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -81,10 +83,9 @@ class _HomeState extends State<Home> {
 
   int selectedValue = 0;
   final transactionList = [];
-  RandomColor _randomColor = RandomColor();
+  final RandomColor _randomColor = RandomColor();
 
   Future<void> initDynamicLinks() async {
-    print("Initial DynamicLinks");
     FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
     // Incoming Links Listener
@@ -92,10 +93,8 @@ class _HomeState extends State<Home> {
       final Uri uri = dynamicLinkData.link;
       final queryParams = uri.queryParameters;
       if (queryParams.isNotEmpty) {
-        print("Incoming Link :" + uri.toString());
         //  your code here
       } else {
-        print("No Current Links");
         // your code here
       }
     });
@@ -105,16 +104,13 @@ class _HomeState extends State<Home> {
         .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
     final Uri uri = data!.link;
     if (uri != null) {
-      print("Found The Searched Link: " + uri.toString());
       // your code here
     } else {
-      print("Search Link Not Found");
       // your code here
     }
   }
 
   Future<void> initFirebase() async {
-    print("Initial Firebase");
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     // await Future.delayed(Duration(seconds: 3));
@@ -167,21 +163,33 @@ class _HomeState extends State<Home> {
                                     builder: (context) =>
                                         buildSelectBusiness());
                               },
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  buildMenuItem(utf8.decode(_businessController
-                                      .selectedBusiness.value!.businessName
-                                      .toString()
-                                      .codeUnits)),
-                                  const Gap(Insets.xl),
-                                  const Icon(
-                                    Icons.arrow_drop_down,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 4),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    width: 3,
                                     color: AppColors.backgroundColor,
                                   ),
-                                ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildMenuItem(utf8.decode(
+                                        _businessController.selectedBusiness
+                                            .value!.businessName
+                                            .toString()
+                                            .codeUnits)),
+                                    const Gap(Insets.xl),
+                                    const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: AppColors.backgroundColor,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Row(
@@ -214,6 +222,7 @@ class _HomeState extends State<Home> {
                         Obx(() {
                           return Container(
                             padding: const EdgeInsets.all(12),
+                            // ignore: sort_child_properties_last
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -553,11 +562,15 @@ class _HomeState extends State<Home> {
                                                   builder: (context) =>
                                                       CupertinoAlertDialog(
                                                     content:
-                                                        DebtInformationDialog(),
+                                                        const DebtInformationDialog(),
                                                     actions: [
                                                       CupertinoButton(
-                                                        child: const Text("OK",
-                                                          style: TextStyle(color: AppColors.primaryColor),),
+                                                        child: const Text(
+                                                          "OK",
+                                                          style: TextStyle(
+                                                              color: AppColors
+                                                                  .primaryColor),
+                                                        ),
                                                         onPressed: () =>
                                                             Get.back(),
                                                       ),
@@ -569,11 +582,15 @@ class _HomeState extends State<Home> {
                                                   builder: (context) =>
                                                       AlertDialog(
                                                     content:
-                                                        DebtInformationDialog(),
+                                                        const DebtInformationDialog(),
                                                     actions: [
                                                       CupertinoButton(
-                                                        child: const Text("OK",
-                                                          style: TextStyle(color: AppColors.primaryColor),),
+                                                        child: const Text(
+                                                          "OK",
+                                                          style: TextStyle(
+                                                              color: AppColors
+                                                                  .primaryColor),
+                                                        ),
                                                         onPressed: () =>
                                                             Get.back(),
                                                       ),
@@ -681,8 +698,6 @@ class _HomeState extends State<Home> {
                                                 .allPaymentItem[index];
                                             return InkWell(
                                               onTap: () {
-                                                print(
-                                                    "item payment transaction id is ${item.businessTransactionId}");
                                                 Get.to(() => MoneySummary(
                                                       item: item,
                                                       pageCheck: true,
@@ -856,21 +871,33 @@ class _HomeState extends State<Home> {
                                     builder: (context) =>
                                         buildSelectBusiness());
                               },
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  buildMenuItem(utf8.decode(_businessController
-                                      .selectedBusiness.value!.businessName
-                                      .toString()
-                                      .codeUnits)),
-                                  const Gap(Insets.xl),
-                                  const Icon(
-                                    Icons.arrow_drop_down,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 4),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    width: 3,
                                     color: AppColors.backgroundColor,
                                   ),
-                                ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildMenuItem(utf8.decode(
+                                        _businessController.selectedBusiness
+                                            .value!.businessName
+                                            .toString()
+                                            .codeUnits)),
+                                    // const Gap(Insets.xl),
+                                    const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: AppColors.backgroundColor,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Row(
@@ -1213,12 +1240,15 @@ class _HomeState extends State<Home> {
                                                         builder: (context) =>
                                                             CupertinoAlertDialog(
                                                           content:
-                                                              DebtInformationDialog(),
+                                                              const DebtInformationDialog(),
                                                           actions: [
                                                             CupertinoButton(
                                                               child: const Text(
-                                                                  "OK",
-                                                                style: TextStyle(color: AppColors.primaryColor),),
+                                                                "OK",
+                                                                style: TextStyle(
+                                                                    color: AppColors
+                                                                        .primaryColor),
+                                                              ),
                                                               onPressed: () =>
                                                                   Get.back(),
                                                             ),
@@ -1230,12 +1260,15 @@ class _HomeState extends State<Home> {
                                                         builder: (context) =>
                                                             AlertDialog(
                                                           content:
-                                                              DebtInformationDialog(),
+                                                              const DebtInformationDialog(),
                                                           actions: [
                                                             CupertinoButton(
                                                               child: const Text(
-                                                                  "OK",
-                                                                style: TextStyle(color: AppColors.primaryColor),),
+                                                                "OK",
+                                                                style: TextStyle(
+                                                                    color: AppColors
+                                                                        .primaryColor),
+                                                              ),
                                                               onPressed: () =>
                                                                   Get.back(),
                                                             ),
@@ -1365,13 +1398,16 @@ class _HomeState extends State<Home> {
                                                             builder: (context) =>
                                                                 CupertinoAlertDialog(
                                                               content:
-                                                                  DebtInformationDialog(),
+                                                                  const DebtInformationDialog(),
                                                               actions: [
                                                                 CupertinoButton(
                                                                   child:
                                                                       const Text(
-                                                                          "OK",
-                                                                        style: TextStyle(color: AppColors.primaryColor),),
+                                                                    "OK",
+                                                                    style: TextStyle(
+                                                                        color: AppColors
+                                                                            .primaryColor),
+                                                                  ),
                                                                   onPressed:
                                                                       () => Get
                                                                           .back(),
@@ -1385,13 +1421,16 @@ class _HomeState extends State<Home> {
                                                                 (context) =>
                                                                     AlertDialog(
                                                               content:
-                                                                  DebtInformationDialog(),
+                                                                  const DebtInformationDialog(),
                                                               actions: [
                                                                 CupertinoButton(
                                                                   child:
                                                                       const Text(
-                                                                          "OK",
-                                                                        style: TextStyle(color: AppColors.primaryColor),),
+                                                                    "OK",
+                                                                    style: TextStyle(
+                                                                        color: AppColors
+                                                                            .primaryColor),
+                                                                  ),
                                                                   onPressed:
                                                                       () => Get
                                                                           .back(),
@@ -1509,8 +1548,6 @@ class _HomeState extends State<Home> {
                                                 .allPaymentItem[index];
                                             return InkWell(
                                               onTap: () {
-                                                print(
-                                                    "item payment transaction id is ${item.businessTransactionId}");
                                                 Get.to(() => MoneySummary(
                                                       item: item,
                                                       pageCheck: true,
@@ -2188,11 +2225,14 @@ class _HomeState extends State<Home> {
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) => CupertinoAlertDialog(
-                                      content: DebtInformationDialog(),
+                                      content: const DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK",
-                                            style: TextStyle(color: AppColors.primaryColor),),
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor),
+                                          ),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -2201,11 +2241,14 @@ class _HomeState extends State<Home> {
                                 : showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      content: DebtInformationDialog(),
+                                      content: const DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK",
-                                            style: TextStyle(color: AppColors.primaryColor),),
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor),
+                                          ),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -2295,8 +2338,6 @@ class _HomeState extends State<Home> {
                                   _transactionController.allPaymentItem[index];
                               return InkWell(
                                 onTap: () {
-                                  print(
-                                      "item payment transaction id is ${item.businessTransactionId}");
                                   Get.to(() => MoneySummary(item: item));
                                 },
                                 child: Row(
@@ -2819,11 +2860,14 @@ class _HomeState extends State<Home> {
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) => CupertinoAlertDialog(
-                                      content: DebtInformationDialog(),
+                                      content: const DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK",
-                                            style: TextStyle(color: AppColors.primaryColor),),
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor),
+                                          ),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
@@ -2832,11 +2876,14 @@ class _HomeState extends State<Home> {
                                 : showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      content: DebtInformationDialog(),
+                                      content: const DebtInformationDialog(),
                                       actions: [
                                         CupertinoButton(
-                                          child: const Text("OK",
-                                            style: TextStyle(color: AppColors.primaryColor),),
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor),
+                                          ),
                                           onPressed: () => Get.back(),
                                         ),
                                       ],
