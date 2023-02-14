@@ -7,7 +7,6 @@ import 'package:huzz/core/util/validators.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
-import 'package:huzz/generated/assets.gen.dart';
 
 class RequestPaymentScreen extends StatefulWidget {
   const RequestPaymentScreen({super.key});
@@ -24,9 +23,7 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
       appBar: Appbar(title: 'Request Payment'),
       body: SingleChildScrollView(
         reverse: true,
-        child: Container(
-          height: context.getHeight(),
-          width: context.getWidth(),
+        child: Padding(
           padding: const EdgeInsets.all(Insets.lg),
           child: Form(
             key: formKey,
@@ -42,14 +39,13 @@ class _RequestPaymentScreenState extends State<RequestPaymentScreen>
                 inputType: TextInputType.number,
                 validator: Validators.validateAmount(),
               ),
-              const Spacer(),
+              const Gap(Insets.xl),
               Button(
                   label: 'Send Request',
                   action: () {
-                    // if(formKey.currentState!.validate()){
-                    // uploadDocumentSheet(context);
-                    // }
-                    sendRequestSheet(context);
+                    if (formKey.currentState!.validate()) {
+                      sendRequestSheet(context);
+                    }
                   }),
               const Gap(Insets.xl * 2),
             ]),

@@ -1620,6 +1620,9 @@ class _CustomTextFieldWithImageTransactionState
                                 horizontal: Insets.md,
                               ),
                               border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
                               hintText: "8123456789",
                               hintStyle: GoogleFonts.inter(
                                   color: Colors.black.withOpacity(0.5),

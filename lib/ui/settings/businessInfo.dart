@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
@@ -60,7 +61,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
 
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
-  ScrollController _scrollController = ScrollController();
+  @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
     // businessImage = bankInfoController.BankImage as String?;
@@ -320,36 +321,15 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         ],
                       ),
                     ),
-                    TextFormField(
+                    TextInputField(
                       controller: businessController.businessEmail,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColors.backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColors.backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        border: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColors.backgroundColor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        hintText:
-                            "${businessController.selectedBusiness.value!.businessEmail}",
-                        hintStyle:
-                            Theme.of(context).textTheme.headline4!.copyWith(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.normal,
-                                ),
+                      inputType: TextInputType.emailAddress,
+                      hintStyle: TextStyles.t1.copyWith(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.normal,
                       ),
+                      hintText:
+                          "${businessController.selectedBusiness.value!.businessEmail}",
                     ),
                     CustomTextField(
                       label: "Address",
