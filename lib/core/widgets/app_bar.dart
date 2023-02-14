@@ -62,7 +62,7 @@ class _AppbarBackButton extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: LocalSvgIcon(
-          Assets.icons.twotone.arrowLeft,
+          Assets.icons.linear.arrowLeft,
           size: 24,
           color: appbarType == AppbarType.light
               ? AppColors.primaryColor
