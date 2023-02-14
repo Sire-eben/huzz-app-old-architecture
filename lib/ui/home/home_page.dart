@@ -26,6 +26,7 @@ import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
 import 'package:huzz/ui/wallet/create_bank_account.dart';
+import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
@@ -60,14 +61,14 @@ class DebtInformationDialog extends StatelessWidget {
   }
 }
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   final display = createDisplay(
     roundingType: RoundingType.floor,
     length: 15,
@@ -150,6 +151,7 @@ class _HomeState extends State<Home> {
                               TeamMemberStatus.Error) ...[
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04),
+<<<<<<< HEAD
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -216,6 +218,59 @@ class _HomeState extends State<Home> {
                               ],
                             ),
                           ],
+=======
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                context: context,
+                                builder: (context) => buildSelectBusiness());
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  buildMenuItem(
+                                      "${_businessController.selectedBusiness.value!.businessName}"),
+                                  const Gap(Insets.xl),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    color: AppColors.backgroundColor,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  LocalSvgIcon(
+                                    Assets.icons.linear.notification,
+                                    size: 22,
+                                  ).onTap(() {
+                                    Get.to(const Notifications());
+                                  }),
+                                  const Gap(Insets.lg),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(const Settings());
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/images/settings.svg',
+                                      color: AppColors.backgroundColor,
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ),
+                                  const Gap(Insets.sm),
+                                ],
+                              ),
+                            ],
+                          ),
+>>>>>>> 1d838468783131dda717d077445733e6aa6aba0b
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
@@ -465,7 +520,9 @@ class _HomeState extends State<Home> {
                                 fit: BoxFit.fill,
                               ),
                             ),
-                          );
+                          ).onTap(() {
+                            Get.to(WalletScreen());
+                          });
                         }),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
