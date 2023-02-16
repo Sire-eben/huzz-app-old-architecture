@@ -29,8 +29,6 @@ class ManageCustomerInformationDialog extends StatelessWidget {
             'Your customers are the people you sell products or services to.',
             style: GoogleFonts.inter(
               fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
             ),
           )
         else

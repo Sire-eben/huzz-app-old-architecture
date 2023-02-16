@@ -113,6 +113,16 @@ class _CreateInvoiceState extends State<CreateInvoice> {
       initialDate: _invoiceController.date ?? initialDate,
       firstDate: DateTime(DateTime.now().year - 5),
       lastDate: DateTime(DateTime.now().year + 5),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primaryColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (newDate == null) return;
@@ -162,7 +172,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           content: CreateInvoiceInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],
@@ -174,7 +185,8 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                           content: CreateInvoiceInformationDialog(),
                           actions: [
                             CupertinoButton(
-                              child: const Text("OK"),
+                              child: const Text("OK",
+                                style: TextStyle(color: AppColors.primaryColor),),
                               onPressed: () => Get.back(),
                             ),
                           ],
