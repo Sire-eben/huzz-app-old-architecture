@@ -90,7 +90,7 @@ class TeamRepository extends GetxController {
         }
         _businessController.selectedBusiness.listen((p0) {
           if (p0 != null && p0.teamId != null) {
-            print("team id ${p0.teamId}");
+            debugPrint("team id ${p0.teamId}");
             // _offlineBusinessTeam([]);
             _onlineBusinessTeam([]);
             _team([]);
@@ -118,20 +118,20 @@ class TeamRepository extends GetxController {
   }
 
   Future getPhoneContact() async {
-    print("trying phone contact list");
+    debugPrint("trying phone contact list");
     try {
       if (await FlutterContacts.requestPermission()) {
         contactList = await FlutterContacts.getContacts(
             withProperties: true, withPhoto: false);
-        print("phone contacts ${contactList.length}");
+        debugPrint("phone contacts ${contactList.length}");
       }
     } catch (ex) {
-      print("contact error is ${ex.toString()}");
+      debugPrint("contact error is ${ex.toString()}");
     }
   }
 
   Future showContactPickerForTeams(BuildContext context) async {
-    print("contact picker is selected");
+    debugPrint("contact picker is selected");
     _searchtext("");
     _searchResult([]);
     await showModalBottomSheet(
@@ -160,7 +160,7 @@ class TeamRepository extends GetxController {
     contactList.forEach((element) {
       if (element.displayName.isNotEmpty &&
           element.displayName.toLowerCase().contains(val.toLowerCase())) {
-        print("contact found");
+        debugPrint("contact found");
         list.add(element);
       }
     });
@@ -169,7 +169,7 @@ class TeamRepository extends GetxController {
   }
 
   Widget buildSelectContact(BuildContext context) {
-    print("contact on phone ${contactList.length}");
+    debugPrint("contact on phone ${contactList.length}");
     return Obx(() {
       return Container(
         padding: EdgeInsets.only(
@@ -331,7 +331,7 @@ class TeamRepository extends GetxController {
   }
 
   Widget buildSelectTeam(BuildContext context) {
-    print("contact on phone ${contactList.length}");
+    debugPrint("contact on phone ${contactList.length}");
     return Obx(() {
       return Container(
         padding: EdgeInsets.only(
@@ -409,7 +409,7 @@ class TeamRepository extends GetxController {
                               if (item.phones.first.number.length == 11) {
                                 var no = item.phones.first.number
                                     .replaceFirst('0', '');
-                                print('contact selected $no');
+                                debugPrint('contact selected $no');
                                 phoneNumberController.text = no;
                               } else {
                                 var no = item.phones.first.number
@@ -420,7 +420,7 @@ class TeamRepository extends GetxController {
                                     .replaceAll('-', '')
                                     .replaceAll('(', '')
                                     .replaceAll(')', '');
-                                print('contact selected $no');
+                                debugPrint('contact selected $no');
                                 phoneNumberController.text = no;
                               }
                               nameController.text = item.displayName;
@@ -526,14 +526,14 @@ class TeamRepository extends GetxController {
   Future createTeam(String businessId) async {
     try {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
-      print("trying to create team feature");
+      debugPrint("trying to create team feature");
       var response = await http.post(
-          Uri.parse(ApiLink.createTeam + '$businessId'),
+          Uri.parse('${ApiLink.createTeam}$businessId'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      // print("result of create team ${response.body}");
+      // debugPrint("result of create team ${response.body}");
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("result of create team ${response.body}");
+        debugPrint("result of create team ${response.body}");
         var json = jsonDecode(response.body);
 
         _businessController.OnlineBusiness();
@@ -541,7 +541,7 @@ class TeamRepository extends GetxController {
             _businessController.selectedBusiness.value!.businessCurrency!);
 
         var value = _businessController.selectedBusiness.value;
-        print(value!.teamId);
+        debugPrint(value!.teamId);
         // getOfflineTeam(value.teamId!);
         Get.snackbar(
           "Success",
@@ -555,7 +555,7 @@ class TeamRepository extends GetxController {
       }
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
-      print('creating team feature error ${error.toString()}');
+      debugPrint('creating team feature error ${error.toString()}');
     }
   }
 
@@ -570,16 +570,16 @@ class TeamRepository extends GetxController {
     try {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
       var value = _businessController.selectedBusiness.value;
-      print("trying to invite team members: ${jsonEncode(item)}");
+      debugPrint("trying to invite team members: ${jsonEncode(item)}");
       var response = await http.post(
-          Uri.parse(ApiLink.inviteTeamMember + '/${value!.businessId}'),
+          Uri.parse('${ApiLink.inviteTeamMember}/${value!.businessId}'),
           body: json.encode(item),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("result of invite team member online: ${response.body}");
+      debugPrint("result of invite team member online: ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
@@ -587,14 +587,14 @@ class TeamRepository extends GetxController {
         if (json['success']) {
           Get.snackbar('Success', json['message']);
           _addingTeamMemberStatus(AddingTeamStatus.Success);
-          print(value.teamId);
+          debugPrint(value.teamId);
           // getOnlineTeam(value.teamId!);
           var teamMemberId = json['data']['id'];
-          print('Added Member MemberId: ${json['data']['id']}');
+          debugPrint('Added Member MemberId: ${json['data']['id']}');
           updateTeamInviteStatusOnline(teamMemberId, item);
           clearValue();
 
-          print('invite sent successfully');
+          debugPrint('invite sent successfully');
           // await getBusinessCustomerYetToBeSavedLocally();
           // checkIfUpdateAvailable();
         }
@@ -606,27 +606,27 @@ class TeamRepository extends GetxController {
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
       Get.snackbar("Error", "Error inviting team, try again!");
-      print('add team feature error ${error.toString()}');
+      debugPrint('add team feature error ${error.toString()}');
     }
   }
 
   Future updateTeamMember(String? id, Map<String, dynamic> item) async {
     try {
-      print('Team Member TeamId: ${item['teamId']}');
-      print('Team Member Id: $id');
+      debugPrint('Team Member TeamId: ${item['teamId']}');
+      debugPrint('Team Member Id: $id');
 
       _updatingTeamMemberStatus(UpdateTeamStatus.Loading);
       var value = _businessController.selectedBusiness.value;
-      print("trying to update team members: ${jsonEncode(item)}");
+      debugPrint("trying to update team members: ${jsonEncode(item)}");
       var response = await http.put(
-          Uri.parse(ApiLink.updateInviteTeamStatus + '/$id'),
+          Uri.parse('${ApiLink.updateInviteTeamStatus}/$id'),
           body: json.encode(item),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("result of update team member: ${response.body}");
+      debugPrint("result of update team member: ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
 
@@ -634,12 +634,12 @@ class TeamRepository extends GetxController {
         if (json['success']) {
           Get.snackbar('Success', json['message']);
           _updatingTeamMemberStatus(UpdateTeamStatus.Success);
-          print(value!.teamId);
+          debugPrint(value!.teamId);
           getOnlineTeam(value.teamId!);
           getOnlineTeamMember(value.teamId!);
 
           clearValue();
-          print('team member updated successfully');
+          debugPrint('team member updated successfully');
           Get.to(TeamMemberConfirmation());
         }
       } else {
@@ -650,7 +650,7 @@ class TeamRepository extends GetxController {
     } catch (error) {
       _updatingTeamMemberStatus(UpdateTeamStatus.Error);
       Get.snackbar("Error", "Error updating team member, try again!");
-      print('update team member error ${error.toString()}');
+      debugPrint('update team member error ${error.toString()}');
     }
   }
 
@@ -661,7 +661,7 @@ class TeamRepository extends GetxController {
       var value = _businessController.selectedBusiness.value;
 
       var response = await http
-          .put(Uri.parse(ApiLink.updateInviteTeamStatus + '/$teamMemberId'),
+          .put(Uri.parse('${ApiLink.updateInviteTeamStatus}/$teamMemberId'),
               body: jsonEncode({
                 "teamMemberStatus": 'ACCEPTED',
                 "phoneNumber": item['phoneNumber'],
@@ -672,7 +672,7 @@ class TeamRepository extends GetxController {
             "Authorization": "Bearer ${_userController.token}"
           });
 
-      print("update team response ${response.body}");
+      debugPrint("update team response ${response.body}");
       if (response.statusCode == 200) {
         _addingTeamMemberStatus(AddingTeamStatus.Success);
         getOnlineTeam(value!.teamId!);
@@ -692,24 +692,24 @@ class TeamRepository extends GetxController {
   Future getOnlineTeam(String? businessId) async {
     try {
       _teamStatus(TeamStatus.Loading);
-      print("trying to get team members online");
+      debugPrint("trying to get team members online");
       var response = await http.get(
-          Uri.parse(ApiLink.getTeamMember + '/$businessId'),
+          Uri.parse('${ApiLink.getTeamMember}/$businessId'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      print("result of get teams online ${response.body}");
+      debugPrint("result of get teams online ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json['success']) {
-          print('here 1');
+          debugPrint('here 1');
           var result =
               List.from(json['data']).map((e) => Teams.fromJson(e)).toList();
-          print('here 2');
+          debugPrint('here 2');
           _onlineBusinessTeam(result);
           result.isNotEmpty
               ? _teamStatus(TeamStatus.Available)
               : _teamStatus(TeamStatus.Empty);
-          print("Teams member length ${result.length}");
+          debugPrint("Teams member length ${result.length}");
           // await getBusinessTeamYetToBeSavedLocally();
           // checkAvailableTeamToUpdate();
         }
@@ -720,21 +720,20 @@ class TeamRepository extends GetxController {
       }
     } catch (error) {
       _teamStatus(TeamStatus.Error);
-      print('add team feature error ${error.toString()}');
+      debugPrint('add team feature error ${error.toString()}');
     }
   }
 
   Future getOnlineTeamMember(String? businessId) async {
     try {
       teamMembersStatus(TeamMemberStatus.Loading);
-      print("trying to get team member data online");
+      debugPrint("trying to get team member data online");
       var response = await http.get(
-          Uri.parse(ApiLink.getTeamMemberData +
-              '/$businessId' +
-              '/${_userController.user!.phoneNumber}'),
+          Uri.parse(
+              '${ApiLink.getTeamMemberData}/$businessId/${_userController.user!.phoneNumber}'),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      print("result of get team member data ${response.body}");
+      debugPrint("result of get team member data ${response.body}");
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         teamMembersStatus(TeamMemberStatus.Success);
@@ -743,19 +742,19 @@ class TeamRepository extends GetxController {
           teamMemberData(teamMember);
         }
       } else if (response.statusCode == 500) {
-        print("result of get team member error data ${response.body}");
+        debugPrint("result of get team member error data ${response.body}");
         teamMembersStatus(TeamMemberStatus.UnAuthorized);
       }
     } catch (error) {
       teamMembersStatus(TeamMemberStatus.Error);
-      print('team member data error ${error.toString()}');
+      debugPrint('team member data error ${error.toString()}');
     }
   }
 
   Future getBusinessTeamYetToBeSavedLocally() async {
     onlineBusinessTeam.forEach((element) {
       if (!checkAvailableTeam(element.teamId!)) {
-        print("Does not contain value");
+        debugPrint("Does not contain value");
 
         pendingBusinessTeam.add(element);
       }
@@ -790,16 +789,16 @@ class TeamRepository extends GetxController {
       }
       // getOfflineTeam(updatednext.teamId!);
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
     }
   }
 
   bool checkAvailableTeam(String id) {
     bool result = false;
     offlineBusinessTeam.forEach((element) {
-      print("checking whether team exist");
+      debugPrint("checking whether team exist");
       if (element.teamId == id) {
-        print("Team found");
+        debugPrint("Team found");
         result = true;
       }
     });
@@ -810,11 +809,13 @@ class TeamRepository extends GetxController {
     onlineBusinessTeam.forEach((element) async {
       var item = checkAvailableTeamWithValue(element.teamId!);
       if (item != null) {
-        print("item team is found");
-        print("updated offline ${item.updatedDateTime!.toIso8601String()}");
-        print("updated online ${element.updatedDateTime!.toIso8601String()}");
+        debugPrint("item team is found");
+        debugPrint(
+            "updated offline ${item.updatedDateTime!.toIso8601String()}");
+        debugPrint(
+            "updated online ${element.updatedDateTime!.toIso8601String()}");
         if (!element.updatedDateTime!.isAtSameMomentAs(item.updatedDateTime!)) {
-          print("found team to be updated");
+          debugPrint("found team to be updated");
           pendingUpdatedTeamMember.add(element);
         }
       }
@@ -827,9 +828,9 @@ class TeamRepository extends GetxController {
     Teams? item;
 
     offlineBusinessTeam.forEach((element) {
-      print("checking whether team member exist");
+      debugPrint("checking whether team member exist");
       if (element.teamId == id) {
-        print("Team found");
+        debugPrint("Team found");
         item = element;
       }
     });
@@ -837,7 +838,7 @@ class TeamRepository extends GetxController {
   }
 
   Future deleteTeamMember(Teams item) async {
-    print('deleting team member...');
+    debugPrint('deleting team member...');
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       await deleteTeamMemberOnline(item);
       // await getOnlineTeam(
@@ -849,14 +850,14 @@ class TeamRepository extends GetxController {
 
   Future deleteTeamMemberOnline(Teams teams) async {
     try {
-      print('deleting team member online...');
+      debugPrint('deleting team member online...');
       _deleteTeamMemberStatus(DeleteTeamStatus.Loading);
-      print(teams.teamId);
+      debugPrint(teams.teamId);
       var response = await http.delete(
-          Uri.parse(ApiLink.deleteTeamMember + "/${teams.teamId}"),
+          Uri.parse("${ApiLink.deleteTeamMember}/${teams.teamId}"),
           headers: {"Authorization": "Bearer ${_userController.token}"});
 
-      print("delete response ${response.body}");
+      debugPrint("delete response ${response.body}");
       if (response.statusCode == 200) {
         Get.snackbar('Success', 'Team member deleted successfully');
         _deleteTeamMemberStatus(DeleteTeamStatus.Success);
@@ -876,7 +877,7 @@ class TeamRepository extends GetxController {
       }
     } catch (error) {
       _deleteTeamMemberStatus(DeleteTeamStatus.Error);
-      print('delete online team member error: ' + error.toString());
+      debugPrint('delete online team member error: $error');
     }
   }
 

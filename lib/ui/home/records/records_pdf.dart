@@ -14,13 +14,11 @@ import 'package:printing/printing.dart';
 class RecordPdfApi {
   static Future<File> generate(RecordInvoice recordInvoice) async {
     final pdf = Document();
-    var _transactionController = Get.find<TransactionRespository>();
-    final huzzImgProvider =
-        await imageFromAssetBundle('assets/images/huzz_logo.png');
+    var transactionController = Get.find<TransactionRespository>();
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(_transactionController),
+        buildHeader(transactionController),
         SizedBox(height: PdfPageFormat.cm),
         buildMoneyInOutInvoice(recordInvoice),
         SizedBox(height: 2 * PdfPageFormat.cm),
@@ -36,7 +34,7 @@ class RecordPdfApi {
 
   static Widget buildHeader(TransactionRespository transactionRespository) =>
       Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Center(
             child: Text(
                 'YOUR TRANSACTIONS(${transactionRespository.value.value})',
@@ -61,8 +59,8 @@ class RecordPdfApi {
     }).toList();
 
     return Table.fromTextArray(
-      cellPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-      headerPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+      cellPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+      headerPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
       headers: headers,
       data: data,
       border: null,
@@ -70,8 +68,9 @@ class RecordPdfApi {
           fontWeight: FontWeight.bold, color: PdfColors.black, fontSize: 18),
       headerStyle: TextStyle(
           fontWeight: FontWeight.bold, color: PdfColors.white, fontSize: 18),
-      headerDecoration: BoxDecoration(color: PdfColor.fromInt(0xff07A58E)),
-      rowDecoration: BoxDecoration(color: PdfColors.grey100),
+      headerDecoration:
+          const BoxDecoration(color: PdfColor.fromInt(0xff07A58E)),
+      rowDecoration: const BoxDecoration(color: PdfColors.grey100),
       cellHeight: 30,
       cellAlignments: {
         0: Alignment.centerLeft,
@@ -103,7 +102,7 @@ class RecordPdfApi {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             color: PdfColors.orange,
             child: Text(
               'TOTAL',
@@ -145,13 +144,13 @@ class RecordPdfApi {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          border: Border.all(color: PdfColor.fromInt(0xff07A58E))),
+          border: Border.all(color: const PdfColor.fromInt(0xff07A58E))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
-            color: PdfColor.fromInt(0xff07A58E),
+            padding: const EdgeInsets.all(8),
+            color: const PdfColor.fromInt(0xff07A58E),
             child: Text(
               'AVAILABLE BALANCE',
               style: TextStyle(
@@ -247,7 +246,7 @@ class DailyRecordPdfApi {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
         "POWERED BY",
-        style: TextStyle(
+        style: const TextStyle(
           color: PdfColors.black,
         ),
       ),
@@ -262,7 +261,7 @@ class DailyRecordPdfApi {
         Text(
           "Huzz",
           style: TextStyle(
-            color: PdfColor.fromInt(0xff07A58E),
+            color: const PdfColor.fromInt(0xff07A58E),
             fontSize: 16,
             font: font,
           ),
@@ -272,7 +271,7 @@ class DailyRecordPdfApi {
   }
 
   static Widget buildHeader(String range, Font font) => Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Center(
           child: Text(
             'YOUR TRANSACTIONS ( $range )',
@@ -350,7 +349,7 @@ class DailyRecordPdfApi {
 
     return Table.fromTextArray(
       defaultColumnWidth: const FixedColumnWidth(200.0),
-      cellPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      cellPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       headers: headers,
       data: data,
       border: null,
@@ -365,10 +364,10 @@ class DailyRecordPdfApi {
         fontSize: 10,
         font: font,
       ),
-      headerDecoration: BoxDecoration(
+      headerDecoration: const BoxDecoration(
         color: PdfColor.fromInt(0xff07A58E),
       ),
-      cellDecoration: (_, __, ___) => BoxDecoration(
+      cellDecoration: (_, __, ___) => const BoxDecoration(
         color: PdfColors.grey100,
         border: Border.symmetric(
             vertical: BorderSide(
@@ -399,13 +398,13 @@ class DailyRecordPdfApi {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          border: Border.all(color: PdfColor.fromInt(0xffEF6500))),
+          border: Border.all(color: const PdfColor.fromInt(0xffEF6500))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
-            color: PdfColor.fromInt(0xffEF6500),
+            padding: const EdgeInsets.all(8),
+            color: const PdfColor.fromInt(0xffEF6500),
             child: Text(
               'AVAILABLE BALANCE',
               style: TextStyle(
@@ -417,7 +416,7 @@ class DailyRecordPdfApi {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Text(
               Utils.formatPrice(transactionRespository.recordBalance),
               style: TextStyle(
@@ -444,13 +443,13 @@ class DailyRecordPdfApi {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          border: Border.all(color: PdfColor.fromInt(0xff07A58E))),
+          border: Border.all(color: const PdfColor.fromInt(0xff07A58E))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
-            color: PdfColor.fromInt(0xff07A58E),
+            padding: const EdgeInsets.all(8),
+            color: const PdfColor.fromInt(0xff07A58E),
             child: Text(
               'TOTAL MONEY IN',
               style: TextStyle(
@@ -462,7 +461,7 @@ class DailyRecordPdfApi {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Text(
               Utils.formatPrice(transactionRespository.recordMoneyIn),
               style: TextStyle(
@@ -489,13 +488,13 @@ class DailyRecordPdfApi {
     return Container(
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
-          border: Border.all(color: PdfColor.fromInt(0xff07A58E))),
+          border: Border.all(color: const PdfColor.fromInt(0xff07A58E))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.all(8),
-            color: PdfColor.fromInt(0xff07A58E),
+            padding: const EdgeInsets.all(8),
+            color: const PdfColor.fromInt(0xff07A58E),
             child: Text(
               'TOTAL MONEY OUT',
               style: TextStyle(
@@ -507,7 +506,7 @@ class DailyRecordPdfApi {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Text(
               Utils.formatPrice(transactionRespository.recordMoneyOut),
               style: TextStyle(

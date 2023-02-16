@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/widget/expandable_widget.dart';
@@ -26,11 +27,11 @@ class InformationDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        const Icon(
           Icons.info_outline_rounded,
           size: 27,
         ),
-        SizedBox(height: 7),
+        const SizedBox(height: 7),
         Text(
           "Manage member authorization for your business team",
           textAlign: TextAlign.center,
@@ -44,7 +45,7 @@ class InformationDialog extends StatelessWidget {
 }
 
 class AddMember extends StatefulWidget {
-  AddMember({Key? key}) : super(key: key);
+  const AddMember({Key? key}) : super(key: key);
 
   @override
   State<AddMember> createState() => _AddMemberState();
@@ -52,13 +53,13 @@ class AddMember extends StatefulWidget {
 
 class _AddMemberState extends State<AddMember> {
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
-  List _authoritySet = [];
-  List _roleSet = [];
-  List _selectedIndex = [];
-  List _selectedViewIndex = [];
-  List _selectedCreateIndex = [];
-  List _selectedUpdateIndex = [];
-  List _selectedDeleteIndex = [];
+  final List _authoritySet = [];
+  final List _roleSet = [];
+  final List _selectedIndex = [];
+  final List _selectedViewIndex = [];
+  final List _selectedCreateIndex = [];
+  final List _selectedUpdateIndex = [];
+  final List _selectedDeleteIndex = [];
   final controller = Get.find<AuthRepository>();
   final _teamController = Get.find<TeamRepository>();
   final _businessController = Get.find<BusinessRespository>();
@@ -85,9 +86,6 @@ class _AddMemberState extends State<AddMember> {
 
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
-    print('BusinessId: $value');
-    final teamId = _businessController.selectedBusiness.value!.teamId;
-    print('Business TeamId: $teamId');
     shareBusinessIdLink(value.toString());
   }
 
@@ -111,10 +109,7 @@ class _AddMemberState extends State<AddMember> {
         );
         final shortLink = await dynamicLinks.buildShortLink(parameters);
         teamInviteLink = shortLink.shortUrl.toString();
-        print('invite link: $teamInviteLink');
-      } catch (error) {
-        print(error.toString());
-      }
+      } catch (error) {}
     }
   }
 
@@ -126,7 +121,7 @@ class _AddMemberState extends State<AddMember> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: AppColors.backgroundColor,
           ),
@@ -154,7 +149,7 @@ class _AddMemberState extends State<AddMember> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             CustomAddMemberTextField(
@@ -165,7 +160,7 @@ class _AddMemberState extends State<AddMember> {
               validatorText: "Member name is needed",
               hint: 'member name',
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -179,7 +174,7 @@ class _AddMemberState extends State<AddMember> {
                       fontSize: 12,
                     ),
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   SvgPicture.asset(
                     "assets/images/info.svg",
                     height: 15,
@@ -188,23 +183,20 @@ class _AddMemberState extends State<AddMember> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             ListView.builder(
                 shrinkWrap: true,
-                physics: ScrollPhysics(),
+                physics: const ScrollPhysics(),
                 itemCount: roleSet.length,
                 itemBuilder: (context, index) {
                   RoleSet item = roleSet[index];
-                  final _isSelected = _selectedIndex.contains(index);
-                  final _isSelectedView = _selectedViewIndex.contains(index);
-                  final _isSelectedCreate =
-                      _selectedCreateIndex.contains(index);
-                  final _isSelectedUpdate =
-                      _selectedUpdateIndex.contains(index);
-                  final _isSelectedDelete =
-                      _selectedDeleteIndex.contains(index);
+                  final isSelected = _selectedIndex.contains(index);
+                  final isSelectedView = _selectedViewIndex.contains(index);
+                  final isSelectedCreate = _selectedCreateIndex.contains(index);
+                  final isSelectedUpdate = _selectedUpdateIndex.contains(index);
+                  final isSelectedDelete = _selectedDeleteIndex.contains(index);
                   return ExpandableWidget(
                     info: () {
                       Platform.isIOS
@@ -212,11 +204,14 @@ class _AddMemberState extends State<AddMember> {
                               context: context,
                               barrierDismissible: true,
                               builder: (context) => CupertinoAlertDialog(
-                                content: InformationDialog(),
+                                content: const InformationDialog(),
                                 actions: [
                                   CupertinoButton(
-                                    child: const Text("OK",
-                                      style: TextStyle(color: AppColors.primaryColor),),
+                                    child: const Text(
+                                      "OK",
+                                      style: TextStyle(
+                                          color: AppColors.primaryColor),
+                                    ),
                                     onPressed: () => Get.back(),
                                   ),
                                 ],
@@ -225,11 +220,14 @@ class _AddMemberState extends State<AddMember> {
                           : showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                content: InformationDialog(),
+                                content: const InformationDialog(),
                                 actions: [
                                   CupertinoButton(
-                                    child: const Text("OK",
-                                      style: TextStyle(color: AppColors.primaryColor),),
+                                    child: const Text(
+                                      "OK",
+                                      style: TextStyle(
+                                          color: AppColors.primaryColor),
+                                    ),
                                     onPressed: () => Get.back(),
                                   ),
                                 ],
@@ -239,7 +237,7 @@ class _AddMemberState extends State<AddMember> {
                     manageChild: InkWell(
                       onTap: () {
                         setState(() {
-                          if (_isSelected) {
+                          if (isSelected) {
                             _selectedIndex.remove(index);
                             _selectedViewIndex.remove(index);
                             _selectedCreateIndex.remove(index);
@@ -256,10 +254,6 @@ class _AddMemberState extends State<AddMember> {
                               _authoritySet.remove(item.authoritySet![2]);
                               _authoritySet.remove(item.authoritySet![3]);
                               _authoritySet.remove(item.authoritySet![4]);
-
-                              print(index);
-                              print('RoleSet: ${_roleSet.toString()}');
-                              print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedIndex.add(index);
@@ -272,19 +266,15 @@ class _AddMemberState extends State<AddMember> {
                             _authoritySet.add(item.authoritySet![3]);
                             _selectedDeleteIndex.add(index);
                             _authoritySet.add(item.authoritySet![4]);
-
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
-                      child: _isSelected
-                          ? Icon(
+                      child: isSelected
+                          ? const Icon(
                               Icons.check_box,
                               color: AppColors.backgroundColor,
                             )
-                          : Icon(
+                          : const Icon(
                               Icons.check_box_outline_blank,
                               color: AppColors.backgroundColor,
                             ),
@@ -292,32 +282,24 @@ class _AddMemberState extends State<AddMember> {
                     view: InkWell(
                       onTap: () {
                         setState(() {
-                          if (_isSelectedView) {
+                          if (isSelectedView) {
                             _selectedViewIndex.remove(index);
 
                             if (_authoritySet.contains(item.authoritySet![1])) {
                               _authoritySet.remove(item.authoritySet![1]);
-
-                              print(index);
-                              print('RoleSet: $_roleSet');
-                              print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedViewIndex.add(index);
                             _authoritySet.add(item.authoritySet![1]);
-
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
-                      child: _isSelectedView
-                          ? Icon(
+                      child: isSelectedView
+                          ? const Icon(
                               Icons.check_box,
                               color: AppColors.blackColor,
                             )
-                          : Icon(
+                          : const Icon(
                               Icons.check_box_outline_blank,
                               color: AppColors.blackColor,
                             ),
@@ -325,32 +307,24 @@ class _AddMemberState extends State<AddMember> {
                     create: InkWell(
                       onTap: () {
                         setState(() {
-                          if (_isSelectedCreate) {
+                          if (isSelectedCreate) {
                             _selectedCreateIndex.remove(index);
 
                             if (_authoritySet.contains(item.authoritySet![2])) {
                               _authoritySet.remove(item.authoritySet![2]);
-
-                              print(index);
-                              print('RoleSet: $_roleSet');
-                              print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedCreateIndex.add(index);
                             _authoritySet.add(item.authoritySet![2]);
-
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
-                      child: _isSelectedCreate
-                          ? Icon(
+                      child: isSelectedCreate
+                          ? const Icon(
                               Icons.check_box,
                               color: AppColors.blackColor,
                             )
-                          : Icon(
+                          : const Icon(
                               Icons.check_box_outline_blank,
                               color: AppColors.blackColor,
                             ),
@@ -358,32 +332,24 @@ class _AddMemberState extends State<AddMember> {
                     update: InkWell(
                       onTap: () {
                         setState(() {
-                          if (_isSelectedUpdate) {
+                          if (isSelectedUpdate) {
                             _selectedUpdateIndex.remove(index);
 
                             if (_authoritySet.contains(item.authoritySet![3])) {
                               _authoritySet.remove(item.authoritySet![3]);
-
-                              print(index);
-                              print('RoleSet: $_roleSet');
-                              print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedUpdateIndex.add(index);
                             _authoritySet.add(item.authoritySet![3]);
-
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
-                      child: _isSelectedUpdate
-                          ? Icon(
+                      child: isSelectedUpdate
+                          ? const Icon(
                               Icons.check_box,
                               color: AppColors.blackColor,
                             )
-                          : Icon(
+                          : const Icon(
                               Icons.check_box_outline_blank,
                               color: AppColors.blackColor,
                             ),
@@ -391,32 +357,24 @@ class _AddMemberState extends State<AddMember> {
                     delete: InkWell(
                       onTap: () {
                         setState(() {
-                          if (_isSelectedDelete) {
+                          if (isSelectedDelete) {
                             _selectedDeleteIndex.remove(index);
 
                             if (_authoritySet.contains(item.authoritySet![4])) {
                               _authoritySet.remove(item.authoritySet![4]);
-
-                              print(index);
-                              print('RoleSet: $_roleSet');
-                              print('AuthoritySet: $_authoritySet');
                             }
                           } else {
                             _selectedDeleteIndex.add(index);
                             _authoritySet.add(item.authoritySet![4]);
-
-                            print(index);
-                            print('RoleSet: $_roleSet');
-                            print('AuthoritySet: $_authoritySet');
                           }
                         });
                       },
-                      child: _isSelectedDelete
-                          ? Icon(
+                      child: isSelectedDelete
+                          ? const Icon(
                               Icons.check_box,
                               color: AppColors.blackColor,
                             )
-                          : Icon(
+                          : const Icon(
                               Icons.check_box_outline_blank,
                               color: AppColors.blackColor,
                             ),
@@ -429,30 +387,27 @@ class _AddMemberState extends State<AddMember> {
                     role: manageCustomer,
                   );
                 }),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Obx(() {
               return InkWell(
                 onTap: () {
                   int phoneLength =
                       _teamController.phoneNumberController.text.length;
-                  print('phone length: $phoneLength');
-                  print(
-                      'isEmail: ${GetUtils.isEmail(_teamController.emailController.text)}');
                   if (_teamController.phoneNumberController.text == '' ||
                       _teamController.emailController.text == '') {
                     Get.snackbar('Alert', 'Enter required details to continue!',
-                        titleText: Text('Alert'),
+                        titleText: const Text('Alert'),
                         messageText:
-                            Text('Enter required details to continue!'),
-                        icon: Icon(Icons.info,
+                            const Text('Enter required details to continue!'),
+                        icon: const Icon(Icons.info,
                             color: AppColors.orangeBorderColor));
                   } else if (_teamController.phoneNumberController.text == '') {
                     Get.snackbar(
                         'Alert', 'Enter your phone number to continue!',
-                        titleText: Text('Alert'),
+                        titleText: const Text('Alert'),
                         messageText:
-                            Text('Enter your phone number to continue!'),
-                        icon: Icon(Icons.info,
+                            const Text('Enter your phone number to continue!'),
+                        icon: const Icon(Icons.info,
                             color: AppColors.orangeBorderColor));
                   } else if (GetUtils.isEmail(
                           _teamController.emailController.text) ==
@@ -471,8 +426,6 @@ class _AddMemberState extends State<AddMember> {
                       "roleSet": _roleSet,
                       "authoritySet": _authoritySet
                     };
-                    print(
-                        'BusinessId: $value, Team member: ${jsonEncode(inviteTeamMemberData)}');
 
                     _teamController.inviteTeamMemberOnline(
                         value!, inviteTeamMemberData);
@@ -480,9 +433,9 @@ class _AddMemberState extends State<AddMember> {
                 },
                 child: Container(
                   height: 55,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10),
@@ -490,11 +443,8 @@ class _AddMemberState extends State<AddMember> {
                   child: Center(
                     child: (_teamController.addingTeamMemberStatus ==
                             AddingTeamStatus.Loading)
-                        ? Container(
-                            width: 30,
-                            height: 30,
-                            child:
-                                CircularProgressIndicator(color: Colors.white),
+                        ? const LoadingWidget(
+                            color: Colors.white,
                           )
                         : Text(
                             'Invite Member',
@@ -508,7 +458,7 @@ class _AddMemberState extends State<AddMember> {
                 ),
               );
             }),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -525,8 +475,6 @@ class _AddMemberState extends State<AddMember> {
         countryFlag = country.toJson()['iso2_cc'];
         country.toJson();
         setState(() {});
-
-        print('Select country: ${country.toJson()}');
       },
     );
   }

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:huzz/core/util/constants.dart';
@@ -119,7 +120,7 @@ class PdfInvoiceApi {
           child: businessImgProvider == null
               ? Center(
                   child: Text(
-                    business.businessName![0],
+                    utf8.decode(business.businessName![0].codeUnits),
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -130,7 +131,7 @@ class PdfInvoiceApi {
               : null,
         ),
         pw.SizedBox(height: 8),
-        Text(business.businessName ?? "",
+        Text(utf8.decode(business.businessName.toString().codeUnits),
             style:
                 TextStyle(fontWeight: FontWeight.bold, color: PdfColors.white)),
         SizedBox(height: 1 * PdfPageFormat.mm),
@@ -159,13 +160,9 @@ class PdfInvoiceApi {
                     color: PdfColors.white,
                     fontSize: 16)),
           ]),
-          Text(
-              'Issued Date:' +
-                  DateFormat.yMMMd().format(DateTime.now()).toString(),
+          Text('Issued Date:${DateFormat.yMMMd().format(DateTime.now())}',
               style: const TextStyle(color: PdfColors.white, fontSize: 10)),
-          Text(
-              'Due Date:' +
-                  DateFormat.yMMMd().format(invoice.dueDateTime!).toString(),
+          Text('Due Date:${DateFormat.yMMMd().format(invoice.dueDateTime!)}',
               style: const TextStyle(color: PdfColors.white, fontSize: 10)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text('Mode of Payment',
