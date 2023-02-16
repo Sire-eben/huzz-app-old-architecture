@@ -36,7 +36,7 @@ class AppThemes {
         indicatorColor: AppColors.primaryColor,
         scaffoldBackgroundColor: AppColors.whiteColor,
         textSelectionTheme: const TextSelectionThemeData(
-        cursorColor: AppColors.primaryColor, //<-- SEE HERE
+        cursorColor: AppColors.primaryColor,
      ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(

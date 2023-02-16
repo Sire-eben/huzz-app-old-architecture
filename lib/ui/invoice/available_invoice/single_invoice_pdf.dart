@@ -139,6 +139,7 @@ class SingleInvoicePdf {
     }).toList();
 
     return Table.fromTextArray(
+      defaultColumnWidth: const FixedColumnWidth(200.0),
       headers: headers,
       data: data,
       border: null,
