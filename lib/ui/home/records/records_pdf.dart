@@ -349,6 +349,7 @@ class DailyRecordPdfApi {
     // }).toList();
 
     return Table.fromTextArray(
+      defaultColumnWidth: const FixedColumnWidth(200.0),
       cellPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       headers: headers,
       data: data,
