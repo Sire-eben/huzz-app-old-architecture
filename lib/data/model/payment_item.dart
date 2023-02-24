@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class PaymentItem {
   String? id;
   String? businessTransactionId;
@@ -8,7 +6,7 @@ class PaymentItem {
   int? quality;
   dynamic amount;
   bool? isFullyPaid;
-  dynamic? totalAmount;
+  dynamic totalAmount;
   DateTime? createdTime;
   DateTime? updatedTime;
   bool? deleted;

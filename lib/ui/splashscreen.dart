@@ -11,6 +11,9 @@ import 'package:huzz/ui/onboarding_main..dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
@@ -23,24 +26,24 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   startTime() async {
-    var duration = new Duration(seconds: 4);
-    return new Timer(duration, route);
+    var duration = const Duration(seconds: 4);
+    return Timer(duration, route);
   }
 
   route() async {
     if (_controller.authStatus == AuthStatus.IsFirstTime) {
-      Get.off(() => OnboardingMain());
+      Get.off(() => const OnboardingMain());
     } else if (_controller.authStatus == AuthStatus.Authenticated) {
       if (_controller.user!.businessList!.isEmpty ||
-          _controller.user!.businessList!.length == 0) {
+          _controller.user!.businessList!.isEmpty) {
         print('Business List: ${_controller.user!.businessList!.length}');
-        Get.off(() => CreateBusiness());
+        Get.off(() => const CreateBusiness());
       } else {
         _controller.checkTeamInvite();
         Get.off(() => Dashboard());
       }
     } else {
-      Get.off(() => Signin());
+      Get.off(() => const Signin());
     }
   }
 
@@ -58,14 +61,14 @@ class _SplashScreenState extends State<SplashScreen> {
               Container(
                   width: 70,
                   height: 70,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SvgPicture.asset(Assets.images.vector1),
                   )),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               SvgPicture.asset(Assets.images.huzz)
