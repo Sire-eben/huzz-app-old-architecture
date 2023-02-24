@@ -3,6 +3,7 @@ mixin AppStrings {
   static const helpAndSupport = 'Help and Support';
   static const connectOnWhatsApp = 'Connect on WhatsApp';
   static const connectOnTelegram = 'Connect on Telegram';
+  static const userManual = 'User Manual';
   static const mail = 'Mail';
   static const faq = 'FAQ';
   static const termsOfUse = 'Terms Of Use';
@@ -15,4 +16,6 @@ mixin AppStrings {
       'https://api.whatsapp.com/send?phone=+2348132894616';
 
   static const huzzTelegramContactURI = 'https://t.me/+_Of_Mc-Yet0wZmRk';
+
+  static const huzzUserManualURI = 'https://bit.ly/huzz-usermanual';
 }

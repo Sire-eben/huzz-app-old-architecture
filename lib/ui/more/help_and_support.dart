@@ -509,6 +509,82 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  // User Manual Connect
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Material(
+                      child: InkWell(
+                        highlightColor:
+                        AppColors.backgroundColor.withOpacity(0.3),
+                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
+                        onTap: () async {
+                          // final action = await AlertDialogs.yesCancelDialog(
+                          //     context, 'Open WhatsApp', 'Click confirm to proceed');
+                          // if (action == DialogsAction.yes) {
+                          //   launch(
+                          //       'https://api.whatsapp.com/send?phone=+2348133258252');
+                          // } else {
+                          //   return null;
+                          // }
+                          _displayUserManualDialog(context);
+                        },
+                        child: Ink(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 55,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: const Color(0xffE6F4F2),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                  color: AppColors.whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColors.whiteColor,
+                                  ),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Image.asset(
+                                    AppIcons.privacyPolicy,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                AppStrings.userManual,
+                                style: GoogleFonts.inter(
+                                  color: AppColors.blackColor,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const Spacer(),
+                              SvgPicture.asset(
+                                AppIcons.chevronRight,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -718,6 +794,112 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     InkWell(
                       onTap: () {
                         launch(AppStrings.huzzTelegramContactURI);
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColors.backgroundColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Continue',
+                            style: GoogleFonts.inter(
+                              color: AppColors.whiteColor,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  _displayUserManualDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: const EdgeInsets.symmetric(
+              horizontal: 50,
+              vertical: 280,
+            ),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: Text(
+                    'Open User Manual..?',
+                    style: GoogleFonts.inter(
+                      color: AppColors.backgroundColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Text(
+              AppStrings.continueToProceed,
+              style: GoogleFonts.inter(
+                color: AppColors.blackColor,
+                fontWeight: FontWeight.normal,
+                fontSize: 11,
+              ),
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 100,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: AppColors.whiteColor,
+                            border: Border.all(
+                              width: 2,
+                              color: AppColors.backgroundColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            'Cancel',
+                            style: GoogleFonts.inter(
+                              color: AppColors.backgroundColor,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        launch(AppStrings.huzzUserManualURI);
                       },
                       child: Container(
                         height: 45,
