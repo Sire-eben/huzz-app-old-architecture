@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:huzz/data/repository/business_respository.dart';
@@ -105,7 +106,7 @@ class PdfMoneyInOutApi {
             child: businessImgProvider == null
                 ? Center(
                     child: Text(
-                      item.businessName![0],
+                      utf8.decode(item.businessName![0].codeUnits),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -116,7 +117,7 @@ class PdfMoneyInOutApi {
                 : null,
           ),
           pw.SizedBox(height: 8),
-          Text(item.businessName!,
+          Text(utf8.decode(item.businessName.toString().codeUnits),
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
@@ -155,7 +156,7 @@ class PdfMoneyInOutApi {
       final unit = item.totalAmount / item.quality;
 
       return [
-        item.itemName,
+        utf8.decode(item.itemName.toString().codeUnits),
         '${item.quality}',
         '${Utils.formatPrice(unit)}',
         '${Utils.formatPrice(item.totalAmount)}',

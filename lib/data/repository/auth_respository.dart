@@ -118,6 +118,7 @@ class AuthRepository extends GetxController {
   Rx<File?> profileImage = Rx(null);
   @override
   void onInit() async {
+    super.onInit();
     pref = SharePref();
     await pref!.init();
     if (pref!.getFirstTimeOpen()) {

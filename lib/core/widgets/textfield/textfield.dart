@@ -6,7 +6,6 @@ import "package:gap/gap.dart";
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/text_input.dart';
 import 'package:huzz/core/util/validators.dart';
-import 'package:huzz/core/widgets/image.dart';
 
 class TextInputField extends StatelessWidget {
   final String? labelText, prefixText;
@@ -107,7 +106,7 @@ class TextInputField extends StatelessWidget {
                   hintText: hintText,
                   labelStyle: labelStyle,
                   hintStyle: hintStyle ??
-                      TextStyle(
+                      const TextStyle(
                         color: Colors.black54,
                       ),
                   enabledBorder: underlinedInputBorder,

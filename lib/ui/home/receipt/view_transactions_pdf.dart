@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:huzz/data/repository/business_respository.dart';
@@ -51,7 +52,7 @@ class PdfTransactionApi {
   }
 
   static Widget buildHeader(Business item) => Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: PdfColors.blue,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +66,7 @@ class PdfTransactionApi {
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: PdfColors.white)),
                 Text(DateFormat.yMMMd().format(DateTime.now()).toString(),
-                    style: TextStyle(color: PdfColors.white)),
+                    style: const TextStyle(color: PdfColors.white)),
               ]),
             ],
           ),
@@ -75,8 +76,9 @@ class PdfTransactionApi {
   static Widget buildCustomerAddress(Customer? customer) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(customer!.name!, style: TextStyle(fontWeight: FontWeight.bold)),
-          Text(customer.phone!),
+          Text(customer!.name.toString(),
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(customer.phone.toString()),
         ],
       );
 
@@ -86,24 +88,24 @@ class PdfTransactionApi {
           Container(
               height: 40,
               width: 40,
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: PdfColors.white),
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: PdfColors.white),
               child: Center(
-                child: Text(item.businessName![0],
+                child: Text(utf8.decode(item.businessName![0].codeUnits),
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: PdfColors.blue)),
               )),
-          Text(item.businessName!,
+          Text(utf8.decode(item.businessName.toString().codeUnits),
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
           Text(item.businessEmail ?? "",
-              style: TextStyle(color: PdfColors.white)),
+              style: const TextStyle(color: PdfColors.white)),
           SizedBox(height: 1 * PdfPageFormat.mm),
-          Text(item.businessPhoneNumber!,
-              style: TextStyle(color: PdfColors.white)),
+          Text(item.businessPhoneNumber.toString(),
+              style: const TextStyle(color: PdfColors.white)),
         ],
       );
 
@@ -131,7 +133,7 @@ class PdfTransactionApi {
       final total = item.totalAmount;
 
       return [
-        item.itemName,
+        utf8.decode(item.itemName.toString().codeUnits),
         '${item.quality}',
         '${Utils.formatPrice(item.amount)}',
       ];
@@ -144,7 +146,7 @@ class PdfTransactionApi {
       border: null,
       headerStyle:
           TextStyle(fontWeight: FontWeight.bold, color: PdfColors.blue),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
+      headerDecoration: const BoxDecoration(color: PdfColors.grey300),
       cellHeight: 30,
       cellAlignments: {
         0: Alignment.centerLeft,
@@ -162,9 +164,9 @@ class PdfTransactionApi {
     // items
     //     .map((item) => item.amount! * item.quality!)
     //     .reduce((item1, item2) => item1 + item2);
-    items.forEach((element) {
+    for (var element in items) {
       netTotal = netTotal + (element.amount! * element.quality!);
-    });
+    }
 
     final total = netTotal;
 
@@ -174,7 +176,7 @@ class PdfTransactionApi {
         mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             color: PdfColors.orange,
             child: Text(
               'Total',
@@ -202,11 +204,9 @@ class PdfTransactionApi {
       List<PaymentItem> items, dynamic amount, dynamic balance) {
     dynamic netTotal = 0;
 
-    items.forEach((element) {
+    for (var element in items) {
       netTotal = netTotal + (element.amount! * element.quality!);
-    });
-
-    final total = netTotal;
+    }
 
     return Container(
         alignment: Alignment.centerRight,

@@ -22,7 +22,6 @@ class IcButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      child: child ?? Container(),
       style: TextButton.styleFrom(
         backgroundColor: bgColor ?? AppColors.primaryColor.withOpacity(.5),
         minimumSize: Size(size ?? 47, size ?? 47),
@@ -30,6 +29,7 @@ class IcButton extends StatelessWidget {
         padding: padding,
         visualDensity: VisualDensity.standard,
       ),
+      child: child ?? Container(),
     );
   }
 }
