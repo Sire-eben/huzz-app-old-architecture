@@ -47,7 +47,7 @@ class _SignUpState extends State<Signup> with FormMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 70,
                     width: MediaQuery.of(context).size.width,
                     child: Stack(
