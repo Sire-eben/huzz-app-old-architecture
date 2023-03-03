@@ -8,7 +8,7 @@ import '../../data/repository/business_respository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class TeamConfirmation extends StatefulWidget {
-  TeamConfirmation({Key? key}) : super(key: key);
+  const TeamConfirmation({Key? key}) : super(key: key);
 
   @override
   State<TeamConfirmation> createState() => _TeamConfirmationState();
@@ -83,48 +83,34 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
             onTap: () {
               Get.back();
             },
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back,
               color: AppColors.backgroundColor,
             ),
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.all(Insets.lg),
           child: Column(
             children: [
-              SizedBox(
-                height: 100,
-              ),
               Center(
                 child: Text(
-                  'Team Member Successfully',
+                  'Invite\nSent Successfully',
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     color: AppColors.backgroundColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
                   ),
                 ),
               ),
-              Center(
-                child: Text(
-                  'Added',
-                  style: GoogleFonts.inter(
-                    color: AppColors.backgroundColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
+              const Spacer(),
               Center(
                 child: Image.asset(
                   'assets/images/checker.png',
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               InkWell(
                 onTap: () {
                   print(teamInviteLink);
@@ -135,14 +121,14 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                 child: Container(
                   height: 55,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                     child: isLoadingTeamInviteLink
-                        ? CircularProgressIndicator(
+                        ? const CircularProgressIndicator(
                             color: Colors.white,
                           )
                         : Text(
@@ -155,7 +141,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               InkWell(
                 onTap: () {
                   Get.back();
@@ -177,9 +163,6 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 40,
               ),
             ],
           ),

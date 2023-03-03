@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 
 class TeamSuccess extends StatelessWidget {
-  TeamSuccess({Key? key}) : super(key: key);
+  const TeamSuccess({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

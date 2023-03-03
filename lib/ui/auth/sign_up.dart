@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/mixins/form_mixin.dart';
 import 'package:huzz/core/util/validators.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
-import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/button/continue_btn.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/core/widgets/unfocus_scope.dart';

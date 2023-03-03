@@ -1,9 +1,16 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/util/extension.dart';
+import 'package:huzz/core/util/url.dart';
+import 'package:huzz/ui/more/widget/help_tile.dart';
 import 'package:huzz/ui/privacy_policy.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/constants/app_icons.dart';
@@ -75,515 +82,70 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //PRIVACY
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Material(
-                      child: InkWell(
-                        highlightColor:
-                            AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
-                        onTap: () {
-                          Get.to(const Privacy());
-                        },
-                        child: Ink(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          height: 55,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffE6F4F2),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Center(
-                                  child: Image(
-                                      image: AssetImage(AppIcons.privacyPolicy),
-                                      width: 20,
-                                      height: 20),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                AppStrings.privacyPolicy,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const Spacer(),
-                              SvgPicture.asset(
-                                AppIcons.chevronRight,
-                                height: 20,
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                  HelpTile(
+                    action: () => Get.to(const Privacy()),
+                    icon: AppIcons.privacyPolicy,
+                    title: AppStrings.privacyPolicy,
+                  ),
+                  HelpTile(
+                    action: () => Get.to(TermsOfUse()),
+                    icon: AppIcons.privacyPolicy,
+                    title: AppStrings.termsOfUse,
+                  ),
+                  HelpTile(
+                    action: () => Get.to(const FaqWeb()),
+                    icon: AppIcons.faq,
+                    isSVG: true,
+                    title: AppStrings.faq,
+                  ),
+                  HelpTile(
+                    action: () async {
+                      if (_authController.onlineStatus == OnlineStatus.Onilne) {
+                        const toEmail = 'info@huzz.africa';
+                        final subject = emailSubject;
+                        final messageBody = emailMessage;
+                        final url =
+                            'mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(messageBody)}';
+                        if (await canLaunch(url)) {
+                          launch(url);
+                        }
+                      }
+                    },
+                    icon: AppIcons.mail,
+                    isSVG: true,
+                    title: AppStrings.mail,
+                  ),
+                  HelpTile(
+                    action: () => _displayDialog(
+                        context: context,
+                        title: 'Open WhatsApp..?',
+                        onContinuePressed: () =>
+                            launchWhatsAppUrl(AppStrings.supportPhone)),
+                    icon: AppIcons.whatsapp,
+                    isSVG: true,
+                    title: AppStrings.connectOnWhatsApp,
+                  ),
+                  HelpTile(
+                    action: () => _displayDialog(
+                      context: context,
+                      title: 'Open Telegram..?',
+                      onContinuePressed: () =>
+                          launch(AppStrings.huzzTelegramContactURI),
                     ),
+                    icon: AppIcons.telegram,
+                    title: AppStrings.connectOnTelegram,
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  //TERMS OF USE
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Material(
-                      child: InkWell(
-                        highlightColor:
-                            AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
-                        onTap: () {
-                          Get.to(TermsOfUse());
-                        },
-                        child: Ink(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          height: 55,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffE6F4F2),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Center(
-                                  child: Image(
-                                      image: AssetImage(AppIcons.privacyPolicy),
-                                      width: 20,
-                                      height: 20),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                AppStrings.termsOfUse,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const Spacer(),
-                              SvgPicture.asset(
-                                AppIcons.chevronRight,
-                                height: 20,
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // FAQ
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Material(
-                      child: InkWell(
-                        highlightColor:
-                            AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
-                        onTap: () {
-                          Get.to(const FaqWeb());
-                        },
-                        child: Ink(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          height: 55,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffE6F4F2),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    AppIcons.faq,
-                                    height: 15,
-                                    width: 15,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                AppStrings.faq,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const Spacer(),
-                              SvgPicture.asset(
-                                AppIcons.chevronRight,
-                                height: 20,
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // Mail
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Material(
-                      child: InkWell(
-                        highlightColor:
-                            AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
-                        onTap: () async {
-                          if (_authController.onlineStatus ==
-                              OnlineStatus.Onilne) {
-                            final toEmail = 'info@huzz.africa';
-                            final subject = emailSubject;
-                            final messageBody = emailMessage;
-                            final url =
-                                'mailto:$toEmail?subject=${Uri.encodeFull(subject)}&body=${Uri.encodeFull(messageBody)}';
-                            if (await canLaunch(url)) {
-                              launch(url);
-                              // final action = await AlertDialogs.yesCancelDialog(
-                              //     context, 'Open Gmail', 'Click confirm to proceed');
-                              // if (action == DialogsAction.yes) {
 
-                              // } else {
-                              //   return null;
-                            }
-                          }
-                        },
-                        child: Ink(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          height: 55,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffE6F4F2),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    AppIcons.mail,
-                                    height: 18,
-                                    width: 18,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                AppStrings.mail,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const Spacer(),
-                              SvgPicture.asset(
-                                AppIcons.chevronRight,
-                                height: 20,
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                  HelpTile(
+                    action: () => _displayDialog(
+                      context: context,
+                      title: 'Open User Manual..?',
+                      onContinuePressed: () {
+                        launch(AppStrings.huzzUserManualURI);
+                      },
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // WhatsApp Connect
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Material(
-                      child: InkWell(
-                        highlightColor:
-                            AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
-                        onTap: () async {
-                          // final action = await AlertDialogs.yesCancelDialog(
-                          //     context, 'Open WhatsApp', 'Click confirm to proceed');
-                          // if (action == DialogsAction.yes) {
-                          //   launch(
-                          //       'https://api.whatsapp.com/send?phone=+2348133258252');
-                          // } else {
-                          //   return null;
-                          // }
-                          _displayDialog(context);
-                        },
-                        child: Ink(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          height: 55,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffE6F4F2),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: SvgPicture.asset(
-                                    AppIcons.whatsapp,
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                AppStrings.connectOnWhatsApp,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const Spacer(),
-                              SvgPicture.asset(
-                                AppIcons.chevronRight,
-                                height: 20,
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // Telegram Connect
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Material(
-                      child: InkWell(
-                        highlightColor:
-                            AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
-                        onTap: () async {
-                          // final action = await AlertDialogs.yesCancelDialog(
-                          //     context, 'Open WhatsApp', 'Click confirm to proceed');
-                          // if (action == DialogsAction.yes) {
-                          //   launch(
-                          //       'https://api.whatsapp.com/send?phone=+2348133258252');
-                          // } else {
-                          //   return null;
-                          // }
-                          _displayTelegramDialog(context);
-                        },
-                        child: Ink(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          height: 55,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffE6F4F2),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Image.asset(
-                                    AppIcons.telegram,
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                AppStrings.connectOnTelegram,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const Spacer(),
-                              SvgPicture.asset(
-                                AppIcons.chevronRight,
-                                height: 20,
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // User Manual Connect
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Material(
-                      child: InkWell(
-                        highlightColor:
-                        AppColors.backgroundColor.withOpacity(0.3),
-                        splashColor: AppColors.secondbgColor.withOpacity(0.3),
-                        onTap: () async {
-                          // final action = await AlertDialogs.yesCancelDialog(
-                          //     context, 'Open WhatsApp', 'Click confirm to proceed');
-                          // if (action == DialogsAction.yes) {
-                          //   launch(
-                          //       'https://api.whatsapp.com/send?phone=+2348133258252');
-                          // } else {
-                          //   return null;
-                          // }
-                          _displayUserManualDialog(context);
-                        },
-                        child: Ink(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          height: 55,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: const Color(0xffE6F4F2),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Image.asset(
-                                    AppIcons.privacyPolicy,
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                AppStrings.userManual,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const Spacer(),
-                              SvgPicture.asset(
-                                AppIcons.chevronRight,
-                                height: 20,
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    icon: AppIcons.privacyPolicy,
+                    title: AppStrings.userManual,
                   ),
                 ],
               ),
@@ -594,339 +156,150 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
     );
   }
 
-  Future openBrowserURl({
-    required String url,
-    bool inApp = false,
+  void _displayDialog({
+    required BuildContext context,
+    required String title,
+    // required String url,
+    required VoidCallback onContinuePressed,
   }) async {
-    if (await canLaunch(url)) {
-      await launch(
-        url,
-        forceSafariVC: inApp,
-        forceWebView: inApp,
-        enableJavaScript: true,
-      );
-    }
-  }
-
-  _displayDialog(BuildContext context) async {
     return showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            insetPadding: const EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 280,
-            ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: Text(
-                    'Open WhatsApp..?',
+          return Platform.isAndroid
+              ? AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  insetPadding: const EdgeInsets.symmetric(
+                    horizontal: 50,
+                    // vertical: 280,
+                  ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Gap(Insets.lg),
+                      Expanded(
+                        child: Text(
+                          title,
+                          style: GoogleFonts.inter(
+                            color: AppColors.backgroundColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  content: Text(
+                    AppStrings.continueToProceed,
+                    style: GoogleFonts.inter(
+                      color: AppColors.blackColor,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 13,
+                    ),
+                  ),
+                  actions: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 20,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Container(
+                              height: 45,
+                              width: 100,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
+                              decoration: BoxDecoration(
+                                  color: AppColors.whiteColor,
+                                  border: Border.all(
+                                    width: 2,
+                                    color: AppColors.backgroundColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: Text(
+                                  'Cancel',
+                                  style: GoogleFonts.inter(
+                                    color: AppColors.backgroundColor,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: onContinuePressed,
+                            child: Container(
+                              height: 45,
+                              width: 100,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
+                              decoration: BoxDecoration(
+                                  color: AppColors.backgroundColor,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(
+                                child: Text(
+                                  'Continue',
+                                  style: GoogleFonts.inter(
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : CupertinoAlertDialog(
+                  title: Text(
+                    title,
                     style: GoogleFonts.inter(
                       color: AppColors.backgroundColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                     ),
                   ),
-                ),
-              ],
-            ),
-            content: Container(
-              child: Text(
-                AppStrings.continueToProceed,
-                style: GoogleFonts.inter(
-                  color: AppColors.blackColor,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 11,
-                ),
-              ),
-            ),
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColors.whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColors.backgroundColor,
-                            ),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text(
-                            'Cancel',
-                            style: GoogleFonts.inter(
-                              color: AppColors.backgroundColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        launch(AppStrings.huzzWhatsAppContactURI);
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColors.backgroundColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text(
-                            'Continue',
-                            style: GoogleFonts.inter(
-                              color: AppColors.whiteColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        });
-  }
-
-  _displayTelegramDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            insetPadding: const EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 280,
-            ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: Text(
-                    'Open Telegram..?',
-                    style: GoogleFonts.inter(
-                      color: AppColors.backgroundColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                    ),
+                  content: Text(
+                    AppStrings.continueToProceed,
                   ),
-                ),
-              ],
-            ),
-            content: Container(
-              child: Text(
-                AppStrings.continueToProceed,
-                style: GoogleFonts.inter(
-                  color: AppColors.blackColor,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 11,
-                ),
-              ),
-            ),
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColors.whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColors.backgroundColor,
-                            ),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text(
-                            'Cancel',
-                            style: GoogleFonts.inter(
-                              color: AppColors.backgroundColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                            ),
-                          ),
+                  actions: [
+                    CupertinoDialogAction(
+                      onPressed: () => context.pop(),
+                      child: Text(
+                        'Cancel',
+                        style: GoogleFonts.inter(
+                          color: AppColors.backgroundColor,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 12,
                         ),
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        launch(AppStrings.huzzTelegramContactURI);
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColors.backgroundColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text(
-                            'Continue',
-                            style: GoogleFonts.inter(
-                              color: AppColors.whiteColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                            ),
-                          ),
+                    CupertinoDialogAction(
+                      onPressed: onContinuePressed,
+                      child: Text(
+                        'Continue',
+                        style: GoogleFonts.inter(
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 12,
                         ),
                       ),
                     ),
                   ],
-                ),
-              ),
-            ],
-          );
-        });
-  }
-
-  _displayUserManualDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            insetPadding: const EdgeInsets.symmetric(
-              horizontal: 50,
-              vertical: 280,
-            ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: Text(
-                    'Open User Manual..?',
-                    style: GoogleFonts.inter(
-                      color: AppColors.backgroundColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            content: Text(
-              AppStrings.continueToProceed,
-              style: GoogleFonts.inter(
-                color: AppColors.blackColor,
-                fontWeight: FontWeight.normal,
-                fontSize: 11,
-              ),
-            ),
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColors.whiteColor,
-                            border: Border.all(
-                              width: 2,
-                              color: AppColors.backgroundColor,
-                            ),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text(
-                            'Cancel',
-                            style: GoogleFonts.inter(
-                              color: AppColors.backgroundColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        launch(AppStrings.huzzUserManualURI);
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColors.backgroundColor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text(
-                            'Continue',
-                            style: GoogleFonts.inter(
-                              color: AppColors.whiteColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
+                );
         });
   }
 }
