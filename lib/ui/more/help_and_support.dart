@@ -162,144 +162,150 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
     // required String url,
     required VoidCallback onContinuePressed,
   }) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return Platform.isAndroid
-              ? AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                  insetPadding: const EdgeInsets.symmetric(
-                    horizontal: 50,
-                    // vertical: 280,
+    if (Platform.isAndroid) {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              insetPadding: const EdgeInsets.symmetric(
+                horizontal: 50,
+                vertical: 200,
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Gap(Insets.lg),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: GoogleFonts.inter(
+                        color: AppColors.backgroundColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                ],
+              ),
+              content: Text(
+                AppStrings.continueToProceed,
+                style: GoogleFonts.inter(
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 13,
+                ),
+              ),
+              actions: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 20,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Gap(Insets.lg),
-                      Expanded(
-                        child: Text(
-                          title,
-                          style: GoogleFonts.inter(
-                            color: AppColors.backgroundColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 45,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColors.whiteColor,
+                              border: Border.all(
+                                width: 2,
+                                color: AppColors.backgroundColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Cancel',
+                              style: GoogleFonts.inter(
+                                color: AppColors.backgroundColor,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: onContinuePressed,
+                        child: Container(
+                          height: 45,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          decoration: BoxDecoration(
+                              color: AppColors.backgroundColor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Text(
+                              'Continue',
+                              style: GoogleFonts.inter(
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  content: Text(
-                    AppStrings.continueToProceed,
+                ),
+              ],
+            );
+          });
+    } else {
+      return showCupertinoDialog(
+          context: context,
+          builder: (context) {
+            return CupertinoAlertDialog(
+              title: Text(
+                title,
+                style: GoogleFonts.inter(
+                  color: AppColors.backgroundColor,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                ),
+              ),
+              content: Text(
+                AppStrings.continueToProceed,
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  onPressed: () => context.pop(),
+                  child: Text(
+                    'Cancel',
                     style: GoogleFonts.inter(
-                      color: AppColors.blackColor,
+                      color: Colors.red,
                       fontWeight: FontWeight.normal,
-                      fontSize: 13,
+                      fontSize: 12,
                     ),
                   ),
-                  actions: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 20,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: Container(
-                              height: 45,
-                              width: 100,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                              ),
-                              decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  border: Border.all(
-                                    width: 2,
-                                    color: AppColors.backgroundColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Center(
-                                child: Text(
-                                  'Cancel',
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.backgroundColor,
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: onContinuePressed,
-                            child: Container(
-                              height: 45,
-                              width: 100,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                              ),
-                              decoration: BoxDecoration(
-                                  color: AppColors.backgroundColor,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Center(
-                                child: Text(
-                                  'Continue',
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.whiteColor,
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              : CupertinoAlertDialog(
-                  title: Text(
-                    title,
+                ),
+                CupertinoDialogAction(
+                  onPressed: onContinuePressed,
+                  child: Text(
+                    'Continue',
                     style: GoogleFonts.inter(
-                      color: AppColors.backgroundColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 12,
                     ),
                   ),
-                  content: Text(
-                    AppStrings.continueToProceed,
-                  ),
-                  actions: [
-                    CupertinoDialogAction(
-                      onPressed: () => context.pop(),
-                      child: Text(
-                        'Cancel',
-                        style: GoogleFonts.inter(
-                          color: AppColors.backgroundColor,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                    CupertinoDialogAction(
-                      onPressed: onContinuePressed,
-                      child: Text(
-                        'Continue',
-                        style: GoogleFonts.inter(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-        });
+                ),
+              ],
+            );
+          });
+    }
   }
 }

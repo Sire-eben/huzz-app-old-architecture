@@ -94,7 +94,7 @@ class _HelpTileState extends State<HelpTile> {
             ),
           ),
         ),
-        const Gap(Insets.lg),
+        const Gap(Insets.md),
       ],
     );
   }
