@@ -1,5 +1,6 @@
 mixin AppStrings {
   static const appWebName = 'Huzz';
+  static const supportPhone = '+2348132894616';
   static const helpAndSupport = 'Help and Support';
   static const connectOnWhatsApp = 'Connect on WhatsApp';
   static const connectOnTelegram = 'Connect on Telegram';
