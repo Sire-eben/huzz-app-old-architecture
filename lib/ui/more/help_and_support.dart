@@ -119,8 +119,16 @@ class _HelpsAndSupportState extends State<HelpsAndSupport> {
                     action: () => _displayDialog(
                         context: context,
                         title: 'Open WhatsApp..?',
-                        onContinuePressed: () =>
-                            launchWhatsAppUrl(AppStrings.supportPhone)),
+                        onContinuePressed: () async{
+                          //launchWhatsAppUrl(AppStrings.supportPhone,),
+                          if (await canLaunchUrl (Uri.parse (
+                              AppStrings.huzzWhatsAppContactURI)
+                          )) {
+                          await launchUrl(Uri.parse(
+                          AppStrings.huzzWhatsAppContactURI));
+                          }
+                        }
+                    ),
                     icon: AppIcons.whatsapp,
                     isSVG: true,
                     title: AppStrings.connectOnWhatsApp,
