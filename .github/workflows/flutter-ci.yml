@@ -22,9 +22,6 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       
-      # Setup the dart environment.
-      - uses: dart-lang/setup-dart@v1
-      
       # Setup the flutter environment.
       - uses: subosito/flutter-action@v2
         with:
