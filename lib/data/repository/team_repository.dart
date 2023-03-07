@@ -548,6 +548,8 @@ class TeamRepository extends GetxController {
           "Team created successfully",
         );
 
+        Get.to(const TeamConfirmation());
+
         _addingTeamMemberStatus(AddingTeamStatus.Success);
       } else {
         Get.snackbar("Error", "Error creating team, try again!");
