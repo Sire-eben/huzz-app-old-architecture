@@ -185,7 +185,7 @@ class _MerchantsState extends State<Merchants> {
                                               CustomerStatus.Loading)
                                           ? Center(
                                               child:
-                                                  CircularProgressIndicator())
+                                                  LoadingWidget())
                                           : (_customerController
                                                       .customerStatus ==
                                                   CustomerStatus.Available)
@@ -417,7 +417,7 @@ class _MerchantsState extends State<Merchants> {
                                               CustomerStatus.Loading)
                                           ? Center(
                                               child:
-                                                  CircularProgressIndicator())
+                                                  LoadingWidget())
                                           : (_customerController
                                                       .customerStatus ==
                                                   CustomerStatus.Available)

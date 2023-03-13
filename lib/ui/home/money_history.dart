@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/core/util/constants.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/ui/home/reciept.dart';
@@ -1320,8 +1321,7 @@ class _MoneySummaryState extends State<MoneySummary> {
                             width: 30,
                             height: 30,
                             child: const Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
+                                child: LoadingWidget()),
                           )
                         : Center(
                             child: Text(

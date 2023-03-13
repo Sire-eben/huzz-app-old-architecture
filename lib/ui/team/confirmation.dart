@@ -2,6 +2,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
@@ -128,9 +129,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   ),
                   child: Center(
                     child: isLoadingTeamInviteLink
-                        ? const CircularProgressIndicator(
-                            color: Colors.white,
-                          )
+                        ? const LoadingWidget()
                         : Text(
                             'Share invite link',
                             style: GoogleFonts.inter(

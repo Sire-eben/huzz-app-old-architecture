@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
@@ -104,7 +105,7 @@ class _PaidState extends State<Paid> {
                 child: !deleteItem
                     ? (_invoiceController.invoiceStatus ==
                             InvoiceStatus.Loading)
-                        ? const Center(child: CircularProgressIndicator())
+                        ? const Center(child: LoadingWidget())
                         : (_invoiceController.invoiceStatus ==
                                     InvoiceStatus.Available &&
                                 _invoiceController.paidInvoiceList.isNotEmpty)
@@ -226,7 +227,7 @@ class _PaidState extends State<Paid> {
                             : EmptyInvoiceInfo()
                     : (_invoiceController.invoiceStatus ==
                             InvoiceStatus.Loading)
-                        ? const Center(child: CircularProgressIndicator())
+                        ? const Center(child: LoadingWidget())
                         : (_invoiceController.invoiceStatus ==
                                     InvoiceStatus.Available &&
                                 _invoiceController.paidInvoiceList.isNotEmpty)

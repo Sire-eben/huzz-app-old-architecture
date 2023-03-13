@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
@@ -471,8 +472,7 @@ class _DebtorsState extends State<Debtors> {
                             width: 30,
                             height: 30,
                             child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
+                                child: LoadingWidget()),
                           )
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -1557,8 +1557,7 @@ class _DebtorListingState extends State<DebtorListing> {
                                 width: 30,
                                 height: 30,
                                 child: Center(
-                                    child: CircularProgressIndicator(
-                                        color: Colors.white)),
+                                    child: LoadingWidget()),
                               )
                             : Text(
                                 'Save',

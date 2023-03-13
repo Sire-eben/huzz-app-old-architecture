@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/bank_account_repository.dart';
@@ -542,8 +543,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                                     width: 30,
                                     height: 30,
                                     child: const Center(
-                                        child: CircularProgressIndicator(
-                                            color: Colors.white)),
+                                        child: LoadingWidget()),
                                   ),
                                 )
                               : Row(
@@ -791,8 +791,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       child: Center(
                         child: (bankInfoController.addingBankStatus ==
                                 AddingBankInfoStatus.Loading)
-                            ? const CircularProgressIndicator(
-                                color: Colors.white)
+                            ? const LoadingWidget()
                             : Text(
                                 'Add Bank Account',
                                 style: GoogleFonts.inter(
@@ -883,8 +882,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                             ? Container(
                                 height: 30,
                                 width: 30,
-                                child: const CircularProgressIndicator(
-                                    color: Colors.white))
+                                child: const LoadingWidget())
                             : Text(
                                 'Update Bank Account',
                                 style: GoogleFonts.inter(

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/util/constants.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/data/repository/invoice_repository.dart';
@@ -106,7 +107,7 @@ class _PendingState extends State<Pending> {
                   child: !deleteItem
                       ? (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: CircularProgressIndicator())
+                          ? Center(child: LoadingWidget())
                           : (_invoiceController.InvoicePendingList.length != 0)
                               ? ListView.builder(
                                   itemCount: _invoiceController
@@ -240,7 +241,7 @@ class _PendingState extends State<Pending> {
                               : EmptyInvoiceInfo()
                       : (_invoiceController.invoiceStatus ==
                               InvoiceStatus.Loading)
-                          ? Center(child: CircularProgressIndicator())
+                          ? Center(child: LoadingWidget())
                           : (_invoiceController.InvoicePendingList.length != 0)
                               ? ListView.builder(
                                   itemCount: _invoiceController

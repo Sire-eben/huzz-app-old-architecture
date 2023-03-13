@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/ui/widget/custom_drop_field.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
@@ -167,8 +168,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                               width: 30,
                               height: 30,
                               child: Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white)),
+                                  child: LoadingWidget()),
                             )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
