@@ -10,6 +10,7 @@ import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/api_link.dart';
 import 'package:huzz/ui/team/team_updated_confirmation.dart';
+import 'package:huzz/ui/team/create_team_success.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
@@ -548,7 +549,7 @@ class TeamRepository extends GetxController {
           "Team created successfully",
         );
 
-        Get.to(const TeamConfirmation());
+        Get.to(const CreateTeamSuccess());
 
         _addingTeamMemberStatus(AddingTeamStatus.Success);
       } else {
