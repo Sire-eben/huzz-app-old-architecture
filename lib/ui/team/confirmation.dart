@@ -96,7 +96,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
             children: [
               Center(
                 child: Text(
-                  'Invite\nSent Successfully',
+                  'Team Member\nInvited Successfully',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     color: AppColors.backgroundColor,

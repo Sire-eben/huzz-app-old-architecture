@@ -247,7 +247,7 @@ class _SiginState extends State<Signin> {
                             ? true
                             : false,
                     action: () {
-                      if (_authController.phoneNumberController.text == '') {
+                      if (_authController.phoneNumberController.text.isEmpty) {
                         Get.snackbar(
                             'Alert', 'Enter your phone number to continue!',
                             titleText: const Text(

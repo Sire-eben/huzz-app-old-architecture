@@ -228,7 +228,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.check, color: AppColors.backgroundColor));
+            icon: const Icon(Icons.check, color: AppColors.backgroundColor));
 
         if (!isresend) Get.to(() => EnterOtp());
         // if (!isresend) _homeController.selectOnboardSelectedNext();
@@ -245,7 +245,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+            icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
       }
     } catch (ex) {
       print("error otp send ${ex.toString()}");
@@ -276,9 +276,9 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.check, color: AppColors.backgroundColor));
-        Timer(Duration(milliseconds: 2000), () {
-          Get.off(EnterForgotPIN());
+            icon: const Icon(Icons.check, color: AppColors.backgroundColor));
+        Timer(const Duration(milliseconds: 2000), () {
+          Get.off(const EnterForgotPIN());
         });
       } else {
         _Otpauthstatus(OtpAuthStatus.Error);
@@ -293,7 +293,7 @@ class AuthRepository extends GetxController {
               style: GoogleFonts.inter(
                   color: Colors.black, fontWeight: FontWeight.normal),
             ),
-            icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+            icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
       }
     } catch (ex) {
       print("error otp send ${ex.toString()}");
@@ -319,7 +319,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.check, color: AppColors.backgroundColor));
+          icon: const Icon(Icons.check, color: AppColors.backgroundColor));
     } else {
       Get.snackbar("Error", "Unable to send Otp",
           titleText: Text(
@@ -332,7 +332,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+          icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
     }
   }
 
@@ -365,7 +365,7 @@ class AuthRepository extends GetxController {
                 style: GoogleFonts.inter(
                     color: Colors.black, fontWeight: FontWeight.normal),
               ),
-              icon: Icon(Icons.check, color: AppColors.backgroundColor));
+              icon: const Icon(Icons.check, color: AppColors.backgroundColor));
 
           getUser();
         } else {
@@ -381,7 +381,7 @@ class AuthRepository extends GetxController {
                 style: GoogleFonts.inter(
                     color: Colors.black, fontWeight: FontWeight.normal),
               ),
-              icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+              icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
         }
       }
     } catch (ex) {
@@ -397,7 +397,7 @@ class AuthRepository extends GetxController {
             style: GoogleFonts.inter(
                 color: Colors.black, fontWeight: FontWeight.normal),
           ),
-          icon: Icon(Icons.info, color: AppColors.orangeBorderColor));
+          icon: const Icon(Icons.info, color: AppColors.orangeBorderColor));
       _Otpverifystatus(OtpVerifyStatus.Error);
     }
   }
@@ -430,8 +430,8 @@ class AuthRepository extends GetxController {
             "PIN successfully changed.",
             "Proceed to Login.",
           );
-          Timer(Duration(milliseconds: 2000), () {
-            Get.offAll(Signin());
+          Timer(const Duration(milliseconds: 2000), () {
+            Get.offAll(const Signin());
           });
         } else {
           _Otpforgotverifystatus(OtpForgotVerifyStatus.Error);
@@ -480,7 +480,7 @@ class AuthRepository extends GetxController {
           "Success",
           "Personal Profile Image",
         );
-        Timer(Duration(milliseconds: 2000), () {
+        Timer(const Duration(milliseconds: 2000), () {
           Get.back();
         });
         // } else {
@@ -542,7 +542,7 @@ class AuthRepository extends GetxController {
           "Success",
           "Personal Information Updated",
         );
-        Timer(Duration(milliseconds: 2000), () {
+        Timer(const Duration(milliseconds: 2000), () {
           Get.back();
         });
         // } else {
@@ -690,7 +690,7 @@ class AuthRepository extends GetxController {
         Mtoken(token);
         print("user business length ${user.businessList!.length}");
         if (user.businessList!.isEmpty || user.businessList == null) {
-          Get.off(() => CreateBusiness());
+          Get.off(() => const CreateBusiness());
         } else {
           Get.offAll(() => Dashboard());
         }
@@ -837,7 +837,7 @@ class AuthRepository extends GetxController {
     } on SocketException catch (_) {
       throw "Network not available, connect to the internet and try again";
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -928,7 +928,7 @@ class AuthRepository extends GetxController {
         }
         if (hasTeamInviteDeeplink.value == true) {
           hasTeamInviteDeeplink(false);
-          Get.to(() => TeamSuccess());
+          Get.to(() => const TeamSuccess());
           _businessController.OnlineBusiness();
           // Get.snackbar("Success", "You've been invited to a team successfully");
         }
@@ -970,7 +970,7 @@ class AuthRepository extends GetxController {
     Mtoken("0");
     pref!.logout();
     phoneNumberController.text = '';
-    Get.offAll(Signin());
+    Get.offAll(const Signin());
     final businessController = Get.find<BusinessRespository>();
     businessController.selectedBusiness = Rx(Business(businessId: null));
   }
@@ -1011,7 +1011,7 @@ class AuthRepository extends GetxController {
     if (response.statusCode == 401) {
       _authStatus(AuthStatus.TOKEN_EXISTED);
       Get.snackbar("Error", "Your Login token is expired.");
-      Get.offAll(Signin());
+      Get.offAll(const Signin());
     }
   }
 }
