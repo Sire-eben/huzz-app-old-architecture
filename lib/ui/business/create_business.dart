@@ -164,7 +164,7 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_businessController.createBusinessStatus ==
                               CreateBusinessStatus.Loading)
-                          ? Container(
+                          ? const SizedBox(
                               width: 30,
                               height: 30,
                               child: Center(
