@@ -933,6 +933,16 @@ class _HomePageState extends State<HomePage> {
                         Obx(() {
                           return Container(
                             padding: const EdgeInsets.all(12),
+                            height: 130,
+                            decoration: BoxDecoration(
+                              color: AppColors.backgroundColor,
+                              borderRadius: BorderRadius.circular(12),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/home_rectangle.png"),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -1164,16 +1174,6 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                               ],
-                            ),
-                            height: 130,
-                            decoration: BoxDecoration(
-                              color: AppColors.backgroundColor,
-                              borderRadius: BorderRadius.circular(12),
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/home_rectangle.png"),
-                                fit: BoxFit.fill,
-                              ),
                             ),
                           );
                         }),
@@ -1847,6 +1847,15 @@ class _HomePageState extends State<HomePage> {
           Obx(() {
             return Container(
               padding: const EdgeInsets.all(12),
+              height: 130,
+              decoration: BoxDecoration(
+                color: AppColors.backgroundColor,
+                borderRadius: BorderRadius.circular(12),
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/home_rectangle.png"),
+                  fit: BoxFit.fill,
+                ),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -2066,15 +2075,6 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ],
-              ),
-              height: 130,
-              decoration: BoxDecoration(
-                color: AppColors.backgroundColor,
-                borderRadius: BorderRadius.circular(12),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/home_rectangle.png"),
-                  fit: BoxFit.fill,
-                ),
               ),
             );
           }),
@@ -2496,6 +2496,15 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Container(
             padding: const EdgeInsets.all(12),
+            height: 130,
+            decoration: BoxDecoration(
+              color: AppColors.backgroundColor,
+              borderRadius: BorderRadius.circular(12),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/home_rectangle.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -2713,15 +2722,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ],
-            ),
-            height: 130,
-            decoration: BoxDecoration(
-              color: AppColors.backgroundColor,
-              borderRadius: BorderRadius.circular(12),
-              image: const DecorationImage(
-                image: AssetImage("assets/images/home_rectangle.png"),
-                fit: BoxFit.fill,
-              ),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.015),

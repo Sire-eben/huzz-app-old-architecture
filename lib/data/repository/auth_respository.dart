@@ -837,7 +837,7 @@ class AuthRepository extends GetxController {
     } on SocketException catch (_) {
       throw "Network not available, connect to the internet and try again";
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
