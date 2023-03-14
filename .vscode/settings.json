@@ -27,5 +27,6 @@
     ],
     "githubPullRequests.ignoredPullRequestBranches": [
         "dev"
-    ]
+    ],
+    "git.ignoreLimitWarning": true
 }
