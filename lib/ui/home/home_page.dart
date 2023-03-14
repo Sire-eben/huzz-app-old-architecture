@@ -15,6 +15,7 @@ import 'package:huzz/core/util/util.dart';
 import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
+import 'package:huzz/data/repository/firebase_dynamic_linking.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/ui/business/create_business.dart';
@@ -86,42 +87,11 @@ class _HomePageState extends State<HomePage> {
   final transactionList = [];
   final RandomColor _randomColor = RandomColor();
 
-  Future<void> initDynamicLinks() async {
-    FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
-
-    // Incoming Links Listener
-    dynamicLinks.onLink.listen((dynamicLinkData) {
-      final Uri uri = dynamicLinkData.link;
-      final queryParams = uri.queryParameters;
-      if (queryParams.isNotEmpty) {
-        //  your code here
-      } else {
-        // your code here
-      }
-    });
-
-    // Search for Firebase Dynamic Links
-    PendingDynamicLinkData? data = await dynamicLinks
-        .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
-    final Uri uri = data!.link;
-    if (uri != null) {
-      // your code here
-    } else {
-      // your code here
-    }
-  }
-
-  Future<void> initFirebase() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-    // await Future.delayed(Duration(seconds: 3));
-    initDynamicLinks();
-  }
-
   @override
   void initState() {
     _authController.checkTeamInvite();
-    initFirebase();
+
+    FirebaseDynamicLinkService.initFirebase();
     super.initState();
   }
 

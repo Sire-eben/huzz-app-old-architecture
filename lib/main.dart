@@ -10,7 +10,7 @@ import 'ui/splashscreen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(HuzzApp());
+  runApp(const HuzzApp());
 }
 
 class HuzzApp extends StatefulWidget {

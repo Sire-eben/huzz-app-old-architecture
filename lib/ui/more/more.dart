@@ -54,31 +54,6 @@ class _MoreState extends State<More> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            // Container(
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(15),
-            //   ),
-            //   child: Image.asset('assets/images/my_team.png'),
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
-            // Container(
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(15),
-            //   ),
-            //   child: Image.asset('assets/images/bank_wallet.png'),
-            // ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            // Container(
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(15),
-            //   ),
-            //   child: Image.asset('assets/images/my_store.png'),
-            // ),
-
             //my team features
             InkWell(
               onTap: (() {
