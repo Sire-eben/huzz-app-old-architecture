@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Privacy extends StatefulWidget {
@@ -69,9 +70,7 @@ class _PrivacyState extends State<Privacy> {
           ),
           isLoading
               ? Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.backgroundColor,
-                  ),
+                  child: LoadingWidget()
                 )
               : Container(),
         ],

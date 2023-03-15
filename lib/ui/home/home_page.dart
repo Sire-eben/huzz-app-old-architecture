@@ -13,6 +13,7 @@ import 'package:huzz/core/util/constants.dart';
 import 'package:huzz/core/util/extension.dart';
 import 'package:huzz/core/util/util.dart';
 import 'package:huzz/core/widgets/image.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
 import 'package:huzz/data/repository/firebase_dynamic_linking.dart';
@@ -32,7 +33,6 @@ import 'package:number_display/number_display.dart';
 import 'package:random_color/random_color.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/team_repository.dart';
-import '../widget/loading_widget.dart';
 import 'debtors/debtorstab.dart';
 import 'money_history.dart';
 
@@ -658,7 +658,7 @@ class _HomePageState extends State<HomePage> {
                                   // Obx(() {
                                   // return
                                   const Center(
-                                      child: CircularProgressIndicator())
+                                      child: LoadingWidget())
                                   // ;
                                   // })
                                   : (_transactionController
@@ -1508,7 +1508,7 @@ class _HomePageState extends State<HomePage> {
                                   // Obx(() {
                                   // return
                                   const Center(
-                                      child: CircularProgressIndicator())
+                                      child: LoadingWidget())
                                   // ;
                                   // })
                                   : (_transactionController
@@ -2299,7 +2299,7 @@ class _HomePageState extends State<HomePage> {
                 child: (_transactionController.transactionStatus ==
                         TransactionStatus.Loading)
                     ? Obx(() {
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(child: LoadingWidget());
                       })
                     : (_transactionController.transactionStatus ==
                             TransactionStatus.Available)

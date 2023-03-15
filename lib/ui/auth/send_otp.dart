@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/mixins/form_mixin.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/ui/auth/sign_in.dart';
 import 'package:huzz/ui/privacy_policy.dart';
@@ -258,8 +259,7 @@ class _SendOtpState extends State<SendOtp> with FormMixin {
                               width: 30,
                               height: 30,
                               child: const Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white)),
+                                  child: LoadingWidget()),
                             )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,

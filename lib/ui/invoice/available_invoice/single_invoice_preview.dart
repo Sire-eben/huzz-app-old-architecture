@@ -6,6 +6,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pdf/pdf.dart';
 import 'package:share_plus/share_plus.dart';
@@ -118,7 +119,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
         backgroundColor: Colors.white,
         body: isLoading
             ? Center(
-                child: CircularProgressIndicator(),
+                child: LoadingWidget(),
               )
             : SafeArea(
                 child: Container(
@@ -706,8 +707,7 @@ class _PreviewSingleInvoiceState extends State<PreviewSingleInvoice> {
                               width: 30,
                               height: 30,
                               child: Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white)),
+                                  child: LoadingWidget()),
                             )
                           : Center(
                               child: Text(

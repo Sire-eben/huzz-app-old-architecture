@@ -164,10 +164,11 @@ class _CreateBusinessState extends State<CreateBusiness> {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: (_businessController.createBusinessStatus ==
                               CreateBusinessStatus.Loading)
-                          ? Container(
+                          ? const SizedBox(
                               width: 30,
                               height: 30,
-                              child: const LoadingWidget(color: Colors.white),
+                              child: Center(
+                                  child: LoadingWidget()),
                             )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,

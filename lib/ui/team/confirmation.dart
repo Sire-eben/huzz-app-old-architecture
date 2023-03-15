@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_strings.dart';
-import 'package:huzz/ui/widget/loading_widget.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
@@ -96,7 +96,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
             children: [
               Center(
                 child: Text(
-                  'Invite\nSent Successfully',
+                  'Team Member\nInvited Successfully',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
                     color: AppColors.backgroundColor,
@@ -129,7 +129,7 @@ class _TeamConfirmationState extends State<TeamConfirmation> {
                   ),
                   child: Center(
                     child: isLoadingTeamInviteLink
-                        ? LoadingWidget()
+                        ? const LoadingWidget()
                         : Text(
                             'Share invite link',
                             style: GoogleFonts.inter(
