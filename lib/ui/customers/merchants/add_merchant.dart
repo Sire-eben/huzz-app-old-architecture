@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/customer_repository.dart';
 import 'package:huzz/ui/widget/custom_form_field.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -139,8 +140,7 @@ class _AddMerchantState extends State<AddMerchant> {
                               width: 30,
                               height: 30,
                               child: Center(
-                                  child: CircularProgressIndicator(
-                                      color: Colors.white)),
+                                  child: LoadingWidget()),
                             )
                           : Center(
                               child: Text(

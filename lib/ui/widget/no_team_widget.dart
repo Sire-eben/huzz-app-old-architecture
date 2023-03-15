@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -80,8 +81,7 @@ class NoTeamWidget extends GetView<TeamRepository> {
                             width: 30,
                             height: 30,
                             child: Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.white)),
+                                child: LoadingWidget()),
                           )
                         : Center(
                             child: Text(
