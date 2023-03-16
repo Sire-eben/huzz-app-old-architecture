@@ -16,7 +16,6 @@ import 'package:huzz/core/widgets/image.dart';
 import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:huzz/data/repository/business_respository.dart';
 import 'package:huzz/data/repository/debtors_repository.dart';
-import 'package:huzz/data/repository/firebase_dynamic_linking.dart';
 import 'package:huzz/data/repository/transaction_respository.dart';
 import 'package:huzz/generated/assets.gen.dart';
 import 'package:huzz/ui/business/create_business.dart';
@@ -27,6 +26,7 @@ import 'package:huzz/ui/home/records.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
+import 'package:huzz/ui/team/welcome_member.dart';
 import 'package:huzz/ui/wallet/create_bank_account.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
@@ -87,11 +87,37 @@ class _HomePageState extends State<HomePage> {
   final transactionList = [];
   final RandomColor _randomColor = RandomColor();
 
+  Future<void> initDynamicLinks() async {
+    FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+
+    // Incoming Links Listener
+    dynamicLinks.onLink.listen((dynamicLinkData) {
+      final Uri uri = dynamicLinkData.link;
+      final queryParams = uri.queryParameters;
+      if (queryParams.isNotEmpty) {
+        //  your code here
+        context.push(WelcomeNewMember());
+      } else {
+        // your code here
+        return;
+      }
+    });
+
+    // Search for Firebase Dynamic Links
+    PendingDynamicLinkData? data =
+        await dynamicLinks.getDynamicLink(Uri.parse("https://huzz.page.link"));
+    final Uri uri = data!.link;
+    if (uri != null) {
+      // your code here
+    } else {
+      // your code here
+    }
+  }
+
   @override
   void initState() {
     _authController.checkTeamInvite();
-
-    FirebaseDynamicLinkService.initFirebase();
+    initDynamicLinks();
     super.initState();
   }
 
@@ -657,8 +683,7 @@ class _HomePageState extends State<HomePage> {
                                   ?
                                   // Obx(() {
                                   // return
-                                  const Center(
-                                      child: LoadingWidget())
+                                  const Center(child: LoadingWidget())
                                   // ;
                                   // })
                                   : (_transactionController
@@ -1507,8 +1532,7 @@ class _HomePageState extends State<HomePage> {
                                   ?
                                   // Obx(() {
                                   // return
-                                  const Center(
-                                      child: LoadingWidget())
+                                  const Center(child: LoadingWidget())
                                   // ;
                                   // })
                                   : (_transactionController
