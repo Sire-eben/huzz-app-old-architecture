@@ -26,7 +26,6 @@ import 'package:huzz/ui/home/records.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
-import 'package:huzz/ui/team/welcome_member.dart';
 import 'package:huzz/ui/wallet/create_bank_account.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
@@ -96,16 +95,14 @@ class _HomePageState extends State<HomePage> {
       final queryParams = uri.queryParameters;
       if (queryParams.isNotEmpty) {
         //  your code here
-        context.push(WelcomeNewMember());
       } else {
         // your code here
-        return;
       }
     });
 
     // Search for Firebase Dynamic Links
-    PendingDynamicLinkData? data =
-        await dynamicLinks.getDynamicLink(Uri.parse("https://huzz.page.link"));
+    PendingDynamicLinkData? data = await dynamicLinks
+        .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
     final Uri uri = data!.link;
     if (uri != null) {
       // your code here
@@ -114,10 +111,17 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> initFirebase() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    // await Future.delayed(Duration(seconds: 3));
+    initDynamicLinks();
+  }
+
   @override
   void initState() {
     _authController.checkTeamInvite();
-    initDynamicLinks();
+    initFirebase();
     super.initState();
   }
 

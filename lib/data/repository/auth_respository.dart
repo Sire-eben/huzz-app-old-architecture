@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -116,6 +118,7 @@ class AuthRepository extends GetxController {
   SqliteDb sqliteDb = SqliteDb();
   bool tokenExpired = false;
   Rx<File?> profileImage = Rx(null);
+
   @override
   void onInit() async {
     super.onInit();
@@ -927,7 +930,7 @@ class AuthRepository extends GetxController {
           print('Referral Invite deeplink: ${hasReferralDeeplink.value}');
         }
         if (hasTeamInviteDeeplink.value == true) {
-          hasTeamInviteDeeplink(false);
+          hasTeamInviteDeeplink(true);
           Get.to(() => const TeamSuccess());
           _businessController.OnlineBusiness();
           // Get.snackbar("Success", "You've been invited to a team successfully");
