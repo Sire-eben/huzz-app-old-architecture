@@ -86,42 +86,9 @@ class _HomePageState extends State<HomePage> {
   final transactionList = [];
   final RandomColor _randomColor = RandomColor();
 
-  Future<void> initDynamicLinks() async {
-    FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
-
-    // Incoming Links Listener
-    dynamicLinks.onLink.listen((dynamicLinkData) {
-      final Uri uri = dynamicLinkData.link;
-      final queryParams = uri.queryParameters;
-      if (queryParams.isNotEmpty) {
-        //  your code here
-      } else {
-        // your code here
-      }
-    });
-
-    // Search for Firebase Dynamic Links
-    PendingDynamicLinkData? data = await dynamicLinks
-        .getDynamicLink(Uri.parse("https://yousite.page.link/refcode"));
-    final Uri uri = data!.link;
-    if (uri != null) {
-      // your code here
-    } else {
-      // your code here
-    }
-  }
-
-  Future<void> initFirebase() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-    // await Future.delayed(Duration(seconds: 3));
-    initDynamicLinks();
-  }
-
   @override
   void initState() {
     _authController.checkTeamInvite();
-    initFirebase();
     super.initState();
   }
 
