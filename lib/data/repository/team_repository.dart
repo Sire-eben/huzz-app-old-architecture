@@ -28,7 +28,7 @@ enum TeamMemberStatus { Loading, Error, UnAuthorized, Success, Empty }
 
 enum DeleteTeamStatus { Loading, Error, Success, Empty }
 
-enum JoinTeamStatus { Loading, Available, Error, Empty, UnAuthorized }
+enum JoinTeamStatus { Loading, Available, Error, Empty, Success }
 
 enum TeamStatus { Loading, Available, Error, Empty, UnAuthorized }
 
@@ -615,6 +615,56 @@ class TeamRepository extends GetxController {
       }
     } catch (error) {
       _addingTeamMemberStatus(AddingTeamStatus.Error);
+      Get.snackbar("Error", "Error inviting team, try again!");
+      debugPrint('add team feature error ${error.toString()}');
+    }
+  }
+
+  Future joinTeamWithInviteLink() async {
+    try {
+      _joinTeamStatus(JoinTeamStatus.Loading);
+      var value = _businessController.selectedBusiness.value;
+      final bodyDto = {
+        "phoneNumber": _userController.countryText +
+            _userController.phoneNumberController.text.trim(),
+        "teamId": _businessController.selectedBusiness.value!.teamId,
+        "email": _userController.emailController.text.trim(),
+        "teamInviteUrl": _userController.teamInviteCodeController.text,
+        "roleSet": ['MANAGE CUSTOMER'],
+        "authoritySet": [
+          "ALL_CUSTOMERS_OPERATIONS",
+          "VIEW_CUSTOMER",
+          "CREATE_CUSTOMER",
+          "UPDATE_CUSTOMER",
+          "DELETE_CUSTOMER",
+        ],
+      };
+      var response = await http.post(
+          Uri.parse('${ApiLink.inviteTeamMember}/${value!.businessId}'),
+          body: json.encode(bodyDto),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer ${_userController.token}"
+          });
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+
+        Get.back();
+        if (json['success']) {
+          Get.snackbar('Success', json['message']);
+          _joinTeamStatus(JoinTeamStatus.Success);
+          var teamMemberId = json['data']['id'];
+          debugPrint('Added Member MemberId: ${json['data']['id']}');
+          updateTeamInviteStatusOnline(teamMemberId, bodyDto);
+        }
+      } else {
+        var json = jsonDecode(response.body);
+        Get.snackbar('Error', json['message']);
+        _joinTeamStatus(JoinTeamStatus.Error);
+      }
+    } catch (error) {
+      _joinTeamStatus(JoinTeamStatus.Error);
       Get.snackbar("Error", "Error inviting team, try again!");
       debugPrint('add team feature error ${error.toString()}');
     }

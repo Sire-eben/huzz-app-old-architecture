@@ -159,8 +159,6 @@ class AuthRepository extends GetxController {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       _updateConnectionStatus(result);
-
-      print("result is $result");
     });
     final PendingDynamicLinkData? deepLink =
         await FirebaseDynamicLinks.instance.getInitialLink();

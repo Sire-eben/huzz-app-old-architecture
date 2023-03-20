@@ -12,6 +12,7 @@ import 'package:huzz/core/widgets/button/button.dart';
 import 'package:huzz/core/widgets/button/outlined_button.dart';
 import 'package:huzz/core/widgets/textfield/textfield.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
+import 'package:huzz/data/repository/team_repository.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 
 class JoinBusinessTeam extends StatefulWidget {
@@ -22,7 +23,7 @@ class JoinBusinessTeam extends StatefulWidget {
 }
 
 class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
-  final userController = Get.find<AuthRepository>();
+  final teamController = Get.find<TeamRepository>();
   String countryFlag = "NG";
   String countryCode = "234";
 
@@ -50,7 +51,9 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
             const Gap(Insets.xl),
             Button(
               label: "Yes",
-              action: () {},
+              action: () {
+                teamController.joinTeamWithInviteLink();
+              },
             ),
             const Gap(Insets.lg),
             AppOutlineButton(
