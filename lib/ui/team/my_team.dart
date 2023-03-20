@@ -1,9 +1,11 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/core/constants/app_strings.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
@@ -13,6 +15,7 @@ import 'package:huzz/ui/widget/no_team_widget.dart';
 import 'package:huzz/ui/widget/team_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 import '../widget/loading_widget.dart';
 import 'add_member.dart';
 
@@ -52,7 +55,10 @@ class _MyTeamState extends State<MyTeam> {
   final _businessController = Get.find<BusinessRespository>();
   final _teamController = Get.find<TeamRepository>();
 
-  String? values, date;
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+  bool isLoadingTeamInviteLink = false;
+  String? values, teamInviteLink, busName, date;
+
   late String firstName, lastName, phone;
 
   @override
@@ -72,6 +78,43 @@ class _MyTeamState extends State<MyTeam> {
     for (var i in team) {
       var getDate = i.createdDateTime!.toLocal();
       date = DateFormat("yMMMEd").format(getDate);
+    }
+  }
+
+  Future<void> shareBusinessIdLink(String businessId) async {
+    if (controller.onlineStatus == OnlineStatus.Onilne) {
+      try {
+        setState(() {
+          isLoadingTeamInviteLink = true;
+        });
+        final url = "https://huzz.africa/businessId=$businessId";
+        final DynamicLinkParameters parameters = DynamicLinkParameters(
+          uriPrefix: 'https://huzz.page.link',
+          link: Uri.parse(url),
+          androidParameters: const AndroidParameters(
+            packageName: AppStrings.appId,
+            minimumVersion: 1,
+          ),
+          iosParameters: const IOSParameters(
+            bundleId: AppStrings.appId,
+            appStoreId: "1596574133",
+            minimumVersion: '1',
+          ),
+        );
+        final shortLink = await dynamicLinks.buildShortLink(parameters);
+        teamInviteLink = shortLink.shortUrl.toString();
+        setState(() {
+          isLoadingTeamInviteLink = false;
+        });
+        Share.share(
+            'You have been invited to manage $busName on Huzz. Click this: ${teamInviteLink!}',
+            subject: 'Share team invite link');
+      } catch (error) {
+        Get.snackbar("Error occured", error.toString());
+        setState(() {
+          isLoadingTeamInviteLink = false;
+        });
+      }
     }
   }
 
@@ -117,6 +160,19 @@ class _MyTeamState extends State<MyTeam> {
                       ),
                     ],
                   ),
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        shareBusinessIdLink(_businessController
+                            .selectedBusiness.value!.businessId
+                            .toString());
+                      },
+                      icon: Icon(
+                        Icons.share,
+                        color: AppColors.backgroundColor,
+                      ),
+                    )
+                  ],
                 ),
                 backgroundColor: AppColors.whiteColor,
                 floatingActionButton: (value!.teamId == null ||
