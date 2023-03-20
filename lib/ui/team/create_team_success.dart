@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:huzz/core/constants/app_strings.dart';
+import 'package:huzz/core/widgets/state/loading.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../data/repository/auth_respository.dart';
 import '../../data/repository/business_respository.dart';
@@ -27,10 +28,7 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
     controller.checkTeamInvite();
     super.initState();
     final value = _businessController.selectedBusiness.value!.businessId;
-    print('BusinessId: $value');
     busName = _businessController.selectedBusiness.value!.businessName;
-    final teamId = _businessController.selectedBusiness.value!.teamId;
-    print('Business TeamId: $teamId');
     shareBusinessIdLink(value.toString());
   }
 
@@ -56,12 +54,14 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
         );
         final shortLink = await dynamicLinks.buildShortLink(parameters);
         teamInviteLink = shortLink.shortUrl.toString();
-        print('invite link: $teamInviteLink');
         setState(() {
           isLoadingTeamInviteLink = false;
         });
+        Share.share(
+            'You have been invited to manage $busName on Huzz. Click this: ${teamInviteLink!}',
+            subject: 'Share team invite link');
       } catch (error) {
-        print(error.toString());
+        Get.snackbar("Error occured", error.toString());
         setState(() {
           isLoadingTeamInviteLink = false;
         });
@@ -74,7 +74,7 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
@@ -89,20 +89,18 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
                 ),
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Center(
               child: Image.asset(
                 'assets/images/checker.png',
               ),
             ),
-            Spacer(),
             const Spacer(),
             InkWell(
               onTap: () {
-                print(teamInviteLink);
-                Share.share(
-                    'You have been invited to manage $busName on Huzz. Click this: ${teamInviteLink!}',
-                    subject: 'Share team invite link');
+                shareBusinessIdLink(_businessController
+                    .selectedBusiness.value!.businessId
+                    .toString());
               },
               child: Container(
                 height: 55,
@@ -114,9 +112,7 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
                 ),
                 child: Center(
                   child: isLoadingTeamInviteLink
-                      ? const CircularProgressIndicator(
-                          color: Colors.white,
-                        )
+                      ? const LoadingWidget(color: Colors.white)
                       : Text(
                           'Share invite link',
                           style: GoogleFonts.inter(
@@ -150,7 +146,7 @@ class _CreateTeamSuccessState extends State<CreateTeamSuccess> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
           ],

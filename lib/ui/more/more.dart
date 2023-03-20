@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:huzz/ui/team/join_team.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:huzz/ui/widget/more_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -111,6 +112,20 @@ class _MoreState extends State<More> {
               child: MoreWidget(
                 image: 'assets/images/call.png',
                 title: 'Help and Support',
+                description: '',
+              ),
+            ),
+
+            const SizedBox(
+              height: 10,
+            ),
+            InkWell(
+              onTap: (() {
+                Get.to(() => const JoinBusinessTeam());
+              }),
+              child: MoreWidget(
+                image: 'assets/images/call.png',
+                title: 'Join Team',
                 description: '',
               ),
             ),

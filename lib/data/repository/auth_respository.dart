@@ -20,6 +20,7 @@ import 'package:huzz/ui/auth/sign_in.dart';
 import 'package:huzz/ui/business/create_business.dart';
 import 'package:huzz/ui/app_scaffold.dart';
 import 'package:huzz/ui/forget_pass/enter_forget_pin.dart';
+import 'package:huzz/ui/more/more.dart';
 import 'package:huzz/ui/reg_home.dart';
 import 'package:huzz/ui/team/team_success.dart';
 import 'package:huzz/core/constants/app_themes.dart';
@@ -28,6 +29,7 @@ import 'package:huzz/data/model/user.dart';
 import 'package:huzz/data/model/user_referral_model.dart';
 import 'package:huzz/data/sharepreference/sharepref.dart';
 import 'package:huzz/data/sqlite/sqlite_db.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/user_teamInvite_model.dart';
 import 'fingerprint_repository.dart';
@@ -194,6 +196,7 @@ class AuthRepository extends GetxController {
     if (teamInviteCode != null) {
       teamInviteCodeController.text = teamInviteCode;
       hasTeamInviteDeeplink(true);
+      // Get.to(More());
     }
   }
 
@@ -925,10 +928,7 @@ class AuthRepository extends GetxController {
     if (onlineStatus == OnlineStatus.Onilne) {
       try {
         final _businessController = Get.find<BusinessRespository>();
-        if (kDebugMode) {
-          print('Team Invite deeplink: ${hasTeamInviteDeeplink.value}');
-          print('Referral Invite deeplink: ${hasReferralDeeplink.value}');
-        }
+
         if (hasTeamInviteDeeplink.value == true) {
           hasTeamInviteDeeplink(true);
           Get.to(() => const TeamSuccess());

@@ -79,10 +79,7 @@ class _MyTeamState extends State<MyTeam> {
   Widget build(BuildContext context) {
     return Obx(() {
       final value = _businessController.selectedBusiness.value;
-      if (kDebugMode) {
-        print(
-            'Team member length: ${_teamController.onlineBusinessTeam.length}');
-      }
+
       return RefreshIndicator(
         onRefresh: () async {
           return Future.delayed(const Duration(seconds: 1), () {

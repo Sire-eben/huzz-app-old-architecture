@@ -28,6 +28,8 @@ enum TeamMemberStatus { Loading, Error, UnAuthorized, Success, Empty }
 
 enum DeleteTeamStatus { Loading, Error, Success, Empty }
 
+enum JoinTeamStatus { Loading, Available, Error, Empty, UnAuthorized }
+
 enum TeamStatus { Loading, Available, Error, Empty, UnAuthorized }
 
 class TeamRepository extends GetxController {
@@ -45,6 +47,7 @@ class TeamRepository extends GetxController {
   final _deleteTeamMemberStatus = DeleteTeamStatus.Empty.obs;
   final _updatingTeamMemberStatus = UpdateTeamStatus.Empty.obs;
   final _teamStatus = TeamStatus.Empty.obs;
+  final _joinTeamStatus = JoinTeamStatus.Empty.obs;
   final teamMembersStatus = TeamMemberStatus.Empty.obs;
   final hasTeamInviteDeeplink = false.obs;
 
@@ -60,6 +63,7 @@ class TeamRepository extends GetxController {
   List<Teams> get onlineBusinessTeam => _onlineBusinessTeam.value;
   List<Teams> pendingBusinessTeam = [];
   AddingTeamStatus get addingTeamMemberStatus => _addingTeamMemberStatus.value;
+  JoinTeamStatus get joinTeamMemberStatus => _joinTeamStatus.value;
   DeleteTeamStatus get deleteTeamMemberStatus => _deleteTeamMemberStatus.value;
   UpdateTeamStatus get updatingTeamMemberStatus =>
       _updatingTeamMemberStatus.value;
@@ -567,6 +571,8 @@ class TeamRepository extends GetxController {
   Future inviteTeamMember(String businessId, Map<String, dynamic> item) async {
     if (_userController.onlineStatus == OnlineStatus.Onilne) {
       inviteTeamMemberOnline(businessId, item);
+    } else {
+      Get.snackbar("Error", "You are not connected to the internet");
     }
   }
 
@@ -575,7 +581,6 @@ class TeamRepository extends GetxController {
     try {
       _addingTeamMemberStatus(AddingTeamStatus.Loading);
       var value = _businessController.selectedBusiness.value;
-      debugPrint("trying to invite team members: ${jsonEncode(item)}");
       var response = await http.post(
           Uri.parse('${ApiLink.inviteTeamMember}/${value!.businessId}'),
           body: json.encode(item),

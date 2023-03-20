@@ -36,8 +36,8 @@ class AppThemes {
         indicatorColor: AppColors.primaryColor,
         scaffoldBackgroundColor: AppColors.whiteColor,
         textSelectionTheme: const TextSelectionThemeData(
-        cursorColor: AppColors.primaryColor,
-     ),
+          cursorColor: AppColors.primaryColor,
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -239,8 +239,11 @@ class TextStyles {
       fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff808D9E));
 
   ///big-button
-  static const TextStyle b1 =
-      TextStyle(fontWeight: FontWeight.w700, fontSize: 14);
+  static const TextStyle t14 = TextStyle(fontSize: 14);
+
+  ///font 10
+  static const TextStyle t10 =
+      TextStyle(fontSize: 10, fontWeight: FontWeight.w600);
 
   ///small-button
   static const TextStyle b2 =
