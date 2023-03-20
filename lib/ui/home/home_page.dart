@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,6 +27,7 @@ import 'package:huzz/ui/home/records.dart';
 import 'package:huzz/ui/settings/notification.dart';
 import 'package:huzz/ui/settings/settings.dart';
 import 'package:huzz/data/model/business.dart';
+import 'package:huzz/ui/team/join_team.dart';
 import 'package:huzz/ui/wallet/create_bank_account.dart';
 import 'package:huzz/ui/wallet/wallet.dart';
 import 'package:number_display/number_display.dart';
@@ -68,7 +70,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final display = createDisplay(
     roundingType: RoundingType.floor,
     length: 15,
@@ -89,7 +91,39 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _authController.checkTeamInvite();
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
+  }
+
+  late Timer _timerLink;
+
+  @override
+  BuildContext get context => super.context;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _timerLink = Timer(const Duration(milliseconds: 1), () {
+        _retrieveDynamicLink();
+      });
+    }
+  }
+
+  Future<void> _retrieveDynamicLink() async {
+    final PendingDynamicLinkData? data =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+
+    try {
+      final Uri deepLink = data!.link;
+      // ignore: unnecessary_null_comparison
+      if (deepLink != null) {
+        Get.to(const JoinBusinessTeam());
+      } else {
+        return;
+      }
+    } catch (error) {
+      print(error.toString());
+    }
   }
 
   @override
