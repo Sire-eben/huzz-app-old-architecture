@@ -5,6 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:huzz/core/services/firebase/dynamic_link_api.dart';
+import 'package:huzz/core/util/extension.dart';
+import 'package:huzz/core/util/extensions/string.dart';
 import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
@@ -16,6 +18,7 @@ import 'package:huzz/ui/widget/team_widget.dart';
 import 'package:huzz/core/constants/app_themes.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:random_color/random_color.dart';
 import 'package:share_plus/share_plus.dart';
 import '../widget/loading_widget.dart';
 import 'add_member.dart';
@@ -57,6 +60,8 @@ class _MyTeamState extends State<MyTeam> {
   final controller = Get.find<AuthRepository>();
   final _businessController = Get.find<BusinessRespository>();
   final _teamController = Get.find<TeamRepository>();
+
+  final RandomColor _randomColor = RandomColor();
 
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   bool isLoadingTeamInviteLink = false;
@@ -110,6 +115,7 @@ class _MyTeamState extends State<MyTeam> {
                                   .onlineBusinessTeam.first.phoneNumber)
                       ? const SizedBox.shrink()
                       : FloatingActionButton.extended(
+                          elevation: 0,
                           onPressed: () {
                             Get.to(() => const AddMember());
                           },
@@ -120,6 +126,7 @@ class _MyTeamState extends State<MyTeam> {
                         ),
                   const Gap(Insets.md),
                   FloatingActionButton.extended(
+                    elevation: 0,
                     onPressed: () async {
                       final deeplink =
                           await dynamicLinkService.createTeamInviteLink(
@@ -155,137 +162,182 @@ class _MyTeamState extends State<MyTeam> {
                         )),
                   )
                 ]),
-                body: value.teamId == null
-                    ? NoTeamWidget()
-                    : Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 20,
-                        ),
-                        child: Column(
-                          children: [
-                            if (phone ==
-                                _teamController
-                                    .onlineBusinessTeam.first.phoneNumber) ...[
-                              Expanded(
-                                child: Obx(() {
-                                  if (_teamController.teamStatus ==
-                                      TeamStatus.Loading) {
-                                    return Center(
-                                      child: LoadingWidget(
-                                        color: AppColors.backgroundColor,
-                                      ),
-                                    );
-                                  } else if (_teamController.teamStatus ==
-                                      TeamStatus.Available) {
-                                    return ListView.builder(
-                                      itemCount: _teamController
-                                          .onlineBusinessTeam.length,
-                                      itemBuilder: (context, index) {
-                                        var item = _teamController
-                                            .onlineBusinessTeam[index];
-                                        return Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 10),
-                                          child: TeamsWidget(
-                                            name: item.email == null
-                                                ? '$firstName $lastName'
-                                                : item.email!,
-                                            position: item.teamMemberStatus !=
-                                                    "CREATOR"
-                                                ? "Member"
-                                                : 'Admin',
-                                            status: item.teamMemberStatus ==
-                                                    "CREATOR"
-                                                ? Container()
-                                                : (item.teamMemberStatus !=
-                                                            "CREATOR" &&
-                                                        item.teamMemberStatus ==
-                                                            "INVITE_LINK_SENT")
-                                                    ? const StatusWidget(
-                                                        color: AppColors
-                                                            .backgroundColor,
-                                                        text: "Pending",
-                                                      )
-                                                    : const StatusWidget(
-                                                        color: AppColors
-                                                            .orangeBorderColor,
-                                                        text: "Invited",
-                                                      ),
-                                            editAction: item.teamMemberStatus !=
-                                                    'CREATOR'
-                                                ? GestureDetector(
-                                                    onTap: () {
-                                                      Get.to(() => UpdateMember(
-                                                          team: item));
-                                                    },
-                                                    child: SvgPicture.asset(
-                                                      'assets/images/edit.svg',
-                                                      height: 20,
-                                                      width: 20,
-                                                    ))
-                                                : Container(),
-                                            deleteAction: item
-                                                        .teamMemberStatus !=
-                                                    "CREATOR"
-                                                ? Obx(() {
-                                                    return GestureDetector(
-                                                        onTap: () {
-                                                          _deleteTeamMemberDialog(
-                                                              context, item);
-                                                        },
-                                                        child: _teamController
-                                                                    .deleteTeamMemberStatus ==
-                                                                DeleteTeamStatus
-                                                                    .Loading
-                                                            ? LoadingWidget()
-                                                            : SvgPicture.asset(
-                                                                'assets/images/delete.svg',
+                body: Column(
+                  children: [
+                    Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: Insets.lg),
+                      margin: const EdgeInsets.only(bottom: Insets.md),
+                      height: 50,
+                      width: context.getWidth(),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 15,
+                            backgroundColor: _randomColor.randomColor(),
+                            child: Text(
+                              _businessController
+                                  .selectedBusiness.value!.businessName
+                                  .toString()
+                                  .getInitials(),
+                              style: TextStyles.h4.copyWith(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          const Gap(Insets.md),
+                          Text(
+                            _businessController
+                                .selectedBusiness.value!.businessName
+                                .toString(),
+                            style: TextStyles.t12.copyWith(color: Colors.black),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: value.teamId == null
+                          ? NoTeamWidget()
+                          : Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Insets.lg),
+                              child: Column(
+                                children: [
+                                  if (phone ==
+                                      _teamController.onlineBusinessTeam.first
+                                          .phoneNumber) ...[
+                                    Expanded(
+                                      child: Obx(() {
+                                        if (_teamController.teamStatus ==
+                                            TeamStatus.Loading) {
+                                          return Center(
+                                            child: LoadingWidget(
+                                              color: AppColors.backgroundColor,
+                                            ),
+                                          );
+                                        } else if (_teamController.teamStatus ==
+                                            TeamStatus.Available) {
+                                          return ListView.builder(
+                                            itemCount: _teamController
+                                                .onlineBusinessTeam.length,
+                                            itemBuilder: (context, index) {
+                                              var item = _teamController
+                                                  .onlineBusinessTeam[index];
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                child: TeamsWidget(
+                                                  name: item.email == null
+                                                      ? '$firstName $lastName'
+                                                      : item.email!,
+                                                  position:
+                                                      item.teamMemberStatus !=
+                                                              "CREATOR"
+                                                          ? "Member"
+                                                          : 'Admin',
+                                                  status: item.teamMemberStatus ==
+                                                          "CREATOR"
+                                                      ? Container()
+                                                      : (item.teamMemberStatus !=
+                                                                  "CREATOR" &&
+                                                              item.teamMemberStatus ==
+                                                                  "INVITE_LINK_SENT")
+                                                          ? const StatusWidget(
+                                                              color: AppColors
+                                                                  .backgroundColor,
+                                                              text: "Pending",
+                                                            )
+                                                          : const StatusWidget(
+                                                              color: AppColors
+                                                                  .orangeBorderColor,
+                                                              text: "Invited",
+                                                            ),
+                                                  editAction:
+                                                      item.teamMemberStatus !=
+                                                              'CREATOR'
+                                                          ? GestureDetector(
+                                                              onTap: () {
+                                                                Get.to(() =>
+                                                                    UpdateMember(
+                                                                        team:
+                                                                            item));
+                                                              },
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/images/edit.svg',
                                                                 height: 20,
                                                                 width: 20,
-                                                              ));
-                                                  })
-                                                : Container(),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  } else if (_teamController
-                                          .onlineBusinessTeam.length ==
-                                      0) {
-                                    return NoTeamWidget();
-                                  } else {
-                                    return Container();
-                                  }
-                                }),
+                                                              ))
+                                                          : Container(),
+                                                  deleteAction:
+                                                      item.teamMemberStatus !=
+                                                              "CREATOR"
+                                                          ? Obx(() {
+                                                              return GestureDetector(
+                                                                  onTap: () {
+                                                                    _deleteTeamMemberDialog(
+                                                                        context,
+                                                                        item);
+                                                                  },
+                                                                  child: _teamController
+                                                                              .deleteTeamMemberStatus ==
+                                                                          DeleteTeamStatus
+                                                                              .Loading
+                                                                      ? LoadingWidget()
+                                                                      : SvgPicture
+                                                                          .asset(
+                                                                          'assets/images/delete.svg',
+                                                                          height:
+                                                                              20,
+                                                                          width:
+                                                                              20,
+                                                                        ));
+                                                            })
+                                                          : Container(),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        } else if (_teamController
+                                                .onlineBusinessTeam.length ==
+                                            0) {
+                                          return NoTeamWidget();
+                                        } else {
+                                          return Container();
+                                        }
+                                      }),
+                                    ),
+                                  ] else ...[
+                                    Center(
+                                      child: Text(
+                                        'You joined the ${value.businessName} team on\n$date',
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.inter(
+                                          color: AppColors.blackColor,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    NoTeamsWidget(
+                                      fName: firstName,
+                                      lName: lastName,
+                                      position: "Member",
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                .1),
+                                    Image.asset('assets/images/my_teams.png'),
+                                  ]
+                                ],
                               ),
-                            ] else ...[
-                              Center(
-                                child: Text(
-                                  'You joined the ${value.businessName} team on\n$date',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.blackColor,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              NoTeamsWidget(
-                                fName: firstName,
-                                lName: lastName,
-                                position: "Member",
-                              ),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * .1),
-                              Image.asset('assets/images/my_teams.png'),
-                            ]
-                          ],
-                        ),
-                      ),
-              ),
+                            ),
+                    ),
+                  ],
+                )),
       );
     });
   }

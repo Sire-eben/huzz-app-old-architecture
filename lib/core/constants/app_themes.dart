@@ -245,6 +245,10 @@ class TextStyles {
   static const TextStyle t10 =
       TextStyle(fontSize: 10, fontWeight: FontWeight.w600);
 
+  ///font 12 weight 700
+  static const TextStyle t12 =
+      TextStyle(fontSize: 12, fontWeight: FontWeight.w700);
+
   ///small-button
   static const TextStyle b2 =
       TextStyle(fontWeight: FontWeight.w600, fontSize: 12);
