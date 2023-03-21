@@ -1,10 +1,11 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:huzz/core/constants/app_strings.dart';
 import 'package:huzz/core/services/firebase/dynamic_link_api.dart';
+import 'package:huzz/core/widgets/app_bar.dart';
 import 'package:huzz/data/model/team.dart';
 import 'package:huzz/data/repository/auth_respository.dart';
 import 'package:huzz/data/repository/business_respository.dart';
@@ -99,77 +100,61 @@ class _MyTeamState extends State<MyTeam> {
                 color: AppColors.backgroundColor,
               ))
             : Scaffold(
-                appBar: AppBar(
-                  automaticallyImplyLeading: false,
-                  backgroundColor: Colors.white,
-                  elevation: 0,
-                  leading: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: AppColors.backgroundColor,
-                    ),
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ),
-                  title: Row(
-                    children: [
-                      Text(
-                        'My Team',
-                        style: GoogleFonts.inter(
-                          color: AppColors.backgroundColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                  actions: [
-                    IconButton(
-                      onPressed: () async {
-                        final deeplink =
-                            await dynamicLinkService.createTeamInviteLink(
-                          businessId: _businessController
-                              .selectedBusiness.value!.businessId
-                              .toString(),
-                          businessName: _businessController
-                              .selectedBusiness.value!.businessName
-                              .toString(),
-                          teamId: _businessController
-                              .selectedBusiness.value!.teamId
-                              .toString(),
-                        );
-                        Share.share(
-                            'You have been invited to manage ${_businessController.selectedBusiness.value!.businessName} on Huzz. Click this: $deeplink',
-                            subject: 'Share team invite link');
-                      },
-                      icon: const Icon(
-                        Icons.share,
-                        color: AppColors.backgroundColor,
-                      ),
-                    )
-                  ],
-                ),
+                appBar: Appbar(title: "My Team"),
                 backgroundColor: AppColors.whiteColor,
-                floatingActionButton: (value!.teamId == null ||
-                        phone !=
-                            _teamController
-                                .onlineBusinessTeam.first.phoneNumber)
-                    ? Container()
-                    : FloatingActionButton.extended(
-                        onPressed: () {
-                          Get.to(() => const AddMember());
-                        },
-                        icon: const Icon(Icons.add),
-                        backgroundColor: AppColors.backgroundColor,
-                        label: Text(
-                          'Add new member',
-                          style: GoogleFonts.inter(
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600),
+                floatingActionButton:
+                    Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  (value!.teamId == null ||
+                          phone !=
+                              _teamController
+                                  .onlineBusinessTeam.first.phoneNumber)
+                      ? const SizedBox.shrink()
+                      : FloatingActionButton.extended(
+                          onPressed: () {
+                            Get.to(() => const AddMember());
+                          },
+                          icon: const Icon(Icons.add, size: 14),
+                          backgroundColor: AppColors.backgroundColor,
+                          label: const Text('Add new member',
+                              style: TextStyles.t10),
                         ),
-                      ),
+                  const Gap(Insets.md),
+                  FloatingActionButton.extended(
+                    onPressed: () async {
+                      final deeplink =
+                          await dynamicLinkService.createTeamInviteLink(
+                        businessId: _businessController
+                            .selectedBusiness.value!.businessId
+                            .toString(),
+                        businessName: _businessController
+                            .selectedBusiness.value!.businessName
+                            .toString(),
+                        teamId: _businessController
+                            .selectedBusiness.value!.teamId
+                            .toString(),
+                      );
+                      Share.share(
+                          'You have been invited to manage ${_businessController.selectedBusiness.value!.businessName} on Huzz. Click this: $deeplink',
+                          subject: 'Share team invite link');
+                    },
+                    icon: const Icon(
+                      Icons.share_outlined,
+                      color: AppColors.primaryColor,
+                      size: 14,
+                    ),
+                    backgroundColor: AppColors.whiteColor,
+                    label: Text('Share Invite link',
+                        style: TextStyles.t10.copyWith(
+                          color: AppColors.primaryColor,
+                        )),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(45),
+                        side: const BorderSide(
+                          width: 1,
+                          color: AppColors.primaryColor,
+                        )),
+                  )
+                ]),
                 body: value.teamId == null
                     ? NoTeamWidget()
                     : Padding(
