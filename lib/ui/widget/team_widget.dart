@@ -35,14 +35,16 @@ class TeamsWidget extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                height: 50,
+                height: 40,
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: _randomColor.randomColor()),
+                  shape: BoxShape.circle,
+                  color: AppColors.primaryColor,
+                ),
                 child: Center(
                   child: Text(
                     name!.substring(0, 2).toUpperCase(),
                     style: GoogleFonts.inter(
-                        fontSize: 20,
+                        fontSize: 18,
                         color: Colors.white,
                         fontWeight: FontWeight.w500),
                   ),

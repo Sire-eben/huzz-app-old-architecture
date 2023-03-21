@@ -1,4 +1,3 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -13,14 +12,11 @@ import 'package:huzz/ui/app_scaffold.dart';
 
 class JoinBusinessTeam extends StatefulWidget {
   final String businessId;
-  final String businessName;
-  final String teamId;
 
-  const JoinBusinessTeam(
-      {super.key,
-      required this.businessId,
-      required this.businessName,
-      required this.teamId});
+  const JoinBusinessTeam({
+    super.key,
+    required this.businessId,
+  });
 
   @override
   State<JoinBusinessTeam> createState() => _JoinBusinessTeamState();
@@ -39,9 +35,14 @@ class _JoinBusinessTeamState extends State<JoinBusinessTeam> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/images/team 1.png',
+              width: context.getWidth(.7),
+            ),
+            const Gap(Insets.lg),
             Center(
               child: Text(
-                'Accept Invitation To\nJoin ${widget.businessName} on Huzz?',
+                'Accept Invitation\nTo Join Team',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   color: AppColors.backgroundColor,

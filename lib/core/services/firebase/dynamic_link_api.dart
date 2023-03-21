@@ -6,10 +6,14 @@ import 'package:huzz/ui/team/join_team.dart';
 
 enum DynamicLinkStatus { idle, loading, done, failed }
 
+enum CreateLinkStatus { idle, loading, done, failed }
+
 class DynamicLinksApi extends ChangeNotifier {
   DynamicLinkStatus _dynamicLinkStatus = DynamicLinkStatus.idle;
+  CreateLinkStatus _createLinkStatus = CreateLinkStatus.idle;
 
   DynamicLinkStatus get dynamicLinkStatus => _dynamicLinkStatus;
+  CreateLinkStatus get createLinkStatus => _createLinkStatus;
 
   final dynamicLink = FirebaseDynamicLinks.instance;
 
@@ -76,8 +80,6 @@ class DynamicLinksApi extends ChangeNotifier {
           Get.to(
             JoinBusinessTeam(
               businessId: businessId,
-              businessName: businessName.toString(),
-              teamId: teamId.toString(),
             ),
           );
         }
